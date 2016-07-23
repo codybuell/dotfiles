@@ -102,7 +102,7 @@ placefiles() {
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i -not \( -path *bundle -prune \) -not \( -path *tmp -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+      find ~/.$i -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
 
     # if a backup was created determine if its a duplicate
