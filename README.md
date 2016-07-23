@@ -3,6 +3,36 @@ Dotfiles
 
 Personal dot and configuration files.
 
+Installation
+------------
+
+ 1. clone this repository
+
+        git clone https://github.com/codybuell/dotfiles.git; cd dotfiles
+        git submodule init; git submodule update
+
+ 2. copy and edit the example configuration file
+
+        cp config.example config
+        # edit config to suit your needs
+
+ 3. run connect the scripts
+
+        ~/Repos/dotfiles/scripts/connect-the-dots.sh
+
+
+Features
+--------
+
+### vim
+
+### tmux
+
+### brew
+
+### shell
+
+
 New System Checklist
 --------------------
 
@@ -13,14 +43,12 @@ New System Checklist
 
         mkdir ~/Repos ~/Gists
 
- - clone this repository
-
-        cd ~/Repos; git clone https://github.com/codybuell/dotfiles.git
-        git submodule init
-        git submodule update
-
- - run connect the dots script
-
-        ~/Repos/dotfiles/scripts/connect-the-dots.sh
+ - pull down dotfiles repo, configure and deploy
 
 ### Linux
+
+
+Todo
+----
+
+ - fix prettyprint function in connect-the-dots.sh, it is removing dots from filenames
