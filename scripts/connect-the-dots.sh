@@ -8,15 +8,42 @@
 #
 # Revisions: 2013.11.28 Initial framework
 #            2016.07.22 Add configuration file
+#            2016.07.23 Fixes to diff checking and templating
 
 #######################
 # Establish Variables #
 #######################
 
+# define locations
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
 DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
 DOTFILES=(`ls $DOTS_LOC`)
-WHO_AM_I=`whoami`
+
+# what to exclude when comparing with existing dotfiles
+DIFFEXCLUDES=( \
+  "-name *.DS_Store" \
+  "-regex .*.vim.*/.netrwhist" \
+  "-regex .*.vim.*/bundle/ultisnips/pythonx/.*.pyc" \
+  "-path *.vim*/tmp/*" \
+  )
+
+# what to exclude when templating
+TEMPLATEEXCLUDES=( \
+  "-name *.DS_Store" \
+  "-path *.shell*/base16-shell/*" \
+  "-path *.vim*/bundle/*" \
+  "-path *.vim*/tmp/*" \
+  )
+
+# compile excludes to find statement for diffs
+for (( i = 0; i < ${#DIFFEXCLUDES[@]}; i++ )); do
+  DIFFEXCLUDE+=" -not ${DIFFEXCLUDES[$i]}"
+done
+
+# compile excludes to find statement for templating
+for (( i = 0; i < ${#TEMPLATEEXCLUDES[@]}; i++ )); do
+  TEMPLATEEXCLUDE+=" -not ${TEMPLATEEXCLUDES[$i]}"
+done
 
 ####################
 # Define Functions #
@@ -39,7 +66,7 @@ prettyprint() {
 readconfig() {
   CONFIGVARS=()
   shopt -s extglob
-  configfile="$CONFGDIR/config"
+  configfile="$CONFGDIR/.config"
   [[ -e $configfile ]] && {
     tr -d '\r' < $configfile > $configfile.tmp
     while IFS='= ' read lhs rhs; do
@@ -84,7 +111,7 @@ placefiles() {
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i.new.$DATE -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -not \( -name *.DS_Store -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
 
     # if the target file or dir already exists
@@ -101,8 +128,8 @@ placefiles() {
 
         # gather the checksums
         if [ -d $HOME/.$i ]; then
-          MD5NEW=`find $HOME/.$i.new.$DATE -not \( -path *tmp -prune \) -not \( -name *.DS_Store -prune \) -type f -exec $MD5 {} \; | sort -k 2 | awk '{print $4}' | $MD5`
-          MD5OLD=`find $HOME/.$i -not \( -path *tmp -prune \) -not \( -name *.DS_Store -prune \) -type f -exec $MD5 {} \; | sort -k 2 | awk '{print $4}' | $MD5`
+          MD5NEW=`find $HOME/.$i.new.$DATE $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
+          MD5OLD=`find $HOME/.$i $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
         else
           MD5NEW=`$MD5 -q $HOME/.$i.new.$DATE`
           MD5OLD=`$MD5 -q $HOME/.$i`
