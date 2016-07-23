@@ -16,6 +16,7 @@ Thumbs.db
 # Repository Specific #
 #######################
 
+config
 dotfiles/homestead/.vagrant
 dotfiles/vim/.netrwhist
 dotfiles/vim/tmp

@@ -1,0 +1,14 @@
+[user]
+  name = {{ GitUsername }}
+  email = {{ Email }}
+[core]
+  editor = /usr/local/bin/vim
+  excludesfile = ~/.cvsignore
+[merge]
+  tool = vimdiff
+[diff]
+  tool = vimdiff
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(green)(%cr) %C(cyan)<%an>%Creset' --date=relative
+[color]
+  ui = true
