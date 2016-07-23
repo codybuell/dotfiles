@@ -96,13 +96,13 @@ placefiles() {
     fi
 
     # place the file
-    [[ $SYMLINK == 'true' ]] && ln -s $DOTS_LOC/$i .$i || cp $DOTS_LOC/$i .$i
+    [[ $SYMLINK == 'true' ]] && ln -s $DOTS_LOC/$i .$i || cp -a $DOTS_LOC/$i .$i
 
     # set the template variables
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" ~/.$i
+      find ~/.$i -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
 
     # if a backup was created determine if its a duplicate
