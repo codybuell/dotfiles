@@ -56,11 +56,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1426 343 445 103 0 0 2560 1440 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>276 774 796 473 0 0 2560 1440 </string>
+	<string>658 725 796 473 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>322 209 570 452 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>343 186 570 452 0 0 2560 1440 </string>
+	<string>712 139 710 667 0 0 2560 1440 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -632,7 +632,7 @@
 			<key>Show Mark Indicators</key>
 			<false/>
 			<key>Silence Bell</key>
-			<false/>
+			<true/>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
