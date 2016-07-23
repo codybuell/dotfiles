@@ -2,7 +2,7 @@
 #
 # Connect The Dots
 #
-# Script to quickly symlink dotfiles into your accounts home directory.
+# Script to quickly deploy dotfiles into your accounts home directory.
 #
 # Author(s): Cody Buell
 #
