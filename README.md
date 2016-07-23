@@ -16,6 +16,8 @@ New System Checklist
  - clone this repository
 
         cd ~/Repos; git clone https://github.com/codybuell/dotfiles.git
+        git submodule init
+        git submodule update
 
  - run connect the dots script
 
