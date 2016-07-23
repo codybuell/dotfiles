@@ -34,6 +34,10 @@ usage() {
 	ENDOFUSAGE
 }
 
+prettyprint() {
+  printf "$1" | awk '{file=$1;$1="";printf "  %-30s %s\n", file, $0}' | sed "s/ /./g;s/\([A-z0-9:]\)\.\./\1 \./;s/^\.\./  /; s/\.\([^.]\)/ \1/g;s/^   /  ./"
+}
+
 readconfig() {
   CONFIGVARS=()
   shopt -s extglob
@@ -71,7 +75,7 @@ placefiles() {
     # pass on ignore files
     for IGN in ${IGNORE[@]}; do
       if [ $i == $IGN ]; then
-        printf "  .${i}: \033[0;31mignoring\033[0m\n"
+        prettyprint "  .${i}: \033[0;31mignoring\033[0m\n"
         continue 2
       fi
     done
@@ -80,7 +84,7 @@ placefiles() {
     if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
       if [ -L $HOME/.$i ]; then
         # if file is a symlink then remove it
-        printf "  .${i}: \033[0;32mremoving old symlink and replacing\033[0m\n"
+        prettyprint "  .${i}: \033[0;32mremoving old symlink and replacing\033[0m\n"
         rm $HOME/.$i
       else
         # if not symlink move files to dot orig.date
@@ -88,7 +92,7 @@ placefiles() {
       fi
     # if nothing is in place
     else
-      printf "  .${i}: \033[0;32mplacing dotfile\033[0m\n"
+      prettyprint "  .${i}: \033[0;32mplacing dotfile\033[0m\n"
     fi
 
     # place the file
@@ -117,10 +121,10 @@ placefiles() {
       fi
   
       [[ $MD5NEW == $MD5OLD ]] && {
-         printf "  .${i}: \033[0;32malready there\033[0m\n"
+         prettyprint "  .${i}: \033[0;32malready there\033[0m\n"
          rm -rf $HOME/.$i.orig.$DATE
       } || {
-         printf "  .${i}: \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
+         prettyprint "  .${i}: \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
       }
     fi
   done
