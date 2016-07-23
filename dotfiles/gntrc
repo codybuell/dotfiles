@@ -1,0 +1,33 @@
+[general]
+shadow = 0
+wm = /usr/local/lib/gnt/irssi.so
+
+[GntWM::binding]
+c-n = window-next
+c-p = window-prev
+c-x = window-close
+c-q = wm-quit
+c-w = window-list
+c-a = action-list
+
+[colors]
+# rgb values range in [0, 1000]
+black = 0; 0; 0
+red = 1000; 0; 0
+green = 0; 1000; 0
+blue = 250; 550; 700
+white = 1000; 1000; 1000
+gray = 700; 700; 700
+darkgray = 256; 256; 256
+yellow = 223; 192; 123
+
+[colorpairs]
+normal = white; black
+highlight = white; blue
+highlightd = white; blue
+shadow = black; default
+title = red; darkgray
+titled = yellow; default
+text = white; default
+disabled = darkgray; default
+urgent = yellow; black
