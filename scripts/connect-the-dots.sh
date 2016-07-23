@@ -13,8 +13,6 @@
 # Establish Variables #
 #######################
 
-SYMLINK='false'
-
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
 DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
 DOTFILES=(`ls $DOTS_LOC`)
@@ -63,13 +61,12 @@ readconfig() {
 }
 
 placefiles() {
-  # establish home directory
+
+  # grab home dir full path and timestamp
   cd; HOME=`pwd`
+  DATE=`date +%Y%m%d%H%M%S`
 
-  # set timestamp
-  DATE=`date +%Y%M%d%H%m%S`
-
-  # iterate through dotfiles
+  # iterate through the dotfiles
   for i in ${DOTFILES[@]}; do
 
     # pass on ignore files
@@ -80,53 +77,53 @@ placefiles() {
       fi
     done
 
-    # if the file or dir already exists
-    if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
-      if [ -L $HOME/.$i ]; then
-        # if file is a symlink then remove it
-        prettyprint "  .${i} \033[0;32mremoving old symlink and replacing\033[0m\n"
-        rm $HOME/.$i
-      else
-        # if not symlink move files to dot orig.date
-        mv $HOME/.$i $HOME/.$i.orig.$DATE
-      fi
-    # if nothing is in place
-    else
-      prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
-    fi
-
-    # place the file
-    [[ $SYMLINK == 'true' ]] && ln -s $DOTS_LOC/$i .$i || cp -a $DOTS_LOC/$i .$i
+    # place dotfile as dotfile.new.date
+    cp -a $DOTS_LOC/$i $HOME/.$i.new.$DATE
 
     # set the template variables
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -not \( -name *.DS_Store -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+      find ~/.$i.new.$DATE -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -not \( -name *.DS_Store -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
 
-    # if a backup was created determine if its a duplicate
-    if [ -e $HOME/.$i.orig.$DATE ]; then
-      # determine md5 binary name
-      which md5 > /dev/null
-      MD5=`[[ $? -gt 0 ]] && echo md5sum || echo md5`
-
-      # if newly placed file or dir is same as the old one, delete the old one
-      if [ -d $HOME/.$i ]; then
-        MD5NEW=`find $HOME/.$i -type f -exec $MD5 {} \; | sort -k 2 | $MD5`
-        MD5OLD=`find $HOME/.$i -type f -exec $MD5 {} \; | sort -k 2 | $MD5`
+    # if the target file or dir already exists
+    if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
+      # if it is a symlink then remove it
+      if [ -L $HOME/.$i ]; then
+        prettyprint "  .${i} \033[0;32mremoving old symlink and replacing\033[0m\n"
+        rm $HOME/.$i
+      # if it is not a symlink compare it
       else
-        MD5NEW=`$MD5 -q $HOME/.$i`
-        MD5OLD=`$MD5 -q $HOME/.$i.orig.$DATE`
+        # determine md5 binary name
+        which md5 > /dev/null
+        MD5=`[[ $? -gt 0 ]] && echo md5sum || echo md5`
+
+        # gather the checksums
+        if [ -d $HOME/.$i ]; then
+          MD5NEW=`find $HOME/.$i.new.$DATE -not \( -path *tmp -prune \) -not \( -name *.DS_Store -prune \) -type f -exec $MD5 {} \; | sort -k 2 | awk '{print $4}' | $MD5`
+          MD5OLD=`find $HOME/.$i -not \( -path *tmp -prune \) -not \( -name *.DS_Store -prune \) -type f -exec $MD5 {} \; | sort -k 2 | awk '{print $4}' | $MD5`
+        else
+          MD5NEW=`$MD5 -q $HOME/.$i.new.$DATE`
+          MD5OLD=`$MD5 -q $HOME/.$i`
+        fi
+    
+        [[ $MD5NEW == $MD5OLD ]] && {
+           prettyprint "  .${i} \033[0;32malready there\033[0m\n"
+           rm -rf $HOME/.$i.new.$DATE
+           continue
+        } || {
+           prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
+           mv $HOME/.$i $HOME/.$i.orig.$DATE
+        }
       fi
-  
-      [[ $MD5NEW == $MD5OLD ]] && {
-         prettyprint "  .${i} \033[0;32malready there\033[0m\n"
-         rm -rf $HOME/.$i.orig.$DATE
-      } || {
-         prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
-      }
+    else
+      prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
     fi
+
+    # place new dotfile
+    mv $HOME/.$i.new.$DATE $HOME/.$i
+
   done
 }
 
