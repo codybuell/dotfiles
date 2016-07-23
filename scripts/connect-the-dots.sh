@@ -35,7 +35,7 @@ usage() {
 }
 
 prettyprint() {
-  printf "$1" | awk '{file=$1;$1="";printf "  %-30s %s\n", file, $0}' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/^\.\./  /; s/\.\([^.]\)/ \1/g;s/^   /  ./"
+  printf "$1" | awk '{file=$1;$1="";printf "  %-30s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
 }
 
 readconfig() {
@@ -102,7 +102,7 @@ placefiles() {
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+      find ~/.$i -not \( -path *bundle -prune \) -not \( -path *base16-shell -prune \) -not \( -name *.DS_Store -prune \) -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
 
     # if a backup was created determine if its a duplicate

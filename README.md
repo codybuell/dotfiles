@@ -51,4 +51,5 @@ New System Checklist
 Todo
 ----
 
- - fix prettyprint function in connect-the-dots.sh, it is removing dots from filenames
+ - write wrapper script for entire repo `deploy`
+ - automate command-t plugin compiling
