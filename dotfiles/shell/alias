@@ -33,11 +33,10 @@ alias grepf="find . -type f -print0 | xargs -0 grep"
 alias grepd="find . -type d | grep"
 
 # locations
-alias ws="changedir ~/Workshop"
-alias gist="changedir ~/Gists"
-alias repo="changedir ~/Repos"
-alias note="cd ~/Google\ Drive/Notes"
-alias journal="cd ~/Google\ Drive/Journal"
+alias ws="changedir ~/Workshop/"
+alias gist="changedir ~/Gists/"
+alias repo="changedir ~/Repos/"
+alias note="changediroredit '~/Google\ Drive/Notes'"
 
 # files
 alias md="vi README.md"

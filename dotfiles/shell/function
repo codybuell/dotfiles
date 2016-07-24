@@ -4,7 +4,12 @@
 
 # change directory, used with aliases
 changedir() {
-  cd $1/$2
+  eval cd $1/$2
+}
+
+# change directory or edit, used with aliases
+changediroredit() {
+  [[ $2 ]] && eval vi $1/$2 || eval cd $1
 }
 
 # ersh wrapper for ansible
@@ -48,10 +53,41 @@ function root() {
   }
 }
 
+# edit work journal
 function wj() {
   vim ~/Google\ Drive/Journal/work/`date +%Y/%B`.txt
 }
 
+# edit personal journal
 function pj() {
   vim ~/Google\ Drive/Journal/personal/`date +%Y/%B`.txt
+}
+
+# build completion function wrapper
+#
+# make-completion-wrapper <actual completion function> <name of new func.>
+#                         <command name> <list supplied arguments>
+# usage:
+#
+#   alias agi='apt-get install'
+#   make-completion-wrapper _apt_get _apt_get_install apt-get install
+#   complete -F _apt_get_install agi
+#   # `agi <tab><tab>` will now auto complete
+#   # not necessary if alias remaps a single command like `alias ag='apt-get'`
+#   # in which case `complete -F _apt_get ag` would be sufficient
+function make-completion-wrapper () {
+  local function_name="$2"
+  local arg_count=$(($#-3))
+  local comp_function_name="$1"
+  shift 2
+  local function="
+function $function_name {
+  ((COMP_CWORD+=$arg_count))
+  COMP_WORDS=( "$@" \${COMP_WORDS[@]:1} )
+  "$comp_function_name"
+  return 0
+}"
+  eval "$function"
+# echo $function_name
+# echo "$function"
 }

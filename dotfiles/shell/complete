@@ -1,0 +1,57 @@
+#
+# complete
+#
+#
+# Options for creating auto completions:
+#
+#   1. Use existing autocompletion function
+#
+#    # get copletion func with `complete -p [function to mirror]`
+#    # complete -o [options from func] -F [_existing func] [your command]
+#    complete -o nospace -F _cd myfuncoralias
+#
+#  2. Use completio wrapper function
+#
+#    #make-completion-wrapper <actual completion function> <name of new func.>
+#                             <command name> <list supplied arguments>
+#    # complete [-o func options] -F <name of new func> <alias or func to wrap>
+#    make-completion-wrapper _cd _gotorepo cd ~/Repos/
+#    complete -o nospace -F _gotorepo repo
+#
+#  3. Roll your own
+#
+#    COMPREPLY: array containing possible completions as a result of your func
+#    COMP_WORDS: an array containing individual command arguments typed so far
+#    COMP_CWORD: ommand argument index containing the current cursor position
+#    COMP_LINE: the current command line
+#
+#    Use compgen to build completion list:
+#      compgen -W "list of options sep by spaces" -- [string to match against]
+
+# ws alias completion
+_gotows() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "`ls ~/Workshop/`" -- $cur) )
+}
+complete -F _gotows ws
+
+# gist alias completion
+_gotogist() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "`ls ~/Gists/`" -- $cur) )
+}
+complete -F _gotogist gist
+
+# repo alias completion
+_gotorepos() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "`ls ~/Repos/`" -- $cur) )
+}
+complete -F _gotorepos repo
+
+# note alias completion
+_gotoeditnotes() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "`ls ~/Google\ Drive/Notes/`" -- $cur) )
+}
+complete -F _gotoeditnotes note
