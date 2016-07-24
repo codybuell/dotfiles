@@ -18,12 +18,17 @@ color() {
 
   case $1 in
     help|-h )
-      echo 'color [-h|help] [set {scheme}]'
+      echo 'color [-h|help] [show] [set {scheme}]'
       echo
       echo 'Available schemes:'
       find "$BASE16_DIR" -name 'base16-*.sh' | \
         sed 's/.*base16-//;s/\.sh$//' | \
         column
+      ;;
+    show )
+      for i in {0..255}; do
+        printf "\x1b[38;5;${i}mcolour${i}\n"
+      done | column -x -c `echo "$(tput cols) + 45" | bc`
       ;;
     set )
       SCHEME=$2
