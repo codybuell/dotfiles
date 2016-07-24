@@ -37,6 +37,8 @@ alias ws="changedir ~/Workshop/"
 alias gist="changedir ~/Gists/"
 alias repo="changedir ~/Repos/"
 alias note="changediroredit '~/Google\ Drive/Notes'"
+alias dt="cd ~/Desktop"
+alias dl="cd ~/Downloads"
 
 # files
 alias md="vi README.md"
