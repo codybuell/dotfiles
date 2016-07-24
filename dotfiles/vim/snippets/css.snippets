@@ -1,0 +1,90 @@
+snippet .
+	.${1} {
+		${0}
+	}
+snippet #
+	#${1} {
+		${2}
+	}
+snippet a
+	a, a:visited, a:active {
+		text-decoration: ${1:none};
+		font-weight: ${2:normal};
+		outline: 0;
+		color: ${3:#000};
+	}
+	
+	a:hover, a:focus {
+		text-decoration: ${4:$1};
+		font-weight: ${5:$2};
+		outline: 0;
+		color: ${6:$3};
+	}
+snippet a.
+	a.${1:class}, a.$1:visited, a.$1:active {
+		text-decoration: ${2:none};
+		font-weight: ${3:normal};
+		outline: 0;
+		color: ${4:#000};
+	}
+	
+	a.$1:hover, a.$1:focus {
+		text-decoration: ${5:$1};
+		font-weight: ${6:$2};
+		outline: 0;
+		color: ${7:$3};
+	}
+snippet a#
+	a#${1:id}, a#$1:visited, a#$1:active {
+		text-decoration: ${2:none};
+		font-weight: ${3:normal};
+		outline: 0;
+		color: ${4:#000};
+	}
+	
+	a#$1:hover, a#$1:focus {
+		text-decoration: ${5:$1};
+		font-weight: ${6:$2};
+		outline: 0;
+		color: ${7:$3};
+	}
+snippet !
+	 !important
+snippet au
+	auto
+snippet bg
+	background: ${1};
+snippet bgi
+	background: url(${1}) ${2:0} ${3:0} ${4:no-repeat} #${5:fff};
+snippet w
+	width: ${0};
+snippet h
+	height: ${0};
+snippet m
+	margin: ${1:0} ${2:0} ${3:0} ${4:0};
+snippet mt
+	martin-top: ${0};
+snippet mr
+	martin-right: ${0};
+snippet mb
+	martin-bottom: ${0};
+snippet ml
+	martin-left: ${0};
+snippet p
+	padding: ${1:0} ${2:0} ${3:0} ${4:0};
+snippet pt
+	padding-top: ${0};
+snippet pr
+	padding-right: ${0};
+snippet pb
+	padding-bottom: ${0};
+snippet pl
+	padding-left: ${0};
+snippet pos
+	position: ${1:absolute};
+snippet tal
+	text-align: left;
+snippet tar
+	text-align: right;
+snippet tac
+	text-align: center;

@@ -1,0 +1,264 @@
+#################
+# MISCELLANEOUS #
+#################
+
+snippet php "php opening tag"
+<?php
+endsnippet
+
+snippet re "return statement"
+return ${1:'hello world'};
+endsnippet
+
+#####################
+# TERNARY OPERATORS #
+#####################
+
+snippet =?: "ternary to variable"
+$${1:foo} = ${2:true} ? ${3:a} : ${0};
+endsnippet
+
+snippet ?: "ternary operator"
+${1:true} ? ${2:a} : ${0}
+endsnippet
+
+############
+# COMMENTS #
+############
+
+snippet /* "class comment block"
+/*
+|---------------------------------------------------------------------------
+| ${1}
+|---------------------------------------------------------------------------
+|
+| ${2}
+|
+*/
+
+${0}
+endsnippet
+
+snippet /** "function comment block"
+/**
+ * ${0:description}
+ *
+ */
+endsnippet
+
+snippet @par "parameter comment"
+@param {${1:type}} ${2:name} ${0:description}
+endsnippet
+
+snippet @ret "return comment"
+@return {${1:type}} ${0:description}
+endsnippet
+
+
+################
+# FLOW CONTROL #
+################
+
+snippet wh "while loop"
+while (${1:true}) {
+  ${0}
+}
+endsnippet
+
+snippet do "do while loop"
+do {
+  ${0}
+} while (${1:true});
+endsnippet
+
+snippet switch "switch statement"
+switch ($${1:var}) {
+  case '${2:value}':
+    ${3}
+    break;
+  ${0}
+  default:
+    ${4}
+    break;
+}
+endsnippet
+
+snippet case "case statement"
+case '${1:value}':
+  ${2}
+  break;
+endsnippet
+
+snippet for "for loop"
+for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
+  ${0}
+}
+endsnippet
+
+snippet fori "for each loop"
+foreach ($${1:variable} as $${2:value}) {
+  ${0}
+}
+endsnippet
+
+snippet forik "for each key value loop"
+foreach ($${1:variable} as $${2:key} => $${3:value}) {
+  ${0}
+}
+endsnippet
+
+snippet if "if statement"
+if (${1:true}) {
+  ${0}
+}
+endsnippet
+
+snippet ifn "if not statement"
+if (!${1:true}) {
+  ${2}
+}
+endsnippet
+
+snippet ife "if else statement"
+if (${1:true}) {
+  ${2}
+} else {
+  ${3}
+}
+${0}
+endsnippet
+
+snippet el "else statement"
+else {
+  ${0}
+}
+endsnippet
+
+snippet eif "else if statement"
+elseif (${1:true}) {
+  ${0}
+}
+endsnippet
+
+#############
+# FUNCTIONS #
+#############
+
+#######################
+# CLASSES OBJECTS ETC #
+#######################
+
+#############
+# DEBUGGING #
+#############
+
+###########
+# LARAVEL #
+###########
+
+# miscellaneous
+snippet $ "this object"
+$this->${1}
+# methods
+endsnippet
+
+snippet met "method block"
+public function ${1:methodName}() {
+  ${0}
+}
+endsnippet
+
+snippet pmet "protected method block"
+protected function ${1:methodName}() {
+  ${0}
+}
+endsnippet
+
+snippet smet "static method block"
+public static function ${1:methodName}() {
+  ${0}
+}
+endsnippet
+
+# routing
+snippet rg "route get"
+Route::get('${1:/}', ['as' => '${2:alias}', 'uses' => '${3}Controller@${4:method}']);
+endsnippet
+
+snippet rgc "route get closure"
+Route::get('${1:/}', ['as' => '${2:alias}', 'uses' => function() {
+  ${0}
+}]);
+endsnippet
+
+snippet rga "route get anonymous"
+Route::get('${1:/}', ['as' => '${2:alias}', 'uses' => function() {
+  ${0}
+}]);
+endsnippet
+
+snippet rgv "route get variable"
+Route::get('${1:/}/{${2:var}}', ['as' => '${2:alias}', 'uses' => '${3}Controller@${4:method}']);
+endsnippet
+
+snippet rgvc "route get variable clousure"
+Route::get('${1:/}/{${2:var}}', ['as' => '${2:alias}', 'uses' => function($$2) {
+  ${0}
+}]);
+endsnippet
+
+snippet rgva "route get variable anonymous"
+Route::get('${1:/}/{${2:var}}', ['as' => '${2:alias}', 'uses' => function($$2) {
+  ${0}
+}]);
+endsnippet
+
+snippet rr "route resource"
+Route::resource('${1:/}', '${2}Controller');
+endsnippet
+
+snippet rp "route post"
+Route::post('${1:/}', ['as' => '${2:alias}', 'uses' => '${3}Controller@${4:method}']);
+endsnippet
+
+snippet rpc "route post closure"
+Route::post('${1:/}', ['as' => '${2:alias}', 'uses' => function() {
+  ${0}
+}]);
+endsnippet
+
+snippet rpa "route post anonymous"
+Route::post('${1:/}', ['as' => '${2:alias}', 'uses' => function() {
+  ${0}
+}]);
+endsnippet
+
+snippet rgrp "route group"
+Route::group(['middleware' => '${1:auth}', 'prefix' => '${2:admin}'], function() {
+  ${0}
+});
+endsnippet
+
+# views
+snippet rv "return view"
+return view('${1:view.name}', [
+  '${2:var}' => $${3:$2},
+]);
+endsnippet
+
+snippet rvs "return view simple"
+return view('${1:view}');${0}
+endsnippet
+
+# schemas
+snippet sc "schema create"
+Schema::create('${1:table}', function(Blueprint $table)
+{
+  $table->increments('id');
+  $table->timestamps();
+});
+endsnippet
+
+snippet sd "schema drop"
+Schema::drop('${1:table}');
+endsnippet

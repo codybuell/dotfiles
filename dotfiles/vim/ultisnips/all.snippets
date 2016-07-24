@@ -1,0 +1,88 @@
+snippet date
+`date "+%Y.%m.%d"`
+endsnippet
+
+snippet ddate
+`date "+%B %d, %Y"`
+endsnippet
+
+snippet time
+`date "+%H:%M"`
+endsnippet
+
+snippet datetime
+`date "+%Y.%m.%d %H:%M"`
+endsnippet
+
+snippet ignore
+######################
+# OS Generated Files #
+######################
+
+.DS_Store
+.DS_Store?
+._*
+.spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+*.swp
+
+#######################
+# Repository Specific #
+#######################
+
+${0}
+endsnippet
+
+snippet #! "script boilerplate"
+#!/bin/${1:bash}
+#
+# ${2:Script Name}
+#
+# ${3:Script description.}
+#
+# Author(s): ${4:Cody Buell}
+#
+# Revisions: ${5:`date "+%Y.%m.%d"`} ${6:Initial framework.}
+#
+# Requisite: ${7}
+#
+# Resources: ${8}
+#
+# Task List: ${9}
+#
+# Usage: ${10}
+
+${0}
+endsnippet
+
+snippet lorem "lorem ipsum text"
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+endsnippet
+
+snippet tmux "project .tmux boilerplate" b
+#!/bin/bash
+
+# get session name based on folder
+SESSION=\`basename $(pwd) | sed 's/\.//g'\`
+
+# attach if session already exists
+if tmux has-session -t $SESSION 2> /dev/null; then
+  tmux attach -t $SESSION
+  exit
+fi
+
+# else create a new session
+tmux new-session -d -s $SESSION -n vim
+
+# build out panes
+tmux send-keys -t ${SESSION}:vim "vim -c CommandT" Enter
+tmux split-window -t ${SESSION}:vim -h
+tmux send-keys -t ${SESSION}:vim.right "git status" Enter
+tmux split-window -t ${SESSION}:vim -v
+
+# attach to the new session, focus left pane
+tmux attach -t ${SESSION}:vim.left
+endsnippet

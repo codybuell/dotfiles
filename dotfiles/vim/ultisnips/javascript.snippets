@@ -1,0 +1,653 @@
+#####################
+# TERNARY OPERATORS #
+#####################
+
+snippet =?: "ternary to variable"
+endsnippet
+
+snippet ?: "ternary operator"
+endsnippet
+
+############
+# COMMENTS #
+############
+
+snippet /* "class comment block"
+endsnippet
+
+snippet /** "comment block"
+/**
+ * ${0:description}
+ *
+ */
+endsnippet
+
+snippet @par "parameter comment"
+@param {${1:type}} ${2:name} ${0:description}
+endsnippet
+
+snippet @ret "return comment"
+@return {${1:type}} ${0:description}
+endsnippet
+
+################
+# FLOW CONTROL #
+################
+
+snippet wh "while loop"
+while (${1:true}) {
+  ${0}
+}
+endsnippet
+
+snippet do "do while loop"
+do {
+  ${0}
+} while (${1:true});
+endsnippet
+
+snippet switch "switch statement"
+switch (${1:expression}) {
+  case '${3:case}':
+    ${4}
+    break;
+  ${0}
+  default:
+    ${2}
+}
+endsnippet
+
+snippet case "case statement"
+case '${1:case}':
+  ${2}
+  break;
+${0}
+endsnippet
+
+snippet for "for loop"
+for (var ${2:i} = 0, l = ${1:arr}.length; $2 < l; $2 ++) {
+  var ${3:v} = $1[$2];${0:}
+}
+endsnippet
+
+snippet forr "reverse for loop"
+for (var ${2:i} = ${1:arr}.length - 1; $2 >= 0; $2 --) {
+  var ${3:v} = $1[$2];${0:}
+}
+endsnippet
+
+snippet fori "for each loop"
+for (var ${1:prop} in ${2:object}) {
+  ${0:$2[$1]}
+}
+endsnippet
+
+snippet if "if statement"
+if (${1:true}) {
+  ${0}
+}
+endsnippet
+
+snippet ifn "if not statement"
+if (!${1:/* condition */}) {
+  ${2}
+}
+endsnippet
+
+snippet ife "if else statement"
+if (${1:true}) {
+  ${2}
+} else {
+  ${0}
+}
+endsnippet
+
+snippet el "else statement"
+else {
+  ${0}
+}
+endsnippet
+
+snippet eif "else if statement"
+else if (${1:/* condition */}) {
+  ${0}
+}
+endsnippet
+
+
+#############
+# FUNCTIONS #
+#############
+
+snippet proto "append method to prototype"
+${1:class_name}.prototype.${2:method_name} = function(${3}) {
+  ${0}
+};
+endsnippet
+
+# Function
+snippet fun "function definition"
+function ${1:function_name}(${2}) {
+  ${0}
+}
+endsnippet
+
+
+snippet f "anonymous function"
+function(${1}) {
+  ${0}
+}
+endsnippet
+
+
+snippet vf "function assigned to variable"
+var ${1:function_name} = function $1(${2}) {
+  ${0}
+};
+endsnippet
+
+
+snippet (f "immediate function"
+(function(${1}) {
+  ${0}
+}(${2}));
+endsnippet
+
+
+snippet sdf "self-defining function"
+var ${1:function_name} = function (${2:argument}) {
+  ${3}
+
+  $1 = function ($2) {
+    ${0}
+  };
+};
+endsnippet
+
+#######################
+# CLASSES OBJECTS ETC #
+#######################
+
+snippet obj "object"
+function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
+endsnippet
+
+#############
+# DEBUGGING #
+#############
+
+snippet cl "console log"
+console.log(${0});
+endsnippet
+
+snippet cd "cnosole debug"
+console.debug(${0});
+endsnippet
+
+snippet ct "console trace"
+console.trace(${0:label});
+endsnippet
+
+snippet ctime "console time"
+console.time(${0:label});
+endsnippet
+
+snippet ca "console assert"
+console.assert(${1:expression}, ${0:obj});
+endsnippet
+
+snippet cdir "console dir"
+console.dir(${0:obj});
+endsnippet
+
+######
+# D3 #
+######
+
+snippet d3 "d3 boilerplate"
+var ${1:margin} = { top: ${2:10}, right: ${3:10}, bottom: ${4:10}, left: ${5:10} };
+var ${6:width} = ${7:970} - $1.left - $1.right;
+var ${8:height} = ${9:500} - $1.top - $1.bottom;
+
+var ${10:svg} = d3.select("${11}").append("svg")
+  .attr("width", $6)
+  .attr("height", $8)
+    .append("g")
+  .attr("transform", "translate(" + $1.left + "," + $1.top + ")")
+endsnippet
+
+snippet sel "d3 select"
+d3.select(${1:window})${0}
+endsnippet
+
+snippet sela "d3 select all"
+${1:d3}.selectAll(${1:g})${0}
+endsnippet
+
+snippet .attr "d3 attribute"
+.attr("${1}", ${2})${0}
+endsnippet
+
+snippet .style "d3 style"
+.style("${1}", ${2})${0}
+endsnippet
+
+snippet axis "d3 axis definition"
+d3.svg.axis()
+  .orient(${1})
+  .scale(${2})${0}
+endsnippet
+
+snippet fd "d3 inline function"
+function(d) { ${1} }
+endsnippet
+
+snippet fdi "indexed d3 inline function"
+function(d, i) { ${1} }
+endsnippet
+
+snippet scale "d3 scale definition"
+d3.scale.${1:linear/sqrt/log/ordinal}()
+  .domain(${2})
+  .range(${3)${0}
+endsnippet
+
+snippet csv "d3 csv import"
+d3.csv('${1:file.csv}', function(${2:error}, ${3:data}) {
+  if ($2) return console.warn($2);
+	${4:draw}($3)
+});${0}
+endsnippet
+
+snippet json "d3 json import"
+d3.json('${1:path.json}', function(${2:error}, ${3:json}) {
+  if ($2) return console.warn($2);
+	${4:draw}($3)
+});${0}
+endsnippet
+
+##########
+# JQUERY #
+##########
+
+snippet ajax "jquery ajax call"
+$.ajax({
+  url: '${1:mydomain.com/url}',
+  type: '${2:POST}',
+  dataType: '${3:xml/html/script/json}',
+  data: $.param( $('${4:Element or Expression}') ),
+  complete: function (jqXHR, textStatus) {
+    ${5:// callback}
+  },
+  success: function (data, textStatus, jqXHR) {
+    ${6:// success callback}
+  },
+  error: function (jqXHR, textStatus, errorThrown) {
+    ${0:// error callback}
+  }
+});
+endsnippet
+
+snippet ajaxget "jquery ajax get abstraction"
+$.get('${1:mydomain.com/url}',
+  ${2:{ param1: value1 },}
+  function (data, textStatus, jqXHR) {
+    ${0:// success callback}
+  }
+);
+endsnippet
+
+snippet ajaxpost "jquery ajax post abstraction"
+$.post('${1:mydomain.com/url}',
+  ${2:{ param1: value1 },}
+  function (data, textStatus, jqXHR) {
+    ${0:// success callback}
+  }
+);
+endsnippet
+
+#############
+# TEMPLATES #
+#############
+
+snippet docready "document ready boilerplate"
+$(document).ready(function(){
+
+  //////////////////////////////
+  // ASSIGN ELEMENT VARIABLES //
+  //////////////////////////////
+
+  var $window   = $(window);
+  var $messages = $('#alert_bar, #error_bar');
+
+  ////////////////////////////////////
+  // ASSIGN ENVIRONMENTAL VARIABLES //
+  ////////////////////////////////////
+
+  var baseURL        = window.location.protocol + "//" + window.location.hostname
+  var windowWidth    = $window.width();
+  var windowHeight   = $window.height();
+  var verticalPos    = $window.scrollTop();
+  var pathArray      = window.location.pathname.split( '/' );
+  var isMobile       = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
+  var isApple        = (/iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase()));
+
+  $(window).focus(function() {
+    var window_focus = true;
+  }).blur(function() {
+    var window_focus = false;
+  });
+
+  ////////////////
+  // THROTTLING //
+  ////////////////
+
+//var s = true;
+//var r = 33;
+//setInterval(function(){s=true;}, r);
+
+  ///////////
+  // CALLS //
+  ///////////
+
+  // hide alt and title tooltips
+  //$('img').hideTips();
+
+  // hover elements
+  $(document).on({
+    mouseenter: function () {
+      if ($(this).hasClass('faded')) {
+        $(this).stop(true,false).fadeTo(500,1.0);
+      } else {
+        $(this).stop(true,false).fadeTo(500,0.5);
+      }
+    },
+    mouseleave: function () {
+      if ($(this).hasClass('faded')) {
+        $(this).fadeTo(500,0.45);
+      } else {
+        $(this).fadeTo(500,1.0);
+      }
+    }
+  }, ".hover");
+
+  // retract alert and error bars
+  $messages.delay(8000).animate({
+    'margin-top' : '-60px',
+  },500);
+
+  // dismissal of messages
+  $(document).on('click', '.dismiss', function() {
+    $(this).parent().hide();
+  });
+
+  //////////////////////////
+  // WINDOW SCROLL EVENTS //
+  //////////////////////////
+
+//// scroll event
+//$window.scroll(function() {
+//  if (s) {
+//    s = false;
+
+//  }
+//});
+
+  //////////////////////////
+  // WINDOW RESIZE EVENTS //
+  //////////////////////////
+
+//$window.resize(function() {
+//  if (s) {
+//    s = false;
+
+//  }
+//});
+
+  ///////////////////////////
+  // MOBILE SPECIFIC CALLS //
+  ///////////////////////////
+
+  if (isMobile) {
+
+  }
+
+});
+endsnippet
+
+snippet winready "window ready boilerplate"
+$(window).ready(function() {
+
+});
+endsnippet
+
+snippet library "functions library boilerplate"
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//                              FUNCTIONS LIBRARY                             //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////
+// TABLE WARNING PROMPTS //
+///////////////////////////
+
+// displays a confirmation prompt for actions performed on table rows
+function tableConfirm() {
+
+  // disable other actions
+  $('.actions').bind("click.myDisable", function() { return false; });
+
+  // establish variables
+  var $btn = $(this);
+  var $row = $btn.closest('tr');
+  var func = $btn.attr('title').toLowerCase();
+  var mesg = $('<div class="confirmation" colspan="42">Are you sure you want to '+func+' this record? <div class="yes">YES</div><div class="no">NO</div></div>').hide().fadeIn(250);
+
+  // show the confirmation text
+  $row.find('td').stop(true,false).animate({'opacity':0.0},250,function() {
+    $row.before(mesg);
+  });
+
+  // confirm yes
+  $(document).on('click', '.yes', function(){
+
+    if ($btn.parent().is('form')) {
+      $btn.parent().submit();
+    } else {
+      var action = $btn.data('action');
+      window.location.replace(action);
+      $(this).closest('.confirmation').animate({'opacity':0.0},250,function() {
+        $row.find('td').stop(true,false).animate({'opacity':1.0},250);
+      }).remove();
+    }
+
+    // re-enable other actions
+    $('.actions').unbind("click.myDisable");
+
+    // prevent multiple refires and event propogation
+    $(document).off('click', '.yes');
+
+  });
+
+  // confirm no
+  $(document).on('click', '.no', function(event){
+
+    $(this).closest('.confirmation').animate({'opacity':0.0},250,function() {
+      $row.find('td').stop(true,false).animate({'opacity':1.0},250);
+    }).remove();
+
+    // re-enable other actions
+    $('.actions').unbind("click.myDisable");
+
+    // prevent multiple refires and event propogation
+    $(document).off('click', '.no');
+
+  });
+
+  // prevent default actions
+  return false;
+
+}
+
+//////////////////////
+// EMAIL VALIDATION //
+//////////////////////
+
+// simple email address checker
+//       isEmail($('#id').val);
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
+///////////////////////////////////
+// DYNAMIC FORM PLACEHOLDER TEXT //
+///////////////////////////////////
+
+// dynamically places text in input fields
+//       placeholder($('#id'), 'Name');
+function placeholder(element, text) {
+  element.each(function() {
+    var input = $(this);
+    currtext = input.val();
+    if (currtext.length == 0) {
+      input.val(text).css({'color':'#ebeded'});
+    }
+    input.focus(function() { 
+      if (this.value == text) {
+        this.value = '';
+        this.style.color = '';
+      }
+    });
+    input.blur(function() { 
+      if (this.value == '') {
+        this.value = text;
+        this.style.color = '#ebeded';
+      }
+    });
+  });
+}
+
+///////////////////////////
+// RENDERING CANVAS TEXT //
+///////////////////////////
+
+// draws text into an html5 canvas
+//       draw($('#elem'),'text');
+function draw(id,text) {
+  var canvas    = document.getElementById(id);  // define the canvas element
+  var context   = canvas.getContext('2d');      // define the canvas context
+  canvas.width  = window.innerWidth;            // set canvas width to window
+  canvas.height = window.innerHeight;           // set canvas height to window
+
+  context.font      = "lighter 20px Helvetica"; // set the font face and size
+  context.fillStyle = '#fff';                   // set the font color
+
+  var metrics   = context.measureText(text);    // test measure with def size
+  var textWidth = metrics.width;                // get the test width
+
+  var scalex = (canvas.width / textWidth);      // determine x scale
+  var scaley = (canvas.height / 23);            // determine y scale
+
+  var ypos = (canvas.height / (scaley * 1.25)); // determin y position
+
+  context.scale(scalex, scalex);                // normal ratio, fill width
+  //context.scale(scaley, scaley);              // normal ratio, fill height
+  //context.scale(scalex, scaley);              // scale ratio, fill canvas
+  context.fillText(text, 0, ypos);              // render the text
+
+  // drawing vertical text
+  //context.save();
+  //context.translate(30, 10);
+  //context.rotate(-Math.PI/2);
+  //context.textAlign = "center";
+  //context.fillText("Your Label Here", 20, 0);
+  //context.restore();
+}
+
+//////////////////////////
+// AJAX FORM PROCESSING //
+//////////////////////////
+
+// ajax processing of html forms
+//       ajaxForm($('id'), $('eid'), function(){}, function(){}, function(){});
+function ajaxForm($formid, $email, successFN, errorFN, invalidFN) {
+  $formid.submit(function(event) {
+    // setup some variables
+    var $form   = $(this);
+    var $inputs = $form.find('input, select, button, textarea');
+    var theData = $form.serialize();
+    var action  = $form.attr('action');
+    var email   = $email.val();
+    // disable inputs for duration of request
+    $inputs.attr('disabled', 'disabled');
+    // prevent default posting of the form
+    event.preventDefault();
+    // ajax processing for the form
+    if (isEmail(email)) {
+      $.ajax({
+        url:      action,
+        type:     'post',
+        data:     theData,
+        success:  function(response, textStatus, xhr) {
+                    console.log(response + textStatus + xhr);
+                    successFN;
+                  },
+        error:    function(xhr, textStatus, errorThrown) {
+                    console.log('error ' + xhr + textStatus + errorThrown);
+                    errorFN;
+                  },
+        complete: function() {
+                    $inputs.removeAttr('disabled');
+                    $form[0].reset();
+                  }
+      });
+    } else {
+      invalidFN;
+      $inputs.removeAttr('disabled');
+    }
+  });
+}
+
+////////////////////////////////////
+// HIDE ALT & TITLE TOOLTIPS TEXT //
+////////////////////////////////////
+
+// hides alt and title elements on hover
+// $('img').hideTips();
+(function($){
+  $.fn.hideTips = function(){
+    return this.each(function(){
+             var $elem = $(this)
+             var savealt = $elem.attr('alt');
+             var savetitle = $elem.attr('title');
+             $elem.hover(function(){
+               $elem.removeAttr('title').removeAttr('alt');
+             },function(){
+               $elem.attr({title:savetitle,alt:savealt});
+             });
+    });
+  };
+})(jQuery);
+
+/////////////////////////////
+// AJAX GET SESSION STATUS //
+/////////////////////////////
+
+// reloads page if session has expired to show login screen
+function checkSessionStatus() {
+  var sessionAPI = baseURL+'/api/session';
+  $.get(sessionAPI, function(response) {
+    if (response) {
+      return false;
+    } else {
+      window.location.replace(currentURL);
+    }
+  });
+}
+endsnippet

@@ -1,0 +1,346 @@
+snippet screen
+	////////////////////////////////////////////////////////////////////////////////
+	//                                                                            //
+	// Screen                                                                     //
+	//                                                                            //
+	////////////////////////////////////////////////////////////////////////////////
+	
+	// backend structure and config
+	@import "resources/assets/sass/partials/mixins";
+	@import "resources/assets/sass/partials/colors";
+	@import "resources/assets/sass/partials/typography";
+	
+	// bootstrap variable overrides
+	//$border-radius-base:        0px;
+	//$input-height-base:         50px;
+	//$pagination-active-bg:      #777;
+	//$pagination-active-border:  #777;
+	//$pagination-color:          #777;
+	//$pagination-hover-color:    #333;
+	
+	// vendor stylesheets
+	@import "vendor/bower/bootstrap-sass/assets/stylesheets/bootstrap";
+	@import "vendor/bower/font-awesome/scss/font-awesome";
+	
+	// fonts
+	//@import "resources/assets/sass/partials/lato";
+	
+	// custom stylesheets
+	@import "resources/assets/sass/partials/classes";
+	@import "resources/assets/sass/partials/base";
+	@import "resources/assets/sass/partials/frame";
+snippet mixins
+	////////////////////////////////////////////////////////////////////////////////
+	//                                                                            //
+	// MIXINS                                                                     //
+	//                                                                            //
+	// usage: @include [mixin name](arg1,arg2,arg3);                              //
+	//                                                                            //
+	////////////////////////////////////////////////////////////////////////////////
+	
+	@mixin box-shadow($x:0px,$y:2px,$blur:12px,$spread:2px,$color:#000) {
+	    -moz-box-shadow:    $x $y $blur $spread $color;
+	    -webkit-box-shadow: $x $y $blur $spread $color;
+	    box-shadow:         $x $y $blur $spread $color;
+	}
+	
+	@mixin box-shadow-inset($x:0px,$y:2px,$blur:12px,$spread:2px,$color:#000) {
+	    -moz-box-shadow:    inset $x $y $blur $spread $color;
+	    -webkit-box-shadow: inset $x $y $blur $spread $color;
+	    box-shadow:         inset $x $y $blur $spread $color;
+	}
+	
+	@mixin border-radius ($x:5px) {
+	    -moz-border-radius: $x;
+	    -webkit-border-radius: $x;
+	    border-radius: $x; /* future proofing */
+	    -khtml-border-radius: $x; /* for old Konqueror browsers */
+	}
+	
+	@mixin border-radius-top ($x:5px) {
+	    -moz-border-radius: 0px;
+	    -webkit-border-radius: $x $x 0px 0px;
+	    border-radius: $x $x 0px 0px; /* future proofing */
+	    -khtml-border-radius: $x $x 0px 0px; /* for old Konqueror browsers */
+	}
+	
+	@mixin background-cover() {
+	    -webkit-background-size: cover !important;
+	    -moz-background-size: cover !important;
+	    -o-background-size: cover !important;
+	    background-size: cover !important;
+	}
+	
+	@mixin background-normal() {
+	    -webkit-background-size: auto !important;
+	    -moz-background-size: auto !important;
+	    -o-background-size: auto !important;
+	    background-size: auto !important;
+	}
+	
+	@mixin opacity($opacity) {
+	    $opacity-ie: round($opacity * 100);
+	    filter: alpha(opacity=$opacity-ie);
+	    opacity: $opacity;
+	    zoom: 1;
+	}
+	
+	@mixin noselect() {
+	    -webkit-user-select: none;
+	    -khtml-user-select: none;
+	    -moz-user-select: none;
+	    -o-user-select: none;
+	    user-select: none;
+	}
+	
+	@mixin flexbox() {
+	    display: -webkit-box;
+	    display: -moz-box;
+	    display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+	}
+	
+	@mixin flex($values) {
+	    -webkit-box-flex: $values;
+	    -moz-box-flex:  $values;
+	    -webkit-flex:  $values;
+	    -ms-flex:  $values;
+	    flex:  $values;
+	}
+	
+	@mixin order($val) {
+	    -webkit-box-ordinal-group: $val;
+	    -moz-box-ordinal-group: $val;
+	    -ms-flex-order: $val;
+	    -webkit-order: $val;
+	    order: $val;
+	}
+	
+	// border box for cutting borders in rather than adding to width
+	@mixin border-box() {
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	
+	@mixin rotate($val) {
+	    -webkit-transform: rotate($val);
+	    -moz-transform: rotate($val);
+	    -ms-transform: rotate($val);
+	    -o-transform: rotate($val);
+	    transform: rotate($val);
+	}
+	
+	@mixin font-face($family,$name,$weight,$style) {
+	    font-family: '$family';
+	    src: url('../fonts/$name.eot');
+	    src: url('../fonts/$name.eot?#iefix') format('embedded-opentype'),
+	         url('../fonts/$name.woff') format('woff'),
+	         url('../fonts/$name.ttf') format('truetype'),
+	         url('../fonts/$name.svg#$name') format('svg');
+	    font-weight: $weight;
+	    font-style: $style;
+	}
+snippet colors
+	////////////
+	// COLORS //
+	////////////
+	
+	// gray palette
+	$black:                             #000;
+	$grayDarker:                        #2c2d2d;
+	$grayDark:                          #333;
+	$gray:                              #60605f;
+	$grayLight:                         #999;
+	$grayLighter:                       #dedcda;
+	$grayLightest:                      #fafafa;
+	$white:                             #fff;
+	
+	// accent palette
+	$gold:                              #ad9972;
+	$darkGreen:                         #393f39;
+	$beige:                             #dedcda;
+	$offWhite:                          #f6f3ee;
+	$blue:                              #049cdb;
+	$blueDark:                          #0064cd;
+	$green:                             #c8dec3;
+	$red:                               #cd5c5c;
+	$orange:                            #f89406;
+	$pink:                              #c3325f;
+	$purple:                            #7a43b6;
+	$powderBlue:                        #d5eaf1;
+	$cadetBlue:                         #5e8fc2;
+	
+	//////////////
+	// DEFAULTS //
+	//////////////
+	
+	// forms
+	$inputBorder:                       $grayLighter;
+	$formPlaceholder:                   $grayLight;
+	$formInput:                         $grayDark;
+	$formLabel:                         $grayLight;
+	
+	// links
+	$a_active:                          $grayDark;
+	$a_hover:                           $black;
+	
+	// selection
+	$selection:                         $powderBlue;
+	$p_selection:                       $powderBlue;
+	
+	// miscellaneous
+	$bodyBackground:                    $white;
+	$iconColor:                         $grayDark;
+	$inactive:                          $red;
+	
+	/////////////////////////
+	// BOOTSTRAP OVERRIDES //
+	/////////////////////////
+	
+	// buttons
+	$btn-default-bg:                    $gray;
+	$btn-default-color:                 $white;
+	$btn-default-border:                $gray;
+	
+	// input
+	$input-border:                      $grayLighter;
+snippet typography
+	////////////////////////////////////////////////////////////////////////////////
+	//                                                                            //
+	// Typography                                                                 //
+	//                                                                            //
+	////////////////////////////////////////////////////////////////////////////////
+	
+	// font families
+	$sansFontFamily:                    Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	$serifFontFamily:                   Georgia, "Times New Roman", Times, serif;
+	$monoFontFamily:                    Monaco, Menlo, Consolas, "Courier New", monospace;
+	
+	// standard properties
+	$baseFontColor:                     $grayDark;
+	$baseFontSize:                      16px;
+	$baseLineHeight:                    1.5em;
+	$lightFontWeight:                   300;
+	$baseFontWeight:                    400;
+	$mediumFontWeight:                  700;
+	$boldFontWeight:                    800;
+	$baseLetterSpacing:                 1px;
+snippet classes
+	/////////////
+	// Helpers //
+	/////////////
+	
+	.full {
+	    width: 100%;
+	}
+	
+	.inline {
+	    display: inline;
+	}
+	
+	.condensed {
+	    width: 1%;
+	    white-space: nowrap;
+	}
+	
+	.nowrap {
+	    white-space: nowrap;
+	}
+	
+	.flex {
+	    @include flexbox();
+	}
+	
+	//////////
+	// Type //
+	//////////
+	
+	.mono {
+	    font-family: $monoFontFamily;
+	}
+	
+	.lead {
+	    min-height: 25px;
+	}
+	
+	.bold {
+	    font-weight: bold;
+	}
+snippet base
+	html, body {
+	    height: 100%;
+	    margin: 0;
+	    pading: 0;
+	    background: $bodyBackground;
+	    font-family: $sansFontFamily;
+	    font-size: $baseFontSize;
+	    letter-spacing: $baseLetterSpacing;
+	    line-height: $baseLineHeight;
+	    color: $baseFontColor;
+	    font-weight: $baseFontWeight;
+	    -webkit-font-smoothing: antialiased;
+	}
+	
+	*:focus {
+	    outline: none;
+	}
+	
+	a, a:visited, a:active {
+	    text-decoration: none;
+	    font-weight: normal;
+	    outline: 0;
+	    color: $a_active;
+	}
+	
+	a:hover, a:focus {
+	    text-decoration: none;
+	    font-weight: normal;
+	    outline: 0;
+	    color: $a_hover;
+	}
+	
+	button {
+	    border: 0;
+	}
+snippet fonts
+	@font-face {
+	    @include font-face('${1:Lato}', '${2:lato}-hairline-webfont', 100, 'normal');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-hairlineitalic-webfont', 100, 'italic');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-light-webfont', 300, 'normal');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-lightitalic-webfont', 300, 'italic');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-regular-webfont', 400, 'normal');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-italic-webfont', 400, 'italic');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-bold-webfont', 700, 'normal');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-bolditalic-webfont', 700, 'italic');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-black-webfont', 800, 'normal');
+	}
+	
+	@font-face {
+	    @include font-face('$1', '$2-blackitalic-webfont', 800, 'italic');
+	}
