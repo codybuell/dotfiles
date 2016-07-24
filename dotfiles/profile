@@ -6,6 +6,9 @@ case `basename $SHELL` in
     . ~/.shell/tmux
     . ~/.shell/color
     . ~/.shell/export
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      . $(brew --prefix)/etc/bash_completion
+    fi
     ;;
   zsh )
     ;;
