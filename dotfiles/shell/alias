@@ -13,6 +13,10 @@ fi
 # vi/vim
 alias vi="vim"
 alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+alias :e="vim"
+alias :q="exit"
+alias :qa="exit"
+alias :wq="exit"
 
 # git
 alias gi="git init && touch .gitignore && touch README.md && git add .gitignore README.md && git commit -m 'Initial commit'"
