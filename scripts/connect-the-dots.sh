@@ -19,15 +19,16 @@ CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
 DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
 DOTFILES=(`ls $DOTS_LOC`)
 
-# what to exclude when comparing with existing dotfiles
+# what to exclude when comparing existing files (tmp files, compiled bits, etc)
 DIFFEXCLUDES=( \
   "-name *.DS_Store" \
   "-regex .*.vim.*/.netrwhist" \
   "-regex .*.vim.*/bundle/ultisnips/pythonx/.*.pyc" \
+  "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
   )
 
-# what to exclude when templating
+# what to exclude when templating (tmp files, git submodules, etc)
 TEMPLATEEXCLUDES=( \
   "-name *.DS_Store" \
   "-path *.shell*/base16-shell/*" \
@@ -73,8 +74,8 @@ readconfig() {
       if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
         rhs="${rhs%%\#*}"    # del in line right comments
         rhs="${rhs%%*( )}"   # del trailing spaces
-        rhs="${rhs%\"*}"     # del opening string quotes 
-        rhs="${rhs#\"*}"     # del closing string quotes 
+        rhs="${rhs%\"*}"     # del opening string quotes
+        rhs="${rhs#\"*}"     # del closing string quotes
         export $lhs="$rhs"
         CONFIGVARS+="$lhs "
       fi
@@ -113,6 +114,19 @@ placefiles() {
       eval VAL=\$$c
       find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
     done
+
+    # run compilations if necessary
+    case $i in
+      vim )
+        # compile command-t
+        [[ -d ~/.vim.new.$DATE/bundle/command-t/ruby/command-t ]] && {
+          cd ~/.vim.new.$DATE/bundle/command-t/ruby/command-t
+          ruby extconf.rb > /dev/null
+          make > /dev/null
+          cd - > /dev/null
+        }
+        ;;
+    esac
 
     # if the target file or dir already exists
     if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
