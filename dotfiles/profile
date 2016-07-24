@@ -1,0 +1,12 @@
+case `basename $SHELL` in
+  bash )
+    . ~/.shell/path
+    . ~/.shell/function
+    . ~/.shell/alias
+    . ~/.shell/tmux
+    . ~/.shell/color
+    . ~/.shell/export
+    ;;
+  zsh )
+    ;;
+esac

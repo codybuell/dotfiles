@@ -1,0 +1,9 @@
+#
+# path
+#
+
+PATH_HOME=$HOME/Bin
+PATH_BREW=/usr/local/bin
+PATH_SBIN=/usr/local/sbin
+
+export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SBIN

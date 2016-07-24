@@ -1,0 +1,55 @@
+#
+# color
+#
+
+# setup scheme and config locations
+BASE16_DIR=~/.shell/base16-shell/scripts
+BASE16_CONFIG=~/.base16
+
+# helper function
+color() {
+
+  # if no arguments and config file is not empty
+  if [ $# -eq 0 -a -s "$BASE16_CONFIG" ]; then
+    cat ~/.base16
+    # print out color swath with codes
+    return
+  fi
+
+  case $1 in
+    help|-h )
+      echo 'color [-h|help] [set {scheme}]'
+      echo
+      echo 'Available schemes:'
+      find "$BASE16_DIR" -name 'base16-*.sh' | \
+        sed 's/.*base16-//;s/\.sh$//' | \
+        column
+      ;;
+    set )
+      SCHEME=$2
+      FILE="$BASE16_DIR/base16-$SCHEME.sh"
+      if [[ -e "$FILE" ]]; then
+        if [[ ! -x "$FILE" ]]; then
+          chmod 755 $FILE
+        fi
+        echo "$SCHEME" > "$BASE16_CONFIG"
+        "$FILE"
+      else
+        echo "Scheme '$SCHEME' not found in $BASE16_DIR"
+        return 1
+      fi
+      ;;
+    * )
+      echo 'Unknown option: use one of {help,[scheme]}'
+      ;;
+  esac
+
+}
+
+# load color scheme if config set
+if [[ -s "$BASE16_CONFIG" ]]; then
+  SCHEME=`head -1 "$BASE16_CONFIG"`
+  color set "$SCHEME"
+else
+  color set "tomorrow-night"
+fi

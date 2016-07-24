@@ -1,3 +1,7 @@
-Name        = Cody Buell
-Email       = cody@codybuell.com
-GitUsername = codybuell
+# personal information
+Name                   = Cody Buell
+Email                  = cody@codybuell.com
+GitUsername            = codybuell
+
+# api tokens
+GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz

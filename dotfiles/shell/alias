@@ -1,0 +1,57 @@
+#
+# alias
+#
+
+# ls
+if command -v gls &> /dev/null && [[ $TERM =~ .*-256color ]]; then
+  alias ls="gls --color=auto"
+  alias lsd="gls --color=auto -h --group-directories-first"
+else
+  alias ls="ls -G"
+fi
+
+# vi/vim
+alias vi="vim"
+alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+
+# git
+alias gi="git init && touch .gitignore && touch README.md && git add .gitignore README.md && git commit -m 'Initial commit'"
+alias gl="git lg"
+alias gs="git status"
+alias gc="git commit"
+alias gca="git commit -a"
+alias gpo="git push origin master"
+alias gpl="git pull origin master"
+alias log="git log --pretty=oneline"
+
+# recursive greps
+alias grepf="find . -type f -print0 | xargs -0 grep"
+alias grepd="find . -type d | grep"
+
+# locations
+alias ws="changedir ~/Workshop"
+alias gist="changedir ~/Gists"
+alias repo="changedir ~/Repos"
+alias note="cd ~/Google\ Drive/Notes"
+alias journal="cd ~/Google\ Drive/Journal"
+
+# files
+alias md="vi README.md"
+alias sc="vi ~/.ssh/config"
+
+# laravel
+alias lr="vi app/Http/routes.php"
+alias laravel="composer create-project --prefer-dist laravel/laravel "
+
+# networking
+alias swil="networksetup -switchtolocation"
+alias trrt="traceroute -In"
+alias extip="/usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g'"
+alias intip="ifconfig | grep inet | egrep -v '::|inet 127.' | awk '{print \$2}'"
+
+# homestead
+alias homestead='function __homestead() { (cd ~/.homestead && vagrant $*); unset -f __homestead; }; __homestead'
+
+# misc
+alias webserver='python -m SimpleHTTPServer 8080'
+alias repocheck='echo "REPOSITORY LOCAL REMOTE" | awk '"'"'{printf "%-50s %s %s\n", $1, $2, $3}'"'"'; CWD=$(pwd); for i in `ls ~/Repos`; do cd ~/Repos/$i; git status > /dev/null 2>&1; if [ $? -gt 0 ]; then printf "$i \033[1;30mnot~a~repo\033[0;m" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"; continue; else LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m"); if [ `git remote -v | wc -l` -lt 1 ]; then RSTAT=$(printf "\033[1;30morphaned\033[0;m"); else git fetch > /dev/null 2>&1; LOCAL=$(git rev-parse @); git rev-parse @{u} > /dev/null 2>&1; if [ $? -gt 0 ]; then git branch --set-upstream-to=origin/master master > /dev/null 2>&1; fi; REMOTE=$(git rev-parse @{u}); BASE=$(git merge-base @ @{u}); if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then RSTAT=$(printf "\033[0;32mcurrent\033[0;m"); elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then RSTAT=$(printf "\033[0;31mbehind\033[0;m"); elif [ $REMOTE = $BASE ]; then RSTAT=$(printf "\033[1;33mahead\033[0;m"); else RSTAT=$(printf "\033[0;33mdiverged\033[0;m"); fi; fi; echo "$i $LSTAT~$RSTAT" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"; fi; done; cd $CWD'

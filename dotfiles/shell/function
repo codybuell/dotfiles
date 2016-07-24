@@ -1,0 +1,57 @@
+#
+# function
+#
+
+# change directory, used with aliases
+changedir() {
+  cd $1/$2
+}
+
+# ersh wrapper for ansible
+function Ersh() {
+  GROUP=$1
+  shift
+  ansible $GROUP --sudo -m shell -a "$@"
+}
+
+# ersync wrapper for ansible
+function Ersync() {
+  ansible $1 --sudo -o -m copy -a "src=$2 dest=$3"
+}
+
+# ping range of ips: pingsweep 10.10.1 1..50
+function pingsweep() {
+  #trap "exit" INT
+  for i in $(eval echo "{$2}"); do 
+    ping -noq -c 1 -t 1 -i 0.1 ${1}.${i} > /dev/null
+    echo -e "${1}.${i}\t`[[ $? == 0 ]] && echo up || echo down`"
+  done
+}
+
+# cd up till you reach the project root dir (git)
+function root() {
+  GOTO="./"
+  CLOC=`pwd | sed 's/[^\/]//g'`
+  EXST='false'
+  for ((i=1; i<=${#CLOC}; i++)); do
+    [[ ! -d ${GOTO}.git ]] && {
+      GOTO+="../"
+    } || {
+      EXST='true'
+      break
+    }
+  done
+  [[ $EXST == 'true' ]] && {
+    cd $GOTO
+  } || {
+    echo 'cwd is not part of a repository'
+  }
+}
+
+function wj() {
+  vim ~/Google\ Drive/Journal/work/`date +%Y/%B`.txt
+}
+
+function pj() {
+  vim ~/Google\ Drive/Journal/personal/`date +%Y/%B`.txt
+}
