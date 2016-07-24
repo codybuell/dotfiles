@@ -12,6 +12,8 @@
 	<string>E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7</string>
 	<key>DimBackgroundWindows</key>
 	<true/>
+	<key>FocusFollowsMouse</key>
+	<true/>
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
@@ -53,14 +55,27 @@
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1426 343 445 103 0 0 2560 1440 </string>
+	<string>727 110 647 227 0 0 1440 900 </string>
+	<key>NSWindow Frame Preferences</key>
+	<string>441 408 606 456 0 0 1440 877 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>658 725 796 473 0 0 2560 1440 </string>
+	<string>172 175 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>322 209 570 452 0 0 2560 1440 </string>
+	<string>197 226 1207 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>712 139 710 667 0 0 2560 1440 </string>
+	<string>462 129 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>36 232 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>569 106 710 667 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -661,10 +676,24 @@
 			<string>/Users/pbuell</string>
 		</dict>
 	</array>
+	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<true/>
+	<key>NoSyncConfirmBeta</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
+	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>07757747-036E-4BEB-ACB7-88CC02763A31</string>
+	<string>9866A073-E42C-4F7B-8F36-75B6AA2A0515</string>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>490754998.88330698</real>
+	<real>485539161.81388402</real>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>483373845.02238703</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>485460187.83955097</real>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -702,16 +731,22 @@
 	<string>/Users/pbuell/Repos/dotfiles/iterm</string>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=2</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=85</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
+	<key>SULastCheckTime</key>
+	<date>2016-07-23T23:36:02Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
 	<integer>1</integer>
+	<key>ThreeFingerEmulates</key>
+	<true/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.:</string>
 	<key>iTerm Version</key>
