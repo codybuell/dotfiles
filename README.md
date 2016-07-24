@@ -51,5 +51,20 @@ New System Checklist
 Todo
 ----
 
+ - get this readme file into a reasonable state
  - write wrapper script for entire repo `deploy`
- - automate command-t plugin compiling
+   - connect the dots
+   - run brew
+   - automate command-t plugin compiling
+   - install fonts
+   - set iterm preferences dir
+ - add autocompletion to chdir shell function (repo d-> auto complete)
+ - move repocheck alias to a function, add config for repo directory
+ - scour dotfiles for paths that need to be turned into config options
+ - rework tmux config to use scheme colors, dont hardcode the colors
+ - change tmux default key binding to something more...comfortable?
+ - figure out a clipboard solution
+   - want to be able to select in tmux copy mode, paste with click or cmd+v
+   - same for vim
+   - want iterms auto word selection features
+
