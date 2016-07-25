@@ -163,7 +163,7 @@ placefiles() {
           MD5NEW=`$MD5 -q $HOME/.$i.new.$DATE`
           MD5OLD=`$MD5 -q $HOME/.$i`
         fi
-    
+
         [[ $MD5NEW == $MD5OLD ]] && {
            prettyprint "  .${i} \033[0;32malready there\033[0m\n"
            rm -rf $HOME/.$i.new.$DATE
