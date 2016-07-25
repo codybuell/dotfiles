@@ -34,6 +34,7 @@ TEMPLATEEXCLUDES=( \
   "-path *.shell*/base16-shell/*" \
   "-path *.vim*/bundle/*" \
   "-path *.vim*/tmp/*" \
+  "-path *.terminfo*/*" \
   )
 
 # compile excludes to find statement for diffs
@@ -108,13 +109,6 @@ placefiles() {
     # place dotfile as dotfile.new.date
     cp -a $DOTS_LOC/$i $HOME/.$i.new.$DATE
 
-    # set the template variables
-    for c in ${CONFIGVARS[@]}; do
-      VAR=$c
-      eval VAL=\$$c
-      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
-    done
-
     # run compilations if necessary
     case $i in
       vim )
@@ -134,6 +128,13 @@ placefiles() {
         cd - > /dev/null
         ;;
     esac
+
+    # set the template variables
+    for c in ${CONFIGVARS[@]}; do
+      VAR=$c
+      eval VAL=\$$c
+      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+    done
 
     # if the target file or dir already exists
     if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
