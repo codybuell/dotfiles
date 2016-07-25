@@ -4,12 +4,7 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"/////////////////////////"
-"//                     //"
-"//  Random Characters  //"
-"//                     //"
-"/////////////////////////"
-
+" generate random characters
 function! functions#RandomCharacters(count) abort
   if a:count > 0
     let l:bits = a:count
@@ -19,12 +14,7 @@ function! functions#RandomCharacters(count) abort
   exe ":normal a" . system("cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | head -c " . l:bits)
 endfunction
 
-"//////////////////////////"
-"//                      //"
-"//  Toggle Errors List  //"
-"//                      //"
-"//////////////////////////"
-
+" toggle error list
 function! functions#ToggleErrors() abort
     if empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") is# "quickfix"'))
          " no location/quickfix list shown, open syntastic error location panel
@@ -34,19 +24,12 @@ function! functions#ToggleErrors() abort
     endif
 endfunction
 
-"////////////////////////////////////////////////////////////////////////"
-"//                                                                    //"
-"//  Underline                                                         //"
-"//                                                                    //"
-"//  Underline current line with provided character.                   //"
-"//                                                                    //"
-"//  :Underline      gives underlining like --------------- (default)  //"
-"//  :Underline =    gives underlining like ===============            //"
-"//  :Underline -=   gives underlining like -=-=-=-=-=-=-=-            //"
-"//  :Underline ~+-  gives underlining like ~+-~+-~+-~+-~+-            //"
-"//                                                                    //"
-"////////////////////////////////////////////////////////////////////////"
-
+" underline text with provided character
+"
+" :Underline      gives underlining like --------------- (default)
+" :Underline =    gives underlining like ===============
+" :Underline -=   gives underlining like -=-=-=-=-=-=-=-
+" :Underline ~+-  gives underlining like ~+-~+-~+-~+-~+-
 function! functions#Underline() abort
   let l:chars = input('Underline Character: ')
   let l:chars = empty(l:chars) ? '-' : l:chars
@@ -60,19 +43,12 @@ function! functions#Underline() abort
   exe ":normal o"
 endfunction
 
-"/////////////////////////////////////////////////////////////////////////"
-"//                                                                     //"
-"//  Number / List Plugin                                               //"
-"//                                                                     //"
-"//  Toggle hidden characters, line numbers, and other bits. Switching  //"
-"//  in and out of plain views.                                         //"
-"//                                                                     //"
-"/////////////////////////////////////////////////////////////////////////"
-
+" toggle plain view vs nu, rnu, list, wrap etc...
 function! functions#NuListToggle() abort
-  set nonu!
-  set nornu!
-  set nolist!
+  setlocal nonu!
+  setlocal nornu!
+  setlocal nolist!
+  setlocal wrap!
   if &foldcolumn
     setlocal foldcolumn=0
   else
@@ -80,12 +56,7 @@ function! functions#NuListToggle() abort
   endif
 endfunction
 
-"///////////////////////////////"
-"//                           //"
-"//  Git Commit Cursor Start  //"
-"//                           //"
-"///////////////////////////////"
-
+" don't restore cursor position on git commit messages
 function functions#GitCommitBufEnter() abort
   if &filetype == "gitcommit"
     " don't (re)store filepos for git commit message files
@@ -94,12 +65,7 @@ function functions#GitCommitBufEnter() abort
   endif
 endfunction
 
-"/////////////////////////////"
-"//                         //"
-"//  Print Color Reference  //"
-"//                         //"
-"/////////////////////////////"
-
+" print color reference
 function! functions#ColorReference() abort
   let num = 255
   while num >= 0
@@ -110,14 +76,7 @@ function! functions#ColorReference() abort
   endwhile
 endfunction
 
-"//////////////////////////////////////////////////////////////"
-"//                                                          //"
-"//  Highlight Groups                                        //"
-"//                                                          //"
-"//  Print highlight groups of the element under the cursor. //"
-"//                                                          //"
-"//////////////////////////////////////////////////////////////"
-
+" print highlight groups of element under cursor
 function! functions#HighlightGroups() abort
   if !exists("*synstack")
     return
@@ -125,15 +84,7 @@ function! functions#HighlightGroups() abort
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
-"///////////////////////////////////////////////////////"
-"//                                                   //"
-"//  Zap                                              //"
-"//                                                   //"
-"//  Remove all trailing whitespace in the document.  //"
-"//                                                   //"
-"///////////////////////////////////////////////////////"
-
-" Zap trailing whitespace.
+" remove all trailing whitespace document
 function! functions#zap() abort
   let l:pos=getcurpos()
   let l:search=@/
@@ -141,4 +92,83 @@ function! functions#zap() abort
   let @/=l:search
   nohlsearch
   call setpos('.', l:pos)
+endfunction
+
+" replace newlines with spaces
+function! functions#sub_newlines(string) abort
+  return tr(a:string, "\r\n", '  ')
+endfunction
+
+" run command and return captured output as a single line
+function! functions#capture_line(command) abort
+  redir => l:capture
+  execute a:command
+  redir END
+
+  return functions#sub_newlines(l:capture)
+endfunction
+
+" get the current value of a highlight group
+function! functions#capture_highlight(group) abort
+  return functions#capture_line('silent highlight ' . a:group)
+endfunction
+
+" extract a highlight string from a group, recursively traversing linked
+" groups, and returns a string suitable for passing to `:highlight`
+function! functions#extract_highlight(group) abort
+  let l:group = functions#capture_highlight(a:group)
+
+  " traverse links back to authoritative group
+  while l:group =~# 'links to'
+    let l:index = stridx(l:group, 'links to') + len('links to')
+    let l:linked = strpart(l:group, l:index + 1)
+    let l:group = functions#capture_highlight(l:linked)
+  endwhile
+
+  " extract the highlighting details (the bit after "xxx")
+  let l:matches = matchlist(l:group, '\<xxx\>\s\+\(.*\)')
+  let l:original = l:matches[1]
+  return l:original
+endfunction
+
+" return an italicized copy of `group` suitable for passing to `:highlight`
+function! functions#italicize_group(group) abort
+  return functions#decorate_group('italic', a:group)
+endfunction
+
+" return a bold copy of `group` suitable for passing to `:highlight`
+function! functions#embolden_group(group) abort
+  return functions#decorate_group('bold', a:group)
+endfunction
+
+" return a copy of `group` decorated with `style` (eg. "bold", "italic" etc)
+" suitable for passing to `:highlight`
+function! functions#decorate_group(style, group) abort
+  let l:original = functions#extract_highlight(a:group)
+
+  for l:lhs in ['gui', 'term', 'cterm']
+    " check for existing setting
+    let l:matches = matchlist(
+      \   l:original,
+      \   '^\([^ ]\+ \)\?' .
+      \   '\(' . l:lhs . '=[^ ]\+\)' .
+      \   '\( .\+\)\?$'
+      \ )
+    if l:matches == []
+      " no setting, add one with just a:style in it
+      let l:original .= ' ' . l:lhs . '=' . a:style
+    else
+      " existing setting; check whether a:style is already in it
+      let l:start = l:matches[1]
+      let l:value = l:matches[2]
+      let l:end = l:matches[3]
+      if l:value =~# '.*' . a:style . '.*'
+        continue
+      else
+        let l:original = l:start . l:value . ',' . a:style . l:end
+      endif
+    endif
+  endfor
+
+  return functions#sub_newlines(l:original)
 endfunction
