@@ -126,6 +126,13 @@ placefiles() {
           cd - > /dev/null
         }
         ;;
+      terminfo )
+        cd ~/.terminfo.new.$DATE
+        for terminfo in `ls`; do
+          tic -o ~/.terminfo.new.$DATE $terminfo
+        done
+        cd - > /dev/null
+        ;;
     esac
 
     # if the target file or dir already exists

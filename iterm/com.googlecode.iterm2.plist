@@ -11,7 +11,9 @@
 	<key>Default Bookmark Guid</key>
 	<string>E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7</string>
 	<key>DimBackgroundWindows</key>
-	<true/>
+	<false/>
+	<key>DimInactiveSplitPanes</key>
+	<false/>
 	<key>FocusFollowsMouse</key>
 	<true/>
 	<key>HideScrollbar</key>
@@ -61,21 +63,25 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>727 110 647 227 0 0 1440 900 </string>
+	<string>727 109 647 94 0 0 1440 900 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>441 408 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>172 175 796 473 0 0 1440 900 </string>
+	<string>153 391 918 495 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>197 226 1207 667 0 0 1440 900 </string>
+	<string>647 74 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>462 129 710 667 0 0 1440 900 </string>
+	<string>21 75 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>36 232 710 667 0 0 1440 900 </string>
+	<string>198 158 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>569 106 710 667 0 0 1440 900 </string>
+	<string>536 163 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 4</key>
+	<string>260 233 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 5</key>
+	<string>281 233 710 667 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -740,7 +746,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-23T23:36:02Z</date>
+	<date>2016-07-24T23:36:11Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
