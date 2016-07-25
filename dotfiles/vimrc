@@ -15,7 +15,7 @@
 "  \`  toggle nu & list     \Y  command-t tags       <c-l> focus right split   "
 "  \1  toggle wrapping      \j  command-t jumplist   \                         "
 "  \2                       \z  zoom on split        \                         "
-"  \3  inser color ref      \q  close buffer         \                         "
+"  \3  insert color ref     \q  close buffer         \                         "
 "  \4                       \w  write buffer         \                         "
 "  \5                       \c  fix coloring         \                         "
 "  \6                       \u  underline text       \                         "
