@@ -33,10 +33,10 @@ alias grepf="find . -type f -print0 | xargs -0 grep"
 alias grepd="find . -type d | grep"
 
 # locations
-alias ws="changedir ~/Workshop/"
-alias gist="changedir ~/Gists/"
-alias repo="changedir ~/Repos/"
-alias note="changediroredit '~/Google\ Drive/Notes'"
+alias ws="changedir {{ NonRepoProjects }}"
+alias gist="changedir {{ GistsPath }}"
+alias repo="changedir {{ ReposPath }}"
+alias note="changediroredit {{ NotesFolder }}"
 alias dt="cd ~/Desktop"
 alias dl="cd ~/Downloads"
 
@@ -59,4 +59,4 @@ alias homestead='function __homestead() { (cd ~/.homestead/src && vagrant $*); u
 
 # misc
 alias webserver='python -m SimpleHTTPServer 8080'
-alias repocheck='echo "REPOSITORY LOCAL REMOTE" | awk '"'"'{printf "%-50s %s %s\n", $1, $2, $3}'"'"'; CWD=$(pwd); for i in `ls ~/Repos`; do cd ~/Repos/$i; git status > /dev/null 2>&1; if [ $? -gt 0 ]; then printf "$i \033[1;30mnot~a~repo\033[0;m" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"; continue; else LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m"); if [ `git remote -v | wc -l` -lt 1 ]; then RSTAT=$(printf "\033[1;30morphaned\033[0;m"); else git fetch > /dev/null 2>&1; LOCAL=$(git rev-parse @); git rev-parse @{u} > /dev/null 2>&1; if [ $? -gt 0 ]; then git branch --set-upstream-to=origin/master master > /dev/null 2>&1; fi; REMOTE=$(git rev-parse @{u}); BASE=$(git merge-base @ @{u}); if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then RSTAT=$(printf "\033[0;32mcurrent\033[0;m"); elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then RSTAT=$(printf "\033[0;31mbehind\033[0;m"); elif [ $REMOTE = $BASE ]; then RSTAT=$(printf "\033[1;33mahead\033[0;m"); else RSTAT=$(printf "\033[0;33mdiverged\033[0;m"); fi; fi; echo "$i $LSTAT~$RSTAT" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"; fi; done; cd $CWD'
+alias repocheck='echo "REPOSITORY LOCAL REMOTE" | awk '"'"'{printf "%-50s %s %s\n", $1, $2, $3}'"'"'; CWD=$(pwd); for i in `ls {{ ReposPath }}`; do cd {{ ReposPath }}/$i; git status > /dev/null 2>&1; if [ $? -gt 0 ]; then printf "$i \033[1;30mnot~a~repo\033[0;m" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"; continue; else LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m"); if [ `git remote -v | wc -l` -lt 1 ]; then RSTAT=$(printf "\033[1;30morphaned\033[0;m"); else git fetch > /dev/null 2>&1; LOCAL=$(git rev-parse @); git rev-parse @{u} > /dev/null 2>&1; if [ $? -gt 0 ]; then git branch --set-upstream-to=origin/master master > /dev/null 2>&1; fi; REMOTE=$(git rev-parse @{u}); BASE=$(git merge-base @ @{u}); if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then RSTAT=$(printf "\033[0;32mcurrent\033[0;m"); elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then RSTAT=$(printf "\033[0;31mbehind\033[0;m"); elif [ $REMOTE = $BASE ]; then RSTAT=$(printf "\033[1;33mahead\033[0;m"); else RSTAT=$(printf "\033[0;33mdiverged\033[0;m"); fi; fi; echo "$i $LSTAT~$RSTAT" | awk '"'"'{printf "%-50s %s\n", $1, $2}'"'"' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"; fi; done; cd $CWD'

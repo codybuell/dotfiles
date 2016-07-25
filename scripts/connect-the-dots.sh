@@ -26,6 +26,7 @@ DIFFEXCLUDES=( \
   "-regex .*.vim.*/bundle/ultisnips/pythonx/.*.pyc" \
   "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
+  "-path *.homestead*/src/*" \
   )
 
 # what to exclude when templating (tmp files, git submodules, etc)
@@ -52,6 +53,7 @@ done
 ####################
 
 usage() {
+
   cat <<-ENDOFUSAGE
 	usage: $(basename $0) [-i file]
 
@@ -59,19 +61,23 @@ usage() {
 	  -i [file]            Dotfiles to ignore, one argument per flag
 
 	ENDOFUSAGE
+
 }
 
 prettyprint() {
+
   printf "$1" | awk '{file=$1;$1="";printf "  %-30s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
+
 }
 
 readconfig() {
+
   CONFIGVARS=()
   shopt -s extglob
   configfile="$CONFGDIR/.config"
   [[ -e $configfile ]] && {
     tr -d '\r' < $configfile > $configfile.tmp
-    while IFS='= ' read lhs rhs; do
+    while IFS='= ' read -r lhs rhs; do
       if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
         rhs="${rhs%%\#*}"    # del in line right comments
         rhs="${rhs%%*( )}"   # del trailing spaces
@@ -87,6 +93,7 @@ readconfig() {
     exit 1
   }
   rm $configfile.tmp
+
 }
 
 placefiles() {
@@ -174,6 +181,7 @@ placefiles() {
     mv $HOME/.$i.new.$DATE $HOME/.$i
 
   done
+
 }
 
 ################

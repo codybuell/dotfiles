@@ -2,9 +2,14 @@
 Name        = Cody Buell
 Email       = cody@codybuell.com
 
+# paths
+NonRepoProjects = ~/Workshop
+NotesFolder     = "'~/Google\\ Drive/Notes'"
+
 # git bits
 GitUsername = codybuell
 ReposPath   = ~/Repos
+GistsPath   = ~/Gists
 
 # api tokens
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz

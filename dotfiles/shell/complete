@@ -31,27 +31,27 @@
 # ws alias completion
 _gotows() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`ls ~/Workshop/`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls {{ NonRepoProjects }}`" -- $cur) )
 }
 complete -F _gotows ws
 
 # gist alias completion
 _gotogist() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`ls ~/Gists/`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls {{ GistsPath }}`" -- $cur) )
 }
 complete -F _gotogist gist
 
 # repo alias completion
 _gotorepos() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`ls ~/Repos/`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls {{ ReposPath }}`" -- $cur) )
 }
 complete -F _gotorepos repo
 
 # note alias completion
 _gotoeditnotes() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`ls ~/Google\ Drive/Notes/`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls {{ NotesFolder }}`" -- $cur) )
 }
 complete -F _gotoeditnotes note
