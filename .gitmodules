@@ -43,9 +43,6 @@
 [submodule "dotfiles/vim/bundle/vim-commentary"]
 	path = dotfiles/vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
-[submodule "dotfiles/vim/bundle/pinnacle"]
-	path = dotfiles/vim/bundle/pinnacle
-	url = https://github.com/wincent/pinnacle.git
 [submodule "dotfiles/vim/bundle/syntastic"]
 	path = dotfiles/vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
