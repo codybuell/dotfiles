@@ -76,3 +76,6 @@
 [submodule "dotfiles/shell/base16-shell"]
 	path = dotfiles/shell/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
+[submodule "dotfiles/homestead"]
+	path = dotfiles/homestead
+	url = https://github.com/laravel/homestead.git
