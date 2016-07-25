@@ -62,6 +62,7 @@ PACKAGES=( \
 CASKS=( \
     amazon-workspaces \
     box-sync \
+    cubicsdr \
     dockertoolbox \
     firefox \
     geektool \
