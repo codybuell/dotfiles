@@ -79,3 +79,4 @@
 [submodule "dotfiles/homestead"]
 	path = dotfiles/homestead
 	url = https://github.com/laravel/homestead.git
+  ignore = dirty
