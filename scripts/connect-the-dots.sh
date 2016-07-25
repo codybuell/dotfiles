@@ -133,7 +133,7 @@ placefiles() {
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s/{{[[:space:]]*$VAR[[:space:]]*}}/$VAL/g" {} \;
+      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s|{{[[:space:]]*$VAR[[:space:]]*}}|$VAL|g" {} \;
     done
 
     # if the target file or dir already exists

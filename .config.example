@@ -1,7 +1,40 @@
 # personal information
-Name                   = Cody Buell
-Email                  = cody@codybuell.com
-GitUsername            = codybuell
+Name        = Cody Buell
+Email       = cody@codybuell.com
+
+# git bits
+GitUsername = codybuell
+ReposPath   = ~/Repos
 
 # api tokens
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
+
+# homestead
+VMIP       = 192.168.10.10
+VMCPUs     = 1
+VMMemory   = 2048
+Provider   = virtualbox
+PublicKey  = ~/.ssh/id_rsa.pub
+PrivateKey = ~/.ssh/id_rsa
+MapFrom    = ~/Repos
+MapTo      = /home/vagrant/Repos
+
+# homestead server one (don't forget to update /etc/hosts)
+AppName01     =  homestead.app
+AppWebRoot01  =  /home/vagrant/Repos/Laravel/public
+AppDatabase01 =  homestead
+
+# homestead server two (don't forget to update /etc/hosts)
+AppName02     =  homestead.app
+AppWebRoot02  =  /home/vagrant/Repos/Laravel/public
+AppDatabase02 =  homestead
+
+# homestead server three (don't forget to update /etc/hosts)
+AppName03     =  homestead.app
+AppWebRoot03  =  /home/vagrant/Repos/Laravel/public
+AppDatabase03 =  homestead
+
+# homestead server four (don't forget to update /etc/hosts)
+AppName04     =  homestead.app
+AppWebRoot04  =  /home/vagrant/Repos/Laravel/public
+AppDatabase04 =  homestead

@@ -1,0 +1,43 @@
+---
+ip: "{{ VMIP }}"
+memory: {{ VMMemory }}
+cpus: {{ VMCPUs }}
+provider: {{ Provider }}
+
+authorize: {{ PublicKey }}
+
+keys:
+    - {{ PrivateKey }}
+
+folders:
+    - map: {{ MapFrom }}
+      to: {{ MapTo }}
+
+sites:
+    - map: {{ AppName01 }}
+      to: {{ AppWebRoot01 }}
+    - map: {{ AppName02 }}
+      to: {{ AppWebRoot02 }}
+    - map: {{ AppName03 }}
+      to: {{ AppWebRoot03 }}
+    - map: {{ AppName04 }}
+      to: {{ AppWebRoot04 }}
+
+databases:
+    - {{ AppDatabase01 }}
+    - {{ AppDatabase02 }}
+    - {{ AppDatabase03 }}
+    - {{ AppDatabase04 }}
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp

@@ -17,6 +17,6 @@ Thumbs.db
 #######################
 
 .config
-dotfiles/homestead/.vagrant
+dotfiles/homestead/src/.vagrant
 dotfiles/vim/.netrwhist
 dotfiles/vim/tmp
