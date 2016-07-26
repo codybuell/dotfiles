@@ -16,3 +16,6 @@ let g:CommandTWildIgnore.=',*.DS_Store'
 if &term =~# 'screen' || &term =~# 'xterm'
   let g:CommandTCancelMap=['<ESC>', '<C-c>']
 endif
+
+" override default colors
+let g:CommandTHighlightColor = 'GitGutterDelete'
