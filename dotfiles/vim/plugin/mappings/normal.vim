@@ -42,7 +42,7 @@ nnoremap <silent> <leader>md          :%!markdown --html4tags<CR>
 nnoremap <silent> <leader>mu          :%!markup<CR>
 
 " quick navigation
-nnoremap          <leader><leader>    <C-^>
+nnoremap          <space><space>      <C-^>
 nnoremap          <leader><leader>n   :CommandT ~/Google\ Drive/Notes/<CR>
 nnoremap          <leader><leader>c   :CommandT app/Http/Controllers/<CR>
 nnoremap          <leader><leader>r   :CommandT app/Http/Requests/<CR>
@@ -62,6 +62,7 @@ nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
 nnoremap <silent> <leader>u           :<C-U>call functions#Underline()<CR>
 nnoremap <silent> <leader>`           :<C-U>call functions#NuListToggle()<CR>
 nnoremap <silent> <leader>3           :call functions#ColorReference()<CR>
+nnoremap <silent> <leader>4           :runtime syntax/hitest.vim<CR>
 nnoremap <silent> <leader>8           :call functions#HighlightGroups()<CR>
 
 " splits

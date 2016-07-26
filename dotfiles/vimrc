@@ -16,7 +16,7 @@
 "  \1  toggle wrapping      \j  command-t jumplist   \                         "
 "  \2                       \z  zoom on split        \                         "
 "  \3  insert color ref     \q  close buffer         \                         "
-"  \4                       \w  write buffer         \                         "
+"  \4  hitest.vim           \w  write buffer         \                         "
 "  \5                       \c  fix coloring         \                         "
 "  \6                       \u  underline text       \                         "
 "  \7                       \                        \                         "
