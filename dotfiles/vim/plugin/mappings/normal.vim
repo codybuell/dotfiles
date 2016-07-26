@@ -42,6 +42,7 @@ nnoremap <silent> <leader>md          :%!markdown --html4tags<CR>
 nnoremap <silent> <leader>mu          :%!markup<CR>
 
 " quick navigation
+nnoremap          <leader><leader>    <C-^>
 nnoremap          <leader><leader>n   :CommandT ~/Google\ Drive/Notes/<CR>
 nnoremap          <leader><leader>c   :CommandT app/Http/Controllers/<CR>
 nnoremap          <leader><leader>r   :CommandT app/Http/Requests/<CR>
