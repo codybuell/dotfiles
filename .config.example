@@ -1,6 +1,7 @@
 # personal information
 Name        = Cody Buell
 Email       = cody@codybuell.com
+OSUsername  = codybuell
 
 # paths
 NonRepoProjects = ~/Workshop
