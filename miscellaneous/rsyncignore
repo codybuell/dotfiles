@@ -1,0 +1,22 @@
+/tmp/*
+/Network/*
+/cores/*
+*/.Trash
+/afs/*
+/automount/*
+/private/tmp/*
+/private/var/run/*
+/private/var/spool/postfix/*
+/private/var/vm/*
+/Previous Systems.localized
+.Spotlight-*/
+/Volumes/*
+/.dbfseventsd
+/private/var/folders/rb/
+/private/var/rpc/ncacn_np/
+/private/var/rpc/ncalrpc/
+/private/var/tmp/launchd/sock
+/Users/{{ OSUsername }}/Library/Caches/Google/Chrome/*
+/Home/{{ OSUsername }}/Library/Caches/Google/Chrome/*
+Library/Containers/*
+Library/Caches/Google/Chrome/*
