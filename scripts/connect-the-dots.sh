@@ -14,6 +14,9 @@
 # Establish Variables #
 #######################
 
+# defaults
+SKIPBACKUPS=false
+
 # define locations
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
 DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
@@ -55,9 +58,10 @@ done
 usage() {
 
   cat <<-ENDOFUSAGE
-	usage: $(basename $0) [-i file]
+	usage: $(basename $0) [-i file] [-n]
 
 	  -h, --help           Display usage information.
+	  -n, --no-backup      No backups, does not make a ".orig" copy.
 	  -i [file]            Dotfiles to ignore, one argument per flag
 
 	ENDOFUSAGE
@@ -164,14 +168,21 @@ placefiles() {
           MD5OLD=`$MD5 -q $HOME/.$i`
         fi
 
-        [[ $MD5NEW == $MD5OLD ]] && {
-           prettyprint "  .${i} \033[0;32malready there\033[0m\n"
-           rm -rf $HOME/.$i.new.$DATE
-           continue
-        } || {
-           prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
-           mv $HOME/.$i $HOME/.$i.orig.$DATE
-        }
+        # compare checksums
+        if [ $MD5NEW == $MD5OLD ]; then
+          # if the same
+          prettyprint "  .${i} \033[0;32malready there\033[0m\n"
+          rm -rf $HOME/.$i.new.$DATE
+          continue
+        elif [ $SKIPBACKUPS == 'false' ]; then
+          # if different with backups enabled
+          prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.orig.$DATE\033[0m)\n"
+          mv $HOME/.$i $HOME/.$i.orig.$DATE
+        else
+          # if different with backups disabled
+          prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
+          rm -rf $HOME/.$i
+        fi
       fi
     else
       prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
@@ -188,16 +199,20 @@ placefiles() {
 # Long Options #
 ################
 
-[ x"$1" = x"--help" ] && {
+[ x"$1" == x"--help" ] && {
   usage
   exit
+}
+
+[ x"$1" == x"--no-backup" ] && {
+  SKIPBACKUPS=true
 }
 
 #################
 # Short Options #
 #################
 
-while getopts ":hi:" Option; do
+while getopts ":hi:n" Option; do
   case $Option in
     h )
       usage
@@ -205,6 +220,9 @@ while getopts ":hi:" Option; do
       ;;
     i )
       IGNORE=(${IGNORE[@]} $OPTARG)
+      ;;
+    n )
+      SKIPBACKUPS=true
       ;;
     : )
       echo "Option -$OPTARG requires an argument." >&2
