@@ -74,6 +74,7 @@ Todo
    - set iterm preferences dir
  - [ ] work on transition to zsh
  - [ ] finish modding xoria colorscheme to fit shell, vim and tmux
+ - [ ] copy .purple finch-notify.pl plugin
 
 ### vim
 
@@ -83,11 +84,24 @@ Todo
  - [ ] build tab bar (tab number, collapsing path if needed, show buffers if no tabs, remove X in top right)
  - [ ] add syntastic error alerts to statusbar
  - [ ] build / find gulpfile snippet
+ - [ ] rework html email snippet
+ - [ ] resize statusbar when error indicator column is present >>
+ - [ ] refine ultisnips / supertab integration, tab for everything? exapand and go to next tabstop, with autocompletion?
+   - select mode mappings!! when jumping to a tabstop
+   - add select mode mapping for tab to go to next tabstop  snoremap
+   - UltiSnipsEnableSnipMate defaults to on, conflicting w ultisnips?? preventing tab??
+   - c-tab is not passed to vim, need to remap list snippets
+   - try just setting gvars for expand and next to tab, may just work w supertab, also try filling out a tabs to then hitting tab, make sure supertab works as well, if so make comment that you need supertab 
+ - [ ] refine supertab completion contexts?
+ - [ ] add conditionals to be able to open vi, not vim, without errors
+
 
 ### tmux
 
  - [ ] change default key binding to something more... comfortable
  - [ ] rework config to use scheme color names, dont hardcode the colors
+ - [ ] clipboard integration solution
+ - [ ] set mouse drag to not enter copy mode, or better solution for copying text
 
 ### shell
 
@@ -97,11 +111,18 @@ Todo
 
  - [ ] add config
 
+### ddclient
+
+ - [ ] setup ddclient file... contains sensitive info
+   - cp ddclient.conf to /usr/local/etc/ddclient/
+   - sudo brew services start ddclient
+
 ### scripts/osx.sh
 
  - [ ] trackpad gesture configs
  - [ ] systemuiserver menu extras
  - [ ] keyboard shortcut for input type switching
+ - [ ] add colemak to keyboard inputs
  - [ ] analog clock in menu
  - [ ] firewall config
  - [ ] default finder icon sizes and spacings
@@ -113,7 +134,18 @@ Todo
    - re-arrange devices
    - rearrange favorites (home dir, desktop, applications, google drive, icloud drive, downloads, repos, gists)
  - [ ] set chrome as default
+ - [ ] configure startup applications
+   - geektool
+   - keycastr
 
 ### scripts/fonts.sh
 
  - [ ] build it
+
+### scripts/vagrant.sh
+
+ - [ ] build it
+
+### hammerspoon
+
+ - [ ] check it out
