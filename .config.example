@@ -15,6 +15,11 @@ GistsPath   = ~/Gists
 # api tokens
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 
+# ddclient
+DDClientLogin    = 1234567890abcdef
+DDClientPassword = ghijklmnopqrstuv
+DDClientFQDN     = hostname.codybuell.com
+
 # homestead
 VMIP       = 192.168.10.10
 VMCPUs     = 1
