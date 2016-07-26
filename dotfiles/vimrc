@@ -14,7 +14,7 @@
 "  \=  math ("[letter]p)    \y  command-t buffers    <c-k> focus up split      "
 "  \`  toggle nu & list     \Y  command-t tags       <c-l> focus right split   "
 "  \1  toggle wrapping      \j  command-t jumplist   \                         "
-"  \2                       \z  zoom on split        \                         "
+"  \2  toggle comments      \z  zoom on split        \                         "
 "  \3  insert color ref     \q  close buffer         \                         "
 "  \4  hitest.vim           \w  write buffer         \                         "
 "  \5                       \c  fix coloring         \                         "

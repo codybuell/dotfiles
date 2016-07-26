@@ -16,6 +16,9 @@ nnoremap <silent> <leader>w           :w<CR>
 nnoremap <silent> <leader>z           :only<CR>
 nnoremap <silent> <leader>c           :syntax sync fromstart<CR>
 
+" comceal
+nnoremap <silent> <leader>2           :Comceal<CR>
+
 " nerdtree
 nnoremap <silent> <leader>-           :NERDTreeToggle<CR>
 

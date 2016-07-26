@@ -79,3 +79,6 @@
 [submodule "dotfiles/homestead/src"]
 	path = dotfiles/homestead/src
 	url = https://github.com/laravel/homestead.git
+[submodule "dotfiles/vim/bundle/vim-comceal"]
+	path = dotfiles/vim/bundle/vim-comceal
+	url = https://github.com/codybuell/vim-comceal.git
