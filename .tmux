@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get session name based on folder
-SESSION=`basename $(pwd) | sed 's/\.//g'`
+SESSION=`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'`
 
 # attach if session already exists
 if tmux has-session -t $SESSION 2> /dev/null; then
