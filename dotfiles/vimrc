@@ -6,23 +6,33 @@
 "                                                                              "
 " Mappings:                                                                    "
 "                                                                              "
+"  Leader --------->  ␣ (spacebar)                                             "
+"  Local Leader --->  \                                                        "
+"                                                                              "
 "  normal mode                                                                 "
 "  -----------                                                                 "
 "                                                                              "
-"  -   vim vinegar          \t  command-t            <c-h> focus left split    "
-"  \-  nerdtree             \T  command-t mru        <c-j> focus down split    "
-"  \=  math ("[letter]p)    \y  command-t buffers    <c-k> focus up split      "
-"  \`  toggle nu & list     \Y  command-t tags       <c-l> focus right split   "
-"  \1  toggle wrapping      \j  command-t jumplist   \                         "
-"  \2  toggle comments      \z  zoom on split        \                         "
-"  \3  insert color ref     \q  close buffer         \                         "
-"  \4  hitest.vim           \w  write buffer         \                         "
-"  \5                       \c  fix coloring         \                         "
-"  \6                       \u  underline text       \                         "
-"  \7                       \                        \                         "
-"  \8  show hl groups       \                        \                         "
-"  \9  toggle errorlist     \                        \                         "
-"  \0  toggle tagbar        \                        \                         "
+"  -   vim vinegar          ␣t  cmnd-t               <c-h> focus left split    "
+"  ␣-  nerdtree             ␣T  cmnd-t mru           <c-j> focus down split    "
+"  ␣=  math ("[letter]p)    ␣y  cmnd-t buffers       <c-k> focus up split      "
+"  ␣`  toggle nu & list     ␣Y  cmnd-t tags          <c-l> focus right split   "
+"  ␣1  toggle wrapping      ␣j  cmnd-t jumplist      <tab> toggle fold         "
+"  ␣2  toggle comments      ␣h  cmnd-t vim help      ␣w    write buffer        "
+"  ␣3  insert color ref     ␣n  cmnd-t notes         ␣q    close buffer        "
+"  ␣4  hitest.vim           ␣m  cmnd-t lv models     ␣␣    toggle buffer       "
+"  ␣5                       ␣v  cmnd-t lv views      ␣                         "
+"  ␣6                       ␣c  cmnd-t lv contrlrs   ␣                         "
+"  ␣7                       ␣st cmnd-t lv styles     ␣                         "
+"  ␣8  show hl groups       ␣sc cmnd-t lv scripts    ␣                         "
+"  ␣9  toggle errorlist     ␣                        ␣                         "
+"  ␣0  toggle tagbar        ␣                        ␣                         "
+"  ␣                        ␣                        ␣                         "
+"  ␣                        ␣ev edit vimrc           ␣                         "
+"  ␣                        ␣es edit snippets        ␣r    gen random chars    "
+"  ␣                        ␣eu edit ultisnips       ␣z    zoom on split       "
+"  ␣                        ␣er edit laravel routes  ,/    remove search hi    "
+"  ␣                        ␣ec edit laravel config  \c    fix syntax hi       "
+"  ␣                        ␣ed edit laravel db      \u    underline text      "
 "                                                                              "
 "  insert mode                                                                 "
 "  -----------                                                                 "
@@ -32,7 +42,7 @@
 "                                                                              "
 "  visual mode                                                                 "
 "  -----------                                                                 "
-"                                                                              " 
+"                                                                              "
 "  \sl sort by length       \=  math "[s|a|n|x]p                               "
 "  \so sort selection                                                          "
 "                                                                              "
@@ -53,6 +63,15 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 " define pathogen runtime roots
 execute pathogen#infect('bundle/{}')
+
+"////////////////////////"
+"//                    //"
+"//  Override Leaders  //"
+"//                    //"
+"////////////////////////"
+
+let mapleader="\<Space>"
+let maplocalleader="\\"
 
 "////////////////////////"
 "//                    //"
@@ -146,3 +165,6 @@ setglobal rnu                                      " turn on relative line numbe
 
 " let vim vinegar do its things
 let g:NERDTreeHijackNetrw = 0
+
+" easymotion don't use space space, want that for toggling buffers
+map <localleader><localleader> <Plug>(easymotion-prefix)
