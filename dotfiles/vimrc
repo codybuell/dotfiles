@@ -54,6 +54,9 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " define pathogen runtime roots
 execute pathogen#infect('bundle/{}')
 
+" always execute loading of help files
+Helptags
+
 "////////////////////////"
 "//                    //"
 "//  General Settings  //"
