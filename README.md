@@ -132,7 +132,7 @@ Todo
    - remove all my files, documents
    - add home dir repos and gists dirs
    - re-arrange devices
-   - rearrange favorites (home dir, desktop, applications, google drive, icloud drive, downloads, repos, gists)
+   - rearrange favorites (home dir, desktop, applications, google drive, icloud drive, screenshots, downloads, repos, gists)
  - [ ] set chrome as default
  - [ ] configure startup applications
    - geektool
