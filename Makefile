@@ -22,3 +22,6 @@ dots:
 
 brew:
 	scripts/brew.sh
+
+clean:
+	find ~/ -depth 1 -name \*.orig.\* -prune -exec rm -rf {} \;
