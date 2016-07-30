@@ -18,21 +18,21 @@ color() {
 
   case $1 in
     help|-h )
-      echo 'color [-h|help] [show] [set {scheme}]'
+      echo 'color [-h|help] [show|sample] [-s|set {scheme}]'
       echo
       echo 'Available schemes:'
       find "$BASE16_DIR" -name 'base16-*.sh' | \
         sed 's/.*base16-//;s/\.sh$//' | \
         column
       ;;
-    show )
+    show|sample )
       for i in {0..255}; do
         printf "\x1b[38;5;${i}mcolour${i}\n"
       done | column -x -c `echo "$(tput cols) + 45" | bc`
       ;;
-    set )
+    set|-s )
       SCHEME=$2
-      FILE="$BASE16_DIR/base16-$SCHEME.sh"
+      FILE="$BASE16_DIR/base16-${SCHEME}.sh"
       if [[ -e "$FILE" ]]; then
         if [[ ! -x "$FILE" ]]; then
           chmod 755 $FILE
@@ -45,7 +45,11 @@ color() {
       fi
       ;;
     * )
-      echo 'Unknown option: use one of {help,[scheme]}'
+      if [[ -e "$BASE16_DIR/base16-${1}.sh" ]]; then
+        color set $1
+      else
+        echo 'Unknown scheme or option: color [scheme] [-h|help] [show|sample] [-s|set {scheme}]'
+      fi
       ;;
   esac
 
