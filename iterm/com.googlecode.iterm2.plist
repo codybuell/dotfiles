@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AdjustWindowForFontSizeChange</key>
+	<false/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -69,11 +71,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 364 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>153 391 918 495 0 0 1440 900 </string>
+	<string>153 391 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>647 74 710 667 0 0 1440 900 </string>
+	<string>479 69 864 779 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>21 75 710 667 0 0 1440 900 </string>
+	<string>122 179 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>198 158 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -746,7 +748,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-24T23:36:11Z</date>
+	<date>2016-07-26T15:36:21Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
