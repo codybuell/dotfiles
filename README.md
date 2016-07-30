@@ -149,3 +149,7 @@ Todo
 ### hammerspoon
 
  - [ ] check it out
+
+### makefile
+
+ - [ ] run git submodule init and update
