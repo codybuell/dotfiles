@@ -648,6 +648,8 @@
 				<key>Red Component</key>
 				<real>0.70980000495910645</real>
 			</dict>
+			<key>Send Bell Alert</key>
+			<false/>
 			<key>Send Code When Idle</key>
 			<false/>
 			<key>Shortcut</key>
@@ -748,7 +750,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-07-26T15:36:21Z</date>
+	<date>2016-07-30T14:31:07Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
