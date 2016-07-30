@@ -27,6 +27,7 @@ DIFFEXCLUDES=( \
   "-name *.DS_Store" \
   "-regex .*.vim.*/.netrwhist" \
   "-regex .*.vim.*/bundle/ultisnips/pythonx/.*.pyc" \
+  "-regex .*.vim.*/bundle/.*/doc/tags" \
   "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
   "-path *.homestead*/src/*" \
