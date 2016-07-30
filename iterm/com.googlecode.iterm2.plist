@@ -75,7 +75,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>479 69 864 779 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>122 179 710 667 0 0 1440 900 </string>
+	<string>61 30 1368 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>198 158 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -236,7 +236,7 @@
 				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
