@@ -18,11 +18,9 @@ Installation
         cp config.example config
         # edit config to suit your needs
 
- 3. Run connect the scripts
+ 3. Run make
 
-        ~/Repos/dotfiles/scripts/connect-the-dots.sh
-
- 4. Check out scripts folder for other bits you may like
+        make [ osx | linux | osxdefs | linuxdefs | dots | brew ]
 
 Features
 --------
