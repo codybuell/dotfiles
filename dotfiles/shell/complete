@@ -22,7 +22,7 @@
 #
 #    COMPREPLY: array containing possible completions as a result of your func
 #    COMP_WORDS: an array containing individual command arguments typed so far
-#    COMP_CWORD: ommand argument index containing the current cursor position
+#    COMP_CWORD: command argument index containing the current cursor position
 #    COMP_LINE: the current command line
 #
 #    Use compgen to build completion list:
@@ -55,3 +55,18 @@ _gotoeditnotes() {
   COMPREPLY=( $(compgen -W "`eval ls {{ NotesFolder }}`" -- $cur) )
 }
 complete -F _gotoeditnotes note
+
+# color function completion
+_colorcomplete() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  local pre=${COMP_WORDS[COMP_CWORD-1]}
+  case $pre in
+    set|-s )
+      COMPREPLY=( $(compgen -W "`ls ~/.shell/base16-shell/scripts | sed 's/^base16-//;s/.sh$//'`" -- $cur) )
+      ;;
+    * )
+      COMPREPLY=( $(compgen -W "help show sample set `ls ~/.shell/base16-shell/scripts | sed 's/^base16-//;s/.sh$//'`" -- $cur) )
+      ;;
+  esac
+}
+complete -F _colorcomplete color
