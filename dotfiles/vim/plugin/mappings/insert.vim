@@ -10,8 +10,8 @@
 " overrides
 
 " customizations
-imap jj                           <esc>
-nnoremap <silent> <leader>c       <C-O>:syntax sync fromstart<CR>
+imap jj                                <esc>
+nnoremap <silent> <localleader>c       <C-O>:syntax sync fromstart<CR>
 
 " functions
-inoremap <silent> <leader>u       <C-O>:call functions#Underline()<CR>
+inoremap <silent> <localleader>u       <C-O>:call functions#Underline()<CR>

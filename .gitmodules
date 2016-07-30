@@ -82,3 +82,6 @@
 [submodule "dotfiles/vim/bundle/vim-comceal"]
 	path = dotfiles/vim/bundle/vim-comceal
 	url = https://github.com/codybuell/vim-comceal.git
+[submodule "dotfiles/vim/bundle/vim-expand-region"]
+	path = dotfiles/vim/bundle/vim-expand-region
+	url = https://github.com/terryma/vim-expand-region.git

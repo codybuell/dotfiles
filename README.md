@@ -18,11 +18,9 @@ Installation
         cp config.example config
         # edit config to suit your needs
 
- 3. Run connect the scripts
+ 3. Run make
 
-        ~/Repos/dotfiles/scripts/connect-the-dots.sh
-
- 4. Check out scripts folder for other bits you may like
+        make [ osx | linux | osxdefs | linuxdefs | dots | brew ]
 
 Features
 --------
@@ -132,7 +130,7 @@ Todo
    - remove all my files, documents
    - add home dir repos and gists dirs
    - re-arrange devices
-   - rearrange favorites (home dir, desktop, applications, google drive, icloud drive, downloads, repos, gists)
+   - rearrange favorites (home dir, desktop, applications, google drive, icloud drive, screenshots, downloads, repos, gists)
  - [ ] set chrome as default
  - [ ] configure startup applications
    - geektool
@@ -149,3 +147,7 @@ Todo
 ### hammerspoon
 
  - [ ] check it out
+
+### makefile
+
+ - [ ] run git submodule init and update
