@@ -22,12 +22,12 @@ function tmux() {
     fi
     # Prompt the first time we see a given .tmux file before running it.
     local DIGEST="$(openssl sha -sha512 .tmux)"
-    if ! grep -q "$DIGEST" ~/..tmux.digests 2> /dev/null; then
+    if ! grep -q "$DIGEST" ~/.tmux.digests 2> /dev/null; then
       cat .tmux
       echo -n "Trust (and run) this .tmux file? (t = trust, otherwise = skip): "
       read REPLY
       if [[ $REPLY =~ ^[Tt]$ ]]; then
-        echo "$DIGEST" >> ~/..tmux.digests
+        echo "$DIGEST" >> ~/.tmux.digests
         ./.tmux
         return
       fi
