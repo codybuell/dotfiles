@@ -58,11 +58,12 @@ nnoremap          <leader>sc          :CommandT resources/assets/js/<CR>
 " functions
 nnoremap <silent> <localleader>u      :<C-U>call functions#Underline()<CR>
 nnoremap <silent> <leader>r           :<C-U>call functions#RandomCharacters(v:count)<CR>
-nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
 nnoremap <silent> <leader>`           :<C-U>call functions#NuListToggle()<CR>
-nnoremap <silent> <leader>3           :call functions#ColorReference()<CR>
-nnoremap <silent> <leader>4           :runtime syntax/hitest.vim<CR>
+nnoremap <silent> <leader>3           :call functions#ToggleSyntaxHL()<CR>
+nnoremap <silent> <leader>6           :runtime syntax/hitest.vim<CR>
+nnoremap <silent> <leader>7           :call functions#ColorReference()<CR>
 nnoremap <silent> <leader>8           :call functions#HighlightGroups()<CR>
+nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
 
 " splits
 nmap <C-]>                            :tab split<CR>:exec("tag ".expand("<cword>"))<CR>

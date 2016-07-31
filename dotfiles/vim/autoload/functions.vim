@@ -16,12 +16,22 @@ endfunction
 
 " toggle error list
 function! functions#ToggleErrors() abort
-    if empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") is# "quickfix"'))
-         " no location/quickfix list shown, open syntastic error location panel
-         Errors
-    else
-        lclose
-    endif
+  if empty(filter(tabpagebuflist(), 'getbufvar(v:val, "&buftype") is# "quickfix"'))
+       " no location/quickfix list shown, open syntastic error location panel
+       Errors
+  else
+      lclose
+  endif
+endfunction
+
+" toggle syntax highlighting
+function! functions#ToggleSyntaxHL() abort
+  if exists("g:syntax_on")
+    syntax off
+  else
+    syntax enable
+    execute 'highlight Comment ' . functions#italicize_group('Comment')
+  endif
 endfunction
 
 " underline text with provided character
