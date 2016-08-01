@@ -55,6 +55,7 @@ New System Checklist
    - xcode
  - add calculator to notification center
  - install mailvelope keys
+ - add colemak to input sources
 
 ### Linux
 
