@@ -39,6 +39,9 @@ if has('statusline')
   set statusline+=%*   " reset highlight group
   set statusline+=%=   " split point for left and right groups
   set statusline+=\    " space
+  set statusline+=    " powerline arrow
+  set statusline+=%5*  " switch to User5 highlight group
+  set statusline+=\    " space
   set statusline+=ℓ    " (literal, \u2113 "SCRIPT SMALL L")
   set statusline+=\    " space
   set statusline+=%l   " current line number
@@ -50,7 +53,7 @@ if has('statusline')
   set statusline+=%c   " current column number
   set statusline+=%V   " current virtual column number (-n), if different
   set statusline+=\    " space
-  set statusline+=%1*  " switch to User1 highlight group (italics)
+  set statusline+=%6*  " switch to User6 highlight group (italics)
   set statusline+=%p   " percentage through buffer
   set statusline+=%%   " literal %
   set statusline+=\    " space

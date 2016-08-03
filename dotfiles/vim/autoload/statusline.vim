@@ -37,6 +37,9 @@ function! statusline#fenc() abort
 endfunction
 
 function! statusline#update_highlight() abort
+  " determine if gui or terminal
+  let l:prefix=has('gui') ? 'gui' : 'cterm'
+
   " update statusline to use italics
   let l:highlight=functions#italicize_group('StatusLine')
   execute 'highlight User1 ' . l:highlight
@@ -54,6 +57,14 @@ function! statusline#update_highlight() abort
   let l:fg=synIDattr(synIDtrans(hlID('Identifier')), 'fg', l:prefix)
   let l:bg=synIDattr(synIDtrans(hlID('StatusLine')), 'bg', l:prefix)
   execute 'highlight User4 ' . l:prefix . 'fg=' . l:fg . ' ' . l:prefix . 'bg=' . l:bg
+
+  " right-hand side section.
+  let l:bg=synIDattr(synIDtrans(hlID('Error')), 'fg', l:prefix)
+  let l:fg=synIDattr(synIDtrans(hlID('User3')), 'fg', l:prefix)
+  execute 'highlight User5 ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:fg
+
+  " right-hand side section + italic (used for %).
+  execute 'highlight User6 ' . l:prefix . '=italic ' . l:prefix . 'fg=' . l:bg . ' ' . l:prefix . 'bg=' . l:fg
 
   " make not-current window status lines visible against colorcolumn background
   highlight clear StatusLineNC
