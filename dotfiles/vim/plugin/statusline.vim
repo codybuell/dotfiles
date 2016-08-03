@@ -13,6 +13,9 @@ if has('statusline')
   set statusline+=%n                         " buffer number
   set statusline+=\                          " space
   set statusline+=%*                         " reset highlight group
+  set statusline+=%4*                        " switch to User4 highlight group
+  set statusline+=                          " powerline arrow
+  set statusline+=%*                         " reset highlight group
   set statusline+=\                          " space
   set statusline+=%<                         " truncation point, if not enough width available
   set statusline+=%{statusline#fileprefix()} " relative path to file's directory
