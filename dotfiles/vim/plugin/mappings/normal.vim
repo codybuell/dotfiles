@@ -5,6 +5,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " overrides
+nnoremap <silent> <Up>                :<C-u>exe 'call functions#LocationListNav("prev")'<CR>
+nnoremap <silent> <Down>              :<C-u>exe 'call functions#LocationListNav("next")'<CR>
+nnoremap <silent> <Left>              <C-O>
+nnoremap <silent> <Right>             <C-I>
 
 " customizations
 nnoremap          <enter>             @@

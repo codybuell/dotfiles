@@ -4,6 +4,19 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" improve location list navigation (expects prev or next)
+function! functions#LocationListNav(direction) abort
+  try
+    exe 'l' . a:direction
+  catch /^Vim\%((\a\+)\)\=:E553/
+    if a:direction == "prev"
+      llast
+    elseif a:direction == "next"
+      lfirst
+    endif
+  endtry
+endfunction
+
 " generate random characters
 function! functions#RandomCharacters(count) abort
   if a:count > 0
