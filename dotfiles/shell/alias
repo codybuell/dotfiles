@@ -19,8 +19,10 @@ alias :qa="exit"
 alias :wq="exit"
 
 # git
+alias gd="git diff"
 alias gi="git init && touch .gitignore && touch README.md && git add .gitignore README.md && git commit -m 'Initial commit'"
 alias gl="git lg"
+alias gp="git push"
 alias gs="git status"
 alias gc="git commit"
 alias gca="git commit -a"
