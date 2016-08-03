@@ -70,11 +70,6 @@ Todo
    - want to be able to select in tmux copy mode, paste with middle click or cmd+v
    - same for vim
    - want iterms auto word selection features
- - [ ] write wrapper script for entire repo `deploy`
-   - connect the dots
-   - run brew
-   - install fonts
-   - set iterm preferences dir
  - [ ] work on transition to zsh
  - [ ] finish modding xoria colorscheme to fit shell, vim and tmux
  - [ ] copy .purple finch-notify.pl plugin
@@ -101,7 +96,6 @@ Todo
  - [ ] toggle showing foldcolumn only when folds are currently being shown
  - [ ] clipboard integration solution, pbcopy? (define iskeyword separators, middle click to paste)
  - [ ] unbind shift-k?
- - [ ] remap arrow keys to something else? use hjkl for movement, arrows for resize or windowshifts??
 
 ### geeklets
 
