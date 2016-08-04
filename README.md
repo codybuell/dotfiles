@@ -15,8 +15,8 @@ Installation
 
  2. Copy and edit the example configuration file
 
-        cp config.example config
-        # edit config to suit your needs
+        cp .config.example .config
+        # edit .config to suit your needs
 
  3. Run make
 
