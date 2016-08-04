@@ -120,12 +120,23 @@ set noshowmode                                     " dont show modes, statusline
 set complete=.,w,b,u                               " auto complete from current file, window, buffers
 set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
-set nofoldenable                                   " open files without folding
+" set nofoldenable                                 " open files without folding
+set foldmethod=syntax                              " enable folding by syntax
 set foldlevel=1                                    " fold second level and greater
 set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
+
+" folding
+let javaScript_fold=1         " javascript
+let perl_fold=1               " perl
+let php_folding=1             " php
+let r_syntax_folding=1        " r
+let ruby_fold=1               " ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " vim script
+let xml_syntax_folding=1      " xml
 
 " custom line break symbol
 if has('linebreak')
