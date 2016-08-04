@@ -76,8 +76,7 @@ Todo
 
 ### vim
 
- - [ ] how to automate set bg=dark or light with base16 color schemes?
- - [ ] command to cycle nu rnu
+ - [ ] command to cycle nu rnu, subset of @wincent's solution
  - [ ] add mnemonics for mappings
  - [ ] build tab bar (tab number, collapsing path if needed, show buffers if no tabs, remove X in top right)
  - [ ] add syntastic error alerts to statusbar
