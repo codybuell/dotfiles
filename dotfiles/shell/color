@@ -6,6 +6,40 @@
 BASE16_DIR=~/.shell/base16-shell/scripts
 BASE16_CONFIG=~/.base16
 
+# convert hex rrggbb to its luma 0-255, pulled from @lencioni
+luma() {
+
+  COLOR_HEX=$1
+
+  if [ -z "$COLOR_HEX" ]
+  then
+    echo "Missing argument hex color (RR/GG/BB)"
+    return 1
+  fi
+
+  # extract hex channels from backround color (RR/GG/BB)
+  COLOR_HEX_RED=$(echo "$COLOR_HEX" | cut -d/ -f1)
+  COLOR_HEX_GREEN=$(echo "$COLOR_HEX" | cut -d/ -f2)
+  COLOR_HEX_BLUE=$(echo "$COLOR_HEX" | cut -d/ -f3)
+
+  # convert hex colors to decimal
+  COLOR_DEC_RED=$((16#$COLOR_HEX_RED))
+  COLOR_DEC_GREEN=$((16#$COLOR_HEX_GREEN))
+  COLOR_DEC_BLUE=$((16#$COLOR_HEX_BLUE))
+
+  # calculate perceived brightness of background per ITU-R BT.709
+  # https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
+  # http://stackoverflow.com/a/12043228/18986
+  COLOR_LUMA_RED=$(echo "0.2126 * $COLOR_DEC_RED" | bc)
+  COLOR_LUMA_GREEN=$(echo "0.7152 * $COLOR_DEC_GREEN" | bc)
+  COLOR_LUMA_BLUE=$(echo "0.0722 * $COLOR_DEC_BLUE" | bc)
+
+  COLOR_LUMA=$(echo "$COLOR_LUMA_RED + $COLOR_LUMA_GREEN + $COLOR_LUMA_BLUE" | bc)
+
+  echo "$COLOR_LUMA"
+
+}
+
 # helper function
 color() {
 
@@ -37,7 +71,11 @@ color() {
         if [[ ! -x "$FILE" ]]; then
           chmod 755 $FILE
         fi
+        SCHEME_BG=$(grep color_background= "$FILE" | cut -d\" -f2)
+        SCHEME_BG_LUMA=$(luma "$SCHEME_BG")
+        BACKGROUND=`[[ $(echo "$SCHEME_BG_LUMA <= 127.5" | bc) -eq 1 ]] && echo dark || echo light`
         echo "$SCHEME" > "$BASE16_CONFIG"
+        echo "$BACKGROUND" >> "$BASE16_CONFIG"
         "$FILE"
       else
         echo "Scheme '$SCHEME' not found in $BASE16_DIR"

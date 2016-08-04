@@ -12,19 +12,17 @@ function s:SetColorScheme()
   let g:base16colorspace=256
   let s:config_file = expand('~/.base16')
   if filereadable(s:config_file)
-    let s:config = readfile(s:config_file, '', 1)
-
-    " need a way to determine if base16 colorsheme needs dark or light!
-    set background=dark
+    let s:config = readfile(s:config_file, '', 2)
 
     if filereadable(expand('~/.vim/bundle/base16-vim/colors/base16-' . s:config[0] . '.vim'))
       execute 'color base16-' . s:config[0]
+      execute 'set background=' . s:config[1]
     else
       echoerr 'Bad scheme ' . s:config[0] . ' in ' . s:config_file
     endif
   else " default
-    set background=dark
     color base16-tomorrow-night
+    set background=dark
   endif
 
   execute 'highlight Comment ' . functions#italicize_group('Comment')

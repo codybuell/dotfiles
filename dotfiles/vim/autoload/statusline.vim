@@ -54,7 +54,7 @@ function! statusline#update_highlight() abort
 
   " inverted error styling, for left-hand side "Powerline" triangle
   let l:prefix=has('gui') ? 'gui' : 'cterm'
-  let l:fg=synIDattr(synIDtrans(hlID('Identifier')), 'fg', l:prefix)
+  let l:fg=synIDattr(synIDtrans(hlID('Error')), 'bg', l:prefix)
   let l:bg=synIDattr(synIDtrans(hlID('StatusLine')), 'bg', l:prefix)
   execute 'highlight User4 ' . l:prefix . 'fg=' . l:fg . ' ' . l:prefix . 'bg=' . l:bg
 
