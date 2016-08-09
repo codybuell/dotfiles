@@ -9,76 +9,76 @@
 # Revisions: 2016.07.18 Initial framework.
 
 PACKAGES=( \
-    ack \                   # enhanced grep like functionality for development
-    alpine \                # command line email client
-    ansible \               # configuration management utility
-    awscli \                # aws api cli client
-    bash-completion \       # bash completion, nuff said
-    bittlebee \             # google chat and other client for irssi
-    coreutils \             # gnu replacements for core utilities (gls, gdate, g*, etc)
-    ctags \                 # handy development tool, needed for vim ctags
-    ddclient \              # dynamic dns client, configurable for google dns
-    dos2unix \              # encoding conversion tool
-    ffmpeg \                # video encoding and editing utility
-    fwknop \                # port knocking
-    gcc \                   # gnu c compiler
-    gdal \                  # geographic tool for map development (org2org)
-    git \                   # git scm
-    git-lfs \               # large file support for git
-    gnu-typist \            # typing tutor, supports colemak
-    go \                    # the go programming language
-    homebrew/php/composer \ # php package manager
-    httrack \               # site mirroring application
-    imagemagick \           # command line graphics manipulation tool
-    irssi \                 # command line irc client
-    jq \                    # json manipulation and parsing tool
-    markdown \              # parsing of markdown syntax to html
-    minicom \               # modem control and serial terminal emulation
-    nmap \                  # network utility
-    node \                  # server side js
-    openssl \               # the one and only...
-    packer \                # utility for building machine templates
-    php70 \                 # (or higher)
-    php70-mcrypt \          # (or higher)  encryption library required for laravel development
-    picocom \               # used with ino for serial connection to arduino
-    pidgin \                # pidgin and finch xmpp protocol clients
-    python \                # python language
-    s3cmd \                 # aws s3 utility
-    s3sync \                # another aws s3 utility
-    sqlite \                # file based database
-    tmux \                  # terminal multiplexer
-    todo-txt \              # gina's handy to do list manager
-    tree \                  # file and directory listing utility
-    vim \                   # improved version of already installed vi
-    wakeonlan \             # wol client
-    watch \                 # handy utility for monitoring
-    weechat \               # chat client
-    webkit2png \            # tool for screenshotting websites via command line
-    wget \                  # curl alternative
-    wireshark \             # network traffic analyzer
-    zsh \                   # z-shell
+    'ack' \                     # enhanced grep like functionality for development
+    'alpine' \                  # command line email client
+    'ansible' \                 # configuration management utility
+    'awscli' \                  # aws api cli client
+    'bash-completion' \         # bash completion, nuff said
+    'bittlebee' \               # google chat and other client for irssi
+    'coreutils' \               # gnu replacements for core utilities (gls, gdate, g*, etc)
+    'ctags' \                   # handy development tool, needed for vim ctags
+    'ddclient' \                # dynamic dns client, configurable for google dns
+    'dos2unix' \                # encoding conversion tool
+    'ffmpeg' \                  # video encoding and editing utility
+    'fwknop' \                  # port knocking
+    'gcc' \                     # gnu c compiler
+    'gdal' \                    # geographic tool for map development (org2org)
+    'git' \                     # git scm
+    'git-lfs' \                 # large file support for git
+    'gnu-typist' \              # typing tutor, supports colemak
+    'go' \                      # the go programming language
+    'homebrew/php/composer' \   # php package manager
+    'httrack' \                 # site mirroring application
+    'imagemagick' \             # command line graphics manipulation tool
+    'irssi' \                   # command line irc client
+    'jq' \                      # json manipulation and parsing tool
+    'markdown' \                # parsing of markdown syntax to html
+    'minicom' \                 # modem control and serial terminal emulation
+    'nmap' \                    # network utility
+    'node' \                    # server side js
+    'openssl' \                 # the one and only...
+    'packer' \                  # utility for building machine templates
+    'php70' \                   # (or higher)
+    'php70-mcrypt' \            # (or higher)  encryption library required for laravel development
+    'picocom' \                 # used with ino for serial connection to arduino
+    'pidgin' \                  # pidgin and finch xmpp protocol clients
+    'python' \                  # python language
+    's3cmd' \                   # aws s3 utility
+    's3sync' \                  # another aws s3 utility
+    'sqlite' \                  # file based database
+    'tmux' \                    # terminal multiplexer
+    'todo-txt' \                # gina's handy to do list manager
+    'tree' \                    # file and directory listing utility
+    'vim' \                     # improved version of already installed vi
+    'wakeonlan' \               # wol client
+    'watch' \                   # handy utility for monitoring
+    'weechat' \                 # chat client
+    'webkit2png' \              # tool for screenshotting websites via command line
+    'wget' \                    # curl alternative
+    'wireshark' \               # network traffic analyzer
+    'zsh' \                     # z-shell
 )
 
 CASKS=( \
-    amazon-workspaces \     # aws vdi client
-    box-sync \              # file collaboration
-    cubicsdr \              # good sdr dongle front end
-    dockertoolbox \         # docker suite for osx
-    firefox \               # alternative web browser
-    geektool \              # desktop information center
-    google-drive \          # file collaboration
-    inkscape \              # open source vector graphics application
-    imageoptim \            # image file optimizer
-    iterm2 \                # improved terminal emulator
-    keycastr \              # show keystrokes on screen
-    libreoffice \           # open source office suite
-    qlstephen \             # ability to open all plain text files in ql
-    sketch \                # graphics design and layout
-    slack \                 # collaboration and chat application
-    vagrant \               # vm's as packages management solution
-    virtualbox \            # virtualization utility
-    vmware-horizon-client \ # vdi client
-    xquartz \               # osx's implemenrtation of x11
+    'amazon-workspaces' \       # aws vdi client
+    'box-sync' \                # file collaboration
+    'cubicsdr' \                # good sdr dongle front end
+    'dockertoolbox' \           # docker suite for osx
+    'firefox' \                 # alternative web browser
+    'geektool' \                # desktop information center
+    'google-drive' \            # file collaboration
+    'inkscape' \                # open source vector graphics application
+    'imageoptim' \              # image file optimizer
+    'iterm2' \                  # improved terminal emulator
+    'keycastr' \                # show keystrokes on screen
+    'libreoffice' \             # open source office suite
+    'qlstephen' \               # ability to open all plain text files in ql
+    'sketch' \                  # graphics design and layout
+    'slack' \                   # collaboration and chat application
+    'vagrant' \                 # vm's as packages management solution
+    'virtualbox' \              # virtualization utility
+    'vmware-horizon-client' \   # vdi client
+    'xquartz' \                 # osx's implemenrtation of x11
 )
 
 # install brew if necessary
@@ -95,12 +95,12 @@ brew upgrade
 
 # install brew packages
 for i in ${PACKAGES[@]}; do
-  echo "brew install $i"
-  #brew install $i
+  # echo "brew install $i"
+  brew install $i
 done
 
 # install brew casks
 for i in ${CASKS[@]}; do
-  echo "brew cask install $i"
-  #brew cask install $i
+  # echo "brew cask install $i"
+  brew cask install $i
 done
