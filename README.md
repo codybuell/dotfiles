@@ -93,7 +93,7 @@ Todo
  - [ ] add conditionals to be able to open vi, not vim, without errors
  - [ ] skim hacks, notes, and repos for handy snippets (getopts, prompts, etc)
  - [ ] toggle showing foldcolumn only when folds are currently being shown
- - [ ] clipboard integration solution, pbcopy? (define iskeyword separators, middle click to paste)
+ - [ ] clipboard integration solution, pbcopy? (define iskeyword separators, middle click to paste, help iskeyword)
  - [ ] unbind shift-k?
 
 ### geeklets
@@ -107,6 +107,11 @@ Todo
  - [ ] change default key binding to something more... comfortable
  - [ ] rework config to use scheme color names, dont hardcode the colors
  - [ ] clipboard integration solution, pbcopy? (define word-separators, middle click to paste)
+
+        # word delimiters for copy mode
+        set-window-option -g word-separators ' @"=:,.()[]'
+        set-window-option -ag word-separators "'"
+
  - [ ] set mouse drag to not enter copy mode, or better solution for copying text
 
 ### shell
