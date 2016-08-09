@@ -66,6 +66,7 @@ CASKS=( \
     'firefox' \                 # alternative web browser
     'geektool' \                # desktop information center
     'google-drive' \            # file collaboration
+    'hammerspoon' \             # osx automation tool
     'inkscape' \                # open source vector graphics application
     'imageoptim' \              # image file optimizer
     'iterm2' \                  # improved terminal emulator
