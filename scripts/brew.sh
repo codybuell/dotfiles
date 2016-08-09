@@ -14,7 +14,7 @@ PACKAGES=( \
     'ansible' \                 # configuration management utility
     'awscli' \                  # aws api cli client
     'bash-completion' \         # bash completion, nuff said
-    'bittlebee' \               # google chat and other client for irssi
+    'bitlbee' \                 # google chat and other client for irssi
     'coreutils' \               # gnu replacements for core utilities (gls, gdate, g*, etc)
     'ctags' \                   # handy development tool, needed for vim ctags
     'ddclient' \                # dynamic dns client, configurable for google dns
@@ -44,7 +44,6 @@ PACKAGES=( \
     'pidgin' \                  # pidgin and finch xmpp protocol clients
     'python' \                  # python language
     's3cmd' \                   # aws s3 utility
-    's3sync' \                  # another aws s3 utility
     'sqlite' \                  # file based database
     'tmux' \                    # terminal multiplexer
     'todo-txt' \                # gina's handy to do list manager
