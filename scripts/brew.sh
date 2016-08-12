@@ -70,6 +70,7 @@ CASKS=( \
     'inkscape' \                # open source vector graphics application
     'imageoptim' \              # image file optimizer
     'iterm2' \                  # improved terminal emulator
+    'karabiner' \               # keyboard layout customization
     'keycastr' \                # show keystrokes on screen
     'libreoffice' \             # open source office suite
     'qlstephen' \               # ability to open all plain text files in ql
