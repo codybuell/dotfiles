@@ -1,5 +1,6 @@
 case `basename $SHELL` in
   bash )
+    . ~/.shell/bash
     . ~/.shell/path
     . ~/.shell/function
     . ~/.shell/alias
@@ -8,8 +9,8 @@ case `basename $SHELL` in
     . ~/.shell/export
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
       . $(brew --prefix)/etc/bash_completion
+      . ~/.shell/complete
     fi
-    . ~/.shell/complete
     ;;
   zsh )
     ;;
