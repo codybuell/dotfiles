@@ -15,7 +15,7 @@ let g:syntastic_check_on_open = 1             " check syntax on opening of files
 let g:syntastic_check_on_wq   = 0             " don't check on write quit
 
 " ignore specific html errors across all variants of file types
-let g:syntastic_html_tity_ignore_errors = [
+let g:syntastic_html_tidy_ignore_errors = [
   \   '<link> property attribute "sizes"',
   \ ]
 
@@ -44,6 +44,12 @@ au FileType blade let g:syntastic_html_tidy_ignore_errors += [
   \  'discarding unexpected <g>',
   \  'discarding unexpected </g>',
   \  '<a> escaping malformed URI reference',
+  \ ]
+
+" ignore specific html errors that cannot be avoided in php files
+au FileType php.html let g:syntastic_html_tidy_ignore_errors += [
+  \  '<link> escaping malformed URI reference',
+  \  '<html> proprietary attribute "NULL"',
   \ ]
 
 " ignore message type and regex's specific to blade templating files
