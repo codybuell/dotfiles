@@ -74,6 +74,7 @@ CASKS=( \
     'keycastr' \                # show keystrokes on screen
     'libreoffice' \             # open source office suite
     'qlstephen' \               # ability to open all plain text files in ql
+    'seil' \                    # utility for remapping caps lock
     'sketch' \                  # graphics design and layout
     'slack' \                   # collaboration and chat application
     'vagrant' \                 # vm's as packages management solution
