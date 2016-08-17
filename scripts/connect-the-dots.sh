@@ -30,6 +30,7 @@ DIFFEXCLUDES=( \
   "-regex .*.vim.*/bundle/.*/doc/tags" \
   "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
+  "-path *.vim*/view/*" \
   "-path *.homestead*/src/*" \
   )
 
