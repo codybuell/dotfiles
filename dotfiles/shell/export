@@ -21,5 +21,5 @@ export TODOTXT_SORT_COMMAND="env LC_COLLATE=C sort -k 2,2 -k 1,1n"
 
 # command prompt
 if command -v scutil &> /dev/null; then
-  export PS1="$(scutil --get ComputerName | tr [A-Z] [a-z]):\W \u\\$ "
+  export PS1=" $(scutil --get ComputerName | tr [A-Z] [a-z]):\W \u\\$ "
 fi

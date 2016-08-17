@@ -13,6 +13,7 @@ PACKAGES=( \
     'alpine' \                  # command line email client
     'ansible' \                 # configuration management utility
     'awscli' \                  # aws api cli client
+    'bash' \                    # newer version of bash
     'bash-completion' \         # bash completion, nuff said
     'bitlbee' \                 # google chat and other client for irssi
     'coreutils' \               # gnu replacements for core utilities (gls, gdate, g*, etc)

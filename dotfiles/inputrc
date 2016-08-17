@@ -1,0 +1,18 @@
+# display vi mode (needs bash 4.3 or newer)
+set show-mode-in-prompt on
+set vi-cmd-mode-string '+'
+set vi-ins-mode-string '+'
+
+# set vi editing mode (defaults to emacs)
+set editing-mode vi
+
+# get ctrl-l back to clear screen
+$if mode=vi
+  # these are for vi-command mode
+  set keymap vi-command
+  Control-l: clear-screen
+
+  # these are for vi-insert mode
+  set keymap vi-insert
+  Control-l: clear-screen 
+$endif

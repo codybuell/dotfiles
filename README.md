@@ -63,6 +63,9 @@ New System Checklist
  - install mailvelope keys
  - add colemak to input sources
  - System Preferences -> Keyboard -> Modifier Keys -> Caps Lock to No Action or Control
+ - add /usr/local/bin/bash to end of /etc/shells
+
+        chsh -s /usr/local/bin/bash $USER
 
 ### Linux
 
