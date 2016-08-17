@@ -62,6 +62,7 @@ New System Checklist
  - add calculator to notification center
  - install mailvelope keys
  - add colemak to input sources
+ - System Preferences -> Keyboard -> Modifier Keys -> Caps Lock to No Action or Control
 
 ### Linux
 
@@ -185,3 +186,7 @@ Todo
 ### makefile
 
  - [ ] run git submodule init and update
+
+### karabiner
+
+ - swap numbers and symbols
