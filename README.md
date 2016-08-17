@@ -27,6 +27,12 @@ Features
 
 ### vim
 
+ - colemak minimal rebindind for `hjkl` to somethind more intuitive since they are not mnemonic driven
+   - k (qwerty n) -> down
+   - h (qwerty h) -> up
+   - j (qwerty y) -> left
+   - l (qwerty u) -> right
+
 ### tmux
 
 ### brew

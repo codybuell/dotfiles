@@ -3,6 +3,9 @@ Name        = Cody Buell
 Email       = cody@codybuell.com
 OSUsername  = codybuell
 
+# keyboard layout (qwerty|colemak)
+KBLayout = qwerty
+
 # paths
 NonRepoProjects = ~/Workshop
 NotesFolder     = "'~/Google\\ Drive/Notes'"

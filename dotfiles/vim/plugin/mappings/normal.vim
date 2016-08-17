@@ -10,6 +10,18 @@ nnoremap <silent> <Down>              :<C-u>exe 'call functions#LocationListNav(
 nnoremap <silent> <Left>              <C-O>
 nnoremap <silent> <Right>             <C-I>
 
+" colemak hjkl workaround
+#COLEMAKnoremap  h                            k
+#COLEMAKnoremap  j                            h
+#COLEMAKnoremap  k                            j
+
+#COLEMAKnoremap  <C-w>h                       <C-w>k
+#COLEMAKnoremap  <C-w>j                       <C-w>h
+#COLEMAKnoremap  <C-w>k                       <C-w>j
+#COLEMAKnoremap  <C-w>H                       <C-w>K
+#COLEMAKnoremap  <C-w>J                       <C-w>H
+#COLEMAKnoremap  <C-w>K                       <C-w>J
+
 " customizations
 nnoremap          <enter>             @@
 nnoremap          <tab>               za
