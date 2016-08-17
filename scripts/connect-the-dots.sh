@@ -133,7 +133,7 @@ placefiles() {
         }
         # add hjkl rebindings if colemak
         [[ $KBLayout == 'colemak' ]] && {
-          sed -i '' 's/^#COLEMAK//' ~/.vim.new.$DATE/plugin/mappings/normal.vim
+          sed -i '' 's/^"COLEMAK//' ~/.vim.new.$DATE/plugin/mappings/normal.vim
         }
         ;;
       terminfo )
