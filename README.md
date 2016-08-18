@@ -197,4 +197,4 @@ Todo
 
 ### karabiner
 
- - swap numbers and symbols
+ - swap numbers and symbols?
