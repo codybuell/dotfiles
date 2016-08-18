@@ -62,6 +62,7 @@ New System Checklist
  - add calculator to notification center
  - install mailvelope keys
  - add colemak to input sources
+   - configure shortcuts, alt command space set to select next previous input source, unset from spotlight finder search
  - System Preferences -> Keyboard -> Modifier Keys -> Caps Lock to No Action or Control
  - add /usr/local/bin/bash to end of /etc/shells
 
