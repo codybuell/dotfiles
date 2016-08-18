@@ -67,6 +67,11 @@ New System Checklist
 
         chsh -s /usr/local/bin/bash $USER
 
+ - configure startup items
+   - volume for itunes
+   - google drive
+   - karabiner
+
 ### Linux
 
 
