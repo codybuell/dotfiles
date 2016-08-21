@@ -72,6 +72,7 @@ New System Checklist
    - volume for itunes
    - google drive
    - karabiner
+   - keycastr
 
 ### Linux
 
@@ -199,3 +200,7 @@ Todo
 ### karabiner
 
  - swap numbers and symbols?
+
+### keycastr
+
+ - add keycastr configfile to repo and deploy w make
