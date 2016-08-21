@@ -38,6 +38,6 @@ function tmux() {
   fi
 
   # attach to existing session, or create one, based on current directory.
-  SESSION_NAME=$(basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
+  SESSION_NAME=$([[ `pwd` == $HOME ]] && echo '~' || basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
 }
