@@ -56,6 +56,7 @@ New System Checklist
    - microsoft remote desktop
    - screenflow
    - spriteright
+   - visualize
    - volume for itunes
    - wifi explorer
    - xcode
@@ -73,6 +74,7 @@ New System Checklist
    - google drive
    - karabiner
    - keycastr
+   - visualize
 
 ### Linux
 
@@ -204,3 +206,12 @@ Todo
 ### keycastr
 
  - add keycastr configfile to repo and deploy w make
+
+### screenflow
+
+ - copy settings to repo and deploy w make (text overlay color, font etc.)
+ - ctrl + alt + command + space = toggle recording
+
+### visualize
+
+ - copy settings to repo and deploy w make (text overlay color, font etc.)
