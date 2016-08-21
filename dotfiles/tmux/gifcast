@@ -1,0 +1,20 @@
+# tmux gifcast layout
+#
+# .--------------------.
+# |                    |
+# |                    |
+# |          1         |
+# |                    |
+# |                    |
+# |--------------------|
+# |          2         |
+# '--------------------'
+
+set pane-active-border-fg '#333333'
+
+selectp -t 1
+splitw -v -l 3
+
+send-keys -t 2 "watch -t -n 1 echo" Enter
+
+selectp -t 1
