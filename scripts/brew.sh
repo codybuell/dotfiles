@@ -24,6 +24,7 @@ PACKAGES=( \
     'fwknop' \                  # port knocking
     'gcc' \                     # gnu c compiler
     'gdal' \                    # geographic tool for map development (org2org)
+    'gifsicle' \                # creating gifs from videos
     'git' \                     # git scm
     'git-lfs' \                 # large file support for git
     'gnu-typist' \              # typing tutor, supports colemak
