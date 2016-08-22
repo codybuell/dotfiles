@@ -62,6 +62,7 @@ PACKAGES=( \
 
 CASKS=( \
     'amazon-workspaces' \       # aws vdi client
+    'balsamiq-mockups' \        # wireframing tool
     'box-sync' \                # file collaboration
     'cubicsdr' \                # good sdr dongle front end
     'dockertoolbox' \           # docker suite for osx
@@ -75,6 +76,7 @@ CASKS=( \
     'karabiner' \               # keyboard layout customization
     'keycastr' \                # show keystrokes on screen
     'libreoffice' \             # open source office suite
+    'licecap' \                 # gifcasting utility
     'qlstephen' \               # ability to open all plain text files in ql
     'seil' \                    # utility for remapping caps lock
     'sketch' \                  # graphics design and layout
