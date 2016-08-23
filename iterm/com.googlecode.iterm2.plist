@@ -65,19 +65,27 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1426 343 445 103 0 0 2560 1440 </string>
-	<key>NSWindow Frame SUStatusFrame</key>
-	<string>2031 1124 400 129 0 0 2560 1440 </string>
+	<string>370 116 647 77 0 0 1440 900 </string>
+	<key>NSWindow Frame Preferences</key>
+	<string>441 408 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 787 620 392 0 0 2560 1440 </string>
+	<string>410 382 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>219 855 796 473 0 0 2560 1440 </string>
+	<string>153 330 796 473 0 0 1440 900 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>99 316 592 584 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1313 409 1053 811 0 0 2560 1440 </string>
+	<string>712 163 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>75 193 710 667 0 0 2560 1440 </string>
+	<string>0 233 710 667 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>565 388 710 667 0 0 2560 1440 </string>
+	<string>198 158 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>536 163 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 4</key>
+	<string>260 233 710 667 0 0 1440 900 </string>
+	<key>NSWindow Frame iTerm Window 5</key>
+	<string>281 233 710 667 0 0 1440 900 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1215,12 +1223,14 @@
 			<string>SourceCodePro-Light 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
+			<key>Prevent Opening in a Tab</key>
+			<true/>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>40</integer>
+			<integer>33</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1276,21 +1286,29 @@
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
-			<integer>0</integer>
+			<integer>8</integer>
 			<key>Working Directory</key>
 			<string>/Users/pbuell</string>
 		</dict>
 	</array>
+	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<true/>
+	<key>NoSyncConfirmBeta</key>
+	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>07757747-036E-4BEB-ACB7-88CC02763A31</string>
+	<string>9866A073-E42C-4F7B-8F36-75B6AA2A0515</string>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>490754998.88330698</real>
+	<real>485539161.81388402</real>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>483373845.02238703</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>485460187.83955097</real>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1333,19 +1351,19 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=2</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=85</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-20T20:23:56Z</date>
-	<key>SUSendProfileInfo</key>
-	<false/>
+	<date>2016-08-23T23:45:39Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>ThreeFingerEmulates</key>
 	<true/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1470364416</real>
 	<key>WordCharacters</key>
 	<string>/-+\~_.:</string>
 	<key>iTerm Version</key>
