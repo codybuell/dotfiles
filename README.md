@@ -215,3 +215,7 @@ Todo
 ### visualize
 
  - copy settings to repo and deploy w make (text overlay color, font etc.)
+
+### go
+
+https://github.com/fatih/vim-go or roll your own
