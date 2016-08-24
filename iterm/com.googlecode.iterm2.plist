@@ -79,7 +79,7 @@
 	<key>NSWindow Frame com.apple.typography_panel_CourierNewPSMT</key>
 	<string>776 1179 260 87 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1724 448 710 667 0 0 2560 1440 </string>
+	<string>0 0 710 532 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>339 376 710 667 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
@@ -936,7 +936,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>tmux new -A -s "~" "tmux selectp -t 1; tmux split -v; tmux split -v -l 3; tmux send-keys -t 3 'watch -t -n 1 echo' Enter; tmux selectp -t 2; tmux set pane-active-border-fg '#333333'"</string>
+			<string>tmux new -A -s "gifcast" "tmux selectp -t 1; tmux split -v; tmux split -v -l 3; tmux send-keys -t 3 'watch -t -n 1 echo' Enter; tmux selectp -t 2; tmux set pane-active-border-fg '#333333'"</string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
