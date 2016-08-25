@@ -30,8 +30,6 @@
 	<true/>
 	<key>NSFontPanelAttributes</key>
 	<string>1, 4</string>
-	<key>NSFontPanelSizeSliderParams</key>
-	<string>2 0 100</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/Repos/dotfiles/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -55,7 +53,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>307</string>
+		<string>322</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -67,39 +65,21 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>596 84 770 137 0 0 2560 1440 </string>
-	<key>NSWindow Frame Preferences</key>
-	<string>1227 965 606 456 0 0 2560 1440 </string>
+	<string>1426 101 445 77 0 0 2560 1440 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>1601 1123 400 129 0 0 2560 1417 </string>
+	<string>2031 1124 400 129 0 0 2560 1440 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 787 620 392 0 0 2560 1440 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>269 76 599 519 0 0 2560 1440 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>303 215 796 473 0 0 2560 1440 </string>
-	<key>NSWindow Frame com.apple.typography_panel_CourierNewPSMT</key>
-	<string>776 1179 260 87 0 0 2560 1417 </string>
+	<string>191 954 796 473 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 710 532 0 0 2560 1440 </string>
+	<string>0 0 810 604 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>339 376 710 667 0 0 2560 1440 </string>
-	<key>NSWindow Frame iTerm Window 10</key>
-	<string>18 13 585 950 0 0 2560 1417 </string>
+	<string>1565 97 892 667 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>130 410 710 667 0 0 2560 1440 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>937 202 710 667 0 0 2560 1440 </string>
-	<key>NSWindow Frame iTerm Window 4</key>
-	<string>2634 122 1075 1077 2560 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>212 129 1019 1273 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>1494 230 1047 376 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 7</key>
-	<string>597 530 585 306 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 8</key>
-	<string>8 530 585 306 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 9</key>
-	<string>622 10 585 950 0 0 2560 1417 </string>
+	<string>1019 59 710 667 0 0 2560 1440 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -936,7 +916,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>tmux new -A -s "gifcast" "tmux selectp -t 1; tmux split -v; tmux split -v -l 3; tmux send-keys -t 3 'watch -t -n 1 echo' Enter; tmux selectp -t 2; tmux set pane-active-border-fg '#333333'"</string>
+			<string>tmux new -A -s "gifcast" "tmux split -v -p 100; tmux split -v -l 3; tmux split -t 2 -v -l 1 -b; tmux selectp -t 2; tmux send-keys -t 3 'watch -t -n 60 echo' Enter; tmux send-keys -t 4 'watch -t -n 60 echo' Enter; tmux set pane-active-border-fg '#333333'"</string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1236,7 +1216,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SourceCodePro-Light 11</string>
+			<string>SourceCodePro-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prevent Opening in a Tab</key>
@@ -1246,7 +1226,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>33</integer>
+			<integer>30</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1307,36 +1287,16 @@
 			<string>/Users/pbuell</string>
 		</dict>
 	</array>
-	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
-	<true/>
-	<key>NoSyncConfirmBeta</key>
-	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
 	<true/>
 	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
 	<integer>0</integer>
-	<key>NoSyncHaveShownPromoWithId_4</key>
-	<true/>
-	<key>NoSyncInstallUtilitiesPackage</key>
-	<true/>
-	<key>NoSyncInstallUtilitiesPackage_selection</key>
-	<integer>0</integer>
 	<key>NoSyncInstallationId</key>
-	<string>945F1D52-7CB7-4DA7-B0EE-4B03A1B9BFC1</string>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>1</integer>
+	<string>07757747-036E-4BEB-ACB7-88CC02763A31</string>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
-	<key>NoSyncSilenceAnnoyingBellAutomatically</key>
-	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>478104795.87505198</real>
-	<key>NoSyncTimeOfLastPromo</key>
-	<real>478102260.55858201</real>
-	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>478102252.93947798</real>
+	<real>490754998.88330698</real>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1379,11 +1339,13 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=64</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=2</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-24T13:53:54Z</date>
+	<date>2016-08-24T20:25:47Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
