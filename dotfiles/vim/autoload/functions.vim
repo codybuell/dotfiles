@@ -8,11 +8,15 @@
 function! functions#LocationListNav(direction) abort
   try
     exe 'l' . a:direction
-  catch /^Vim\%((\a\+)\)\=:E553/
-    if a:direction == "prev"
-      llast
-    elseif a:direction == "next"
-      lfirst
+  catch /^Vim\%((\a\+)\)\=:E/
+    if v:exception =~#".*E42: No Errors$"
+      echo 'No Errors'
+    else
+      if a:direction == "prev"
+        llast
+      elseif a:direction == "next"
+        lfirst
+      endif
     endif
   endtry
 endfunction
