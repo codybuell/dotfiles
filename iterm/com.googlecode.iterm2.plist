@@ -79,7 +79,7 @@
 	<key>NSWindow Frame com.apple.typography_panel_CourierNewPSMT</key>
 	<string>776 1179 260 87 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1000 679 0 0 2560 1440 </string>
+	<string>0 0 640 404 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>339 376 710 667 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
@@ -1236,7 +1236,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SourceCodePro-Light 19</string>
+			<string>SourceCodePro-Light 11</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prevent Opening in a Tab</key>
@@ -1246,7 +1246,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>25</integer>
+			<integer>30</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1383,7 +1383,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-08-26T13:57:24Z</date>
+	<date>2016-08-30T13:58:16Z</date>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
 	<key>TabStyle</key>
