@@ -21,5 +21,6 @@
 #   https://github.com/Homebrew/legacy-homebrew.git
 #   https://github.com/fhd/init-script-template.git
 #   https://github.com/adobe-fonts/source-code-pro.git
+#   https://github.com/adobe-fonts/source-sans-pro.git
 #   https://github.com/d3/d3.git
 #   https://github.com/mbostock/stack.git
