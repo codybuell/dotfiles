@@ -37,7 +37,7 @@ PACKAGES=( \
     'markdown' \                # parsing of markdown syntax to html
     'minicom' \                 # modem control and serial terminal emulation
     'nmap' \                    # network utility
-    'node --without-npm' \      # server side js
+    'node' \                    # server side js
     'openssl' \                 # the one and only...
     'packer' \                  # utility for building machine templates
     'php70' \                   # (or higher)
