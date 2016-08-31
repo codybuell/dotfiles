@@ -64,7 +64,7 @@ New System Checklist
  - install mailvelope keys
  - add colemak to input sources
    - configure shortcuts, alt command space set to select next previous input source, unset from spotlight finder search
- - System Preferences -> Keyboard -> Modifier Keys -> Caps Lock to No Action or Control
+ - System Preferences -> Keyboard -> Modifier Keys -> Caps Lock to Control
  - add /usr/local/bin/bash to end of /etc/shells
 
         chsh -s /usr/local/bin/bash $USER
