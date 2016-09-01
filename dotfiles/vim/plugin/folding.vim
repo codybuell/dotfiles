@@ -28,7 +28,7 @@ function! CustomFoldText()
     let w = winwidth(0) - &foldcolumn - ncw - (len(signlist) > 2 ? 2 : 0)
     let foldSize = 1 + v:foldend - v:foldstart
     let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("  ", v:foldlevel)
+    let foldLevelStr = repeat("  ", v:foldlevel - 1)
     let lineCount = line("$")
     let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
     let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
