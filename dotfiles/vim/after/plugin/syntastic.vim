@@ -10,7 +10,7 @@
 " set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1  " populate locaiton list w/ errors
-let g:syntastic_auto_loc_list = 0             " don't show error list location
+let g:syntastic_auto_loc_list = 1             " show error list location
 let g:syntastic_check_on_open = 1             " check syntax on opening of files
 let g:syntastic_check_on_wq   = 0             " don't check on write quit
 
