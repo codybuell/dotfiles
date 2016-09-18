@@ -43,6 +43,7 @@ nnoremap <silent> <leader>0           :TagbarToggle<CR>
 
 " commandt
 nnoremap <silent> <leader>t           :CommandT<CR>
+nnoremap <silent> <leader>.           :CommandT %:p:h<CR>
 nnoremap <silent> <leader>y           :CommandTBuffer<CR>
 nnoremap <silent> <leader>T           :CommandTMRU<CR>
 nnoremap <silent> <leader>Y           :CommandTTag<CR>
