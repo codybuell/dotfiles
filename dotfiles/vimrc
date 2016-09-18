@@ -184,3 +184,6 @@ let g:NERDTreeHijackNetrw = 0
 
 " easymotion don't use space space, want that for toggling buffers
 map <localleader><localleader> <Plug>(easymotion-prefix)
+
+" use enter to identify completion selection (C-y is the default)
+let g:SuperTabCrMapping=1
