@@ -158,7 +158,7 @@ else
   set viminfo+=n~/.vim/tmp/viminfo
   set viewdir=~/.vim/tmp/view
   set undodir=~/.vim/tmp/undo
-  set undofile
+  " set undofile
 endif
 
 " highlight when slopping over 80 columns
