@@ -1,7 +1,7 @@
 # display vi mode (needs bash 4.3 or newer)
 set show-mode-in-prompt on
-set vi-cmd-mode-string '+'
-set vi-ins-mode-string '+'
+set vi-cmd-mode-string :
+set vi-ins-mode-string +
 
 # set vi editing mode (defaults to emacs)
 set editing-mode vi
