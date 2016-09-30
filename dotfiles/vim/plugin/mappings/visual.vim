@@ -11,3 +11,7 @@ vmap <leader>so                   !sort<CR>
 " expand region
 vmap         v                    <Plug>(expand_region_expand)
 vmap         <C-v>                <Plug>(expand_region_shrink)
+
+" improved copy & paste
+vnoremap     <silent> y           y`]
+vnoremap     <silent> p           p`]

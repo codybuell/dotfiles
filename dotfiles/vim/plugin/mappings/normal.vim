@@ -22,6 +22,9 @@ nnoremap <silent> <Down>              :<C-u>exe 'call functions#LocationListNav(
 nnoremap <silent> <Left>              <C-O>
 nnoremap <silent> <Right>             <C-I>
 
+" improved copy & paste
+nnoremap <silent> p                   p`]
+
 " customizations
 nnoremap          <enter>             @@
 nnoremap          <tab>               za
