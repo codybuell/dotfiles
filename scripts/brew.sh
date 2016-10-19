@@ -16,6 +16,7 @@ PACKAGES=( \
     'bash' \                         # newer version of bash
     'bash-completion' \              # bash completion, nuff said
     'bitlbee' \                      # google chat and other client for irssi
+    'cdrtools' \                     # contains mkisofs for building custom linux isos
     'coreutils' \                    # gnu replacements for core utilities (gls, gdate, g*, etc)
     'ctags' \                        # handy development tool, needed for vim ctags
     'ddclient' \                     # dynamic dns client, configurable for google dns
