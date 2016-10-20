@@ -170,7 +170,7 @@ placefiles() {
       # if it is not a symlink compare it
       else
         # determine md5 binary name
-        which md5 > /dev/null
+        which md5 > /dev/null 2>&1
         MD5=`[[ $? -gt 0 ]] && echo md5sum || echo md5`
 
         # gather the checksums
