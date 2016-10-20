@@ -173,7 +173,7 @@ placefiles() {
         which md5 > /dev/null 2>&1
         [[ $? -gt 0 ]] && {
           MD5='md5sum'
-          MD5Q='md5sum --quiet'
+          MD5Q='md5sum'
         } || {
           MD5='md5'
           MD5Q='md5 -q'
@@ -181,11 +181,11 @@ placefiles() {
 
         # gather the checksums
         if [ -d $HOME/.$i ]; then
-          MD5NEW=`find $HOME/.$i.new.$DATE $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
-          MD5OLD=`find $HOME/.$i $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
+          MD5NEW=`find $HOME/.$i.new.$DATE $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5 | awk '{print $1}'`
+          MD5OLD=`find $HOME/.$i $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5 | awk '{print $1}'`
         else
-          MD5NEW=`$MD5Q $HOME/.$i.new.$DATE`
-          MD5OLD=`$MD5Q $HOME/.$i`
+          MD5NEW=`$MD5Q $HOME/.$i.new.$DATE | awk '{print $1}'`
+          MD5OLD=`$MD5Q $HOME/.$i | awk '{print $1}'`
         fi
 
         # compare checksums
