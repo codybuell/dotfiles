@@ -171,15 +171,21 @@ placefiles() {
       else
         # determine md5 binary name
         which md5 > /dev/null 2>&1
-        MD5=`[[ $? -gt 0 ]] && echo md5sum || echo md5`
+        [[ $? -gt 0 ]] && {
+          MD5='md5sum'
+          MD5Q='md5sum --quiet'
+        } || {
+          MD5='md5'
+          MD5Q='md5 -q'
+        }
 
         # gather the checksums
         if [ -d $HOME/.$i ]; then
           MD5NEW=`find $HOME/.$i.new.$DATE $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
           MD5OLD=`find $HOME/.$i $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5`
         else
-          MD5NEW=`$MD5 -q $HOME/.$i.new.$DATE`
-          MD5OLD=`$MD5 -q $HOME/.$i`
+          MD5NEW=`$MD5Q $HOME/.$i.new.$DATE`
+          MD5OLD=`$MD5Q $HOME/.$i`
         fi
 
         # compare checksums
