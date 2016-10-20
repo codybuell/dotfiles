@@ -54,13 +54,6 @@ for (( i = 0; i < ${#TEMPLATEEXCLUDES[@]}; i++ )); do
   TEMPLATEEXCLUDE+=" -not ${TEMPLATEEXCLUDES[$i]}"
 done
 
-# determin sed syntax
-[[ $UNAME =~ ^Darwin ]] && {
-  sedi="sed -i ''"
-} || {
-  sedi="sed -i"
-}
-
 ####################
 # Define Functions #
 ####################
@@ -142,7 +135,11 @@ placefiles() {
         }
         # # add hjkl rebindings if colemak
         # [[ $KBLayout == 'colemak' ]] && {
-        #   $sedi 's/^"COLEMAK//' ~/.vim.new.$DATE/plugin/mappings/normal.vim
+        #   [[ $UNAME =~ ^Darwin ]] && {
+        #     sed -i '' 's/^"COLEMAK//' ~/.vim.new.$DATE/plugin/mappings/normal.vim
+        #   } || {
+        #     sed -i 's/^"COLEMAK//' ~/.vim.new.$DATE/plugin/mappings/normal.vim
+        #   }
         # }
         ;;
       terminfo )
@@ -158,7 +155,12 @@ placefiles() {
     for c in ${CONFIGVARS[@]}; do
       VAR=$c
       eval VAL=\$$c
-      find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec $sedi "s|{{[[:space:]]*$VAR[[:space:]]*}}|$VAL|g" {} \;
+      [[ $UNAME =~ ^Darwin ]] && {
+        find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i '' "s|{{[[:space:]]*$VAR[[:space:]]*}}|$VAL|g" {} \;
+      } || {
+        find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -exec sed -i "s|{{[[:space:]]*$VAR[[:space:]]*}}|$VAL|g" {} \;
+      }
+
     done
 
     # if the target file or dir already exists
