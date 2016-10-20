@@ -70,9 +70,6 @@
 [submodule "dotfiles/vim/bundle/vim-arduino-syntax"]
 	path = dotfiles/vim/bundle/vim-arduino-syntax
 	url = https://github.com/sudar/vim-arduino-syntax.git
-[submodule "dotfiles/vim/bundle/vim-blade"]
-	path = dotfiles/vim/bundle/vim-blade
-	url = https://github.com/jwalton512/vim-blade.git
 [submodule "dotfiles/shell/base16-shell"]
 	path = dotfiles/shell/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
