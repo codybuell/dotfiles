@@ -103,7 +103,7 @@ AutoQuitPrinterWhenDone='true'                # auto close printer app when done
 
 # ux / ui
 Appearance='graphite'                         # blue or graphite
-AutoHideMenuBar='true'                        # auto hide the menu bar?
+AutoHideMenuBar='false'                       # auto hide the menu bar?
 ShowScrollbars='Automatic'                    # WhenScrolling, Automatic, Always
 MissionControlAnimation='fast'                # fast, off, or default
 OpenCloseAnimations='false'                   # open and close animations?
