@@ -83,6 +83,7 @@ CASKS=( \
     'seil' \                         # utility for remapping caps lock
     'sketch' \                       # graphics design and layout
     'slack' \                        # collaboration and chat application
+    'ubersicht' \                    # alternative to geektool
     'vagrant' \                      # vm's as packages management solution
     'virtualbox' \                   # virtualization utility
     'vmware-horizon-client' \        # vdi client
