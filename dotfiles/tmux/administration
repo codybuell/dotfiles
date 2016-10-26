@@ -11,10 +11,10 @@
 # '--------------------------------------'
 
 selectp -t 1
-splitw -h -l 185
+splitw -h -p 45
 
 selectp -t 2
-splitw -v -p 54
+splitw -v -p 60
 
 selectp -t 3
 
