@@ -8,6 +8,7 @@ local logLevel = 'info' -- generally want 'debug' or 'info'
 local log = hs.logger.new('wincent', logLevel)
 
 local grid = {
+  -- x start, y start, dimension
   topHalf = '0,0 12x6',
   topThird = '0,0 12x4',
   topTwoThirds = '0,0 12x8',
@@ -27,6 +28,10 @@ local grid = {
   fullScreen = '0,0 12x12',
   centeredBig = '3,3 6x6',
   centeredSmall = '4,4 4x4',
+  goldenLarge = '2,1 8x10',
+  goldenSmall = '2,1 6x8',
+  portraitLarge = '2,2 5x9',
+  portraitSmall = '2,2 4x7',
 }
 
 local layoutConfig = {
@@ -63,7 +68,7 @@ local layoutConfig = {
   ['com.google.Chrome'] = (function(window, forceScreenCount)
     local count = forceScreenCount or screenCount
     if count == 1 then
-      hs.grid.set(window, grid.fullScreen)
+      hs.grid.set(window, grid.goldenLarge)
     else
       -- First/odd windows go on the RIGHT side of the screen.
       -- Second/even windows go on the LEFT side.
@@ -91,7 +96,7 @@ local layoutConfig = {
   ['com.googlecode.iterm2'] = (function(window, forceScreenCount)
     local count = forceScreenCount or screenCount
     if count == 1 then
-      hs.grid.set(window, grid.fullScreen)
+      hs.grid.set(window, grid.portraitSmall)
     else
       hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
     end
