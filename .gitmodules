@@ -82,6 +82,6 @@
 [submodule "dotfiles/vim/bundle/vim-expand-region"]
 	path = dotfiles/vim/bundle/vim-expand-region
 	url = https://github.com/terryma/vim-expand-region.git
-[submodule "vim-blade"]
-	path = vim-blade
+[submodule "dotfiles/vim/bundle/vim-blade"]
+	path = dotfiles/vim/bundle/vim-blade
 	url = https://github.com/jwalton512/vim-blade.git
