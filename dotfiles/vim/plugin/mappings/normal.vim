@@ -76,7 +76,7 @@ nnoremap          <leader>st          :CommandT resources/assets/sass/<CR>
 nnoremap          <leader>sc          :CommandT resources/assets/js/<CR>
 
 " functions
-nnoremap <silent> <localleader>u      :<C-U>call functions#Underline()<CR>
+nnoremap <silent> <C-u>               :<C-U>call functions#Underline()<CR>
 nnoremap <silent> <leader>r           :<C-U>call functions#RandomCharacters(v:count)<CR>
 nnoremap <silent> <leader>`           :<C-U>call functions#NuListToggle()<CR>
 nnoremap <silent> <leader>3           :call functions#ToggleSyntaxHL()<CR>

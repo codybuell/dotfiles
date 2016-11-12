@@ -14,4 +14,4 @@ imap hh                                <esc>
 nnoremap <silent> <localleader>c       <C-O>:syntax sync fromstart<CR>
 
 " functions
-inoremap <silent> <localleader>u       <C-O>:call functions#Underline()<CR>
+inoremap <silent> <C-u>                <C-O>:call functions#Underline()<CR>
