@@ -22,6 +22,7 @@ PACKAGES=( \
     'ddclient' \                     # dynamic dns client, configurable for google dns
     'dos2unix' \                     # encoding conversion tool
     'ffmpeg' \                       # video encoding and editing utility
+    'figlet' \                       # ascii art
     'fwknop' \                       # port knocking
     'gcc' \                          # gnu c compiler
     'gdal' \                         # geographic tool for map development (org2org)
