@@ -52,6 +52,7 @@ PACKAGES=( \
     'sqlite' \                       # file based database
     'tmux' \                         # terminal multiplexer
     'todo-txt' \                     # gina's handy to do list manager
+    'toilet' \                       # ascii art
     'tree' \                         # file and directory listing utility
     'vim' \                          # improved version of already installed vi
     'wakeonlan' \                    # wol client
