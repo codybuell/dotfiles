@@ -213,8 +213,7 @@ endsnippet
 snippet d3 "d3 boilerplate"
 var ${1:margin} = { top: ${2:10}, right: ${3:10}, bottom: ${4:10}, left: ${5:10} },
     ${6:width}  = ${7:970} - $1.left - $1.right,
-    ${8:height} = ${9:500} - $1.top - $1.bottom,
-    ${9:size}   = { width: (width - margin.left - margin.height), height: (height - margin.top - margin.bottom) };
+    ${8:height} = ${9:500} - $1.top - $1.bottom;
 
 var ${10:svg} = d3.select("${11}").append("svg")
     .attr("width", $6)
@@ -240,13 +239,13 @@ endsnippet
 snippet scalex "d3 scale x"
 var x = d3.scale${1:Linear|Pow|Log|Identity|Time|Sequential|Quantize|Quantile|Threshold|Ordinal|Band|Point}()
     .domain([${2:0},${3:100}])
-    .range(0, size.width);
+    .range(0, width);
 endsnippet
 
 snippet scaley "d3 scale y"
 var y = d3.scale${1:Linear|Pow|Log|Identity|Time|Sequential|Quantize|Quantile|Threshold|Ordinal|Band|Point}()
     .domain([${2:0},${3:100}])
-    .range(0, size.height);
+    .range(0, height);
 endsnippet
 
 snippet line "d3 line generator"
@@ -289,10 +288,10 @@ endsnippet
 snippet axisx "d3 x axis definition"
 // draw the x axis
 ${1:g-graph}.append("g")
-    .attr("transform", "translate(0," + size.height + ")")
+    .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
   .append("text")
-    .attr("x", size.width)
+    .attr("x", width)
     .attr("dy", "-0.5em"
     .style("text-anchor", "end")
     .text(${2:label x});
