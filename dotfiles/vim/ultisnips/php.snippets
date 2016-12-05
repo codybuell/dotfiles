@@ -247,7 +247,7 @@ Route::group(['middleware' => '${1:auth}', 'prefix' => '${2:admin}'], function()
 });
 endsnippet
 
-# views
+# views:tab
 snippet rv "return view"
 return view('${1:view.name}', [
   '${2:var}' => $${3:$2},
@@ -269,4 +269,288 @@ endsnippet
 
 snippet sd "schema drop"
 Schema::drop('${1:table}');
+endsnippet
+
+################
+# BOILERPLATES #
+################
+
+snippet model "base model boilerplate"
+<?php namespace ${1:App}\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ${2:`!p snip.rv = snip.basename.capitalize()`} extends Model {
+  protected $table = '${3:${2/./\l$0/g}}s';
+
+  /**
+   * Attributes accessible via fill method.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    '${3:field}',
+  ];
+
+  /**
+   * Attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [];
+
+  /**
+   * Rules
+   *
+   * $2 validation rules.
+   *
+   * @var array
+   */
+  public static $rules = [
+      'email' => 'email',
+  ];
+
+  /**
+   * Validation method.
+   *
+   * @return bool
+   */
+  public function isValid() {
+
+      // build validation
+      $validation = \Validator::make($this->attributes, static::$rules);
+
+      // check for passing value
+      if ($validation->passes()) {
+        return true;
+      }
+
+      // build error messages
+      $this->messages = $validation->messages();
+
+      return false;
+
+  }
+
+}
+endsnippet
+
+snippet controller "base controller boilerplate"
+<?php namespace ${1:App}\Http\Controllers;
+
+use Illuminate\Http\Request;
+use $1\Models\\${2:Model};
+use $1\Http\Controllers\Controller;
+
+class $2sController extends Controller {
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // Preparation                                                              //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  protected $${2/./\l$0/g};
+
+  public function __construct($2 $${2/./\l$0/g}) {
+
+    // create a new instance of ${2/./\l$0/g}
+    $this->${2/./\l$0/g} = $${2/./\l$0/g};
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // Helpers                                                                  //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // Public Methods                                                           //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  ${0}
+
+}
+endsnippet
+
+snippet crudcontroller "crud controller boilerplate"
+<?php namespace ${1:App}\Http\Controllers;
+
+use Illuminate\Http\Request;
+use $1\Models\\${2:Model};
+use $1\Http\Controllers\Controller;
+
+class $2sController extends Controller {
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // Preparation                                                              //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  protected $${2/./\l$0/g};
+
+  public function __construct($2 $${2/./\l$0/g}) {
+
+    // create a new instance of ${2/./\l$0/g}
+    $this->${2/./\l$0/g} = $${2/./\l$0/g};
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // Helpers                                                                  //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+  // CRUD                                                                     //
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Index
+   *
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index() {
+
+    // gather published announcements
+    $${2/./\l$0/g}s = $this->${2/./\l$0/g}->orderBy('order', 'desc')->paginate(50);
+
+    // return view with the data
+    return view('${2/./\l$0/g}s.index', [
+      '${2/./\l$0/g}s' => $${2/./\l$0/g}s,
+    ]);
+
+  }
+
+  /**
+   * Create
+   *
+   * Show the form for creating a new ${2/./\l$0/g}.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create() {
+
+    // return creation view
+    return view('${2/./\l$0/g}s.create', [
+    ]);
+
+  }
+
+  /**
+   * Store
+   *
+   * Store a newly created ${2/./\l$0/g}.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request) {
+
+    // gather all posted input
+    $input = $request->all();
+
+    // fill the ${2/./\l$0/g} object with the input data and validate
+    if (!$this->${2/./\l$0/g}->fill($input)->isValid()) {
+      return redirect()->back()->withInput()->withErrors($this->${2/./\l$0/g}->messages);
+    }
+
+    // save record
+    $this->${2/./\l$0/g}->push();
+
+    // redirect to the ${2/./\l$0/g}s index
+    return redirect()->route('${2/./\l$0/g}s.index')->with('alert', '${2/./\l$0/g} successfully created');
+
+  }
+
+  /**
+   * Show
+   *
+   * Show the requested ${2/./\l$0/g}.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id) {
+
+    // return creation view
+    return view('${2/./\l$0/g}s.show', [
+    ]);
+
+  }
+
+  /**
+   * Edit
+   *
+   * Show the form for editing the specified ${2/./\l$0/g}.
+   *
+   * @param int $id The record id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id) {
+
+    // return creation view
+    return view('${2/./\l$0/g}s.edit', [
+    ]);
+
+  }
+
+  /**
+   * Update
+   *
+   * Update the specified ${2/./\l$0/g}.
+   *
+   * @param int $id The record id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id) {
+
+    // gather all posted input
+    $input = $request->all();
+
+    // get the record to update
+    $this->${2/./\l$0/g} = $2::find($id);
+
+
+    // fill the ${2/./\l$0/g} object with the input data and validate
+    if (!$this->${2/./\l$0/g}->fill($input)->isValid()) {
+      return redirect()->back()->withInput()->withErrors($this->${2/./\l$0/g}->messages);
+    }
+
+    // save record
+    $this->${2/./\l$0/g}->push();
+
+    // redirect to the ${2/./\l$0/g}s index
+    return redirect()->route('${2/./\l$0/g}s.index')->with('alert', '${2/./\l$0/g} successfully updated');
+
+  }
+
+  /**
+   * Destroy
+   *
+   * Remove the specified ${2/./\l$0/g}.
+   *
+   * @param int $id The record id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id) {
+
+      // fill the object with existing data
+      $this->${2/./\l$0/g} = $2::find($id);
+
+      // delete the record
+      $this->${2/./\l$0/g}->delete();
+
+      return redirect()->route('${2/./\l$0/g}s.index')->with('alert', '${2/./\l$0/g} successfully deleted');
+
+  }
+
+}
 endsnippet

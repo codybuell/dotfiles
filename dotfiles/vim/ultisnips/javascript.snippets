@@ -3,9 +3,11 @@
 #####################
 
 snippet =?: "ternary to variable"
+  var ${1:result} = (${2:test}) ? ${3:true} : ${4:false};
 endsnippet
 
 snippet ?: "ternary operator"
+  (${2:test}) ? ${3:true} : ${4:false};
 endsnippet
 
 ############
@@ -209,15 +211,16 @@ endsnippet
 ######
 
 snippet d3 "d3 boilerplate"
-var ${1:margin} = { top: ${2:10}, right: ${3:10}, bottom: ${4:10}, left: ${5:10} };
-var ${6:width} = ${7:970} - $1.left - $1.right;
-var ${8:height} = ${9:500} - $1.top - $1.bottom;
+var ${1:margin} = { top: ${2:10}, right: ${3:10}, bottom: ${4:10}, left: ${5:10} },
+    ${6:width}  = ${7:970} - $1.left - $1.right,
+    ${8:height} = ${9:500} - $1.top - $1.bottom,
+    ${9:size}   = { width: (width - margin.left - margin.height), height: (height - margin.top - margin.bottom) };
 
 var ${10:svg} = d3.select("${11}").append("svg")
-  .attr("width", $6)
-  .attr("height", $8)
-    .append("g")
-  .attr("transform", "translate(" + $1.left + "," + $1.top + ")")
+    .attr("width", $6)
+    .attr("height", $8)
+  .append("g")
+    .attr("transform", "translate(" + $1.left + "," + $1.top + ")")
 endsnippet
 
 snippet sel "d3 select"
@@ -228,6 +231,31 @@ snippet sela "d3 select all"
 ${1:d3}.selectAll(${1:g})${0}
 endsnippet
 
+snippet scale "d3 scale definition"
+d3.scale${1:Linear|Pow|Log|Identity|Time|Sequential|Quantize|Quantile|Threshold|Ordinal|Band|Point}()
+  .domain([${2:0,1}])
+  .range([${3:0,1}])${0}
+endsnippet
+
+snippet scalex "d3 scale x"
+var x = d3.scale${1:Linear|Pow|Log|Identity|Time|Sequential|Quantize|Quantile|Threshold|Ordinal|Band|Point}()
+    .domain([${2:0},${3:100}])
+    .range(0, size.width);
+endsnippet
+
+snippet scaley "d3 scale y"
+var y = d3.scale${1:Linear|Pow|Log|Identity|Time|Sequential|Quantize|Quantile|Threshold|Ordinal|Band|Point}()
+    .domain([${2:0},${3:100}])
+    .range(0, size.height);
+endsnippet
+
+snippet line "d3 line generator"
+var line = d3.line()
+    .curve(d3.curveCatmulRom.alpha(0.5))
+    .x(function(d,i) { return x(i); })
+    .y(function(d,i) { return y(d); });
+endsnippet
+
 snippet .attr "d3 attribute"
 .attr("${1}", ${2})${0}
 endsnippet
@@ -236,24 +264,12 @@ snippet .style "d3 style"
 .style("${1}", ${2})${0}
 endsnippet
 
-snippet axis "d3 axis definition"
-d3.svg.axis()
-  .orient(${1})
-  .scale(${2})${0}
-endsnippet
-
 snippet fd "d3 inline function"
 function(d) { ${1} }
 endsnippet
 
 snippet fdi "indexed d3 inline function"
 function(d, i) { ${1} }
-endsnippet
-
-snippet scale "d3 scale definition"
-d3.scale.${1:linear/sqrt/log/ordinal}()
-  .domain(${2})
-  .range(${3)${0}
 endsnippet
 
 snippet csv "d3 csv import"
@@ -268,6 +284,36 @@ d3.json('${1:path.json}', function(${2:error}, ${3:json}) {
   if ($2) return console.warn($2);
 	${4:draw}($3)
 });${0}
+endsnippet
+
+snippet axisx "d3 x axis definition"
+// draw the x axis
+${1:g-graph}.append("g")
+    .attr("transform", "translate(0," + size.height + ")")
+    .call(d3.axisBottom(x))
+  .append("text")
+    .attr("x", size.width)
+    .attr("dy", "-0.5em"
+    .style("text-anchor", "end")
+    .text(${2:label x});
+endsnippet
+
+snippet axisy "d3 y axis definition"
+// draw the y axis
+${1:g-graph}.append("g")
+    .call(d3.axis${2:Left|Right}(y))
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "0.71em"
+    .style("text-anchor", "end")
+    .text(${3:label y});
+endsnippet
+
+snippet d3on "d3 on function"
+.on('${1:mouseover|mousemove|mouseout}', function() {
+  ${2:function}
+})
 endsnippet
 
 ##########
