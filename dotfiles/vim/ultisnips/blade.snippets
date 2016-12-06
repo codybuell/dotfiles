@@ -8,6 +8,42 @@ snippet dd "laravel die dump in blade"
 {{ dd(${1}) }}${0}
 endsnippet
 
+snippet { "escaped blade interpreter"
+{{ ${1} }}${0}
+endsnippet
+
+snippet ! "unescaped blade interpreter"
+{!! ${1} !!}${0}
+endsnippet
+
+snippet @errors "blade errors loop"
+@if ($errors->any())
+  <ul>
+  @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+  @endforeach
+  </ul>
+@endif
+endsnippet
+
+snippet @if "blade if statement"
+@if (${1:true})
+  ${0}
+@endif
+endsnippet
+
+snippet @sec "blade section"
+@section('${1:head}')
+  ${0}
+@endsection
+endsnippet
+
+snippet @for "blade for loop"
+@foreach($${1:array} as $${2:item})
+  ${0}
+@endforeach
+endsnippet
+
 ################
 # BOILERPLATES #
 ################
@@ -337,38 +373,4 @@ snippet subemail "sub blade email template"
 
 @section('footer')
 @stop
-endsnippet
-
-#################
-# MISCELLANEOUS #
-#################
-
-snippet { "escaped blade interpreter"
-{{ ${1} }}${0}
-endsnippet
-
-snippet ! "unescaped blade interpreter"
-{!! ${1} !!}${0}
-endsnippet
-
-snippet errors "blade errors loop"
-@if ($errors->any())
-  <ul>
-  @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-  @endforeach
-  </ul>
-@endif
-endsnippet
-
-snippet if "blade if statement"
-@if (${1:true})
-  ${0}
-@endif
-endsnippet
-
-snippet for "blade for each loop"
-@foreach (${1:array} as ${2:var})
-  ${0}
-@endforeach
 endsnippet
