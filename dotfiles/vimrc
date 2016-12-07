@@ -127,7 +127,7 @@ set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
-set nowrap                                         " disable wrapping by default
+"set nowrap                                        " disable wrapping by default
 
 " folding
 let javaScript_fold=1         " javascript
@@ -141,9 +141,10 @@ let xml_syntax_folding=1      " xml
 
 " custom line break symbol
 if has('linebreak')
+  let &showbreak='»» '
   set breakindent
   if exists('&breakindentopt')
-    set breakindentopt=shift:2
+    set breakindentopt=shift:0
   endif
 endif
 
