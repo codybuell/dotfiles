@@ -85,3 +85,6 @@
 [submodule "dotfiles/vim/bundle/vim-blade"]
 	path = dotfiles/vim/bundle/vim-blade
 	url = https://github.com/jwalton512/vim-blade.git
+[submodule "dotfiles/vim/bundle/FastFold"]
+	path = dotfiles/vim/bundle/FastFold
+	url = https://github.com/Konfekt/FastFold.git
