@@ -53,7 +53,7 @@ DefaultMeetingDuration='30'                   # default cal item minutes
 FocusFollowsMouse='true'                      # focus follows mouse?
 
 # screenshots
-ScrnShotsFolder='~/Google\ Drive/Screenshots' # where to save screenshots
+ScrnShotsFolder='~/Amazon\ Drive/Screenshots' # where to save screenshots
 ScreenshotDropshadows='false'                 # dropshadows on screenshots?
 ScreenshotFormat='png'                        # bmp, gif, jpg, pdf, tiff
 

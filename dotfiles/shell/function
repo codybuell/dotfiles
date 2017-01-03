@@ -55,12 +55,14 @@ function root() {
 
 # edit work journal
 function wj() {
-  vim ~/Google\ Drive/Journal/work/`date +%Y/%B`.txt
+  [[ ! -d {{ WorkJournal }}/`date +%Y` ]] && mkdir -p {{ WorkJournal }}/`date +%Y`
+  vim {{ WorkJournal }}/`date +%Y/%B`.txt
 }
 
 # edit personal journal
 function pj() {
-  vim ~/Google\ Drive/Journal/personal/`date +%Y/%B`.txt
+  [[ ! -d {{ PersonalJournal }}/`date +%Y` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y`
+  vim {{ PersonalJournal }}/`date +%Y/%B`.txt
 }
 
 # build completion function wrapper
