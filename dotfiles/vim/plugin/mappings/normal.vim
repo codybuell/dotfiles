@@ -68,7 +68,7 @@ nnoremap <silent> <leader>eu          :UltiSnipsEdit<CR>
 
 " quick navigation
 nnoremap          <leader><leader>    <C-^>
-nnoremap          <leader>n           :CommandT ~/Google\ Drive/Notes/<CR>
+nnoremap          <leader>n           :CommandT {{ NotesFolder }}<CR>
 nnoremap          <leader>m           :CommandT app/Models/<CR>
 nnoremap          <leader>v           :CommandT resources/views/<CR>
 nnoremap          <leader>c           :CommandT app/Http/Controllers/<CR>
