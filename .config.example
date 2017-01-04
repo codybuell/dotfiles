@@ -9,8 +9,8 @@ KBLayout = qwerty
 # paths
 NonRepoProjects = ~/Workshop
 NotesFolder     = "~/Google\\ Drive/Notes"
-PersonalJournal = "~/Goodle\\ Drive/Journal/personal"
-WorkJournal     = "~/Goodle\\ Drive/Journal/work"
+PersonalJournal = "~/Google\\ Drive/Journal/personal"
+WorkJournal     = "~/Google\\ Drive/Journal/work"
 
 
 # git bits
