@@ -51,6 +51,28 @@ function! functions#ToggleSyntaxHL() abort
   endif
 endfunction
 
+" setup vert split to wrap a document, sequential splits of one doc
+function! functions#SyncSplit() abort
+  " setlocal scrollbind in right window
+  set nofoldenable
+  " save the current scroll off setting to var
+  let @z=&so
+  " set scrolloff to 0 and clear scrollbind
+  set so=0 noscb
+  " split window vertically, new window on right
+  bo vs
+  " jump to bottom of window + 1, scroll to top
+  exec "norm Ljzt"
+  " setlocal scrollbind in right window
+  setl scb
+  " jump to previous window
+  exec "normal \<C-w>p"
+  " setlocal scrollbind in left window
+  setl scb
+  " restore scrolloff
+  let &so=@z
+endfunction
+
 " underline text with provided character
 "
 " :Underline      gives underlining like --------------- (default)

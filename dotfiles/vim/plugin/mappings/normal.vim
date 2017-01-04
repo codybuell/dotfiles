@@ -86,6 +86,7 @@ nnoremap <silent> <leader>8           :call functions#HighlightGroups()<CR>
 nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
 
 " splits
+nnoremap <silent> <leader>sp          :<C-U>call functions#SyncSplit()<CR>
 nmap <C-]>                            :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <C-h>                            <C-w>h
 nmap <C-j>                            <C-w>j
