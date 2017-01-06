@@ -140,6 +140,7 @@ Todo
  - [ ] add date timestamps to bash history
  - [ ] skim hacks, notes, and repos for handy functions or alias's
  - [ ] alias to flush vim tmp files
+ - [ ] test out z-shell, output duration and exit code of execution after command
 
 ### irssi
 
