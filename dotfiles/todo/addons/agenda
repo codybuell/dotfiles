@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# default view
+#
+#            June 2012          Today:
+#       Su Mo Tu We Th Fr Sa      mit one (53)
+#                       1  2      mit two (54)
+#        3  4  5  6  7  8  9      mit three (72)
+#       10 11 12 13 14 15 16
+#       17 18 19 20 21 22 23    Tomorrow:
+#       24 25 26 27 -- 29 30      mit one (15)
+#                                 mit two (22)
+#            July 2012            mit three (30)
+#       Su Mo Tu We Th Fr Sa
+#        1  2  3  4  5  6  7    Top Tasks:
+#        8  9 10 11 12 13 14      (A) bla bla bla bla (16)
+#       15 16 17 18 19 20 21      (A) bla bla bla (23)
+#       22 23 24 25 26 27 28      (B) bla bla blalala (88)
+#       29 30 31                  (E) bla blalala bla (90)
+#
+#       --------------------------------------------------
+#
+#       10:00 meeting with that one guy
+#       11:30 another meeting
+#       12:00 chik-fil-a
+#
+#       --------------------------------------------------
+#
+#       Critical Items:
+#       [ a list of past due mits, overdue tasks ]
+#
+# week view, shows every days mits for the next 7 days
+
+
+  # define array element separator as newlines
+  OLDIFS=$IFS
+  IFS=$'\n'
+
+  # make an array of the current and next month calendars
+  CALENDAR=(`cal | sed "s/ $(date +%e) / $(date +%e | sed 's/./-/g') /"; cal -m $(date -v +1m +%B)`)
+
+  # return array element separator to spaces
+  IFS=$OLDIFS
+
+  cat <<-ENDOFOUTPUT
+	${CALENDAR[0]}
+	${CALENDAR[1]}
+	${CALENDAR[2]}
+	ENDOFOUTPUT
