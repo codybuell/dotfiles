@@ -7,12 +7,11 @@ OSUsername  = codybuell
 KBLayout = qwerty
 
 # paths
-NonRepoProjects = ~/Workshop
-TasksFolder     = "tasks"     # relative to ~/.todo
+NonRepoProjects = "~/Workshop"
+TasksFolder     = "/Users/usrnm/Google Drive/Tasks"     # full path, no escapes
 NotesFolder     = "~/Google\\ Drive/Notes"
 PersonalJournal = "~/Google\\ Drive/Journal/personal"
 WorkJournal     = "~/Google\\ Drive/Journal/work"
-
 
 # git bits
 GitUsername = codybuell
@@ -56,3 +55,7 @@ AppDatabase03 =  homestead
 AppName04     =  homestead.app
 AppWebRoot04  =  /home/vagrant/Repos/Laravel/public
 AppDatabase04 =  homestead
+
+# extra symlinks, increment numbers as needed, fully pathed SRC DST
+SYMLINK00 =  /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
+SYMLINK01 =  /Users/usrnm/Repos/bin /Users/usrnm/Bin

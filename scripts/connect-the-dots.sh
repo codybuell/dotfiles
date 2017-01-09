@@ -217,6 +217,23 @@ placefiles() {
 
 }
 
+runlinks() {
+
+  [[ -L ~/.todo/tasks ]] && unlink ~/.todo/tasks
+  ln -s "$TasksFolder" ~/.todo/tasks
+
+  for c in ${CONFIGVARS[@]}; do
+    VAR=$c
+    eval VAL=\$$c
+    [[ $VAR =~ SYMLINK.* ]] && {
+      DST=`echo $VAL | awk '{print $2}'`
+      [[ -L $DST ]] && unlink $DST
+      ln -s $VAL
+    }
+  done
+
+}
+
 ################
 # Long Options #
 ################
@@ -260,3 +277,4 @@ done
 echo 'connecting the dots...'
 readconfig
 placefiles
+runlinks
