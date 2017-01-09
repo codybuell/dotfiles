@@ -8,7 +8,7 @@ KBLayout = qwerty
 
 # paths
 NonRepoProjects = ~/Workshop
-TasksFolder     = "~/Google\\ Drive/Tasks"
+TasksFolder     = "tasks"     # relative to ~/.todo
 NotesFolder     = "~/Google\\ Drive/Notes"
 PersonalJournal = "~/Google\\ Drive/Journal/personal"
 WorkJournal     = "~/Google\\ Drive/Journal/work"
