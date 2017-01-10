@@ -73,7 +73,7 @@ usage() {
 
 prettyprint() {
 
-  printf "$1" | awk '{file=$1;$1="";printf "  %-30s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
+  printf "$1" | awk '{file=$1;$1="";printf "  %-40s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
 
 }
 
@@ -228,6 +228,7 @@ runlinks() {
     [[ $VAR =~ SYMLINK.* ]] && {
       DST=`echo $VAL | awk '{print $2}'`
       [[ -L $DST ]] && unlink $DST
+      prettyprint "  '${DST}' \033[0;32mcreating symlink\033[0m\n"
       ln -s $VAL
     }
   done
