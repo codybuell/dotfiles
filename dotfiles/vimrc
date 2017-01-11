@@ -32,7 +32,7 @@
 "  ␣                        ␣eu edit ultisnips       ␣z    zoom on split       "
 "  ␣                        ␣er edit laravel routes  ,/    remove search hi    "
 "  ␣                        ␣ec edit laravel config  \c    fix syntax hi       "
-"  ␣                        ␣ed edit laravel db      \u    underline text      "
+"  ␣sp syncscroll vsplit    ␣ed edit laravel db      \u    underline text      "
 "                                                                              "
 "  insert mode                                                                 "
 "  -----------                                                                 "
