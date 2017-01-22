@@ -8,7 +8,7 @@ export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 # shell
 export HISTFILESIZE=10000
 export HISTIGNORE=' *'
-export EDITOR=vi
+export EDITOR=vim
 
 # node
 export NODE_PATH="/usr/local/lib/node_modules"
