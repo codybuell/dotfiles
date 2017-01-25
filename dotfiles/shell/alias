@@ -14,7 +14,7 @@ else
 fi
 
 # todo-cli
-alias t="todo.sh"
+alias t="clear; todo.sh"
 
 # vi/vim
 alias vi="vim"
