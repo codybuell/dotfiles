@@ -56,6 +56,21 @@ _gotoeditnotes() {
 }
 complete -F _gotoeditnotes note
 
+# todo-txt completion
+_todotxtcli() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  local pre=${COMP_WORDS[COMP_CWORD-1]}
+  case $pre in
+    mit )
+      COMPREPLY=( $(compgen -W "today tomorrow monday tuesday wednesday thursday friday saturday sunday" -- $cur) )
+      ;;
+    * )
+      COMPREPLY=( $(compgen -W "mit `eval todo.sh lsprj` `eval todo.sh lsc`" -- $cur) )
+      ;;
+  esac
+}
+complete -F _todotxtcli t
+
 # color function completion
 _colorcomplete() {
   local cur=${COMP_WORDS[COMP_CWORD]}

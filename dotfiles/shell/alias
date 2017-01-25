@@ -13,9 +13,6 @@ else
   alias ls="ls -G --color=auto"
 fi
 
-# todo-cli
-alias t="clear; todo.sh"
-
 # vi/vim
 alias vi="vim"
 alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"

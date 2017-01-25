@@ -12,6 +12,15 @@ changediroredit() {
   [[ $2 ]] && eval vi $1/$2 || eval cd $1
 }
 
+# todo-txt.sh wrapper
+function t() {
+  ARGNUM=$#
+  if [ $ARGNUM == 0 ] || [ $ARGNUM == 1 -a $1 == "mit" ]; then
+    clear
+  fi
+  todo.sh $@
+}
+
 # ersh wrapper for ansible
 function Ersh() {
   GROUP=$1
