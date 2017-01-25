@@ -54,11 +54,11 @@ endfunction
 " setup vert split to wrap a document, sequential splits of one doc
 function! functions#SyncSplit() abort
   " setlocal scrollbind in right window
-  set nofoldenable
+  setl nofoldenable
   " save the current scroll off setting to var
   let @z=&so
   " set scrolloff to 0 and clear scrollbind
-  set so=0 noscb
+  setl so=0 noscb
   " split window vertically, new window on right
   bo vs
   " jump to bottom of window + 1, scroll to top
