@@ -20,6 +20,30 @@
 #        - tmutil        (time machine utility)
 #        - nvram         (firmware nvram config utility)
 #        - launchctl     (the osx service manager)
+#
+# Tasks: - [ ] trackpad gesture configs
+#        - [ ] systemuiserver menu extras
+#        - [ ] keyboard shortcut for input type switching
+#        - [ ] add colemak to keyboard inputs
+#        - [ ] analog clock in menu
+#        - [ ] firewall config (turn on, allow in remote ssh, screen sharing,
+#              enable stealth mode, automatically allow signed software to
+#              recieve incoming connections...)
+#        - [ ] reduce default finder icon sizes and spacings
+#        - [ ] dock size and placement
+#        - [ ] turn on screensharing
+#        - [ ] set finder sidebar
+#              - remove all my files, documents
+#              - add home dir repos and gists dirs
+#              - re-arrange devices
+#              - rearrange favorites (home dir, desktop, applications, google
+#                drive, icloud drive, screenshots, downloads, repos, gists)
+#        - [ ] set chrome as default
+#        - [ ] configure startup applications
+#              - geektool
+#              - keycastr
+#        - [ ] check that each config is being applied
+#
 
 ################################################################################
 ################################################################################
