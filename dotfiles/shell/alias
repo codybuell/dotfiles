@@ -5,6 +5,9 @@
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
 
+# ssh without trying to use any keys
+alias sshn="TERM=xterm-256color ssh -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no"
+
 # ls
 if command -v gls &> /dev/null && [[ $TERM =~ .*-256color ]]; then
   alias ls="gls --color=auto"
