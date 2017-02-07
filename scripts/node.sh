@@ -7,3 +7,4 @@
 #   topojson          tool for converting shape files into json for d3
 #   jsonlint          json syntax checking utility
 #   svgo              svg optimization utility
+#   wscat             websocket command line client
