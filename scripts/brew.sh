@@ -47,6 +47,7 @@ PACKAGES=( \
     'picocom' \                      # used with ino for serial connection to arduino
     'pidgin' \                       # pidgin and finch xmpp protocol clients
     'python' \                       # python language
+    'rclone' \                       # cli for cloud storage providers
     'reattach-to-user-namespace' \   # reattach process to background
     's3cmd' \                        # aws s3 utility
     'sqlite' \                       # file based database
