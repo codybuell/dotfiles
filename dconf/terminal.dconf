@@ -1,0 +1,19 @@
+[/]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+default='b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+foreground-color='rgb(170,170,170)'
+visible-name='Test'
+scrollbar-policy='never'
+login-shell=true
+default-size-rows=50
+use-system-font=false
+use-transparent-background=true
+use-theme-colors=false
+font='Source Code Pro Light 10'
+use-theme-transparency=false
+allow-bold=true
+background-color='rgb(19,19,19)'
+background-transparency-percent=6
+scrollback-lines=20000
+audible-bell=false
