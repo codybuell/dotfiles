@@ -66,17 +66,18 @@ local layoutConfig = {
   end),
 
   ['com.google.Chrome'] = (function(window, forceScreenCount)
-    local count = forceScreenCount or screenCount
-    if count == 1 then
-      hs.grid.set(window, grid.goldenLarge)
-    else
-      -- First/odd windows go on the RIGHT side of the screen.
-      -- Second/even windows go on the LEFT side.
-      -- (Note this is the opposite of what we do with Canary.)
-      local windows = windowCount(window:application())
-      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
-      hs.grid.set(window, side, hs.screen.primaryScreen())
-    end
+--    local count = forceScreenCount or screenCount
+--    if count == 1 then
+--      hs.grid.set(window, grid.goldenLarge)
+--    else
+--      -- First/odd windows go on the RIGHT side of the screen.
+--      -- Second/even windows go on the LEFT side.
+--      -- (Note this is the opposite of what we do with Canary.)
+--      local windows = windowCount(window:application())
+--      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
+--      hs.grid.set(window, side, hs.screen.primaryScreen())
+--    end
+    hs.grid.set(window, grid.goldenLarge)
   end),
 
   ['com.google.Chrome.canary'] = (function(window, forceScreenCount)
@@ -94,12 +95,13 @@ local layoutConfig = {
   end),
 
   ['com.googlecode.iterm2'] = (function(window, forceScreenCount)
-    local count = forceScreenCount or screenCount
-    if count == 1 then
-      hs.grid.set(window, grid.portraitSmall)
-    else
-      hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
-    end
+--    local count = forceScreenCount or screenCount
+--    if count == 1 then
+--      hs.grid.set(window, grid.portraitSmall)
+--    else
+--      hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
+--    end
+    hs.grid.set(window, grid.portraitSmall)
   end),
 
   ['com.skype.skype'] = (function(window)
