@@ -1,0 +1,3 @@
+#export VAULT_CAPATH={{ VaultCAPath }}
+export VAULT_TOKEN={{ VaultToken }}
+export VAULT_ADDR={{ VaultAddress }}

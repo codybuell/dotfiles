@@ -21,6 +21,11 @@ GistsPath   = ~/Gists
 # api tokens
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 
+# hashicorp vault
+#VaultCAPath  = ???
+VaultToken   = 1234567890abcdefghijklmnopqrstuvwxyz
+VaultAddress = https://vaultserver.tld:8200
+
 # ddclient
 DDClientLogin    = 1234567890abcdef
 DDClientPassword = ghijklmnopqrstuv
