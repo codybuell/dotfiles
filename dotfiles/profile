@@ -7,7 +7,7 @@ case `basename $SHELL` in
     . ~/.shell/tmux
     . ~/.shell/color
     . ~/.shell/export
-    . ~/.vault
+    . ~/.shell/vault
     which brew > /dev/null 2>&1
     [[ $? -eq 0 ]] && {
       if [ -f $(brew --prefix)/etc/bash_completion ]; then
