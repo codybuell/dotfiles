@@ -25,6 +25,7 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 #VaultCAPath  = ???
 VaultToken   = 1234567890abcdefghijklmnopqrstuvwxyz
 VaultAddress = https://vaultserver.tld:8200
+VaultServer  = vaultserver.tld
 
 # ddclient
 DDClientLogin    = 1234567890abcdef
