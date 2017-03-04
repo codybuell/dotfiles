@@ -55,6 +55,7 @@ PACKAGES=( \
     'todo-txt' \                     # gina's handy to do list manager
     'toilet' \                       # ascii art
     'tree' \                         # file and directory listing utility
+    'vault' \                        # encrypted key value pair storage
     'vim' \                          # improved version of already installed vi
     'wakeonlan' \                    # wol client
     'watch' \                        # handy utility for monitoring
