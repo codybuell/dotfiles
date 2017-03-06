@@ -5,5 +5,7 @@
 PATH_HOME=$HOME/Bin
 PATH_BREW=/usr/local/bin
 PATH_SBIN=/usr/local/sbin
+PATH_GO=$HOME/.gopath
 
-export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SBIN
+export GOPATH=~/.gopath
+export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SBIN:$PATH_GO/bin
