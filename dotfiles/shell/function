@@ -74,6 +74,20 @@ function pj() {
   vim {{ PersonalJournal }}/`date +%Y/%B`.txt
 }
 
+# fwknop helper
+function nop() {
+  case $1 in
+    int )
+      SRCIP=`intip`
+      ;;
+    ext )
+      SRCIP=`extip`
+      ;;
+  esac
+  fwknop -A tcp/22 -a $SRCIP -D $2
+  ssh $2
+}
+
 # build completion function wrapper
 #
 # make-completion-wrapper <actual completion function> <name of new func.>
