@@ -37,8 +37,8 @@ alias gpl="git pull origin master"
 alias log="git log --pretty=oneline"
 
 # fwknop
-alias intnop="fwknop -A tcp/22 -a `intip` -D"
-alias extnop="fwknop -A tcp/22 -a `extip` -D"
+alias intnop="fwknop -A tcp/22 -a \$(intip) -D"
+alias extnop="fwknop -A tcp/22 -a \$(extip) -D"
 
 # recursive greps
 alias grepf="find . -type f -print0 | xargs -0 grep"
