@@ -12,6 +12,17 @@ changediroredit() {
   [[ $2 ]] && eval vi $1/$2 || eval cd $1
 }
 
+# edit or cd to notes
+note() {
+  if [ $1 ]; then
+    ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
+    EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
+    vim {{ NotesFolder }}/${1}${EXT}
+  else
+    cd {{ NotesFolder }}
+  fi
+}
+
 # todo-txt.sh wrapper
 function t() {
   ARGNUM=$#
