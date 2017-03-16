@@ -4,6 +4,12 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" send yank to register and register to clipper
+function! functions#YankOverride() abort
+  exec "y"
+  system('nc localhost 8377', @0)
+endfunction
+
 " improve location list navigation (expects prev or next)
 function! functions#LocationListNav(direction) abort
   try
