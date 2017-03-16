@@ -9,7 +9,7 @@ function! functions#YankOverride() abort
   " perform the yank as normal
   exec ":normal `<y`>"
   " grab the register and send it to clipper
-  system('nc localhost 8377', @0)
+  exec system('nc localhost 8377', @0)
 endfunction
 
 " improve location list navigation (expects prev or next)
