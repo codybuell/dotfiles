@@ -6,7 +6,9 @@
 
 " send yank to register and register to clipper
 function! functions#YankOverride() abort
-  exec "y"
+  " perform the yank as normal
+  exec ":normal `<y`>"
+  " grab the register and send it to clipper
   system('nc localhost 8377', @0)
 endfunction
 
