@@ -1,0 +1,12 @@
+Host *
+    UseKeychain yes
+
+#host [alias]
+#    User ubuntu
+#    Hostname [ip | hostname]
+#    Compression yes
+#    TCPKeepAlive yes
+#    ForwardX11 yes
+#    ForwardX11Truted yes
+#    ServerAliveInterval 30
+#    IdentityFile ~/.ssh/[keyname]
