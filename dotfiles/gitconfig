@@ -10,6 +10,7 @@
   tool = vimdiff
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(green)(%cr) %C(cyan)<%an>%Creset' --date=relative
+  co = checkout
 [color]
   ui = true
 [credential]
