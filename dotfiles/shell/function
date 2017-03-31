@@ -86,7 +86,7 @@ function pj() {
 }
 
 # fwknop helper
-function nop() {
+function nok() {
   case $1 in
     int )
       SRCIP=`intip`
@@ -96,6 +96,10 @@ function nop() {
       ;;
   esac
   fwknop -A tcp/22 -a $SRCIP -D $2
+  read -p "connect to host? [y/n] " choice
+  case "$choice" in 
+    n|N|no ) return;;
+  esac
   ssh $2
 }
 
