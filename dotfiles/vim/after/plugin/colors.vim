@@ -31,6 +31,11 @@ function s:SetColorScheme()
   " - `statusline.vim` will re-set User1, User2 etc.
   " - `after/plugin/loupe.vim` will override Search.
   doautocmd ColorScheme
+
+  " some personal overrides
+  hi SpecialKey ctermfg=238
+  hi NonText ctermfg=238
+
 endfunction
 
 if v:progname !=# 'vi'
