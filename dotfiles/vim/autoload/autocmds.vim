@@ -59,6 +59,14 @@ function! autocmds#focus_statusline() abort
   call s:update_statusline('', 'focus')
 endfunction
 
+function! autocmds#blur_syntaxhl() abort
+  "setlocal syntax off
+endfunction
+
+function! autocmds#focus_syntaxhl() abort
+  "setlocal syntax enable
+endfunction
+
 function! s:update_statusline(default, action) abort
   let l:statusline = s:get_custom_statusline(a:action)
   if type(l:statusline) == type('')

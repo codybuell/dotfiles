@@ -19,8 +19,7 @@ function s:SetColorScheme(action)
 
     if filereadable(expand('~/.vim/bundle/base16-vim/colors/base16-' . s:config[0] . '.vim'))
       if a:action == 'blur'
-        execute 'color base16-grayscale-' . s:config[1]
-        execute 'set background=' . s:config[1]
+        "execute 'color base16-grayscale-' . s:config[1]
       else
         execute 'color base16-' . s:config[0]
         execute 'set background=' . s:config[1]
@@ -30,8 +29,7 @@ function s:SetColorScheme(action)
     endif
   else " default
     if a:action == 'blur'
-      color base16-grayscale-dark
-      set background=dark
+      "color base16-grayscale-dark
     else
       color base16-tomorrow-night
       set background=dark
