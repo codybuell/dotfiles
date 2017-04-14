@@ -32,8 +32,6 @@ alias gp="git push"
 alias gs="git status"
 alias gc="git commit"
 alias gca="git commit -a"
-alias gpo="git push origin master"
-alias gpl="git pull origin master"
 alias log="git log --pretty=oneline"
 
 # recursive greps

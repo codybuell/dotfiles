@@ -73,6 +73,26 @@ function root() {
   }
 }
 
+# git push origin [branch]
+function gpo() {
+  [[ -z $1 ]] && {
+    BRANCH='master'
+  } || {
+    BRANCH=$1
+  }
+  git push origin $BRANCH
+}
+
+# git pull origin [branch]
+function gpl() {
+  [[ -z $1 ]] && {
+    BRANCH='master'
+  } || {
+    BRANCH=$1
+  }
+  git pull origin $BRANCH
+}
+
 # edit work journal
 function wj() {
   [[ ! -d {{ WorkJournal }}/`date +%Y` ]] && mkdir -p {{ WorkJournal }}/`date +%Y`
