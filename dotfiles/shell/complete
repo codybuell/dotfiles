@@ -62,7 +62,7 @@ _todotxtcli() {
   local pre=${COMP_WORDS[COMP_CWORD-1]}
   case $pre in
     mit )
-      COMPREPLY=( $(compgen -W "today tomorrow monday tuesday wednesday thursday friday saturday sunday" -- $cur) )
+      COMPREPLY=( $(compgen -W "today tomorrow monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december" -- $cur) )
       ;;
     * )
       COMPREPLY=( $(compgen -W "mit `eval todo.sh lsprj` `eval todo.sh lsc`" -- $cur) )
