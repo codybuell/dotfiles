@@ -1,43 +1,7 @@
-#
-# tmux
-#
+# if we are running in a tmux session
+if [ ! -z $TMUX ]; then
 
-function tmux() {
-  # make sure even pre-existing tmux sessions use the latest ssh_auth_sock
-  local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
-  if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
-    ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
-  fi
+  # fix ssh-agent issue
+  alias ssh="TERM=xterm-256color reattach-to-user-namespace ssh"
 
-  # if provided with args, pass them through
-  if [[ -n "$@" ]]; then
-    env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
-    return
-  fi
-
-  # check for .tmux file (poor man's tmuxinator)
-  if [[ -e .tmux && -f .tmux ]]; then
-    if [[ ! -x .tmux ]]; then
-      chmod 755 .tmux
-    fi
-    # Prompt the first time we see a given .tmux file before running it.
-    local DIGEST="$(openssl sha -sha512 .tmux)"
-    if ! grep -q "$DIGEST" ~/.tmux.digests 2> /dev/null; then
-      cat .tmux
-      echo -n "Trust (and run) this .tmux file? (t = trust, otherwise = skip): "
-      read REPLY
-      if [[ $REPLY =~ ^[Tt]$ ]]; then
-        echo "$DIGEST" >> ~/.tmux.digests
-        ./.tmux
-        return
-      fi
-    else
-      ./.tmux
-      return
-    fi
-  fi
-
-  # attach to existing session, or create one, based on current directory.
-  SESSION_NAME=$([[ `pwd` == $HOME ]] && echo 'home' || basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
-  env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
-}
+fi
