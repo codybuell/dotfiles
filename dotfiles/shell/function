@@ -120,7 +120,13 @@ function nok() {
   case "$choice" in 
     n|N|no ) return;;
   esac
-  ssh $2
+
+  # fix ssh-agent issue
+  if [ ! -z $TMUX ]; then
+    TERM=xterm-256color reattach-to-user-namespace ssh $2
+  else
+    ssh $2
+  fi
 }
 
 # build completion function wrapper
