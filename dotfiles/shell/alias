@@ -17,8 +17,10 @@ else
 fi
 
 # vi/vim
-alias vi="vim"
-alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+[[ `which vim` -gt 0 ]] && {
+  alias vi="vim"
+  alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+}
 alias :e="vim"
 alias :q="exit"
 alias :qa="exit"
