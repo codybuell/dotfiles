@@ -7,7 +7,11 @@
 function! statusline#gutterpadding(subtractBufferNumber) abort
   let l:gutterWidth=max([strlen(line('$')), &numberwidth]) + 1
   let l:bufferNumberWidth=a:subtractBufferNumber ? strlen(winbufnr(0)) : 0
-  let l:padding=repeat(' ', l:gutterWidth - l:bufferNumberWidth - 1 + &foldcolumn)
+  redir => signlist
+    silent! execute 'sign place buffer='. bufnr('%')
+  redir END
+  let l:signColumn=(len(signlist) > 17) ? 2 : 0
+  let l:padding=repeat(' ', l:gutterWidth - l:bufferNumberWidth - 1 + &foldcolumn + l:signColumn)
   return l:padding
 endfunction
 
