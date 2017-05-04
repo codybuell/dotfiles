@@ -95,7 +95,7 @@ set nocompatible                                   " disable compatability mode
 set incsearch                                      " search as chars are entered
 set hlsearch                                       " highlight search results
 set history=100                                    " keep 100 lines of history
-set ruler                                          " show the cursor position
+set ruler                                          " show the  position
 set sts=2                                          " sets the soft tab stop
 set ts=2                                           " tab stop to 4 spaces
 set sw=2                                           " shift width, auto ind / shifting spaces
@@ -127,6 +127,7 @@ set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
+set selection=exclusive                            " include the last character when dbl click selecting
 "set nowrap                                        " disable wrapping by default
 
 " enable folding by file type
