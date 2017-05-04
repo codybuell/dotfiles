@@ -34,11 +34,8 @@ Todo
  - [ ] build tab bar (tab number, collapsing path if needed, show buffers if no tabs, remove X in top right)
  - [ ] add syntastic error alerts to statusbar
  - [ ] rework html email snippet
- - [ ] resize statusbar when error indicator column is present >>
  - [ ] refine ultisnips / supertab integration, tab for everything? exapand and go to next tabstop, with autocompletion?
    - try just setting gvars for expand and next to tab, may just work w supertab, also try filling out a tabs to then hitting tab, make sure supertab works as well, if so make comment that you need supertab 
- - [ ] add conditionals to be able to open vi, not vim, without errors
- - [ ] skim hacks, notes, and repos for handy snippets (getopts, prompts, etc)
  - [ ] clipboard integration solution, pbcopy? (define iskeyword separators, middle click to paste, help iskeyword)
 
 ### tmux
@@ -48,7 +45,6 @@ Todo
 ### shell
 
  - [ ] move repocheck alias to a function
- - [ ] test out z-shell, output duration and exit code of execution after command
 
 ### ddclient
 
