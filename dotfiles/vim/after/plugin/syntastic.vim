@@ -4,11 +4,8 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" " default recommended settings
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
+" custom settings
+let g:syntastic_stl_format="⚠ %w ⨉%e (%t)"    " [warning#]:[error#] (total)
 let g:syntastic_always_populate_loc_list = 1  " populate locaiton list w/ errors
 let g:syntastic_auto_loc_list = 2             " no auto open but do auto close
 let g:syntastic_check_on_open = 1             " check syntax on opening of files

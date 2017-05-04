@@ -46,6 +46,8 @@ function s:SetColorScheme(action)
   " some personal overrides
   hi SpecialKey ctermfg=238
   hi NonText ctermfg=238
+  hi SLWarnings ctermfg=3 ctermbg=19
+  hi SLErrors ctermfg=1 ctermbg=19
 
 endfunction
 
