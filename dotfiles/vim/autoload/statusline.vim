@@ -7,6 +7,7 @@
 function! statusline#gutterpadding(subtractBufferNumber) abort
   let l:gutterWidth=max([strlen(line('$')), &numberwidth]) + 1
   let l:bufferNumberWidth=a:subtractBufferNumber ? strlen(winbufnr(0)) : 0
+  " determine if there are any placed signs in the current buffer
   redir => signlist
     silent! execute 'sign place buffer='. bufnr('%')
   redir END
