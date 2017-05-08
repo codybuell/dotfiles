@@ -159,7 +159,6 @@ function $function_name {
 }
 
 # tmux
-
 function tmux() {
   # make sure even pre-existing tmux sessions use the latest ssh_auth_sock
   local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
@@ -198,4 +197,54 @@ function tmux() {
   # attach to existing session, or create one, based on current directory.
   SESSION_NAME=$([[ `pwd` == $HOME ]] && echo 'home' || basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
+}
+
+# repocheck
+function repocheck() {
+
+  # git the current working directory
+  CWD=$(pwd)
+
+  # print out some column headers
+  echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-50s %s %s\n", $1, $2, $3}'
+
+  # loop through all repos in ReposPath
+  for i in `ls {{ ReposPath }}`; do 
+    cd {{ ReposPath }}/$i
+    git status > /dev/null 2>&1
+    if [ $? -gt 0 ]; then
+      printf "$i \033[1;30mnot~a~repo\033[0;m" | \
+      awk '{printf "%-50s %s\n", $1, $2}' | \
+      sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
+      continue
+    else
+      LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m")
+      if [ `git remote -v | wc -l` -lt 1 ]; then
+        RSTAT=$(printf "\033[1;30morphaned\033[0;m")
+      else
+        git fetch > /dev/null 2>&1
+        LOCAL=$(git rev-parse @)
+        git rev-parse @{u} > /dev/null 2>&1
+        if [ $? -gt 0 ]; then
+          git branch --set-upstream-to=origin/master master > /dev/null 2>&1
+        fi
+        REMOTE=$(git rev-parse @{u})
+        BASE=$(git merge-base @ @{u})
+        if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then
+          RSTAT=$(printf "\033[0;32mcurrent\033[0;m")
+        elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then
+          RSTAT=$(printf "\033[0;31mbehind\033[0;m")
+        elif [ $REMOTE = $BASE ]; then
+          RSTAT=$(printf "\033[1;33mahead\033[0;m")
+        else
+          RSTAT=$(printf "\033[0;33mdiverged\033[0;m")
+        fi
+      fi
+      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-50s %s\n", $1, $2}' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
+    fi
+  done
+
+  # drop back into the working dir
+  cd $CWD
+
 }
