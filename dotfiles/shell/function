@@ -223,13 +223,13 @@ function repocheck() {
         RSTAT=$(printf "\033[1;30morphaned\033[0;m")
       else
         git fetch > /dev/null 2>&1
-        LOCAL=$(git rev-parse @)
+        LOCAL=$(git rev-parse @ 2> /dev/null)
         git rev-parse @{u} > /dev/null 2>&1
         if [ $? -gt 0 ]; then
           git branch --set-upstream-to=origin/master master > /dev/null 2>&1
         fi
-        REMOTE=$(git rev-parse @{u})
-        BASE=$(git merge-base @ @{u})
+        REMOTE=$(git rev-parse @{u} 2> /dev/null)
+        BASE=$(git merge-base @ @{u} 2> /dev/null)
         if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then
           RSTAT=$(printf "\033[0;32mcurrent\033[0;m")
         elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then
