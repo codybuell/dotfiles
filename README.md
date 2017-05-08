@@ -38,10 +38,6 @@ Todo
    - try just setting gvars for expand and next to tab, may just work w supertab, also try filling out a tabs to then hitting tab, make sure supertab works as well, if so make comment that you need supertab 
  - [ ] clipboard integration solution, pbcopy? (define iskeyword separators, middle click to paste, help iskeyword)
 
-### tmux
-
- - [ ] rework config to use scheme color names, dont hardcode the colors
-
 ### shell
 
  - [ ] move repocheck alias to a function
