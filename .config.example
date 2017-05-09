@@ -62,6 +62,11 @@ AppName04     =  homestead.app
 AppWebRoot04  =  /home/vagrant/Repos/Laravel/public
 AppDatabase04 =  homestead
 
+# paths to create
+PATH00 = /Users/usrnm/.gopath
+
 # extra symlinks, increment numbers as needed, fully pathed SRC DST
 SYMLINK00 =  /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
 SYMLINK01 =  /Users/usrnm/Repos/bin /Users/usrnm/Bin
+SYMLINK02 =  /Users/usrnm/Bin /Users/usrnm/.gopath/bin
+SYMLINK03 =  /Users/usrnm/Repos /Users/usrnm/.gopath/src

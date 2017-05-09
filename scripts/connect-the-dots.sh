@@ -217,6 +217,23 @@ placefiles() {
 
 }
 
+runpaths() {
+
+  for p in ${CONFIGVARS[@]}; do
+    VAR=$p
+    eval VAL=\$$p
+    [[ $VAR =~ PATH.* ]] && {
+      [[ ! -d $VAL ]] && {
+        prettyprint "  '${VAL}' \033[0;32mcreating symlink\033[0m\n"
+        mkdir -p $VAL
+      } || {
+        prettyprint "  '${VAL}' \033[0;32malready exists\033[0m\n"
+      }
+    }
+  done
+
+}
+
 runlinks() {
 
   [[ -L ~/.todo/tasks ]] && unlink ~/.todo/tasks
@@ -278,4 +295,5 @@ done
 echo 'connecting the dots...'
 readconfig
 placefiles
+runpaths
 runlinks
