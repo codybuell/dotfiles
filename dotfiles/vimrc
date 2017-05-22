@@ -127,8 +127,11 @@ set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
-set selection=exclusive                            " include the last character when dbl click selecting
+"set selection=exclusive                           " include the last character when dbl click selecting
 "set nowrap                                        " disable wrapping by default
+
+" mouse configs
+nnoremap <silent> <2-LeftMouse> :<C-U>call functions#DblClickOverride()<CR>
 
 " enable folding by file type
 let g:javaScript_fold=1                            " javascript

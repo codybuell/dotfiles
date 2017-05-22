@@ -4,6 +4,16 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" switch selection modes so double click yanks will copy entire word
+function! functions#DblClickOverride() abort
+  " set selection to exclusive
+  setl selection=exclusive
+  " select the word under the cursor
+  exec ":normal viw"
+  " return selection to inclusive
+  setl selection=inclusive
+endfunction
+
 " send yank to register and register to clipper
 function! functions#YankOverride() abort
   " perform the yank as normal

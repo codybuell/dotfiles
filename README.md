@@ -20,4 +20,4 @@ Installation
 
  3. Run make
 
-        make [ osx | linux | osxdefs | linuxdefs | dots | brew ]
+        make [ osx | linux | osxdefs | linuxdefs | dots | brew | subs ]

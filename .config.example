@@ -10,6 +10,8 @@ KBLayout = qwerty
 NonRepoProjects = "~/Workshop"
 TasksFolder     = "/Users/usrnm/Google Drive/Tasks"     # full path, no escapes
 NotesFolder     = "~/Google\\ Drive/Notes"
+CodexFolder     = "~/Google\\ Drive/Codex"
+ProjectsFolder  = "~/Google\\ Drive/Projects"
 PersonalJournal = "~/Google\\ Drive/Journal/personal"
 WorkJournal     = "~/Google\\ Drive/Journal/work"
 

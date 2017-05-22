@@ -91,3 +91,6 @@
 [submodule "dotfiles/vim/bundle/vim-go"]
 	path = dotfiles/vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "dotfiles/vim/bundle/vimwiki"]
+	path = dotfiles/vim/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
