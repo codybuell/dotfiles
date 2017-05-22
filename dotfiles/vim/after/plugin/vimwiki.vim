@@ -32,3 +32,14 @@ let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
 nmap <Leader>w <Plug>VimwikiIndex
 
 " overrides for local mappings are found in ~/.vim/ftplugin/vimwiki.vim
+
+" map extensions and syntaxes
+let g:vimwiki_ext2syntax = {
+  \ '.md': 'markdown',
+  \ '.txt': 'markdown',
+  \ '.mkd': 'markdown',
+  \ '.wiki': 'media'
+  \ }
+
+" use other plugin for folding
+let g:vimwiki_folding = 'custom'

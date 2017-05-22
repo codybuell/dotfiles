@@ -1,10 +1,3 @@
-let g:vimwiki_ext2syntax = {
-  \ '.md': 'markdown',
-  \ '.txt': 'markdown',
-  \ '.mkd': 'markdown',
-  \ '.wiki': 'media'
-  \ }
-
 " override follow link <CR> => ctrl + l
 nmap              <C-l>               :w<CR><Plug>VimwikiFollowLink
 
