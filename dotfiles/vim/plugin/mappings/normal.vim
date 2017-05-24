@@ -77,6 +77,8 @@ nnoremap          <leader>v           :CommandT resources/views/<CR>
 nnoremap          <leader>c           :CommandT app/Http/Controllers/<CR>
 nnoremap          <leader>st          :CommandT resources/assets/sass/<CR>
 nnoremap          <leader>sc          :CommandT resources/assets/js/<CR>
+nnoremap          <leader>wj          :<C-U>call functions#OpenWorkJournal()<CR>
+nnoremap          <leader>pj          :<C-U>call functions#OpenPersonalJournal()<CR>
 
 " functions
 nnoremap <silent> <C-u>               :<C-U>call functions#Underline()<CR>

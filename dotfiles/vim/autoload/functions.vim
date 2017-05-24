@@ -4,6 +4,44 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" open work journal
+function! functions#OpenWorkJournal() abort
+
+  "let l:year  = system('date +%Y')
+  "let l:month = system('date +%B')
+  let l:year  = strftime('%Y')
+  let l:month = strftime('%B')
+  let l:path  = "{{ WorkJournal }}" . "/" . l:year
+  let l:file  = l:month . ".txt"
+
+  if !isdirectory(l:path)
+    "silent !mkdir -p {{ WorkJournal }}/`date +%Y`
+    call mkdir(l:path, "p")
+  endif
+
+  execute "edit " . fnameescape(l:path) . "/" . l:file
+
+endfunction
+
+" open personal journal
+function! functions#OpenPersonalJournal() abort
+
+  "let l:year  = system('date +%Y')
+  "let l:month = system('date +%B')
+  let l:year  = strftime('%Y')
+  let l:month = strftime('%B')
+  let l:path  = "{{ PersonalJournal }}" . "/" . l:year
+  let l:file  = l:month . ".txt"
+
+  if !isdirectory(l:path)
+    "silent !mkdir -p {{ PersonalJournal }}/`date +%Y`
+    call mkdir(l:path, "p")
+  endif
+
+  execute "edit " . fnameescape(l:path) . "/" . l:file
+
+endfunction
+
 " switch selection modes so double click yanks will copy entire word
 function! functions#DblClickOverride() abort
   " set selection to exclusive
