@@ -1,5 +1,5 @@
 " override follow link <CR> => ctrl + l
-nmap              <C-l>               :w<CR><Plug>VimwikiFollowLink
+nmap       <C-l>                              :w<CR><Plug>VimwikiFollowLink
 
 " prevent a number of inconvenient mappings: tab, backspace, =, -
 nmap       <Plug>NoVimwikiNextLink            <Plug>VimwikiNextLink
