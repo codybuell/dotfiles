@@ -1,0 +1,49 @@
+################
+# FLOW CONTROL #
+################
+
+#####################
+# TERNARY OPERATORS #
+#####################
+
+############
+# COMMENTS #
+############
+
+snippet /** "class comment block"
+"
+"---------------------------------------------------------------------------
+" ${1}
+"---------------------------------------------------------------------------
+"
+" ${2}
+"
+
+${0}
+endsnippet
+
+snippet /* "function comment block"
+"
+" ${0:description}
+"
+endsnippet
+
+snippet @par "parameter comment"
+@param {${1:type}} ${2:name} - ${0:description}
+endsnippet
+
+snippet @ret "return comment"
+@return {${1:type}} ${0:description}
+endsnippet
+
+#############
+# FUNCTIONS #
+#############
+
+#######################
+# CLASSES OBJECTS ETC #
+#######################
+
+#############
+# DEBUGGING #
+#############

@@ -4,25 +4,87 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" create or follow a wiki link
-function! functions#CreateFollowWikiLink() abort
+" Match String at Cursor
+"
+" Returns back the regex match at the current cursor position, an empty string
+" if no match found.
+"
+" @param {string} regex to match against
+" @return {string} 
+function! wiki#matchStrAtCursor(regex) abort
 
-  " is text under cursor in a link format?
-  "  standard formats
-  "  ](....:[a-Z0-9]+)  ===> link to an entry in another wiki
-  "  ](#[a-Z0-9]+)      ===> link to section in current doc
-  "  ]([a-Z0-9]+)       ===> link to wiki entry
-  "  ](http[s]?://.*)   ===> link to external resource
-  "  ](.*.\(com|net|us...\)$)
-  "
-  "  automatic links format??
-  "  <#[a-Z0-9]+>   ===> link to section in current doc
+  let col  = col('.') - 1                            " get cursors horiz position
+  let line = getline('.')                            " get all text current line
+  let ebeg = -1                                      " expression beginning
+  let cont = match(line, a:regex, 0)                 " get index of first regex match
 
-  " if text is not a link, make it a link in standard format
+  " loop through regex matches on line, see if cursor is within its bounds
+  while (ebeg >= 0 || (0 <= cont) && (cont <= col))
+    let contn = matchend(line, a:regex, cont)        " get end of current match
+    if (cont <= col) && (col < contn)                " if cursor is within match
+      let ebeg = match(line, a:regex, cont)          " expression beginning
+      let elen = contn - ebeg                        " expression length
+      break                                          " exit loop
+    else
+      let cont = match(line, a:regex, contn)         " move onto next match
+    endif
+  endwh
 
-  " if text is a link, follow it if file exists, else create it
-  " if link is external url open it in browser window
-  " if local link, move cursor to location
-  " if other wiki doc, prompt for save if necessary and move to other
+  if ebeg >= 0
+    return strpart(line, ebeg, elen)                 " return match
+  else
+    return ""
+  endif
+
+endfunction
+
+
+function! wiki#makeLinkAtCursor() abort
+
+endfunction
+
+" Create or Follow a Wiki Link
+function! wiki#CreateFollowWikiLink() abort
+
+  " check for links at cursor
+  let link = wiki#matchStrAtCursor(g:wikiPageLink)
+  let type = 'page'
+
+  if lnk == ""
+    let link = wiki#matchStrAtCursor(g:wikiSectionLink)
+    let type = 'section'
+  endif
+
+  if lnk == ""
+    let link = wiki#matchStrAtCursor(g:wikiWebURLLink)
+    let type = 'web'
+  endif
+
+  if lnk == ""
+    let link = wiki#matchStrAtCursor(g:wikiWikiLink)
+    let type = 'wiki'
+  endif
+
+  " if text is a link follow it
+  if link != ""
+
+    " get the target
+    let target = substitute(link, '.*(\([^)]*\).*', '\1', '')
+
+    if type == 'page'
+      execute "edit " . fnameescape(curwikipath) . "/" . target . ".txt"
+    elseif type == 'section'
+
+    elseif type == 'web'
+
+    elseif type == 'wiki'
+      wiki = 
+      execute "edit " . fnameescape(curwikipath) . "/" . target . ".txt"
+    endif
+
+  " else make it a link in standard format
+  else
+  endif
+
 endfunction
 
