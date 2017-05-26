@@ -4,6 +4,9 @@
 # Throughout each dotfile are snippets in the format of `{{ VarName }}` that
 # get replaced with the values below when running `make dots` or another make
 # method that calls the `scripts/connect-the-dots.sh` script.
+#
+# To get started, copy this file to `.config`, fill everything below out, then
+# run the appropriate make for your system.
 
 ################################################################################
 #                                                                              #
