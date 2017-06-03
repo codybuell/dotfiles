@@ -70,9 +70,12 @@ PACKAGES=( \
 CASKS=( \
     'amazon-workspaces' \            # aws vdi client
     'balsamiq-mockups' \             # wireframing tool
+    'bartender' \                    # tool for simplifying the menubar
+    'bitbar' \                       # shell output in menubar
     'box-sync' \                     # file collaboration
     'cubicsdr' \                     # good sdr dongle front end
     'dockertoolbox' \                # docker suite for osx
+    'etcher' \                       # img to sd card writer
     'firefox' \                      # alternative web browser
     'geektool' \                     # desktop information center
     'google-drive' \                 # file collaboration
@@ -80,6 +83,7 @@ CASKS=( \
     'inkscape' \                     # open source vector graphics application
     'imageoptim' \                   # image file optimizer
     'iterm2' \                       # improved terminal emulator
+    'itsycal' \                      # menubar calendar
     'karabiner' \                    # keyboard layout customization
     'keycastr' \                     # show keystrokes on screen
     'libreoffice' \                  # open source office suite
