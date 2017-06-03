@@ -13,10 +13,10 @@ fi
 tmux new-session -d -s $SESSION -n vim
 
 # build out panes
-tmux send-keys -t ${SESSION}:vim "vim -c CommandT" Enter
-tmux split-window -t ${SESSION}:vim -h
-tmux send-keys -t ${SESSION}:vim.right "git status" Enter
-tmux split-window -t ${SESSION}:vim -v
+tmux send-keys -t ${SESSION}:vim "git status" Enter
+tmux split-window -t ${SESSION}:vim -h -p 60
+tmux send-keys -t ${SESSION}:vim.right "vim -c CommandT" Enter
+tmux split-window -t ${SESSION}:vim.left -v -p 60
 
 # attach to the new session, focus left pane
-tmux attach -t ${SESSION}:vim.left
+tmux attach -t ${SESSION}:vim.right
