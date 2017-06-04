@@ -64,6 +64,7 @@ PACKAGES=( \
     'webkit2png' \                   # tool for screenshotting websites via command line
     'wget' \                         # curl alternative
     'wireshark' \                    # network traffic analyzer
+    'yubikey-personalization' \      # yubikey cli
     'zsh' \                          # z-shell
 )
 
@@ -99,7 +100,17 @@ CASKS=( \
 )
 
 # not available via brew cask
-#  - screenie
+#  - screenie                        --> download from vendor
+#  - meshmixer                       --> download from vendor
+#  - hazeover                        --> app store
+#  - noizio                          --> app store
+#  - screenflow6                     --> app store
+#  - microsoft remote desktop        --> app store
+#  - wifi explorer                   --> app store
+#  - aperture                        --> app store
+#  - xcode                           --> app store
+#  - icon slate                      --> app store
+#  - yubikey personalization tool    --> app store
 
 # install brew if necessary
 which brew > /dev/null
