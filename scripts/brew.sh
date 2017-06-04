@@ -72,7 +72,6 @@ CASKS=( \
     'balsamiq-mockups' \             # wireframing tool
     'bartender' \                    # tool for simplifying the menubar
     'bitbar' \                       # shell output in menubar
-    'box-sync' \                     # file collaboration
     'cubicsdr' \                     # good sdr dongle front end
     'dockertoolbox' \                # docker suite for osx
     'etcher' \                       # img to sd card writer
@@ -98,6 +97,9 @@ CASKS=( \
     'vmware-horizon-client' \        # vdi client
     'xquartz' \                      # osx's implemenrtation of x11
 )
+
+# not available via brew cask
+#  - screenie
 
 # install brew if necessary
 which brew > /dev/null
