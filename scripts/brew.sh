@@ -39,6 +39,7 @@ PACKAGES=( \
     'jq' \                           # json manipulation and parsing tool
     'markdown' \                     # parsing of markdown syntax to html
     'minicom' \                      # modem control and serial terminal emulation
+    'mutt' \                         # command line email client
     'nmap' \                         # network utility
     'node' \                         # server side js
     'openssl' \                      # the one and only...
@@ -135,3 +136,9 @@ for i in ${CASKS[@]}; do
   # echo "brew cask install $i"
   brew cask install $i
 done
+
+# start up services
+#brew services start --all
+brew services start bitlbee
+brew services start clipper
+#brew services start ddclient
