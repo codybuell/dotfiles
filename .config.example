@@ -47,8 +47,8 @@ TasksFolder     = "/Users/usrnm/Google Drive/Tasks"     # full path, no escapes
 NotesFolder     = "~/Google\\ Drive/Notes"
 CodexFolder     = "~/Google\\ Drive/Codex"
 NonRepoProjects = "~/Google\\ Drive/Projects"
-PersonalJournal = "~/Google\\ Drive/Journal/personal"
-WorkJournal     = "~/Google\\ Drive/Journal/work"
+PersonalJournal = "/Users/usrnm/Google\\ Drive/Journal/personal"  # full path, escapes
+WorkJournal     = "/Users/usrnm/Google\\ Drive/Journal/work"      # full path, escapes
 
 ################################################################################
 #                                                                              #
