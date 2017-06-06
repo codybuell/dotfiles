@@ -1,0 +1,23 @@
+# tmux work left layout
+#
+# .--------------------------------------.
+# |                     |                |
+# |       1 mutt        |     2 vim      |
+# |                     |                |
+# |--------------------------------------|
+# |                                      |
+# |              3 weechat               |
+# |                                      |
+# '--------------------------------------'
+
+selectp -t 1
+splitw -v -p 48
+
+selectp -t 1
+splitw -h -l 87
+
+send-keys -t 1 "mutt" Enter
+send-keys -t 2 "wj" Enter
+send-keys -t 3 "weechat" Enter
+
+selectp -t 3
