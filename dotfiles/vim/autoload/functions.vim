@@ -10,9 +10,10 @@ function! functions#OpenWorkJournal() abort
   "let l:year  = system('date +%Y')
   "let l:month = system('date +%B')
   let l:year  = strftime('%Y')
-  let l:month = strftime('%B')
-  let l:path  = "{{ WorkJournal }}" . "/" . l:year
-  let l:file  = l:month . ".txt"
+  let l:month = strftime('%m')
+  let l:day   = strftime('%d')
+  let l:path  = "{{ WorkJournal }}" . "/" . l:year . "/" . l:month
+  let l:file  = l:year . "." . l:month . "." . l:day . ".txt"
 
   if !isdirectory(l:path)
     "silent !mkdir -p {{ WorkJournal }}/`date +%Y`
@@ -29,9 +30,10 @@ function! functions#OpenPersonalJournal() abort
   "let l:year  = system('date +%Y')
   "let l:month = system('date +%B')
   let l:year  = strftime('%Y')
-  let l:month = strftime('%B')
-  let l:path  = "{{ PersonalJournal }}" . "/" . l:year
-  let l:file  = l:month . ".txt"
+  let l:month = strftime('%m')
+  let l:day   = strftime('%d')
+  let l:path  = "{{ PersonalJournal }}" . "/" . l:year . "/" . l:month
+  let l:file  = l:year . "." . l:month . "." . l:day . ".txt"
 
   if !isdirectory(l:path)
     "silent !mkdir -p {{ PersonalJournal }}/`date +%Y`

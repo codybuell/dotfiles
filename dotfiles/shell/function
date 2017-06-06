@@ -95,14 +95,14 @@ function gpl() {
 
 # edit work journal
 function wj() {
-  [[ ! -d {{ WorkJournal }}/`date +%Y` ]] && mkdir -p {{ WorkJournal }}/`date +%Y`
-  vim {{ WorkJournal }}/`date +%Y/%B`.txt
+  [[ ! -d {{ WorkJournal }}/`date +%Y/%m` ]] && mkdir -p {{ WorkJournal }}/`date +%Y/%m`
+  vim {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
 }
 
 # edit personal journal
 function pj() {
-  [[ ! -d {{ PersonalJournal }}/`date +%Y` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y`
-  vim {{ PersonalJournal }}/`date +%Y/%B`.txt
+  [[ ! -d {{ PersonalJournal }}/`date +%Y/%m` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y/%m`
+  vim {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
 }
 
 # fwknop helper
