@@ -19,7 +19,7 @@
 "  ␣1  toggle wrapping      ␣j  cmnd-t jumplist      <tab> toggle fold         "
 "  ␣2  toggle comments      ␣h  cmnd-t vim help      ␣w    write buffer        "
 "  ␣3  toggle syntax hi     ␣n  cmnd-t notes         ␣q    close buffer        "
-"  ␣4                       ␣m  cmnd-t lv models     ␣␣    toggle buffer       "
+"  ␣4  delete view file     ␣m  cmnd-t lv models     ␣␣    toggle buffer       "
 "  ␣5                       ␣v  cmnd-t lv views      ␣                         "
 "  ␣6  hitest.vim           ␣c  cmnd-t lv contrlrs   ␣                         "
 "  ␣7  insert color ref     ␣st cmnd-t lv styles     ␣                         "

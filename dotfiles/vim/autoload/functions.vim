@@ -4,6 +4,21 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" delete temporary view files created by mkview
+function! functions#DeleteVimView() abort
+  let path = fnamemodify(bufname('%'),':p')
+  " vim's odd =~ escaping for /
+  let path = substitute(path, '=', '==', 'g')
+  if !empty($HOME)
+    let path = substitute(path, '^'.$HOME, '\~', '')
+  endif
+  let path = substitute(path, '/', '=+', 'g') . '='
+  " view directory
+  let path = &viewdir.'/'.path
+  call delete(path)
+  echo "Deleted: ".path
+endfunction
+
 " open work journal
 function! functions#OpenWorkJournal() abort
 

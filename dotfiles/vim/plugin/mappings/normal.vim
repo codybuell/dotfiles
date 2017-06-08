@@ -89,6 +89,7 @@ nnoremap <silent> <leader>6           :runtime syntax/hitest.vim<CR>
 nnoremap <silent> <leader>7           :call functions#ColorReference()<CR>
 nnoremap <silent> <leader>8           :call functions#HighlightGroups()<CR>
 nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
+nnoremap          <leader>4           :<C-U>call functions#DeleteVimView()<CR>
 
 " splits
 nnoremap <silent> <leader>sp          :<C-U>call functions#SyncSplit()<CR>
