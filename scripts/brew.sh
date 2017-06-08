@@ -36,6 +36,7 @@ PACKAGES=( \
     'httrack' \                     # site mirroring application
     'imagemagick' \                 # command line graphics manipulation tool
     'irssi' \                       # command line irc client
+    'isync' \                       # package containing mbsync, imap sync to local fs
     'jq' \                          # json manipulation and parsing tool
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation

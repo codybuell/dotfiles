@@ -20,6 +20,39 @@ OSUsername  = codybuell                                 # your system username
 
 ################################################################################
 #                                                                              #
+# email                                                                        #
+#                                                                              #
+# This one is going to require a bit more config on your part...               #
+#                                                                              #
+# 1. Edit the following files:                                                 #
+#                                                                              #
+#    - dotfiles/mbsyncrc                                                       #
+#                                                                              #
+# 2. Create 'application password' records in OSX Keychain Access              #
+#                                                                              #
+#    - open keychain access                                                    #
+#    - create new application password                                         #
+#    - account = _EmailKeychain setting below                                  #
+#    - name = _EmailHost setting below                                         #
+#    - password = your email accounts password                                 #
+#    - repeat for both home and work email addresses                           #
+#                                                                              #
+# 3. And then configure the following services:                                #
+#                                                                              #
+#    - passage (pull go repo and build, see projects readme)                   #
+#                                                                              #
+################################################################################
+
+HomeEmailHost     = imap.gmail.com            # host and 'name' field in keychain
+HomeEmailKeychain = cody+mutt@codybuell.com   # 'account' field in keychain
+HomeEmailUsername = cody@codybuell.com
+
+WorkEmailHost     = imap.gmail.com            # host and 'name' field in keychain
+WorkEmailKeychain = cody+mutt@workplace.com   # 'account' field in keychain
+WorkEmailUsername = cody@workplace.com
+
+################################################################################
+#                                                                              #
 # keyboard layout                                                              #
 #                                                                              #
 ################################################################################
