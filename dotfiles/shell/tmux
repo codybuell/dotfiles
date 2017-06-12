@@ -3,5 +3,6 @@ if [ ! -z $TMUX ]; then
 
   # fix ssh-agent issue
   alias ssh="TERM=xterm-256color reattach-to-user-namespace ssh"
+  alias scp="TERM=xterm-256color reattach-to-user-namespace scp"
 
 fi
