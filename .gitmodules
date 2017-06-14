@@ -97,3 +97,6 @@
 [submodule "dotfiles/vim/bundle/calendar-vim"]
 	path = dotfiles/vim/bundle/calendar-vim
 	url = https://github.com/mattn/calendar-vim.git
+[submodule "dotfiles/mutt/vendor/mutt-notmuch-py"]
+	path = dotfiles/mutt/vendor/mutt-notmuch-py
+	url = https://github.com/honza/mutt-notmuch-py.git

@@ -54,6 +54,7 @@ PACKAGES=( \
     'reattach-to-user-namespace' \  # reattach process to background
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
+    'terminal-notifier' \           # send osx notifications through terminal
     'tmux' \                        # terminal multiplexer
     'todo-txt' \                    # gina's handy to do list manager
     'toilet' \                      # ascii art
