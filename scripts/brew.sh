@@ -52,6 +52,7 @@ PACKAGES=( \
     'python' \                      # python language
     'rclone' \                      # cli for cloud storage providers
     'reattach-to-user-namespace' \  # reattach process to background
+    'rg' \                          # ripgrep, faster ack
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
     'terminal-notifier' \           # send osx notifications through terminal
