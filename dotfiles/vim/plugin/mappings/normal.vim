@@ -56,6 +56,10 @@ nnoremap <silent> <leader>Y           :CommandTTag<CR>
 nnoremap <silent> <leader>j           :CommandTJump<CR>
 nnoremap <silent> <leader>h           :CommandTHelp<CR>
 
+" ctrlsf
+nnoremap          <leader>g           <Plug>CtrlSFPrompt
+nnoremap          <leader>G           <Plug>CtrlSFCwordExec
+
 " laravel
 nnoremap          <leader>la          :!php artisan
 nnoremap <silent> <leader>lr          :!php artisan route:list<CR>

@@ -10,6 +10,7 @@
 
 PACKAGES=( \
     'ack' \                         # enhanced grep like functionality for development
+    'ag' \                          # silver searcher, ack like func
     'alpine' \                      # command line email client
     'ansible' \                     # configuration management utility
     'awscli' \                      # aws api cli client

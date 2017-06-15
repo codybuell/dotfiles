@@ -49,9 +49,6 @@
 [submodule "dotfiles/vim/bundle/vim-exchange"]
 	path = dotfiles/vim/bundle/vim-exchange
 	url = https://github.com/tommcdo/vim-exchange.git
-[submodule "dotfiles/vim/bundle/ferret"]
-	path = dotfiles/vim/bundle/ferret
-	url = https://github.com/wincent/ferret.git
 [submodule "dotfiles/vim/bundle/tagbar"]
 	path = dotfiles/vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
@@ -100,3 +97,6 @@
 [submodule "dotfiles/mutt/vendor/mutt-notmuch-py"]
 	path = dotfiles/mutt/vendor/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
+[submodule "dotfiles/vim/bundle/ctrlsf.vim"]
+	path = dotfiles/vim/bundle/ctrlsf.vim
+	url = https://github.com/dyng/ctrlsf.vim.git
