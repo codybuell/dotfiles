@@ -57,8 +57,8 @@ nnoremap <silent> <leader>j           :CommandTJump<CR>
 nnoremap <silent> <leader>h           :CommandTHelp<CR>
 
 " ctrlsf
-nnoremap          <leader>g           <Plug>CtrlSFPrompt
-nnoremap          <leader>G           <Plug>CtrlSFCwordExec
+nmap              <leader>g           <Plug>CtrlSFPrompt
+nmap              <leader>G           <Plug>CtrlSFCwordExec
 
 " laravel
 nnoremap          <leader>la          :!php artisan
