@@ -1,11 +1,18 @@
 hs.grid.setGrid('12x12') -- allows us to place on quarters, thirds and halves
-hs.grid.MARGINX = 6
-hs.grid.MARGINY = 5
+hs.grid.MARGINX = 0
+hs.grid.MARGINY = 0
 hs.window.animationDuration = 0 -- disable animations
 
 local screenCount = #hs.screen.allScreens()
 local logLevel = 'info' -- generally want 'debug' or 'info'
-local log = hs.logger.new('wincent', logLevel)
+local log = hs.logger.new('buell', logLevel)
+
+local primaryScreen = hs.screen.primaryScreen()
+local primaryMode   = primaryScreen:currentMode()
+local primaryWidth  = primaryMode.w
+local primaryHeight = primaryMode.h
+local primaryWxH    = primaryMode.w .. "x" .. primaryMode.h
+--log.i(primaryMode)
 
 local grid = {
   -- x start, y start, dimension
@@ -22,6 +29,7 @@ local grid = {
   leftThird = '0,0 4x12',
   leftTwoThirds = '0,0 8x12',
   leftThreeQuarters = '0,0 9x12',
+  laptopLeftThreeQuarters = '0,0 10x12',
   topLeft = '0,0 6x6',
   topRight = '6,0 6x6',
   bottomRight = '6,6 6x6',
@@ -41,29 +49,9 @@ local layoutConfig = {
   end),
 
   _after_ = (function()
-    -- Make sure Textual appears in front of Skype, and iTerm in front of
-    -- others.
-    activate('com.codeux.irc.textual5')
+    -- make sure iterm appears in front of chrome
+    activate('com.google.Chrome')
     activate('com.googlecode.iterm2')
-  end),
-
-  ['com.codeux.irc.textual5'] = (function(window)
-    hs.grid.set(window, grid.fullScreen, internalDisplay())
-  end),
-
-  ['com.flexibits.fantastical2.mac'] = (function(window)
-    hs.grid.set(window, grid.fullScreen, internalDisplay())
-  end),
-
-  ['com.freron.MailMate'] = (function(window, forceScreenCount)
-    local count = forceScreenCount or screenCount
-    if isMailMateMailViewer(window) then
-      if count == 1 then
-        hs.grid.set(window, grid.fullScreen)
-      else
-        hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
-      end
-    end
   end),
 
   ['com.google.Chrome'] = (function(window, forceScreenCount)
@@ -102,12 +90,18 @@ local layoutConfig = {
 --    else
 --      hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
 --    end
-    hs.grid.set(window, grid.leftThreeQuarters)
+    hs.grid.MARGINX = 6
+    hs.grid.MARGINY = 5
+    -- if laptop screen, improve with screen dpi density check?
+    if primaryWxH == "1440x900" then
+      hs.grid.set(window, grid.laptopLeftThreeQuarters)
+    else
+      hs.grid.set(window, grid.leftThreeQuarters)
+    end
+    hs.grid.MARGINX = 0
+    hs.grid.MARGINY = 0
   end),
 
-  ['com.skype.skype'] = (function(window)
-    hs.grid.set(window, grid.rightHalf, internalDisplay())
-  end),
 }
 
 --
@@ -142,12 +136,6 @@ function activate(bundleID)
   if app then
     app:activate()
   end
-end
-
-function isMailMateMailViewer(window)
-  local title = window:title()
-  return title == 'No mailbox selected' or
-    string.find(title, '%(%d+ messages?%)')
 end
 
 function canManageWindow(window)
