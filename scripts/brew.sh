@@ -82,6 +82,8 @@ CASKS=( \
     'etcher' \                      # img to sd card writer
     'firefox' \                     # alternative web browser
     'geektool' \                    # desktop information center
+    'google-chrome' \               # chrome browser
+    'google-chrome-canary' \        # bleeding edge chrome
     'google-drive' \                # file collaboration
     'hammerspoon' \                 # osx automation tool
     'inkscape' \                    # open source vector graphics application
