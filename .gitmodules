@@ -100,3 +100,6 @@
 [submodule "dotfiles/vim/bundle/ctrlsf.vim"]
 	path = dotfiles/vim/bundle/ctrlsf.vim
 	url = https://github.com/dyng/ctrlsf.vim.git
+[submodule "dotfiles/vim/bundle/splitjoin.vim"]
+	path = dotfiles/vim/bundle/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
