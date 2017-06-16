@@ -17,7 +17,7 @@ selectp -t 1
 splitw -h -l 87
 
 send-keys -t 1 "mutt" Enter
-send-keys -t 2 "cd '{{ WorkJournal }}'; wj" Enter
+send-keys -t 2 "wj" Enter
 send-keys -t 3 "weechat" Enter
 
 selectp -t 3
