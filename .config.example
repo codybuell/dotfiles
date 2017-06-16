@@ -97,9 +97,13 @@ GistsPath   = ~/Gists                                   # folder for git gists
 #                                                                              #
 # api tokens                                                                   #
 #                                                                              #
+# GitHubHomebrewAPIToken -> used for brew                                      #
+# SlackAPIToken -> used for slackcat                                           #
+#                                                                              #
 ################################################################################
 
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
+SlackAPIToken = 1234-12345678901-12345678901-123456789012-12345678901234567890123456789012
 
 ################################################################################
 #                                                                              #

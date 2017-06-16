@@ -5,6 +5,9 @@
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 
+# slackcat
+export SLACK_TOKEN='{{ SlackAPIToken }}'
+
 # shell
 export HISTTIMEFORMAT="%Y/%m/%d %T "
 export HISTFILESIZE=10000
