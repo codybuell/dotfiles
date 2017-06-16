@@ -17,7 +17,7 @@ let g:ctrlsf_ackprg = '/usr/local/bin/ag'
 let g:ctrlsf_default_view_mode = 'compact'
 
 " what to ignore (this seems to bork things)
-let g:ctrlsf_ignore_dir = ['vendor','.git','dotfiles/vim/bundle']
+let g:ctrlsf_ignore_dir = ['vendor','.git','.hg','dotfiles/vim/bundle','node_modules','bower_components']
 
 " disable save confirmation
 let g:ctrlsf_confirm_save = 0
