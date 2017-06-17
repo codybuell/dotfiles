@@ -60,5 +60,6 @@ if v:progname !=# 'vi'
     augroup END
   endif
 
-  call s:SetColorScheme('focus')
+  " what are you doing here?  causes issues https://github.com/wincent/terminus/issues/24
+  "call s:SetColorScheme('focus')
 endif
