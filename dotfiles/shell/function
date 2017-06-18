@@ -203,21 +203,36 @@ function tmux() {
 
 # email
 function email() {
-  if ! tmux has-session -t email 2> /dev/null; then
-    # Make saved attachments go to ~/Downloads by default.
-    tmux new-session -d -s email -c ~/Downloads -n mutt
-    tmux send-keys -t email:mutt mutt Enter
-    tmux new-window -t email -c ~/.mutt -n sync
-    tmux send-keys -t email:sync '~/.mutt/scripts/control.sh home' Enter
-    tmux split-window -t email:sync -h -c ~/.mutt
-    tmux send-keys -t email:sync.right '~/.mutt/scripts/control.sh work' Enter
-    tmux split-window -t email:sync -v -f -l 8 -c ~/.mutt
-    tmux send-keys -t email:sync.bottom '~/.mutt/scripts/control.sh' Enter
-  fi
   if [ -z "$TMUX" ]; then
-    tmux attach -t email:mutt
+    if ! tmux has-session -t email 2> /dev/null; then
+      # Make saved attachments go to ~/Downloads by default.
+      tmux new-session -d -s email -c ~/Downloads -n mutt
+      tmux send-keys -t email:mutt mutt Enter
+      tmux new-window -t email -c ~/.mutt -n sync
+      tmux send-keys -t email:sync '~/.mutt/scripts/control.sh home' Enter
+      tmux split-window -t email:sync -h -c ~/.mutt
+      tmux send-keys -t email:sync.right '~/.mutt/scripts/control.sh work' Enter
+      tmux split-window -t email:sync -v -f -l 8 -c ~/.mutt
+      tmux send-keys -t email:sync.bottom '~/.mutt/scripts/control.sh' Enter
+    else
+      tmux attach -t email:mutt
+    fi
   else
     tmux switch-client -t email:mutt
+  fi
+}
+
+# home tmux
+function home() {
+  if [ -z "$TMUX" ]; then
+    if ! tmux has-session -t home 2> /dev/null; then
+      cd ~
+      tmux
+    else
+      tmux attach -t home
+    fi
+  else
+    tmux switch-client -t home
   fi
 }
 
