@@ -103,3 +103,6 @@
 [submodule "dotfiles/vim/bundle/splitjoin.vim"]
 	path = dotfiles/vim/bundle/splitjoin.vim
 	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "dotfiles/vim/bundle/tabular"]
+	path = dotfiles/vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
