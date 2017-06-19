@@ -1,0 +1,7 @@
+# an array of pre-execution functions to run
+preexec_functions=[ \
+]
+
+# an array of pre-command prompt functions to run
+precmd_functions=[ \
+]
