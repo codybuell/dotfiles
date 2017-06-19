@@ -17,7 +17,7 @@ if has('autocmd')
     au BufWritePre *.php,*.txt,*.scss :%s/\s\+$//e
 
     " remember folding / view states
-    au BufWinLeave ?* mkview
+    au BufWinLeave ?* silent! mkview
     au BufWinEnter ?* silent! loadview
 
     " dont restore cursor position on gitcommits
