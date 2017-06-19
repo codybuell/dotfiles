@@ -17,6 +17,7 @@ let g:UltiSnipsSnippetsDir = '~/.vim/ultisnips'
 let g:UltiSnipsSnippetDirectories = ['ultisnips']
 
 " ATTEMPT TO USE TAB FOR EVERYTHING
+" refine ultisnips / supertab integration, tab for everything? exapand and go to next tabstop, with autocompletion?
 "
 " let g:ulti_expand_or_jump_res = 0
 " function! Ulti_ExpandOrJump_and_getRes()
