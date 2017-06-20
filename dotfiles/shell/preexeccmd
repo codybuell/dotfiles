@@ -1,7 +1,77 @@
-# an array of pre-execution functions to run
-preexec_functions=[ \
-]
+# set pre exec time stamp
+pre_exec_ts() {
+  # grab nanosecond timestamp
+  which gdate > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    # if gdate is installed grab nanoseconds
+    PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || gdate +%N`
+  elif ! date -v 1d > /dev/null 2>&1; then
+    # or same if not date is not bsd date
+    PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || date +%N`
+  else
+    PRE_EXEC_NS=0
+  fi
+  # grab H:M:S timestamp
+  PRE_EXEC_TS=`date +%s`
+}
 
-# an array of pre-command prompt functions to run
-precmd_functions=[ \
-]
+# set post exec timestamp and calc diff
+post_exec_prompt() {
+  # grab the last exit code
+  local LAST_EXIT_CODE="\033[0;`[[ $? > 0 ]] && echo 91 || echo 90`m$?\033[0m"
+
+  # if pre_exec_ts was not run bail
+  [[ -z $PRE_EXEC_TS ]] && return
+
+  # grab nanosecond timestamp
+  which gdate > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    # if gdate is installed grab nanoseconds
+    local POST_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || gdate +%N`
+  elif ! date -v 1d > /dev/null 2>&1; then
+    # or same if not date is not bsd date
+    local PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || date +%N`
+  else
+    PRE_EXEC_NS=0
+  fi
+
+  # grab post exec H:M:S timestamp
+  local POST_EXEC_TS=`date +%s`
+
+  # calculate diffs
+  local DELTA=$(($POST_EXEC_TS - $PRE_EXEC_TS))
+  local DAYS=$((~~($DELTA / 86400)))
+  local HOURS=$((~~(($DELTA - ($DAYS * 86400)) / 3600)))
+  local MINUTES=$((~~(($DELTA - ($DAYS * 86400) - ($HOURS * 3600)) / 60)))
+  local SECS=$(($DELTA - ($DAYS * 86400) - ($HOURS * 3600) - ($MINUTES * 60)))
+  local NANO=$(( (($POST_EXEC_TS * 1000000000) + `printf "%.0f" $POST_EXEC_NS`) - (($PRE_EXEC_TS * 1000000000) + `printf "%.0f" $PRE_EXEC_NS`) ))
+
+  # build output string
+  ELAPSED=''
+  [[ "$DAYS" != '0' ]] && ELAPSED="${DAYS}d"
+  [[ "$HOURS" != '0' ]] && ELAPSED="${ELAPSED}${HOURS}h"
+  [[ "$MINUTES" != '0'  ]] && ELAPSED="${ELAPSED}${MINUTES}m"
+  if [ "$ELAPSED" = '' ]; then
+    local SECS="$(printf "%.2f" ${SECS}.${NANO})s"
+  elif [ "$DAYS" != '0' ]; then
+    local SECS=''
+  else
+    local SECS="$((~~$SECS))s"
+  fi
+  ELAPSED="${ELAPSED}${SECS}"
+  printf "%${COLUMNS}s\r" "\033[2;90m$ELAPSED\033[0m $LAST_EXIT_CODE "
+
+  # unset some vars for the next go
+  unset PRE_EXEC_TS
+  unset PRE_EXEC_NS
+}
+
+# pre execution
+preexec() {
+  pre_exec_ts
+}
+
+# pre cmd prompt
+precmd() {
+  post_exec_prompt
+}
