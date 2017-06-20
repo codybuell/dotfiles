@@ -18,7 +18,8 @@ pre_exec_ts() {
 # set post exec timestamp and calc diff
 post_exec_prompt() {
   # grab the last exit code
-  local LAST_EXIT_CODE="\033[0;`[[ $? > 0 ]] && echo 91 || echo 90`m$?\033[0m"
+  local LAST_EXIT_CODE=$?
+  local EXIT_COLOR=`[[ $LAST_EXIT_CODE -gt 0 ]] && echo "\033[2;91m"`
 
   # if pre_exec_ts was not run bail
   [[ -z $PRE_EXEC_TS ]] && return
@@ -59,7 +60,8 @@ post_exec_prompt() {
     local SECS="$((~~$SECS))s"
   fi
   ELAPSED="${ELAPSED}${SECS}"
-  printf "%${COLUMNS}s\r" "\033[2;90m$ELAPSED\033[0m $LAST_EXIT_CODE "
+  local WIDTH=$(( $COLUMNS - ${#LAST_EXIT_CODE} - 1 ))
+  printf "\033[2;90m%${WIDTH}s ${EXIT_COLOR}%s\r\033[0m" "$ELAPSED" "$LAST_EXIT_CODE"
 
   # unset some vars for the next go
   unset PRE_EXEC_TS
