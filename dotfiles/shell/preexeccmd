@@ -45,7 +45,8 @@ post_exec_prompt() {
   local HOURS=$((~~(($DELTA - ($DAYS * 86400)) / 3600)))
   local MINUTES=$((~~(($DELTA - ($DAYS * 86400) - ($HOURS * 3600)) / 60)))
   local SECS=$(($DELTA - ($DAYS * 86400) - ($HOURS * 3600) - ($MINUTES * 60)))
-  local NANO=$(( (($POST_EXEC_TS * 1000000000) + `printf "%.0f" $POST_EXEC_NS`) - (($PRE_EXEC_TS * 1000000000) + `printf "%.0f" $PRE_EXEC_NS`) ))
+  local NANO=$(( $POST_EXEC_TS$POST_EXEC_NS - $PRE_EXEC_TS$PRE_EXEC_NS - $SECS ))
+  local NANO=`printf "%09d\n" $NANO`
 
   # build output string
   ELAPSED=''
