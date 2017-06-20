@@ -38,6 +38,7 @@ local grid = {
   centeredBig = '2,1 8x10',
   centeredSmall = '4,3 4x6',
   goldenLarge = '2,1 8x10',
+  laptopGoldenLarge = '1,1 10x10',
   goldenSmall = '2,1 6x8',
   portraitLarge = '2,2 5x9',
   portraitSmall = '2,2 4x7',
@@ -66,7 +67,11 @@ local layoutConfig = {
 --      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
 --      hs.grid.set(window, side, hs.screen.primaryScreen())
 --    end
-    hs.grid.set(window, grid.goldenLarge)
+    if primaryWxH == "1440x900" then
+      hs.grid.set(window, grid.laptopGoldenLarge)
+    else
+      hs.grid.set(window, grid.goldenLarge)
+    end
   end),
 
   ['com.google.Chrome.canary'] = (function(window, forceScreenCount)
