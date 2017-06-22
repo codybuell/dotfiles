@@ -29,7 +29,8 @@ if [ -f /etc/redhat-release ]; then
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
-  INSTALL="cmake exuberant-ctags gcc git libevent-dev libncurses5-dev nfs-common ruby ruby-dev vim-nox"
+  INSTALL="cmake exuberant-ctags gcc git libevent-dev libncurses5-dev nfs-common ruby ruby-dev vim-nox ack-grep ag ansible awscli bash bash-completion coreutils dos2unix fwknop-client composer jq minicom mutt nmap nodejs openssl picocom tree curl"
+
 fi
 
 ########################
