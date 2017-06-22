@@ -10,6 +10,39 @@
 
 ################################################################################
 #                                                                              #
+# paths to create                                                              #
+#                                                                              #
+# You can create up to 100 paths, simply increment the variable name.  Paths   #
+# are created with the -p flag, so all subdirs will be created as needed. Add  #
+# or remove PATHNN vars below as needed.                                       #
+#                                                                              #
+################################################################################
+
+PATH00 = /Users/usrnm/.gopath                           # go path root
+PATH01 = /Users/usrnm/Repos                             # repository folder
+PATH02 = /Users/usrnm/Gists                             # github gists folder
+
+################################################################################
+#                                                                              #
+# symlinks to create                                                           #
+#                                                                              #
+# You can create up to 100 symlinks, simply increment the variable name.       #
+# Each symlink should be in the format:                                        #
+#                                                                              #
+#     SYMLINK[NN] = [source path] [destination path]                           #
+#                                                                              #
+# Destination parent folders must already exist, use path configs above as     #
+# needed. Add or remove SYMLINKNN vars below as needed.                        #
+#                                                                              #
+################################################################################
+
+SYMLINK00 =  /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
+SYMLINK01 =  /Users/usrnm/Repos/bin /Users/usrnm/Bin
+SYMLINK02 =  /Users/usrnm/Bin /Users/usrnm/.gopath/bin
+SYMLINK03 =  /Users/usrnm/Repos /Users/usrnm/.gopath/src
+
+################################################################################
+#                                                                              #
 # personal information                                                         #
 #                                                                              #
 ################################################################################
@@ -171,33 +204,3 @@ AppDatabase03 =  homestead
 AppName04     =  homestead.app
 AppWebRoot04  =  /home/vagrant/Repos/Laravel/public
 AppDatabase04 =  homestead
-
-################################################################################
-#                                                                              #
-# paths to create                                                              #
-#                                                                              #
-# You can create up to 100 paths, simply increment the variable name.  Paths   #
-# are created with the -p flag, so all subdirs will be created as needed.      #
-#                                                                              #
-################################################################################
-
-PATH00 = /Users/usrnm/.gopath
-
-################################################################################
-#                                                                              #
-# symlinks to create                                                           #
-#                                                                              #
-# You can create up to 100 symlinks, simply increment the variable name.       #
-# Each symlink should be in the format:                                        #
-#                                                                              #
-#     SYMLINK[NN] = [source path] [destination path]                           #
-#                                                                              #
-# Destination parent folders must already exist, use path configs above as     #
-# needed.                                                                      #
-#                                                                              #
-################################################################################
-
-SYMLINK00 =  /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
-SYMLINK01 =  /Users/usrnm/Repos/bin /Users/usrnm/Bin
-SYMLINK02 =  /Users/usrnm/Bin /Users/usrnm/.gopath/bin
-SYMLINK03 =  /Users/usrnm/Repos /Users/usrnm/.gopath/src

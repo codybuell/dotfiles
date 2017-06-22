@@ -294,6 +294,6 @@ done
 
 echo 'connecting the dots...'
 readconfig
-placefiles
 runpaths
 runlinks
+placefiles
