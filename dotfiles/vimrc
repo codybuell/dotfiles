@@ -127,6 +127,7 @@ set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
+set conceallevel=2                                 " conceal text with replacement chars
 "set selection=exclusive                           " include the last character when dbl click selecting
 "set nowrap                                        " disable wrapping by default
 
