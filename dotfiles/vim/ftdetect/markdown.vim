@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.txt,*.md          set ft=markdown
+au BufNewFile,BufRead *.txt,*.md          set ft=markdown | set conceallevel=2
