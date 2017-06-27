@@ -70,7 +70,7 @@ post_exec_prompt() {
     local SECS="$((~~$SECS))s"
   fi
   ELAPSED="${ELAPSED}${SECS}"
-  local WIDTH=$(( $COLUMNS - ${#ELAPSED} - ${#LAST_EXIT_CODE} - 2 ))
+  local WIDTH=$(( $COLUMNS - ${#ELAPSED} - ${#LAST_EXIT_CODE} - 1 ))
   printf "${G_COLOR}%${WIDTH}s \033[2;90m%s ${EXIT_COLOR}%s\r\033[0m" "$GSTATUS" "$ELAPSED" "$LAST_EXIT_CODE"
 
   # unset some vars for the next go
