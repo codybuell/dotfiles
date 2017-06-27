@@ -170,7 +170,7 @@ function tmux() {
 
   # if provided with args, pass them through
   if [[ -n "$@" ]]; then
-    env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux "$@"
+    env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u "$@"
     return
   fi
 
@@ -198,7 +198,7 @@ function tmux() {
 
   # attach to existing session, or create one, based on current directory.
   SESSION_NAME=$([[ `pwd` == $HOME ]] && echo 'home' || basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
-  env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux new -A -s "$SESSION_NAME"
+  env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u new -A -s "$SESSION_NAME"
 }
 
 # email
@@ -215,7 +215,7 @@ function email() {
       tmux split-window -t email:sync -v -f -l 8 -c ~/.mutt
       tmux send-keys -t email:sync.bottom '~/.mutt/scripts/control.sh' Enter
     else
-      tmux attach -t email:mutt
+      tmux -u attach -t email:mutt
     fi
   else
     tmux switch-client -t email:mutt
@@ -227,9 +227,9 @@ function home() {
   if [ -z "$TMUX" ]; then
     if ! tmux has-session -t home 2> /dev/null; then
       cd ~
-      tmux
+      tmux -u
     else
-      tmux attach -t home
+      tmux -u attach -t home
     fi
   else
     tmux switch-client -t home

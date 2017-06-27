@@ -4,10 +4,10 @@ pre_exec_ts() {
   which gdate > /dev/null 2>&1
   if [[ $? -eq 0 ]]; then
     # if gdate is installed grab nanoseconds
-    PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || gdate +%N`
+    PRE_EXEC_NS=`gdate +%N`
   elif ! date -v 1d > /dev/null 2>&1; then
     # or same if not date is not bsd date
-    PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || date +%N`
+    PRE_EXEC_NS=`date +%N`
   else
     PRE_EXEC_NS=0
   fi
@@ -37,12 +37,12 @@ post_exec_prompt() {
   which gdate > /dev/null 2>&1
   if [[ $? -eq 0 ]]; then
     # if gdate is installed grab nanoseconds
-    local POST_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || gdate +%N`
+    local POST_EXEC_NS=`gdate +%N`
   elif ! date -v 1d > /dev/null 2>&1; then
     # or same if not date is not bsd date
-    local PRE_EXEC_NS=`[[ $? -gt 0 ]] && echo 0 || date +%N`
+    local POST_EXEC_NS=`date +%N`
   else
-    PRE_EXEC_NS=0
+    local POST_EXEC_NS=0
   fi
 
   # grab post exec H:M:S timestamp

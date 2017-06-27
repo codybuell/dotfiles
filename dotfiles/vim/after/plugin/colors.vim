@@ -63,6 +63,6 @@ if v:progname !=# 'vi'
   " what are you doing here?  causes issues https://github.com/wincent/terminus/issues/24
   " if not in tmux then run this???
   "if ! $TMUX
-  " call s:SetColorScheme('focus')
+  call s:SetColorScheme('focus')
   "endif
 endif

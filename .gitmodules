@@ -55,9 +55,6 @@
 [submodule "dotfiles/vim/bundle/vim-easymotion"]
 	path = dotfiles/vim/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule "dotfiles/vim/bundle/vim-markdown"]
-	path = dotfiles/vim/bundle/vim-markdown
-	url = https://github.com/codybuell/vim-markdown.git
 [submodule "dotfiles/vim/bundle/vim-arduino-ino"]
 	path = dotfiles/vim/bundle/vim-arduino-ino
 	url = https://github.com/jplaut/vim-arduino-ino.git
@@ -109,3 +106,6 @@
 [submodule "dotfiles/vim/bundle/vim-fugitive"]
 	path = dotfiles/vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "dotfiles/vim/bundle/vim-markdown"]
+	path = dotfiles/vim/bundle/vim-markdown
+	url = https://github.com/codybuell/vim-markdown.git

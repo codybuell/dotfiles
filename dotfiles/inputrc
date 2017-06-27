@@ -1,3 +1,17 @@
+################################################################################
+#                                                                              #
+#                           readline configuration                             #
+#                                                                              #
+################################################################################
+
+set show-all-if-ambiguous on
+# following two take from LS_COLORS env var, need to set
+set colored-completion-prefix on
+set colored-stats on
+
+# write a custom readline c function to remap backspace to copy rhs text and,
+# backspace, then replace the text and bind it to the backspace key
+
 # display vi mode (needs bash 4.3 or newer)
 set show-mode-in-prompt on
 set vi-cmd-mode-string :

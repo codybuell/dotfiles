@@ -11,7 +11,13 @@ Installation
  1. Clone this repository and get the submodules
 
         git clone https://github.com/codybuell/dotfiles.git; cd dotfiles
+
         git submodule init; git submodule update
+
+        # or alternatively
+
+        make subs
+
 
  2. Copy and edit the example configuration file
 
