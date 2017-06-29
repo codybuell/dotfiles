@@ -28,7 +28,7 @@
 "  ␣0  toggle tagbar        ␣                        ␣                         "
 "  ␣                        ␣                        ␣                         "
 "  ␣                        ␣ev edit vimrc           ␣                         "
-"  ␣                        ␣es edit snippets        ␣r    gen random chars    "
+"  ␣g  ack cwd down         ␣es edit snippets        ␣r    gen random chars    "
 "  ␣                        ␣eu edit ultisnips       ␣z    zoom on split       "
 "  ␣                        ␣er edit laravel routes  ,/    remove search hi    "
 "  ␣                        ␣ec edit laravel config  \c    fix syntax hi       "
