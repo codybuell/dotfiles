@@ -130,10 +130,18 @@ GistsPath   = ~/Gists                                   # folder for git gists
 #                                                                              #
 # go-jira cli configuration                                                    #
 #                                                                              #
+# You will need to create a keychain item with your stored creds:              #
+#   1. open keychain and select login keychain                                 #
+#   2. add new application password entry                                      #
+#        item name: go-jira                                                    #
+#        account name: [what you set for JiraUsername]                         #
+#        password: [your jira password]                                        #
+#                                                                              #
 ################################################################################
 
-JiraEndpoint = https://jira.domain.tld
-JiraUsername = jirausername
+JiraEndpoint   = https://jira.domain.tld
+JiraUsername   = jirausername
+JiraDefProject = PROJNAME
 
 ################################################################################
 #                                                                              #
