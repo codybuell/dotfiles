@@ -2,6 +2,12 @@
 # color
 #
 
+# define LSCOLORS (bsd) LS_COLORS (gnu) <https://geoff.greer.fm/lscolors/>
+#LSCOLORS='exgxfxdxcxegedabagacad'
+#LS_COLORS='di=34:ln=36:so=35:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
+#export LSCOLORS
+#export LS_COLORS
+
 # setup scheme and config locations
 BASE16_DIR=~/.shell/base16-shell/scripts
 BASE16_CONFIG=~/.base16

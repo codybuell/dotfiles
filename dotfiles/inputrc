@@ -4,8 +4,10 @@
 #                                                                              #
 ################################################################################
 
+# man bash /Readline Variables
+
+# autocompletion settings
 set show-all-if-ambiguous on
-# following two take from LS_COLORS env var, need to set
 set colored-completion-prefix on
 set colored-stats on
 
