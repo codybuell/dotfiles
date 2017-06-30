@@ -5,6 +5,9 @@
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 
+# ghi
+export GHI_TOKEN='{{ GitHubGHIAPIToken }}'
+
 # slackcat
 export SLACK_TOKEN='{{ SlackAPIToken }}'
 
