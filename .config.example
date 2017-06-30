@@ -128,6 +128,15 @@ GistsPath   = ~/Gists                                   # folder for git gists
 
 ################################################################################
 #                                                                              #
+# go-jira cli configuration                                                    #
+#                                                                              #
+################################################################################
+
+JiraEndpoint = https://jira.domain.tld
+JiraUsername = jirausername
+
+################################################################################
+#                                                                              #
 # api tokens                                                                   #
 #                                                                              #
 # GitHubGHIAPIToken -> used for ghi to manage issues from the cli              #

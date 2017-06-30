@@ -1,0 +1,3 @@
+endpoint: {{ JiraEndpoint }}
+user: {{ JiraUsername }}
+password-source: keyring
