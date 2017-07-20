@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # pip3 install click selenium
+# look at using phantomjs instead??
 
 import click
 
