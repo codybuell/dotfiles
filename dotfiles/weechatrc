@@ -27,6 +27,8 @@
 #                                                                              #
 ################################################################################
 
+# wipe out old configs??
+
 ################################################################################
 #                                                                              #
 # GENERAL CONFIGS                                                              #
@@ -99,11 +101,21 @@
 #                                                                              #
 ################################################################################
 
-# filter out joins / leaves
+# turn on smart filter
+# When a nick spoke on channel during past X minutes (where X is delay
+# irc.look.smart_filter_delay), its join/part/quit will be displayed by
+# default. Otherwise, if nick did not speak for a long time, all join/part/quit
+# messages will be tagged with "irc_smart_filter". So you have to define a
+# filter on this tag to hide join/part/quit from users that are not speaking on
+# channel (see command above).
+/set irc.look.smart_filter on
 /filter add irc_smart * irc_smart_filter *
 
-# filter out bitlbee disconnect messages
-/filter add hidedisconnects irc.bitlbee.* * (?-i)^irc: disconnected from server$
+# filter out disconnect messages
+/filter add hidedisconnects * * (?-i)^irc: disconnected from server$
+
+# filter buddy sign in sign outs bitlbee
+/filter add hidejoinleave irc.bitlbee.* irc_join,irc_part,irc_quit,irc_nick_back *
 
 ################################################################################
 #                                                                              #
