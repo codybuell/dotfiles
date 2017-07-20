@@ -57,6 +57,9 @@ function! wiki#makeLinkAtCursor(link) abort
   " handle link slashes
   let l:link = substitute(l:link, "/", "\\\\/", "g")
 
+  " lowercase the link
+  let l:link = tolower(l:link)
+
   " match cleaned up link, get the beginning position and length so we can do an exact replacement
   let l:col  = col('.') - 1                         " get cursors horiz position
   let l:line = getline('.')                         " get all text current line
