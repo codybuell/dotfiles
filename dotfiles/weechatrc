@@ -1,0 +1,369 @@
+################################################################################
+#                                                                              #
+# PRE-REQ / SETUP INSTRUCTIONS                                                 #
+#                                                                              #
+#  - INSTALL WEESLACK SCRIPT                                                   #
+#    https://api.slack.com/custom-integrations/legacy-tokens                   #
+#    cd ~/.weechat/python/autoload                                             #
+#    wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+#                                                                              #
+#  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
+#    /secure passphrase <pass>                                                 #
+#    /secure set bitlbeeaddr <addr/port>                                       #
+#    /secure set bitlbee <pass>                                                #
+#    /secure set slackaddr <YOURTEAM.irc.slace.com/6667>                       #
+#    /secure set slack <pass>                                                  #
+#    /secure set slackgwun <gateway username>                                  #
+#    /secure set slackapi <api>                                                #
+#    /secure set mattermostaddr <addr/port>                                    #
+#    /secure set mattermosturl <url.tld>                                       #
+#    /secure set mattermostun <username>                                       #
+#    /secure set mattermost <pass>                                             #
+#                                                                              #
+#  - NOTE THAT YOU MAY NEED TO INSTALL AND AUTOLOAD THE SCRIPTS FIRST...       #
+#                                                                              #
+#  - EXECUTE THIS CONFIG FILE FILE                                             #
+#    /eval /exec -oc sed -E 's/^ *//;/^\//!d' ${env:HOME}/.weechatrc           #
+#                                                                              #
+################################################################################
+
+################################################################################
+#                                                                              #
+# GENERAL CONFIGS                                                              #
+#                                                                              #
+################################################################################
+
+# install and set autoload for scripts
+/script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+/script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+
+# stop vimode complaining about tmux esc key settings
+/set plugins.var.python.vimode.no_warn on
+
+# set server defaults
+/set irc.server_default.nicks [yournick]
+
+# organize bufferlist by servers
+/set irc.look.server_buffer independent
+
+# switch up some glyphs / icons
+/set weechat.look.bar_more_down "▼"
+/set weechat.look.bar_more_left "◀"
+/set weechat.look.bar_more_right "▶"
+/set weechat.look.bar_more_up "▲"
+/set weechat.look.separator_horizontal "="
+
+################################################################################
+#                                                                              #
+# KEY BINDINGS                                                                 #
+#                                                                              #
+################################################################################
+
+# fix keybindings for vimode.py
+/vimode bind_keys
+
+# add custom bindings (`/key bind (press alt-k) (press ctrl-l) [cmd]`)
+/key bind ctrl-L /buffer clear
+
+################################################################################
+#                                                                              #
+# MOUSE                                                                        #
+#                                                                              #
+################################################################################
+
+# enable mouse
+/key missing
+/set weechat.look.mouse on
+/mouse enable
+
+# improve mouse bindings (`/key list mouse` to view bindings)
+/key unbindctxt mouse @chat:button1-gesture-left
+/key unbindctxt mouse @chat:button1-gesture-left-long
+/key unbindctxt mouse @chat:button1-gesture-right
+/key unbindctxt mouse @chat:button1-gesture-right-long
+/key unbindctxt mouse @bar(nicklist):button1-gesture-down
+/key unbindctxt mouse @bar(nicklist):button1-gesture-down-long
+/key unbindctxt mouse @bar(nicklist):button1-gesture-up
+/key unbindctxt mouse @bar(nicklist):button1-gesture-up-long
+/key unbindctxt mouse @item(buffer_nicklist):button1-gesture-left
+/key unbindctxt mouse @item(buffer_nicklist):button1-gesture-left-long
+/key unbindctxt mouse @item(buffer_nicklist):button2-gesture-left
+/key bindctxt mouse @chat(perl.iset):wheeldown /repeat 1 /iset **down
+/key bindctxt mouse @chat(perl.iset):wheelup /repeat 1 /iset **up
+/key bindctxt mouse @chat(script.scripts):wheeldown /script down 1
+/key bindctxt mouse @chat(script.scripts):wheelup /script up 1
+
+################################################################################
+#                                                                              #
+# FILTERS                                                                      #
+#                                                                              #
+################################################################################
+
+# filter out joins / leaves
+/filter add irc_smart * irc_smart_filter *
+
+# filter out bitlbee disconnect messages
+/filter add hidedisconnects irc.bitlbee.* * (?-i)^irc: disconnected from server$
+
+################################################################################
+#                                                                              #
+# SECURITY                                                                     #
+#                                                                              #
+################################################################################
+
+# osx fix ca cert location
+/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
+
+# disable IRC part and quit messages:
+/set irc.server_default.msg_part ""
+/set irc.server_default.msg_quit ""
+
+# disable answers to all CTCP queries:
+/set irc.ctcp.clientinfo ""
+/set irc.ctcp.finger ""
+/set irc.ctcp.source ""
+/set irc.ctcp.time ""
+/set irc.ctcp.userinfo ""
+/set irc.ctcp.version ""
+/set irc.ctcp.ping ""
+
+# unload and disable auto-loading of "xfer" plugin (used for irc dcc):
+/plugin unload xfer
+/set weechat.plugin.autoload "*,!xfer"
+
+################################################################################
+#                                                                              #
+# HIGHMON SCRIPT                                                               #
+#                                                                              #
+################################################################################
+
+# configure highmon to show buffer number then name when identifying source
+/set plugins.var.perl.highmon.alignment "nchannel"
+
+# show private messages in highmon
+/set plugins.var.perl.highmon.merge_private on
+
+# configure highmon to use a bar rather than a buffer
+/set plugins.var.perl.highmon.output bar
+/set plugins.var.perl.highmon.bar_lines 250
+/set weechat.bar.highmon.position top
+/set weechat.bar.highmon.priority 1000
+/set weechat.bar.highmon.size 6
+/set weechat.bar.highmon.size_max 6
+/set plugins.var.perl.highmon.bar_scrolldown on
+# if you cant scroll with the mouse, try tweaking the code below to bind to a mouse context
+# /alias clear_highmon /mute /set plugins.var.perl.highmon.bar_lines -1;/mute /set weechat.bar.highmon.items "";/mute /set weechat.bar.highmon.items "highmon";/mute /set plugins.var.perl.highmon.bar_lines 250
+# /alias scroll_highmon_down /bar scroll highmon * y+100%
+# /alias scroll_highmon_up /bar scroll highmon * y-100%
+
+################################################################################
+#                                                                              #
+# AUTOSORT SCRIPT                                                              #
+#                                                                              #
+################################################################################
+
+# configure autosort channels (begin with & and #) will appears right below
+# the server, private message from *status will follow and finally the rest.
+/autosort replacements add ## #
+/autosort rules add irc.server.*.&* = 0
+/autosort rules add irc.server.*.#* = 1
+/autosort rules add irc.server.*.\*status = 2
+
+# put wee-slack at the bottom
+/autosort rules insert 2 python = 3
+
+################################################################################
+#                                                                              #
+# VIMODE SCRIPT                                                                #
+#                                                                              #
+################################################################################
+
+# configure vimode plugin
+/bar set vi_line_numbers conditions ${active} && ${weechat.bar.vi_cmd.hidden} == 0
+
+################################################################################
+#                                                                              #
+# BUFLIST BAR                                                                  #
+#                                                                              #
+################################################################################
+
+# configure buflist bar
+/set buflist.format.buffer "${if:${type}==server?${color:236,236}${format_number}${color:245}:${color:239}${format_number}${color_hotlist}}${if:${type}!=0&&${type}!=exec?${if:${cutscr:20,+,${name}}!=${name}?${cutscr:20,${color:${weechat.color.chat_prefix_more}}+,${name}}:${cutscr:20, ,${name}                             }}:${name}}${format_hotlist}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
+/set buflist.format.buffer_current "${if:${type}==server?${color:*white,236}:${color:*white}}${hide:>,${buffer[last_gui_buffer].number}} ${indent}${color_hotlist}${name}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
+/set buflist.format.number "${number}${if:${number_displayed}?.: }"
+/set buflist.format.indent " "
+
+# placement and size
+/set weechat.bar.buflist.size 35
+/set weechat.bar.buflist.size_max 45
+/set weechat.bar.buflist.priority 2000
+
+################################################################################
+#                                                                              #
+# ACTIVE TITLE BAR                                                             #
+#                                                                              #
+################################################################################
+
+# config bar 'active title'
+/bar add activetitle window top 1 0 buffer_title
+/set weechat.bar.activetitle.priority 500
+/set weechat.bar.activetitle.conditions "${active}"
+/set weechat.bar.activetitle.separator on
+
+################################################################################
+#                                                                              #
+# TITLE BAR                                                                    #
+#                                                                              #
+################################################################################
+
+# config bar 'title'
+/set weechat.bar.title.conditions "${inactive}"
+
+################################################################################
+#                                                                              #
+# STATUS BAR                                                                   #
+#                                                                              #
+################################################################################
+
+# bar 'status' (the built-in status bar is of type window. I prefer a
+# status bar of type root which means it will be outside any window. At
+# this time, you can't change the type of a bar. So we delete the status
+# bar and create a new one)
+/bar add rootstatus root bottom 1 0 [time],[buffer_count],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+buffer_filter,[bitlbee_typing_notice],[lag],[aspell_dict],[aspell_suggest],completion,scroll
+/set weechat.bar.rootstatus.separator on
+/set weechat.bar.rootstatus.priority 3000
+/bar del status
+/bar set rootstatus name status
+
+################################################################################
+#                                                                              #
+# INPUT BAR                                                                    #
+#                                                                              #
+################################################################################
+
+# bar 'input' (the built-in status bar is of type window. I prefer a
+# status bar of type root which means it will be outside any window. At
+# this time, you can't change the type of a bar. So we delete the status
+# bar and create a new one)
+/bar add rootinput root bottom 1 0 [mode_indicator]+[buffer_name]+[input_prompt]+(away),[input_search],[input_paste],input_text,[vi_buffer]"
+/set weechat.bar.rootinput.priority 4000
+/bar del input
+/bar set rootinput name input
+
+################################################################################
+#                                                                              #
+# NICKLIST BAR                                                                 #
+#                                                                              #
+################################################################################
+
+# configure nicklist bar
+/set weechat.bar.nicklist.size 25
+/set weechat.bar.nicklist.size_max 35
+
+################################################################################
+#                                                                              #
+# BITLBEE                                                                      #
+#                                                                              #
+################################################################################
+
+# assuming using 'closed' authmethod on bitlbee server
+/server add bitlbee ${sec.data.bitlbeeaddr} -ssl -autoconnect -password=${sec.data.bitlbee}
+
+# assuming two accounts in bitlbee setup and tagged as work and home
+/set irc.server.bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
+
+# add auto command to say yes, kick other and then account 1 on account 0 on etc??
+
+################################################################################
+#                                                                              #
+# SLACK IRC GATEWAY                                                            #
+#                                                                              #
+################################################################################
+
+# Use wee-slack plugin instead, but if you really want to ...
+# 
+# # navigate to my.slack.com/account/gateways
+# /server add slack ${sec.data.slackaddr} -autoconnect -ssl -password=${sec.data.slack} -username=${sec.data.slackgwun} -nicks=${sec.data.slackgwun} -ssl_dhkey_size=512
+# # filter out slack mode messages
+# /filter add hidevoices irc.slack.* irc_mode (\+|\-)v
+# # filter out slack channel created on messages
+# /filter add hidecreated irc.slack.* * ^Channel created on
+
+################################################################################
+#                                                                              #
+# WEE-SLACK                                                                    #
+#                                                                              #
+################################################################################
+
+/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
+/set plugins.var.python.slack.show_reaction_nicks on
+
+################################################################################
+#                                                                              #
+# MATTERIRCD                                                                   #
+#                                                                              #
+################################################################################
+
+# you will need mattermost-auth.py in your path
+/alias add /mattermost_auth /exec -o -buffer irc.$1.mattermost mattermost-auth.py $2-
+/server add mattermost ${sec.data.mattermostaddr} -ssl -autoconnect
+/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost}
+
+################################################################################
+#                                                                              #
+# COLORS                                                                       #
+#                                                                              #
+################################################################################
+
+# general items
+/set weechat.color.separator 248
+/set weechat.color.bar_more 240
+
+# buflist (see buflist.format.buffer and buflist.format.buffer_current configs above for other colors)
+/set buflist.format.hotlist_highlight "${color:228}"
+/set buflist.format.hotlist_message "${color:255}"
+/set buflist.format.hotlist_private "${color:160}"
+/set buflist.format.hotlist " ${color:245}(${hotlist}${color:245})"
+/set buflist.format.hotlist_none "${color:245}"
+
+# active title
+/set weechat.bar.activetitle.color_fg 252
+/set weechat.bar.activetitle.color_bg default
+
+# title bar
+/set weechat.bar.title.color_fg 252
+/set weechat.bar.title.color_bg default
+
+# status bar
+/set weechat.bar.status.color_fg 25
+/set weechat.bar.status.color_bg 236
+
+# input bar
+/set weechat.bar.input.color_bg default
+
+# nicklist
+/set weechat.color.chat_nick_colors "195,123,75,33,244,248,251,254"
+
+# iset plugin colors
+/set iset.color.value_diff 196
+/set iset.color.value_diff_selected 255
+/set iset.color.value_selected 255
+/set iset.color.bg_selected 236
+/set iset.color.chat_highlight_bg default
+
+# chat window colors
+/set weechat.color.chat_time 240
+/set weechat.color.chat_time_delimiters 240
+/set weechat.color.chat_prefix_suffix 240
+/set weechat.color.chat_prefix_network 240
+/set weechat.color.chat_read_marker 160
+/set weechat.color.chat_prefix_more 240
+
+################################################################################
+#                                                                              #
+# WRAP IT UP                                                                   #
+#                                                                              #
+################################################################################
+
+/python reload
+/save
