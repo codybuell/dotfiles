@@ -236,6 +236,8 @@ runpaths() {
 
 runlinks() {
 
+  LINKMSG="32mcreating symlink"
+
   [[ -L ~/.todo/tasks ]] && unlink ~/.todo/tasks
   ln -s "$TasksFolder" ~/.todo/tasks
 
@@ -244,8 +246,16 @@ runlinks() {
     eval VAL=\$$c
     [[ $VAR =~ SYMLINK.* ]] && {
       DST=`echo $VAL | awk '{print $2}'`
-      [[ -L $DST ]] && unlink $DST
-      prettyprint "  '${DST}' \033[0;32mcreating symlink\033[0m\n"
+      [[ -d $DST || -L $DST ]] && {
+        [[ -L $DST ]] && {
+          unlink $DST
+          LINKMSG="33mre-linking symlink"
+        } || {
+          prettyprint "  '${DST}' \033[0;33malready exists as a dir\033[0m\n"
+          continue
+        }
+      }
+      prettyprint "  '${DST}' \033[0;$LINKMSG\033[0m\n"
       ln -s $VAL
     }
   done
