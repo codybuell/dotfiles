@@ -65,8 +65,8 @@ OSUsername  = codybuell                                 # your system username
 #                                                                              #
 #    - open keychain access                                                    #
 #    - create new application password                                         #
-#    - account = _EmailKeychain setting below                                  #
-#    - name = _EmailHost setting below                                         #
+#    - name / keychain item name = _EmailHost setting below                    #
+#    - account / acount name = _EmailKeychain setting below                    #
 #    - password = your email accounts password                                 #
 #    - repeat for both home and work email addresses                           #
 #                                                                              #
@@ -76,13 +76,22 @@ OSUsername  = codybuell                                 # your system username
 #                                                                              #
 ################################################################################
 
-HomeEmailHost     = imap.gmail.com            # host and 'name' field in keychain
-HomeEmailKeychain = cody+mutt@codybuell.com   # 'account' field in keychain
-HomeEmailUsername = cody@codybuell.com
+DefaultEmailAccount = client
 
-WorkEmailHost     = imap.gmail.com            # host and 'name' field in keychain
-WorkEmailKeychain = cody+mutt@workplace.com   # 'account' field in keychain
-WorkEmailUsername = cody@workplace.com
+# expected to be a gmail account ('home' account)
+HomeEmailHost       = imap.gmail.com            # host and 'name' field in keychain
+HomeEmailKeychain   = cody+mutt@codybuell.com   # 'account' field in keychain
+HomeEmailUsername   = cody@codybuell.com
+
+# expected to be a gmail account ('work' account)
+WorkEmailHost       = imap.gmail.com            # host and 'name' field in keychain
+WorkEmailKeychain   = cody+mutt@workplace.com   # 'account' field in keychain
+WorkEmailUsername   = cody@workplace.com
+
+# expected to be an exchange account ('client' account)
+ClientEmailHost     = imap.exchange.com         # host and 'name' field in keychain
+ClientEmailKeychain = cody+mutt@exchange.com    # 'account' field in keychain
+ClientEmailUsername = cody@exchange.com
 
 ################################################################################
 #                                                                              #

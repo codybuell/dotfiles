@@ -42,6 +42,7 @@ PACKAGES=( \
     'jq' \                          # json manipulation and parsing tool
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation
+    'msmtp' \                       # smtp client used with mutt config
     'mutt' \                        # command line email client
     'nmap' \                        # network utility
     'node' \                        # server side js

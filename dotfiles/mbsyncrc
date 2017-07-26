@@ -176,3 +176,98 @@ Channel Work-Spam
 Channel Work-Trash
 Channel Work-All
 Channel Work-Default
+
+################################################################################
+#                                                                              #
+# exchange email account                                                       #
+#                                                                              #
+################################################################################
+
+IMAPAccount Client
+Host {{ ClientEmailHost }}
+User {{ ClientEmailUsername }}
+PassCmd "get-keychain-pass {{ ClientEmailKeychain }} {{ ClientEmailHost }}"
+SSLType IMAPS
+AuthMechs LOGIN
+PipelineDepth 1
+
+IMAPStore Client-remote
+Account Client
+
+MaildirStore Client-local
+Path ~/.mail/Client/
+Inbox ~/.mail/Client/Client
+
+Channel Client-Client
+Master :Client-remote:INBOX
+Slave :Client-local:Client
+
+Channel Client-Sent
+Master :Client-remote:"Sent Items"
+Slave :Client-local:Client.Sent
+
+Channel Client-Spam
+Master :Client-remote:"Junk Email"
+Slave :Client-local:Client.Spam
+
+Channel Client-Trash
+Master :Client-remote:"Deleted Items"
+Slave :Client-local:Client.Trash
+
+Channel Client-Monitoring
+Master :Client-remote:"Monitoring"
+Slave :Client-local:Client.Monitoring
+
+Channel Client-Services
+Master :Client-remote:"Services"
+Slave :Client-local:Client.Services
+
+Channel Client-Vendors
+Master :Client-remote:"Vendors"
+Slave :Client-local:Client.Vendors
+
+# Catch-all for everything else: note that the `Patterns` have to exclude both
+# the remote and local names for all the folders we want to exclude (except
+# "INBOX", which is special-cased, it would seem).
+Channel Client-Default
+Master :Client-remote:
+Slave :Client-local:Client.
+Patterns *
+Patterns !INBOX
+Patterns !"Deleted Items"
+Patterns !"Junk Email"
+Patterns !"Sent Items"
+Patterns !Monitoring
+Patterns !Services
+Patterns !Vendors
+Patterns !Archive1
+Patterns !Calendar*
+Patterns !Clutter
+Patterns !Contacts
+Patterns !Journal
+Patterns !Notes
+Patterns !Outbox
+Patterns !Sent
+Patterns !Spam
+Patterns !Tasks
+Patterns !Trash
+
+# For doing a quick sync of just the INBOX with `mbsync Client-Download`.
+Channel Client-Download
+Master :Client-remote:INBOX
+Slave :Client-local:Client
+Create Slave
+Expunge Slave
+Sync Pull
+
+# Lower-case "c" here to match "~/.imapfilter/Client.lua" script name (see
+# "~/.mutt/scripts/sync.sh").
+Group client
+Channel Client-Client
+Channel Client-Sent
+Channel Client-Spam
+Channel Client-Trash
+Channel Client-Monitoring
+Channel Client-Services
+Channel Client-Vendors
+Channel Client-Default
