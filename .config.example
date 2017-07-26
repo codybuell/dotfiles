@@ -77,21 +77,25 @@ OSUsername  = codybuell                                 # your system username
 ################################################################################
 
 DefaultEmailAccount = client
+DefaultEmailAddress = cody@exchange.com
 
 # expected to be a gmail account ('home' account)
 HomeEmailHost       = imap.gmail.com            # host and 'name' field in keychain
 HomeEmailKeychain   = cody+mutt@codybuell.com   # 'account' field in keychain
 HomeEmailUsername   = cody@codybuell.com
+HomeEmailAddress    = cody@codybuell.com
 
 # expected to be a gmail account ('work' account)
 WorkEmailHost       = imap.gmail.com            # host and 'name' field in keychain
 WorkEmailKeychain   = cody+mutt@workplace.com   # 'account' field in keychain
 WorkEmailUsername   = cody@workplace.com
+WorkEmailAddress    = cody@workplace.com
 
 # expected to be an exchange account ('client' account)
 ClientEmailHost     = imap.exchange.com         # host and 'name' field in keychain
 ClientEmailKeychain = cody+mutt@exchange.com    # 'account' field in keychain
 ClientEmailUsername = cody@exchange.com
+ClientEmailAddress  = cody@exchange.com
 
 ################################################################################
 #                                                                              #
