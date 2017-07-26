@@ -12,7 +12,6 @@ elif [ $1 = "home" ]; then
 elif [ $1 = "client" ]; then
   SYNC="Client-Download"
 else
-else
   echo "error: unrecognized account handle: $1."
   exit 1
 fi

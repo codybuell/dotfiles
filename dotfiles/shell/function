@@ -221,8 +221,10 @@ function email() {
       tmux send-keys -t email:mutt mutt Enter
       tmux new-window -t email -c ~/.mutt -n sync
       tmux send-keys -t email:sync '~/.mutt/scripts/control.sh home' Enter
-      tmux split-window -t email:sync -h -c ~/.mutt
+      tmux split-window -t email:sync -h -p 66 -c ~/.mutt
       tmux send-keys -t email:sync.right '~/.mutt/scripts/control.sh work' Enter
+      tmux split-window -t email:sync -h -p 50 -c ~/.mutt
+      tmux send-keys -t email:sync.3 '~/.mutt/scripts/control.sh client' Enter
       tmux split-window -t email:sync -v -f -l 8 -c ~/.mutt
       tmux send-keys -t email:sync.bottom '~/.mutt/scripts/control.sh' Enter
       tmux -u attach -t email:mutt

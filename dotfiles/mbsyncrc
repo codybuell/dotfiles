@@ -207,7 +207,7 @@ Master :Client-remote:"Sent Items"
 Slave :Client-local:Client.Sent
 
 Channel Client-Spam
-Master :Client-remote:"Junk Email"
+Master :Client-remote:"Junk E-Mail"
 Slave :Client-local:Client.Spam
 
 Channel Client-Trash

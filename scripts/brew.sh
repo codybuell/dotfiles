@@ -37,6 +37,7 @@ PACKAGES=( \
     'homebrew/php/composer' \       # php package manager
     'httrack' \                     # site mirroring application
     'imagemagick' \                 # command line graphics manipulation tool
+    'imapfilter' \                  # tool for organizing mail directly on the server
     'irssi' \                       # command line irc client
     'isync' \                       # package containing mbsync, imap sync to local fs
     'jq' \                          # json manipulation and parsing tool
