@@ -1,12 +1,12 @@
 set copy = no
 set folder = ~/.mail
-set from = '{{ HomeEmailAddress }}'
-set mbox = '+Home/Home.Archive'
-set postponed ='+Home/Home.Drafts'
+set from = '{{ DefaultEmailAddress }}'
+set mbox = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Archive'
+set postponed ='+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Drafts'
 unset record
-set sendmail = 'env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a home'
-set spoolfile = '+Home/Home'
-set trash = '+Home/Home.Trash'
+set sendmail = 'env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a {{ DefaultEmailAccount }}'
+set spoolfile = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}'
+set trash = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Trash'
 
 # Normally <delete-pattern>.
 macro index,pager D "<shell-escape>~/.mutt/scripts/download.sh home<enter><sync-mailbox>" "download messages"

@@ -77,6 +77,7 @@ OSUsername  = codybuell                                 # your system username
 ################################################################################
 
 DefaultEmailAccount = client
+DefaultEmailAccCaps = Client                    # hacky placeholder solution
 DefaultEmailAddress = cody@exchange.com
 
 # expected to be a gmail account ('home' account)
