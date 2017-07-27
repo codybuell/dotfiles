@@ -250,6 +250,7 @@ function home() {
       tmux send-keys -t home:home.3 'weechat' Enter
       # build control window
       tmux new-window -t home: -c ~/.mutt -n control
+      tmux set-window-option -t home:control monitor-activity off
       tmux split-window -t home:control -h -p 66 -c ~/.mutt
       tmux split-window -t home:control -h -p 50 -c ~/.mutt
       tmux split-window -t home:control -v -f -l 8 -c ~/.mutt
