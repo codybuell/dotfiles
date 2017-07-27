@@ -241,12 +241,29 @@ function home() {
   if [ -z "$TMUX" ]; then
     if ! tmux has-session -t home 2> /dev/null; then
       cd ~
-      tmux -u
+      # build home window
+      tmux new-session -d -s home -c ~/.Downloads -n home
+      tmux split-window -t home:home -b -v -p 48 -c ~/
+      tmux split-window -t home:home -h -l 87 -c ~/
+      tmux send-keys -t home:home.1 'mutt' Enter
+      tmux send-keys -t home:home.2 'wj' Enter
+      tmux send-keys -t home:home.3 'weechat' Enter
+      # build control window
+      tmux new-window -t home: -c ~/.mutt -n control
+      tmux split-window -t home:control -h -p 66 -c ~/.mutt
+      tmux split-window -t home:control -h -p 50 -c ~/.mutt
+      tmux split-window -t home:control -v -f -l 8 -c ~/.mutt
+      tmux send-keys -t home:control.1 '~/.mutt/scripts/control.sh home' Enter
+      tmux send-keys -t home:control.2 '~/.mutt/scripts/control.sh work' Enter
+      tmux send-keys -t home:control.3 '~/.mutt/scripts/control.sh client' Enter
+      tmux send-keys -t home:control.4 '~/.mutt/scripts/control.sh' Enter
+      # attach to home session home window
+      tmux -u attach -t home:home.1
     else
-      tmux -u attach -t home
+      tmux -u attach -t home:home
     fi
   else
-    tmux switch-client -t home
+    tmux switch-client -t home:home
   fi
 }
 

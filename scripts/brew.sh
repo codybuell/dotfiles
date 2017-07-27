@@ -24,6 +24,7 @@ PACKAGES=( \
     'ctags' \                       # handy development tool, needed for vim ctags
     'ddclient' \                    # dynamic dns client, configurable for google dns
     'dos2unix' \                    # encoding conversion tool
+    'elinks' \                      # text based web browser, used with mutt
     'ffmpeg' \                      # video encoding and editing utility
     'figlet' \                      # ascii art
     'fwknop' \                      # port knocking
@@ -49,6 +50,7 @@ PACKAGES=( \
     'node' \                        # server side js
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
+    'pandoc' \                      # markup converter, used with mutt to send html email
     'php70' \                       # (or higher)
     'php70-mcrypt' \                # (or higher)  encryption library required for laravel development
     'picocom' \                     # used with ino for serial connection to arduino
@@ -65,6 +67,7 @@ PACKAGES=( \
     'todo-txt' \                    # gina's handy to do list manager
     'toilet' \                      # ascii art
     'tree' \                        # file and directory listing utility
+    'urlview' \                     # for viewing urls in mutt
     'vault' \                       # encrypted key value pair storage
     'vim' \                         # improved version of already installed vi
     'wakeonlan' \                   # wol client
