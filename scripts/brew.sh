@@ -42,6 +42,7 @@ PACKAGES=( \
     'irssi' \                       # command line irc client
     'isync' \                       # package containing mbsync, imap sync to local fs
     'jq' \                          # json manipulation and parsing tool
+    'lockrun' \                     # used for process flow control in mutt
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation
     'msmtp' \                       # smtp client used with mutt config
