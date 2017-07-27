@@ -2,18 +2,18 @@
 #   ! = $spoolfile (INBOX)
 #   > = $mbox (Archive)
 
-macro index,pager gi "<change-folder>!<enter>" "go to inbox"
-macro index,pager ga "<change-folder>><enter>" "go to all mail"
-macro index,pager gs "<change-folder>!.Starred<enter>" "go to starred messages"
-macro index,pager gt "<change-folder>!.Sent<enter>" "go to Sent Mail"
-macro index,pager gd "<change-folder>!.Drafts<enter>" "go to drafts"
-macro index,pager gl "<change-folder>?<toggle-mailboxes>" "go to 'Label'"
-macro browser gi "<exit><change-folder>!<enter>" "go to inbox"
-macro browser ga "<exit><change-folder>><enter>" "go to all mail"
-macro browser gs "<exit><change-folder>!.Starred<enter>" "go to starred messages"
-macro browser gt "<exit><change-folder>!.Sent<enter>" "go to Sent Mail"
-macro browser gd "<exit><change-folder>!.Drafts<enter>" "go to drafts"
-macro browser gl "<exit><change-folder>?<toggle-mailboxes>" "go to 'Label'"
+macro index,pager gi "<change-folder>!<enter><redraw-screen>" "go to inbox"
+macro index,pager ga "<change-folder>><enter><redraw-screen>" "go to all mail"
+macro index,pager gs "<change-folder>!.Starred<enter><redraw-screen>" "go to starred messages"
+macro index,pager gt "<change-folder>!.Sent<enter><redraw-screen>" "go to Sent Mail"
+macro index,pager gd "<change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
+macro index,pager gl "<change-folder>?<toggle-mailboxes><redraw-screen>" "go to 'Label'"
+macro browser gi "<exit><change-folder>!<enter><redraw-screen>" "go to inbox"
+macro browser ga "<exit><change-folder>><enter><redraw-screen>" "go to all mail"
+macro browser gs "<exit><change-folder>!.Starred<enter><redraw-screen>" "go to starred messages"
+macro browser gt "<exit><change-folder>!.Sent<enter><redraw-screen>" "go to Sent Mail"
+macro browser gd "<exit><change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
+macro browser gl "<exit><change-folder>?<toggle-mailboxes><redraw-screen>" "go to 'Label'"
 
 # These ones not standard Gmail.
 macro index,pager gh "<change-folder>+Home/Home<enter>" "go home"
@@ -22,7 +22,6 @@ macro index,pager gc "<change-folder>+Client/Client<enter>" "go client"
 macro browser gh "<exit><change-folder>+Home/Home<enter>" "go home"
 macro browser gw "<exit><change-folder>+Work/Work<enter>" "go work"
 macro browser gc "<exit><change-folder>+Client/Client<enter>" "go client"
-
 
 # "Smart" equivalent to `set resolve = yes`: see "{next,previous}.mutt" for
 # info.
