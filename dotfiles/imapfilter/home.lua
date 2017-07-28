@@ -101,7 +101,7 @@ function run()
 --  messages:mark_seen()
 --  messages:delete_messages() -- Archive
 
-  archive_and_mark_read('GitHub own activity -> archive & mark read', (function()
+  archive_and_mark_read('github personal activity', (function()
     own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
     return own + github_related(own)
   end))

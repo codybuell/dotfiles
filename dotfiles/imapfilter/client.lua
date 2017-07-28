@@ -87,10 +87,17 @@ function run()
   --
 
   -- github personal action notifications
-  archive_and_mark_read('GitHub own activity -> archive & mark read', (function()
+  archive_and_mark_read('github personal activity', (function()
     own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
     return own + github_related(own)
   end))
+
+  -- vendors
+  vendors =
+    inbox:contain_from('@mail.notifications.atlassian.com') +
+    inbox:contain_from('@engage.vmware.com')
+  print_status(vendors, 'vendors -> archive to vendors folder')
+  vendors:move_messages(client.Vendors)
 
 end
 

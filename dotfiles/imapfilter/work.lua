@@ -80,9 +80,23 @@ function run()
   --
 
   -- github personal action notifications
-  archive_and_mark_read('GitHub own activity -> archive & mark read', (function()
+  archive_and_mark_read('github personal activity', (function()
     own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
     return own + github_related(own)
+  end))
+
+--  -- vendor advertisements
+--  archive_and_mark_read('vendor advertisements', (function()
+--    results = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
+--    return results
+--  end))
+
+  -- bonusly
+  archive_and_mark_read('bonusly awards', (function()
+    results = inbox
+      :contain_from('noreply@bonus.ly')
+      :contain_subject('did something awesome')
+    return results
   end))
 
 end
