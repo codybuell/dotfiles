@@ -200,8 +200,8 @@
 ################################################################################
 
 # configure buflist bar
-/set buflist.format.buffer "${if:${type}==server?${color:236,236}${format_number}${color:248}:${color:239}${format_number}${color_hotlist}}${if:${type}!=0&&${type}!=exec?${if:${cutscr:25,+,${name}}!=${name}?${cutscr:25,${color:${weechat.color.chat_prefix_more}}+,${name}}:${cutscr:25, ,${name}                             }}:${name}}${format_hotlist}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
-/set buflist.format.buffer_current "${if:${type}==server?${color:*4,236}:${color:*4}}${hide:>,${buffer[last_gui_buffer].number}}${if:(${type}==server || ${buffer.full_name}==core.weechat)? :}${indent}${name}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
+/set buflist.format.buffer "${if:${type}==server?${color:236,236}${format_number}${color:248}:${color:239}${format_number}${color_hotlist}}${if:${type}!=0&&${type}!=exec?${if:${cutscr:23,+,${name}}!=${name}?${cutscr:23,${color:${weechat.color.chat_prefix_more}}+,${name}}:${cutscr:23, ,${name}                             }}:${name}}${format_hotlist}${if:${buffer.full_name}==perl.iset? ${color:1}${buffer.local_variables.iset_filter}} ${color:1}${buffer.local_variables.buflist}"
+/set buflist.format.buffer_current "${if:${type}==server?${color:*4,236}:${color:*4}}${hide:>,${buffer[last_gui_buffer].number}}${if:(${type}==server || ${buffer.full_name}==core.weechat)? :}${indent}${name}${if:${buffer.full_name}==perl.iset? ${color:1}${buffer.local_variables.iset_filter}} ${color:1}${buffer.local_variables.buflist}"
 /set buflist.format.number "${number}${if:${number_displayed}?.: }"
 /set buflist.format.indent " "
 
@@ -332,11 +332,13 @@
 /set weechat.color.bar_more 240
 
 # buflist (see buflist.format.buffer and buflist.format.buffer_current configs above for other colors)
-/set buflist.format.hotlist_highlight "${color:228}"
-/set buflist.format.hotlist_message "${color:255}"
-/set buflist.format.hotlist_private "${color:160}"
-/set buflist.format.hotlist " ${color:245}(${hotlist}${color:245})"
+/set buflist.format.hotlist_highlight "${color:1}"
+/set buflist.format.hotlist_message "${color:1}"
+/set buflist.format.hotlist_private "${color:1}"
+/set buflist.format.hotlist " ${color:1}(${hotlist}${color:1})"
 /set buflist.format.hotlist_none "${color:245}"
+/set buflist.format.hotlist_low "${color:1}"
+/set buflist.format.hotlist_separator "${color:1}/"
 
 # active title
 /set weechat.bar.activetitle.color_fg 252
@@ -357,7 +359,7 @@
 /set weechat.color.chat_nick_colors "195,123,75,33,244,248,251,254"
 
 # iset plugin colors
-/set iset.color.value_diff 196
+/set iset.color.value_diff 1
 /set iset.color.value_diff_selected 255
 /set iset.color.value_selected 255
 /set iset.color.bg_selected 236
@@ -368,7 +370,7 @@
 /set weechat.color.chat_time_delimiters 240
 /set weechat.color.chat_prefix_suffix 240
 /set weechat.color.chat_prefix_network 240
-/set weechat.color.chat_read_marker 160
+/set weechat.color.chat_read_marker 1
 /set weechat.color.chat_prefix_more 240
 
 ################################################################################

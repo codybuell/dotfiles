@@ -17,6 +17,7 @@ color quoted1 color4 color0
 color quoted2 color5 color0
 color sidebar_highlight color0 brightcolor4
 color sidebar_indicator brightcolor4 color0
+color sidebar_new color1 color0
 color signature color8 color0
 color status color20 color19
 color tree color5 default # Arrow in threads.
