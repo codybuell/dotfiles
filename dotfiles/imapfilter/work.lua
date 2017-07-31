@@ -14,8 +14,14 @@ end
 
 function run()
 
-  work = connect()
+  work  = connect()
   inbox = work.INBOX
+  spam  = work['[Gmail]/Spam']
+
+  -- list mailboxes and folders
+--  mailboxes, folders = work:list_all()
+--  for _, m in ipairs(mailboxes) do print(m) end
+--  for _, f in ipairs(folders) do print(f) end
 
   --
   -- Helpers
@@ -78,6 +84,11 @@ function run()
   --
   -- Rules
   --
+
+  -- mark all spam as read
+  new_spam = spam:is_unseen()
+  print_status(new_spam, 'unread spam -> mark as read')
+  new_spam:mark_seen()
 
   -- github personal action notifications
   archive_and_mark_read('github personal activity', (function()

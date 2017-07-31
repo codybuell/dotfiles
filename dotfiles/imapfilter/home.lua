@@ -14,8 +14,14 @@ end
 
 function run()
 
-  home = connect()
+  home  = connect()
   inbox = home.INBOX
+  spam  = home['[Gmail]/Spam']
+
+  -- list mailboxes and folders
+--  mailboxes, folders = home:list_all()
+--  for _, m in ipairs(mailboxes) do print(m) end
+--  for _, f in ipairs(folders) do print(f) end
 
   --
   -- Helpers
@@ -78,6 +84,11 @@ function run()
   --
   -- Rules
   --
+
+  -- mark all spam as read
+  new_spam = spam:is_unseen()
+  print_status(new_spam, 'unread spam -> mark as read')
+  new_spam:mark_seen()
 
 --  messages =
 --    inbox:contain_from('info@reprorights.org') +

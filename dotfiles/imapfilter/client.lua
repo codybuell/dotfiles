@@ -16,29 +16,35 @@ end
 function run()
 
   -- NOTE: Beware the use of contain_field when talking to an MS server; it is
-  -- totally unreliable, so must use the slower match_field method. See:
+  -- totally unreliable, so must use the slower match_field match_from() or
+  -- match_to() methods. See:
   --
   -- - https://github.com/lefcha/imapfilter/issues/14
   -- - https://github.com/lefcha/imapfilter/issues/33
 
   client = connect()
-  inbox = client.INBOX
+  inbox  = client.Inbox:select_all()
+
+  -- list mailboxes and folders
+--  mailboxes, folders = client:list_all()
+--  for _, m in ipairs(mailboxes) do print(m) end
+--  for _, f in ipairs(folders) do print(f) end
 
   --
   -- Helpers
   --
 
-  archive = (function(description, matcher)
+  archive = (function(description, matcher, destination)
     messages = matcher()
     print_status(messages, description .. ' -> archive')
-    messages:move_messages(client.Archive)
+    messages:move_messages(destination)
   end)
 
-  archive_and_mark_read = (function(description, matcher)
+  archive_and_mark_read = (function(description, matcher, destination)
     messages = matcher()
     print_status(messages, description .. ' -> archive & mark read')
     messages:mark_seen()
-    messages:move_messages(client.Archive)
+    messages:move_messages(destination)
   end)
 
   flag = (function(description, matcher)
