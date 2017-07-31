@@ -200,8 +200,8 @@
 ################################################################################
 
 # configure buflist bar
-/set buflist.format.buffer "${if:${type}==server?${color:52,52}${format_number}${color:245}:${color:239}${format_number}${color_hotlist}}${if:${type}!=0&&${type}!=exec?${if:${cutscr:20,+,${name}}!=${name}?${cutscr:20,${color:${weechat.color.chat_prefix_more}}+,${name}}:${cutscr:20, ,${name}                             }}:${name}}${format_hotlist}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
-/set buflist.format.buffer_current "${if:${type}==server?${color:*white,236}:${color:*white}}${hide:>,${buffer[last_gui_buffer].number}} ${indent}${color_hotlist}${name}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
+/set buflist.format.buffer "${if:${type}==server?${color:236,236}${format_number}${color:248}:${color:239}${format_number}${color_hotlist}}${if:${type}!=0&&${type}!=exec?${if:${cutscr:25,+,${name}}!=${name}?${cutscr:25,${color:${weechat.color.chat_prefix_more}}+,${name}}:${cutscr:25, ,${name}                             }}:${name}}${format_hotlist}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
+/set buflist.format.buffer_current "${if:${type}==server?${color:*4,236}:${color:*4}}${hide:>,${buffer[last_gui_buffer].number}}${if:(${type}==server || ${buffer.full_name}==core.weechat)? :}${indent}${name}${if:${buffer.full_name}==perl.iset? ${color:160}${buffer.local_variables.iset_filter}} ${color:160}${buffer.local_variables.buflist}"
 /set buflist.format.number "${number}${if:${number_displayed}?.: }"
 /set buflist.format.indent " "
 
