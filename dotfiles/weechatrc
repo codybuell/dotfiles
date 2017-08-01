@@ -11,16 +11,22 @@
 #    /secure passphrase <pass>                                                 #
 #    /secure set bitlbeeaddr <addr/port>                                       #
 #    /secure set bitlbee <pass>                                                #
-#    /secure set slackaddr <YOURTEAM.irc.slace.com/6667>                       #
-#    /secure set slack <pass>                                                  #
-#    /secure set slackgwun <gateway username>                                  #
 #    /secure set slackapi <api>                                                #
+#                                                                              #
+#    # if you are using mattermost (also uncomment the config):                #
 #    /secure set mattermostaddr <addr/port>                                    #
 #    /secure set mattermosturl <url.tld>                                       #
 #    /secure set mattermostun <username>                                       #
 #    /secure set mattermost <pass>                                             #
 #                                                                              #
-#  - NOTE THAT YOU MAY NEED TO INSTALL AND AUTOLOAD THE SCRIPTS FIRST...       #
+#    # if you are using slack irc gateway set (also uncomment the config):     #
+#    /secure set slackgwun <gateway username>                                  #
+#    /secure set slackaddr <YOURTEAM.irc.slack.com/6667>                       #
+#    /secure set slack <pass>                                                  #
+#                                                                              #
+#  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
+#  /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#  /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 #                                                                              #
 #  - EXECUTE THIS CONFIG FILE FILE                                             #
 #    /eval /exec -oc sed -E 's/^ *//;/^\//!d' ${env:HOME}/.weechatrc           #
@@ -43,7 +49,7 @@
 /set plugins.var.python.vimode.no_warn on
 
 # set server defaults
-/set irc.server_default.nicks [yournick]
+/set irc.server_default.nicks {{ IRCNick }}
 
 # organize bufferlist by servers
 /set irc.look.server_buffer independent
@@ -316,10 +322,10 @@
 #                                                                              #
 ################################################################################
 
-# you will need mattermost-auth.py in your path
-/alias add /mattermost_auth /exec -o -buffer irc.$1.mattermost mattermost-auth.py $2-
-/server add mattermost ${sec.data.mattermostaddr} -ssl -autoconnect
-/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost}
+## you will need mattermost-auth.py in your path
+#/alias add /mattermost_auth /exec -o -buffer irc.$1.mattermost mattermost-auth.py $2-
+#/server add mattermost ${sec.data.mattermostaddr} -ssl -autoconnect
+#/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost}
 
 ################################################################################
 #                                                                              #

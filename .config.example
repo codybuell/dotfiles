@@ -36,10 +36,10 @@ PATH02 = /Users/usrnm/Gists                             # github gists folder
 #                                                                              #
 ################################################################################
 
-SYMLINK00 =  /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
-SYMLINK01 =  /Users/usrnm/Repos/bin /Users/usrnm/Bin
-SYMLINK02 =  /Users/usrnm/Bin /Users/usrnm/.gopath/bin
-SYMLINK03 =  /Users/usrnm/Repos /Users/usrnm/.gopath/src
+SYMLINK00 = /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
+SYMLINK01 = /Users/usrnm/Repos/bin /Users/usrnm/Bin
+SYMLINK02 = /Users/usrnm/Bin /Users/usrnm/.gopath/bin
+SYMLINK03 = /Users/usrnm/Repos /Users/usrnm/.gopath/src
 
 ################################################################################
 #                                                                              #
@@ -47,9 +47,10 @@ SYMLINK03 =  /Users/usrnm/Repos /Users/usrnm/.gopath/src
 #                                                                              #
 ################################################################################
 
-Name        = Cody Buell                                # your full name
-Email       = cody@codybuell.com                        # preferred email
-OSUsername  = codybuell                                 # your system username
+Name       = Cody Buell                                # your full name
+Email      = cody@codybuell.com                        # preferred email
+OSUsername = codybuell                                 # your system username
+IRCNick    = codybuell
 
 ################################################################################
 #                                                                              #
