@@ -96,7 +96,7 @@ function run()
   archive_and_mark_read('github personal activity', (function()
     own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
     return own + github_related(own)
-  end))
+  end), client.Archive)
 
   -- vendors
   vendors =
