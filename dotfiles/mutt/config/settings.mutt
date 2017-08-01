@@ -49,7 +49,6 @@ set resolve = no # Don't auto-advance to the next message after every single op.
 set sidebar_divider_char = '│'
 set sidebar_folder_indent = yes
 set sidebar_format = "%B%> %?n?•? "
-●
 set sidebar_indent_string = ' '
 set sidebar_short_path = yes
 set sidebar_visible = yes
