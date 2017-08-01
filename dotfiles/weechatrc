@@ -2,6 +2,10 @@
 #                                                                              #
 # PRE-REQ / SETUP INSTRUCTIONS                                                 #
 #                                                                              #
+#  - INSTALL MISC DEPENDENCIES                                                 #
+#    pip install pync websocket-client                                         #
+#    pip3 install click selenium                                               #
+#                                                                              #
 #  - INSTALL WEESLACK SCRIPT                                                   #
 #    https://api.slack.com/custom-integrations/legacy-tokens                   #
 #    cd ~/.weechat/python/autoload                                             #
@@ -25,8 +29,8 @@
 #    /secure set slack <pass>                                                  #
 #                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
-#  /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
-#  /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 #                                                                              #
 #  - EXECUTE THIS CONFIG FILE FILE                                             #
 #    /eval /exec -oc sed -E 's/^ *//;/^\//!d' ${env:HOME}/.weechatrc           #
@@ -40,10 +44,6 @@
 # GENERAL CONFIGS                                                              #
 #                                                                              #
 ################################################################################
-
-# install and set autoload for scripts
-/script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
-/script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 
 # stop vimode complaining about tmux esc key settings
 /set plugins.var.python.vimode.no_warn on
