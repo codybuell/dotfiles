@@ -58,6 +58,7 @@ PACKAGES=( \
     'pidgin' \                      # pidgin and finch xmpp protocol clients
     'python' \                      # python language
     'python3' \                     # python 3 language
+    'ranger' \                      # cli file browser
     'rclone' \                      # cli for cloud storage providers
     'reattach-to-user-namespace' \  # reattach process to background
     'rg' \                          # ripgrep, faster ack
