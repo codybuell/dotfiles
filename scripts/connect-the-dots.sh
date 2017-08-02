@@ -33,6 +33,7 @@ DIFFEXCLUDES=( \
   "-path *.vim*/tmp/*" \
   "-path *.vim*/view/*" \
   "-path *.homestead*/src/*" \
+  "-path *.imapfilter*/certificates" \
   )
 
 # what to exclude when templating (tmp files, git submodules, etc)
@@ -128,7 +129,7 @@ placefiles() {
       vim )
         # compile command-t
         [[ -d ~/.vim.new.$DATE/bundle/command-t/ruby/command-t ]] && {
-          cd ~/.vim.new.$DATE/bundle/command-t/ruby/command-t
+          cd ~/.vim.new.$DATE/bundle/command-t/ruby/command-t/ext/command-t
           ruby extconf.rb > /dev/null
           make > /dev/null
           cd - > /dev/null
