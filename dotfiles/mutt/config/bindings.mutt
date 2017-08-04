@@ -38,6 +38,8 @@ bind index <Esc>V noop # Normally <collapse-all>.
 bind index <Esc>t noop # Normally <tag-thread>, which we have bound to t.
 bind index <Esc>v noop # Normally <collapse-thread>, which we have bound to <tab>.
 bind index <space> next-page
+bind index \Cf next-page
+bind index \Cb previous-page
 bind index <tab> collapse-thread
 bind index Q noop # Normally <query>.
 bind index T noop # Normally <tag-pattern>.
