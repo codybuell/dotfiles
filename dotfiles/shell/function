@@ -243,6 +243,7 @@ function home() {
       cd ~
       # build home window
       tmux new-session -d -s home -n home
+      tmux set-window-option -t home:home automatic-rename off
       tmux split-window -t home:home -b -v -p 48 -c ~/
       tmux split-window -t home:home -h -l 87 -c ~/
       tmux send-keys -t home:home.1 'cd ~/Downloads; mutt' Enter
