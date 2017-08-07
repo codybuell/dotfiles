@@ -128,7 +128,7 @@ set laststatus=2                                   " enable statusline
 set shortmess+=I                                   " no intro text on plain vi start
 set highlight+=N:DiffText                          " make current line number stand out a little
 "set selection=exclusive                           " include the last character when dbl click selecting
-set virtualedit=onemore                            " fixes yanking selections at the end of a line
+"set virtualedit=onemore                           " fixes yanking selections at the end of a line
 set splitbelow                                     " open new splits on the bottom
 "set nowrap                                        " disable wrapping by default
 

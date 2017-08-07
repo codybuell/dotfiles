@@ -77,12 +77,16 @@ endfunction
 function! functions#YankOverride() abort
   " set selection to exclusive
   setl selection=exclusive
+  " set virtual edit to grab the last char in the line if selected
+  setl virtualedit=onemore
   " perform the yank as normal
   exec ":normal `<y`>"
   " grab the register and send it to clipper
   exec system('nc localhost 8377', @0)
   " return selection to inclusive
   setl selection=inclusive
+  " return virtualedit to default
+  setl virtualedit=
 endfunction
 
 " improve location list navigation (expects prev or next)
