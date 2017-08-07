@@ -63,18 +63,26 @@ endfunction
 function! functions#DblClickOverride() abort
   " set selection to exclusive
   setl selection=exclusive
+  " yank the word under the cursor
+  exec ":normal yiw"
   " select the word under the cursor
   exec ":normal viw"
+  " grab the register and send it to clipper
+  exec system('nc localhost 8377', @0)
   " return selection to inclusive
   setl selection=inclusive
 endfunction
 
 " send yank to register and register to clipper
 function! functions#YankOverride() abort
+  " set selection to exclusive
+  setl selection=exclusive
   " perform the yank as normal
   exec ":normal `<y`>"
   " grab the register and send it to clipper
   exec system('nc localhost 8377', @0)
+  " return selection to inclusive
+  setl selection=inclusive
 endfunction
 
 " improve location list navigation (expects prev or next)
