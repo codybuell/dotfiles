@@ -31,6 +31,8 @@
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
 #    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 #    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#
+#  - RESTART WEECHAT AND CHECK YOU CAN UNLOCK WITH PASSPHRASE
 #                                                                              #
 #  - EXECUTE THIS CONFIG FILE FILE                                             #
 #    /eval /exec -oc sed -E 's/^ *//;/^\//!d' ${env:HOME}/.weechatrc           #
