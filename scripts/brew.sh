@@ -42,6 +42,7 @@ PACKAGES=( \
     'irssi' \                       # command line irc client
     'isync' \                       # package containing mbsync, imap sync to local fs
     'jq' \                          # json manipulation and parsing tool
+    'lbdb' \                        # used by mutt to build email auto completes
     'lockrun' \                     # used for process flow control in mutt
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation
@@ -128,7 +129,7 @@ CASKS=( \
 #  - yubikey personalization tool   --> app store
 
 # install xcode tools if necessary
-[[ `dotfiles pbuell$ pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version` -gt 0 ]] && {
+[[ `pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version` -gt 0 ]] && {
   xcode-select --install
 }
 
