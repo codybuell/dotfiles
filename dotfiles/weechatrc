@@ -49,12 +49,17 @@
 
 # stop vimode complaining about tmux esc key settings
 /set plugins.var.python.vimode.no_warn on
+/set plugins.var.python.autoconf.autoload on
+/set plugins.var.python.autoconf.autosave on
+/set plugins.var.python.autoconf.file ~/.weerc
+/set plugins.var.python.autoconf.ignore *.nicks,*.username,*.sasl_username,*.password,*.sasl_password,irc.server.*.autoconnect,irc.server.*.autojoin
 
 # set server defaults
 /set irc.server_default.nicks {{ IRCNick }}
 
 # organize bufferlist by servers
 /set irc.look.server_buffer independent
+/set irc.look.temporary_servers on
 
 # switch up some glyphs / icons
 /set weechat.look.bar_more_down "▼"
@@ -102,6 +107,9 @@
 /key bindctxt mouse @chat(perl.iset):wheelup /repeat 1 /iset **up
 /key bindctxt mouse @chat(script.scripts):wheeldown /script down 1
 /key bindctxt mouse @chat(script.scripts):wheelup /script up 1
+
+# misc mouse items
+/set weechat.look.scroll_amount 1
 
 ################################################################################
 #                                                                              #
@@ -218,6 +226,9 @@
 /set weechat.bar.buflist.size_max 45
 /set weechat.bar.buflist.priority 2000
 
+# misc.
+/set buflist.look.mouse_wheel off
+
 ################################################################################
 #                                                                              #
 # ACTIVE TITLE BAR                                                             #
@@ -331,6 +342,14 @@
 
 ################################################################################
 #                                                                              #
+# ISET                                                                         #
+#                                                                              #
+################################################################################
+
+/set iset.look.scroll_horiz 1
+
+################################################################################
+#                                                                              #
 # COLORS                                                                       #
 #                                                                              #
 ################################################################################
@@ -338,6 +357,7 @@
 # general items
 /set weechat.color.separator 248
 /set weechat.color.bar_more 240
+/set weechat.color.chat_highlight_bg default
 
 # buflist (see buflist.format.buffer and buflist.format.buffer_current configs above for other colors)
 /set buflist.format.hotlist_highlight "${color:1}"
