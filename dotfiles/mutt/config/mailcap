@@ -12,7 +12,8 @@ image/gif; ~/.mutt/scripts/view_attachment.sh %s gif
 application/pdf; ~/.mutt/scripts/view_attachment.sh %s pdf
 
 # Calendar invites.
-text/calendar; ~/.mutt/scripts/view_attachment.sh %s ics com.google.Chrome
+text/calendar; ~/.mutt/scripts/view_attachment.sh %s ics com.apple.iCal
+application/ics; ~/.mutt/scripts/view_attachment.sh %s ics com.apple.iCal
 
 # HTML
 
