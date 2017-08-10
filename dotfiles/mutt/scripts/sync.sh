@@ -72,6 +72,11 @@ while true; do
 
   ~/.mutt/scripts/mailboxes.rb
 
+  echo
+  echo "Updating tmux window name:"
+
+  ~/.mutt/scripts/tmux_window_name.sh
+
   echo "Finished at $(date)."
   echo "Sleeping for 1m..."
   echo
