@@ -146,7 +146,7 @@
 /filter add hidedisconnects * * (?-i)^irc: disconnected from server$
 
 # filter buddy sign in sign outs bitlbee
-/filter add hidejoinleave irc.bitlbee.* irc_join,irc_part,irc_quit,irc_nick_back *
+/filter add hidejoinleave irc.* irc_join,irc_part,irc_quit,irc_nick_back *
 
 ################################################################################
 #                                                                              #
