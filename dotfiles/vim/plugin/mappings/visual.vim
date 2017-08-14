@@ -7,7 +7,7 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" line sorting
+" line sorting (length, alphabetical)
 vmap     <silent> <leader>sl      :'<,'>!awk '{print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<CR>
 vmap     <silent> <leader>sa      :'<,'>!sort<CR>
 
