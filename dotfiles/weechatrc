@@ -13,6 +13,8 @@
 #                                                                              #
 #  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
 #    /secure passphrase <pass>                                                 #
+#                                                                              #
+#    # if you are using bitlbee (also uncomment the config):                   #
 #    /secure set bitlbeeaddr <addr/port>                                       #
 #    /secure set bitlbee <pass>                                                #
 #    /secure set slackapi <api>                                                #
@@ -27,6 +29,15 @@
 #    /secure set slackgwun <gateway username>                                  #
 #    /secure set slackaddr <YOURTEAM.irc.slack.com/6667>                       #
 #    /secure set slack <pass>                                                  #
+#                                                                              #
+#    # if you are using znc (also uncomment the config):                       #
+#    /secure set zncaddr <znc.url.com/port>                                    #
+#    /secure set zncun <username>                                              #
+#    # on the znc server:  cat ~/.znc/znc.pem | \                              #
+#      openssl x509 -sha512 -fingerprint -noout | \                            #
+#      tr -d ':' | tr 'A-Z' 'a-z' | cut -d = -f 2                              #
+#    /secure set zncfp <znc fingerprint>                                       #
+#    /secure set znc <pass>                                                    #
 #                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
 #    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
@@ -46,6 +57,10 @@
 # GENERAL CONFIGS                                                              #
 #                                                                              #
 ################################################################################
+
+# dont change your channel / buffer when joining
+/set irc.look.buffer_switch_autojoin off
+/set irc.look.buffer_switch_join off
 
 # stop vimode complaining about tmux esc key settings
 /set plugins.var.python.vimode.no_warn on
@@ -297,13 +312,13 @@
 #                                                                              #
 ################################################################################
 
-# assuming using 'closed' authmethod on bitlbee server
-/server add bitlbee ${sec.data.bitlbeeaddr} -ssl -autoconnect -password=${sec.data.bitlbee}
-
-# assuming two accounts in bitlbee setup and tagged as work and home
-/set irc.server.bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
-
-# add auto command to say yes, kick other and then account 1 on account 0 on etc??
+## assuming using 'closed' authmethod on bitlbee server
+#/server add bitlbee ${sec.data.bitlbeeaddr} -ssl -autoconnect -password=${sec.data.bitlbee}
+#
+## assuming two accounts in bitlbee setup and tagged as work and home
+#/set irc.server.bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
+#
+## add auto command to say yes, kick other and then account 1 on account 0 on etc??
 
 ################################################################################
 #                                                                              #
@@ -339,6 +354,19 @@
 #/alias add /mattermost_auth /exec -o -buffer irc.$1.mattermost mattermost-auth.py $2-
 #/server add mattermost ${sec.data.mattermostaddr} -ssl -autoconnect
 #/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost}
+
+################################################################################
+#                                                                              #
+# ZNC                                                                          #
+#                                                                              #
+################################################################################
+
+## znc bitlbee
+#/server add znc-bitlbee ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/bitlbee -password=${sec.data.znc} -autoconnect
+#/set irc.server.znc-bitlbee.ssl_fingerprint ${sec.data.zncfp}
+#
+## znc alias for sending commands to server
+#/alias add znc /quote znc
 
 ################################################################################
 #                                                                              #
