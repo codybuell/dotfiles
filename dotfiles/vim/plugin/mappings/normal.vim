@@ -29,7 +29,6 @@ nnoremap <silent> <Right>             <C-I>
 nnoremap <silent> p                   p`]
 
 " customizations
-nnoremap <silent> <enter>             :<C-U>call wiki#CreateFollowWikiLink()<CR>
 nnoremap          <leader><enter>     @@
 nnoremap          <tab>               za
 nnoremap <silent> ,/                  :nohlsearch<CR>
