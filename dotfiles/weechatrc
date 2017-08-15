@@ -14,10 +14,12 @@
 #  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
 #    /secure passphrase <pass>                                                 #
 #                                                                              #
+#    # if you are using weeslack script (also uncomment the config):           #
+#    /secure set slackapi <api>                                                #
+#                                                                              #
 #    # if you are using bitlbee (also uncomment the config):                   #
 #    /secure set bitlbeeaddr <addr/port>                                       #
 #    /secure set bitlbee <pass>                                                #
-#    /secure set slackapi <api>                                                #
 #                                                                              #
 #    # if you are using mattermost (also uncomment the config):                #
 #    /secure set mattermostaddr <addr/port>                                    #
@@ -341,8 +343,8 @@
 #                                                                              #
 ################################################################################
 
-/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
-/set plugins.var.python.slack.show_reaction_nicks on
+#/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
+#/set plugins.var.python.slack.show_reaction_nicks on
 
 ################################################################################
 #                                                                              #
