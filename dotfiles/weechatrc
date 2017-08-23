@@ -150,6 +150,9 @@
 # filter buddy sign in sign outs bitlbee
 /filter add hidejoinleave irc.* irc_join,irc_part,irc_quit,irc_nick_back *
 
+# filter channels count of nicks ops voices normals...
+/filter add hidenickcount irc.* irc_366 *
+
 ################################################################################
 #                                                                              #
 # SECURITY                                                                     #
