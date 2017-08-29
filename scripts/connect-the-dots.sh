@@ -29,8 +29,10 @@ DIFFEXCLUDES=( \
   "-regex .*.vim.*/.netrwhist" \
   "-regex .*.vim.*/bundle/ultisnips/pythonx/.*.pyc" \
   "-regex .*.vim.*/bundle/.*/doc/tags" \
+  "-regex .*.mutt*/tmp" \
   "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
+  "-path *.mutt*/tmp/*" \
   "-path *.vim*/view/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
