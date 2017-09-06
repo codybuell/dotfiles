@@ -262,10 +262,10 @@ function home() {
       # attach to home session home window
       tmux -u attach -t home:home.1
     else
-      tmux -u attach -t home:home
+      tmux -u attach -t home
     fi
   else
-    tmux switch-client -t home:home
+    tmux switch-client -t home
   fi
 }
 
