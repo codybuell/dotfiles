@@ -53,10 +53,10 @@ snippet master "master blade template"
 <html lang="en">
   <head>
     @yield('head')
-    {!! Html::style('assets/styles/screen.css', array('media' => 'screen')) !!}
-    {!! Html::style('assets/styles/print.css', array('media' => 'print')) !!}
+    <link href="{{ asset('assets/style/screen.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/style/print.css') }}" rel="stylesheet">
     <!--[if IE]>
-      {!! Html::style('assets/styles/styleie.css', array('media' => 'screen')) !!}
+      <link href="{{ asset('assets/style/styleie.css') }}" rel="stylesheet">
     <![endif]-->
     <link href="{{ asset('assets/graphics/favicon.ico') }}" rel="shortcut icon" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/graphics/apple-touch-icon-114x114-precomposed.png') }}">
@@ -84,9 +84,9 @@ snippet master "master blade template"
         @yield('footer')
       </footer>
     </div>
-    {!! Html::script('assets/scripts/engines.js') !!}
-    {!! Html::script('assets/scripts/plugins.js') !!}
-    {!! Html::script('assets/scripts/scripts.js') !!}
+    <script src="{{ asset('assets/scripts/engines.js') }}"></script>
+    <script src="{{ asset('assets/scripts/plugins.js') }}"></script>
+    <script src="{{ asset('assets/scripts/scripts.js') }}"></script>
     @yield('scripts')
     @if(App::environment('production'))
       @include('partials.analytics')
@@ -96,7 +96,7 @@ snippet master "master blade template"
 endsnippet
 
 snippet sub "sub blade template"
-@extends('${1:master}',[
+@extends('${1:layouts.app}',[
   'contentDivId'    => '${2:content}',
   'contentDivClass' => '${3:class}',
 ])
