@@ -71,7 +71,7 @@ snippet master "master blade template"
     @yield('style')
   </head>
   <body>
-    <div id="{{ $contentDivId }}" class="{{ $contentDivClass }}">
+    <div id="{{ $contentDivId }}" class="container {{ $contentDivClass }}">
       <header>
         @include('partials.alertbar')
         @include('partials.navigation')
