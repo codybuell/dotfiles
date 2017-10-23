@@ -87,12 +87,14 @@ set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
 set pgp_decryption_okay="^\\[GNUPG:\\] DECRYPTION_OKAY"
 
 # MISC SETTINGS
-set pgp_replyencrypt       # now crypt_replyencrypt
-set pgp_replysign          # now crypt_replysign
-set pgp_replysignencrypted # now crypt_replysignencrypted
+set pgp_replyencrypt             # now crypt_replyencrypt
+set pgp_replysign                # now crypt_replysign
+set pgp_replysignencrypted       # now crypt_replysignencrypted
 set pgp_show_unusable = no
-
 set pgp_use_gpg_agent = yes
-# set pgp_sign_as = 43A5CE95 
 set pgp_timeout = 3600
+# set pgp_sign_as = 43A5CE95 
 # set crypt_autosign = yes
+
+# in case pgp content header is not set, scan start of message for pgp content and decrypt
+message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
