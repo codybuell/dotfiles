@@ -92,7 +92,7 @@ set pgp_replysign                # now crypt_replysign
 set pgp_replysignencrypted       # now crypt_replysignencrypted
 set pgp_show_unusable = no
 set pgp_use_gpg_agent = yes
-set pgp_timeout = 3600
+set pgp_timeout = 0              # how long to store the passphrase in memory
 # set pgp_sign_as = 43A5CE95 
 # set crypt_autosign = yes
 
