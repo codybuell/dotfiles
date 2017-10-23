@@ -97,4 +97,5 @@ set pgp_timeout = 3600
 # set crypt_autosign = yes
 
 # in case pgp content header is not set, scan start of message for pgp content and decrypt
-message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+set pgp_auto_decode  # new method that works within MIME digests, old is the message hook below
+#message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
