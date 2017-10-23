@@ -73,8 +73,3 @@ set ts_status_format = 'mutt %m messages%?n?, %n new?'
 set uncollapse_jump = yes
 set user_agent = no # Don't add User-Agent header.
 set wait_key = no
-
-set pgp_replyencrypt       # now crypt_replyencrypt
-set pgp_replysign          # now crypt_replysign
-set pgp_replysignencrypted # now crypt_replysignencrypted
-set pgp_show_unusable = no
