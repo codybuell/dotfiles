@@ -34,6 +34,7 @@ PACKAGES=( \
     'git' \                         # git scm
     'git-lfs' \                     # large file support for git
     'gnu-typist' \                  # typing tutor, supports colemak
+    'gnupg2' \                      # gpg utilities for openpgp
     'go' \                          # the go programming language
     'homebrew/php/composer' \       # php package manager
     'httrack' \                     # site mirroring application
