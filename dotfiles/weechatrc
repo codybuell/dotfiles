@@ -348,6 +348,7 @@
 
 #/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
 #/set plugins.var.python.slack.show_reaction_nicks on
+#/set plugins.var.python.slack.background_load_all_history true
 
 ################################################################################
 #                                                                              #
