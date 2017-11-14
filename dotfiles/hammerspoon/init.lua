@@ -30,6 +30,7 @@ local grid = {
   leftTwoThirds = '0,0 8x12',
   leftThreeQuarters = '0,0 9x12',
   laptopLeftThreeQuarters = '0,0 10x12',
+  laptopLeftElevenTwewfths = '0,0 11x12',
   topLeft = '0,0 6x6',
   topRight = '6,0 6x6',
   bottomRight = '6,6 6x6',
@@ -99,7 +100,7 @@ local layoutConfig = {
     hs.grid.MARGINY = 5
     -- if laptop screen, improve with screen dpi density check?
     if primaryWxH == "1440x900" then
-      hs.grid.set(window, grid.laptopLeftThreeQuarters)
+      hs.grid.set(window, grid.laptopLeftElevenTwewfths)
     else
       hs.grid.set(window, grid.leftThreeQuarters)
     end
