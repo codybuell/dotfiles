@@ -79,7 +79,9 @@ PACKAGES=( \
     'webkit2png' \                  # tool for screenshotting websites via command line
     'wget' \                        # curl alternative
     'wireshark' \                   # network traffic analyzer
-    'yubikey-personalization' \     # yubikey cli
+    'ykman' \                       # yubikey manager (feature enabling / pgp)
+    'ykpers' \                      # yubikey personalization tool (otp slots)
+    'yubico-piv-tool' \             # yubekey piv manager (piv / cac card)
     'zsh' \                         # z-shell
 )
 
@@ -166,3 +168,7 @@ done
 brew services start bitlbee
 brew services start clipper
 #brew services start ddclient
+
+# any necessary re-linking
+brew unlink gnupg
+brew link gnupg2
