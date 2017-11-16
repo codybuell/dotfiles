@@ -42,7 +42,7 @@ bind index \Cf next-page
 bind index \Cb previous-page
 bind index <tab> collapse-thread
 bind index Q noop # Normally <query>.
-bind index T noop # Normally <tag-pattern>.
+#bind index T noop # Normally <tag-pattern>.
 bind index V noop # Normally bound to "show-version".
 bind index \CT noop # Normally <untag-pattern>.
 bind index t tag-thread # Usually "tag-entry", but we use "x" (Gmail key) for that.
