@@ -210,15 +210,33 @@
 #                                                                              #
 ################################################################################
 
+##############
+## V2 RULES ##
+##############
+
 # configure autosort channels (begin with & and #) will appears right below
 # the server, private message from *status will follow and finally the rest.
-/autosort replacements add ## #
-/autosort rules add irc.server.*.&* = 0
-/autosort rules add irc.server.*.#* = 1
-/autosort rules add irc.server.*.\*status = 2
+#/autosort replacements add ## #
+#/autosort rules add irc.server.*.&* = 0
+#/autosort rules add irc.server.*.#* = 1
+#/autosort rules add irc.server.*.\*status = 2
 
 # put wee-slack at the bottom
-/autosort rules insert 2 python = 3
+#/autosort rules insert 2 python = 3
+
+##############
+## V3 RULES ##
+##############
+
+# rule order is sort order top to bottom, rules must eval to false to be
+# triggered, i.e. if you want core buffers to be at the top the first rule must
+# evaluiate to fales for core buffers, very very counter intuitive, /autosort
+# debug produces an array for each autosort rule for each buffer, look though
+# the array results for 0's... such a pain
+
+# need to clear out the default rule set
+/set autosort.v3.rules ""
+/set autosort.v3.rules "["${core_first}", "${if:${buffer.full_name}!=perl.iset}", "${irc_first}", "${buffer.plugin.name}", "${irc_raw_first}", "${if:${plugin}==irc?${server}}", "${if:${plugin}==irc?${info:autosort_order,${type},server,*,channel,private}}", "${if:${plugin}==irc?${hashless_name}}", "${buffer.full_name}"]"
 
 ################################################################################
 #                                                                              #
@@ -318,10 +336,10 @@
 ################################################################################
 
 ## assuming using 'closed' authmethod on bitlbee server
-#/server add znc-bitlbee ${sec.data.bitlbeeaddr} -ssl -autoconnect -password=${sec.data.bitlbee}
+#/server add bitlbee ${sec.data.bitlbeeaddr} -ssl -autoconnect -password=${sec.data.bitlbee}
 #
 ## assuming two accounts in bitlbee setup and tagged as work and home
-#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
+#/set irc.server.bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
 #
 ## add auto command to say yes, kick other and then account 1 on account 0 on etc??
 
@@ -370,6 +388,7 @@
 ## znc bitlbee
 #/server add znc-bitlbee ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/bitlbee -password=${sec.data.znc} -autoconnect
 #/set irc.server.znc-bitlbee.ssl_fingerprint ${sec.data.zncfp}
+#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.znc};/join &work;/join &home
 #
 ## znc alias for sending commands to server
 #/alias add znc /quote znc
