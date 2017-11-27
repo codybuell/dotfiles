@@ -44,6 +44,7 @@ SYMLINK00 = /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
 SYMLINK01 = /Users/usrnm/Repos/bin /Users/usrnm/Bin
 SYMLINK02 = /Users/usrnm/Bin /Users/usrnm/.gopath/bin
 SYMLINK03 = /Users/usrnm/Repos /Users/usrnm/.gopath/src
+SYMLINK04 = "Google\ Drive\ File\ Stream/My\ Drive" "Google\ Drive"
 
 ################################################################################
 #                                                                              #
