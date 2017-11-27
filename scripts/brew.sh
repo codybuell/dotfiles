@@ -97,7 +97,7 @@ CASKS=( \
     'geektool' \                    # desktop information center
     'google-chrome' \               # chrome browser
     'google-chrome-canary' \        # bleeding edge chrome
-    'google-drive' \                # file collaboration
+    'google-drive-file-stream' \    # file collaboration
     'hammerspoon' \                 # osx automation tool
     'inkscape' \                    # open source vector graphics application
     'imageoptim' \                  # image file optimizer
