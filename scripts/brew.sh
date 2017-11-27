@@ -99,7 +99,6 @@ CASKS=( \
     'google-chrome-canary' \        # bleeding edge chrome
     'google-drive-file-stream' \    # file collaboration
     'hammerspoon' \                 # osx automation tool
-    'inkscape' \                    # open source vector graphics application
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
     'itsycal' \                     # menubar calendar
@@ -116,6 +115,7 @@ CASKS=( \
     'virtualbox' \                  # virtualization utility
     'vmware-horizon-client' \       # vdi client
     'xquartz' \                     # osx's implemenrtation of x11
+    'inkscape' \                    # vector graphics application, must be last
 )
 
 # not available via brew cask
