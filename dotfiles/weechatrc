@@ -85,6 +85,10 @@
 /set weechat.look.bar_more_up "▲"
 /set weechat.look.separator_horizontal "="
 
+# use partial completion rather than full first match
+/set weechat.completion.partial_completion_command on
+/set weechat.completion.partial_completion_command_arg on
+
 ################################################################################
 #                                                                              #
 # KEY BINDINGS                                                                 #
