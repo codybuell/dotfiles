@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.txt,*.md          set ft=markdown | set conceallevel=2
+au BufNewFile,BufRead *.txt,*.md          set ft=markdown.wiki | set conceallevel=2
