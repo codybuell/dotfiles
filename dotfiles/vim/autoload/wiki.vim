@@ -4,6 +4,10 @@
 "                                                                              "
 " Functionality depends on vim-markdown plugin by plasticboy.                  "
 "                                                                              "
+" related files:                                                               "
+"    plugins/wiki.vim                                                          "
+"    ftplugin/wiki.vim                                                         "
+"                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Match String at Cursor

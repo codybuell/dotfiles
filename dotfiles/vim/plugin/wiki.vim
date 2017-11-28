@@ -1,4 +1,14 @@
-" configurations and functions to compliment vim-markdown by plasticboy
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Wiki Plugin Variables                                                        "
+"                                                                              "
+" Functionality depends on vim-markdown plugin by plasticboy.                  "
+"                                                                              "
+" related files:                                                               "
+"    autoload/wiki.vim                                                         "
+"    ftplugin/wiki.vim                                                         "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " define wiki's (wiki name, wiki root path, wike ft extension txt or md or
 " whatever, index file defaults to index.ext)
