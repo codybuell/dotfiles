@@ -101,7 +101,6 @@ CASKS=( \
     'firefox' \                     # alternative web browser
     'geektool' \                    # desktop information center
     'google-chrome' \               # chrome browser
-    'google-chrome-canary' \        # bleeding edge chrome
     'google-drive-file-stream' \    # file collaboration
     'hammerspoon' \                 # osx automation tool
     'imageoptim' \                  # image file optimizer
@@ -116,12 +115,15 @@ CASKS=( \
     'sketch' \                      # graphics design and layout
     'slack' \                       # collaboration and chat application
     'ubersicht' \                   # alternative to geektool
-    'vagrant' \                     # vm's as packages management solution
+    'vagrant' \                     # vms as packages management solution
     'virtualbox' \                  # virtualization utility
     'vmware-horizon-client' \       # vdi client
-    'xquartz' \                     # osx's implemenrtation of x11
+    'xquartz' \                     # osxs implemenrtation of x11
     'inkscape' \                    # vector graphics application, must be last
 )
+
+# other casks of interest
+#   'caskroom/versions/google-chrome-canary'  # bleeding edge chrome
 
 # not available via brew cask
 #  - screenie                       --> download from vendor
