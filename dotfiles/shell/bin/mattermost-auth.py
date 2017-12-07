@@ -39,7 +39,8 @@ def get_auth_cookie(domain, login, password):
     WebDriverWait(driver, 600).until(EC.title_contains("User Settings"))
 
     # authorize mattermost to use your account
-    elementAuthorize = driver.find_element_by_name('commit')
+    #elementAuthorize = driver.find_element_by_name('commit')
+    elementAuthorize = driver.find_element_by_css_selector('input.btn-success')
     elementAuthorize.click()
 
     WebDriverWait(driver, 600).until(EC.title_contains("Mattermost"))
