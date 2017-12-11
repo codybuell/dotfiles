@@ -57,6 +57,7 @@ PACKAGES=( \
     'mutt' \                        # command line email client
     'nmap' \                        # network utility
     'node' \                        # server side js
+    'notmuch' \                     # mail search for mutt
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
     'pandoc' \                      # markup converter, used with mutt to send html email
