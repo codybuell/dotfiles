@@ -295,11 +295,19 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
   grid.bottomLeft,
 }))
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
-  grid.fullScreen,
-  grid.centeredBig,
-  grid.centeredSmall,
-}))
+if primaryWxH == "1440x900" then
+  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
+    grid.fullScreen,
+    grid.laptopGoldenLarge,
+    grid.centeredSmall,
+  }))
+else
+  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
+    grid.fullScreen,
+    grid.centeredBig,
+    grid.centeredSmall,
+  }))
+end
 
 hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
   hs.alert('One-monitor layout')
