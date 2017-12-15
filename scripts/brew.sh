@@ -81,6 +81,7 @@ PACKAGES=( \
     'urlview' \                     # for viewing urls in mutt
     'vault' \                       # encrypted key value pair storage
     'vim' \                         # improved version of already installed vi
+    'w3m' \                         # cli web browser
     'wakeonlan' \                   # wol client
     'watch' \                       # handy utility for monitoring
     'webkit2png' \                  # tool for screenshotting websites via command line
