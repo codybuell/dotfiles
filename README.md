@@ -27,3 +27,5 @@ Installation
  3. Run make
 
         make [ osx | linux | osxdefs | linuxdefs | dots | brew | subs ]
+        # optionally you can add an argument to the dots target to make a single dotfile
+        make dots vim

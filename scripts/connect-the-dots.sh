@@ -290,9 +290,11 @@ while getopts ":hi:n" Option; do
       ;;
     i )
       IGNORE=(${IGNORE[@]} $OPTARG)
+      shift 2
       ;;
     n )
       SKIPBACKUPS=true
+      shift
       ;;
     : )
       echo "Option -$OPTARG requires an argument." >&2
@@ -307,6 +309,10 @@ done
 
 echo 'connecting the dots...'
 readconfig
+# if unflagged arg passed set $DOTFILES with its value
+if [ "$1" != "" ]; then
+  DOTFILES=($1)
+fi
 runpaths
 runlinks
 placefiles
