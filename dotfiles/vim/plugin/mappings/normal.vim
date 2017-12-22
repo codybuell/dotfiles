@@ -41,6 +41,9 @@ nnoremap <silent> <localleader>c      :syntax sync fromstart<CR>
 " comceal
 nnoremap <silent> <leader>2           :Comceal<CR>
 
+" w3m
+nnoremap          <leader>i           :W3m 
+
 " nerdtree
 nnoremap <silent> <leader>-           :NERDTreeToggle<CR>
 

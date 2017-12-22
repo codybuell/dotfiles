@@ -247,7 +247,7 @@ function home() {
       tmux split-window -t home:home -b -v -p 48 -c ~/
       tmux split-window -t home:home -h -l 87 -c ~/
       tmux send-keys -t home:home.1 'cd ~/Downloads; mutt' Enter
-      tmux send-keys -t home:home.2 'wj' Enter
+      tmux send-keys -t home:home.2 't mit' Enter
       tmux send-keys -t home:home.3 'weechat' Enter
       # build control window
       tmux new-window -t home: -c ~/.mutt -n control
