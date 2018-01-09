@@ -29,3 +29,14 @@ Installation
         make [ osx | linux | osxdefs | linuxdefs | dots | brew | subs ]
         # optionally you can add an argument to the dots target to make a single dotfile
         make dots vim
+
+Todo
+----
+
+- rewrite vim after/plugin/color to fix terminus load flashing characters on screen
+- rewrite prepostexec time func in c or migrate to zsh
+- build tie in to vim calendar for journal mappings
+- setup imap filter rules in .config to be deployed with make dots
+- finish scripts (go, gem, node, pip, etc) and add matching make commands
+- smooth vim configs, feat compat checks, au groups and load checks
+- check markdown emails config, they are not sending
