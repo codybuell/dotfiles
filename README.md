@@ -39,4 +39,3 @@ Todo
 - setup imap filter rules in .config to be deployed with make dots
 - finish scripts (go, gem, node, pip, etc) and add matching make commands
 - smooth vim configs, feat compat checks, au groups and load checks
-- check markdown emails config, they are not sending
