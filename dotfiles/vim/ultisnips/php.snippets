@@ -259,8 +259,12 @@ endsnippet
 snippet sc "schema create"
 Schema::create('${1:table}', function(Blueprint $table)
 {
-  $table->increments('id');
-  $table->timestamps();
+  $table->increments('id');         // primary key
+  $table->string('created_by');     // meta
+  $table->string('updated_by');     // meta
+  $table->string('deleted_by');     // meta
+  $table->timestamps();             // meta
+  $table->softDeletes();            // meta
 });
 endsnippet
 
