@@ -59,6 +59,7 @@ alias sc="vi ~/.ssh/config"
 # laravel
 alias lr="vi app/Http/routes.php"
 alias laravel="composer create-project --prefer-dist laravel/laravel "
+alias artisan="php artisan"
 
 # networking
 alias swil="networksetup -switchtolocation"
