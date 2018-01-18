@@ -55,14 +55,15 @@ PACKAGES=( \
     'minicom' \                     # modem control and serial terminal emulation
     'msmtp' \                       # smtp client used with mutt config
     'mutt' \                        # command line email client
+    'mysql'                         # database server for local dev
     'nmap' \                        # network utility
     'node' \                        # server side js
     'notmuch' \                     # mail search for mutt
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
     'pandoc' \                      # markup converter, used with mutt to send html email
-    'php70' \                       # (or higher)
-    'php70-mcrypt' \                # (or higher)  encryption library required for laravel development
+    'php71' \                       # (or higher)
+    'php71-mcrypt' \                # (or higher)  encryption library required for laravel development
     'picocom' \                     # used with ino for serial connection to arduino
     'pidgin' \                      # pidgin and finch xmpp protocol clients
     'python' \                      # python language
@@ -87,6 +88,7 @@ PACKAGES=( \
     'webkit2png' \                  # tool for screenshotting websites via command line
     'wget' \                        # curl alternative
     'wireshark' \                   # network traffic analyzer
+    'yarn' \                        # bower replacement with checksums
     'ykman' \                       # yubikey manager (feature enabling / pgp)
     'ykpers' \                      # yubikey personalization tool (otp slots)
     'yubico-piv-tool' \             # yubekey piv manager (piv / cac card)

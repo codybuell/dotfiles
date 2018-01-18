@@ -7,6 +7,7 @@ PATH_SHELL=$HOME/.shell/bin
 PATH_BREW=/usr/local/bin
 PATH_SBIN=/usr/local/sbin
 PATH_GO=$HOME/.gopath
+PATH_LARAVEL=$HOME/.composer/vendor/bin
 
 export GOPATH=~/.gopath
-export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SHELL:$PATH_SBIN:$PATH_GO/bin
+export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SHELL:$PATH_SBIN:$PATH_GO/bin:$PATH_LARAVEL
