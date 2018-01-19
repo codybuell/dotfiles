@@ -37,5 +37,4 @@ Todo
 - rewrite prepostexec time func in c or migrate to zsh
 - build tie in to vim calendar for journal mappings
 - setup imap filter rules in .config to be deployed with make dots
-- finish scripts (go, gem, node, pip, etc) and add matching make commands
 - smooth vim configs, feat compat checks, au groups and load checks

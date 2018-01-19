@@ -15,6 +15,11 @@ default:
 	    linuxdefs: run linux configurations\n\
 	    dots:      place dotfiles for current user\n\
 	    brew:      run brew configuration\n\
+	    composer:  run composer configuration\n\
+	    gem:       run gem configuration\n\
+	    go:        run go configuration\n\
+	    node:      run node configuration\n\
+	    pip:       run pip configuration\n\
 	    keyboard:  place kareabiner config files\n\
 	    subs:      grab and update all git submodules\n\
 	    clean:     delete all backup files\n\n"
@@ -42,6 +47,21 @@ brew:
 
 karabiner:
 	scripts/karabiner.sh
+
+composer:
+	scripts/composer.sh
+
+gem:
+	scripts/gem.sh
+
+go:
+	scripts/go.sh
+
+node:
+	scripts/node.sh
+
+pip:
+	scripts/pip.sh
 
 subs:
 	git submodule init
