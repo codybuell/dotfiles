@@ -112,3 +112,6 @@
 [submodule "dotfiles/vim/bundle/w3m.vim"]
 	path = dotfiles/vim/bundle/w3m.vim
 	url = https://github.com/yuratomo/w3m.vim.git
+[submodule "dotfiles/vim/bundle/lbdbq"]
+	path = dotfiles/vim/bundle/lbdbq
+	url = https://github.com/vim-scripts/lbdbq.git
