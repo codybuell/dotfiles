@@ -117,7 +117,7 @@ set list                                           " show special characters
 set lcs=eol:¬,tab:>-,trail:.,extends:»,precedes:«  " special character labels
 set backspace=2                                    " make bkspace work on line br & auto indents
 set noshowmode                                     " dont show modes, statusline does it
-set complete=.,w,b,u                               " auto complete from current file, window, buffers
+set complete=.,w,b,u,t                             " auto complete from current file, window, buffers, tags
 set completeopt=menuone                            " show completion menu even if only one match
 set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
