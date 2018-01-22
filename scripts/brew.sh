@@ -178,6 +178,7 @@ done
 #brew services start --all
 brew services start bitlbee
 brew services start clipper
+brew services start mysql
 #brew services start ddclient
 
 # any necessary re-linking
