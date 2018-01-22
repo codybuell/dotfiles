@@ -10,6 +10,7 @@
 --exclude=.settings/*
 --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
 --exclude=public
+--exclude=*.js
 --exclude=*.css
 --exclude=*.sass
 --recurse
