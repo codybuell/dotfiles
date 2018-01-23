@@ -28,7 +28,3 @@ for i in ${PACKAGES[@]}; do
 done
 
 # clean up / initializing tasks
-
-# installs mime types needed for bundler
-cd ~/.mutt/scripts/
-bundle install

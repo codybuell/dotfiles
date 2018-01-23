@@ -152,6 +152,12 @@ placefiles() {
         done
         cd - > /dev/null
         ;;
+      mutt )
+        # bundler gem bits (mime types) need to be installed
+        cd ~/.mutt.new.$DATE/scripts
+        bundler install
+        cd - > /dev/null
+        ;;
     esac
 
     # set the template variables
