@@ -191,6 +191,9 @@ setglobal rnu                                      " turn on relative line numbe
 "//                                  //"
 "//////////////////////////////////////"
 
+" these are plugin configs that will not function when placed in
+" `after/plugins/[plugin].vim`, they must be set here, do not refactor
+
 " let vim vinegar do its things
 let g:NERDTreeHijackNetrw = 0
 
@@ -199,3 +202,8 @@ map <localleader><localleader> <Plug>(easymotion-prefix)
 
 " use enter to identify completion selection (C-y is the default)
 let g:SuperTabCrMapping=1
+
+" use tabs for ultisnips expansion
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
