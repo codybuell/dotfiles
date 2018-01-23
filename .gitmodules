@@ -108,7 +108,7 @@
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "dotfiles/vim/bundle/vim-markdown"]
 	path = dotfiles/vim/bundle/vim-markdown
-	url = https://github.com/codybuell/vim-markdown.git
+	url = https://github.com/plasticboy/vim-markdown.git
 [submodule "dotfiles/vim/bundle/w3m.vim"]
 	path = dotfiles/vim/bundle/w3m.vim
 	url = https://github.com/yuratomo/w3m.vim.git
