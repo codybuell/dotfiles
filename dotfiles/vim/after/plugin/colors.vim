@@ -60,9 +60,8 @@ if v:progname !=# 'vi'
     augroup END
   endif
 
-  " what are you doing here?  causes issues https://github.com/wincent/terminus/issues/24
-  " if not in tmux then run this???
-  "if ! $TMUX
-  call s:SetColorScheme('focus')
-  "endif
+  " if not in tmux then we need to call focus to set color scheme
+  if !exists('$TMUX')
+    call s:SetColorScheme('focus')
+  endif
 endif
