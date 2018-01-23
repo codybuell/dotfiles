@@ -57,13 +57,13 @@ colors
 
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}●%f " # default 'S'
-zstyle ':vcs_info:*' unstagedstr "%F{red}●%f " # default 'U'
+zstyle ':vcs_info:*' stagedstr " %F{green}●%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr " %F{red}●%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked
-zstyle ':vcs_info:git*:*' formats ' %m%c%u' # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' formats '%m%c%u' # default ' (%s)-[%b]%c%u-'
 zstyle ':vcs_info:git*:*' actionformats ' [%b|%a%m%c%u]' # default ' (%s)-[%b|%a]%c%u-'
 
 function +vi-hg-bookmarks() {
@@ -110,12 +110,12 @@ function () {
     # Note use a non-breaking space at the end of the prompt because we can use it as
     # a find pattern to jump back in tmux.
     local NBSP=' '
-    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%(?..!)%b%f%F{red}%B${SUFFIX}%b%f${NBSP}"
+    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f${NBSP}"
     export ZLE_RPROMPT_INDENT=0
   else
     # Don't bother with ZLE_RPROMPT_INDENT here, because it ends up eating the
     # space after PS1.
-    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%(?..!)%b%f%F{red}%B${SUFFIX}%b%f "
+    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f "
   fi
 }
 
