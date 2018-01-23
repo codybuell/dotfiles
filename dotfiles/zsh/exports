@@ -1,0 +1,65 @@
+export PAGER=less
+
+if which nvim &> /dev/null; then
+  export EDITOR=$(which nvim)
+elif [ -x "$HOME/bin/vim" ]; then
+  # PATH isn't set yet (.zsh/path depends on this file), so we do this check
+  # instead of a simple `export EDITOR=$(which vim)`:
+  export EDITOR=$HOME/bin/vim
+else
+  export EDITOR=vim
+fi
+
+case "$(uname)" in
+  Darwin*)
+    if [ -x /usr/libexec/java_home ]; then
+      if /usr/libexec/java_home &> /dev/null ; then
+        export JAVA_HOME=$(/usr/libexec/java_home)
+      fi
+    fi
+    ;;
+  Linux*)
+    export JAVA_HOME=/usr/lib/jvm/jre-1.6.0-openjdk.x86_64
+    ;;
+esac
+
+# usually this means running on a machine with a statically-linked, hand-built
+# tmux (and ncurses)
+if [ -d "$HOME/share/terminfo" ]; then
+  export TERMINFO=$HOME/share/terminfo
+fi
+
+# filename (if known), line number if known, falling back to percent if known,
+# falling back to byte offset, falling back to dash
+export LESSPROMPT='?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...'
+
+# i = case-insensitive searches, unless uppercase characters in search string
+# F = exit immediately if output fits on one screen
+# M = verbose prompt
+# R = ANSI color support
+# S = chop long lines (rather than wrap them onto next line)
+# X = suppress alternate screen
+export LESS=iFMRSX
+
+# Color man pages.
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;38;5;208m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[04;38;5;111m'
+
+# for the benefit of CPAN and potentially others
+export FTP_PASSIVE=1
+
+# colour ls listings
+export CLICOLOR=true
+
+# for Amazon Web Services EC2 API
+export EC2_HOME=~/bin/ec2-api-tools
+export EC2_PRIVATE_KEY=~/.ssh/ec2wincent_cert_pk.pem
+export EC2_CERT=~/.ssh/ec2wincent_cert.pem
+
+export GPG_TTY=$(tty)
+
+export GOPATH=~/code/go
