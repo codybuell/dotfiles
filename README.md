@@ -33,7 +33,6 @@ Installation
 Todo
 ----
 
-- rewrite prepostexec time func in c or migrate to zsh
 - build tie in to vim calendar for journal mappings
 - setup imap filter rules in .config to be deployed with make dots
 - smooth vim configs, feat compat checks, au groups and load checks
