@@ -33,7 +33,6 @@ Installation
 Todo
 ----
 
-- rewrite vim after/plugin/color to fix terminus load flashing characters on screen
 - rewrite prepostexec time func in c or migrate to zsh
 - build tie in to vim calendar for journal mappings
 - setup imap filter rules in .config to be deployed with make dots
