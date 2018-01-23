@@ -116,8 +116,8 @@
 	path = dotfiles/vim/bundle/lbdbq
 	url = https://github.com/vim-scripts/lbdbq.git
 [submodule "dotfiles/zsh/zsh-autosuggestions"]
-	path = dotfiles/zsh/zsh-autosuggestions
+	path = dotfiles/shell/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "dotfiles/zsh/zsh-syntax-highlighting"]
-	path = dotfiles/zsh/zsh-syntax-highlighting
+	path = dotfiles/shell/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
