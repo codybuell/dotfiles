@@ -1,17 +1,21 @@
-#
-# Teh H4xx
-#
+################################################################################
+##                                                                            ##
+## OSX Specific Settings                                                      ##
+##                                                                            ##
+################################################################################
 
 if [ "$(uname)" = "Darwin" ]; then
-  # Suppress unwanted Homebrew-installed stuff.
+  # suppress unwanted Homebrew-installed stuff
   if [ -e /usr/local/share/zsh/site-functions/_git ]; then
     mv -f /usr/local/share/zsh/site-functions/{,disabled.}_git
   fi
 fi
 
-#
-# Completion
-#
+################################################################################
+##                                                                            ##
+## Completion                                                                 ##
+##                                                                            ##
+################################################################################
 
 fpath=($HOME/.zsh/completions $fpath)
 
@@ -27,9 +31,11 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 # Colorize completions using default `ls` colors.
 zstyle ':completion:*' list-colors ''
 
-#
-# Correction
-#
+################################################################################
+##                                                                            ##
+## Correction                                                                 ##
+##                                                                            ##
+################################################################################
 
 # exceptions to auto-correction
 alias bundle='nocorrect bundle'
@@ -40,9 +46,11 @@ alias mv='nocorrect mv'
 alias stack='nocorrect stack'
 alias sudo='nocorrect sudo'
 
-#
-# Prompt
-#
+################################################################################
+##                                                                            ##
+## Prompt                                                                     ##
+##                                                                            ##
+################################################################################
 
 autoload -U colors
 colors
@@ -91,7 +99,7 @@ function +vi-git-untracked() {
   fi
 }
 
-RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
+RPROMPT_BASE="\${vcs_info_msg_0_}"
 setopt PROMPT_SUBST
 
 # Anonymous function to avoid leaking NBSP variable.
@@ -122,17 +130,33 @@ function () {
 export RPROMPT=$RPROMPT_BASE
 export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
-#
-# History
-#
+
+## vim mode prompt
+#function zle-line-init zle-keymap-select {
+#    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+##   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
+#    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+#    zle reset-prompt
+#}
+#zle -N zle-line-init
+#zle -N zle-keymap-select
+
+
+################################################################################
+##                                                                            ##
+## History                                                                    ##
+##                                                                            ##
+################################################################################
 
 export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
-#
-# Options
-#
+################################################################################
+##                                                                            ##
+## Options                                                                    ##
+##                                                                            ##
+################################################################################
 
 setopt autocd               # .. is shortcut for cd .. (etc)
 setopt autoparamslash       # tab completing directory appends a slash
@@ -152,11 +176,25 @@ setopt pushdignoredups      # don't push multiple copies of same dir onto stack
 setopt pushdsilent          # don't print dir stack after pushing/popping
 setopt sharehistory         # share history across shells
 
-#
-# Bindings
-#
+################################################################################
+##                                                                            ##
+## Bindings                                                                   ##
+##                                                                            ##
+################################################################################
 
-bindkey -e # emacs bindings, set to -v for vi bindings
+# use vim mappings rather than emacs (-e)
+bindkey -v
+
+# additional vim like mappings
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+# delay between esc keypress and switching to normal mode
+export KEYTIMEOUT=1
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -189,9 +227,11 @@ function fg-bg() {
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
-#
-# Other
-#
+################################################################################
+##                                                                            ##
+## Other                                                                      ##
+##                                                                            ##
+################################################################################
 
 source $HOME/.zsh/aliases
 source $HOME/.zsh/common
@@ -204,17 +244,21 @@ source $HOME/.zsh/vars
 
 test -e $HOME/.zsh/functions.private && source $HOME/.zsh/functions.private
 
-#
-# Third-party
-#
+################################################################################
+##                                                                            ##
+## Third-party                                                                ##
+##                                                                            ##
+################################################################################
 
 CHRUBY=/usr/local/share/chruby
 test -e "$CHRUBY/chruby.sh" && . "$CHRUBY/chruby.sh"
 test -e "$CHRUBY/auto.sh" && . "$CHRUBY/auto.sh"
 
-#
-# Hooks
-#
+################################################################################
+##                                                                            ##
+## Hooks                                                                      ##
+##                                                                            ##
+################################################################################
 
 autoload -U add-zsh-hook
 
@@ -290,7 +334,7 @@ function auto-ls-after-cd() {
     ls -a
   fi
 }
-add-zsh-hook chpwd auto-ls-after-cd
+#add-zsh-hook chpwd auto-ls-after-cd
 
 # for prompt
 add-zsh-hook precmd vcs_info
@@ -318,9 +362,11 @@ fi
 HOST_RC=$HOME/.zsh/host/$(hostname -s)
 test -f $HOST_RC && source $HOST_RC
 
-#
-# Plug-ins
-#
+################################################################################
+##                                                                            ##
+## Plugins                                                                    ##
+##                                                                            ##
+################################################################################
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
@@ -328,9 +374,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 # Uncomment this to get syntax highlighting:
 # source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#
-# /etc/motd
-#
+################################################################################
+##                                                                            ##
+## MOTD                                                                       ##
+##                                                                            ##
+################################################################################
 
 if [ -e /etc/motd ]; then
   if ! cmp -s $HOME/.hushlogin /etc/motd; then
