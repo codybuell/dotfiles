@@ -42,6 +42,7 @@ DIFFEXCLUDES=( \
 TEMPLATEEXCLUDES=( \
   "-name *.DS_Store" \
   "-path *.shell*/base16-shell/*" \
+  "-path *.shell*/zsh-*/*" \
   "-path *.vim*/bundle/*" \
   "-path *.vim*/tmp/*" \
   "-path *.terminfo*/*" \
