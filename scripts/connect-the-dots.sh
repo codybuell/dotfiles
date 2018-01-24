@@ -32,8 +32,10 @@ DIFFEXCLUDES=( \
   "-regex .*.mutt*/tmp" \
   "-path *.vim*/bundle/command-t/ruby/command-t/*" \
   "-path *.vim*/tmp/*" \
-  "-path *.mutt*/tmp/*" \
   "-path *.vim*/view/*" \
+  "-path *.vim*/snippets/*" \
+  "-path *.vim*/ultisnips/*" \
+  "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
   )
@@ -136,6 +138,9 @@ placefiles() {
           cd ~/.vim.new.$DATE/bundle/command-t/ruby/command-t/ext/command-t
           ruby extconf.rb > /dev/null
           make > /dev/null
+          cd ~/.vim.new.$DATE
+          ln -s $CONFGDIR/snippets/snippets
+          ln -s $CONFGDIR/snippets/ultisnips
           cd - > /dev/null
         }
         # # add hjkl rebindings if colemak
