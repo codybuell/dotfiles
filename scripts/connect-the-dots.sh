@@ -41,6 +41,7 @@ DIFFEXCLUDES=( \
 # what to exclude when templating (tmp files, git submodules, etc)
 TEMPLATEEXCLUDES=( \
   "-name *.DS_Store" \
+  "-path *.mutt*/scripts/vendor/*" \
   "-path *.shell*/base16-shell/*" \
   "-path *.shell*/zsh-*/*" \
   "-path *.vim*/bundle/*" \
