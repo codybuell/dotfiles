@@ -63,11 +63,21 @@ nnoremap <silent> <leader>h           :CommandTHelp<CR>
 nmap              <leader>g           <Plug>CtrlSFPrompt
 nmap              <leader>G           <Plug>CtrlSFCwordExec
 
-" laravel
+" laravel (artisan -V | sed 's/[^[:digit:].]//g')
+" 5.3 and greater /routes/web.php
+" 5.0 - 5.2 /app/Http/routes.php
+" 3.0 /application/routes.php
+if filereadable("routes/web.php")
+  nnoremap <silent> <leader>er          :tabnew routes/web.php<CR>
+elseif filereadable("app/Http/routes.php")
+  nnoremap <silent> <leader>er          :tabnew app/Http/routes.php<CR>
+else
+  nnoremap <silent> <leader>er          :tabnew application/routes.php<CR>
+endif
+
 nnoremap          <leader>la          :!php artisan
 nnoremap <silent> <leader>lr          :!php artisan route:list<CR>
 nnoremap <silent> <leader>lc          :tabnew composer.json<CR>
-nnoremap <silent> <leader>er          :tabnew app/Http/routes.php<CR>
 nnoremap <silent> <leader>ec          :tabnew config/app.php<CR>
 nnoremap <silent> <leader>ed          :tabnew config/database.php<CR>
 
