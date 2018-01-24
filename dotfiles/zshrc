@@ -59,12 +59,12 @@ colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr " %F{green}●%f" # default 'S'
-zstyle ':vcs_info:*' unstagedstr " %F{red}●%f" # default 'U'
+zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
+zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked
 zstyle ':vcs_info:git*:*' formats '%m%c%u' # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats ' [%b|%a%m%c%u]' # default ' (%s)-[%b|%a]%c%u-'
+zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u]' # default ' (%s)-[%b|%a]%c%u-'
 
 function +vi-hg-bookmarks() {
   emulate -L zsh
@@ -225,13 +225,13 @@ bindkey '^Z' fg-bg
 ##                                                                            ##
 ################################################################################
 
-source $HOME/.zsh/aliases
+source $HOME/.shell/alias
 source $HOME/.zsh/common
 source $HOME/.zsh/colors
 source $HOME/.zsh/exports
-source $HOME/.zsh/functions
+source $HOME/.shell/function
 source $HOME/.zsh/hash
-source $HOME/.zsh/path
+source $HOME/.shell/path
 source $HOME/.zsh/vars
 
 test -e $HOME/.zsh/functions.private && source $HOME/.zsh/functions.private
@@ -313,7 +313,7 @@ function report-run-meta() {
     ELAPSED="${ELAPSED}${SECS}"
     local ITALIC_ON=$'\e[3m'
     local ITALIC_OFF=$'\e[23m'
-    export RPROMPT="%F{59}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f ${EXITSTR}$RPROMPT_BASE"
+    export RPROMPT="%F{59}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f ${EXITSTR} $RPROMPT_BASE"
     unset ZSH_START_TIME
   else
     export RPROMPT="$RPROMPT_BASE"
@@ -371,4 +371,4 @@ source ~/.shell/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 # syntax highlighting
-source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

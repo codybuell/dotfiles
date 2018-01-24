@@ -2,12 +2,18 @@
 # paths
 #
 
-PATH_HOME=$HOME/Bin
-PATH_SHELL=$HOME/.shell/bin
-PATH_BREW=/usr/local/bin
-PATH_SBIN=/usr/local/sbin
-PATH_GO=$HOME/.gopath
-PATH_LARAVEL=$HOME/.composer/vendor/bin
+SYSTEM_PATH=$PATH
+unset PATH
 
+# path
+PATH=$HOME/Bin
+PATH=$PATH:$HOME/.shell/bin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/local/sbin
+PATH=$PATH:$SYSTEM_PATH
+PATH=$PATH:$HOME/.gopath/bin
+PATH=$PATH:$HOME/.composer/vendor/bin
+export PATH
+
+# gopath
 export GOPATH=~/.gopath
-export PATH=$PATH_BREW:$PATH:$PATH_HOME:$PATH_SHELL:$PATH_SBIN:$PATH_GO/bin:$PATH_LARAVEL
