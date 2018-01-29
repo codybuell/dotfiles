@@ -18,7 +18,6 @@ Installation
 
         make subs
 
-
  2. Copy and edit the example configuration file
 
         cp .config.example .config
