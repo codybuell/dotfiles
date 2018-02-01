@@ -13,7 +13,19 @@ let g:syntastic_check_on_wq   = 0             " don't check on write quit
 
 " ignore specific html errors across all variants of file types
 let g:syntastic_html_tidy_ignore_errors = [
-  \   '<link> property attribute "sizes"',
+  \  '<link> property attribute "sizes"',
+  \  '<svg> is not recognized!',
+  \  '<line> is not recognized!',
+  \  '<path> is not recognized!',
+  \  '<rect> is not recognized!',
+  \  '<g> is not recognized!',
+  \  'discarding unexpected <svg>',
+  \  'discarding unexpected </svg>',
+  \  'discarding unexpected <line>',
+  \  'discarding unexpected <path>',
+  \  'discarding unexpected <rect>',
+  \  'discarding unexpected <g>',
+  \  'discarding unexpected </g>',
   \ ]
 
 " ignore specific html errors that cannot be avoided in blade templating files
