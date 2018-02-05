@@ -13,6 +13,7 @@ PACKAGES=( \
     'ag' \                          # silver searcher, ack like func
     'alpine' \                      # command line email client
     'ansible' \                     # configuration management utility
+    'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
     'bash' \                        # newer version of bash
     'bash-completion' \             # bash completion, nuff said
