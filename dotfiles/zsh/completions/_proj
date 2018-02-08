@@ -1,0 +1,5 @@
+#comdef proj
+
+_files -/ -W {{ NonRepoProjects }}/
+
+#compdef _wj proj

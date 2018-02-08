@@ -1,0 +1,3 @@
+#compdef codex
+
+_files -W {{ CodexFolder }}/

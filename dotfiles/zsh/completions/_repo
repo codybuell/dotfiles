@@ -1,0 +1,3 @@
+#compdef repo
+
+_files -/ -W {{ ReposPath }}/

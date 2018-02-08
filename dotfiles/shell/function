@@ -7,6 +7,22 @@ changedir() {
   eval cd $1/$2
 }
 
+ws() {
+  changedir '{{ NonRepoProjects }}'
+}
+
+gist() {
+  changedir '{{ GistsPath }}'
+}
+
+repo() {
+  changedir '{{ ReposPath }}'
+}
+
+proj() {
+  changedir '{{ NonRepoProjects }}'
+}
+
 # change directory or edit, used with aliases
 changediroredit() {
   [[ $2 ]] && eval vi $1/$2 || eval cd $1
