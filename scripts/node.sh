@@ -17,6 +17,7 @@
 # Usage: 
 
 PACKAGES=( \
+    'asciicast2gif' \               # convert asciinema json files to gifs
     'bower' \                       # web development 3rd party dependency / asset manager
     'gistup' \                      # a tool for creating gists from the terminal
     'gulp' \                        # asset compiler for web development
