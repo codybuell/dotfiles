@@ -40,7 +40,7 @@ luma() {
 
 color() {
   local SCHEME="$1"
-  local BASE16_DIR=~/.zsh/base16-shell/scripts
+  local BASE16_DIR=~/.shell/base16-shell/scripts
   local BASE16_CONFIG_PREVIOUS="${BASE16_CONFIG}.previous"
   local STATUS=0
 
