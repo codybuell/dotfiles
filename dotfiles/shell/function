@@ -8,19 +8,19 @@ changedir() {
 }
 
 ws() {
-  changedir '{{ NonRepoProjects }}'
+  changedir '{{ NonRepoProjects }}' $@
 }
 
 gist() {
-  changedir '{{ GistsPath }}'
+  changedir '{{ GistsPath }}' $@
 }
 
 repo() {
-  changedir '{{ ReposPath }}'
+  changedir '{{ ReposPath }}' $@
 }
 
 proj() {
-  changedir '{{ NonRepoProjects }}'
+  changedir '{{ NonRepoProjects }}' $@
 }
 
 # change directory or edit, used with aliases
