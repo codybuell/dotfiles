@@ -18,7 +18,7 @@ fi
 ################################################################################
 
 # add completions folder to fpath
-fpath=($HOME/.shell/zsh-completions $fpath)
+fpath=($HOME/.shell/completions $fpath)
 
 # turn on completion system
 autoload -U compinit
