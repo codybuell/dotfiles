@@ -165,6 +165,9 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
+# ctrl-l to complete auto suggestions
+bindkey '^l' forward-char
+
 # delay between esc keypress and switching to normal mode
 export KEYTIMEOUT=1
 
