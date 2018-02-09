@@ -260,8 +260,8 @@ function home() {
       # build home window
       tmux new-session -d -s home -n home -x `tput cols` -y `tput lines`
       tmux set-window-option -t home:home automatic-rename off
-      tmux split-window -t home:home -b -v -p 48 -c ~/
-      tmux split-window -t home:home -h -l 87 -c ~/
+      tmux split-window -t home:home -b -v -p 54 -c ~/
+      tmux split-window -t home:home -h -l 95 -c ~/
       tmux send-keys -t home:home.1 'cd ~/Downloads; mutt' Enter
 #     tmux send-keys -t home:home.2 't mit' Enter
       tmux send-keys -t home:home.3 'weechat' Enter
@@ -270,7 +270,7 @@ function home() {
       tmux set-window-option -t home:control monitor-activity off
       tmux split-window -t home:control -h -p 66 -c ~/.mutt
       tmux split-window -t home:control -h -p 50 -c ~/.mutt
-      tmux split-window -t home:control -v -l 8 -f -c ~/.mutt
+      tmux split-window -t home:control -v -l 7 -f -c ~/.mutt
       tmux send-keys -t home:control.1 '~/.mutt/scripts/control.sh home' Enter
       tmux send-keys -t home:control.2 '~/.mutt/scripts/control.sh work' Enter
       tmux send-keys -t home:control.3 '~/.mutt/scripts/control.sh client' Enter
