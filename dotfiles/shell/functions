@@ -258,7 +258,7 @@ function home() {
     if ! tmux has-session -t home 2> /dev/null; then
       cd ~
       # build home window
-      tmux new-session -d -s home -n home
+      tmux new-session -d -s home -n home -x `tput cols` -y `tput lines`
       tmux set-window-option -t home:home automatic-rename off
       tmux split-window -t home:home -b -v -p 48 -c ~/
       tmux split-window -t home:home -h -l 87 -c ~/
@@ -270,13 +270,13 @@ function home() {
       tmux set-window-option -t home:control monitor-activity off
       tmux split-window -t home:control -h -p 66 -c ~/.mutt
       tmux split-window -t home:control -h -p 50 -c ~/.mutt
-      tmux split-window -t home:control -v -f -l 8 -c ~/.mutt
+      tmux split-window -t home:control -v -l 8 -f -c ~/.mutt
       tmux send-keys -t home:control.1 '~/.mutt/scripts/control.sh home' Enter
       tmux send-keys -t home:control.2 '~/.mutt/scripts/control.sh work' Enter
       tmux send-keys -t home:control.3 '~/.mutt/scripts/control.sh client' Enter
       tmux send-keys -t home:control.4 '~/.mutt/scripts/control.sh' Enter
-      # attach to home session home window
-      tmux -u attach -t home:home.1
+      # attach to home session, home window, weechat pane
+      tmux -u attach -t home:home.3
     else
       tmux -u attach -t home
     fi
