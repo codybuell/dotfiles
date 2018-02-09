@@ -1,9 +1,9 @@
 . ~/.shell/bash
 . ~/.shell/path
-. ~/.shell/function
-. ~/.shell/alias
-. ~/.shell/color
-. ~/.shell/export
+. ~/.shell/functions
+. ~/.shell/aliases
+. ~/.shell/colors
+. ~/.shell/exports
 . ~/.shell/vault
 . ~/.shell/tmux
 which brew > /dev/null 2>&1

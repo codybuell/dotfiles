@@ -2,6 +2,16 @@
 # alias
 #
 
+# misc commands
+alias b=bundle
+alias be='bundle exec'
+alias clip='nc -U ~/.clipper.sock'
+alias d='hash -d'
+alias groot='cd $(git rev-parse --show-toplevel 2> /dev/null || echo -n ".")'
+alias h=history
+alias j=jump
+alias m=mosh
+
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
 
@@ -24,10 +34,14 @@ fi
   alias vi="vim"
   alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
 }
+
+# vim-esque
 alias :e="vim"
 alias :q="exit"
 alias :qa="exit"
 alias :wq="exit"
+alias :sp='test -n "$TMUX" && tmux split-window'
+alias :vs='test -n "$TMUX" && tmux split-window -h'
 
 # git
 alias gd="git diff"
@@ -68,4 +82,33 @@ alias intip="ifconfig \$(netstat -rn -f inet | grep default | awk '{print \$6}')
 alias homestead='function __homestead() { (cd ~/.homestead/src && vagrant $*); unset -f __homestead; }; __homestead'
 
 # misc
-alias webserver='python -m SimpleHTTPServer 8080'
+alias serve='python -m SimpleHTTPServer 8080'
+
+# zsh specific aliases
+
+[ `echo $0` == '-zsh' ] && {
+
+  #
+  # global aliases (work at any position within the command line)
+  #
+
+  # mnemonic: "[C]lip"
+  alias -g C="|clip"
+
+  # mnemonic: "[G]rep"
+  alias -g G="|grep"
+
+  # mnemonic: "[H]ead"
+  alias -g H="|head"
+
+  # pretty-print JSON
+  # mnemonic: "[J]SON"
+  alias -g J="|python -m json.tool"
+
+  # mnemonic: "[L]ess"
+  alias -g L="|less"
+
+  # mnemonic: "[R]eset"
+  alias -g R=";clear;test -n "$TMUX" && tmux clear-history;"
+
+}

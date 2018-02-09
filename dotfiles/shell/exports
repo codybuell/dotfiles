@@ -1,3 +1,39 @@
+#
+# exports
+#
+
+# homebrew
+export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
+
+# ghi
+export GHI_TOKEN='{{ GitHubGHIAPIToken }}'
+
+# slackcat
+export SLACK_TOKEN='{{ SlackAPIToken }}'
+
+# shell
+export HISTTIMEFORMAT="%Y/%m/%d %T "
+export HISTFILESIZE=10000
+export HISTIGNORE=' *'
+
+# node
+export NODE_PATH="/usr/local/lib/node_modules"
+
+# todo.txt
+export TODOTXT_CFG_FILE="$HOME/.todo/todo.cfg"
+export TODO_ACTIONS_DIR="$HOME/.todo/addons"
+export TODOTXT_DEFAULT_ACTION=ls
+export TODOTXT_SORT_COMMAND="env LC_COLLATE=C sort -k 2,2 -k 1,1n"
+
+[ `echo $0` == 'bash' ] && {
+  # command prompt
+  if command -v scutil &> /dev/null; then
+    export PS1=" $(scutil --get ComputerName | tr [A-Z] [a-z]):\W \u\\$ "
+  else
+    export PS1=" `hostname`:\W \u\\$ "
+  fi
+}
+
 export PAGER=less
 
 if which nvim &> /dev/null; then
@@ -61,5 +97,3 @@ export EC2_PRIVATE_KEY=~/.ssh/ec2wincent_cert_pk.pem
 export EC2_CERT=~/.ssh/ec2wincent_cert.pem
 
 export GPG_TTY=$(tty)
-
-export GOPATH=~/code/go
