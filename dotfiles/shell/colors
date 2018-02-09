@@ -65,6 +65,12 @@ color() {
         sed 's/.*base16-//;s/\.sh$//' | \
         column
       ;;
+    ls)
+      find "$BASE16_DIR" -name 'base16-*.sh' | \
+        sed -E 's|.+/base16-||' | \
+        sed -E 's/\.sh//' | \
+        column
+      ;;
     show|sample )
       for i in {0..255}; do
         printf "\x1b[38;5;${i}mcolour${i}\n"

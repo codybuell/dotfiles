@@ -343,3 +343,96 @@ function bounce() {
     print -Pn "\e]1337;RequestAttention=1\a"
   fi
 }
+
+# fd - "find directory"
+# from: https://github.com/junegunn/fzf/wiki/examples#changing-directory
+function fd() {
+  local DIR
+  DIR=$(bfs ${1:-.} -type d -nohidden 2> /dev/null | fzf +m) && cd "$DIR"
+}
+
+# fda -"find directory all, including hidden directories"
+function fda() {
+  local DIR
+  DIR=$(bfs ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$DIR"
+}
+
+# fh - "find [in] history"
+# From: https://github.com/junegunn/fzf/wiki/examples#command-history
+function fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+function history() {
+  emulate -L zsh
+
+  # this is a function because Zsh aliases can't take arguments
+  local DEFAULT=-1000
+  builtin history ${1:-$DEFAULT}
+}
+
+function mosh() {
+  emulate -L zsh
+
+  if [[ -z "$@" ]]; then
+    # common case: getting to my workstation
+    command mosh -6 sandbox
+  else
+    command mosh "$@"
+  fi
+}
+
+# regmv = regex + mv (mv with regex parameter specification)
+# example: regmv '/\.tif$/.tiff/' *
+#   replaces .tif with .tiff for all files in current dir
+#   must quote the regex otherwise "\." becomes "."
+# limitations: ? doesn't seem to work in the regex, nor *
+regmv() {
+  if [ $# -lt 2 ]; then
+    echo "  Usage: regmv 'regex' file(s)"
+    echo "  Where:       'regex' should be of the format '/find/replace/'"
+    echo "Example: regmv '/\.tif\$/.tiff/' *"
+    echo "   Note: Must quote/escape the regex otherwise \"\.\" becomes \".\""
+    return 1
+  fi
+  regex="$1"
+  shift
+  while [ -n "$1" ]
+  do
+    newname=$(echo "$1" | sed "s${regex}g")
+    if [ "${newname}" != "$1" ]; then
+      mv -i -v "$1" "$newname"
+    fi
+    shift
+  done
+}
+
+## convenience function for jumping to hashed directory aliases (ie. `j rn` -> `jump rn` -> `cd ~rn`)
+#function jump() {
+#  emulate -L zsh
+#
+#  if [ $# -eq 0 ]; then
+#    cd -
+#  elif [ $# -gt 1 ]; then
+#    echo "jump: single argument required, got $#"
+#    return 1
+#  else
+#    if [ $(hash -d|cut -d= -f1|grep -c "^$1\$") = 0 ]; then
+#      # Not in `hash -d`: assume it's just a dir.
+#      cd $1
+#    else
+#      cd ~$1
+#    fi
+#  fi
+#}
+#
+#function _jump_complete() {
+#  emulate -L zsh
+#  local word completions
+#  word="$1"
+#  completions="$(hash -d|cut -d= -f1)"
+#  reply=( "${(ps:\n:)completions}" )
+#}
+#
+## Complete filenames and `hash -d` entries.
+#compctl -f -K _jump_complete jump
