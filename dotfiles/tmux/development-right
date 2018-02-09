@@ -11,9 +11,9 @@
 # '--------------------------------------'
 
 selectp -t 1
-splitw -h -p 70
+splitw -h -p 70 -c "#{pane_current_path}"
 
 selectp -t 1
-splitw -v -p 35
+splitw -v -p 35 -c "#{pane_current_path}"
 
 selectp -t 3

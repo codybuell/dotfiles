@@ -11,10 +11,10 @@
 # '--------------------------------------'
 
 selectp -t 1
-splitw -v -p 48
+splitw -v -p 48 -c "#{pane_current_path}"
 
 selectp -t 1
-splitw -h -l 87
+splitw -h -l 87 -c "#{pane_current_path}"
 
 #send-keys -t 1 "mutt" Enter
 #send-keys -t 2 "wj" Enter
