@@ -9,9 +9,10 @@
 
 function s:SetColorScheme(action)
 
-  let g:base16colorspace=256
-  let g:base16_shell_path='~/.shell/base16-shell/scripts/'
-  let s:config_file = expand('~/.base16')
+  let g:base16colorspace  = 256
+  let g:base16_shell_path = '~/.shell/base16-shell/scripts/'
+  let s:config_file       = expand('~/.base16')
+  let s:file_type         = &ft
 
   " set to whatever the def colorscheme is
   if filereadable(s:config_file)
@@ -48,6 +49,10 @@ function s:SetColorScheme(action)
   hi NonText ctermfg=238
   hi SLWarnings ctermfg=3 ctermbg=19
   hi SLErrors ctermfg=1 ctermbg=19
+
+  " re-apply the filetype to recover any special syntax highlighting (tmux
+  " colour declarations being colored as their value)
+  execute 'set ft=' . s:file_type
 
 endfunction
 
