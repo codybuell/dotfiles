@@ -73,22 +73,20 @@ snippet master "master blade template"
     @yield('style')
   </head>
   <body>
-    <div id="{{ $contentDivId }}" class="container {{ $contentDivClass }}">
-      <header>
-        @include('partials.alertbar')
-        @include('partials.navigation')
-        @yield('header')
-      </header>
-      <main role="main">
-        @yield('main')
-      </main>
-      <footer>
-        @yield('footer')
-      </footer>
-    </div>
-    <script src="{{ asset('assets/scripts/engines.js') }}"></script>
-    <script src="{{ asset('assets/scripts/plugins.js') }}"></script>
-    <script src="{{ asset('assets/scripts/scripts.js') }}"></script>
+    <header>
+      @include('partials.alertbar')
+      @include('partials.navigation')
+      @yield('header')
+    </header>
+    <main id="{{ $mainId }}" class="container {{ $mainClass }}" role="main">
+      @yield('main')
+    </main>
+    <footer>
+      @yield('footer')
+    </footer>
+    <script src="{{ asset('assets/scripts/manifest.js') }}"></script>
+    <script src="{{ asset('assets/scripts/vendor.js') }}"></script>
+    <script src="{{ asset('assets/scripts/app.js') }}"></script>
     @yield('scripts')
     @if(App::environment('production'))
       @include('partials.analytics')
@@ -99,8 +97,9 @@ endsnippet
 
 snippet sub "sub blade template"
 @extends('${1:layouts.app}',[
-  'contentDivId'    => '${2:content}',
-  'contentDivClass' => '${3:class}',
+  'bodyClass' => '${2:layout}',
+  'mainId'    => '${2:pageid}',
+  'mainClass' => '${3:sublayout}',
 ])
 
 @section('head')
