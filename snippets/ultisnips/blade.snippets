@@ -96,23 +96,20 @@ snippet master "master blade template"
 endsnippet
 
 snippet sub "sub blade template"
-@extends('${1:layouts.app}',[
-  'bodyClass' => '${2:layout}',
-  'mainId'    => '${2:pageid}',
-  'mainClass' => '${3:sublayout}',
+@extends('layouts.${1:default}', [
+  'bodyClass' => '${2:mainlayout}',
+  'mainId'    => '${3:pageid}',
+  'mainClass' => '${4:sublayout}',
 ])
 
 @section('head')
-  <title>{{ env('SITE_NAME', '${4:page title}') }}</title>
-  <meta name="description" content="${5}" />
-  <meta name="keywords" content="${6}" />
-  <meta name="author" content="${7}" />
-  <meta name="og:title" content="${8}" />
-  <meta name="og:type" content="${9}" />
-  <meta name="og:image" content="{{ asset('assets/graphics/${10:apple-touch-icon-114x114-precomposed.png}') }}" />
-  <meta name="og:url" content="${11}" />
-  <meta name="og:site_name" content="${12}" />
-  <meta name="og:description" content="${13}" />
+  @include('partials.pagemeta', [
+    'title'       => '${5:title}',
+    'type'        => '${6:article}',
+    'description' => '${7:page description}',
+    'keywords'    => '${8:keyword}',
+    'author'      => '${9:author}',
+  ])
 @endsection
 
 @section('style')
@@ -122,6 +119,7 @@ snippet sub "sub blade template"
 @endsection
 
 @section('main')
+  ${0}
 @endsection
 
 @section('footer')
