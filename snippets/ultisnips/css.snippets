@@ -146,3 +146,24 @@ endsnippet
 snippet tac "text align center declaration"
 text-align: center;
 endsnippet
+
+snippet g "grid base declaration"
+display: grid;
+grid-template-areas: "${1:col1 col2 col3 etc}"
+                     "${2:cols in   row  2}";
+grid-template-columns: ${3:100px 1fr 3fr 100px};
+grid-template-rows: ${4:50px 1fr};
+grid-column-gap: ${5:0px};
+grid-row-gap: ${6:0px};
+min-height: 100%;
+endsnippet
+
+snippet ga "grid area"
+grid-area: ${1:col1};
+endsnippet
+
+snippet mq "media query"
+@media screen and (max-width: ${1:600}px) {
+    ${0}
+}
+endsnippet

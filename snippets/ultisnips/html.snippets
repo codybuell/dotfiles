@@ -222,6 +222,12 @@ snippet <,. "multiline tag with class"
 </$1>
 endsnippet
 
+snippet <., "multiline tag with class"
+<${1:tag} class="${2}">
+  ${3}
+</$1>
+endsnippet
+
 snippet </. "singleton tag with class"
 <${1:tag} class="${2}" />${0}
 endsnippet
@@ -231,6 +237,12 @@ snippet <# "inline tag with id"
 endsnippet
 
 snippet <,# "multiline tag with id"
+<${1:tag} id="${2}">
+  ${3}
+</$1>
+endsnippet
+
+snippet <#, "multiline tag with id"
 <${1:tag} id="${2}">
   ${3}
 </$1>
