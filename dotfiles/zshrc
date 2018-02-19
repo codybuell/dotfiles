@@ -80,11 +80,13 @@ setopt PROMPT_SUBST
 
 # anonymous function to avoid leaking NBSP variable
 function () {
+  # determine shell nesting level
   if [[ -n "$TMUX" ]]; then
     local LVL=$(($SHLVL - 1))
   else
     local LVL=$SHLVL
   fi
+  # repeat #'s or $'s for shell level (root or std user respectively)
   if [[ $EUID -eq 0 ]]; then
     local SUFFIX=$(printf '#%.0s' {1..$LVL})
   else
@@ -101,7 +103,7 @@ function () {
   fi
 }
 
-export RPROMPT=$RPROMPT_BASE
+export RPROMPT='${vim_mode}${RPROMPT_BASE}'
 export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
 ## vim mode prompt
@@ -156,6 +158,21 @@ setopt pushdsilent          # don't print dir stack after pushing/popping
 
 # use vim mappings rather than emacs (-e)
 bindkey -v
+
+# set the cursor to be a block in command mode, line in insert mode
+function zle-keymap-select zle-line-init zle-line-finish {
+  case $KEYMAP in
+    vicmd)      print -n -- "\E]50;CursorShape=0\C-G";; # block cursor
+    viins|main) print -n -- "\E]50;CursorShape=1\C-G";; # line cursor
+  esac
+
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
 
 # additional vim like mappings
 bindkey '^P' up-history
