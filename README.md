@@ -35,3 +35,8 @@ Todo
 - build tie in to vim calendar for journal mappings
 - setup imap filter rules in .config to be deployed with make dots
 - smooth vim configs, feat compat checks, au groups and load checks
+- tmux cursor change changes cursor in all panes (vi and zsh mode changes)...
+   - callback in tmux when changing pane to set the cursor to what it's supposed to be?
+   - move it to a ps1 line update instead...?
+   - solution for vim?
+   - just deal with it?
