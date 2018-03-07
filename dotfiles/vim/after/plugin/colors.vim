@@ -49,6 +49,7 @@ function s:SetColorScheme(action)
   hi NonText ctermfg=238
   hi SLWarnings ctermfg=3 ctermbg=19
   hi SLErrors ctermfg=1 ctermbg=19
+  hi Search ctermfg=232
 
   " re-apply the filetype to recover any special syntax highlighting (tmux
   " colour declarations being colored as their value)
