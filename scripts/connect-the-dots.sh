@@ -325,7 +325,9 @@ readconfig
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
   DOTFILES=($1)
+else
+  # only run paths and links if no args set
+  runpaths
+  runlinks
 fi
-runpaths
-runlinks
 placefiles
