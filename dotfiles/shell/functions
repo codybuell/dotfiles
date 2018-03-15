@@ -145,7 +145,16 @@ function nok() {
       ;;
   esac
   fwknop -A tcp/22 -a $SRCIP -D $2
-  read -p "connect to host? [y/n] " choice
+
+  case `basename $SHELL` in
+    zsh )
+      read "choice?connect to host? [y/n] "
+      ;;
+    * )
+      read -p "connect to host? [y/n] " choice
+      ;;
+  esac
+
   case "$choice" in 
     n|N|no ) return;;
   esac
