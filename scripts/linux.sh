@@ -8,6 +8,79 @@
 #
 # Revisions: 2016.??.?? Initial rough out
 #            2017.06.22 Add helpers and organize into logical sections
+#
+# CENTOS TASKS TO AUTOMATE OR ADD DOTFILE CONFIGS:
+#   Terminal
+#     - turned off bell in profile
+#     - set to run command at login /usr/bin/zsh
+#     - set font as source code pro
+#
+#   Tweak Tool
+#     - keyboard
+#       - ctrl key position -> caps lock as ctrl
+#       - caps lok key behavior -> caps lock is also a ctrl
+#     - workspaces
+#       - dynamic
+#
+#   Other
+#     - install source code pro from fonts
+#
+#   gnome-control-center (settings)
+#     - online accounts
+#       - add google
+#         - contact & files
+#
+#   to do:
+#     mouse smoothness
+#     font rendering
+#     graphics card drivers??
+#     ctrl up to mirror osx mapping
+#
+#
+#   Vim:
+#     yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
+#     git clone https://github.com/vim/vim.git
+#     cd vim
+#     ./configure --prefix=/usr/local --enable-multibyte  --with-tlib=ncurses --enable-pythoninterp --enable-rubyinterp --with-ruby-command=/usr/bin/ruby --with-features=huge
+#     make
+#     sudo make install
+#     /usr/local/bin/vim
+#
+#   ZSH:
+#     git clone https://github.com/zsh-users/zsh.git
+#     ./Util/preconfig
+#     ./configure && make && sudo make install
+#     /usr/local/bin/zsh
+#
+#   php7*
+#     yum install epel-release
+#     sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+#     yum install yum-utils
+#     yum-config-manager --enable remi-php-72
+#     yum update
+#     yum install php72
+#
+#
+#   WEECHAT:
+#     yum install cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
+#     git clone https://github.com/weechat/weechat.git
+#     cd weechat
+#     mkdir build; cd !$
+#     cmake .. -DENABLE_PHP=OFF
+#     make
+#     sudo make install
+#     -----------------
+
+#    remove notification_center.py plugin, don't need pip pync, chmod 755 wee_slack.py
+
+#     issues:
+#       lots of scripts not found /-a script name...
+#       mattermost cert not trusted
+#
+#   note:
+#     ctrl+alt+up|down  switch workspaces
+#     super+arrows      resize windows
+#     super             app switcher
 
 ###########################
 #                         #
@@ -24,8 +97,8 @@ UNAME=`uname -s`
 # detect distro, bulid lists
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
-  REMOVE=()
-  INSTALL=()
+  REMOVE=(tmux vim zsh)
+  INSTALL=(w3m ack ctags ruby python2-pip python34-pip)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
@@ -92,7 +165,7 @@ readconfig() {
 
 buildtmux() {
   #package_install libevent-2.0-5 libevent-core-2.0-5 libevent-dev automake libncurses5-dev libncursesw5-dev
-  package_install libevent-dev automake libncurses5-dev libncursesw5-dev
+  package_install libevent-dev automake libncurses5-dev libncursesw5-dev libevent-devel ncurses-devel glibc-static
   TPATH="`echo $1 | sed "s@~@$HOME@"`/tmux"
   if [ -d $TPATH ]; then
     cd $TPATH
@@ -140,6 +213,19 @@ importdconf() {
   # 16.04+ suck in dconf settings
   dconf reset -f /org/gnome/terminal/legacy/profiles:/
   dconf load /org/gnome/terminal/legacy/profiles:/ < dconf/terminal.dconf
+}
+
+installchrome() {
+  echo
+# vi /etc/yum.repos.d/google-chrome.repo
+#   [google-chrome]
+#   name=google-chrome
+#   baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+#   enabled=1
+#   gpgcheck=1
+#   gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+# yum install google-chrome-stable
 }
 
 ##############
