@@ -25,7 +25,11 @@ proj() {
 
 # change directory or edit, used with aliases
 changediroredit() {
-  [[ $2 ]] && eval vi $1/$2 || eval cd $1
+  is [ $2 ]; then
+    eval vi $1/$2
+  else
+    eval cd $1
+  fi
 }
 
 # edit or cd to notes
