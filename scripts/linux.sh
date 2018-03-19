@@ -21,6 +21,39 @@
 #       - caps lok key behavior -> caps lock is also a ctrl
 #     - workspaces
 #       - dynamic
+#     - fonts
+#       - hinting -> slight
+#       - antialiasing -> rgba
+#       - scaling factor -> 1.10
+#       - window titles -> source sans pro semi bold 10
+#       - interface -> source sans pro regular 10
+#       - monospace -> source code pro regular 10
+#     - desktop
+#       - icons on desktop -> on
+#         - deselect everything
+#     - appearance
+#       - global dark theme
+#       - gtk+ -> adwaita dark
+#
+#   ~/.config/fontconfig/fonts.conf
+#       fix syntax select all =
+#       add:
+#        <fontconfig>
+#          <alias>
+#            <family>system</family>
+#            <prefer><family>Source Sans Pro</family></prefer>
+#          </alias>
+#        </fontconfig>
+#
+#     show what system is using for 'system' font
+#         fc-match --verbose system
+#         update fonts.conf
+#         fc-cache -f; sudo fc-cache -f
+#
+#
+#   backgroung / wallpaper
+#     - login screen -> color -> deep blue (noise-texture-light.png)
+#     - walpaper -> copy files to ~/Pictures and choose
 #
 #   Other
 #     - install source code pro from fonts
@@ -29,13 +62,32 @@
 #     - online accounts
 #       - add google
 #         - contact & files
+#     - keyboard
+#       - switch to next input source super+`
+#
+#   Cerebro
+#    get binary, chmod 755, add to path, create launcher
+#    vi ~/.config/autostart/cerebro.desktop
+#       [Desktop Entry]
+#       Type=Application
+#       Version=1.0
+#       Name=Cerebro
+#       Comment=Cerebro startup script.
+#       Exec=/home/pbuell/Bin/cerebro-0.3.1-x86_64.AppImage
+#       StartupNotify=false
+#       Terminal=false
 #
 #   to do:
-#     mouse smoothness
-#     font rendering
-#     graphics card drivers??
-#     ctrl up to mirror osx mapping
-#
+#     application launcher
+#     music
+#     home first run fails
+#     google drive / notes|journal solution
+#     conditional tmux configs
+#       if osx use clipper else use ??? for clipboard copy
+#     conditional vim configs
+#       if osx use clipper else use ??? for clipboard copy
+#     `clear` -> tmux-256color unknown terminal type
+#     cd into dir -> chpwd_recent_filehandler:39 error when reading /home/pbuell/.chpwd-recent-dirs: unknown error -2
 #
 #   Vim:
 #     yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
@@ -72,6 +124,7 @@
 #     -----------------
 
 #    remove notification_center.py plugin, don't need pip pync, chmod 755 wee_slack.py
+#    add notification.py
 
 #     issues:
 #       lots of scripts not found /-a script name...
@@ -81,6 +134,11 @@
 #     ctrl+alt+up|down  switch workspaces
 #     super+arrows      resize windows
 #     super             app switcher
+#     ctrl+alt+enter    toggle xfreerdp fullscreen
+#
+#
+#   npm -g install
+#     yarn
 
 ###########################
 #                         #
@@ -98,7 +156,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(w3m ack ctags ruby python2-pip python34-pip)
+  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
