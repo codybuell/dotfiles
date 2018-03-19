@@ -2,6 +2,18 @@
 # function
 #
 
+# xfreedesktop wrapper
+rdp() {
+  RDP_USER=`echo $1 | sed 's/\@.*$//'`
+  RDP_DOMAIN=`echo $1 | sed 's/^.*\@//;s/\..*$//'`
+  RDP_HOST=$2
+
+  # -K try not to mangle host os keyboard bindings
+  # -z compression
+  # -g set a geometry
+  xfreerdp -K -z -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+}
+
 # change directory, used with aliases
 changedir() {
   eval cd $1/$2
@@ -25,7 +37,7 @@ proj() {
 
 # change directory or edit, used with aliases
 changediroredit() {
-  is [ $2 ]; then
+  if [ $2 ]; then
     eval vi $1/$2
   else
     eval cd $1
