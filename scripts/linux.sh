@@ -64,6 +64,8 @@
 #         - contact & files
 #     - keyboard
 #       - switch to next input source super+`
+#     - date and time
+#       - time format -> am/pm
 #
 #   Cerebro
 #    get binary, chmod 755, add to path, create launcher
@@ -78,6 +80,7 @@
 #       Terminal=false
 #
 #   to do:
+#     mail
 #     application launcher
 #     music
 #     home first run fails
@@ -122,10 +125,15 @@
 #     make
 #     sudo make install
 #     -----------------
+#
+#     yum install chromedriver from google repo, if mattermost fails to connect grab the latest from https://chromedriver.storage.googleapis.com/index.html and place in /usr/local/bin, removing the yum installed one
+#
+#     -----------------
 
 #    remove notification_center.py plugin, don't need pip pync, chmod 755 wee_slack.py
 #    add notification.py
-
+#    /set weechat.network.gnutls_ca_file /etc/ssl/certs/ca-bundle.crt
+#
 #     issues:
 #       lots of scripts not found /-a script name...
 #       mattermost cert not trusted
