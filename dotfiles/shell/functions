@@ -150,6 +150,15 @@ function pj() {
   vim {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
 }
 
+# get internal ip address
+function intip() {
+  [[ -f /etc/redhat-release ]] && {
+    ifconfig $(netstat -rn | grep UG | awk '{print $8}') | grep inet | egrep -v '::|inet 127.' | awk '{print $2}'
+  } || {
+    ifconfig $(netstat -rn -f inet | grep default | awk '{print $6}') | grep inet | egrep -v '::|inet 127.' | awk '{print $2}'
+  }
+}
+
 # fwknop helper
 function nok() {
   case $1 in

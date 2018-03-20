@@ -76,7 +76,6 @@ alias artisan="php artisan"
 alias swil="networksetup -switchtolocation"
 alias trrt="traceroute -In"
 alias extip="/usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g'"
-alias intip="ifconfig \$(netstat -rn -f inet | grep default | awk '{print \$6}') | grep inet | egrep -v '::|inet 127.' | awk '{print \$2}'"
 
 # homestead
 alias homestead='function __homestead() { (cd ~/.homestead/src && vagrant $*); unset -f __homestead; }; __homestead'
