@@ -11,7 +11,7 @@ rdp() {
   # -K try not to mangle host os keyboard bindings
   # -z compression
   # -g set a geometry
-  xfreerdp -K -z -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+  xfreerdp --fonts -K -z -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
 }
 
 # change directory, used with aliases
