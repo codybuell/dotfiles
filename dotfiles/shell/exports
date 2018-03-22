@@ -97,3 +97,6 @@ export EC2_PRIVATE_KEY=~/.ssh/ec2wincent_cert_pk.pem
 export EC2_CERT=~/.ssh/ec2wincent_cert.pem
 
 export GPG_TTY=$(tty)
+
+# lastpass session length (12 hours in seconds)
+export LPASS_AGENT_TIMEOUT=43200

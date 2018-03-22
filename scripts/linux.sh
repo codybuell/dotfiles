@@ -147,6 +147,21 @@
 #
 #   npm -g install
 #     yarn
+#
+#   MUTT:
+#      [flatcap-neomutt]
+#      name=Copr repo for neomutt owned by flatcap
+#      baseurl=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/epel-7-$basearch/
+#      type=rpm-md
+#      skip_if_unavailable=True
+#      gpgcheck=1
+#      gpgkey=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/pubkey.gpg
+#      repo_gpgcheck=0
+#      enabled=1
+#      enabled_metadata=1
+#
+#      yum install neomutt
+#      setup an alias mutt=> neomutt or symlink
 
 ###########################
 #                         #
@@ -169,7 +184,6 @@ elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
   INSTALL="cmake exuberant-ctags gcc git libevent-dev libncurses5-dev nfs-common ruby ruby-dev vim-nox ack-grep ag ansible awscli bash bash-completion coreutils dos2unix fwknop-client composer jq minicom mutt nmap nodejs openssl picocom tree curl"
-
 fi
 
 ########################
