@@ -11,7 +11,9 @@ rdp() {
   # -K try not to mangle host os keyboard bindings
   # -z compression
   # -g set a geometry
-  xfreerdp --fonts -K -z -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+  # --plugin cliprdr allow clipboard sharing
+  # -x 0x80 font smoothing over lan connection
+  xfreerdp -K --plugin cliprdr -x 0x80 -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
 }
 
 # change directory, used with aliases
