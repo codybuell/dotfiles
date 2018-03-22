@@ -10,7 +10,8 @@ KEYCHAIN="$HOME/Library/Keychains/login.keychain"
 PASSAGE_SOCK="$HOME/.passage.sock"
 
 [[ -f /etc/redhat-release ]] && {
-  echo
+  # use lastpass cli client
+  lpass show $ACCOUNT --password
 } || {
   if [ -S "$PASSAGE_SOCK" ]; then
     # TODO: consider validating this as valid JSON

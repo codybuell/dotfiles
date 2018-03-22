@@ -59,14 +59,18 @@ while true; do
   echo "Running mbsync ($ACCOUNT):"
   echo
 
-  time gtimeout 600 mbsync "$ACCOUNT" || {
-    [[ -f /etc/redhat-release ]] && {
+  [[ -f /etc/redhat-release ]] && {
+    time timeout 600 mbsync "$ACCOUNT" || {
       notify-send "mbsync" "mbsync ($ACCOUNT) exited"
-    } || {
-      reattach-to-user-namespace terminal-notifier -title mbsync -message "mbsync ($ACCOUNT) exited"
+      backoff
+      continue
     }
-    backoff
-    continue
+  } || {
+    time gtimeout 600 mbsync "$ACCOUNT" || {
+      reattach-to-user-namespace terminal-notifier -title mbsync -message "mbsync ($ACCOUNT) exited"
+      backoff
+      continue
+    }
   }
 
   echo

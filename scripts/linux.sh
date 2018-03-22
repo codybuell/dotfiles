@@ -164,7 +164,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg2-smime pcsc-tools)
+  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg2-smime pcsc-tools lastpass-cli isync)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
