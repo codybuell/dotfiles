@@ -19,6 +19,7 @@ bind attach,index,pager b previous-page # Normally <bounce-message>, but we use 
 bind attach,index,pager d noop # Usually <delete-entry> or <delete-message>, but we use "#" for that instead.
 bind attach,index,pager p noop # Normally <print-entry> or <print-message>.
 bind browser,index G last-entry
+bind index g noop
 bind browser,index gg first-entry
 bind editor <Tab> complete-query
 bind editor <space> noop # So line-editor can accept folders with spaces in their names.
@@ -68,6 +69,7 @@ bind index,pager W noop # Normally <clear-flag>.
 bind index,pager \CR noop # Normally <read-thread>.
 bind index,pager \Cd next-page
 bind index,pager \Cu previous-page
+bind pager \\ noop
 bind index,pager \\b bounce-message # Normally "b", but we use that for scrolling.
 bind index,pager \\s sidebar-toggle-visible
 bind index,pager a group-reply # Reply all
@@ -82,6 +84,7 @@ bind pager Q noop # Normally <quit>.
 bind pager T noop # Normally <toggle-quoted>.
 bind pager V noop # Normally <show-version>.
 bind pager ^ noop # Normally <top>, which we have bound to gg.
+bind pager g noop
 bind pager gg top
 bind pager i noop # Normally <exit>, but that is also bound to q.
 bind pager j next-line
