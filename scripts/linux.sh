@@ -179,11 +179,11 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg1 gnupg2 gnupg2-smime pcsc-tools lastpass-cli isync ykclient ykpers opensc elinks)
+  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg1 gnupg2 gnupg2-smime pcsc-tools pcsc-lite lastpass-cli isync ykclient ykpers opensc elinks)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
-  INSTALL="cmake exuberant-ctags gcc git libevent-dev libncurses5-dev nfs-common ruby ruby-dev vim-nox ack-grep ag ansible awscli bash bash-completion coreutils dos2unix fwknop-client composer jq minicom mutt nmap nodejs openssl picocom tree curl"
+  INSTALL="cmake exuberant-ctags gcc git libevent-dev libncurses5-dev nfs-common ruby ruby-dev vim-nox ack-grep ag ansible awscli bash bash-completion coreutils dos2unix fwknop-client composer jq minicom mutt nmap nodejs openssl picocom tree curl pinentry"
 fi
 
 ########################
