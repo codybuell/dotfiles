@@ -187,7 +187,7 @@ function nok() {
   esac
 
   # fix ssh-agent issue
-  if [ ! -z $TMUX ]; then
+  if [ ! -z $TMUX ] && [ "$(uname)" = "Darwin" ]; then
     TERM=xterm-256color reattach-to-user-namespace ssh $2
   else
     ssh $2

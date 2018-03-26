@@ -162,6 +162,16 @@
 #
 #      yum install neomutt
 #      setup an alias mutt=> neomutt or symlink
+#
+#   Mappings:
+#      use xdotool to send keypresses
+#      map `xdotool key Caps_Lock` to lshift + rshift
+#
+#
+#
+#
+#
+#
 
 ###########################
 #                         #
@@ -179,7 +189,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg1 gnupg2 gnupg2-smime pcsc-tools pcsc-lite lastpass-cli isync ykclient ykpers opensc elinks)
+  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg1 gnupg2 gnupg2-smime pcsc-tools pcsc-lite lastpass-cli isync ykclient ykpers opensc elinks xdotool)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"

@@ -2,6 +2,23 @@
 # exports
 #
 
+# environment detection
+case `uname` in
+  Darwin )
+    export DISTRO='osx'
+    ;;
+  Linux )
+    [ -f /etc/redhat-release ] && {
+      export DISTRO='entlinux'
+    } || {
+      export DISTRO='deblinux'
+    }
+    ;;
+  * )
+    export DISTRO='unknown'
+    ;;
+esac
+
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 
