@@ -5,13 +5,20 @@
 import click
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
 def get_auth_cookie(domain, login, password):
 
-    driver = webdriver.Chrome()
+    # configure chrome
+    options = Options()
+    #options.add_argument('--headless')
+    #options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=700,600')
+
+    driver = webdriver.Chrome(chrome_options=options)
 
     # load the login page and wait until the title contains GitLab
     driver.get("https://{}/login".format(domain))
