@@ -103,6 +103,8 @@
 #
 #   ZSH:
 #     git clone https://github.com/zsh-users/zsh.git
+#     git tag (look at available versions)
+#     git co zsh-5.4.2 (or whatever the latest non-dev version is)
 #     ./Util/preconfig
 #     ./configure && make && sudo make install
 #     /usr/local/bin/zsh
