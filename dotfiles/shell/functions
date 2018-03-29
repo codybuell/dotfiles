@@ -2,6 +2,11 @@
 # function
 #
 
+# tpam to clipboard
+tpam() {
+  get-tpam.py -d {{ TPAMUrl }} -u {{ TPAMUsername }} -p {{ TPAMPassword }}
+}
+
 # xfreedesktop wrapper
 rdp() {
   RDP_USER=`echo $1 | sed 's/\@.*$//'`

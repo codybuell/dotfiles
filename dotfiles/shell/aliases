@@ -12,9 +12,6 @@ alias h=history
 alias j=jump
 alias m=mosh
 
-# tpam to clipboard
-alias tpam="get-tpam.py -d {{ TPAMUrl }} -u {{ TPAMUsername }} -p {{ TPAMPassword }}"
-
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
 
