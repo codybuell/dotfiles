@@ -59,6 +59,16 @@ IRCNick    = codybuell
 
 ################################################################################
 #                                                                              #
+# tpam configurations                                                          #
+#                                                                              #
+################################################################################
+
+TPAMUrl      = tpam.tld    # do not include protocol (ie no http://)
+TPAMUsername = codybuell
+TPAMPassword = '`command to get password`'
+
+################################################################################
+#                                                                              #
 # email                                                                        #
 #                                                                              #
 # This one is going to require a bit more config on your part...               #

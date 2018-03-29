@@ -6,6 +6,7 @@ import click
 import time
 import re
 import os 
+import html
 
 from selenium import webdriver
 
@@ -15,9 +16,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def cleanhtml(raw_html):
+    # identify and remove all the html tags
     cleanr = re.compile('<.*?>')
     cleantext = re.sub(cleanr, '', raw_html)
-    return cleantext
+    # convert html entities to actual characters
+    plaintext = html.unescape(cleantext)
+    return plaintext
 
 def get_tpam_password(domain, user, password):
 
