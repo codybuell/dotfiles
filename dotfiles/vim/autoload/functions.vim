@@ -81,8 +81,13 @@ function! functions#YankOverride() abort
   setl virtualedit=onemore
   " perform the yank as normal
   exec ":normal `<y`>"
-  " grab the register and send it to clipper
-  exec system('nc localhost 8377', @0)
+  " if xclip exists send the register there
+  if executable('xclip')
+    exec system('xclip', @0)
+  else
+    " else grab the register and send it to clipper
+    exec system('nc localhost 8377', @0)
+  endif
   " return selection to inclusive
   setl selection=inclusive
   " return virtualedit to default
