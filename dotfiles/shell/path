@@ -13,6 +13,7 @@ PATH=$PATH:/usr/local/sbin
 PATH=$PATH:$SYSTEM_PATH
 PATH=$PATH:$HOME/.gopath/bin
 PATH=$PATH:$HOME/.composer/vendor/bin
+PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH
 
 # gopath
