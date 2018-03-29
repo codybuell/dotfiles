@@ -68,4 +68,4 @@ subs:
 	git submodule update
 
 clean:
-	find ~/ -depth 1 -name \*.orig.\* -prune -exec rm -rf {} \;
+	find ~/ -maxdepth 1 -name \*.orig.\* -prune -exec rm -rf {} \;
