@@ -167,10 +167,11 @@
 #      use xdotool to send keypresses
 #      map `xdotool key Caps_Lock` to lshift + rshift
 #
-#
-#
-#
-#
+#   ADTOOL:
+#      cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
+#      cd into dir
+#      ./configure && make
+#      sudo make install
 #
 
 ###########################
@@ -189,7 +190,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(w3m ack ctags ruby python2-pip python34-pip freerdp mutt npm imapfilter pass gnupg1 gnupg2 gnupg2-smime pcsc-tools pcsc-lite lastpass-cli isync ykclient ykpers opensc elinks xdotool)
+  INSTALL=(ack ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync lastpass-cli msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools python2-pip python34-pip ruby w3m xdotool ykclient ykpers)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
