@@ -180,7 +180,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(ack ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync lastpass-cli msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools python2-pip python34-pip ruby w3m xdotool ykclient ykpers)
+  INSTALL=(ack composer ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync lastpass-cli msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools python2-pip python34-pip ruby w3m xdotool ykclient ykpers)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
