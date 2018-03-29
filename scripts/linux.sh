@@ -64,6 +64,7 @@
 #         - contact & files
 #     - keyboard
 #       - switch to next input source super+`
+#       - hide all normal windows to super + d
 #     - date and time
 #       - time format -> am/pm
 #
@@ -78,19 +79,6 @@
 #       Exec=/home/pbuell/Bin/cerebro-0.3.1-x86_64.AppImage
 #       StartupNotify=false
 #       Terminal=false
-#
-#   to do:
-#     mail
-#     application launcher
-#     music
-#     home first run fails
-#     google drive / notes|journal solution
-#     conditional tmux configs
-#       if osx use clipper else use ??? for clipboard copy
-#     conditional vim configs
-#       if osx use clipper else use ??? for clipboard copy
-#     `clear` -> tmux-256color unknown terminal type
-#     cd into dir -> chpwd_recent_filehandler:39 error when reading /home/pbuell/.chpwd-recent-dirs: unknown error -2
 #
 #   Vim:
 #     yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
