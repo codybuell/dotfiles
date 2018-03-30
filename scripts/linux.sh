@@ -65,6 +65,7 @@
 #     - keyboard
 #       - switch to next input source super+`
 #       - hide all normal windows to super + d
+#       - logout to ctrl+super+l
 #     - date and time
 #       - time format -> am/pm
 #
@@ -163,6 +164,21 @@
 #      ./configure && make
 #      sudo make install
 #
+#   Valet linux:
+#
+#     valet-linux (dont install as root)
+#     composer global require cpriego/valet-linux
+#     valet install --ignorse-selinux
+#     cd ~/Repos
+#     valet park
+#     valet domain host
+#     # config for selinux, php-fpm has issues, try to start it up once, it will fail then
+#     # check the output here to make sure the new perms will be ok:
+#     # grep php-fpm /var/log/audit/audit.log | audit2allow -m phpfpm > phpfpmlocal.tmp
+#     # run `grep php-fpm /var/log/audit/audit.log | audit2allow -M phpfpmlocal` and then `semodule -i phpfpmlocal.pp`
+#     # then `ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm`   `semodule -i my-phpfpm.pp`
+#     repeat ausearch as needed
+#     WRITE A SINGLE SELINUX MODULE FOR THIS!!
 
 ###########################
 #                         #
@@ -180,7 +196,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(ack composer ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync lastpass-cli msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools python2-pip python34-pip ruby w3m xdotool ykclient ykpers)
+  INSTALL=(ack composer ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync jq lastpass-cli mariadb mariadb-server msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools php72 php72-php-mysql php72-php-mcrypt python2-pip python34-pip ruby w3m xdotool xsel ykclient ykpers)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"
