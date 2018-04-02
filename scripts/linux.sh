@@ -179,6 +179,11 @@
 #     # then `ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm`   `semodule -i my-phpfpm.pp`
 #     repeat ausearch as needed
 #     WRITE A SINGLE SELINUX MODULE FOR THIS!!
+#
+#   sssd:
+#     override_shell = /usr/local/bin/zsh
+#     need to keep ad record's login shell as /bin/bash due to other systems not
+#       having zsh installed already, wont allow you to login
 
 ###########################
 #                         #
