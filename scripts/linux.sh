@@ -63,9 +63,9 @@
 #       - add google
 #         - contact & files
 #     - keyboard
-#       - switch to next input source super+`
-#       - hide all normal windows to super + d
-#       - logout to ctrl+super+l
+#       - switch to next input source super+` (prevent ovelapping)
+#       - hide all normal windows to super + d (show desktop)
+#       - logout to ctrl+super+l  (closer to ctrl alt l on deb, stop accidentally locking screen in chrome)
 #     - date and time
 #       - time format -> am/pm
 #
