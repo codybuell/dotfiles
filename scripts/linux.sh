@@ -34,6 +34,12 @@
 #     - appearance
 #       - global dark theme
 #       - gtk+ -> adwaita dark
+#     - extensions
+#       - alternate-tab -> thumbnail only
+#       - alternate-tab -> show windows in other workspaces
+#
+#
+#
 #
 #   ~/.config/fontconfig/fonts.conf
 #       fix syntax select all =
