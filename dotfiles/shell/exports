@@ -10,12 +10,15 @@ case `uname` in
   Linux )
     [ -f /etc/redhat-release ] && {
       export DISTRO='entlinux'
+      export TMUX_COPY_COMMAND="xclip"
     } || {
       export DISTRO='deblinux'
+      export TMUX_COPY_COMMAND="xclip"
     }
     ;;
   * )
     export DISTRO='unknown'
+    export TMUX_COPY_COMMAND="reattach-to-user-namespace pbcopy"
     ;;
 esac
 
@@ -42,7 +45,7 @@ export TODO_ACTIONS_DIR="$HOME/.todo/addons"
 export TODOTXT_DEFAULT_ACTION=ls
 export TODOTXT_SORT_COMMAND="env LC_COLLATE=C sort -k 2,2 -k 1,1n"
 
-[ `echo $0` == 'bash' ] && {
+[ `echo $0` = 'bash' ] && {
   # command prompt
   if command -v scutil &> /dev/null; then
     export PS1=" $(scutil --get ComputerName | tr [A-Z] [a-z]):\W \u\\$ "
