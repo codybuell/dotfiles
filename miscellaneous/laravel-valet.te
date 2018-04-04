@@ -3,12 +3,15 @@ module laravel-valet 1.0;
 require {
 	type httpd_t;
 	type user_home_t;
-	class dir { add_name remove_name write };
-	class file { create write };
+	type home_cert_t;
+	class dir { add_name create remove_name write };
+	class file { create setattr unlink write };
 	class sock_file { create setattr unlink write };
 }
 
 #============= httpd_t ==============
-allow httpd_t user_home_t:file { create write };
-allow httpd_t user_home_t:dir { add_name remove_name write };
+allow httpd_t user_home_t:file { create setattr unlink write };
+allow httpd_t user_home_t:dir { add_name create remove_name write };
 allow httpd_t user_home_t:sock_file { create setattr unlink write };
+allow httpd_t home_cert_t:file write;
+
