@@ -1,0 +1,211 @@
+* automatable by script
+? automate but may not be needed (detect)
+
+   0. sort ssh keys access with github
+   1. pull dotfiles repo
+   2. make subs
+   3. * install source font families
+   4. * terminal
+       - turn off bell in profile
+       - set font to souce code pro regular 10
+       - rename profile to default
+       - set default profile to default
+       - set run command as login shell
+   5. * add epel repository then yum update
+   6. * change packages
+      install
+        vim deps
+      check for presence of each!!!!!
+      remove
+        vim mutt
+   8. * install centos7 fonts script
+   9. * tweak tool
+      - appearance
+        - global dark theme
+        - gtk+ -> adwaita dark
+      - desktop
+        - icons on desktop -> on
+          - deselect everything
+      - extensions
+        - alternate-tab -> thumbnail only
+        - alternate-tab -> show windows in other workspaces
+      - fonts
+        - hinting -> slight
+        - antialiasing -> rgba
+        - scaling factor -> 1.10
+        - window titles -> source sans pro semi bold 10
+        - interface -> source sans pro regular 10
+        - monospace -> source code pro regular 10
+      - typing
+        - ctrl key position -> caps lock as ctrl
+        - caps lok key behavior -> caps lock is also a ctrl
+      - workspaces
+        - dynamic
+  10. * settings
+      - background
+        - login screen -> color -> deep blue (noise-texture-light.png)
+        - walpaper -> copy files to ~/Pictures and choose
+      - notifications
+        - lock screen notifications off
+      - region & language
+        - add colemak and set as 1 if not default
+      - keyboard
+        - switch to next input source super + back tick
+        - lock screen ctrl + alt + l
+      - date and time
+        - time format -> am/pm
+  11. * set source sans pro as "system" font
+      ~/.config/fontconfig/fonts.conf
+        fix syntax select all = (removes preceeding white spaces)
+        add:
+
+         <fontconfig>
+           <alias>
+            <family>system</family>
+            <prefer><family>Source Sans Pro</family></prefer>
+           </alias>
+         </fontconfig>
+
+  12. * install zsh
+      git clone https://github.com/zsh-users/zsh.git
+      git tag (look at available versions)
+      git co zsh-5.4.2 (or whatever the latest non-dev version is)
+      ./Util/preconfig
+      ./configure && make && sudo make install
+      /usr/local/bin/zsh
+  13. ? update sssd.conf to use zsh as default shell (override ldap setting)
+      /etc/sssd/sssd.conf
+        under appropriate tomain
+          override_shell = /usr/local/bin/zsh
+      service sssd restart
+  14. * install vim
+      yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
+      git clone https://github.com/vim/vim.git
+      cd vim
+      ./configure --prefix=/usr/local --enable-multibyte  --with-tlib=ncurses --enable-pythoninterp --enable-rubyinterp --with-ruby-command=/usr/bin/ruby --with-features=huge
+      make
+      sudo make install
+      /usr/local/bin/vim
+  15. * install mutt
+      [flatcap-neomutt]
+      name=Copr repo for neomutt owned by flatcap
+      baseurl=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/epel-7-$basearch/
+      type=rpm-md
+      skip_if_unavailable=True
+      gpgcheck=1
+      gpgkey=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/pubkey.gpg
+      repo_gpgcheck=0
+      enabled=1
+      enabled_metadata=1
+
+      yum install neomutt
+      cd /usr/local/bin/; ln -s `which neomutt` mutt
+  16. * install tmux
+
+        package_install libevent-dev automake libncurses5-dev libncursesw5-dev libevent-devel ncurses-devel glibc-static
+        TPATH="`echo $1 | sed "s@~@$HOME@"`/tmux"
+        if [ -d $TPATH ]; then
+          cd $TPATH
+          git pull origin master
+        else
+          git clone https://github.com/tmux/tmux.git $TPATH
+          cd $TPATH
+        fi
+        sh autogen.sh
+        ./configure && make
+        if [ ! -h /usr/local/bin/tmux ]; then
+          sudo ln -s $TPATH/tmux /usr/local/bin/tmux
+        fi
+
+  17. * install chrome
+      vi /etc/yum.repos.d/google-chrome.repo
+      [google-chrome]
+      name=google-chrome
+      baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+      yum install google-chrome-stable chromium chromedriver
+      * must have chromium for selenium automation!!
+  18. * install php7
+      yum install epel-release
+      sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+      yum install yum-utils
+      yum-config-manager --enable remi-php-72
+      yum update
+      yum install php72 php72-php-mysql php72-php-mcrypt composer
+  19. * npm bits
+      yum install npm
+      sudo npm -g install yarn
+  20. * weechat install
+      yum install cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-dev    el ncurses-base gnutls-devel
+      git clone https://github.com/weechat/weechat.git
+      cd weechat
+      mkdir build; cd build
+      cmake .. -DENABLE_PHP=OFF
+      make
+      sudo make install
+  21. * config favorites -> terminal, chrome, files
+  22. setup accounts on chrome
+      sign in -> link data
+      sign into last pass, trust for 30 days, set identities
+      hide all but bookmarks, lastpass, session buddy, amazon
+  -------------- move this step to begining -----------------
+  23. setup .config
+  24. * gem
+      sudo gem install slackcat ghi bundler
+  25. * npm
+      sudo npm -g install asciicast2gif bower gistup gulp http-server topojson jsonlint svgo wscat
+  26. * pip
+      sudo pip2 install jmespath-terminal websocket-client browsercookie
+      sudo pip3 install click selenium
+  18. lpass login cody@codybuell.com
+  19. * make dir ~/.mail/Home ~/.mail/Work ~/.mail/Client
+  27. make dots
+  28. * weechat configure (follow weechatrc)
+      secure set all settings (pulled from lastpass note)
+      install weeslack plugin
+      install plugin list (but remove notification_center.py and add notification.py)
+      autoload plugin list
+      uncomment services to be used in weechatrc
+      run execute command to ingest weechatrc configs
+      /set weechat.network.gnutls_ca_file /etc/ssl/certs/ca-bundle.crt
+
+  - any necessary graphics card drivers
+  - any necessary bios updates
+  - any necessary pci card drivers
+
+================================================================================
+
+then
+
+  - setup .config file
+  - make dots
+  - udev rules for yubikey????
+
+================================================================================
+
+
+issues:
+
+ symbols not showing up? emoji's sent from court, etc
+
+ salt not installing
+
+ Error downloading packages:
+   PyYAML-3.11-1.el7.x86_64: [Errno 256] No more mirrors to try.
+
+ need to fix other entries to souce font family in ~/.config/fontconfig/fonts.conf
+
+ custom vim install doesn't respect middle click paste out of the box
+
+notes:
+
+ reorder path so /usr/local/bin takes prescedence
+
+ show what system is using for 'system' font
+   fc-match --verbose system
+   update fonts.conf
+   fc-cache -f; sudo fc-cache -f
+
