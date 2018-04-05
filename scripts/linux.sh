@@ -9,166 +9,12 @@
 # Revisions: 2016.??.?? Initial rough out
 #            2017.06.22 Add helpers and organize into logical sections
 #
-# CENTOS TASKS TO AUTOMATE OR ADD DOTFILE CONFIGS:
-#   Terminal
-#     - turned off bell in profile
-#     - set to run command at login /usr/bin/zsh
-#     - set font as source code pro
-#
-#   Tweak Tool
-#     - keyboard
-#       - ctrl key position -> caps lock as ctrl
-#       - caps lok key behavior -> caps lock is also a ctrl
-#     - workspaces
-#       - dynamic
-#     - fonts
-#       - hinting -> slight
-#       - antialiasing -> rgba
-#       - scaling factor -> 1.10
-#       - window titles -> source sans pro semi bold 10
-#       - interface -> source sans pro regular 10
-#       - monospace -> source code pro regular 10
-#     - desktop
-#       - icons on desktop -> on
-#         - deselect everything
-#     - appearance
-#       - global dark theme
-#       - gtk+ -> adwaita dark
-#     - extensions
-#       - alternate-tab -> thumbnail only
-#       - alternate-tab -> show windows in other workspaces
-#
-#
-#
-#
-#   ~/.config/fontconfig/fonts.conf
-#       fix syntax select all =
-#       add:
-#        <fontconfig>
-#          <alias>
-#            <family>system</family>
-#            <prefer><family>Source Sans Pro</family></prefer>
-#          </alias>
-#        </fontconfig>
-#
-#     show what system is using for 'system' font
-#         fc-match --verbose system
-#         update fonts.conf
-#         fc-cache -f; sudo fc-cache -f
-#
-#
-#   backgroung / wallpaper
-#     - login screen -> color -> deep blue (noise-texture-light.png)
-#     - walpaper -> copy files to ~/Pictures and choose
-#
-#   Other
-#     - install source code pro from fonts
-#
-#   gnome-control-center (settings)
-#     - online accounts
-#       - add google
-#         - contact & files
-#     - keyboard
-#       - switch to next input source super+` (prevent ovelapping)
-#       - hide all normal windows to super + d (show desktop)
-#       - logout to ctrl+super+l  (closer to ctrl alt l on deb, stop accidentally locking screen in chrome)
-#     - date and time
-#       - time format -> am/pm
-#
-#   Cerebro
-#    get binary, chmod 755, add to path, create launcher
-#    vi ~/.config/autostart/cerebro.desktop
-#       [Desktop Entry]
-#       Type=Application
-#       Version=1.0
-#       Name=Cerebro
-#       Comment=Cerebro startup script.
-#       Exec=/home/pbuell/Bin/cerebro-0.3.1-x86_64.AppImage
-#       StartupNotify=false
-#       Terminal=false
-#
-#   Vim:
-#     yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
-#     git clone https://github.com/vim/vim.git
-#     cd vim
-#     ./configure --prefix=/usr/local --enable-multibyte  --with-tlib=ncurses --enable-pythoninterp --enable-rubyinterp --with-ruby-command=/usr/bin/ruby --with-features=huge
-#     make
-#     sudo make install
-#     /usr/local/bin/vim
-#
-#   ZSH:
-#     git clone https://github.com/zsh-users/zsh.git
-#     git tag (look at available versions)
-#     git co zsh-5.4.2 (or whatever the latest non-dev version is)
-#     ./Util/preconfig
-#     ./configure && make && sudo make install
-#     /usr/local/bin/zsh
-#
-#   php7*
-#     yum install epel-release
-#     sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-#     yum install yum-utils
-#     yum-config-manager --enable remi-php-72
-#     yum update
-#     yum install php72
-#
-#
-#   WEECHAT:
-#     yum install cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
-#     git clone https://github.com/weechat/weechat.git
-#     cd weechat
-#     mkdir build; cd !$
-#     cmake .. -DENABLE_PHP=OFF
-#     make
-#     sudo make install
-#     -----------------
-#
-#     yum install chromedriver from google repo, if mattermost fails to connect grab the latest from https://chromedriver.storage.googleapis.com/index.html and place in /usr/local/bin, removing the yum installed one
-#
-#     -----------------
-
-#    remove notification_center.py plugin, don't need pip pync, chmod 755 wee_slack.py
-#    add notification.py
-#    /set weechat.network.gnutls_ca_file /etc/ssl/certs/ca-bundle.crt
-#
-#     issues:
-#       lots of scripts not found /-a script name...
-#       mattermost cert not trusted
-#
-#   note:
-#     ctrl+alt+up|down  switch workspaces
-#     super+arrows      resize windows
-#     super             app switcher
-#     ctrl+alt+enter    toggle xfreerdp fullscreen
-#
-#
-#   npm -g install
-#     yarn
-#
-#   MUTT:
-#      [flatcap-neomutt]
-#      name=Copr repo for neomutt owned by flatcap
-#      baseurl=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/epel-7-$basearch/
-#      type=rpm-md
-#      skip_if_unavailable=True
-#      gpgcheck=1
-#      gpgkey=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/pubkey.gpg
-#      repo_gpgcheck=0
-#      enabled=1
-#      enabled_metadata=1
-#
-#      yum install neomutt
-#      setup an alias mutt=> neomutt or symlink
-#
-#   Mappings:
-#      use xdotool to send keypresses
-#      map `xdotool key Caps_Lock` to lshift + rshift
 #
 #   ADTOOL:
-#      cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
-#      cd into dir
-#      ./configure && make
-#      sudo make install
+#     cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
+#     cd into dir
+#     ./configure && make
+#     sudo make install
 #
 #   Valet linux:
 #
@@ -186,10 +32,6 @@
 #     repeat ausearch as needed
 #     WRITE A SINGLE SELINUX MODULE FOR THIS!!
 #
-#   sssd:
-#     override_shell = /usr/local/bin/zsh
-#     need to keep ad record's login shell as /bin/bash due to other systems not
-#       having zsh installed already, wont allow you to login
 
 ###########################
 #                         #
@@ -207,7 +49,7 @@ UNAME=`uname -s`
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
   REMOVE=(tmux vim zsh)
-  INSTALL=(ack composer ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync jq lastpass-cli mariadb mariadb-server msmtp mutt npm openldap-devel opensc pass pcsc-lite pcsc-tools php72 php72-php-mysql php72-php-mcrypt python2-pip python34-pip ruby w3m xdotool xsel ykclient ykpers)
+  INSTALL=(ack composer ctags elinks freerdp gnupg1 gnupg2 gnupg2-smime imapfilter isync jq lastpass-cli mariadb mariadb-server msmtp ncurses-devel npm openldap-devel opensc pass pcsc-lite pcsc-tools python2-pip python34-pip ruby w3m xdotool xsel ykclient ykpers)
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE="ghostscript tmux"

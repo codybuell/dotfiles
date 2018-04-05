@@ -65,7 +65,7 @@ IRCNick    = codybuell
 
 TPAMUrl      = tpam.tld    # do not include protocol (ie no http://)
 TPAMUsername = codybuell
-TPAMPassword = '`command to get password`'
+TPAMPassword = `command to get password`
 
 ################################################################################
 #                                                                              #

@@ -4,11 +4,13 @@
 
 # tpam to clipboard
 tpam() {
-  get-tpam.py -d {{ TPAMUrl }} -u {{ TPAMUsername }} -p {{ TPAMPassword }}
+  TPPASSWD={{ TPAMPassword }}
+  get-tpam.py -d {{ TPAMUrl }} -u {{ TPAMUsername }} -p $TPPASSWD
 }
 
 # xfreedesktop wrapper
 rdp() {
+  # usage: rdp user@domain host
   RDP_USER=`echo $1 | sed 's/\@.*$//'`
   RDP_DOMAIN=`echo $1 | sed 's/^.*\@//;s/\..*$//'`
   RDP_HOST=$2

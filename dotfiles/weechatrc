@@ -10,6 +10,7 @@
 #    https://api.slack.com/custom-integrations/legacy-tokens                   #
 #    cd ~/.weechat/python/autoload                                             #
 #    wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
+#    chmod 755 wee_slack.py
 #                                                                              #
 #  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
 #    /secure passphrase <pass>                                                 #
