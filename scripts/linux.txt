@@ -14,6 +14,7 @@
    5. * add epel repository then yum update
    6. * change packages
       install
+        fwknop
         vim deps
       check for presence of each!!!!!
       remove
@@ -52,6 +53,7 @@
       - keyboard
         - switch to next input source super + back tick
         - lock screen ctrl + alt + l
+        - hide all normal windows + d
       - date and time
         - time format -> am/pm
   11. * set source sans pro as "system" font
@@ -74,10 +76,12 @@
       ./configure && make && sudo make install
       /usr/local/bin/zsh
   13. ? update sssd.conf to use zsh as default shell (override ldap setting)
-      /etc/sssd/sssd.conf
-        under appropriate tomain
-          override_shell = /usr/local/bin/zsh
-      service sssd restart
+
+        /etc/sssd/sssd.conf
+          under appropriate tomain
+            override_shell = /usr/local/bin/zsh
+        service sssd restart
+
   14. * install vim
       yum -y install ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
       git clone https://github.com/vim/vim.git
@@ -175,19 +179,19 @@
   - any necessary graphics card drivers
   - any necessary bios updates
   - any necessary pci card drivers
-
-================================================================================
-
-then
-
-  - setup .config file
-  - make dots
-  - udev rules for yubikey????
+  - yubikey udev rules??
+  - any mounts in fstab
+  - mount any additional drives
+  - go config
 
 ================================================================================
 
 
 issues:
+
+ repocheck erroring
+
+ messages you type show up in notification center...
 
  symbols not showing up? emoji's sent from court, etc
 
