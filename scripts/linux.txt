@@ -14,7 +14,7 @@
    5. * add epel repository then yum update
    6. * change packages
       install
-        fwknop
+        fwknop inkscape
         vim deps
       check for presence of each!!!!!
       remove
@@ -33,7 +33,6 @@
       - fonts
         - hinting -> slight
         - antialiasing -> rgba
-        - scaling factor -> 1.10
         - window titles -> source sans pro semi bold 10
         - interface -> source sans pro regular 10
         - monospace -> source code pro regular 10
@@ -175,6 +174,9 @@
       uncomment services to be used in weechatrc
       run execute command to ingest weechatrc configs
       /set weechat.network.gnutls_ca_file /etc/ssl/certs/ca-bundle.crt
+  29. set inkscape as default application for svg files
+  30. place ~/.terminfo in roots home and chown
+  31. desktop, uncheck keep alignned
 
   - any necessary graphics card drivers
   - any necessary bios updates
@@ -183,33 +185,3 @@
   - any mounts in fstab
   - mount any additional drives
   - go config
-
-================================================================================
-
-
-issues:
-
- repocheck erroring
-
- messages you type show up in notification center...
-
- symbols not showing up? emoji's sent from court, etc
-
- salt not installing
-
- Error downloading packages:
-   PyYAML-3.11-1.el7.x86_64: [Errno 256] No more mirrors to try.
-
- need to fix other entries to souce font family in ~/.config/fontconfig/fonts.conf
-
- custom vim install doesn't respect middle click paste out of the box
-
-notes:
-
- reorder path so /usr/local/bin takes prescedence
-
- show what system is using for 'system' font
-   fc-match --verbose system
-   update fonts.conf
-   fc-cache -f; sudo fc-cache -f
-
