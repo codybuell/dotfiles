@@ -82,4 +82,4 @@ References
 ----------
 
 - [Greg Hurrell's dotfiles](https://github.com/wincent/wincent)
-- [Greg Hurrell's YouTube channel](https://youtube.com/)
+- [Greg Hurrell's YouTube channel](https://www.youtube.com/channel/UCXPHFM88IlFn68OmLwtPmZA)
