@@ -181,12 +181,14 @@ JiraDefProject = PROJNAME
 #                                                                              #
 # GitHubGHIAPIToken -> used for ghi to manage issues from the cli              #
 # GitHubHomebrewAPIToken -> used for brew                                      #
+# GitHubVimGistToken -> used for vim's gist plugin                             #
 # SlackAPIToken -> used for slackcat                                           #
 #                                                                              #
 ################################################################################
 
 GitHubGHIAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
+GitHubVimGistToken = 1234567890abcdefghijklmnopqrstuvwxyz
 SlackAPIToken = 1234-12345678901-12345678901-123456789012-12345678901234567890123456789012
 
 ################################################################################
