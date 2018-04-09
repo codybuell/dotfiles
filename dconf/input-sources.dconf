@@ -1,0 +1,3 @@
+[/]
+sources=[('xkb', 'us+colemak'), ('xkb', 'us')]
+xkb-options=['ctrl:nocaps', 'caps:ctrl_modifier']

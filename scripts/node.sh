@@ -26,9 +26,10 @@ PACKAGES=( \
     'jsonlint' \                    # json syntax checking utility
     'svgo' \                        # svg optimization utility
     'wscat' \                       # websocket command line client
+    'yarn' \                        # package manager with version locking and caching
 )
 
 # install gem packages
 for i in ${PACKAGES[@]}; do
-  npm -g install $i
+  sudo npm -g install $i
 done

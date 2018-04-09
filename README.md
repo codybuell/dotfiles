@@ -1,12 +1,10 @@
 Dotfiles
 ========
 
-Personal dot and configuration files.
+Personal dot and configuration files for Linux & OSX systems.
 
-Although a majority of these configurations have been built up over the years and inspired from multiple sources, the better parts of my vim and tmux configurations have been shamelessly borrowed and or adapted from [Greg Hurrell's](https://github.com/wincent) excellent [dotfiles](https://github.com/wincent/wincent), give them a look over.  I'll cite other sources as they come to mind.
-
-Installation
-------------
+Setup
+-----
 
  1. Clone this repository and get the submodules
 
@@ -25,9 +23,48 @@ Installation
 
  3. Run make
 
-        make [ osx | linux | osxdefs | linuxdefs | dots | brew | subs ]
-        # optionally you can add an argument to the dots target to make a single dotfile
-        make dots vim
+        make         # detects system type and places all configs
+        
+        # alternatively you can run individual configuration components
+        make [ subs | dots | osx | linux | brew | composer | gem | go | node | pip | clean ]
+        
+        # subs:     pulls down all the git submodules / repo dependencies
+        # dots:     places dotfiles in ~/, existing files are moved to .[name].orig.[timestamp]
+        #           takes an argument to target a single dotfile i.e. `make dots vimrc`
+        # osx:      runs os configs, hotcorners, system cofig settings, etc
+        # linux:    runs os configs, dconf settings, font setup, tweak tool, package installs
+        # brew:     runs package installs for osx (see scripts/brew.sh for full list)
+        # composer: installs php packages, laravel valet, etc (see scripts/composer.sh for full list)
+        # gem:      installs ruby packages (see scripts/gem.sh for full list)
+        # go:       installs go packages (see scripts/go.sh for full list)
+        # node:     installs node packages (see scripts/node.sh for full list)
+        # pip:      installs python packages (see scripts/pip.sh for full list)
+        # clean:    removes backups of old configurations
+        
+        # suggested order if running manually:
+        #
+        #   1. subs
+        #   2. dots
+        #   3. [os]
+        #   4. [brew | composer | gem | go | node | pip] in any order
+
+Additional New System Configurations
+------------------------------------
+
+ - setup chrome account(s)
+ - lpass cli login
+ - weechat configuration (follow `~/.weechatrc` instructions)
+
+        # on linux hosts, you need to point to the right cert bundle, within weechat:
+        /set weechat.network.gnutls_ca_file /etc/ssl/certs/ca-bundle.crt
+
+ - any necessary graphic card drivers
+ - any necessary bios updates
+ - any necessary os updates
+ - any necessary pci card drivers
+ - ?? yubikey udev rules on linux hosts ??
+ - fstab mounts
+ - configure any additional internal drives
 
 Todo
 ----
@@ -40,3 +77,9 @@ Todo
    - move it to a ps1 line update instead...?
    - solution for vim?
    - just deal with it?
+
+References
+----------
+
+- [Greg Hurrell's dotfiles](https://github.com/wincent/wincent)
+- [Greg Hurrell's YouTube channel](https://youtube.com/)

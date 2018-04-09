@@ -1,0 +1,7 @@
+[/]
+font-name='Source Sans Pro 10'
+text-scaling-factor=1.0
+clock-format='12h'
+gtk-im-module='gtk-im-context-simple'
+gtk-theme='Adwaita-dark'
+monospace-font-name='Source Code Pro Medium 10'

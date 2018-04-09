@@ -1,0 +1,9 @@
+[extensions/classic-overrides]
+button-layout='appmenu:minimize,close'
+
+[/]
+favorite-apps=['org.gnome.Terminal.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop']
+
+[window-switcher]
+current-workspace-only=false
+app-icon-mode='thumbnail-only'

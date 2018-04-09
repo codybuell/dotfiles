@@ -24,7 +24,7 @@ PACKAGES=( \
 
 # install gem packages
 for i in ${PACKAGES[@]}; do
-  gem install $i
+  sudo gem install $i
 done
 
 # clean up / initializing tasks

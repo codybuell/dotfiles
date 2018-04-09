@@ -240,7 +240,7 @@ runpaths() {
     eval VAL=\$$p
     [[ $VAR =~ PATH.* ]] && {
       [[ ! -d $VAL ]] && {
-        prettyprint "  '${VAL}' \033[0;32mcreating symlink\033[0m\n"
+        prettyprint "  '${VAL}' \033[0;32mcreating path\033[0m\n"
         mkdir -p $VAL
       } || {
         prettyprint "  '${VAL}' \033[0;32malready exists\033[0m\n"

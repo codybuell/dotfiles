@@ -1,0 +1,18 @@
+[/]
+application-children=['org-gnome-terminal', 'org-gnome-software', 'abrt-applet', 'google-chrome', 'org-gnome-nautilus']
+show-in-lock-screen=false
+
+[application/google-chrome]
+application-id='google-chrome.desktop'
+
+[application/org-gnome-software]
+application-id='org.gnome.Software.desktop'
+
+[application/org-gnome-terminal]
+application-id='org.gnome.Terminal.desktop'
+
+[application/abrt-applet]
+application-id='abrt-applet.desktop'
+
+[application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'

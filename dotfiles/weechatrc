@@ -10,7 +10,7 @@
 #    https://api.slack.com/custom-integrations/legacy-tokens                   #
 #    cd ~/.weechat/python/autoload                                             #
 #    wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
-#    chmod 755 wee_slack.py
+#    chmod 755 wee_slack.py                                                    #
 #                                                                              #
 #  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
 #    /secure passphrase <pass>                                                 #
@@ -43,10 +43,17 @@
 #    /secure set znc <pass>                                                    #
 #                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
+#    OSX:                                                                      #
 #    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 #    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
-#
-#  - RESTART WEECHAT AND CHECK YOU CAN UNLOCK WITH PASSPHRASE
+#                                                                              #
+#    LINUX:                                                                    #
+#    /script install iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#    /script autoload iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#                                                                              #
+#  - RESTART WEECHAT AND CHECK YOU CAN UNLOCK WITH PASSPHRASE                  #
+#                                                                              #
+#  - UNCOMMENT ONE OF THE GNUTLS CONFIGURATIONS AT LINES 175 or 177            #
 #                                                                              #
 #  - EXECUTE THIS CONFIG FILE FILE                                             #
 #    /eval /exec -oc sed -E 's/^ *//;/^\//!d' ${env:HOME}/.weechatrc           #
@@ -165,7 +172,10 @@
 ################################################################################
 
 # osx fix ca cert location
-/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
+#/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
+# linux fix ca cert location
+#/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-bundle.crt"
+
 
 # disable IRC part and quit messages:
 /set irc.server_default.msg_part ""

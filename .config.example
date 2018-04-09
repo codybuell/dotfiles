@@ -21,10 +21,9 @@
 PATH00 = /Users/usrnm/.gopath                           # go path root
 PATH01 = /Users/usrnm/Repos                             # repository folder
 PATH02 = /Users/usrnm/Gists                             # github gists folder
-PATH03 = /Users/usrnm/.mail                             # mutt mail directory
-PATH04 = /Users/usrnm/.mail/Home                        # mutt mail directory
-PATH05 = /Users/usrnm/.mail/Work                        # mutt mail directory
-PATH06 = /Users/usrnm/.mail/Client                      # mutt mail directory
+PATH03 = /Users/usrnm/.mail/Home                        # mutt mail directory
+PATH04 = /Users/usrnm/.mail/Work                        # mutt mail directory
+PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
 
 ################################################################################
 #                                                                              #

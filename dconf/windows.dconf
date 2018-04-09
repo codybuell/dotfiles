@@ -1,0 +1,7 @@
+[preferences]
+titlebar-font='Source Sans Pro Semi-Bold 10'
+
+[keybindings]
+switch-input-source-backward=['<Shift><Super>grave']
+show-desktop=['<Super>d']
+switch-input-source=['<Super>grave']
