@@ -41,6 +41,7 @@
 #      tr -d ':' | tr 'A-Z' 'a-z' | cut -d = -f 2                              #
 #    /secure set zncfp <znc fingerprint>                                       #
 #    /secure set znc <pass>                                                    #
+#    /secure set bitlbee <pass>                                                #
 #                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
 #    OSX:                                                                      #
@@ -403,7 +404,7 @@
 ## znc bitlbee
 #/server add znc-bitlbee ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/bitlbee -password=${sec.data.znc} -autoconnect
 #/set irc.server.znc-bitlbee.ssl_fingerprint ${sec.data.zncfp}
-#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.znc};/join &work;/join &home
+#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
 #
 ## znc alias for sending commands to server
 #/alias add znc /quote znc

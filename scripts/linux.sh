@@ -54,118 +54,114 @@ DOTFILES=(`ls $DOTS_LOC`)
 UNAME=`uname -s`
 
 # commonly named packages
-GENERAL_INSTALL=" \
-  bash \
-  bash-completion \
-  cmake \                         # weechat compiling dep
-  composer \
-  coreutils \
-  curl \
-  gcc \
-  git \
-  inkscape \
-  jq \
-  openssl \
-  ruby \                          # vim compiling dep
-  tree \
-"
-GENERAL_REMOVE=" \
-  ghostscript \
-  mutt \
-  tmux \
-  vim \
-  zsh \
-"
+INSTALL='
+  bash
+  bash-completion
+  cmake
+  composer
+  coreutils
+  curl
+  gcc
+  git
+  inkscape
+  jq
+  openssl
+  ruby
+  tree
+'
+REMOVE='
+  mutt
+  tmux
+  vim
+  zsh
+'
 
 # detect distro, bulid lists
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
-  UNIQUE_REMOVE=" \
-  "
-  UNIQUE_INSTALL=" \
-    ack \
-    automake \                    # tmux compiling dep
-    chromedriver \
-    chromium \
-    ctags \
-    elinks \
-    freerdp \
-    fwknop \
-    glibc-static \                # tmux compiling dep
-    gnupg1 \
-    gnupg2 \
-    gnupg2-smime \
-    gnutls-devel \                # weechat compiling dep
-    google-chrome-stable \
-    imapfilter \
-    isync \
-    lastpass-cli \
-    libcurl-devel \               # weechat compiling dep
-    libcurl \                     # weechat compiling dep
-    libevent-devel \              # tmux compiling dep
-    libevent-dev \                # tmux compiling dep
-    libgcrypt-devel \             # weechat compiling dep
-    libgcrypt \                   # weechat compiling dep
-    libncurses5-dev \             # tmux compiling dep
-    libncursesw5-dev \            # tmux compiling dep
-    mariadb \
-    mariadb-server \
-    msmtp \
-    ncurses \                     # tmux, vim, weechat compiling dep
-    ncurses-base \                # weechat compiling dep
-    ncurses-devel \               # tmux, vim, weechat compiling dep
-    ncurses-libs \                # weechat compiling dep
+  REMOVE+=''
+  INSTALL+='
+    ack
+    automake
+    chromedriver
+    chromium
+    ctags
+    elinks
+    freerdp
+    fwknop
+    glibc-static
+    gnupg1
+    gnupg2
+    gnupg2-smime
+    gnutls-devel
+    google-chrome-stable
+    imapfilter
+    isync
+    lastpass-cli
+    libcurl-devel
+    libcurl
+    libevent-devel
+    libgcrypt-devel
+    libgcrypt
+    libncurses5-dev
+    libncursesw5-dev
+    mariadb
+    mariadb-server
+    msmtp
+    ncurses
+    ncurses-base
+    ncurses-devel
+    ncurses-libs
     neomutt
-    npm \
-    openldap-devel \
-    opensc \
-    pass \
-    pcsc-lite \
-    pcsc-tools \
-    perl-devel \                  # vim compiling dep
-    perl-ExtUtils-Embed \         # vim compiling dep
-    php72 \
-    php72-php-mcrypt \
-    php72-php-mysql \
-    python2-pip \
-    python34-pip \
-    python-devel \                # vim compiling dep
-    ruby-devel \                  # vim compiling dep
-    w3m \
-    xdotool \
-    xsel \
-    ykclient \
-    ykpers \
-    yum-utils \
-    zlib-devel \                  # weechat compiling dep
-    zlib \                        # weechat compiling dep
-  "
+    npm
+    openldap-devel
+    opensc
+    pass
+    pcsc-lite
+    pcsc-tools
+    perl-devel
+    perl-ExtUtils-Embed
+    php72
+    php72-php-mcrypt
+    php72-php-mysql
+    python2-pip
+    python34-pip
+    python-devel
+    ruby-devel
+    w3m
+    xdotool
+    xsel
+    ykclient
+    ykpers
+    yum-utils
+    zlib-devel
+    zlib
+  '
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
-  UNIQUE_REMOVE=" \
-  "
-  UNIQUE_INSTALL=" \
-    ack-grep \
-    ag \
-    ansible \
-    automake \                    # tmux compiling dep
-    awscli \
-    dos2unix \
-    exuberant-ctags \
-    fwknop-client \
-    libevent-2.0-5 \              # tmux compiling dep
-    libevent-core-2.0-5 \         # tmux compiling dep
-    libevent-dev \                # tmux compiling dep
-    libncurses5-dev \             # tmux compiling dep
-    libncursesw5-dev \            # tmux compiling dep
-    minicom \
-    nfs-common \
-    nmap \
-    nodejs \
-    picocom \
-    pinentry \
-    ruby-dev \
-  "
+  REMOVE+=''
+  INSTALL+='
+    ack-grep
+    ag
+    ansible
+    automake
+    awscli
+    dos2unix
+    exuberant-ctags
+    fwknop-client
+    libevent-2.0-5
+    libevent-core-2.0-5
+    libevent-dev
+    libncurses5-dev
+    libncursesw5-dev
+    minicom
+    nfs-common
+    nmap
+    nodejs
+    picocom
+    pinentry
+    ruby-dev
+  '
 fi
 
 ########################
@@ -178,6 +174,7 @@ fi
 package_install () {
   PKGS_TO_INSTALL=$@
   if [ $FAMILY == "el" ]; then
+    rm -rf /var/cache/yum
     /usr/bin/sudo yum clean all
     /usr/bin/sudo yum check-update
     /usr/bin/sudo yum -y install $PKGS_TO_INSTALL
@@ -200,7 +197,7 @@ package_check() {
   MISSING_PKGS=''
   if [ $FAMILY == "el" ]; then
     for i in $PKGS_TO_CHECK; do
-      if [ `rpm -qi zlib | grep Name | awk '{print $3}'` != $i ]; then
+      if [ "`rpm -qi zlib | grep Name | awk '{print $3}'`" != "$i" ]; then
         MISSING_PKGS+=" $i"
       fi
     done
@@ -210,7 +207,7 @@ package_check() {
     done
   fi
 
-  if [ $MISSING_PKGS != '' ]; then
+  if [ "$MISSING_PKGS" != "" ]; then
     echo 'The following packages failed to install on your system:'
     for i in $MISSING_PKGS; do
       echo " - $i"
@@ -241,7 +238,6 @@ readconfig() {
   }
   rm $configfile.tmp
 }
-
 ###############################
 #                             #
 #   Configuration Functions   #
@@ -249,10 +245,12 @@ readconfig() {
 ###############################
 
 addcustomrepos() {
+  printf "\033[0;31madding custom package repositories:\033[0m"
+
   case $FAMILY in
     el )
       # google repo
-      /usr/bin/sudo /usr/bin/cat <<- EOF > /etc/yum.repos.d/google-chrome.repo
+      /usr/bin/cat <<- EOF > google-chrome.repo
 				[google-chrome]
 				name=google-chrome
 				baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
@@ -260,20 +258,14 @@ addcustomrepos() {
 				gpgcheck=1
 				gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
 			EOF
+      /usr/bin/sudo mv google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
       # neomutt
-      /usr/bin/sudo /usr/bin/cat <<- EOF > /etc/yum.repos.d/flatcap-neomutt.repo
-				[flatcap-neomutt]
-				name=Copr repo for neomutt owned by flatcap
-				baseurl=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/epel-7-$basearch/
-				type=rpm-md
-				skip_if_unavailable=True
-				gpgcheck=1
-				gpgkey=https://copr-be.cloud.fedoraproject.org/results/flatcap/neomutt/pubkey.gpg
-				repo_gpgcheck=0
-				enabled=1
-				enabled_metadata=1
-			EOF
+      curl -o flatcap-neomutt-epel-7.repo https://copr.fedorainfracloud.org/coprs/flatcap/neomutt/repo/epel-7/flatcap-neomutt-epel-7.repo
+      /usr/bin/sudo mv flatcap-neomutt-epel-7.repo /etc/yum.repos.d/flatcap-neomutt-epel-7.repo
+
+      # clean up selinux perms
+      /usr/bin/sudo restorecon -R /etc/yum.repos.d
 
       # epel repository
       /usr/bin/sudo yum -y install epel-release
@@ -294,6 +286,8 @@ addcustomrepos() {
 buildtmux() {
   # deb deps: libevent-2.0-5 libevent-core-2.0-5 libevent-dev automake libncurses5-dev libncursesw5-dev
   # el deps:  package_install libevent-dev automake libncurses5-dev libncursesw5-dev libevent-devel ncurses-devel glibc-static
+
+  printf "\033[0;31mbuilding tmux:\033[0m"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/tmux"
@@ -321,6 +315,8 @@ buildvim() {
   # deb deps: 
   # el deps: ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
 
+  printf "\033[0;31mbuilding vim:\033[0m"
+
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/vim"
   # if already there get the latest
@@ -342,6 +338,8 @@ buildvim() {
 buildweechat() {
   # deb deps: 
   # el deps: cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
+
+  printf "\033[0;31mbuilding weechat:\033[0m"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/weechat"
@@ -366,6 +364,8 @@ buildzsh() {
   # deb deps: 
   # el deps: 
 
+  printf "\033[0;31mbuilding zsh:\033[0m"
+
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/zsh"
   # if already there get the latest
@@ -374,7 +374,7 @@ buildzsh() {
     git pull origin master
   # else clone it from scratch
   else
-    git clone https://github.com/zsh-userr/zsh.git $TPATH
+    git clone https://github.com/zsh-users/zsh.git $TPATH
     cd $TPATH
   fi
 
@@ -388,6 +388,8 @@ buildzsh() {
 }
 
 configurekeyboard() {
+  printf "\033[0;31mconfiguring keyboard layout:\033[0m"
+
   if [ $FAMILY == "el" ]; then
     echo
   elif [ $FAMILY == "debian" ]; then
@@ -399,10 +401,13 @@ configurekeyboard() {
 }
 
 setregiontous() {
-  echo
+  printf "\033[0;31msetting region to us:\033[0m"
+
 }
 
 configurefonts() {
+  printf "\033[0;31mloading custom fonts:\033[0m"
+
   cd $CONFGDIR
   mkdir -p $HOME/.local/share/fonts
   find fonts -type f -name \*.otf -exec cp {} $HOME/.local/share/fonts/ \;
@@ -483,6 +488,8 @@ importdconf() {
   #   - /org/gnome/nautilus/desktop/                   # desktop icons to show
   #   - /org/gnome/settings-daemon/plugins/media-keys/ # lock screen ctrl+alt+l
 
+  printf "\033[0;31mloading dconf:\033[0m"
+
   # place file dependencies
   cp miscellaneous/wallpaper.jpg ~/Pictures/wallpaper.jpg
 
@@ -517,11 +524,13 @@ importdconf() {
 }
 
 setusershell() {
+  printf "\033[0;31msetting zsh as default user shell:\033[0m"
+
   # get current users shell
-  CURSHELL=`getent passwd `whoami` | sed 's/.*:\([^:].*$\)/\1/'`
+  CURSHELL=`getent passwd $(whoami) | sed 's/.*:\([^:].*$\)/\1/'`
 
   # if shell isn't set to zsh
-  if [ $CURSHELL != '/usr/local/bin/zsh' ]; then
+  if [ "$CURSHELL" != "/usr/local/bin/zsh" ]; then
     # if user account is local
     if [ `cat /etc/passwd | grep "^$(whoami):" | wc -l` = 1 ]; then
       /usr/bin/sudo sed -i "s/\(^$(whoami):.*:\)\([^:].*$\)/\1\/usr\/local\/bin\/zsh/" /etc/passwd
@@ -539,10 +548,14 @@ setusershell() {
 }
 
 buildsymlinks() {
+  printf "\033[0;31mbuilding symlinks:\033[0m"
+
   cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
 }
 
 setrootterminfo() {
+  printf "\033[0;31msetting terminfo for root user:\033[0m"
+
   /usr/bin/sudo cp -a ~/.terminfo /root/.terminfo
 }
 
@@ -554,18 +567,15 @@ setrootterminfo() {
 
 readconfig
 addcustomrepos
-package_remove $GENERAL_REMOVE
-package_remove $UNIQUE_REMOVE
-package_install $GENERAL_INSTALL
-package_install $UNIQUE_INSTALL
-package_check $GENERAL_INSTALL
-package_check $UNIQUE_INSTALL
+package_remove $REMOVE
+package_install $INSTALL
+package_check $INSTALL
 buildtmux $ReposPath
 buildvim $ReposPath
 buildzsh $ReposPath
 buildweechat $ReposPath
-configurekeyboard
-setregiontous
+#configurekeyboard
+#setregiontous
 configurefonts
 setusershell
 importdconf

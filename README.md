@@ -26,14 +26,14 @@ Setup
         make         # detects system type and places all configs
         
         # alternatively you can run individual configuration components
-        make [ subs | dots | osx | linux | brew | composer | gem | go | node | pip | clean ]
+        make [ subs | brew | dots | osx | linux | composer | gem | go | node | pip | clean ]
         
         # subs:     pulls down all the git submodules / repo dependencies
+        # brew:     runs package installs for osx (see scripts/brew.sh for full list)
         # dots:     places dotfiles in ~/, existing files are moved to .[name].orig.[timestamp]
         #           takes an argument to target a single dotfile i.e. `make dots vimrc`
         # osx:      runs os configs, hotcorners, system cofig settings, etc
         # linux:    runs os configs, dconf settings, font setup, tweak tool, package installs
-        # brew:     runs package installs for osx (see scripts/brew.sh for full list)
         # composer: installs php packages, laravel valet, etc (see scripts/composer.sh for full list)
         # gem:      installs ruby packages (see scripts/gem.sh for full list)
         # go:       installs go packages (see scripts/go.sh for full list)
@@ -43,10 +43,10 @@ Setup
         
         # suggested order if running manually:
         #
-        #   1. subs
+        #   1. subs (then brew if on osx)
         #   2. dots
         #   3. [os]
-        #   4. [brew | composer | gem | go | node | pip] in any order
+        #   4. [ composer | gem | go | node | pip ] in any order
 
 Additional New System Configurations
 ------------------------------------

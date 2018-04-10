@@ -8,32 +8,24 @@ endif
 
 default:
 	@printf "usage: make [ \033[0;31mosx\033[0m | \033[0;31mlinux\033[0m | \033[0;31mcygwin\033[0m | osxdefs | linuxdefs | dots | brew | karabiner | subs ] [ \033[0;31mclean\033[0m ]\n\n\
-	    osx:       run all configurations (osx specific)\n\
-	    linux:     run all configurations (linux specific)\n\
-	    cygwin:    run all configurations (cygwin specific)\n\
-	    osxdefs:   run osx configurations\n\
-	    linuxdefs: run linux configurations\n\
-	    dots:      place dotfiles for current user\n\
+	    subs:      grab and update all git submodules\n\
 	    brew:      run brew configuration\n\
+	    dots:      place dotfiles for current user\n\
+	    osx:       run osx os configurations\n\
+	    linux:     run linux os configurations\n\
 	    composer:  run composer configuration\n\
 	    gem:       run gem configuration\n\
 	    go:        run go configuration\n\
 	    node:      run node configuration\n\
 	    pip:       run pip configuration\n\
-	    keyboard:  place kareabiner config files\n\
-	    subs:      grab and update all git submodules\n\
 	    clean:     delete all backup files\n\n"
 
-osx: subs osxdefs brew dots karabiner
+#default: subs [brew] [osconfigs] dots etc... run it all and detect env
 
-linux: subs linuxdefs dots
-
-cygwin: subs dots
-
-osxdefs:
+osx:
 	scripts/osx.sh
 
-linuxdefs:
+linux:
 	scripts/linux.sh
 
 run:
