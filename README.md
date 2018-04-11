@@ -26,8 +26,9 @@ Setup
         make         # detects system type and places all configs
         
         # alternatively you can run individual configuration components
-        make [ subs | brew | dots | osx | linux | composer | gem | go | node | pip | clean ]
+        make [ full | subs | brew | dots | osx | linux | composer | gem | go | node | pip | clean ]
         
+        # full:     attempt to detect the os and run all configs
         # subs:     pulls down all the git submodules / repo dependencies
         # brew:     runs package installs for osx (see scripts/brew.sh for full list)
         # dots:     places dotfiles in ~/, existing files are moved to .[name].orig.[timestamp]
@@ -44,9 +45,9 @@ Setup
         # suggested order if running manually:
         #
         #   1. subs (then brew if on osx)
-        #   2. dots
-        #   3. [os]
-        #   4. [ composer | gem | go | node | pip ] in any order
+        #   2. [os]
+        #   4. composer, gem, go, node, pip in any order
+        #   3. dots
 
 Additional New System Configurations
 ------------------------------------
@@ -77,6 +78,7 @@ Todo
    - move it to a ps1 line update instead...?
    - solution for vim?
    - just deal with it?
+- after linux config and logging out you are prompted to create a new account on centos7...
 
 References
 ----------

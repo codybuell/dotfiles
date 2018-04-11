@@ -11,11 +11,29 @@
 #            2018.04.09 Rough out support for centos, add builds for zsh,
 #                       weechat, and vim, additional helper functions
 #
-# To Do:    Settings that may not be getting set:
-#             - global dark theme
-#             - desktop, uncheck keep icons aligned
-#             - set inkscape as default for svg file types
-#           Make configurations idempotent
+# Notes:     Remi, the php repo supports single and multiple version installs.
+#            See https://rpms.remirepo.net/wizard/, the gist of it is:
+#              If you need a single version, using remi-php72 repository,
+#              and the php-* packages, the command will be php.
+#
+#                yum-config-manager --enable remi-php72
+#                yum update
+#                yum install php-cli
+#                php -v
+#
+#              If you need multiples versions, the php72-php-* packages are 
+#              available, and the command is php72 or
+#
+#                yum install php72-php-cli
+#                php72 -v
+#                scl enable php72 bash
+#                php -v
+#
+# To Do:     Settings that may not be getting set:
+#              - global dark theme
+#              - desktop, uncheck keep icons aligned
+#              - set inkscape as default for svg file types
+#            Make configurations idempotent
 #
 #   ADTOOL:
 #     cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
@@ -65,6 +83,7 @@ INSTALL='
 '
 REMOVE='
   mutt
+  php*
   tmux
   vim
   zsh
@@ -89,15 +108,16 @@ if [ -f /etc/redhat-release ]; then
     gnupg2
     gnupg2-smime
     gnutls-devel
+    golang
     google-chrome-stable
     imapfilter
     isync
     lastpass-cli
-    libcurl-devel
     libcurl
+    libcurl-devel
     libevent-devel
-    libgcrypt-devel
     libgcrypt
+    libgcrypt-devel
     libncurses5-dev
     libncursesw5-dev
     mariadb
@@ -116,9 +136,6 @@ if [ -f /etc/redhat-release ]; then
     pcsc-tools
     perl-devel
     perl-ExtUtils-Embed
-    php72
-    php72-php-mcrypt
-    php72-php-mysql
     python2-pip
     python34-pip
     python-devel
@@ -130,8 +147,8 @@ if [ -f /etc/redhat-release ]; then
     ykclient
     ykpers
     yum-utils
-    zlib-devel
     zlib
+    zlib-devel
   '
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
@@ -239,6 +256,7 @@ readconfig() {
   }
   rm $configfile.tmp
 }
+
 ###############################
 #                             #
 #   Configuration Functions   #
@@ -549,12 +567,6 @@ setusershell() {
   fi
 }
 
-buildsymlinks() {
-  printf "\033[0;31mbuilding symlinks:\033[0m\n"
-
-  cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
-}
-
 setrootterminfo() {
   printf "\033[0;31msetting terminfo for root user:\033[0m\n"
 
@@ -567,17 +579,24 @@ secureloginscreen() {
     el )
       if [[ $RELEASE -ge 7 ]]; then
         # Create gdm profile file
-        /usr/bin/sudo echo "user-db:user" > /etc/dconf/profile/gdm 
-        /usr/bin/sudo echo "system-db:gdm" >> /etc/dconf/profile/gdm 
-        /usr/bin/sudo echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> /etc/dconf/profile/gdm 
+        echo "user-db:user" > gdmtmp
+        echo "system-db:gdm" >> gdmtmp
+        echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> gdmtmp
+        /usr/bin/sudo mv gdmtmp /etc/dconf/profile/gdm 
+        /usr/bin/sudo chown root: /etc/dconf/profile/gdm
         ##############
-        #/usr/bin/sudo echo "[org/gnome/login-screen]" > /etc/dconf/db/gdm.d/01-banner-message
-        #/usr/bin/sudo echo "banner-message-enable=true" >> /etc/dconf/db/gdm.d/01-banner-message
-        #/usr/bin/sudo echo "banner-message-text='${NOTICE}'" >> /etc/dconf/db/gdm.d/01-banner-message
+        #echo "[org/gnome/login-screen]" > bannertmp
+        #echo "banner-message-enable=true" >> bannertmp
+        #echo "banner-message-text='${NOTICE}'" >> bannertmp
+        #/usr/bin/sudo mv bannertmp /etc/dconf/db/gdm.d/01-banner-message
+        #/usr/bin/sudo chown root: /etc/dconf/db/gdm.d/01-banner-message
         ##############
-        /usr/bin/sudo echo "[org/gnome/login-screen]" > /etc/dconf/db/gdm.d/00-login-screen
-        /usr/bin/sudo echo "disable-user-list=true" >> /etc/dconf/db/gdm.d/00-login-screen
+        echo "[org/gnome/login-screen]" > logintmp
+        echo "disable-user-list=true" >> logintmp
+        /usr/bin/sudo mv logintmp /etc/dconf/db/gdm.d/00-login-screen
+        /usr/bin/sudo chown root: /etc/dconf/db/gdm.d/00-login-screen
         # run dconf update
+        /usr/bin/sudo restorecon -R /etc/dconf
         /usr/bin/sudo dconf update
       else
         # redhat wide start screenlock
@@ -605,20 +624,21 @@ secureloginscreen() {
   esac
 }
 
-installvalet() {
-  # load selinux module so we can run web applications from home dir
-  /usr/bin/sudo mkdir /etc/selinux/local
-  /usr/bin/sudo cp $CONFGDIR/miscellaneous/laravel-valet.te /etc/selinux/local/
-  /usr/bin/sudo checkmodule -M -m -o /etc/selinux/local/laravel-valet.mod /etc/selinux/local/laravel-valet.te
-  /usr/bin/sudo semodule_package -o /etc/selinux/local/laravel-valet.pp -m /etc/selinux/local/laravel-valet.mod
-  /usr/bin/sudo semodule -i /etc/selinux/local/laravel-valet.pp
+installphp() {
+  # installing a non standard version of php and getting it cleanly in your
+  # path is a beast in and of itself, hence the standalone function
 
-  # (dont install as root)
-  composer global require cpriego/valet-linux
-  valet install --ignorse-selinux
-  cd $ReposPath
-  valet park
-  valet domain host
+  if [[ $FAMILY == 'el' ]]; then
+    /usr/bin/sudo yum-config-manager --enable remi-php72
+    /usr/bin/sudo yum update
+    /usr/bin/sudo yum -y install php-cli php72 php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mcrypt php72-php-mysql php72-php-mysqlnd php72-php-opcache php72-php-xml php72-php-xmlrpc
+  fi
+}
+
+buildsymlinks() {
+  printf "\033[0;31mbuilding symlinks:\033[0m\n"
+
+  cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
 }
 
 ##############
@@ -632,6 +652,7 @@ addcustomrepos
 package_remove $REMOVE
 package_install $INSTALL
 package_check $INSTALL
+installphp
 buildtmux $ReposPath
 buildvim $ReposPath
 buildzsh $ReposPath
@@ -641,6 +662,6 @@ buildweechat $ReposPath
 configurefonts
 setusershell
 importdconf
-buildsymlinks
 setrootterminfo
 secureloginscreen
+buildsymlinks

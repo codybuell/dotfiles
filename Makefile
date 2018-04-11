@@ -7,7 +7,8 @@ ifeq (dots,$(firstword $(MAKECMDGOALS)))
 endif
 
 default:
-	@printf "usage: make [ \033[0;31mosx\033[0m | \033[0;31mlinux\033[0m | \033[0;31mcygwin\033[0m | osxdefs | linuxdefs | dots | brew | karabiner | subs ] [ \033[0;31mclean\033[0m ]\n\n\
+	@printf "usage: make [ full | \033[0;31mosx\033[0m | \033[0;31mlinux\033[0m | \033[0;31mcygwin\033[0m | osxdefs | linuxdefs | dots | brew | karabiner | subs ] [ \033[0;31mclean\033[0m ]\n\n\
+	    full:      attempt to detect os and run all configs\n\
 	    subs:      grab and update all git submodules\n\
 	    brew:      run brew configuration\n\
 	    dots:      place dotfiles for current user\n\
@@ -22,23 +23,20 @@ default:
 
 #default: subs [brew] [osconfigs] dots etc... run it all and detect env
 
+full:
+	scripts/full.sh
+
 osx:
 	scripts/osx.sh
 
 linux:
 	scripts/linux.sh
 
-run:
-	echo 
-
 dots:
 	scripts/connect-the-dots.sh $(DOTS_RUN_ARGS)
 
 brew:
 	scripts/brew.sh
-
-karabiner:
-	scripts/karabiner.sh
 
 composer:
 	scripts/composer.sh

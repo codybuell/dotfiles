@@ -17,14 +17,12 @@
 # Usage: 
 
 PACKAGES=( \
-    'slackcat' \                    # cat files and streams to slack
-    'ghi' \                         # github issues command line
-    'bundler' \                     # needed for mutt sending markdown emails
+  'slackcat' \                    # cat files and streams to slack
+  'ghi' \                         # github issues command line
+  'bundler' \                     # needed for mutt sending markdown emails
 )
 
 # install gem packages
 for i in ${PACKAGES[@]}; do
   sudo gem install $i
 done
-
-# clean up / initializing tasks

@@ -45,7 +45,7 @@ for i in ${PYTHON3[@]}; do
 done
 
 # osx specific installs
-if [ `uname` = 'Darwin' ]; then
+if [ `uname -s` = 'Darwin' ]; then
   for i in ${OSXPYTHON2[@]}; do
     /usr/bin/sudo pip2 install $i
   done
