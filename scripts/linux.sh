@@ -565,6 +565,11 @@ setusershell() {
       /usr/bin/sudo service sssd restart
     fi
   fi
+
+  # make sure zsh is listed in /etc/shells
+  if [[ `cat /etc/shells | grep /usr/local/bin/zsh | wc -l` -eq 0 ]]; then
+    /usr/bin/sudo echo "/usr/local/bin/zsh" >> /etc/shells
+  fi
 }
 
 setrootterminfo() {
@@ -589,7 +594,7 @@ secureloginscreen() {
         #echo "banner-message-enable=true" >> bannertmp
         #echo "banner-message-text='${NOTICE}'" >> bannertmp
         #/usr/bin/sudo mv bannertmp /etc/dconf/db/gdm.d/01-banner-message
-        #/usr/bin/sudo chown root: /etc/dconf/db/gdm.d/01-banner-message
+        #/usr/bin/sudo chown bannertmp /etc/dconf/db/gdm.d/02-banner-message
         ##############
         echo "[org/gnome/login-screen]" > logintmp
         echo "disable-user-list=true" >> logintmp
