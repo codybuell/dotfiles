@@ -15,6 +15,7 @@
 #             - global dark theme
 #             - desktop, uncheck keep icons aligned
 #             - set inkscape as default for svg file types
+#           Make configurations idempotent
 #
 #   ADTOOL:
 #     cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
@@ -24,13 +25,6 @@
 #
 #   Valet linux:
 #
-#     valet-linux (dont install as root)
-#     composer global require cpriego/valet-linux
-#     valet install --ignorse-selinux
-#     cd ~/Repos
-#     valet park
-#     valet domain host
-#     # config selinux
 
 ################
 #              #
@@ -79,6 +73,7 @@ REMOVE='
 # detect distro, bulid lists
 if [ -f /etc/redhat-release ]; then
   FAMILY='el'
+  RELEASE=`cat /etc/redhat-release | sed -e 's/[^0-9.]//g;s/.[0-9].*//g'`
   REMOVE+=''
   INSTALL+='
     ack
@@ -128,6 +123,7 @@ if [ -f /etc/redhat-release ]; then
     python34-pip
     python-devel
     ruby-devel
+    virt-manager
     w3m
     xdotool
     xsel
@@ -140,6 +136,7 @@ if [ -f /etc/redhat-release ]; then
 elif [ -f /etc/debian_version ]; then
   FAMILY='debian'
   REMOVE+=''
+  RELEASE=`lsb_release -s -r`
   INSTALL+='
     ack-grep
     ag
@@ -163,6 +160,10 @@ elif [ -f /etc/debian_version ]; then
     ruby-dev
   '
 fi
+
+GCONFMANBOL="gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type bool --set"
+GCONFMANSTR="gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type string --set"
+GCONFMANINT="gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type int --set"
 
 ########################
 #                      #
@@ -245,7 +246,7 @@ readconfig() {
 ###############################
 
 addcustomrepos() {
-  printf "\033[0;31madding custom package repositories:\033[0m"
+  printf "\033[0;31madding custom package repositories:\033[0m\n"
 
   case $FAMILY in
     el )
@@ -271,11 +272,12 @@ addcustomrepos() {
       /usr/bin/sudo yum -y install epel-release
 
       # remi for php packages
-      /usr/bin/sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+      /usr/bin/sudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
       /usr/bin/sudo /usr/bin/sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/remi-php72.repo
 
       # update
-      /usr/bin/sudo yum update
+      printf "\033[0;31mrunning system updates:\033[0m\n"
+      /usr/bin/sudo yum -y update
       ;;
     debian )
       echo
@@ -287,7 +289,7 @@ buildtmux() {
   # deb deps: libevent-2.0-5 libevent-core-2.0-5 libevent-dev automake libncurses5-dev libncursesw5-dev
   # el deps:  package_install libevent-dev automake libncurses5-dev libncursesw5-dev libevent-devel ncurses-devel glibc-static
 
-  printf "\033[0;31mbuilding tmux:\033[0m"
+  printf "\033[0;31mbuilding tmux:\033[0m\n"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/tmux"
@@ -315,7 +317,7 @@ buildvim() {
   # deb deps: 
   # el deps: ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
 
-  printf "\033[0;31mbuilding vim:\033[0m"
+  printf "\033[0;31mbuilding vim:\033[0m\n"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/vim"
@@ -339,7 +341,7 @@ buildweechat() {
   # deb deps: 
   # el deps: cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
 
-  printf "\033[0;31mbuilding weechat:\033[0m"
+  printf "\033[0;31mbuilding weechat:\033[0m\n"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/weechat"
@@ -364,7 +366,7 @@ buildzsh() {
   # deb deps: 
   # el deps: 
 
-  printf "\033[0;31mbuilding zsh:\033[0m"
+  printf "\033[0;31mbuilding zsh:\033[0m\n"
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/zsh"
@@ -388,7 +390,7 @@ buildzsh() {
 }
 
 configurekeyboard() {
-  printf "\033[0;31mconfiguring keyboard layout:\033[0m"
+  printf "\033[0;31mconfiguring keyboard layout:\033[0m\n"
 
   if [ $FAMILY == "el" ]; then
     echo
@@ -401,12 +403,12 @@ configurekeyboard() {
 }
 
 setregiontous() {
-  printf "\033[0;31msetting region to us:\033[0m"
+  printf "\033[0;31msetting region to us:\033[0m\n"
 
 }
 
 configurefonts() {
-  printf "\033[0;31mloading custom fonts:\033[0m"
+  printf "\033[0;31mloading custom fonts:\033[0m\n"
 
   cd $CONFGDIR
   mkdir -p $HOME/.local/share/fonts
@@ -415,13 +417,13 @@ configurefonts() {
   if [ $FAMILY = 'el' ]; then
 
     # set up nux-dextop repo
-    /usr/bin/sudo /usr/bin/yum localinstall http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+    /usr/bin/sudo /usr/bin/yum -y localinstall http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 
     # disable nux-dextop by default and only enable it as needed as part of running yum
     /usr/bin/sudo /usr/bin/sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/nux-dextop.repo
 
     # install the nux packages
-    /usr/bin/sudo /usr/bin/yum --enablerepo=nux-dextop install fontconfig-infinality cairo libXft freetype-infinality
+    /usr/bin/sudo /usr/bin/yum -y --enablerepo=nux-dextop install fontconfig-infinality cairo libXft freetype-infinality
 
     # configure fonts file
     /usr/bin/cat <<- EOF > ~/.fonts.conf
@@ -488,7 +490,7 @@ importdconf() {
   #   - /org/gnome/nautilus/desktop/                   # desktop icons to show
   #   - /org/gnome/settings-daemon/plugins/media-keys/ # lock screen ctrl+alt+l
 
-  printf "\033[0;31mloading dconf:\033[0m"
+  printf "\033[0;31mloading dconf:\033[0m\n"
 
   # place file dependencies
   cp miscellaneous/wallpaper.jpg ~/Pictures/wallpaper.jpg
@@ -524,7 +526,7 @@ importdconf() {
 }
 
 setusershell() {
-  printf "\033[0;31msetting zsh as default user shell:\033[0m"
+  printf "\033[0;31msetting zsh as default user shell:\033[0m\n"
 
   # get current users shell
   CURSHELL=`getent passwd $(whoami) | sed 's/.*:\([^:].*$\)/\1/'`
@@ -548,15 +550,75 @@ setusershell() {
 }
 
 buildsymlinks() {
-  printf "\033[0;31mbuilding symlinks:\033[0m"
+  printf "\033[0;31mbuilding symlinks:\033[0m\n"
 
   cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
 }
 
 setrootterminfo() {
-  printf "\033[0;31msetting terminfo for root user:\033[0m"
+  printf "\033[0;31msetting terminfo for root user:\033[0m\n"
 
-  /usr/bin/sudo cp -a ~/.terminfo /root/.terminfo
+  /usr/bin/sudo cp -a $DOTS_LOC/terminfo /root/.terminfo
+  /usr/bin/sudo restorecon -R /root/
+}
+
+secureloginscreen() {
+  case $FAMILY in
+    el )
+      if [[ $RELEASE -ge 7 ]]; then
+        # Create gdm profile file
+        /usr/bin/sudo echo "user-db:user" > /etc/dconf/profile/gdm 
+        /usr/bin/sudo echo "system-db:gdm" >> /etc/dconf/profile/gdm 
+        /usr/bin/sudo echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> /etc/dconf/profile/gdm 
+        ##############
+        #/usr/bin/sudo echo "[org/gnome/login-screen]" > /etc/dconf/db/gdm.d/01-banner-message
+        #/usr/bin/sudo echo "banner-message-enable=true" >> /etc/dconf/db/gdm.d/01-banner-message
+        #/usr/bin/sudo echo "banner-message-text='${NOTICE}'" >> /etc/dconf/db/gdm.d/01-banner-message
+        ##############
+        /usr/bin/sudo echo "[org/gnome/login-screen]" > /etc/dconf/db/gdm.d/00-login-screen
+        /usr/bin/sudo echo "disable-user-list=true" >> /etc/dconf/db/gdm.d/00-login-screen
+        # run dconf update
+        /usr/bin/sudo dconf update
+      else
+        # redhat wide start screenlock
+        $GCONFMANBOL /apps/screensaver/start_screensaver true
+        $GCONFMANBOL /apps/gnome-screensaver/lock_enabled true
+        $GCONFMANINT /apps/gnome-screensaver/idle_delay 30
+        $GCONFMANBOL /apps/gnome-screensaver/idle_activation_enabled true
+
+        # redhat 6 specific
+        if [ $RELEASE = 6 ]; then
+          $GCONFMANINT /desktop/gnome/session/idle_delay 30
+          # prevent control alt del from shutting down
+          $GCONFMANSTR /apps/gnome_settings_daemon/keybindings/power ""
+        fi
+      fi
+      ;;
+    debian )
+      # ubuntu disallow guest login and hide user list
+      /usr/bin/sudo echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf
+      /usr/bin/sudo echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf
+      /usr/bin/sudo echo "allow-guest=false" >> /etc/lightdm/lightdm.conf
+      /usr/bin/sudo echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
+      /usr/bin/sudo service lightdm restart
+      ;;
+  esac
+}
+
+installvalet() {
+  # load selinux module so we can run web applications from home dir
+  /usr/bin/sudo mkdir /etc/selinux/local
+  /usr/bin/sudo cp $CONFGDIR/miscellaneous/laravel-valet.te /etc/selinux/local/
+  /usr/bin/sudo checkmodule -M -m -o /etc/selinux/local/laravel-valet.mod /etc/selinux/local/laravel-valet.te
+  /usr/bin/sudo semodule_package -o /etc/selinux/local/laravel-valet.pp -m /etc/selinux/local/laravel-valet.mod
+  /usr/bin/sudo semodule -i /etc/selinux/local/laravel-valet.pp
+
+  # (dont install as root)
+  composer global require cpriego/valet-linux
+  valet install --ignorse-selinux
+  cd $ReposPath
+  valet park
+  valet domain host
 }
 
 ##############
@@ -581,3 +643,4 @@ setusershell
 importdconf
 buildsymlinks
 setrootterminfo
+secureloginscreen
