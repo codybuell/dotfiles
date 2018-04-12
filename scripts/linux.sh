@@ -140,6 +140,7 @@ if [ -f /etc/redhat-release ]; then
     python34-pip
     python-devel
     ruby-devel
+    rxvt-unicode-256color
     virt-manager
     w3m
     xdotool
@@ -568,7 +569,10 @@ setusershell() {
 
   # make sure zsh is listed in /etc/shells
   if [[ `cat /etc/shells | grep /usr/local/bin/zsh | wc -l` -eq 0 ]]; then
-    /usr/bin/sudo echo "/usr/local/bin/zsh" >> /etc/shells
+    cat /etc/shells > tempshells
+    echo "/usr/local/bin/zsh" >> tempshells
+    /usr/bin/sudo mv tempshells /etc/shells
+    restorecon /etc/shells
   fi
 }
 
