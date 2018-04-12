@@ -243,6 +243,7 @@ source $HOME/.shell/functions
 source $HOME/.shell/hash
 source $HOME/.shell/path
 source $HOME/.shell/vars
+source $HOME/.shell/vault
 
 test -e $HOME/.shell/functions.private && source $HOME/.shell/functions.private
 
