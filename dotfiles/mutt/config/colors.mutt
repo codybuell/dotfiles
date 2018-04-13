@@ -2,22 +2,57 @@ color body brightcolor6 color0 "(https?|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
 color body brightcolor6 color0 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 color body brightcolor6 color0 "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
 color error brightcolor1 color0
-color hdrdefault color5 color0
-color header brightcolor5 color0 "^(From)"
-color header brightcolor5 color0 "^(Subject)"
-color index color7 color0 "~A" # All messages
-color index brightcolor7 color0 "~U" # Unread messages
-color index color19 color0 "~D" # Deleted messages
-color index brightcolor11 color0 "~T" # "Tagged" (selected) messages.
+color hdrdefault color4 color0
+color header brightcolor4 color0 "^(From)"
+color header brightcolor4 color0 "^(Subject)"
+
+#################
+# message index #
+#################
+
+color index color246 color0 '~A'                 # all - entire index line
+color index_number color237 color0               # all - index number column
+color index_size color237 color0                 # all - message size column
+color index_date color4 color0                   # all - index date column
+color index_collapsed brightcolor1 color0        # all - number of folded messages
+
+color index color237 color0 '~D'                 # deleted - all messages
+color index_author color237 color0 '~D'          # deleted - author column
+
+color index color255 color0 '~U'                 # unread - all messages
+color index_author color1 color0 '~U'            # unread - author column
+
+color index_flags brightcolor1 color0 '~F'       # flagged - flags column
+
+color index_author color1 color0 '~G'            # encrypted - author column
+color index_subject color1 color0 '~G'           # encrypted - subject column
+
+color index color3 color0 '~T'                   # tagged / selected - messages
+color index_author color3 color0 '~T'            # deleted - author column
+#
+#  backrounds for folds
+#
+#
+#
+## Subject, %s
+## Number of messages in a collapsed thread, %M
+#color index_collapsed default brightblue
+## Date field
+## Message label, %y %Y
+#color index_label default brightgreen
+## Message number, %C
+
+
+
 color indicator color0 color4
 color message color3 color0 # Connection messages etc.
 color prompt color3 color0
 color quoted color6 color0
 color quoted1 color4 color0
 color quoted2 color5 color0
-color sidebar_highlight color0 brightcolor4
+color sidebar_highlight color0 color4
 color sidebar_indicator brightcolor4 color0
 color sidebar_new color1 color0
 color signature color8 color0
 color status color20 color19
-color tree color5 default # Arrow in threads.
+color tree color4 default             # arrow in threads
