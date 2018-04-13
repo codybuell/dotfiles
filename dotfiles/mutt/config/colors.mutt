@@ -1,3 +1,4 @@
+
 color body brightcolor6 color0 "(https?|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
 color body brightcolor6 color0 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 color body brightcolor6 color0 "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
@@ -9,6 +10,9 @@ color header brightcolor4 color0 "^(Subject)"
 #################
 # message index #
 #################
+
+color indicator color0 color4                    # current selection
+color tree color4 default                        # arrow in threads
 
 color index color246 color0 '~A'                 # all - entire index line
 color index_number color237 color0               # all - index number column
@@ -29,30 +33,23 @@ color index_subject color1 color0 '~G'           # encrypted - subject column
 
 color index color3 color0 '~T'                   # tagged / selected - messages
 color index_author color3 color0 '~T'            # deleted - author column
-#
-#  backrounds for folds
-#
-#
-#
-## Subject, %s
-## Number of messages in a collapsed thread, %M
-#color index_collapsed default brightblue
-## Date field
-## Message label, %y %Y
-#color index_label default brightgreen
-## Message number, %C
 
+###########
+# sidebar #
+###########
 
+color sidebar_highlight color0 color4
+color sidebar_indicator brightcolor4 color0
+color sidebar_new color1 color0
 
-color indicator color0 color4
-color message color3 color0 # Connection messages etc.
+####
+#  #
+####
+
+color message color3 color0                      # connection messages etc
 color prompt color3 color0
 color quoted color6 color0
 color quoted1 color4 color0
 color quoted2 color5 color0
-color sidebar_highlight color0 color4
-color sidebar_indicator brightcolor4 color0
-color sidebar_new color1 color0
 color signature color8 color0
 color status color20 color19
-color tree color4 default             # arrow in threads
