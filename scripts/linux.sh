@@ -651,6 +651,13 @@ buildsymlinks() {
   cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
 }
 
+placeautostarts() {
+  printf "\033[0;31mplacing autostart files:\033[0m\n"
+
+  cd $CONFGDIR
+  find autostart -type f -name \*.desktop$ -exec cp {} $HOME/.config/autostart/ \;
+}
+
 ##############
 #            #
 #   run it   #
@@ -675,3 +682,4 @@ importdconf
 setrootterminfo
 secureloginscreen
 buildsymlinks
+placeautostarts
