@@ -649,6 +649,7 @@ buildsymlinks() {
   printf "\033[0;31mbuilding symlinks:\033[0m\n"
 
   cd /usr/local/bin/; /usr/bin/sudo ln -s `which neomutt` mutt
+  cd /usr/local/bin/; /usr/bin/sudo ln -s `which msmtp` msmtp
 }
 
 placeautostarts() {
