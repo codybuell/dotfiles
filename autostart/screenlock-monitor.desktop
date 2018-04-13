@@ -2,7 +2,7 @@
 Name=Screenlock Monitor
 GenericName=Screenlock Monitor
 Comment=Execute various commands at screen lock and unlock events.
-Exec=~/.shell/bin/screenlock-monitor.sh
+Exec=.shell/bin/screenlock-monitor.sh
 Terminal=false
 Type=Application
 X-GNOME-Autostart-enabled=true
