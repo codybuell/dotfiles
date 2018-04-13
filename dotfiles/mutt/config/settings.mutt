@@ -26,8 +26,9 @@ set include = yes # Include quoted copy of message in reply.
 # Changes:
 # - Show time in date/time.
 # - Show local date/time.
-set index_format = "%4C %Z %[%b %d %R] %-15.15L (%?l?%4l&%4c?) %s"
-
+#set index_format = "%4C %Z %[%b %d %R] %-15.15L (%?l?%4l&%4c?) %s"
+set index_format = "%4C %?l?%4l&%4c? [%Z%?X?%2X&  ?] %?M?↴& ? %d  %-20.20L  %s%> %?y?[%Y]?"
+set date_format = "!%a %d.%m.%y %I:%M:%S%P"
 set mail_check = 60
 set mail_check_recent = no
 set mailcap_path = "~/.mutt/config/mailcap"
@@ -43,12 +44,15 @@ set pager_format = '=%b %C/%m: %-20.20F   %s%*—(%P)'
 set pager_index_lines = 12
 set pager_stop = yes # Don't move to the next message when paging past the bottom of a message.
 set query_command="lbdbq %s 2> /dev/null"
-set realname = '{{ Name }}'
+set realname = 'Cody Buell'
 set reply_to = yes # Instead of asking, always reply to Reply-to:
 set resolve = no # Don't auto-advance to the next message after every single op.
 set sidebar_divider_char = '│'
 set sidebar_folder_indent = yes
-set sidebar_format = "%B%> %?n?•? "
+#set sidebar_format = "%B%> %?n?•? "
+# mailbox name [flagged]           unread/total
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
 set sidebar_indent_string = ' '
 set sidebar_short_path = yes
 set sidebar_visible = yes
