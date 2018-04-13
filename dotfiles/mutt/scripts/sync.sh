@@ -9,6 +9,8 @@ ACCOUNT="$1"
 BACKOFF=0
 MAX_BACKOFF=480 # 8 minutes
 
+mkdir -p $HOME/.mutt/tmp
+
 PIDFILE="$HOME/.mutt/tmp/sync-$1.pid"
 echo $$ > "$PIDFILE"
 trap "rm -f '$PIDFILE'" SIGTERM

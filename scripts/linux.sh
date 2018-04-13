@@ -111,6 +111,7 @@ if [ -f /etc/redhat-release ]; then
     golang
     google-chrome-stable
     imapfilter
+    iperf
     isync
     lastpass-cli
     libcurl

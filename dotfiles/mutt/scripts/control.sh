@@ -1,20 +1,17 @@
 #!/bin/sh
 
-if [ $# -eq 1 ]; then
-  case $1 in
-    home|work|client)
-      "$HOME/.mutt/scripts/sync.sh" "$1" || reattach-to-user-namespace terminal-notifier -title mutt -message "~/.mutt/scripts/sync.sh ($1) exited" Enter
-      exit 0
-      ;;
-    *)
-      echo "Unrecognized argument: $1 (supported arguments: home, work, client)"
-      exit 1
-      ;;
-  esac
-elif [ $# -ne 0 ]; then
-  echo "Expected 0 or 1 arguments, got $#"
-  exit 1
-fi
+###########
+# Helpers #
+###########
+
+function usage() {
+  echo "Commands:"
+  echo "  exit   - exit this control loop"
+  echo "  help   - show this help"
+  echo "  pause  - pause email sync"
+  echo "  resume - resume email sync"
+  echo "  sync   - force an immediate email sync"
+}
 
 function signal() {
   SIGNAL=$1
@@ -38,6 +35,60 @@ function resume() {
   signal "-CONT" "$PIDFILE"
 }
 
+###########
+# Actions #
+###########
+
+function pausing() {
+  pause "$HOME/.mutt/tmp/sync-home.pid"
+  pause "$HOME/.mutt/tmp/sync-work.pid"
+  pause "$HOME/.mutt/tmp/sync-client.pid"
+}
+
+function resuming() {
+  resume "$HOME/.mutt/tmp/sync-home.pid"
+  resume "$HOME/.mutt/tmp/sync-work.pid"
+  resume "$HOME/.mutt/tmp/sync-client.pid"
+}
+
+function syncing() {
+  "$HOME/.mutt/scripts/download.sh" home
+  "$HOME/.mutt/scripts/download.sh" work
+  "$HOME/.mutt/scripts/download.sh" client
+}
+
+##########
+# Run It #
+##########
+
+if [ $# -eq 1 ]; then
+  case $1 in
+    home|work|client )
+      "$HOME/.mutt/scripts/sync.sh" "$1" || reattach-to-user-namespace terminal-notifier -title mutt -message "~/.mutt/scripts/sync.sh ($1) exited" Enter
+      exit 0
+      ;;
+    pause|paus|pau|pa|p )
+      pausing
+      exit 0
+      ;;
+    resume|resum|resu|res|re|r )
+      resuming
+      exit 0
+      ;;
+    sync|syn|sy|s )
+      syncing
+      exit 0
+      ;;
+    * )
+      echo "Unrecognized argument: $1 (supported arguments: home, work, client, pause, resume)"
+      exit 1
+      ;;
+  esac
+elif [ $# -ne 0 ]; then
+  echo "Expected 0 or 1 arguments, got $#"
+  exit 1
+fi
+
 COMMAND=help
 while true; do
   case $COMMAND in
@@ -45,30 +96,19 @@ while true; do
       exit
       ;;
     help|hel|he|h|\?)
-      echo "Commands:"
-      echo "  exit   - exit this control loop"
-      echo "  help   - show this help"
-      echo "  pause  - pause email sync"
-      echo "  resume - resume email sync"
-      echo "  sync   - force an immediate email sync"
+      usage
       ;;
     pause|paus|pau|pa|p)
       echo "Pausing:"
-      pause "$HOME/.mutt/tmp/sync-home.pid"
-      pause "$HOME/.mutt/tmp/sync-work.pid"
-      pause "$HOME/.mutt/tmp/sync-client.pid"
+      pausing
       ;;
     resume|resum|resu|res|re|r)
       echo "Resuming:"
-      resume "$HOME/.mutt/tmp/sync-home.pid"
-      resume "$HOME/.mutt/tmp/sync-work.pid"
-      resume "$HOME/.mutt/tmp/sync-client.pid"
+      resuming
       ;;
     sync|syn|sy|s)
       echo "Syncing:"
-      "$HOME/.mutt/scripts/download.sh" home
-      "$HOME/.mutt/scripts/download.sh" work
-      "$HOME/.mutt/scripts/download.sh" client
+      syncing
       ;;
     *)
       echo "Invalid command: $COMMAND"
