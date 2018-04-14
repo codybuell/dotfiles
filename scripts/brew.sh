@@ -55,8 +55,8 @@ PACKAGES=( \
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation
     'msmtp' \                       # smtp client used with mutt config
-    'mutt' \                        # command line email client
     'mysql'                         # database server for local dev
+    'neomutt' \                     # command line email client
     'nmap' \                        # network utility
     'node' \                        # server side js
     'notmuch' \                     # mail search for mutt
