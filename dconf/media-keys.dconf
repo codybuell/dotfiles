@@ -1,2 +1,4 @@
 [/]
 screensaver='<Primary><Alt>l'
+area-screenshot-clip='<Shift><Super>dollar'
+window-screenshot-clip='<Shift><Super>percent'
