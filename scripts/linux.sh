@@ -498,6 +498,7 @@ importdconf() {
   # to export cofigs:
   #   dconf dump /config/path/ > filename.dconf
   #   - /org/gnome/terminal/legacy/profiles:/          # terminal
+  #   - /org/gnome/terminal/legacy/keybindings/          # terminal keyboard shortcuts
   #   - /org/gnome/shell/                              # app favorites, window-switcher
   #   - /org/gnome/settings-daemon/plugins/xsettings/  # antialiasing
   #   - /org/gnome/desktop/interface/                  # system font, theme, clock format...
@@ -517,6 +518,7 @@ importdconf() {
 
   # reset
   dconf reset -f /org/gnome/terminal/legacy/profiles:/
+  dconf reset -f /org/gnome/terminal/legacy/keybindings/
   dconf reset -f /org/gnome/shell/
   dconf reset -f /org/gnome/settings-daemon/plugins/xsettings/
   dconf reset -f /org/gnome/desktop/interface/
@@ -532,6 +534,7 @@ importdconf() {
 
   # load
   dconf load /org/gnome/terminal/legacy/profiles:/ < dconf/terminal.dconf
+  dconf load /org/gnome/terminal/legacy/keybindings/ < dconf/terminal-keybindings.dconf
   dconf load /org/gnome/shell/ < dconf/shell.dconf
   dconf load /org/gnome/settings-daemon/plugins/xsettings/ < dconf/xsettings.dconf
   dconf load /org/gnome/desktop/interface/ < dconf/desktop-interface.dconf

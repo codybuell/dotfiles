@@ -7,3 +7,6 @@ favorite-apps=['org.gnome.Terminal.desktop', 'google-chrome.desktop', 'org.gnome
 [window-switcher]
 current-workspace-only=false
 app-icon-mode='thumbnail-only'
+
+[keybindings]
+toggle-message-tray=['<Super>k', '<Super>m']
