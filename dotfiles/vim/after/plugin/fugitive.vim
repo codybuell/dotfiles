@@ -27,7 +27,6 @@
 
 " fugitive handy git bindings
 nnoremap <C-G>     :Gstatus<CR>
-nnoremap <C-B>     :Gblame<CR>
 nnoremap <C-P>     :Gpush origin master<CR>
 nnoremap <space>ga :Git add %:p<CR><CR>
 nnoremap <space>gs :Gstatus<CR>
