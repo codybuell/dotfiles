@@ -278,6 +278,10 @@ runlinks() {
 
 }
 
+fixperms() {
+  chmod 600 ~/.msmtprc
+}
+
 ################
 # Long Options #
 ################
@@ -331,3 +335,4 @@ else
   runlinks
 fi
 placefiles
+fixperms
