@@ -132,6 +132,7 @@ if [ -f /etc/redhat-release ]; then
     npm
     openldap-devel
     opensc
+    pandoc
     pass
     pcsc-lite
     pcsc-tools
