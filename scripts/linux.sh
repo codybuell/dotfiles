@@ -306,6 +306,28 @@ addcustomrepos() {
   esac
 }
 
+buildlbdb() {
+  # deb deps: 
+  # el deps:  
+
+  # set the full path to repos, no ~/'s
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/lbdb"
+  # if already there get the latest
+  if [ -d $TPATH ]; then
+    cd $TPATH
+    git pull origin master
+  # else clone it from scratch
+  else
+    git clone https://github.com/tgray/lbdb.git $TPATH
+    cd $TPATH
+  fi
+
+  # config and build
+  ./configure
+  make
+  /usr/bin/sudo make install
+}
+
 buildtmux() {
   # deb deps: libevent-2.0-5 libevent-core-2.0-5 libevent-dev automake libncurses5-dev libncursesw5-dev
   # el deps:  package_install libevent-dev automake libncurses5-dev libncursesw5-dev libevent-devel ncurses-devel glibc-static
@@ -675,6 +697,7 @@ package_remove $REMOVE
 package_install $INSTALL
 package_check $INSTALL
 installphp
+buildlbdb $ReposPath
 buildtmux $ReposPath
 buildvim $ReposPath
 buildzsh $ReposPath
