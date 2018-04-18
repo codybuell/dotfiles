@@ -1,1 +1,2 @@
 COMMAND open %s
+COMMAND /opt/google/chrome/chrome

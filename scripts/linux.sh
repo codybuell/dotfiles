@@ -143,6 +143,7 @@ if [ -f /etc/redhat-release ]; then
     python-devel
     ruby-devel
     rxvt-unicode-256color
+    urlview
     virt-manager
     w3m
     xdotool

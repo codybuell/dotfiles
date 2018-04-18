@@ -78,8 +78,11 @@ Todo
    - move it to a ps1 line update instead...?
    - solution for vim?
    - just deal with it?
-- after linux config and logging out you are prompted to create a new account on centos7...
-- on linux installs, ~/.msmtprc tls path needs to be changed:  /etc/ssl/certs/ca-bundle.crt
+- on linux installs:
+
+        ~/.msmtprc tls path needs to be changed:  /etc/ssl/certs/ca-bundle.crt
+        ~/.urlview needs to be setup with correct command
+        ~/.lbdbrc needts to be adjusted
 
 References
 ----------
