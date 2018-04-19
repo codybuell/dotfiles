@@ -97,11 +97,13 @@ if [ -f /etc/redhat-release ]; then
   INSTALL+='
     ack
     automake
+    cairo-devel
     chromedriver
     chromium
     ctags
     elinks
     freerdp
+    freetype-devel
     fwknop
     glibc-static
     gnupg1
@@ -111,6 +113,7 @@ if [ -f /etc/redhat-release ]; then
     golang
     google-chrome-stable
     imapfilter
+    imlib2-devel
     iperf
     isync
     lastpass-cli
@@ -121,6 +124,13 @@ if [ -f /etc/redhat-release ]; then
     libgcrypt-devel
     libncurses5-dev
     libncursesw5-dev
+    librsvg2-devel
+    libX11-devel
+    libXdamage-devel
+    libXext-devel
+    libXft-devel
+    libXinerama-devel
+    lua-devel
     mariadb
     mariadb-server
     msmtp
@@ -143,6 +153,7 @@ if [ -f /etc/redhat-release ]; then
     python-devel
     ruby-devel
     rxvt-unicode-256color
+    tolua++-devel
     urlview
     virt-manager
     w3m
@@ -305,6 +316,33 @@ addcustomrepos() {
       echo
       ;;
   esac
+}
+
+buildconky() {
+  # deb deps: libtolua-dev libtolua++5.1-dev libx11-dev libxft-dev libxdamage-dev libncurses5-dev libxinerama-dev
+  # el deps: libX11-devel libXdamage-devel libXext-devel freetype-devel libXft-devel lua-devel imlib2-devel libXinerama-devel cairo-devel tolua++-devel librsvg2-devel
+
+  # set the full path to repos, no ~/'s
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/conky"
+  # if already there get the latest
+  if [ -d $TPATH ]; then
+    cd $TPATH
+    git pull origin master
+  # else clone it from scratch
+  else
+    git clone https://github.com/brndnmtthws/conky.git $TPATH
+    cd $TPATH
+  fi
+
+  # config and build
+  mkdir build
+  cd build
+  cmake -D BUILD_LUA_RSVG=ON -D BUILD_LUA_CAIRO=ON -D BUILD_LUA_IMLIB2=ON ..
+  # this will launch a curses-based UI where you can configure
+  # everything, when you are ready you can build as usual:
+  make               # this will compile conky in the `src` subdirectory
+  sudo make install
+
 }
 
 buildlbdb() {
@@ -698,6 +736,7 @@ package_remove $REMOVE
 package_install $INSTALL
 package_check $INSTALL
 installphp
+buildconky $ReposPath
 buildlbdb $ReposPath
 buildtmux $ReposPath
 buildvim $ReposPath
