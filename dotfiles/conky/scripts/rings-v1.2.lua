@@ -15,6 +15,82 @@ Changelog:
 + v1.0 -- Original release (28.09.2009)
 ]]
 
+CPU1 = {
+  cores=16,
+  cstart=1,
+  xcord=650,
+  ycord=150,
+  bgcol='0x333333',
+  fgcol='0xcd5c5c',
+  bgopa=0.05,
+  fgopa=0.5,
+}
+
+cpu1 = {}
+for i = 0, CPU1['cores'] - 1, 1
+do
+  table.insert(cpu1, {
+    name='cpu',
+    arg='cpu' .. (i + CPU1['cstart']),
+    max=100,
+    bg_colour=CPU1['bgcol'],
+    bg_alpha=CPU1['bgopa'],
+    fg_colour=CPU1['fgcol'],
+    fg_alpha=CPU1['fgopa'],
+    x=CPU1['xcord'], y=CPU1['ycord'],
+    radius=35 + (i * 5),
+    thickness=4,
+    start_angle=0,
+    end_angle=360
+  })
+end
+
+-- troubleshooting tables, dump to console
+-- function tprint (tbl, indent)
+--   if not indent then indent = 0 end
+--   for k, v in pairs(tbl) do
+--     formatting = string.rep("  ", indent) .. k .. ": "
+--     if type(v) == "table" then
+--       print(formatting)
+--       tprint(v, indent+1)
+--     else
+--       print(formatting .. v)
+--     end
+--   end
+-- end
+-- 
+-- tprint(cpu1, 2)
+
+CPU2 = {
+  cores=16,
+  cstart=17,
+  xcord=650,
+  ycord=400,
+  bgcol=0x333333,
+  fgcol=0xcd5c5c,
+  bgopa=0.05,
+  fgopa=0.5,
+}
+
+cpu2 = {}
+for i = 0, CPU2['cores'] - 1, 1
+do
+  table.insert(cpu2, {
+    name='cpu',
+    arg=i + CPU2['cstart'],
+    max=100,
+    bg_colour=CPU2['bgcol'],
+    bg_alpha=CPU2['bgopa'],
+    fg_colour=CPU2['fgcol'],
+    fg_alpha=CPU2['fgopa'],
+    x=CPU2['xcord'], y=CPU2['ycord'],
+    radius=35 + (i * 5),
+    thickness=4,
+    start_angle=0,
+    end_angle=360
+  })
+end
+
 settings_table = {
 --{
 --  -- Edit this table to customise your rings.
@@ -72,455 +148,455 @@ settings_table = {
 --  start_angle=0,
 --  end_angle=360
 --},
-  {
-    name='cpu',
-    arg='cpu17',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=110,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu18',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=105,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu19',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=100,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu20',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=95,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu21',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=90,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu22',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=85,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu23',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=80,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu24',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=75,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu25',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=70,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu26',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=65,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu27',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=60,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu28',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=55,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu29',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=50,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu30',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=45,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu31',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=40,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu32',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=400,
-    radius=35,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  -- personal
-  {
-    name='cpu',
-    arg='cpu1',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=110,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu2',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=105,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu3',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=100,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu4',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=95,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu5',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=90,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu6',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=85,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu7',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=80,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu8',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=75,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu9',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=70,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu10',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=65,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu11',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=60,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu12',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=55,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu13',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=50,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu14',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=45,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu15',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=40,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
-  {
-    name='cpu',
-    arg='cpu16',
-    max=100,
-    bg_colour=0xffffff,
-    bg_alpha=0.05,
-    fg_colour=0xcd5c5c,
-    fg_alpha=0.5,
-    x=650, y=150,
-    radius=35,
-    thickness=4,
-    start_angle=0,
-    end_angle=360
-  },
+--{
+--  name='cpu',
+--  arg='cpu17',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=110,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu18',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=105,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu19',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=100,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu20',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=95,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu21',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=90,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu22',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=85,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu23',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=80,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu24',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=75,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu25',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=70,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu26',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=65,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu27',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=60,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu28',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=55,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu29',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=50,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu30',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=45,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu31',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=40,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu32',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=400,
+--  radius=35,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+---- personal
+--{
+--  name='cpu',
+--  arg='cpu1',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=110,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu2',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=105,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu3',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=100,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu4',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=95,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu5',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=90,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu6',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=85,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu7',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=80,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu8',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=75,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu9',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=70,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu10',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=65,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu11',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=60,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu12',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=55,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu13',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=50,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu14',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=45,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu15',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=40,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
+--{
+--  name='cpu',
+--  arg='cpu16',
+--  max=100,
+--  bg_colour=0x333333,
+--  bg_alpha=0.05,
+--  fg_colour=0xcd5c5c,
+--  fg_alpha=0.5,
+--  x=650, y=150,
+--  radius=35,
+--  thickness=4,
+--  start_angle=0,
+--  end_angle=360
+--},
 ---- end personal
 --{
 --  name='cpu',
@@ -650,6 +726,8 @@ settings_table = {
   },
 }
 
+--table.insert(settings_table, cpu1)
+
 require 'cairo'
 
 function rgb_to_r_g_b(colour,alpha)
@@ -684,24 +762,24 @@ function conky_ring_stats()
   local function setup_rings(cr,pt)
     local str=''
     local value=0
-    
+
     str=string.format('${%s %s}',pt['name'],pt['arg'])
     str=conky_parse(str)
-    
+
     value=tonumber(str)
     pct=value/pt['max']
-    
+
     draw_ring(cr,pct,pt)
   end
 
   if conky_window==nil then return end
   local cs=cairo_xlib_surface_create(conky_window.display,conky_window.drawable,conky_window.visual, conky_window.width,conky_window.height)
-  
-  local cr=cairo_create(cs)  
-  
+
+  local cr=cairo_create(cs)
+
   local updates=conky_parse('${updates}')
   update_num=tonumber(updates)
-  
+
   if update_num>1 then
     for i in pairs(settings_table) do
       setup_rings(cr,settings_table[i])
