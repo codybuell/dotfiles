@@ -1,0 +1,30 @@
+conky.config = {
+  update_interval=5,
+  background=false,
+  text_buffer_size=2048,
+  double_buffer=true,
+  no_buffers=true,
+  use_xft=true,
+  font='monospace:pixelsize=11',
+  draw_shades=false,
+  override_utf8_locale=true,
+  own_window=true,
+  own_window_type='dock',
+  own_window_class='Conky',
+  own_window_transparent=true,
+  own_window_hints='undecorated,below,sticky,skip_taskbar,skip_pager',
+  own_window_colour='#000000',
+  own_window_argb_visual = true,
+  own_window_argb_value = 0,
+  draw_graph_borders=false,
+  minimum_width = 800, minimum_height = 2070,
+  alignment = 'top_right',
+  gap_x = 0,
+  gap_y = 40,
+  default_color = '#494b5a',
+  lua_load = '~/.conky/scripts/rings-v1.2.lua',
+  lua_draw_hook_pre = 'ring_stats'
+};
+
+conky.text = [[
+]];
