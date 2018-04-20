@@ -34,13 +34,16 @@ readconfig
 
 case $UNAME in
   Linux )
-    # load selinux module so we can run web applications from home dir
     if [ -f /etc/redhat-release ]; then
+      # load selinux module so we can run web applications from home dir
       /usr/bin/sudo mkdir /etc/selinux/local
       /usr/bin/sudo cp $CONFGDIR/miscellaneous/laravel-valet.te /etc/selinux/local/
       /usr/bin/sudo checkmodule -M -m -o /etc/selinux/local/laravel-valet.mod /etc/selinux/local/laravel-valet.te
       /usr/bin/sudo semodule_package -o /etc/selinux/local/laravel-valet.pp -m /etc/selinux/local/laravel-valet.mod
       /usr/bin/sudo semodule -i /etc/selinux/local/laravel-valet.pp
+
+      # configure sebool
+      setsebool -P httpd_read_user_content true
     fi
 
     # (dont install as root)
