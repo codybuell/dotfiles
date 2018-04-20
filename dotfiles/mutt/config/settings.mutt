@@ -78,3 +78,7 @@ set ts_status_format = 'mutt %m messages%?n?, %n new?'
 set uncollapse_jump = yes
 set user_agent = no # Don't add User-Agent header.
 set wait_key = no
+
+# forward message with attachments
+set mime_forward
+set mime_forward_rest=yes
