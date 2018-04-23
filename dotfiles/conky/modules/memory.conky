@@ -17,13 +17,13 @@ conky.config = {
   own_window_argb_visual = true,
   own_window_argb_value = 0,
   draw_graph_borders=false,
-  minimum_width = 1680, minimum_height = 1050,
-  alignment = 'top_left',
+  minimum_width = 800, minimum_height = 2070,
+  alignment = 'top_right',
   gap_x = 0,
-  gap_y = 0,
+  gap_y = 40,
   default_color = '#494b5a',
-  lua_load = '~/.conky/scripts/conky_simple.lua',
-  lua_draw_hook_pre = 'conky_main'
+  lua_load = '~/.conky/scripts/conky.lua',
+  lua_draw_hook_pre = 'memory_stats'
 };
 
 conky.text = [[

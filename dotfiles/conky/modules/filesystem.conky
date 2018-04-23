@@ -1,5 +1,5 @@
 conky.config = {
-  update_interval=1800,
+  update_interval=5,
   background=false,
   text_buffer_size=2048,
   double_buffer=true,
@@ -17,13 +17,13 @@ conky.config = {
   own_window_argb_visual = true,
   own_window_argb_value = 0,
   draw_graph_borders=false,
-  minimum_width = 1680, minimum_height = 1050,
-  alignment = 'top_left',
-  gap_x = 0,
-  gap_y = 0,
+  minimum_width = 235, minimum_height = 480,
+  alignment = 'top_right',
+  gap_x = 40,
+  gap_y = 540,
   default_color = '#494b5a',
-  lua_load = '~/.conky/scripts/conky_simple.lua',
-  lua_draw_hook_pre = 'conky_fs_main'
+  lua_load = '~/.conky/scripts/conky.lua',
+  lua_draw_hook_pre = 'filesystem_stats'
 };
 
 conky.text = [[

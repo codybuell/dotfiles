@@ -17,13 +17,13 @@ conky.config = {
   own_window_argb_visual = true,
   own_window_argb_value = 0,
   draw_graph_borders=false,
-  minimum_width = 800, minimum_height = 2070,
+  minimum_width = 235, minimum_height = 480,
   alignment = 'top_right',
-  gap_x = 0,
+  gap_x = 40,
   gap_y = 40,
   default_color = '#494b5a',
-  lua_load = '~/.conky/scripts/rings-v1.2.lua',
-  lua_draw_hook_pre = 'ring_stats'
+  lua_load = '~/.conky/scripts/conky.lua',
+  lua_draw_hook_pre = 'cpu_stats'
 };
 
 conky.text = [[
