@@ -43,6 +43,10 @@
 #    /secure set znc <pass>                                                    #
 #    /secure set bitlbee <pass>                                                #
 #                                                                              #
+#    # if you are using freenode (also uncomment the config):                  #
+#    /secure set freenode <freenode passwd>                                    #
+#    /secure set freenodeun <freenode username>                                #
+#                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
 #    OSX:                                                                      #
 #    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py
@@ -408,6 +412,16 @@
 #
 ## znc alias for sending commands to server
 #/alias add znc /quote znc
+
+################################################################################
+#                                                                              #
+# FREENODE                                                                     #
+#                                                                              #
+################################################################################
+
+## freenode
+#/server add chat.freenode.net/6697 -ssl -autoconnect
+#/set irc.server.chat.freenode.net/6697.command /msg nickserv identify ${sec.data.freenodeun} ${sec.data.freenode};/join #laravel;/join #salt; /join #sssd
 
 ################################################################################
 #                                                                              #
