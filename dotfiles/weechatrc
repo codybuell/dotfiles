@@ -420,8 +420,9 @@
 ################################################################################
 
 ## freenode
-#/server add chat.freenode.net/6697 -ssl -autoconnect
-#/set irc.server.chat.freenode.net/6697.command /msg nickserv identify ${sec.data.freenodeun} ${sec.data.freenode};/join #laravel;/join #salt; /join #sssd
+#/server add freenode -ssl -autoconnect
+#/set irc.server.freenode.addresses "chat.freenode.net/6697"
+#/set irc.server.freenode.command /msg nickserv identify ${sec.data.freenodeun} ${sec.data.freenode};/join #laravel;/join #salt; /join #sssd
 
 ################################################################################
 #                                                                              #
