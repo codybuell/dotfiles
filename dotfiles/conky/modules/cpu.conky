@@ -1,5 +1,5 @@
 conky.config = {
-  update_interval=5,
+  update_interval=1,
   background=false,
   text_buffer_size=2048,
   double_buffer=true,

@@ -162,67 +162,70 @@ memory_rings_table = {
 -------------------------
 -------------------------
 
-filesystem_text_table = {}
-filesystem_bars_table = {}
+function query_filesystem_stats()
 
--- grab all non-temp filesystems and their stats
-local mount_raw = conky_parse("${exec df -hP -x tmpfs -x devtmpfs | grep -v 'Mounted on'}")
-local mounts = {}
-for line in string.gmatch(mount_raw, '([^\n]+)') do
-  table.insert(mounts, line)
-end
+  filesystem_text_table = {}
+  filesystem_bars_table = {}
 
--- starting y coordinates
-local filesystem_text_start_y = 10
-local filesystem_bar_start_y  = 20
-
--- loop through all mounts and build tables
-for line = 1,table.getn(mounts) do
-  -- split the line into a table
-  local index = 1
-  local mount = {}
-  for value in string.gmatch(mounts[line], "%S+") do 
-    mount[index] = value
-    index = index + 1
+  -- grab all non-temp filesystems and their stats
+  local mount_raw = conky_parse("${exec df -hP -x tmpfs -x devtmpfs | grep -v 'Mounted on'}")
+  local mounts = {}
+  for line in string.gmatch(mount_raw, '([^\n]+)') do
+    table.insert(mounts, line)
   end
 
-  -- append onto the filesystem text table
-  table.insert(filesystem_text_table, {
-    font="Mono",
-    font_size=10,
-    text=mount[6],
-    xpos=1, ypos=filesystem_text_start_y,
-    fgcol=0x333333,
-    fgopa=0.4,
-    font_slant=CAIRO_FONT_SLANT_NORMAL,
-    font_face=CAIRO_FONT_WEIGHT_NORMAL,
-  })
+  -- starting y coordinates
+  local filesystem_text_start_y = 10
+  local filesystem_bar_start_y  = 20
 
-  table.insert(filesystem_bars_table, {
-    conky_value = 'fs_used_perc ' .. mount[6],
-    from = {x = 0, y = filesystem_bar_start_y},
-    to = {x = 235, y = filesystem_bar_start_y},
-    background_thickness = 10,
-    bar_thickness = 10,
-    max_value = 100,
-    critical_threshold = 80,
-    change_color_on_critical = true,
-    background_color = 0x333333,
-    background_alpha = 0.05,
-    background_color_critical = 0x333333,
-    background_alpha_critical = 0.05,
-    graduated = true,
-    number_graduation = 50,
-    space_between_graduation = 2,
-    bar_color = 0x333333,
-    bar_alpha = 0.5,
-    bar_color_critical = 0xcd5c5c,
-    bar_alpha_critical = 0.5,
-  })
+  -- loop through all mounts and build tables
+  for line = 1,table.getn(mounts) do
+    -- split the line into a table
+    local index = 1
+    local mount = {}
+    for value in string.gmatch(mounts[line], "%S+") do 
+      mount[index] = value
+      index = index + 1
+    end
 
-  -- increment for the next go around
-  filesystem_text_start_y = filesystem_text_start_y + 30
-  filesystem_bar_start_y = filesystem_bar_start_y + 30
+    -- append onto the filesystem text table
+    table.insert(filesystem_text_table, {
+      font="Mono",
+      font_size=10,
+      text=mount[6],
+      xpos=1, ypos=filesystem_text_start_y,
+      fgcol=0x333333,
+      fgopa=0.4,
+      font_slant=CAIRO_FONT_SLANT_NORMAL,
+      font_face=CAIRO_FONT_WEIGHT_NORMAL,
+    })
+
+    table.insert(filesystem_bars_table, {
+      conky_value = 'fs_used_perc ' .. mount[6],
+      from = {x = 0, y = filesystem_bar_start_y},
+      to = {x = 235, y = filesystem_bar_start_y},
+      background_thickness = 10,
+      bar_thickness = 10,
+      max_value = 100,
+      critical_threshold = 80,
+      change_color_on_critical = true,
+      background_color = 0x333333,
+      background_alpha = 0.05,
+      background_color_critical = 0x333333,
+      background_alpha_critical = 0.05,
+      graduated = true,
+      number_graduation = 50,
+      space_between_graduation = 2,
+      bar_color = 0x333333,
+      bar_alpha = 0.5,
+      bar_color_critical = 0xcd5c5c,
+      bar_alpha_critical = 0.5,
+    })
+
+    -- increment for the next go around
+    filesystem_text_start_y = filesystem_text_start_y + 30
+    filesystem_bar_start_y = filesystem_bar_start_y + 30
+  end
 end
 
 filesystem_rings_table = {
@@ -574,7 +577,7 @@ function conky_cpu_stats()
   local updates=conky_parse('${updates}')
   update_num=tonumber(updates)
 
-  if update_num>1 then
+  if update_num>5 then
     for i in pairs(cpu_rings_table) do
       setup_rings(cr,cpu_rings_table[i])
     end
@@ -587,6 +590,9 @@ end
 
 -- filesystem stats
 function conky_filesystem_stats()
+
+  query_filesystem_stats()
+
   if conky_window==nil then return end
   local cs=cairo_xlib_surface_create(conky_window.display,conky_window.drawable,conky_window.visual, conky_window.width,conky_window.height)
 
