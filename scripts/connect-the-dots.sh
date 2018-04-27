@@ -119,6 +119,12 @@ placefiles() {
   # iterate through the dotfiles
   for i in ${DOTFILES[@]}; do
 
+    # if file does not exist, bail
+    if [[ ! -f $DOTS_LOC/$i ]]; then
+      prettyprint "  .${i} \033[0;31mdoes not exist\033[0m\n"
+      continue 2
+    fi
+
     # pass on ignore files
     for IGN in ${IGNORE[@]}; do
       if [ $i == $IGN ]; then
