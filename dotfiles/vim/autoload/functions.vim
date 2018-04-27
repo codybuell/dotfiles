@@ -174,7 +174,7 @@ function! functions#Underline() abort
   let l:chars = empty(l:chars) ? '-' : l:chars
   let l:nr_columns = virtcol('$') - 1
   let l:uline = repeat(l:chars, (l:nr_columns / len(l:chars)) + 1)
-  if !v:shell_error && system("echo -n \"$(uname)\"") == "Linux"
+  if !v:shell_error && system("echo \"$(uname)\"") == "Linux"
     let put = strpart(l:uline, 0, nr_columns)   " linux
   else
     put = strpart(l:uline, 0, nr_columns)       " osx
