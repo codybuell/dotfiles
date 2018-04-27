@@ -344,7 +344,7 @@ function repocheck() {
     if [ $? -gt 0 ]; then
       printf "$i \033[1;30mnot~a~repo\033[0;m" | \
       awk '{printf "%-50s %s\n", $1, $2}' | \
-      sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
+      sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
       continue
     else
       LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m")
@@ -369,7 +369,7 @@ function repocheck() {
           RSTAT=$(printf "\033[0;33mdiverged\033[0;m")
         fi
       fi
-      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-50s %s\n", $1, $2}' | sed "s/ /./g;s/\([A-z0-9]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
+      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-50s %s\n", $1, $2}' | sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
     fi
   done
 
