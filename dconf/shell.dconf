@@ -3,6 +3,7 @@ button-layout='appmenu:minimize,close'
 
 [/]
 favorite-apps=['org.gnome.Terminal.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop']
+enabled-extensions=['temperature@xtranophilist', 'indicator-sensors@alexmurray.github.com', 'audio-switcher@AndresCidoncha', 'user-theme@gnome-shell-extensions.gcampax.github.com']
 
 [window-switcher]
 current-workspace-only=false
