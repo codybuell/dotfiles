@@ -127,3 +127,9 @@
 [submodule "dotfiles/vim/bundle/webapi-vim"]
 	path = dotfiles/vim/bundle/webapi-vim
 	url = https://github.com/mattn/webapi-vim
+[submodule "dotfiles/vim/bundle/limelight.vim"]
+	path = dotfiles/vim/bundle/limelight.vim
+	url = https://github.com/junegunn/limelight.vim.git
+[submodule "dotfiles/vim/bundle/goyo.vim"]
+	path = dotfiles/vim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim.git

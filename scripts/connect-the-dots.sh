@@ -119,9 +119,9 @@ placefiles() {
   # iterate through the dotfiles
   for i in ${DOTFILES[@]}; do
 
-    # if file does not exist, bail
-    if [[ ! -f $DOTS_LOC/$i ]]; then
-      prettyprint "  .${i} \033[0;31mdoes not exist\033[0m\n"
+    # if file or dir does not exist, bail
+    if [[ (! -f $DOTS_LOC/$i) && (! -d $DOTS_LOC/$i) ]]; then
+      prettyprint "  .${i} \033[0;31mnot found in repo\033[0m\n"
       continue 2
     fi
 

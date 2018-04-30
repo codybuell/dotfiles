@@ -41,6 +41,9 @@ nnoremap <silent> <localleader>c      :syntax sync fromstart<CR>
 " comceal
 nnoremap <silent> <leader>2           :Comceal<CR>
 
+" goyo
+nnoremap <silent> <leader>5           :Goyo<CR>
+
 " w3m
 nnoremap          <leader>i           :W3m 
 
