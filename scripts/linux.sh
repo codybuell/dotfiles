@@ -140,6 +140,7 @@ if [ -f /etc/redhat-release ]; then
     ncurses-libs
     neomutt
     npm
+    openbox
     openldap-devel
     opensc
     pandoc
@@ -157,6 +158,7 @@ if [ -f /etc/redhat-release ]; then
     urlview
     virt-manager
     w3m
+    wmctrl
     xdotool
     xsel
     ykclient
