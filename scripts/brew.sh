@@ -72,6 +72,7 @@ PACKAGES=( \
     'rclone' \                      # cli for cloud storage providers
     'reattach-to-user-namespace' \  # reattach process to background
     'rg' \                          # ripgrep, faster ack
+    'ruby' \                        # use brew ruby over osx provided
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
     'terminal-notifier' \           # send osx notifications through terminal
