@@ -110,7 +110,7 @@ CASKS=( \
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
     'itsycal' \                     # menubar calendar
-    'karabiner' \                   # keyboard layout customization
+    'karabiner-elements' \          # keyboard layout customization
     'keycastr' \                    # show keystrokes on screen
     'libreoffice' \                 # open source office suite
     'licecap' \                     # gifcasting utility
