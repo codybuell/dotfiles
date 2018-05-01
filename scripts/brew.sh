@@ -63,8 +63,7 @@ PACKAGES=( \
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
     'pandoc' \                      # markup converter, used with mutt to send html email
-    'php71' \                       # (or higher)
-    'php71-mcrypt' \                # (or higher)  encryption library required for laravel development
+    'php' \                         # latest and greatest php
     'picocom' \                     # used with ino for serial connection to arduino
     'pidgin' \                      # pidgin and finch xmpp protocol clients
     'python' \                      # python language
