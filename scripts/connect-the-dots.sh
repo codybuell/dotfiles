@@ -358,8 +358,8 @@ else
   runpaths
   runlinks
 fi
-#placefiles
-#fixperms
+placefiles
+fixperms
 if [ "$1" == "" ]; then
   runcommands
 fi
