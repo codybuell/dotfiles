@@ -112,6 +112,8 @@ readconfig() {
 
 placefiles() {
 
+  printf "\033[0;34mplacing files...\033[0m\n"
+
   # grab home dir full path and timestamp
   cd; HOME=`pwd`
   DATE=`date +%Y%m%d%H%M%S`
@@ -241,6 +243,8 @@ placefiles() {
 
 runpaths() {
 
+  printf "\033[0;34msetting up paths...\033[0m\n"
+
   for p in ${CONFIGVARS[@]}; do
     VAR=$p
     eval VAL=\$$p
@@ -257,6 +261,8 @@ runpaths() {
 }
 
 runlinks() {
+
+  printf "\033[0;34msetting up symlinks...\033[0m\n"
 
   LINKMSG="32mcreating symlink"
 
@@ -279,6 +285,19 @@ runlinks() {
       }
       prettyprint "  '${DST}' \033[0;$LINKMSG\033[0m\n"
       ln -s $VAL
+    }
+  done
+
+}
+
+runcommands() {
+
+  for c in ${CONFIGVARS[@]}; do
+    VAR=$c
+    eval VAL=\$$c
+    [[ $VAR =~ COMMAND.* ]] && {
+      printf "\033[0;34mexecuting: $VAL\033[0m\n"
+      eval "$VAL"
     }
   done
 
@@ -330,7 +349,6 @@ done
 # Run It #
 ##########
 
-echo 'connecting the dots...'
 readconfig
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
@@ -340,5 +358,9 @@ else
   runpaths
   runlinks
 fi
-placefiles
-fixperms
+#placefiles
+#fixperms
+if [ "$1" == "" ]; then
+  runcommands
+fi
+exit 0

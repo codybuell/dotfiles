@@ -21,6 +21,7 @@
 PATH00 = /Users/usrnm/.gopath                           # go path root
 PATH01 = /Users/usrnm/Repos                             # repository folder
 PATH02 = /Users/usrnm/Gists                             # github gists folder
+PATH03 = /Users/pbuell/.mail                             # mutt mail directory
 PATH03 = /Users/usrnm/.mail/Home                        # mutt mail directory
 PATH04 = /Users/usrnm/.mail/Work                        # mutt mail directory
 PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
@@ -29,7 +30,7 @@ PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
 #                                                                              #
 # symlinks to create                                                           #
 #                                                                              #
-# You can create up to 100 symlinks, simply increment the variable name.       #
+# You can create unlimited symlinks, simply increment the variable name.       #
 # Each symlink should be in the format:                                        #
 #                                                                              #
 #     SYMLINK[NN] = [source path] [destination path]                           #
@@ -37,14 +38,31 @@ PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
 # Destination parent folders must already exist, use path configs above as     #
 # needed. Add or remove SYMLINKNN vars below as needed.                        #
 #                                                                              #
+# * note that if you need to symlink paths with spaces in their names setup    #
+#   custom commands in the next section for them instead.                      #
+#                                                                              #
 ################################################################################
 
 SYMLINK00 = /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
 SYMLINK01 = /Users/usrnm/Repos/bin /Users/usrnm/Bin
 SYMLINK02 = /Users/usrnm/Bin /Users/usrnm/.gopath/bin
 SYMLINK03 = /Users/usrnm/Repos /Users/usrnm/.gopath/src
-SYMLINK04 = "Google\ Drive\ File\ Stream/My\ Drive" "Google\ Drive"
-SYMLINK05 = /usr/local/bin/neomutt /usr/local/bin/mutt
+SYMLINK04 = /usr/local/bin/neomutt /usr/local/bin/mutt
+
+################################################################################
+#                                                                              #
+# custom commands to run                                                       #
+#                                                                              #
+# You can create unlimited custom commands, as with symlinks and paths just    #
+# increment the variable name. These commands are run at the very end of       #
+# `make dots` after dirs have been setup, symlinks made and dotfiles have      #
+# been placed.                                                                 #
+#                                                                              #
+# * only use single quotes in your commands                                    #
+#                                                                              #
+################################################################################
+
+COMMAND01 = ln -s '/User/usrnm/Google Drive File Stream/My Drive' '/Users/usrnm/Google Drive'
 
 ################################################################################
 #                                                                              #
