@@ -62,7 +62,7 @@ SYMLINK04 = /usr/local/bin/neomutt /usr/local/bin/mutt
 #                                                                              #
 ################################################################################
 
-COMMAND01 = ln -s '/User/usrnm/Google Drive File Stream/My Drive' '/Users/usrnm/Google Drive'
+COMMAND01 = ln -s '/Volumes/GoogleDrive/My Drive/' '/Users/usrnm/Google Drive'
 
 ################################################################################
 #                                                                              #
