@@ -120,3 +120,7 @@ export GPG_TTY=$(tty)
 
 # lastpass session length (12 hours in seconds)
 export LPASS_AGENT_TIMEOUT=43200
+
+# zsh dont show an 'unterminated end of line marker'
+# https://unix.stackexchange.com/questions/167582/why-zsh-ends-a-line-with-a-highlighted-percent-symbol
+export PROMPT_EOL_MARK=
