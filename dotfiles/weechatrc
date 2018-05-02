@@ -405,11 +405,20 @@
 #                                                                              #
 ################################################################################
 
+## znc server
+#/server add znc ${sec.data.zncaddr} -ssl -username=${sec.data.zncun} -password=${sec.data.znc} -autoconnect
+#/set irc.server.znc.ssl_fingerprint ${sec.data.zncfp}
+
 ## znc bitlbee
 #/server add znc-bitlbee ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/bitlbee -password=${sec.data.znc} -autoconnect
 #/set irc.server.znc-bitlbee.ssl_fingerprint ${sec.data.zncfp}
-#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/join &work;/join &home
-#
+#/set irc.server.znc-bitlbee.command /msg &bitlbee identify;/oper anything ${sec.data.bitlbee};/query *status;/join &work;/join &home
+
+## znc freenode
+#/server add znc-freenode ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/freenode -password=${sec.data.znc} -autoconnect
+#/set irc.server.znc-freenode.ssl_fingerprint ${sec.data.zncfp}
+#/set irc.server.znc-freenode.command /query *status; /query *sasl
+
 ## znc alias for sending commands to server
 #/alias add znc /quote znc
 
