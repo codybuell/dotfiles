@@ -53,4 +53,4 @@ fun! LBDBCompleteFn(findstart, base)
 endfun
 
 " define above as our completion function for mail file types
-sendency et completefunc=LBDBCompleteFn
+set completefunc=LBDBCompleteFn
