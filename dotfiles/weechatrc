@@ -181,7 +181,6 @@
 # linux fix ca cert location
 #/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-bundle.crt"
 
-
 # disable IRC part and quit messages:
 /set irc.server_default.msg_part ""
 /set irc.server_default.msg_quit ""
