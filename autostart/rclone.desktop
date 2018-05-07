@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Rclone
+GenericName=Rclone
+Comment=Rclone remote sync utility.
+Exec=.shell/bin/rclone.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
