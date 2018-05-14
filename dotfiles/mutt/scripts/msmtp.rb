@@ -93,6 +93,8 @@ def deliver(message)
     stdin.puts(message)
     stdin.close
     puts stdout.read
+    exit(wait_thr.value.exitstatus)
+    #puts "#{wait_thr.value.exitstatus}"
   end
 end
 
