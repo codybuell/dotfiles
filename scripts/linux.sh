@@ -347,6 +347,35 @@ buildconky() {
 
 }
 
+buildrdesktop() {
+  # deb deps: 
+  # el deps: openssl-devel pcsc-lite-devel
+  #          --enablerepo nux-dextop libgssglue-devel
+
+  # set the full path to repos, no ~/'s
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/rdesktop"
+  # if already there get the latest
+  if [ -d $TPATH ]; then
+    cd $TPATH
+    git pull origin master
+  # else clone it from scratch
+  else
+    git clone https://github.com/rdesktop/rdesktop.git $TPATH
+    cd $TPATH
+  fi
+
+  # find the latest release and check it oup
+  RDESKRELEASE=`git tag | grep -vi test | tail -1`
+  git checkout $RDESKRELEASE
+
+  # config and build
+  ./bootstrap
+  ./configure
+  make
+  /usr/bin/sudo make install
+
+}
+
 buildlbdb() {
   # deb deps: 
   # el deps:  
