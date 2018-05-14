@@ -154,6 +154,7 @@ if [ -f /etc/redhat-release ]; then
     python-devel
     ruby-devel
     rxvt-unicode-256color
+    telnet
     tolua++-devel
     urlview
     virt-manager
