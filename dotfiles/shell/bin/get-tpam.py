@@ -102,6 +102,7 @@ def main(domain, user, password):
     #os.system("echo '%s' | pbcopy" % password)
     # send password to the clipboard (linux)
     os.system("echo '%s' | xclip" % password)
+    os.system("echo '%s' | xclip -selection clipboard" % password)
 
 if __name__ == '__main__':
     main()
