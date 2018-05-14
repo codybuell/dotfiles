@@ -8,19 +8,34 @@ tpam() {
   get-tpam.py -d {{ TPAMUrl }} -u {{ TPAMUsername }} -p $TPPASSWD
 }
 
-# xfreedesktop wrapper
+# xfreedesktop/rdesktop wrapper (usage: rdp user@domain host)
 rdp() {
-  # usage: rdp user@domain host
+
+  RDP_CLIENT='rdesktop'
   RDP_USER=`echo $1 | sed 's/\@.*$//'`
   RDP_DOMAIN=`echo $1 | sed 's/^.*\@//;s/\..*$//'`
   RDP_HOST=$2
+  RDP_GEOMETRY='1920x1300'
 
-  # -K try not to mangle host os keyboard bindings
-  # -z compression
-  # -g set a geometry
-  # --plugin cliprdr allow clipboard sharing
-  # -x 0x80 font smoothing over lan connection
-  xfreerdp -K --plugin cliprdr -x 0x80 -g 1920x1300 -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+  case $RDP_CLIENT in
+    rdesktop )
+      # -D removes the window decorations for the session, no more menu bar taking up space
+      # -K lets you pass shortcuts back to the primary host, so you can switch workspaces
+      # -b use bitmaps, slower to start but better visually
+      # -P cache the bitmaps to reduce network traffic and improve performance
+      # -g your screens res, minus the os menu bar...
+      # -a your bit depth
+      rdesktop -DKbP -g ${RDP_GEOMETRY} -a 24 -d ${RDP_DOMAIN} -u ${RDP_USER} ${RDP_HOST}
+      ;;
+    xfreerdp )
+      # -K try not to mangle host os keyboard bindings
+      # -z compression
+      # -g set a geometry
+      # --plugin cliprdr allow clipboard sharing
+      # -x 0x80 font smoothing over lan connection
+      xfreerdp -K --plugin cliprdr -x 0x80 -g ${RDP_GEOMETRY} -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+      ;;
+  esac
 }
 
 # change directory, used with aliases
