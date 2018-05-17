@@ -738,7 +738,7 @@ installphp() {
   if [[ $FAMILY == 'el' ]]; then
     /usr/bin/sudo yum-config-manager --enable remi-php72
     /usr/bin/sudo yum update
-    /usr/bin/sudo yum -y install php-cli php72 php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mcrypt php72-php-mysql php72-php-mysqlnd php72-php-opcache php72-php-xml php72-php-xmlrpc
+    /usr/bin/sudo yum -y install php-cli php72 php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mcrypt php72-php-mysql php72-php-mysqlnd php72-php-opcache php72-php-xml php72-php-xmlrpc php-ldap php72-php-ldap php-mysql php72-php-pecl-mysql
   fi
 }
 
