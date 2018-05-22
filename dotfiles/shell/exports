@@ -6,6 +6,7 @@
 case `uname` in
   Darwin )
     export DISTRO='osx'
+    export TMUX_COPY_COMMAND="reattach-to-user-namespace pbcopy"
     ;;
   Linux )
     [ -f /etc/redhat-release ] && {
