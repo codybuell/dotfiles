@@ -52,6 +52,7 @@ PACKAGES=( \
     'jq' \                          # json manipulation and parsing tool
     'lbdb' \                        # used by mutt to build email auto completes
     'lockrun' \                     # used for process flow control in mutt
+    'mailhog' \                     # local mail trap service for testing
     'markdown' \                    # parsing of markdown syntax to html
     'minicom' \                     # modem control and serial terminal emulation
     'msmtp' \                       # smtp client used with mutt config
