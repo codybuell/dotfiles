@@ -451,6 +451,47 @@ buildvim() {
   /usr/bin/sudo make install
 }
 
+buildnewsbeuter() {
+  # deb deps: 
+  # el deps: pkgconfig curl-devel sqlite-devel libxml2-devel json-c-devel ncurses-devel
+
+  printf "\033[0;31mbuilding newsbeuter dependency stfl:\033[0m\n"
+
+  # install stfl from http://www.clifford.at/stfl; make; sudo make install
+  wget http://www.clifford.at/stfl/stfl-0.24.tar.gz
+  tar -xf stfl-0.24.tar.gz
+  cd stfl-0.24
+  make
+  sudo make install
+  sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf.d/usr-local.conf"
+  sudo ldconfig -v
+
+  printf "\033[0;31mbuilding newsbeuter:\033[0m\n"
+
+  # set the full path to repos, no ~/'s
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/vim"
+  # if already there get the latest
+  if [ -d $TPATH ]; then
+    cd $TPATH
+    git pull origin master
+  # else clone it from scratch
+  else
+    git clone git://github.com/akrennmair/newsbeuter.git $TPATH
+    cd $TPATH
+  fi
+
+  # find the latest release and check it oup
+  RDESKRELEASE=`git tag | grep -vi test | tail -1`
+  git checkout $RDESKRELEASE
+
+  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
+
+  # config and build
+  ./config.sh
+  make
+  /usr/bin/sudo make install
+}
+
 buildweechat() {
   # deb deps: 
   # el deps: cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
