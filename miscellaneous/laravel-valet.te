@@ -2,11 +2,13 @@ module laravel-valet 1.0;
 
 require {
 	type httpd_t;
+	type ldap_port_t;
 	type user_home_t;
 	type home_cert_t;
 	class dir { add_name create remove_name write };
 	class file { create setattr unlink write };
 	class sock_file { create setattr unlink write };
+	class tcp_socket { name_connect };
 }
 
 #============= httpd_t ==============
@@ -14,4 +16,5 @@ allow httpd_t user_home_t:file { create setattr unlink write };
 allow httpd_t user_home_t:dir { add_name create remove_name write };
 allow httpd_t user_home_t:sock_file { create setattr unlink write };
 allow httpd_t home_cert_t:file write;
+allow httpd_t ldap_port_t:tcp_socket name_connect;
 
