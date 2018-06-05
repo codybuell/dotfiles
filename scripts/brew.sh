@@ -21,6 +21,7 @@ PACKAGES=( \
     'cdrtools' \                    # contains mkisofs for building custom linux isos
     'chromedriver' \                # webapp testing server
     'clipper' \                     # clipboard listener service
+    'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
     'ctags' \                       # handy development tool, needed for vim ctags
     'ddclient' \                    # dynamic dns client, configurable for google dns
@@ -43,7 +44,6 @@ PACKAGES=( \
     'gnu-typist' \                  # typing tutor, supports colemak
     'gnupg2' \                      # gpg utilities for openpgp
     'go' \                          # the go programming language
-    'homebrew/php/composer' \       # php package manager
     'httrack' \                     # site mirroring application
     'imagemagick' \                 # command line graphics manipulation tool
     'imapfilter' \                  # tool for organizing mail directly on the server
