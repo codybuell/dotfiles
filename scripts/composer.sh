@@ -44,6 +44,8 @@ case $UNAME in
 
       # configure sebool
       setsebool -P httpd_read_user_content true
+      setsebool -P httpd_can_network_connect true
+      setsebool -P httpd_can_network_connect_db true
     fi
 
     # (dont install as root)
