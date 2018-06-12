@@ -10,7 +10,7 @@
 " overrides
 
 " customizations
-imap jj                                <esc>
+imap hh                                <esc>
 nnoremap <silent> <localleader>c       <C-O>:syntax sync fromstart<CR>
 
 " functions
