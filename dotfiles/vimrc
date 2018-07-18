@@ -69,6 +69,16 @@ execute pathogen#infect('bundle/{}')
 " always execute loading of help files
 Helptags
 
+"/////////////////////////////"
+"//                         //"
+"//  Python Configurations  //"
+"//                         //"
+"/////////////////////////////"
+
+if has('python3')
+  silent! python3 1
+endif
+
 "////////////////////////"
 "//                    //"
 "//  Override Leaders  //"
