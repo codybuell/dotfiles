@@ -64,7 +64,6 @@ alias dl="cd ~/Downloads"
 alias us="cd ~/Library/Application\ Support/Übersicht/widgets/"
 
 # files
-alias md="vi README.md"
 alias sc="vi ~/.ssh/config"
 
 # laravel

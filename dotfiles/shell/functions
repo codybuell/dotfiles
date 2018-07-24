@@ -2,6 +2,31 @@
 # function
 #
 
+# markdown shortcut
+md() {
+
+  hierarchy=( \
+    "README.txt" \
+    "readme.txt" \
+    "README.md" \
+    "readme.md" \
+    "README" \
+    "readme" \
+    )
+
+  target=$hierarchy[0]
+
+  for i in ${hierarchy[@]}; do
+    if [[ -f $i ]]; then
+      target=$i
+      break
+    fi
+  done
+
+  vim $target
+
+}
+
 # tpam to clipboard
 tpam() {
   TPPASSWD={{ TPAMPassword }}
