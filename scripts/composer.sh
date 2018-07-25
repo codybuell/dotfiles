@@ -1,10 +1,17 @@
 #!/bin/bash
 
-# define locations
+####################
+# define locations #
+####################
+
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
 DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
 DOTFILES=(`ls $DOTS_LOC`)
 UNAME=`uname -s`
+
+####################
+# define functions #
+####################
 
 readconfig() {
   CONFIGVARS=()
@@ -30,7 +37,15 @@ readconfig() {
   rm $configfile.tmp
 }
 
+#######################
+# read configurations #
+#######################
+
 readconfig
+
+#################
+# install valet #
+#################
 
 case $UNAME in
   Linux )
@@ -64,3 +79,9 @@ valet domain host
 # set base dir for webroots
 cd $ReposPath
 valet park
+
+########################
+# install statamic cli #
+########################
+
+composer global require statamic/cli
