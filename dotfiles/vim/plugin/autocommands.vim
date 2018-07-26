@@ -46,5 +46,14 @@ if has('autocmd')
     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call autocmds#focus_syntaxhl()
     autocmd FocusLost,WinLeave * call autocmds#blur_syntaxhl()
 
+    " extra configs for handling cursorline highlight corrections, see
+    " corresponding configs in after/plugin/colors.vim
+    au BufWinEnter * call matchadd('SpecialKey', '^\s\+', -1)
+    au BufWinEnter * call matchadd('SpecialKey', '\s\+$', -1)
+    au BufWinEnter * call matchadd('SpecialKey', '\t\+', -1)
+    au BufWinEnter * call matchadd('NonText', '^\s\+', -1)
+    au BufWinEnter * call matchadd('NonText', '\s\+$', -1)
+    au BufWinEnter * call matchadd('NonText', '\t\+', -1)
+  
   augroup END
 endif

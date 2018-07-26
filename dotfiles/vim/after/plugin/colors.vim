@@ -46,6 +46,7 @@ function s:SetColorScheme(action)
 
   " re-add matches for tabs after all loads so that they highlight correctly
   " on the current line when cursorline is enabled, else hi below is ignored
+  " see also the corresponding autocommands in plugins/autocommands.vim
   call matchadd('SpecialKey', '^\s\+', -1)
   call matchadd('SpecialKey', '\s\+$', -1)
   call matchadd('SpecialKey', '\t\+', -1)
