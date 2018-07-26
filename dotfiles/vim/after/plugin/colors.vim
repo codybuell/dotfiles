@@ -44,12 +44,29 @@ function s:SetColorScheme(action)
   " - `after/plugin/loupe.vim` will override Search.
   doautocmd ColorScheme
 
-  " some personal overrides
-  hi SpecialKey ctermfg=238
-  hi NonText ctermfg=238
+  " re-add matches for tabs after all loads so that they highlight correctly
+  " on the current line when cursorline is enabled, else hi below is ignored
+  call matchadd('SpecialKey', '^\s\+', -1)
+  call matchadd('SpecialKey', '\s\+$', -1)
+  call matchadd('SpecialKey', '\t\+', -1)
+  call matchadd('NonText', '^\s\+', -1)
+  call matchadd('NonText', '\s\+$', -1)
+  call matchadd('NonText', '\t\+', -1)
+
+  " overrides for listchars (lcs)
+  hi SpecialKey ctermfg=236
+  hi NonText ctermfg=236
+
+  " overrides for warnings and errors
   hi SLWarnings ctermfg=3 ctermbg=19
   hi SLErrors ctermfg=1 ctermbg=19
+
+  " overrides for search results
   hi Search ctermfg=232
+
+  " highlight any non ascii characters
+  syntax match nonascii "[^\x00-\x7F]"
+  highlight nonascii guibg=Red ctermbg=2
 
   " re-apply the filetype to recover any special syntax highlighting (tmux
   " colour declarations being colored as their value)
