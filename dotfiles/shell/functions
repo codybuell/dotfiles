@@ -5,20 +5,18 @@
 # markdown shortcut
 md() {
 
-  hierarchy=(\
-    "README.txt" \
-    "readme.txt" \
-    "README.md" \
-    "readme.md" \
-    "README" \
-    "readme" \
-    )
+  target=README.txt
 
-  target=$hierarchy[0]
+  HIERARCHY=(
+    README.txt
+    readme.txt
+    README.md
+    readme.md
+    README
+    readme
+  )
 
-  echo $target
-
-  for i in ${hierarchy[@]}; do
+  for i in ${HIERARCHY[@]}; do
     if [[ -f $i ]]; then
       target=$i
       break
@@ -27,7 +25,7 @@ md() {
 
   echo $target
 
-  vim $target
+  vi $target
 
 }
 
