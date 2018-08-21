@@ -192,6 +192,7 @@ function wj() {
   cd {{ WorkJournal }}
   [[ ! -d {{ WorkJournal }}/`date +%Y/%m` ]] && mkdir -p {{ WorkJournal }}/`date +%Y/%m`
   vim {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  cd -
 }
 
 # edit personal journal
@@ -199,6 +200,7 @@ function pj() {
   cd {{ PersonalJournal }}
   [[ ! -d {{ PersonalJournal }}/`date +%Y/%m` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y/%m`
   vim {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  cd -
 }
 
 # get internal ip address

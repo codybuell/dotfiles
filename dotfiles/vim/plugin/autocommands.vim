@@ -54,6 +54,6 @@ if has('autocmd')
     au BufWinEnter * call matchadd('NonText', '^\s\+', -1)
     au BufWinEnter * call matchadd('NonText', '\s\+$', -1)
     au BufWinEnter * call matchadd('NonText', '\t\+', -1)
-  
+
   augroup END
 endif
