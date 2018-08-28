@@ -368,3 +368,13 @@ function reloadConfig(files)
 end
 
 local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
+
+--
+-- Control Double Press
+--
+
+ctrlDoublePress = require("ctrlDoublePress")
+ctrlDoublePress.timeFrame = 2
+ctrlDoublePress.action = function()
+  hs.application.open('/Applications/Mission Control.app')
+end
