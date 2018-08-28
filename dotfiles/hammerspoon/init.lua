@@ -424,13 +424,13 @@ module.eventwatcher1 = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, f
             hs.alert.show("English", 0.2)
         end
 
-        elseif keyCode == 0x36 then
-            hs.application.open('/Applications/Mission Control.app')
-            -- hs.keycodes.setLayout(module.rightCmdLayout)
+        -- elseif keyCode == 0x36 then
+        --     hs.application.open('/Applications/Mission Control.app')
+        --     -- hs.keycodes.setLayout(module.rightCmdLayout)
 
-        if module.showPopUp then
-            hs.alert.show("Russian", 0.2)
-        end
+        -- if module.showPopUp then
+        --     hs.alert.show("Russian", 0.2)
+        -- end
         end
     end
 
