@@ -30,10 +30,14 @@ else
 fi
 
 # vi/vim
-[[ `which vim | wc -l` -gt 0 ]] && {
+if [[ `which nvim | wc -l` -gt 0 ]]; then
+  alias vi="nvim"
+  alias vim="nvim"
+  alias vix="nvim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+elif [[ `which vim | wc -l` -gt 0 ]]; then
   alias vi="vim"
   alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
-}
+fi
 
 # vim-esque
 alias :e="vim"
