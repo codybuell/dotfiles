@@ -83,6 +83,9 @@ alias extip="/usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | s
 # homestead
 alias homestead='function __homestead() { (cd ~/.homestead/src && vagrant $*); unset -f __homestead; }; __homestead'
 
+# reset vim tmp dir
+alias resetvimtemp='rm -rf ~/.vim/tmp; mkdir -p ~/.vim/tmp/swap; mkdir -p ~/.vim/tmp/backup; mkdir -p ~/.vim/tmp/undo; mkdir -p ~/.vim/tmp/view'
+
 # misc
 alias serve='python -m SimpleHTTPServer 8080'
 

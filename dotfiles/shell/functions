@@ -5,20 +5,18 @@
 # markdown shortcut
 md() {
 
-  hierarchy=(\
-    "README.txt" \
-    "readme.txt" \
-    "README.md" \
-    "readme.md" \
-    "README" \
-    "readme" \
-    )
+  target=README.txt
 
-  target=$hierarchy[0]
+  HIERARCHY=(
+    README.txt
+    readme.txt
+    README.md
+    readme.md
+    README
+    readme
+  )
 
-  echo $target
-
-  for i in ${hierarchy[@]}; do
+  for i in ${HIERARCHY[@]}; do
     if [[ -f $i ]]; then
       target=$i
       break
@@ -27,7 +25,7 @@ md() {
 
   echo $target
 
-  vim $target
+  vi $target
 
 }
 
@@ -193,14 +191,16 @@ function gpl() {
 function wj() {
   cd {{ WorkJournal }}
   [[ ! -d {{ WorkJournal }}/`date +%Y/%m` ]] && mkdir -p {{ WorkJournal }}/`date +%Y/%m`
-  vim {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  vim -c 'NERDTree' -c 'execute "normal \<C-W>l"' {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  cd - > /dev/null 2>&1
 }
 
 # edit personal journal
 function pj() {
   cd {{ PersonalJournal }}
   [[ ! -d {{ PersonalJournal }}/`date +%Y/%m` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y/%m`
-  vim {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  vim -c 'NERDTree' -c 'execute "normal \<C-W>l"' {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  cd - > /dev/null 2>&1
 }
 
 # get internal ip address

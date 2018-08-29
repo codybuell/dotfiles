@@ -56,6 +56,7 @@ pip:
 subs:
 	git submodule init
 	git submodule update
+	git submodule update --init
 
 clean:
 	find ~/ -maxdepth 1 -name \*.orig.\* -prune -exec rm -rf {} \;
