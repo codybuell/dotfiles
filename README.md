@@ -98,7 +98,7 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make brew
         make go
         make pip
-        make ruby (rvm)
+        make ruby
         make gem
         make node
         make composer
@@ -112,7 +112,7 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make linux
         make go
         make pip
-        make ruby (rvm)
+        make ruby
         make gem
         make node
         make composer
