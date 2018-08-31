@@ -1,0 +1,15 @@
+[submodule "submodules/base16-shell"]
+	path = submodules/base16-shell
+	url = https://github.com/chriskempson/base16-shell.git
+[submodule "submodules/zsh-autosuggestions"]
+	path = submodules/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "submodules/zsh-syntax-highlighting"]
+	path = submodules/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "submodules/markdown2ctags"]
+	path = submodules/markdown2ctags
+	url = https://github.com/jszakmeister/markdown2ctags.git
+[submodule "submodules/mutt-notmuch-py"]
+	path = submodules/mutt-notmuch-py
+	url = https://github.com/honza/mutt-notmuch-py.git
