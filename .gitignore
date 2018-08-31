@@ -17,6 +17,8 @@ Thumbs.db
 #######################
 
 .config
-dotfiles/homestead/src/.vagrant
 dotfiles/vim/.netrwhist
 dotfiles/vim/tmp
+dotfiles/vim/bundles
+dotfiles/vim/snippits
+*__pycache__

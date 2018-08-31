@@ -12,6 +12,8 @@
 #
 # Revisions: 2016.07.16 Initial framework.
 #
+# Requisite:
+#
 # Tools: - pmset         (power management utility)
 #        - defaults      (configuring ~/Library/Preferences/ list files)
 #                        * note that -g is shorthand for NSGlobalDomain
@@ -44,6 +46,7 @@
 #              - keycastr
 #        - [ ] check that each config is being applied
 #
+# Usage: ./osx.sh
 
 ################################################################################
 ################################################################################

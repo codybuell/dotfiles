@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.json              set ft=json.javascript
+au BufNewFile,BufRead *.json              set ft=json

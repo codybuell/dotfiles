@@ -1,16 +1,16 @@
 --exclude=.git
---exclude=node_modules
---exclude=_ide_helper.php
---exclude=storage/*
---exclude=compiled.php
 --exclude=log
---exclude=.build
---exclude=.project
---exclude=.idea/*
---exclude=.settings/*
---regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
---exclude=public
---exclude=*.js
---exclude=*.css
---exclude=*.sass
---recurse
+--exclude=node_modules
+-R
+--tag-relative=yes
+--exclude=*.min.js
+--exclude=jquery.*.js
+--exclude=jquery-*.js
+--exclude=vendor
+--languages=-html
+--extra=+q+f
+--fields=+i+a+S+n
+
+--langdef=snippets
+--langmap=snippets:.snippets
+--regex-snippets=/^snippet (.*)/\1/s,snippet/

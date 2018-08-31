@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.scss              set ft=css.scss
+au BufNewFile,BufRead *.scss              set ft=scss

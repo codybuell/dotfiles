@@ -8,7 +8,7 @@ if exists("+showtabline")
   " function to generate tab line by looping through open pages
   function! BuellTabLine() abort
     " prep for building the tabline
-    let p = tabline#gutterpadding()                       " start with gutter padding
+    let p = buell#tabline#gutterpadding()                       " start with gutter padding
     let t = tabpagenr()                                   " get the current tab page number
     let lo = p
     let me = p

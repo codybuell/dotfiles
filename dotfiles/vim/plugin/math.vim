@@ -191,5 +191,3 @@ endfunction
 
 " restore previous external compatibility options
 let &cpo = s:save_cpo
-
-vmap <silent><expr> <leader>=    VMATH_YankAndAnalyse()

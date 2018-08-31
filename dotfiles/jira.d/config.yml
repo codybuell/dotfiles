@@ -1,6 +1,0 @@
-endpoint: {{ JiraEndpoint }}
-user: {{ JiraUsername }}
-assignee: {{ JiraUsername }}
-project: {{ JiraDefProject }}
-password-source: keyring
-#template: table

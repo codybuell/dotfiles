@@ -1,7 +1,0 @@
-+{{ "-" | rep 12 }}+{{ "-" | rep 16 }}+{{ "-" | rep 57 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+
-| {{ "Type" | printf "%-10s" }} | {{ "Issue" | printf "%-14s" }} | {{ "Summary" | printf "%-55s" }} | {{ "Status" | printf "%-12s" }} | {{ "Reporter" | printf "%-12s" }} | {{ "Assignee" | printf "%-12s" }} |
-+{{ "-" | rep 12 }}+{{ "-" | rep 16 }}+{{ "-" | rep 57 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+
-{{ range .issues -}}
-  | {{ .fields.issuetype.name | printf "%-10" }} | {{ .key | printf "%-14s"}} | {{ .fields.summary | abbrev 55 | printf "%-55s" }} | {{ .fields.status.name | printf "%-12s" }} | {{if .fields.reporter}}{{ .fields.reporter.name | printf "%-12s"}}{{else}}<unassigned>{{end}} | {{if .fields.assignee }}{{.fields.assignee.name | printf "%-12s" }}{{else}}<unassigned> {{end}} |
-{{ end -}}
-+{{ "-" | rep 12 }}+{{ "-" | rep 16 }}+{{ "-" | rep 57 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+{{ "-" | rep 14 }}+

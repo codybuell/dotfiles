@@ -1,17 +1,32 @@
 #!/bin/bash
+#
+# Composer
+#
+# Install composer based tools and utilities.
+#
+# Author(s): Cody Buell
+#
+# Revisions: 2018.01.17 Initial framework.
+#
+# Requisite: Composer
+#
+# Task List: 
+#
+# Usage: ./composer.sh
 
-####################
-# define locations #
-####################
+######################
+#                    #
+#  define locations  #
+#                    #
+######################
 
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
-DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
-DOTFILES=(`ls $DOTS_LOC`)
-UNAME=`uname -s`
 
-####################
-# define functions #
-####################
+######################
+#                    #
+#  define functions  #
+#                    #
+######################
 
 readconfig() {
   CONFIGVARS=()
@@ -37,22 +52,26 @@ readconfig() {
   rm $configfile.tmp
 }
 
-#######################
-# read configurations #
-#######################
+#########################
+#                       #
+#  read configurations  #
+#                       #
+#########################
 
 readconfig
 
-#################
-# install valet #
-#################
+###################
+#                 #
+#  install valet  #
+#                 #
+###################
 
-case $UNAME in
+case `uname -s` in
   Linux )
     if [ -f /etc/redhat-release ]; then
       # load selinux module so we can run web applications from home dir
       /usr/bin/sudo mkdir /etc/selinux/local
-      /usr/bin/sudo cp $CONFGDIR/miscellaneous/laravel-valet.te /etc/selinux/local/
+      /usr/bin/sudo cp $CONFGDIR/assets/laravel-valet.te /etc/selinux/local/
       /usr/bin/sudo checkmodule -M -m -o /etc/selinux/local/laravel-valet.mod /etc/selinux/local/laravel-valet.te
       /usr/bin/sudo semodule_package -o /etc/selinux/local/laravel-valet.pp -m /etc/selinux/local/laravel-valet.mod
       /usr/bin/sudo semodule -i /etc/selinux/local/laravel-valet.pp
@@ -80,8 +99,11 @@ valet domain host
 cd $ReposPath
 valet park
 
-########################
-# install statamic cli #
-########################
+##########################
+#                        #
+#  install statamic cli  #
+#                        #
+##########################
 
 composer global require statamic/cli
+exit 0

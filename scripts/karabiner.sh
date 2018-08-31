@@ -13,7 +13,7 @@
 
 # define locations
 DESTDIR="/Users/`whoami`/Library/Application Support/Karabiner"
-KBF_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../keyboard && pwd )"
+KBF_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../assets/keyboard && pwd )"
 KBFILES=(`ls $KBF_LOC`)
 
 # create karabiner folder

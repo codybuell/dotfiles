@@ -8,31 +8,48 @@
 #
 # Revisions: 2018.01.17 Initial framework.
 #
-# Requisite: 
-#
-# Resources: 
+# Requisite: Python2 & Python3
 #
 # Task List: 
 #
-# Usage: 
+# Usage: ./pip.sh
 
+###################
+#                 #
+#  package lists  #
+#                 #
+###################
+
+# standard python 2 packages
 PYTHON2=( \
-    'jmespath-terminal' \           # json manipulation and parsing tool (run as `jpterm`)
-    'websocket-client' \            # required for wee-slack weechat plugin
     'browsercookie' \               # for getting browser cookies with cookiemonster via cli
+    'jmespath-terminal' \           # json manipulation and parsing tool (run as `jpterm`)
+    'neovim' \                      # neovim client, required to use python with neovim
+    'websocket-client' \            # required for wee-slack weechat plugin
 )
 
+# osx specific python 2 packages
 OSXPYTHON2=( \
     'pync' \                        # required for notification-center.py weechat plugin
 )
 
+# standard Python 3 packages
 PYTHON3=( \
     'click' \                       # required for mattermost auth cookie gathering script
+    'commandt.score' \              # search scoring utility used in custom deoplete filter
+    'neovim' \                      # neovim client, required to use python with neovim
     'selenium' \                    # same as click
 )
 
+# osx specific python 3 packages
 OSXPYTHON3=( \
 )
+
+#######################
+#                     #
+#  run installations  #
+#                     #
+#######################
 
 # install python2 packages
 for i in ${PYTHON2[@]}; do
@@ -54,3 +71,5 @@ if [ `uname -s` = 'Darwin' ]; then
     /usr/bin/sudo pip3 install $i
   done
 fi
+
+exit 0

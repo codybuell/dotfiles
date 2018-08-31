@@ -1,0 +1,18 @@
+snippet usage "usage statement"
+usage() {
+
+  cat <<-ENDOFUSAGE
+	usage: $(basename $0) [-hv] [-H <hostname>]
+
+	  -h             Show usage.
+	  -v             Increase verbosity of output.
+	  -H <hostname>  Set desired hostname for the server.
+
+	Description Text
+
+	ENDOFUSAGE
+
+  exit
+
+}
+endsnippet

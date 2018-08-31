@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.php               set ft=php.html
+au BufNewFile,BufRead *.php               set ft=php

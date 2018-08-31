@@ -1,2 +1,0 @@
-{{ range .transitions }}{{.id }}: {{.name}}
-{{end}}

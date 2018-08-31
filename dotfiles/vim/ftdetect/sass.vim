@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.sass              set ft=css.sass
+au BufNewFile,BufRead *.sass              set ft=sass

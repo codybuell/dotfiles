@@ -7,24 +7,69 @@ ifeq (dots,$(firstword $(MAKECMDGOALS)))
 endif
 
 default:
-	@printf "usage: make [ full | \033[0;31mosx\033[0m | \033[0;31mlinux\033[0m | \033[0;31mcygwin\033[0m | osxdefs | linuxdefs | dots | brew | karabiner | subs ] [ \033[0;31mclean\033[0m ]\n\n\
-	    full:      attempt to detect os and run all configs\n\
-	    subs:      grab and update all git submodules\n\
-	    brew:      run brew configuration\n\
-	    dots:      place dotfiles for current user\n\
-	    osx:       run osx os configurations\n\
-	    linux:     run linux os configurations\n\
-	    composer:  run composer configuration\n\
-	    gem:       run gem configuration\n\
-	    go:        run go configuration\n\
-	    node:      run node configuration\n\
-	    pip:       run pip configuration\n\
-	    clean:     delete all backup files\n\n"
+	@printf "\n\
+	\
+	  usage:      \033[1;37mmake [ command ]\033[0m\n\n\
+	\
+	  commands:\n\n\
+	\
+	    \033[1;33mtest\033[0;33m      test to see if your env can be detected\033[0m\n\
+	    \033[1;33mconfig\033[0;33m    utility to help generate the repository config file\033[0m\n\
+	    \033[1;33msubs\033[0;33m      pull and or update all repository git submodules\033[0m\n\n\
+	\
+	    \033[1;32mfull\033[0;32m      attempt to detect os and run all configurations\033[0m\n\n\
+	\
+	    \033[1;34mrepos\033[0;34m     clone repositories listed in the config file\033[0m\n\
+	    \033[1;34mpaths\033[0;34m     create all needed paths and symlinks\033[0m\n\
+	    \033[1;34mbrew\033[0;34m      run brew installations\033[0m\n\
+	    \033[1;34mgo\033[0;34m        run go configuration\033[0m\n\
+	    \033[1;34mpip\033[0;34m       run pip configuration\033[0m\n\
+	    \033[1;34mgem\033[0;34m       run gem configuration\033[0m\n\
+	    \033[1;34mnode\033[0;34m      run node configuration\033[0m\n\
+	    \033[1;34mcomposer\033[0;34m  run composer configuration\033[0m\n\
+	    \033[1;34mdots\033[0;34m      place dotfiles for current user\033[0m\n\
+	    \033[1;34mosx\033[0;34m       run osx configurations\033[0m\n\
+	    \033[1;34mlinux\033[0;34m     run linux os configurations\033[0m\n\n\
+	\
+	    \033[1;31mclean\033[0;31m     delete all backups of previous dotfiles\033[0m\n\n"
 
-#default: subs [brew] [osconfigs] dots etc... run it all and detect env
+test:
+	scripts/test.sh
 
-full:
-	scripts/full.sh
+config:
+	scripts/config.sh
+
+subs:
+	git submodule init
+	git submodule update
+	git submodule update --init
+
+repos:
+	scripts/repos.sh
+
+paths:
+	scripts/paths.sh
+
+brew:
+	scripts/brew.sh
+
+go:
+	scripts/go.sh
+
+pip:
+	scripts/pip.sh
+
+gem:
+	scripts/gem.sh
+
+node:
+	scripts/node.sh
+
+composer:
+	scripts/composer.sh
+
+dots:
+	scripts/dots.sh $(DOTS_RUN_ARGS)
 
 osx:
 	scripts/osx.sh
@@ -32,31 +77,5 @@ osx:
 linux:
 	scripts/linux.sh
 
-dots:
-	scripts/connect-the-dots.sh $(DOTS_RUN_ARGS)
-
-brew:
-	scripts/brew.sh
-
-composer:
-	scripts/composer.sh
-
-gem:
-	scripts/gem.sh
-
-go:
-	scripts/go.sh
-
-node:
-	scripts/node.sh
-
-pip:
-	scripts/pip.sh
-
-subs:
-	git submodule init
-	git submodule update
-	git submodule update --init
-
 clean:
-	find ~/ -maxdepth 1 -name \*.orig.\* -prune -exec rm -rf {} \;
+	find ~/ -maxdepth 1 -name \*.dotorig.\* -prune -exec rm -rf {} \;

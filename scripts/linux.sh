@@ -152,6 +152,7 @@ if [ -f /etc/redhat-release ]; then
     python2-pip
     python34-pip
     python-devel
+    python34-devel
     ruby-devel
     rxvt-unicode-256color
     telnet
@@ -451,6 +452,35 @@ buildvim() {
   /usr/bin/sudo make install
 }
 
+buildneovim() {
+  # deb deps: ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+  # el deps: ninja-build libtool autoconf automake cmake gcc gcc-c++ make pkgconfig unzip
+
+  printf "\033[0;31mbuilding neovim:\033[0m\n"
+
+  # set the full path to repos, no ~/'s
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/neovim"
+  # if already there get the latest
+  if [ -d $TPATH ]; then
+    cd $TPATH
+    git pull origin master
+  # else clone it from scratch
+  else
+    git clone https://github.com/neovim/neovim.git $TPATH
+    cd $TPATH
+  fi
+
+  # find the latest release and check it oup
+  NEOVIMRELEASE=`git tag | grep -vi test | tail -1`
+  git checkout $NEOVIMRELEASE
+
+  # config and build
+  rm -rf build
+  make clean
+  make
+  /usr/bin/sudo make install
+}
+
 buildnewsbeuter() {
   # deb deps: 
   # el deps: pkgconfig curl-devel sqlite-devel libxml2-devel json-c-devel ncurses-devel
@@ -668,19 +698,19 @@ importdconf() {
   dconf reset -f /org/gnome/settings-daemon/plugins/media-keys/
 
   # load
-  dconf load /org/gnome/terminal/legacy/profiles:/ < dconf/terminal.dconf
-  dconf load /org/gnome/terminal/legacy/keybindings/ < dconf/terminal-keybindings.dconf
-  dconf load /org/gnome/shell/ < dconf/shell.dconf
-  dconf load /org/gnome/settings-daemon/plugins/xsettings/ < dconf/xsettings.dconf
-  dconf load /org/gnome/desktop/interface/ < dconf/desktop-interface.dconf
-  dconf load /org/gnome/desktop/input-sources/ < dconf/input-sources.dconf
-  dconf load /org/gnome/desktop/background/ < dconf/background.dconf
-  dconf load /org/gnome/desktop/wm/ < dconf/windows.dconf
-  dconf load /org/gnome/desktop/screensaver/ < dconf/screensaver.dconf
-  dconf load /org/gnome/desktop/notifications/ < dconf/notifications.dconf
-  dconf load /org/gnome/mutter/ < dconf/mutter.dconf
-  dconf load /org/gnome/nautilus/desktop/ < dconf/nautilus-desktop.dconf
-  dconf load /org/gnome/settings-daemon/plugins/media-keys/ < dconf/media-keys.dconf
+  dconf load /org/gnome/terminal/legacy/profiles:/ < assets/dconf/terminal.dconf
+  dconf load /org/gnome/terminal/legacy/keybindings/ < assets/dconf/terminal-keybindings.dconf
+  dconf load /org/gnome/shell/ < assets/dconf/shell.dconf
+  dconf load /org/gnome/settings-daemon/plugins/xsettings/ < assets/dconf/xsettings.dconf
+  dconf load /org/gnome/desktop/interface/ < assets/dconf/desktop-interface.dconf
+  dconf load /org/gnome/desktop/input-sources/ < assets/dconf/input-sources.dconf
+  dconf load /org/gnome/desktop/background/ < assets/dconf/background.dconf
+  dconf load /org/gnome/desktop/wm/ < assets/dconf/windows.dconf
+  dconf load /org/gnome/desktop/screensaver/ < assets/dconf/screensaver.dconf
+  dconf load /org/gnome/desktop/notifications/ < assets/dconf/notifications.dconf
+  dconf load /org/gnome/mutter/ < assets/dconf/mutter.dconf
+  dconf load /org/gnome/nautilus/desktop/ < assets/dconf/nautilus-desktop.dconf
+  dconf load /org/gnome/settings-daemon/plugins/media-keys/ < assets/dconf/media-keys.dconf
 }
 
 setusershell() {
@@ -824,3 +854,4 @@ setrootterminfo
 secureloginscreen
 buildsymlinks
 placeautostarts
+exit 0

@@ -2,11 +2,17 @@
 #
 # Brew
 #
-# Brew bootstrapping script.
+# Install brew and brew packages.
 #
 # Author(s): Cody Buell
 #
 # Revisions: 2016.07.18 Initial framework.
+#
+# Requisite: 
+#
+# Task List:
+#
+# Usage: ./brew.sh
 
 PACKAGES=( \
     'ack' \                         # enhanced grep like functionality for development
@@ -78,7 +84,7 @@ PACKAGES=( \
     'sqlite' \                      # file based database
     'terminal-notifier' \           # send osx notifications through terminal
     'tmux' \                        # terminal multiplexer
-    'todo-txt' \                    # gina's handy to do list manager
+    'todo-txt' \                    # ginas handy to do list manager
     'toilet' \                      # ascii art
     'tree' \                        # file and directory listing utility
     'urlview' \                     # for viewing urls in mutt
@@ -145,7 +151,7 @@ CASKS=( \
 #  - yubikey personalization tool   --> app store
 
 # install xcode tools if necessary
-[[ `pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version` -gt 0 ]] && {
+[[ `pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version` -eq 0 ]] && {
   xcode-select --install
 }
 
@@ -155,15 +161,14 @@ which brew > /dev/null
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
-# update brew if necessary
+# try to update brew
 brew update
 
-# upgrade brew if neccessary
+# try to upgrade brew
 brew upgrade
 
 # install brew packages
 for i in ${PACKAGES[@]}; do
-  # echo "brew install $i"
   brew install $i
 done
 
@@ -186,3 +191,5 @@ brew services start mysql
 # any necessary re-linking
 brew unlink gnupg
 brew link gnupg2
+
+exit 0

@@ -1,13 +1,15 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
-" Goyo Plugin Configurations                                                   "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""
+"          "
+"   Goyo   "
+"          "
+""""""""""""
 
 " width of text (default: 80)
 let g:goyo_width = 160
+
 " height of text (default: 85%)
 let g:goyo_height = '85%'
+
 " show line numbers (default: 0)
 let g:goyo_linenr = 0
 
@@ -25,7 +27,7 @@ endfunction
 function! s:goyo_leave()
   silent !tmux set status on
   silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  call statusline#setstatusline()
+  call buell#statusline#drawstatusline()
   set laststatus=2
   set showmode
   set showcmd
@@ -33,8 +35,9 @@ function! s:goyo_leave()
   Limelight!
 endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
+" manually calling in buell#helpers#CycleViews to avoid artifacting
+"autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " on window resize, if goyo is active, do <c-w>= to resize the window
-autocmd! VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif
+"autocmd! VimResized * if exists('#goyo') | exe "normal \<c-w>=" | endif

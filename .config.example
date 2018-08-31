@@ -1,34 +1,45 @@
-# Dotfiles Configuration File
-#
-# This configuration file is used to customize your set of dotfiles.
-# Throughout each dotfile are snippets in the format of `{{ VarName }}` that
-# get replaced with the values below when running `make dots` or another make
-# method that calls the `scripts/connect-the-dots.sh` script.
-#
-# To get started, copy this file to `.config`, fill everything below out, then
-# run the appropriate make for your system.
+################################################################################
+################################################################################
+##                                                                            ##
+##  Dotfiles Configuration File                                               ##
+##                                                                            ##
+##  This configuration file is used to customize your set of dotfiles.        ##
+##  Throughout each dotfile are snippets in the format of `{{ VarName }}`     ##
+##  that get replaced with the values below when running `make dots` or       ##
+##  another make method that calls the `scripts/dots.sh` script.              ##
+##                                                                            ##
+##  To get started run `make config`, otherwise if you prefer a manual        ##
+##  configuration, copy this file to `.config`, fill everything below out,    ##
+##  then you are ready to run other make commands.                            ##
+##                                                                            ##
+################################################################################
+################################################################################
 
 ################################################################################
 #                                                                              #
-# paths to create                                                              #
+# Paths to Create                                                              #
 #                                                                              #
-# You can create up to 100 paths, simply increment the variable name.  Paths   #
-# are created with the -p flag, so all subdirs will be created as needed. Add  #
-# or remove PATHNN vars below as needed.                                       #
+# You can create unlimited paths, simply increment the variable name.  Paths   #
+# are created with the -p flag, so all subdirs will be created as needed. Use  #
+# the format:                                                                  #
+#                                                                              #
+#     PATH[NN] = [path]                                                        #
 #                                                                              #
 ################################################################################
 
-PATH00 = /Users/usrnm/.gopath                           # go path root
-PATH01 = /Users/usrnm/Repos                             # repository folder
-PATH02 = /Users/usrnm/Gists                             # github gists folder
-PATH03 = /Users/pbuell/.mail                             # mutt mail directory
-PATH03 = /Users/usrnm/.mail/Home                        # mutt mail directory
-PATH04 = /Users/usrnm/.mail/Work                        # mutt mail directory
-PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
+
+# required directories
+PATH00 = /Path/home/Repos                             # repository folder
+PATH01 = /Path/home/Gists                             # github gists folder
+PATH02 = /Path/home/.mail                             # mutt mail directory
+PATH02 = /Path/home/.mail/Home                        # mutt mail directory
+PATH04 = /Path/home/.mail/Work                        # mutt mail directory
+PATH05 = /Path/home/.mail/Client                      # mutt mail directory
+
 
 ################################################################################
 #                                                                              #
-# symlinks to create                                                           #
+# Symlinks to Create                                                           #
 #                                                                              #
 # You can create unlimited symlinks, simply increment the variable name.       #
 # Each symlink should be in the format:                                        #
@@ -43,15 +54,30 @@ PATH05 = /Users/usrnm/.mail/Client                      # mutt mail directory
 #                                                                              #
 ################################################################################
 
-SYMLINK00 = /Users/usrnm/Repos/mit/mit /Users/usrnm/.todo/addons/mit
-SYMLINK01 = /Users/usrnm/Repos/bin /Users/usrnm/Bin
-SYMLINK02 = /Users/usrnm/Bin /Users/usrnm/.gopath/bin
-SYMLINK03 = /Users/usrnm/Repos /Users/usrnm/.gopath/src
-SYMLINK04 = /usr/local/bin/neomutt /usr/local/bin/mutt
+
+# required symlinks
+SYMLINK00 = /Path/home/.vim /Path/home/.config/nvim
+SYMLINK01 = /Path/home/.vim/init.vim /Path/home/.vim/vimrc
+SYMLINK02 = /usr/local/bin/neomutt /usr/local/bin/mutt
+
+
+# optional symlinks
+SYMLINK03 = /Path/home/Repos/mit/mit /Path/home/.todo/addons/mit
+
 
 ################################################################################
 #                                                                              #
-# custom commands to run                                                       #
+# Repositories to Clone                                                        #
+#                                                                              #
+################################################################################
+
+
+REPO00 = git@github.com:codybuell/mit.git
+
+
+################################################################################
+#                                                                              #
+# Custom Commands                                                              #
 #                                                                              #
 # You can create unlimited custom commands, as with symlinks and paths just    #
 # increment the variable name. These commands are run at the very end of       #
@@ -62,19 +88,22 @@ SYMLINK04 = /usr/local/bin/neomutt /usr/local/bin/mutt
 #                                                                              #
 ################################################################################
 
-COMMAND01 = ln -s '/Volumes/GoogleDrive/My Drive/' '/Users/usrnm/Google Drive'
+
+COMMAND01 = ln -s '/Volumes/GoogleDrive/My Drive/' '/Path/home/Google Drive'
+
 
 ################################################################################
 #                                                                              #
-# personal information                                                         #
+# Personal Information                                                         #
 #                                                                              #
 ################################################################################
+
 
 Name       = Cody Buell                        # your full name
 Email      = cody@codybuell.com                # preferred email
 OSUsername = codybuell                         # your system username
-OSHomeRoot = /home/                            # linux -> /home/, osx -> /Users/
-IRCNick    = codybuell
+IRCNick    = codybuell                         # your irc nickname
+
 
 ################################################################################
 #                                                                              #
@@ -82,9 +111,31 @@ IRCNick    = codybuell
 #                                                                              #
 ################################################################################
 
+
 TPAMUrl      = tpam.tld    # do not include protocol (ie no http://)
 TPAMUsername = codybuell
 TPAMPassword = `command to get password`
+
+
+################################################################################
+#                                                                              #
+# golang configurations                                                        #
+#                                                                              #
+# The shell dotfiles will automatically reconfigure your gopath for each       #
+# project when it detects a `.gopath` file in the current working directory    #
+# however here we will set a default for projects that dont contain that       #
+# file.  Note that GoPathBin needs to be somewhere in your path (we will be    #
+# adding `~/Bin`, another good alternative is `/usr/local/bin`).  GoPathBin    #
+# will still be used in projects containing `.gopath` as a symlink so we don't #
+# have to modify paths, just dont forget to .gitigtore it!                     #
+#                                                                              #
+################################################################################
+
+
+GoPath    = /Path/home/.gopath
+GoPathBin = /Path/home/Bin               # path to symlink to $GOPATH/bin
+GoPathSrc = /Path/home/Repos             # path to symlink to $GOPATH/src
+
 
 ################################################################################
 #                                                                              #
@@ -111,9 +162,11 @@ TPAMPassword = `command to get password`
 #                                                                              #
 ################################################################################
 
+
 DefaultEmailAccount = client
 DefaultEmailAccCaps = Client                    # hacky placeholder solution
 DefaultEmailAddress = cody@exchange.com
+
 
 # expected to be a gmail account ('home' account)
 HomeEmailSmtp       = smtp.gmail.com
@@ -122,12 +175,14 @@ HomeEmailKeychain   = cody+mutt@codybuell.com   # 'account' field in keychain
 HomeEmailUsername   = cody@codybuell.com
 HomeEmailAddress    = cody@codybuell.com
 
+
 # expected to be a gmail account ('work' account)
 WorkEmailSmtp       = smtp.gmail.com
 WorkEmailHost       = imap.gmail.com            # host and 'name' field in keychain
 WorkEmailKeychain   = cody+mutt@workplace.com   # 'account' field in keychain
 WorkEmailUsername   = cody@workplace.com
 WorkEmailAddress    = cody@workplace.com
+
 
 # expected to be an exchange account ('client' account)
 ClientEmailSmtp     = smtp.exchange.com
@@ -136,13 +191,6 @@ ClientEmailKeychain = cody+mutt@exchange.com    # 'account' field in keychain
 ClientEmailUsername = cody@exchange.com
 ClientEmailAddress  = cody@exchange.com
 
-################################################################################
-#                                                                              #
-# keyboard layout                                                              #
-#                                                                              #
-################################################################################
-
-KBLayout = qwerty                                       # [ qwerty | colemak ]
 
 ################################################################################
 #                                                                              #
@@ -161,12 +209,14 @@ KBLayout = qwerty                                       # [ qwerty | colemak ]
 #                                                                              #
 ################################################################################
 
-TasksFolder     = "/Users/usrnm/Google Drive/Tasks"     # full path, no escapes
+
+TasksFolder     = "/Path/home/Google Drive/Tasks"      # full path, no escapes
 NotesFolder     = "~/Google\\ Drive/Notes"
 CodexFolder     = "~/Google\\ Drive/Codex"
 NonRepoProjects = "~/Google\\ Drive/Projects"
-PersonalJournal = "/Users/usrnm/Google\\ Drive/Journal/personal"  # full path, escapes
-WorkJournal     = "/Users/usrnm/Google\\ Drive/Journal/work"      # full path, escapes
+PersonalJournal = "/Path/home/Google\\ Drive/Journal/personal"  # full path, escapes
+WorkJournal     = "/Path/home/Google\\ Drive/Journal/work"      # full path, escapes
+
 
 ################################################################################
 #                                                                              #
@@ -174,26 +224,11 @@ WorkJournal     = "/Users/usrnm/Google\\ Drive/Journal/work"      # full path, e
 #                                                                              #
 ################################################################################
 
-GitUsername = codybuell                                 # github username
-ReposPath   = ~/Repos                                   # folder for git repos
-GistsPath   = ~/Gists                                   # folder for git gists
 
-################################################################################
-#                                                                              #
-# go-jira cli configuration                                                    #
-#                                                                              #
-# You will need to create a keychain item with your stored creds:              #
-#   1. open keychain and select login keychain                                 #
-#   2. add new application password entry                                      #
-#        item name: go-jira                                                    #
-#        account name: [what you set for JiraUsername]                         #
-#        password: [your jira password]                                        #
-#                                                                              #
-################################################################################
+GitUsername = codybuell                              # github username
+ReposPath   = /Path/home/Repos                       # folder for git repos
+GistsPath   = /Path/home/Gists                       # folder for git gists
 
-JiraEndpoint   = https://jira.domain.tld
-JiraUsername   = jirausername
-JiraDefProject = PROJNAME
 
 ################################################################################
 #                                                                              #
@@ -206,10 +241,12 @@ JiraDefProject = PROJNAME
 #                                                                              #
 ################################################################################
 
+
 GitHubGHIAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz
 GitHubVimGistToken = 1234567890abcdefghijklmnopqrstuvwxyz
 SlackAPIToken = 1234-12345678901-12345678901-123456789012-12345678901234567890123456789012
+
 
 ################################################################################
 #                                                                              #
@@ -217,10 +254,13 @@ SlackAPIToken = 1234-12345678901-12345678901-123456789012-1234567890123456789012
 #                                                                              #
 ################################################################################
 
-#VaultCAPath = ???
+
+Vault        = false
+#VaultCAPath = 
 VaultToken   = 1234567890abcdefghijklmnopqrstuvwxyz
 VaultAddress = https://vaultserver.tld:8200
 VaultServer  = vaultserver.tld
+
 
 ################################################################################
 #                                                                              #
@@ -228,52 +268,11 @@ VaultServer  = vaultserver.tld
 #                                                                              #
 ################################################################################
 
+
+DDClient         = false
 DDClientLogin    = 1234567890abcdef
 DDClientPassword = ghijklmnopqrstuv
 DDClientFQDN     = hostname.codybuell.com
 
-################################################################################
-#                                                                              #
-# homestead configuration                                                      #
-#                                                                              #
-################################################################################
 
-VMIP       = 192.168.10.10
-VMCPUs     = 1
-VMMemory   = 2048
-Provider   = virtualbox
-PublicKey  = ~/.ssh/id_rsa.pub
-PrivateKey = ~/.ssh/id_rsa
-MapFrom    = ~/Repos
-MapTo      = /home/vagrant/Repos
-
-################################################################################
-#                                                                              #
-# homestead application configurations                                         #
-#                                                                              #
-# Currently only four applications may be configured.  This is not a           #
-# limitation of homestead / vagrant.  If you need additional vm's, you will    #
-# need to update `~/.homestead/Homestead.yaml` manually and reprovision the    #
-# machine with `homestead provision`.                                          #
-#                                                                              #
-################################################################################
-
-# homestead server one (don't forget to update /etc/hosts)
-AppName01     =  homestead.app
-AppWebRoot01  =  /home/vagrant/Repos/Laravel/public
-AppDatabase01 =  homestead
-
-# homestead server two (don't forget to update /etc/hosts)
-AppName02     =  homestead.app
-AppWebRoot02  =  /home/vagrant/Repos/Laravel/public
-AppDatabase02 =  homestead
-
-# homestead server three (don't forget to update /etc/hosts)
-AppName03     =  homestead.app
-AppWebRoot03  =  /home/vagrant/Repos/Laravel/public
-AppDatabase03 =  homestead
-
-# homestead server four (don't forget to update /etc/hosts)
-AppName04     =  homestead.app
-AppWebRoot04  =  /home/vagrant/Repos/Laravel/public
-AppDatabase04 =  homestead
+# vim: ft=conf

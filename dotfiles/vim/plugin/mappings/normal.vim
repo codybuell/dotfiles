@@ -1,126 +1,125 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
-" Normal Mode Mappings                                                         "
-"                                                                              "
-" <C-O>  - enters normal mode for one command                                  "
-" <C-R>= - insert the result of an expression at the cursor                    "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" normal mode mappings
+"
+" {cmd} {attr} {lhs} {rhs}
+"
+" where
+"
+" {cmd}  is one of ':map', ':map!', ':nmap', ':vmap', ':imap',
+"        ':cmap', ':smap', ':xmap', ':omap', ':lmap', etc.
+" {attr} is optional and one or more of the following: <buffer>, <silent>,
+"        <expr> <script>, <unique> and <special>.
+"        More than one attribute can be specified to a map.
+" {lhs}  left hand side, is a sequence of one or more keys that you will use
+"        in your new shortcut.
+" {rhs}  right hand side, is the sequence of keys that the {lhs} shortcut keys
+"        will execute when entered.
+"
+" <C-O>  - enters normal mode for one command
+" <C-R>= - insert the result of an expression at the cursor
+"
+" verbose nmap [key]
 
-" colemak hjkl workaround
-"COLEMAKnoremap  h                            k
-"COLEMAKnoremap  j                            h
-"COLEMAKnoremap  k                            j
+" toggle current and previous buffers
+nnoremap                    <leader><leader>  <C-^>
 
-"COLEMAKnoremap  <C-w>h                       <C-w>k
-"COLEMAKnoremap  <C-w>j                       <C-w>h
-"COLEMAKnoremap  <C-w>k                       <C-w>j
-"COLEMAKnoremap  <C-w>H                       <C-w>K
-"COLEMAKnoremap  <C-w>J                       <C-w>H
-"COLEMAKnoremap  <C-w>K                       <C-w>J
+" remove search item highlight
+nmap                        ,/                <Plug>(LoupeClearHighlight)
 
-" overrides
-nnoremap <silent> <Up>                :<C-u>exe 'call functions#LocationListNav("prev")'<CR>
-nnoremap <silent> <Down>              :<C-u>exe 'call functions#LocationListNav("next")'<CR>
-nnoremap <silent> <Left>              <C-O>
-nnoremap <silent> <Right>             <C-I>
+" command t mappings
+nmap                        <Leader>t         <Plug>(CommandT)
+nmap                        <Leader>b         <Plug>(CommandTBuffer)
+nmap                        <Leader>j         <Plug>(CommandTJump)
+nmap                        <leader>h         <Plug>(CommandTHelp)
+nmap                        <leader>c         <Plug>(CommandTTag)
+nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
+nnoremap  <silent>          <leader>n         :CommandT {{ NotesFolder }}<CR>
+
+" jump list navigation
+nnoremap  <silent>          <Up>              <C-O>
+nnoremap  <silent>          <Down>            <C-I>
+
+" ale mappings
+nmap                        <Right>           <Plug>(ale_next_wrap)
+nmap                        <Left>            <Plug>(ale_previous_wrap)
+
+" autoload helper functions
+nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>
+nnoremap  <silent>          <leader>-         :<C-U>call buell#helpers#CycleSidebars()<CR>
+nnoremap  <silent>          <leader>`         :<C-U>call buell#helpers#CycleViews()<CR>
+
+" fastfold update folds
+nmap                        zuz               <Plug>(FastFoldUpdate)
+
+" easymotion convenience mappings
+nmap                        <leader>f         <Plug>(easymotion-overwin-f)
+nmap                        <leader>w         <Plug>(easymotion-overwin-w)
+
+" fugitive handy git bindings
+nnoremap                    <leader>gs        :Gstatus<CR>
+nnoremap                    <leader>gb        :Gblame<CR>
+nnoremap                    <leader>gp        :Gpush origin master<CR>
+nnoremap                    <leader>ga        :Git add %:p<CR><CR>
+nnoremap                    <leader>gc        :Gcommit -v -q<CR>
+nnoremap                    <leader>gt        :Gcommit -v -q %:p<CR>
+nnoremap                    <leader>gd        :Gvdiff<CR>
+nnoremap                    <leader>ge        :Gedit<CR>
+nnoremap                    <leader>gr        :Gread<CR>
+nnoremap                    <leader>gw        :Gwrite<CR><CR>
+nnoremap                    <leader>gl        :silent! Glog<CR>:bot copen<CR>
+nnoremap                    <leader>gm        :Gmove<Space>
+nnoremap                    <leader>go        :Git checkout<Space>
+
+" movement between splits
+nmap                        <C-h>             <C-w>h
+nmap                        <C-j>             <C-w>j
+nmap                        <C-k>             <C-w>k
+nmap                        <C-l>             <C-w>l
+
+" creation of splits
+nnoremap  <silent>          <localleader>v    :vsplit<CR>
+nnoremap  <silent>          <localleader>h    :split<CR>
 
 " improved copy & paste
-nnoremap <silent> p                   p`]
+nnoremap  <silent>          p                 p`]
 
-" customizations
-nnoremap          <leader><enter>     @@
-nnoremap          <tab>               za
-nnoremap <silent> ,/                  :nohlsearch<CR>
-nnoremap <silent> <leader>1           :set nowrap!<CR>
-nnoremap <silent> <leader>q           :q<CR>
-nnoremap <silent> <leader>w           :w<CR>
-nnoremap <silent> <leader>z           :only<CR>
-nnoremap <silent> <localleader>c      :syntax sync fromstart<CR>
+" re-run last macro
+nnoremap                    <leader><enter>   @@
 
-" comceal
-nnoremap <silent> <leader>2           :Comceal<CR>
+" toggle current fold
+nnoremap                    <tab>             za
 
-" goyo
-nnoremap <silent> <leader>5           :Goyo<CR>
+" redo buffer syntax
+nnoremap  <silent>          <localleader>c    :syntax sync fromstart<CR>
 
-" w3m
-nnoremap          <leader>i           :W3m 
+" ack mappings
+nmap                        <leader>a         <Plug>(FerretAck)
+nmap                        <leader>s         <Plug>(FerretAckWord)
+nmap                        <leader>r         <Plug>(FerretAcks)
 
-" nerdtree
-nnoremap <silent> <leader>-           :NERDTreeToggle<CR>
-
-" tagbar
-nnoremap <silent> <leader>0           :TagbarToggle<CR>
-
-" commandt
-nnoremap <silent> <leader>t           :CommandT<CR>
-nnoremap <silent> <leader>.           :CommandT %:p:h<CR>
-nnoremap <silent> <leader>y           :CommandTBuffer<CR>
-nnoremap <silent> <leader>T           :CommandTMRU<CR>
-nnoremap <silent> <leader>Y           :CommandTTag<CR>
-nnoremap <silent> <leader>j           :CommandTJump<CR>
-nnoremap <silent> <leader>h           :CommandTHelp<CR>
-
-" ctrlsf
-nmap              <leader>g           <Plug>CtrlSFPrompt
-nmap              <leader>G           <Plug>CtrlSFCwordExec
-
+" laravel helpers
 " laravel (artisan -V | sed 's/[^[:digit:].]//g')
 " 5.3 and greater /routes/web.php
 " 5.0 - 5.2 /app/Http/routes.php
 " 3.0 /application/routes.php
 if filereadable("routes/web.php")
-  nnoremap <silent> <leader>er          :tabnew routes/web.php<CR>
+  nnoremap <silent>         <leader>lr        :tabnew routes/web.php<CR>
 elseif filereadable("app/Http/routes.php")
-  nnoremap <silent> <leader>er          :tabnew app/Http/routes.php<CR>
+  nnoremap <silent>         <leader>lr        :tabnew app/Http/routes.php<CR>
 else
-  nnoremap <silent> <leader>er          :tabnew application/routes.php<CR>
+  nnoremap <silent>         <leader>lr        :tabnew application/routes.php<CR>
 endif
 
-nnoremap          <leader>la          :!php artisan
-nnoremap <silent> <leader>lr          :!php artisan route:list<CR>
-nnoremap <silent> <leader>lc          :tabnew composer.json<CR>
-nnoremap <silent> <leader>ec          :tabnew config/app.php<CR>
-nnoremap <silent> <leader>ed          :tabnew config/database.php<CR>
+nnoremap                    <leader>la        :!php artisan
+nnoremap  <silent>          <leader>ll        :!php artisan route:list<CR>
+nnoremap  <silent>          <leader>le        :tabnew .env<CR>
+nnoremap  <silent>          <leader>lw        :tabnew webpack.mix.js<CR>
 
-" file shortcuts
-nnoremap <silent> <leader>ev          :tabnew ~/.vimrc<CR>
-nnoremap <silent> <leader>es          :tabnew ~/.vim/snippets/
-nnoremap <silent> <leader>eu          :UltiSnipsEdit<CR>
+" quick navigation to journals
+nnoremap  <silent>          <localleader>w    :<C-U>call buell#helpers#OpenJournal('work')<CR>
+nnoremap  <silent>          <localleader>p    :<C-U>call buell#helpers#OpenJournal('personal')<CR>
 
-" quick navigation
-nnoremap          <leader><leader>    <C-^>
-nnoremap          <leader>n           :CommandT {{ NotesFolder }}<CR>
-nnoremap          <leader>m           :CommandT app/Models/<CR>
-nnoremap          <leader>v           :CommandT resources/views/<CR>
-nnoremap          <leader>c           :CommandT app/Http/Controllers/<CR>
-nnoremap          <leader>st          :CommandT resources/assets/sass/<CR>
-nnoremap          <leader>sc          :CommandT resources/assets/js/<CR>
-nnoremap          <leader>wj          :<C-U>call functions#OpenWorkJournal()<CR>
-nnoremap          <leader>pj          :<C-U>call functions#OpenPersonalJournal()<CR>
+" quick navigation to edit ultisnips
+nnoremap                    <localleader>u    :UltiSnipsEdit<CR>
 
-" functions
-nnoremap <silent> <C-u>               :<C-U>call functions#Underline()<CR>
-nnoremap <silent> <leader>r           :<C-U>call functions#RandomCharacters(v:count)<CR>
-nnoremap <silent> <leader>`           :<C-U>call functions#NuListToggle()<CR>
-nnoremap <silent> <leader>3           :call functions#ToggleSyntaxHL()<CR>
-nnoremap <silent> <leader>6           :runtime syntax/hitest.vim<CR>
-nnoremap <silent> <leader>7           :call functions#ColorReference()<CR>
-nnoremap <silent> <leader>8           :call functions#HighlightGroups()<CR>
-nnoremap <silent> <leader>9           :<C-U>call functions#ToggleErrors()<CR>
-nnoremap          <leader>4           :<C-U>call functions#DeleteVimView()<CR>
-
-" splits
-nnoremap <silent> <leader>sp          :<C-U>call functions#SyncSplit()<CR>
-nmap <C-]>                            :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-nmap <C-h>                            <C-w>h
-nmap <C-j>                            <C-w>j
-nmap <C-k>                            <C-w>k
-nmap <C-l>                            <C-w>l
-nmap <A-j>                            :resize +5<cr>
-nmap <A-l>                            :vertical resize +5<cr>
-nmap <A-k>                            <c-w>=
-nmap ∆                                :resize +5<cr>
-nmap ¬                                :vertical resize +5<cr>
-nmap ˚                                <c-w>=
+" generate random characters
+nnoremap  <silent>          <localleader>r    :<C-U>call buell#helpers#RandomCharacters(v:count)<CR>

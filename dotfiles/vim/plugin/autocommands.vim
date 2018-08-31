@@ -1,8 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
-" Autocommand Configurations                                                   "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BufEnter       after entering a buffer, good for setting file type options
+" BufWinEnter    when a buffer is loaded and also when displayed in a window
+" BufWinLeave    when a buffer is removed from the window
 
 if has('autocmd')
   augroup BuellAutocmds
@@ -10,50 +8,46 @@ if has('autocmd')
     " reset autocommand group
     autocmd!
 
+    " don't insert a new comment character after o/O cmd
+    autocmd BufEnter * setlocal formatoptions-=o
+
+    " setting this in vimrc is not working... can't find culprit so set here
+    autocmd BufEnter * set foldtext=buell#foldtext#CustomFoldText()
+
     " enforce relative numbers on all buffers and tabs
     au BufWinEnter * set nu rnu
 
     " auto-remove trailing spaces on php and txt files
-    au BufWritePre *.php,*.txt,*.scss :%s/\s\+$//e
+    au BufWritePre *.md,*.php,*.txt,*.scss :%s/\s\+$//e
+
+    " override fastfold breaking foldmethod on markdown docs
+    " move this to after/ftplugin/markdown.vim??
+    au FileType markdown setlocal foldmethod=expr
+
+    " create parent directories as needed when saving buffers
+    au BufWritePre * :call buell#helpers#CreateNeededDirs(expand('<afile>'), +expand('<abuf>'))
 
     " remember folding / view states
     au BufWinLeave ?* silent! mkview
     au BufWinEnter ?* silent! loadview
 
     " dont restore cursor position on gitcommits
-    au BufEnter * call functions#GitCommitBufEnter()
+    au BufEnter * call buell#helpers#GitCommitBufEnter()
 
     " equalize splits on window resize
     autocmd VimResized * execute "normal! \<c-w>="
 
-    " color column bg focus toggling styles
-    " if exists('+colorcolumn')
-    "   autocmd BufEnter,FocusGained,VimEnter,WinEnter * if autocmds#should_colorcolumn() | let &l:colorcolumn='+' . join(range(0, 254), ',+') | endif
-    "   autocmd FocusLost,WinLeave * if autocmds#should_colorcolumn() | let &l:colorcolumn=join(range(1, 255), ',') | endif
-    " endif
+    """"""""""""""""""""
+    "                  "
+    "   focus events   "
+    "                  "
+    """"""""""""""""""""
 
-    " cursor line focus toggling styles
-    autocmd InsertLeave,VimEnter,WinEnter * if autocmds#should_cursorline() | setlocal cursorline | endif
-    autocmd InsertEnter,WinLeave * if autocmds#should_cursorline() | setlocal nocursorline | endif
-
-    " status line focus toggling styles
-    if has('statusline')
-      autocmd BufEnter,FocusGained,VimEnter,WinEnter * call autocmds#focus_statusline()
-      autocmd FocusLost,WinLeave * call autocmds#blur_statusline()
-    endif
-
-    " syntax hl focus toggling styles
-    autocmd BufEnter,FocusGained,VimEnter,WinEnter * call autocmds#focus_syntaxhl()
-    autocmd FocusLost,WinLeave * call autocmds#blur_syntaxhl()
-
-    " extra configs for handling cursorline highlight corrections, see
-    " corresponding configs in after/plugin/colors.vim
-    au BufWinEnter * call matchadd('SpecialKey', '^\s\+', -1)
-    au BufWinEnter * call matchadd('SpecialKey', '\s\+$', -1)
-    au BufWinEnter * call matchadd('SpecialKey', '\t\+', -1)
-    au BufWinEnter * call matchadd('NonText', '^\s\+', -1)
-    au BufWinEnter * call matchadd('NonText', '\s\+$', -1)
-    au BufWinEnter * call matchadd('NonText', '\t\+', -1)
+    """""""""""""""""""
+    "                 "
+    "   blur events   "
+    "                 "
+    """""""""""""""""""
 
   augroup END
 endif

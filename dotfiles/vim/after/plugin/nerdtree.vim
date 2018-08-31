@@ -1,15 +1,39 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
-" Nerdtree Plugin Configurations                                               "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""
+"              "
+"   Nerdtree   "
+"              "
+""""""""""""""""
 
-" widen the window
-let g:NERDTreeWinSize=40
+" bail if nerdtree is not installed
+if !exists("loaded_nerd_tree")
+  finish
+endif
 
-" disable display of '?' text and 'Bookmarks' label
-let g:NERDTreeMinimalUI=1
+" mappings are defined in plugin/mappings/normal.vim
+
+" widen the nerdtree window
+let g:NERDTreeWinSize = 40
+
+" disable display of '?' text and 'Bookmarks' labels
+let g:NERDTreeMinimalUI = 1
 
 " prevent conflict with window pane mappings
-let g:NERDTreeMapJumpPrevSibling='<Nop>'
-let g:NERDTreeMapJumpNextSibling='<Nop>'
+let g:NERDTreeMapJumpPrevSibling = '<Nop>'
+let g:NERDTreeMapJumpNextSibling = '<Nop>'
+
+" show hidden files in listing
+let g:NERDTreeShowHidden = 1
+
+" set tab to toggle directories open or closed
+call NERDTreeAddKeyMap({
+  \ 'key': '<Tab>',
+  \ 'callback': 'NERDTreeTabHandler',
+  \ 'quickhelpText': 'toggle directories open or closed',
+  \ 'scope': 'DirNode' })
+
+function! NERDTreeTabHandler(dirnode)
+  normal o
+endfunction
+
+" close vim/nvim if nerdtee is the only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

@@ -1,14 +1,14 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
-" Ultisnips Plugin Configurations                                              "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""
+"               "
+"   Ultisnips   "
+"               "
+"""""""""""""""""
 
-" expand and tab stop navigation setting in .vimrc
+" when editing ultisnips, open in a vertical split
+let g:UltiSnipsEditSplit = "vertical"
 
-" split window
-let g:UltiSnipsEditSplit          = "vertical"
+" define private snippets location (cannot be */snippets)
+let UltiSnipsSnippetsDir = "~/.vim/snippits"
 
-" setup paths
-let g:UltiSnipsSnippetsDir        = '~/.vim/ultisnips'
-let g:UltiSnipsSnippetDirectories = ['ultisnips']
+" folders to _load_ snippets from (searches runtimepath for matches)
+let UltiSnipsSnippetDirectories = ['snippits']
