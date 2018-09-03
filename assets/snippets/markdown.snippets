@@ -35,7 +35,9 @@ endglobal
 ##################
 
 snippet min "meeting minutes framework"
-${1:Meeting Title (post C-u=<CR>)} (`date "+%H:%M"`)
+${1:Meeting Title} (`date "+%H:%M"`)
+${1/./-/g}--------
+
 ${2:description}
 
 ## Attendees
