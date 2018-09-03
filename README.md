@@ -125,6 +125,7 @@ Todo
 ### Baseline ###
 
 - [ ] `all` make target for fully automated deployment
+- [ ] make dots needs to check if symlinks are there too, md5 summable?
 - [ ] Additional make targets??
   - `fonts`
   - `full`??
