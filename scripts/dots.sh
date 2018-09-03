@@ -146,7 +146,7 @@ preplacehooks() {
       cd - > /dev/null
       ;;
     shell )
-      cd ~/.shell.new.$DATE/scripts
+      cd ~/.shell.new.$DATE
       ln -s $CONFGDIR/submodules/base16-shell .
       ln -s $CONFGDIR/submodules/zsh-autosuggestions .
       ln -s $CONFGDIR/submodules/zsh-syntax-highlighting .
