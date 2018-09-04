@@ -124,6 +124,14 @@ Todo
 
 ### Baseline ###
 
+- [ ] provide option to use vim or nvim, edit dots accordingly (gitconfig, aliases, etc)
+- [ ] speed up make dots vim?  vim-go's install of helpers is slowing things way down
+- [ ] need to check all python versions installed on a system, manually define paths in init.vim, make sure all pip's installed have neovim installed and all pip3's have commandt.score...
+
+        let g:python_host_prog = '/full/path/to/neovim2/bin/python'
+        let g:python3_host_prog = '/full/path/to/neovim3/bin/python'
+
+- [ ] tie make pip as a post vim make dots hook, pre PlugInstall
 - [ ] `all` make target for fully automated deployment
 - [ ] make dots needs to check if symlinks are there too, md5 summable?
 - [ ] Additional make targets??
@@ -161,6 +169,9 @@ Todo
 
 #### vim/nvim ####
 
+- [ ] quiet colors of line ends, tabstops, ending spaces, etc... look at pre refactor, it was very muted
+- [ ] `pythonx` dir not loading for ultisnip globals
+- [ ] ctr-t does not open help file in new tab through commandt help
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
 - [ ] Linux compatibility
   - Test installation, ensure free from errors
