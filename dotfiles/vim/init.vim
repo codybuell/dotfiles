@@ -321,7 +321,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'terryma/vim-expand-region'
 
 " pinnacle: highlight group manipulations
-Plug 'wincent/pinnacle'
+Plug 'codybuell/pinnacle'
 
 " deoplete-emoji: deoplete completion source for emoji's
 Plug 'fszymanski/deoplete-emoji'
@@ -444,7 +444,6 @@ endif
 
 " highlight when slopping over 80 columns
 call matchadd('ColorColumn', '\%81v', 100)
-
 
 """""""""""""""
 "             "

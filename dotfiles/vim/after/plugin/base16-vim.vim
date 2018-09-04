@@ -9,11 +9,7 @@ if !buell#helpers#PluginExists('base16-vim')
   finish
 endif
 
-" enable 24bit color in xterm-compatible terminals (bolded text, etc) for nvim
-" need to set a condition on this one based on 24bit availability?? iso-8613-3
-" as if not set you will see wrong colors in a 24bit compat terminal?? green
-" stripes etc... (24-bit true color: neovim 0.1.5+ / vim 7.4.1799+ enable ONLY
-" if TERM is set valid and it is NOT under mosh)
+" function to detect mosh sessions
 function! s:is_mosh()
   let output = system("is_mosh -v")
   if v:shell_error
@@ -22,12 +18,13 @@ function! s:is_mosh()
   return !empty(l:output)
 endfunction
 
+" enable 24bit color in xterm-comp terminals (bolds, guifg, guibg, etc) for nvim
 function s:auto_termguicolors()
   if !(has("termguicolors"))
     return
   endif
 
-  if (&term == 'xterm-256color' || &term == 'nvim') && !s:is_mosh()
+  if (&term == 'xterm-256color' || &term == 'nvim') && !s:is_mosh() && has('nvim')
     set termguicolors
   else
     set notermguicolors
@@ -35,9 +32,9 @@ function s:auto_termguicolors()
 endfunction
 call s:auto_termguicolors()
 
-function! s:SetColorscheme()
+function s:SetColorscheme()
   " access colors in 256 colorspace, needed when using base16-shell (as we are)
-  let base16colorspace=256
+  let g:base16colorspace=256
 
   " grab our shells colorsheme else default to 'tommorow-night'
   let s:config_file = expand('~/.base16')

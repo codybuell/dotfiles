@@ -119,39 +119,7 @@ function! buell#statusline#rhs() abort
   return l:rhs
 endfunction
 
-let s:default_lhs_color='Identifier'
-let s:async_lhs_color='Identifier'
-let s:modified_lhs_color='Identifier'
-let s:statusline_status_highlight=s:default_lhs_color
-let s:async=0
-
-function! buell#statusline#async_start() abort
-  let s:async=1
-  call buell#statusline#check_modified()
-endfunction
-
-function! buell#statusline#async_finish() abort
-  let s:async=0
-  call buell#statusline#check_modified()
-endfunction
-
-function! buell#statusline#check_modified() abort
-  if &modified && s:statusline_status_highlight != s:modified_lhs_color
-    let s:statusline_status_highlight=s:modified_lhs_color
-    call buell#statusline#update_highlight()
-  elseif !&modified
-    if s:async && s:statusline_status_highlight != s:async_lhs_color
-      let s:statusline_status_highlight=s:async_lhs_color
-      call buell#statusline#update_highlight()
-    elseif !s:async && s:statusline_status_highlight != s:default_lhs_color
-      let s:statusline_status_highlight=s:default_lhs_color
-      call buell#statusline#update_highlight()
-    endif
-  endif
-endfunction
-
 function! buell#statusline#update_highlight() abort
-
   " bail if pinnacle not installed
   if !buell#helpers#PluginExists('pinnacle')
     return
@@ -170,7 +138,7 @@ function! buell#statusline#update_highlight() abort
   execute 'highlight User3 ' . l:highlight
 
   " inverted error styling, for left-hand side "powerline" triangle
-  let l:fg=pinnacle#extract_fg(s:statusline_status_highlight)
+  let l:fg=pinnacle#extract_bg('Error')
   let l:bg=pinnacle#extract_bg('StatusLine')
   execute 'highlight User4 ' . pinnacle#highlight({'bg': l:bg, 'fg': l:fg})
 
