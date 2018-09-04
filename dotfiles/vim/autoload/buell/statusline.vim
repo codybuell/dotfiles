@@ -120,8 +120,8 @@ function! buell#statusline#rhs() abort
 endfunction
 
 let s:default_lhs_color='Identifier'
-let s:async_lhs_color='Constant'
-let s:modified_lhs_color='ModeMsg'
+let s:async_lhs_color='Identifier'
+let s:modified_lhs_color='Identifier'
 let s:statusline_status_highlight=s:default_lhs_color
 let s:async=0
 
