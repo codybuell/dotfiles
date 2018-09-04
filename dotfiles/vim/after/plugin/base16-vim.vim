@@ -35,8 +35,74 @@ function s:auto_termguicolors()
 endfunction
 call s:auto_termguicolors()
 
-" access colors in 256 colorspace, needed when using base16-shell (as we are)
-let base16colorspace=256
+function! s:SetColorscheme()
+  " access colors in 256 colorspace, needed when using base16-shell (as we are)
+  let base16colorspace=256
 
-" default colorscheme
-colorscheme base16-tomorrow-night
+  " grab our shells colorsheme else default to 'tommorow-night'
+  let s:config_file = expand('~/.base16')
+  if filereadable(s:config_file)
+    let s:config = readfile(s:config_file, '', 2)
+    if s:config[1] =~# '^dark\|light$'
+      execute 'set background=' . s:config[1]
+    else
+      echoerr 'Bad background ' . s:config[1] . ' in ' . s:config_file
+    endif
+    if filereadable(expand('~/.vim/bundles/base16-vim/colors/base16-' . s:config[0] . '.vim'))
+      execute 'color base16-' . s:config[0]
+    else
+      echoerr 'Bad scheme ' . s:config[0] . ' in ' . s:config_file
+    endif
+  else
+    set background=dark
+    color base16-tomorrow-night
+  endif
+
+  " italicize comments
+  execute 'highlight Comment ' . pinnacle#italicize('Comment')
+
+  "" make tildes at EndOfBuffer less obvious
+  "let l:color=pinnacle#extract_bg('ColorColumn')
+  "let l:highlight=pinnacle#highlight({'bg': l:color, 'fg': l:color})
+  "execute 'highlight EndOfBuffer ' . l:highlight
+
+  " run all colorscheme autocommands to ensure consistency
+  doautocmd ColorScheme
+
+" " re-add matches for tabs after all loads so that they highlight correctly
+" " on the current line when cursorline is enabled, else hi below is ignored
+" " see also the corresponding autocommands in plugins/autocommands.vim
+" call matchadd('SpecialKey', '^\s\+', -1)
+" call matchadd('SpecialKey', '\s\+$', -1)
+" call matchadd('SpecialKey', '\t\+', -1)
+" call matchadd('NonText', '^\s\+', -1)
+" call matchadd('NonText', '\s\+$', -1)
+" call matchadd('NonText', '\t\+', -1)
+
+  " overrides for listchars (lcs)
+  hi SpecialKey ctermfg=236 guifg=#303030
+  hi NonText ctermfg=236 guifg=#303030
+
+  " overrides for warnings and errors
+  hi slwarnings ctermfg=3 ctermbg=19 guifg=#808000 guibg=#0000af
+  hi slerrors ctermfg=1 ctermbg=19 guifg=#800000 guibg=#0000af
+
+  " overrides for search results
+  hi Search ctermfg=232 guifg=#080808
+
+" " highlight any non ascii characters
+" syntax match nonascii "[^\x00-\x7F]"
+" highlight nonascii guibg=Red ctermbg=2
+endfunction
+
+" only run color configs if we are in vim+
+if v:progname !=# 'vi'
+  if has('autocmd')
+    augroup BuellAutocolor
+      autocmd!
+      autocmd FocusGained * call s:SetColorscheme()
+    augroup END
+  endif
+
+  call s:SetColorscheme()
+endif
