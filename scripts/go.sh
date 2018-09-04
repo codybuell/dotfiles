@@ -31,6 +31,7 @@ OSX=( \
 )
 
 ALL=( \
+  'github.com/nsf/gocode'                  # required for deoplete-go
 )
 
 ###############
