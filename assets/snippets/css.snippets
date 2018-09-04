@@ -1,0 +1,165 @@
+# set our default priority
+priority -50
+
+snippet . "class rule set"
+.${1} {
+    ${0}
+}
+endsnippet
+
+snippet # "id rule set"
+#${1} {
+    ${2}
+}
+endsnippet
+
+snippet a "standard hyperlink styling"
+a, a:visited, a:active {
+    text-decoration: ${1:none};
+    font-weight: ${2:normal};
+    outline: 0;
+    color: ${3:#000};
+}
+
+a:hover, a:focus {
+    text-decoration: ${4:$1};
+    font-weight: ${5:$2};
+    outline: 0;
+    color: ${6:$3};
+}
+endsnippet
+
+snippet a. "classed hyperlink styling"
+a.${1:class}, a.$1:visited, a.$1:active {
+    text-decoration: ${2:none};
+    font-weight: ${3:normal};
+    outline: 0;
+    color: ${4:#000};
+}
+
+a.$1:hover, a.$1:focus {
+    text-decoration: ${5:$1};
+    font-weight: ${6:$2};
+    outline: 0;
+    color: ${7:$3};
+}
+endsnippet
+
+snippet a# "id'd hyperlink styling"
+a#${1:id}, a#$1:visited, a#$1:active {
+    text-decoration: ${2:none};
+    font-weight: ${3:normal};
+    outline: 0;
+    color: ${4:#000};
+}
+
+a#$1:hover, a#$1:focus {
+    text-decoration: ${5:$1};
+    font-weight: ${6:$2};
+    outline: 0;
+    color: ${7:$3};
+}
+endsnippet
+
+snippet ! "important property"
+!important
+endsnippet
+
+snippet au "auto value"
+auto
+endsnippet
+
+snippet bg "background declaration"
+background: ${1};
+endsnippet
+
+snippet bgi "background image declaration"
+background: url(${1}) ${2:0} ${3:0} ${4:no-repeat} #${5:fff};
+endsnippet
+
+snippet w "width declaration"
+width: ${0};
+endsnippet
+
+snippet h "height declaration"
+height: ${0};
+endsnippet
+
+snippet m "margin declaration"
+margin: ${1:0} ${2:0} ${3:0} ${4:0};
+endsnippet
+
+snippet mt "margin-top declaration"
+martin-top: ${0};
+endsnippet
+
+snippet mr "margin-right declaration"
+martin-right: ${0};
+endsnippet
+
+snippet mb "margin-bottom declaration"
+martin-bottom: ${0};
+endsnippet
+
+snippet ml "margin-left declaration"
+martin-left: ${0};
+endsnippet
+
+snippet p "padding declaration"
+padding: ${1:0} ${2:0} ${3:0} ${4:0};
+endsnippet
+
+snippet pt "padding-top declaration"
+padding-top: ${0};
+endsnippet
+
+snippet pr "padding-right declaration"
+padding-right: ${0};
+endsnippet
+
+snippet pb "padding-bottom declaration"
+padding-bottom: ${0};
+endsnippet
+
+snippet pl "padding-left declaration"
+padding-left: ${0};
+endsnippet
+
+snippet pos "position declaration"
+position: ${1:absolute};
+endsnippet
+
+snippet tal "text align left declaration"
+text-align: left;
+endsnippet
+
+snippet tar "text align right declaration"
+text-align: right;
+endsnippet
+
+snippet tac "text align center declaration"
+text-align: center;
+endsnippet
+
+snippet g "grid base declaration"
+display: grid;
+grid-template-areas: "${1:col1 col2 col3 etc}"
+                     "${2:cols in   row  2}";
+grid-template-columns: ${3:100px 1fr 3fr 100px};
+grid-template-rows: ${4:50px 1fr};
+grid-column-gap: ${5:0px};
+grid-row-gap: ${6:0px};
+min-height: 100%;
+endsnippet
+
+snippet ga "grid area"
+grid-area: ${1:col1};
+endsnippet
+
+snippet mq "media query"
+@media screen and (max-width: ${1:600}px) {
+    ${0}
+}
+endsnippet
+
+# vim:ft=snippets:

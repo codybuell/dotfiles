@@ -26,7 +26,7 @@ endsnippet
 snippet bbox "big comment box" b
 `!p
 if not snip.c:
-	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
+	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 80
 box = make_box(len(t[1]), width)
 snip.rv = box[0]
 snip += box[4]
@@ -49,21 +49,51 @@ endsnippet
 
 ################################################################################
 ##                                                                            ##
-##  miscellaneous                                                             ##
+##  folds                                                                     ##
 ##                                                                            ##
 ################################################################################
 
-snippet date
+snippet fold "insert vim fold start marker" b
+`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = get_comment_format()[2]`
+endsnippet
+
+snippet foldc "insert vim fold close marker" b
+`!p snip.rv = get_comment_format()[0]` ${2:1}`!p snip.rv = foldmarker()[1]` `!p snip.rv = get_comment_format()[2]`
+endsnippet
+
+snippet foldp "insert vim fold marker pair" b
+`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = get_comment_format()[2]`
+${2:${VISUAL:Content}}
+`!p snip.rv = get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  dates and times                                                           ##
+##                                                                            ##
+################################################################################
+
+snippet date "YYYY.MM.DD"
 `date "+%Y.%m.%d"`
 endsnippet
 
-snippet time
+snippet diso "iso format datetime" w
+`!v strftime("%Y-%m-%d %H:%M:%S%z")`
+endsnippet
+
+snippet time "hh:mm"
 `date "+%H:%M"`
 endsnippet
 
-snippet datetime
+snippet datetime "YYYY.MM.DD hh:mm"
 `date "+%Y.%m.%d %H:%M"`
 endsnippet
+
+################################################################################
+##                                                                            ##
+##  lorem ipsum                                                               ##
+##                                                                            ##
+################################################################################
 
 snippet lorem "lorem ipsum text"
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -71,6 +101,118 @@ endsnippet
 
 snippet ipsum "lorem ipsum text continued"
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  miscellaneous                                                             ##
+##                                                                            ##
+################################################################################
+
+snippet #! "script boilerplate" b
+#!/bin/${1:bash}
+#
+# ${2:Script Name}
+#
+# ${3:Script description.}
+#
+# Author(s): ${4:{{ Name }}}
+#
+# Revisions: ${5:`date "+%Y.%m.%d"`} ${6:Initial framework.}
+#
+# Requisite: ${7}
+#
+# Resources: ${8}
+#
+# Task List: ${9}
+#
+# Usage: ${10}
+
+${0}
+endsnippet
+
+snippet tmux "project .tmux boilerplate (right)" b
+#!/bin/bash
+#
+# .--------------------------------------.
+# |                 |                    |
+# |        1        |                    |
+# |                 |                    |
+# |-----------------|          3         |
+# |                 |                    |
+# |        2        |                    |
+# |                 |                    |
+# '--------------------------------------'
+
+CMDPANE1='${1:git status}'
+CMDPANE2='${2}'
+CMDPANE3='${3:vim -c CommandT}'
+
+# get session name based on folder
+SESSION=\`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'\`
+
+# attach if session already exists
+if tmux has-session -t $SESSION 2> /dev/null; then
+  tmux -u attach -t $SESSION
+  exit
+fi
+
+# else create a new session
+tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
+
+# build out panes
+tmux split-window -t ${SESSION}:main.1 -h -p 60
+tmux split-window -t ${SESSION}:main.1 -v -p 60
+
+# run commands
+tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
+tmux send-keys -t ${SESSION}:main.2 "$CMDPANE2" Enter
+tmux send-keys -t ${SESSION}:main.3 "$CMDPANE3" Enter
+
+# attach to the new session, focus left pane
+tmux -u attach -t ${SESSION}:main.3
+endsnippet
+
+snippet tmuxl "project .tmux boilerplate (left)" b
+#!/bin/bash
+#
+# .--------------------------------------.
+# |                      |               |
+# |                      |       2       |
+# |                      |               |
+# |           1          |---------------|
+# |                      |               |
+# |                      |       3       |
+# |                      |               |
+# '--------------------------------------'
+
+CMDPANE1='${1:vim -c CommandT}'
+CMDPANE2='${2:git status}'
+CMDPANE3='${3}'
+
+# get session name based on folder
+SESSION=\`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'\`
+
+# attach if session already exists
+if tmux has-session -t $SESSION 2> /dev/null; then
+  tmux -u attach -t $SESSION
+  exit
+fi
+
+# else create a new session
+tmux new-session -d -s $SESSION -n main
+
+# build out panes
+tmux split-window -t ${SESSION}:main.1 -h -p 60
+tmux split-window -t ${SESSION}:main.2 -v -p 60
+
+# run commands
+tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
+tmux send-keys -t ${SESSION}:main.2 "$CMDPANE2" Enter
+tmux send-keys -t ${SESSION}:main.3 "$CMDPANE3" Enter
+
+# attach to the new session, focus left pane
+tmux -u attach -t ${SESSION}:main.3
 endsnippet
 
 snippet init "init script template" b

@@ -1,0 +1,492 @@
+priority -50
+
+extends html
+
+# overwrite everything in parent ft html
+priority -49
+
+################################################################################
+##                                                                            ##
+##  laravel helpers                                                           ##
+##                                                                            ##
+################################################################################
+
+snippet dd "laravel die dump"
+{{ dd(${1}) }}${0}
+endsnippet
+
+snippet @errors "blade errors loop"
+@if ($errors->any())
+  <ul>
+  @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+  @endforeach
+  </ul>
+@endif
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  standard bits                                                             ##
+##                                                                            ##
+################################################################################
+
+snippet @component "@component directive"
+@component('$1')
+	${2:${VISUAL}}
+@endcomponent
+endsnippet
+
+snippet @each "@each directive"
+@each('$1', $$2, '$3')
+endsnippet
+
+snippet @else "@else directive"
+@else
+endsnippet
+
+snippet @eif "@else if directive"
+@else if ($1)
+	${2:${VISUAL}}
+endsnippet
+
+snippet @for "@for directive"
+@for ($1)
+	${2:${VISUAL}}
+@endfor
+endsnippet
+
+snippet @foreach "@foreach directive"
+@foreach ($$1 as $$2)
+	${3:${VISUAL}}
+@endforeach
+endsnippet
+
+snippet @extends "@extends directive"
+@extends('$1')
+endsnippet
+
+snippet @if "@if directive"
+@if ($1)
+	${2:${VISUAL}}
+@endif
+endsnippet
+
+snippet @ife "@if @else structure"
+@if ($1)
+	${2:${VISUAL}}
+@else
+	${3:${VISUAL}}
+@endif
+endsnippet
+
+snippet @include "@include directive"
+@include('$1')
+endsnippet
+
+snippet @includeIf "@includeIf directive"
+@includeIf('$1')
+endsnippet
+
+snippet @isset "@isset directive"
+@isset
+	${1:${VISUAL}}
+@endisset
+endsnippet
+
+snippet @inject "@inject directive"
+@inject('$1', '$2')
+endsnippet
+
+snippet @lang "@lang directive" i
+@lang('$1')
+endsnippet
+
+snippet @php "@php directive"
+@php
+	${1:${VISUAL}}
+@endphp
+endsnippet
+
+snippet @push "@push directive"
+@push('$1')
+	${2:${VISUAL}}
+@endpush
+endsnippet
+
+snippet @section "@section directive"
+@section('$1')
+endsnippet
+
+snippet show "@show directive"
+@show
+endsnippet
+
+snippet slot "@slot directive"
+@slot('$1')
+	${2:${VISUAL}}
+@endslot
+endsnippet
+
+snippet unless "@unless directive"
+@unless
+	${1:${VISUAL}}
+@endunless
+endsnippet
+
+snippet verbatim "@verbatim directive"
+@verbatim
+	${0:$VISUAL}
+@endverbatim
+endsnippet
+
+snippet wh "@while directive"
+@while ($1)
+	${2:${VISUAL}}
+@endwhile
+endsnippet
+
+snippet yield "@yield directive"
+@yield('$1')
+endsnippet
+
+snippet { "{{ }} escaped interpreter" i
+{{ $1 }}
+endsnippet
+
+snippet {! "{!! !!} un-escaped interpreter" i
+{!! $1 !!}
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  boilerplates                                                              ##
+##                                                                            ##
+################################################################################
+
+snippet master "master blade template"
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    @yield('head')
+    <link href="{{ asset('assets/style/screen.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/style/print.css') }}" rel="stylesheet">
+    <!--[if IE]>
+      <link href="{{ asset('assets/style/styleie.css') }}" rel="stylesheet">
+    <![endif]-->
+    <link href="{{ asset('assets/graphics/favicon.ico') }}" rel="shortcut icon" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/graphics/apple-touch-icon-114x114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/graphics/apple-touch-icon-72x72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/graphics/apple-touch-icon-precomposed.png') }}">
+    <meta name="og:image" content="{{ asset('assets/graphics/apple-touch-icon-114x114-precomposed.png') }}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="imagetoolbar" content="false" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8">
+    @yield('style')
+  </head>
+  <body>
+    <header>
+      @include('partials.alertbar')
+      @include('partials.navigation')
+      @yield('header')
+    </header>
+    <main id="{{ $mainId }}" class="container {{ $mainClass }}" role="main">
+      @yield('main')
+    </main>
+    <footer>
+      @yield('footer')
+    </footer>
+    <script src="{{ asset('assets/scripts/manifest.js') }}"></script>
+    <script src="{{ asset('assets/scripts/vendor.js') }}"></script>
+    <script src="{{ asset('assets/scripts/app.js') }}"></script>
+    @yield('scripts')
+    @if(App::environment('production'))
+      @include('partials.analytics')
+    @endif
+  </body>
+</html>
+endsnippet
+
+snippet sub "sub blade template"
+@extends('layouts.${1:default}', [
+  'bodyClass' => '${2:mainlayout}',
+  'mainId'    => '${3:pageid}',
+  'mainClass' => '${4:sublayout}',
+])
+
+@section('head')
+  @include('partials.pagemeta', [
+    'title'       => '${5:title}',
+    'type'        => '${6:article}',
+    'description' => '${7:page description}',
+    'keywords'    => '${8:keyword}',
+    'author'      => '${9:author}',
+  ])
+@endsection
+
+@section('style')
+@endsection
+
+@section('header')
+@endsection
+
+@section('main')
+  ${0}
+@endsection
+
+@section('footer')
+@stop
+
+@section('scripts')
+@endsection
+endsnippet
+
+snippet masteremail "master blade email template"
+<!doctype html>
+<html>
+  <head>
+    @yield('head')
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{ $title }}</title>
+    <style>
+        /* -------------------------------------
+            GLOBAL
+        ------------------------------------- */
+        * {
+          font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+          font-size: 100%;
+          line-height: 1.6em;
+          margin: 0;
+          padding: 0;
+        }
+
+        img {
+          max-width: 600px;
+          width: auto;
+        }
+
+        body {
+          -webkit-font-smoothing: antialiased;
+          height: 100%;
+          -webkit-text-size-adjust: none;
+          width: 100% !important;
+        }
+
+
+        /* -------------------------------------
+            ELEMENTS
+        ------------------------------------- */
+        a {
+          color: #348eda;
+        }
+
+        .btn-primary {
+          Margin-bottom: 10px;
+          width: auto !important;
+        }
+
+        .btn-primary td {
+          background-color: #348eda;
+          border-radius: 25px;
+          font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+          font-size: 14px;
+          text-align: center;
+          vertical-align: top;
+        }
+
+        .btn-primary td a {
+          background-color: #348eda;
+          border: solid 1px #348eda;
+          border-radius: 25px;
+          border-width: 10px 20px;
+          display: inline-block;
+          color: #ffffff;
+          cursor: pointer;
+          font-weight: bold;
+          line-height: 2;
+          text-decoration: none;
+        }
+
+        .last {
+          margin-bottom: 0;
+        }
+
+        .first {
+          margin-top: 0;
+        }
+
+        .padding {
+          padding: 10px 0;
+        }
+
+
+        /* -------------------------------------
+            BODY
+        ------------------------------------- */
+        table.body-wrap {
+          padding: 20px;
+          width: 100%;
+        }
+
+        table.body-wrap .container {
+          border: 1px solid #f0f0f0;
+        }
+
+
+        /* -------------------------------------
+            FOOTER
+        ------------------------------------- */
+        table.footer-wrap {
+          clear: both !important;
+          width: 100%;
+        }
+
+        .footer-wrap .container p {
+          color: #666666;
+          font-size: 12px;
+        }
+
+        table.footer-wrap a {
+          color: #999999;
+        }
+
+
+        /* -------------------------------------
+            TYPOGRAPHY
+        ------------------------------------- */
+        h1,
+        h2,
+        h3 {
+          color: #111111;
+          font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+          font-weight: 200;
+          line-height: 1.2em;
+          margin: 40px 0 10px;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+        h2 {
+          font-size: 28px;
+        }
+        h3 {
+          font-size: 22px;
+        }
+
+        p,
+        ul,
+        ol {
+          font-size: 14px;
+          font-weight: normal;
+          margin-bottom: 10px;
+        }
+
+        ul li,
+        ol li {
+          margin-left: 5px;
+          list-style-position: inside;
+        }
+
+        /* ---------------------------------------------------
+            RESPONSIVENESS
+        ------------------------------------------------------ */
+
+        /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+        .container {
+          clear: both !important;
+          display: block !important;
+          Margin: 0 auto !important;
+          max-width: 600px !important;
+        }
+
+        /* Set the padding on the td rather than the div for Outlook compatibility */
+        .body-wrap .container {
+          padding: 20px;
+        }
+
+        /* This should also be a block element, so that it will fill 100% of the .container */
+        .content {
+          display: block;
+          margin: 0 auto;
+          max-width: 600px;
+        }
+
+        /* Let's make sure tables in the content area are 100% wide */
+        .content table {
+          width: 100%;
+        }
+
+        @yield('style')
+    </style>
+  </head>
+  <body bgcolor="#f6f6f6">
+    <!-- body -->
+    <table class="body-wrap" bgcolor="#f6f6f6">
+      <tr>
+        <td></td>
+        <td class="container" bgcolor="#FFFFFF">
+          <!-- content -->
+          <div class="content">
+          <table>
+            <tr>
+              <td>
+                @yield('main')
+              </td>
+            </tr>
+          </table>
+          </div>
+          <!-- /content -->
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- /body -->
+    <!-- footer -->
+    <table class="footer-wrap">
+      <tr>
+        <td></td>
+        <td class="container">
+          <!-- content -->
+          <div class="content">
+            <table>
+              <tr>
+                <td align="center">
+                  @yield('footer')
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!-- /content -->
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- /footer -->
+  </body>
+</html>
+endsnippet
+
+snippet subemail "sub blade email template"
+@extends('email',[
+  'title'    => '${1:emailtitle}',
+])
+
+@section('head')
+@endsection
+
+@section('style')
+@endsection
+
+@section('main')
+@endsection
+
+@section('footer')
+@stop
+endsnippet
+
+# vim:ft=snippets:
