@@ -4,7 +4,7 @@
 "                                                                              "
 "   Debugging:                                                                 "
 "                                                                              "
-"   NVIM_PYTHON_LOG_FILE=nvim.log NVIM_NCM_LOG_LEVEL=DEBUG nvim                "
+"     NVIM_PYTHON_LOG_FILE=nvim.log NVIM_NCM_LOG_LEVEL=DEBUG nvim              "
 "                                                                              "
 "   Mappings:                                                                  "
 "                                                                              "
@@ -181,26 +181,6 @@
 "     see all leader mappings:                                                 "
 "       `vim -c 'set t_te=' -c 'set t_ti=' -c 'map <space> -c q | sort`        "
 "                                                                              "
-"   Todo:                                                                      "
-"                                                                              "
-"     [ ] `go get -u github.com/nsf/gocode` required for deoplete-go           "
-"     [ ] folding                                                              "
-"     [ ] config ale messages in status line                                   "
-"     [ ] config ale colors                                                    "
-"     [ ] config what linters to use with ale (explicitly define??)            "
-"     [ ] make ale less obnoxious (less frequent??, not as blaring?, gutter    "
-"         only?)                                                               "
-"     [ ] setup some au FileType go nmap mappings for vim-go                   "
-"     [ ] test on a fresh zsh and bash shell, colors may not work without      "
-"         other prep work (shell config for 256 etc...)                        "
-"     [ ] put in detections for color capability to accomodate mosh colors     "
-"     [ ] when deploying, symlink .vim/snippets dir so any snippet changes     "
-"         are tracked in the repository and dont have to be copied back in     "
-"     [ ] need to programmaticall create /tmp/[backup|swap|undo|view] dirs     "
-"     [ ] setup php clang and js completion sources                            "
-"     [ ] configure some mappings for vim-go plugi                             "
-"     [ ] tab to toggle folds                                                  "
-"                                                                              "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -250,7 +230,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" deoplete-go: deoplete completion source for go
+" deoplete-go: deoplete completion source for go (deps in scripts/go.sh)
 Plug 'zchee/deoplete-go', {
 \   'do': 'make'
 \ }
@@ -261,9 +241,9 @@ Plug 'Shougo/neco-syntax'
 " neco-vim: deoplete completion source for viml
 Plug 'Shougo/neco-vim'
 
-" vim-go: improved go language support
+" vim-go: improved go language support (occasionally run :GoUpdateBinaries)
 Plug 'fatih/vim-go', {
-\   'do': ':GoUpdateBinaries'
+\   'do': ':GoInstallBinaries'
 \ }
 
 " command-t: fuzzyfinding file and buffer navigation
@@ -445,6 +425,8 @@ set laststatus=2                                   " enable statusline
 set noshowmode                                     " dont show modes, statusline does it
 set lazyredraw                                     " no redraw during macros etc
 set backspace=2                                    " make bkspace work on line br & auto indent
+set hidden                                         " allow buffer switching when unsaved
+set confirm                                        " prompt to save modified hidden buffers
 
 " vim specific (not nvim)
 if !has('nvim')
