@@ -39,6 +39,7 @@ DIFFEXCLUDES=( \
   "-regex .*.mutt*/tmp" \
   "-path *.vim*/tmp/*" \
   "-path *.vim*/snippits/*" \
+  "-path *.vim*/bundles/*" \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
@@ -165,7 +166,7 @@ postplacehooks() {
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
       $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
-      $VIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
+      $VIMPATH +'PlugInstall --sync' +qa &> /dev/null
 
       # link up neovim
       NVIMRTPROOT='~/.config/nvim'
