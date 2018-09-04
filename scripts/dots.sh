@@ -167,6 +167,17 @@ postplacehooks() {
       $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
       $VIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
 
+      # link up neovim
+      NVIMRTPROOT='~/.config/nvim'
+      [[ -d $NVIMRTPROOT || -L $NVIMRTPROOT ]] && {
+        [[ -L $NVIMRTPROOT ]] && {
+          unlink $NVIMRTPROOT
+        } || {
+          mv ~/.config/nvim ~/.config/nvim.dotorig.`date +%Y%m%d%H%M%S`
+        }
+      }
+      ln -s ~/.vim ~/.config/nvim
+
       # if linux (or vim older than ?), you need to symlink ~/.vimrc to .vim/init.vim
 
       # make tmp dirs
