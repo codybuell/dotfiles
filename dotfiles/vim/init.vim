@@ -2,6 +2,10 @@
 "                                                                              "
 "   Configurations for Vim & Neovim                                            "
 "                                                                              "
+"   Debugging:                                                                 "
+"                                                                              "
+"   NVIM_PYTHON_LOG_FILE=nvim.log NVIM_NCM_LOG_LEVEL=DEBUG nvim                "
+"                                                                              "
 "   Mappings:                                                                  "
 "                                                                              "
 "     Stick to default mappings as much as possible in order to stay           "
@@ -210,6 +214,9 @@
 if !has('nvim') && has('python3')
   silent! python3 1
 endif
+
+"let g:python_host_prog = '/usr/local/bin/python'
+"let g:python3_host_prog = '/usr/local/bin/python3'
 
 """""""""""""""
 "             "
