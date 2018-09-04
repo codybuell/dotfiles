@@ -2,7 +2,7 @@
   name = {{ GitUsername }}
   email = {{ Email }}
 [core]
-  editor = /usr/local/bin/vim
+  editor = /usr/local/bin/nvim
   excludesfile = ~/.cvsignore
 [merge]
   tool = vimdiff
