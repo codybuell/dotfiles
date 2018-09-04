@@ -125,13 +125,7 @@ Todo
 ### Baseline ###
 
 - [ ] provide option to use vim or nvim, edit dots accordingly (gitconfig, aliases, etc)
-- [ ] speed up make dots vim?  vim-go's install of helpers is slowing things way down
-- [ ] need to check all python versions installed on a system, manually define paths in init.vim, make sure all pip's installed have neovim installed and all pip3's have commandt.score...
-
-        let g:python_host_prog = '/full/path/to/neovim2/bin/python'
-        let g:python3_host_prog = '/full/path/to/neovim3/bin/python'
-
-- [ ] tie make pip as a post vim make dots hook, pre PlugInstall
+- [ ] tie make pip as a post vim make dots hook, pre `PlugInstall`
 - [ ] `all` make target for fully automated deployment
 - [ ] make dots needs to check if symlinks are there too, md5 summable?
 - [ ] Additional make targets??
@@ -141,7 +135,6 @@ Todo
   - `iterm`
   - `karabiner`
   - `windows`
-- [ ] Document all your dotfiles inline, what they do, etc so you dont forget!
 - [ ] Pull in remaining configurations from dotfiles repo
 - [ ] Merge this in as a branch of the core dotfiles repo
 - [ ] After merging into master tag commits (latest iteration 3.0.0)
@@ -169,19 +162,24 @@ Todo
 
 #### vim/nvim ####
 
-- [ ] quiet colors of line ends, tabstops, ending spaces, etc... look at pre refactor, it was very muted
-- [ ] `pythonx` dir not loading for ultisnip globals
+- [ ] config ale messages in status line
+- [ ] config ale colors
+- [ ] config what linters to use with ale (explicitly define??)
+- [ ] make ale less obnoxious (less frequent??, not as blaring?, gutter only?)
+- [ ] setup some au FileType go nmap mappings for vim-go
+- [ ] put in detections for color capability to accomodate mosh colors
+- [ ] setup php clang and js completion sources
+- [ ] configure some mappings for vim-go plugi
 - [ ] ctr-t does not open help file in new tab through commandt help
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
 - [ ] Linux compatibility
   - Test installation, ensure free from errors
   - Get copy and paste working with the system
   - Need to add symlink of `~/.vimrc` to `~/.vim/init.vim`
-- [ ] Consistent functionality between Vim / Nvim
 - [ ] Nerdtree fails to load fully when running `wj` or `pj` alias from shell, `r` to refresh then have to toggle folds twice to open
 - [ ] Color settings
-  - Something is changing `UserN` highlight groups on various focus events
   - For not standard buffer windows / splits just show an all gray statusbar with plugin / window name (quickfix, command-t etc)
+  - Consistency between vim and neovim
 - [ ] Setup tabbar / tabline
 - [ ] Snippets
 - [ ] Finish wiki plugin, add assoc. array of wiki's and locations, create / follow link function to handle wiki and internal links
@@ -217,6 +215,7 @@ Todo
 ### New Features
 
 - [ ] Transition to Universal CTags?
+- [ ] Document all your dotfiles and scripts inline
 
 #### vim/nvim ####
 

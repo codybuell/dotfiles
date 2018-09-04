@@ -8,6 +8,9 @@ if has('autocmd')
     " reset autocommand group
     autocmd!
 
+    " disable paste mode on leaving insert mode
+    autocmd InsertLeave * set nopaste
+
     " don't insert a new comment character after o/O cmd
     autocmd BufEnter * setlocal formatoptions-=o
 
@@ -43,11 +46,15 @@ if has('autocmd')
     "                  "
     """"""""""""""""""""
 
+    autocmd BufEnter,FocusGained,VimEnter,WinEnter * call buell#statusline#focus_statusline()
+
     """""""""""""""""""
     "                 "
     "   blur events   "
     "                 "
     """""""""""""""""""
+
+    autocmd FocusLost,WinLeave * call buell#statusline#blur_statusline()
 
   augroup END
 endif
