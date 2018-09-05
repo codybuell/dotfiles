@@ -22,7 +22,7 @@
 " toggle current and previous buffers
 nnoremap                    <leader><leader>  <C-^>
 
-" remove search item highlight
+" loupe mappings
 nmap                        ,/                <Plug>(LoupeClearHighlight)
 
 " command t mappings

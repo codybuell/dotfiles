@@ -354,6 +354,9 @@ let g:EasyMotion_do_mapping = 0
 " disable default ferret mappings
 let g:FerretMap = 0
 
+" dont center results
+let g:LoupeCenterResults=0
+
 """""""""""""""""""""""
 "                     "
 "   Initializations   "
