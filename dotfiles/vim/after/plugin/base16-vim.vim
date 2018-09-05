@@ -94,12 +94,12 @@ endfunction
 
 " only run color configs if we are in vim+
 if v:progname !=# 'vi'
-  if has('autocmd')
-    augroup BuellAutocolor
-      autocmd!
-      autocmd FocusGained * call s:SetColorscheme()
-    augroup END
-  endif
+" if has('autocmd')
+"   augroup BuellAutocolor
+"     autocmd!
+"     autocmd FocusGained * call s:SetColorscheme()
+"   augroup END
+" endif
 
   call s:SetColorscheme()
 endif
