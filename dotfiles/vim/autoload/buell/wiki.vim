@@ -182,6 +182,11 @@ function! buell#wiki#createFollowWikiLink() abort
     if l:wikipath == 'unset'
       echom 'wiki not defined in plugins/wiki.vim'
     else
+      if l:twiki == 'wj' || l:twiki == 'pj'
+        let l:jrnlpath  = substitute(l:tpage, '\([0-9]\{4\}\.[0-9]\{2\}\)\.[0-9]\{2\}', '\1', '')
+        let l:jrnlpath  = substitute(l:jrnlpath, '\.', '\/', '')
+        let l:wikipath += '/'.l:jrnlpath
+      endif
       execute "edit " . l:wikipath . "/" . l:tpage . ".txt"
       "execute "edit " . fnameescape(l:wikipath) . "/" . l:tpage . ".txt"
     endif
