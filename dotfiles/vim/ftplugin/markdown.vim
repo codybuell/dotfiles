@@ -2,7 +2,7 @@
 setlocal conceallevel=2
 
 " remap enter to create or follow links
-nnoremap <silent><buffer>   <enter>           :<C-U>call buell#wiki#CreateFollowWikiLink()<CR>
+nnoremap <silent><buffer>   <enter>           :<C-U>call buell#wiki#createFollowWikiLink()<CR>
 
 " enable spell checking
 setlocal spell

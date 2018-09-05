@@ -22,7 +22,7 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! buell#wiki#MatchStrAtCursor(regex) abort
+function! buell#wiki#matchStrAtCursor(regex) abort
 
   let l:col  = col('.') - 1                         " get cursors horiz position
   let l:line = getline('.')                         " get all text current line
@@ -124,34 +124,34 @@ endfunction
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! buell#wiki#CreateFollowWikiLink() abort
+function! buell#wiki#createFollowWikiLink() abort
 
   " check for web url links at cursor
-  let l:link = buell#wiki#MatchStrAtCursor(g:mdWikiWebURLLink)
+  let l:link = buell#wiki#matchStrAtCursor(g:mdWikiWebURLLink)
   let l:type = 'web'
 
   " if link is still not set check for wiki section link
   if l:link == ""
-    let l:link = buell#wiki#MatchStrAtCursor(g:mdWikiSectionLink)
+    let l:link = buell#wiki#matchStrAtCursor(g:mdWikiSectionLink)
     let l:type = 'section'
   endif
 
   " if link is still not set check for wiki link
   if l:link == ""
-    let l:link = buell#wiki#MatchStrAtCursor(g:mdWikiWikiLink)
+    let l:link = buell#wiki#matchStrAtCursor(g:mdWikiWikiLink)
     let l:type = 'wiki'
   endif
 
   " if link is still not set check for wiki page link
   if l:link == ""
-    let l:link = buell#wiki#MatchStrAtCursor(g:mdWikiPageLink)
+    let l:link = buell#wiki#matchStrAtCursor(g:mdWikiPageLink)
     let l:type = 'page'
   endif
 
   " if link is still not set check if string is not a link
   if l:link == ""
-    "let l:link = buell#wiki#MatchStrAtCursor('curword')
-    let l:link = buell#wiki#MatchStrAtCursor(g:mdWikiUnlinked)
+    "let l:link = buell#wiki#matchStrAtCursor('curword')
+    let l:link = buell#wiki#matchStrAtCursor(g:mdWikiUnlinked)
     let l:type = 'unlinked'
   endif
 
@@ -161,21 +161,31 @@ function! buell#wiki#CreateFollowWikiLink() abort
   endif
 
   " execute depending on link type
-  if type == 'page'
+  if l:type == 'page'
     execute "normal \<Plug>Markdown_EditUrlUnderCursor"
-  elseif type == 'section'
-    echom 'section links not yet supported'
-  elseif type == 'web'
+  elseif l:type == 'section'
+    let l:target = substitute(l:link, '.*(#\([^)]*\).*', '\1', '')
+    execute 'g/#* '.l:target.'/ norm ggn,/'
+  elseif l:type == 'web'
     execute "normal \<Plug>Markdown_OpenUrlUnderCursor"
-  elseif type == 'wiki'
-    echom 'external wiki links not yet supported'
-    " get the target (wiki:target)
-    "let target = substitute(link, '.*(\([^)]*\).*', '\1', '')
-    " determine the wiki (wiki:target)
-    " look it up in the defined wiki's array and grab defined root path
-    " open it up
-    "execute "edit " . fnameescape(wikipath) . "/" . target . ".txt"
-  elseif type == 'unlinked'
+  elseif l:type == 'wiki'
+    let l:target = substitute(l:link, '.*(\([^)]*\).*', '\1', '')
+    let l:twiki = substitute(l:target, '\([^:]*\).*', '\1', '')
+    let l:tpage = substitute(l:target, '[^:]*:\(.*\)', '\1', '')
+    let l:wikipath = 'unset'
+    for wiki in g:wiki_list
+      if wiki['name'] == l:twiki
+        let l:wikipath = wiki['path']
+        break
+      endif
+    endfor
+    if l:wikipath == 'unset'
+      echom 'wiki not defined in plugins/wiki.vim'
+    else
+      execute "edit " . l:wikipath . "/" . l:tpage . ".txt"
+      "execute "edit " . fnameescape(l:wikipath) . "/" . l:tpage . ".txt"
+    endif
+  elseif l:type == 'unlinked'
     call buell#wiki#makeLinkAtCursor(l:link)
   endif
 
