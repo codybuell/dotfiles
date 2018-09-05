@@ -135,6 +135,10 @@ Todo
   - Need to add symlink of `~/.vimrc` to `~/.vim/init.vim`
 - [ ] Nerdtree fails to load fully when running `wj` or `pj` alias from shell, `r` to refresh then have to toggle folds twice to open
 
+#### shell ####
+
+- [ ] `md:13: bad floating point constant` on occasion when running md
+
 ### New Features
 
 - [ ] Additional make targets
@@ -156,6 +160,10 @@ Todo
 
 #### vim/nvim ####
 
+- [ ] pull in snippets for sh, css, js, html, etc from honza, build out more
+      boilerplates (sass/scss, js, html, etc) consistent triggers across
+      languages (for comments /* /** etc), check for same bbox sections in all
+      snippets, even if emtpy for placeholder purposes
 - [ ] Setup php clang and js completion sources
 - [ ] setup some au FileType go nmap mappings for vim-go
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
@@ -214,6 +222,7 @@ Todo
 
 #### Mutt ####
 
+- [ ] Open attachments not working
 - [ ] Mail filtering rules in config (forward public goods to Court, etc)
 - [ ] Add alias groups in mutt (gamenight, etc)
 
