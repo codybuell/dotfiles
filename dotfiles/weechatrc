@@ -416,6 +416,8 @@
 ## znc freenode
 #/server add znc-freenode ${sec.data.zncaddr} -ssl -username=${sec.data.zncun}/freenode -password=${sec.data.znc} -autoconnect
 #/set irc.server.znc-freenode.ssl_fingerprint ${sec.data.zncfp}
+## enable caller id mode (no priv messages, you get a notification and can allow with /accept)
+#/set irc.server.znc-freenode.usermode "+g"
 #/set irc.server.znc-freenode.command /query *status; /query *sasl
 
 ## znc alias for sending commands to server
@@ -430,6 +432,8 @@
 ## freenode
 #/server add freenode -ssl -autoconnect
 #/set irc.server.freenode.addresses "chat.freenode.net/6697"
+## enable caller id mode (no priv messages, you get a notification and can allow with /accept)
+#/set irc.server.freenode.usermode "+g"
 #/set irc.server.freenode.command /msg nickserv identify ${sec.data.freenodeun} ${sec.data.freenode};/join #laravel;/join #salt; /join #sssd
 
 ################################################################################
