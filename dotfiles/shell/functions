@@ -52,7 +52,8 @@ rdp() {
       # -P cache the bitmaps to reduce network traffic and improve performance
       # -g your screens res, minus the os menu bar...
       # -a your bit depth
-      rdesktop -DKbP -g ${RDP_GEOMETRY} -a 24 -d ${RDP_DOMAIN} -u ${RDP_USER} ${RDP_HOST}
+      # -p '-' to prompt for password
+      rdesktop -DKbP -g ${RDP_GEOMETRY} -a 24 -d ${RDP_DOMAIN} -u ${RDP_USER} -p - ${RDP_HOST}
       ;;
     xfreerdp )
       # -K try not to mangle host os keyboard bindings
