@@ -122,103 +122,44 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
 Todo
 ----
 
-### Baseline ###
+### Issues ###
 
-- [ ] provide option to use vim or nvim, edit dots accordingly (gitconfig, aliases, etc)
-- [ ] tie make pip as a post vim make dots hook, pre `PlugInstall`
-- [ ] `all` make target for fully automated deployment
-- [ ] make dots needs to check if symlinks are there too, md5 summable?
-- [ ] Additional make targets??
+#### vim/nvim ####
+
+- [ ] Tie `make pip` as a post vim make dots hook, pre `PlugInstall`
+- [ ] Make dots vim always replaces, even if no change (check your checksums)
+- [ ] Command-t help, ctr-t does not open help file in new tab
+- [ ] Linux compatibility
+  - Test installation, ensure free from errors
+  - Get copy and paste working with the system
+  - Need to add symlink of `~/.vimrc` to `~/.vim/init.vim`
+- [ ] Nerdtree fails to load fully when running `wj` or `pj` alias from shell, `r` to refresh then have to toggle folds twice to open
+
+### New Features
+
+- [ ] Additional make targets
+  - `all`!!
   - `fonts`
   - `full`??
   - `ddclient`
   - `iterm`
   - `karabiner`
   - `windows`
-- [ ] Pull in remaining configurations from dotfiles repo
-- [ ] Merge this in as a branch of the core dotfiles repo
-- [ ] After merging into master tag commits (latest iteration 3.0.0)
+- [ ] De-duplicate configurations in `.config[.example]` and update references in repo `{{ VAR }}` (i.e. ~/Repos is referenced several times, rename var to PATHRepos and it will be made in scripts/paths, just need to update it's references elsewhere)
+- [ ] Transition to Universal CTags?
+- [ ] Document all your dotfiles and scripts inline
+- [ ] Provide option to use vim or nvim, edit dots accordingly (gitconfig, aliases, etc)
+- [ ] Tag commits
   - v1.0.0 baseline dotfiles
   - v2.0.0 automated installations
   - v3.0.0 refactor with nvim
-- [ ] De-duplicate configurations in .config[.example] and update references in repo `{{ VAR }}` (i.e. ~/Repos is referenced several times, rename var to PATHRepos and it will be made in scripts/paths, just need to update it's references elsewhere)
-- [ ] submodules
-  - <https://github.com/chriskempson/base16-shell.git>
-  - <https://github.com/honza/mutt-notmuch-py.git>
-  - <https://github.com/zsh-users/zsh-autosuggestions.git>
-  - <https://github.com/zsh-users/zsh-syntax-highlighting.git>
-
-#### weechat ####
-
-- [ ] automate deployment of ~/weechatrc
-
-#### zsh ####
-
-- [ ] refactor zshrc, break into sub files in ~/.shell
-
-#### tmux ####
-
-- [ ] Get copy and paste working with the system clipboard
 
 #### vim/nvim ####
 
-- [ ] config ale messages in status line
-- [ ] config ale colors
-- [ ] config what linters to use with ale (explicitly define??)
-- [ ] make ale less obnoxious (less frequent??, not as blaring?, gutter only?)
+- [ ] Setup php clang and js completion sources
 - [ ] setup some au FileType go nmap mappings for vim-go
-- [ ] put in detections for color capability to accomodate mosh colors
-- [ ] setup php clang and js completion sources
-- [ ] configure some mappings for vim-go plugi
-- [ ] ctr-t does not open help file in new tab through commandt help
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
-- [ ] Linux compatibility
-  - Test installation, ensure free from errors
-  - Get copy and paste working with the system
-  - Need to add symlink of `~/.vimrc` to `~/.vim/init.vim`
-- [ ] Nerdtree fails to load fully when running `wj` or `pj` alias from shell, `r` to refresh then have to toggle folds twice to open
-- [ ] Color settings
-  - For not standard buffer windows / splits just show an all gray statusbar with plugin / window name (quickfix, command-t etc)
-  - Consistency between vim and neovim
 - [ ] Setup tabbar / tabline
-- [ ] Snippets
-- [ ] Finish wiki plugin, add assoc. array of wiki's and locations, create / follow link function to handle wiki and internal links
-- [ ] On focus / blur events
-  - Toggle syntax hl
-  - Toggle statusline simple gray / full
-  - Reload buffer on focus if file changed
-
-#### ruby / rvm ####
-
-- [ ] Implement: <https://tecadmin.net/install-ruby-latest-stable-centos/>
-
-#### osx ####
-
-- [ ] Clean up scripts/osx.sh, add `prettyprint` for consistency
-- [ ] Finish providing options at head
-
-#### hammerspoon ####
-
-- [ ] refactor (break into files, add comments, clean syntax)
-
-#### Mutt ####
-
-- [ ] Mail filtering rules in config (forward public goods to Court, etc)
-- [ ] Add alias groups in mutt (gamenight, etc)
-
-#### Shell ####
-
-- [ ] Alias vi and vim to nvim
-- [ ] Need to dynamically setup gopath for projects... right way??  better way??  when will go do away with gopath??
-- [ ] Improve color support for mosh (does not support 24 bit color?)
-
-### New Features
-
-- [ ] Transition to Universal CTags?
-- [ ] Document all your dotfiles and scripts inline
-
-#### vim/nvim ####
-
 - [ ] Move `plugin/math.vim` to an auto-loaded function? fix instances where it doesn't work!
 - [ ] Improve foldtext to better show fold depth and folded object?
   - Remove `#`s from title sections?
@@ -240,3 +181,44 @@ Todo
   - <https://github.com/lvht/phpcd.vim>
   - <https://github.com/codybuell/vim-comceal.git>
   - Something for blade syntax
+- [ ] refine ale
+  - config ale messages in status line
+  - config ale colors
+  - config what linters to use with ale (explicitly define??)
+  - make ale less obnoxious (less frequent??, not as blaring?, gutter only?)
+- [ ] On focus / blur events
+  - Toggle syntax hl
+  - Reload buffer on focus if file changed
+
+#### shell ####
+
+- [ ] Dynamically set `$GOPATH` for projects
+- [ ] Improve color support for MOSH (does not support 24 bit color?)
+
+#### hammerspoon ####
+
+- [ ] Refactor (break into files, add comments, clean syntax)
+
+#### osx ####
+
+- [ ] Clean up scripts/osx.sh, add `prettyprint` for consistency
+- [ ] Finish providing options at head
+
+#### zsh ####
+
+- [ ] Refactor `zshrc`, break into sub files in `~/.shell`
+
+#### weechat ####
+
+- [ ] Automate deployment of `~/.weechatrc`
+
+#### Mutt ####
+
+- [ ] Mail filtering rules in config (forward public goods to Court, etc)
+- [ ] Add alias groups in mutt (gamenight, etc)
+
+#### ruby / rvm ####
+
+- [ ] Implement: <https://tecadmin.net/install-ruby-latest-stable-centos/>
+
+#### docker ####
