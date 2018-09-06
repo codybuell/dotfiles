@@ -130,8 +130,7 @@ Todo
 - [ ] Make dots vim always replaces, even if no change (check your checksums)
 - [ ] Command-t help, ctr-t does not open help file in new tab
 - [ ] Linux compatibility
-  - Test installation, ensure free from errors
-  - Get copy and paste working with the system
+  - Terminal cursor color gets mangled with NonText hl group set in `after/base16-vim.vim` (linux only)
   - Need to add symlink of `~/.vimrc` to `~/.vim/init.vim`
 - [ ] Nerdtree fails to load fully when running `wj` or `pj` alias from shell, `r` to refresh then have to toggle folds twice to open
 
@@ -142,9 +141,9 @@ Todo
 ### New Features
 
 - [ ] Additional make targets
-  - `all`!!
+  - `all`
   - `fonts`
-  - `full`??
+  - `full`
   - `ddclient`
   - `iterm`
   - `karabiner`
@@ -160,9 +159,10 @@ Todo
 
 #### vim/nvim ####
 
+- [ ] Fix tab completion while entered into a snippet, tab currently jumps to next stop rather than cycle options
 - [ ] pull in snippets for sh, css, js, html, etc from honza, build out more
       boilerplates (sass/scss, js, html, etc) consistent triggers across
-      languages (for comments /* /** etc), check for same bbox sections in all
+      languages (for comments `/*` `/**` etc), check for same bbox sections in all
       snippets, even if emtpy for placeholder purposes
 - [ ] Setup php clang and js completion sources
 - [ ] setup some au FileType go nmap mappings for vim-go
@@ -231,3 +231,10 @@ Todo
 - [ ] Implement: <https://tecadmin.net/install-ruby-latest-stable-centos/>
 
 #### docker ####
+
+- [ ] build out `script/docker.sh`
+- [ ] initialize kubernetes cluster
+
+### virtualbox ###
+
+- [ ] set vm location on host to a var in `.config`
