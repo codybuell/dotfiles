@@ -6,6 +6,131 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
+" Delete Vim View                                                              "
+"                                                                              "
+" Delete temporary view files created by mkview.                               "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" delete temporary view files created by mkview
+function! buell#helpers#DeleteVimView() abort
+  let path = fnamemodify(bufname('%'),':p')
+  " vim's odd =~ escaping for /
+  let path = substitute(path, '=', '==', 'g')
+  if !empty($HOME)
+    let path = substitute(path, '^'.$HOME, '\~', '')
+  endif
+  let path = substitute(path, '/', '=+', 'g') . '='
+  " view directory
+  let path = &viewdir.'/'.path
+  call delete(path)
+  echo "Deleted: ".path
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Double Click Override                                                        "
+"                                                                              "
+" Switch selection modes so double click yanks will copy entire word.          "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#DblClickOverride() abort
+  " set selection to exclusive
+  setl selection=exclusive
+  " yank the word under the cursor
+  exec ":normal yiw"
+  " select the word under the cursor
+  exec ":normal viw"
+  " grab the register and send it to clipper
+  exec system('nc localhost 8377', @0)
+  " return selection to inclusive
+  setl selection=inclusive
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Location List Navigation                                                     "
+"                                                                              "
+" Improve location list navigation.                                            "
+"                                                                              "
+" @param {string} direction - expects 'prev' or 'next'                         "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#LocationListNav(direction) abort
+  try
+    exe 'l' . a:direction
+  catch /^Vim\%((\a\+)\)\=:E/
+    if v:exception =~#".*E553:.*$"
+      if a:direction == "prev"
+        llast
+      elseif a:direction == "next"
+        lfirst
+      endif
+    else
+      echo 'No items found in the location list.'
+    endif
+  endtry
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Toggle Syntax Highlighting                                                   "
+"                                                                              "
+" Turn syntax highlighting on and off.                                         "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#ToggleSyntaxHL() abort
+  if exists("g:syntax_on")
+    syntax off
+  else
+    syntax enable
+    execute 'highlight Comment ' . pinnacle#italicize('Comment')
+  endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Sync Split                                                                   "
+"                                                                              "
+" Create a wrapping vertical split to show more length of a long buffer.       "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#SyncSplit() abort
+  " setlocal scrollbind in right window
+  setl nofoldenable
+  " save the current scroll off setting to var
+  let @z=&so
+  " set scrolloff to 0 and clear scrollbind
+  setl so=0 noscb
+  " split window vertically, new window on right
+  bo vs
+  " jump to bottom of window + 1, scroll to top
+  exec "norm Ljzt"
+  " setlocal scrollbind in right window
+  setl scb
+  " jump to previous window
+  exec "normal \<C-w>p"
+  " setlocal scrollbind in left window
+  setl scb
+  " restore scrolloff
+  let &so=@z
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
 " Create Needed Dirs                                                           "
 "                                                                              "
 " Create directories as needed to backfill a path for the current buffer.      "
@@ -245,4 +370,117 @@ function buell#helpers#PluginExists(plugin) abort
     endif
   endif
   return 0
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Number List Toggle                                                           "
+"                                                                              "
+" Toggle plain view vs nu, vs rnu, list, wrap, etc...                          "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#NuListToggle() abort
+  setlocal nonu!
+  setlocal nornu!
+  setlocal nolist!
+  setlocal wrap!
+  if &foldcolumn
+    setlocal foldcolumn=0
+  else
+    setlocal foldcolumn=2
+  endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Color Reference                                                              "
+"                                                                              "
+" Print color reference.                                                       "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#ColorReference() abort
+  let num = 255
+  while num >= 0
+    exec 'hi col_'.num.' ctermbg='.num.' ctermfg=white'
+    exec 'syn match col_'.num.' "ctermbg='.num.':...." containedIn=ALL'
+    call append(0, 'ctermbg='.num.':....')
+    let num = num - 1
+  endwhile
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Highlight Groups                                                             "
+"                                                                              "
+" Print highlight groups of element under the cursor.                          "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#HighlightGroups() abort
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Remove Trailing Spaces                                                       "
+"                                                                              "
+" Remove trailing whitespace from the current document.                        "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#RemoveTrailingSpaces() abort
+  let l:pos=getcurpos()
+  let l:search=@/
+  keepjumps %substitute/\s\+$//e
+  let @/=l:search
+  nohlsearch
+  call setpos('.', l:pos)
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Substitute Newlines                                                          "
+"                                                                              "
+" Replace newlines with spaces.                                                "
+"                                                                              "
+" @param {string} string - text to remove newlines from                        "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#SubNewlines(string) abort
+  return tr(a:string, "\r\n", '  ')
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Capture Line                                                                 "
+"                                                                              "
+" Run command and return the captured output as a single line.                 "
+"                                                                              "
+" @param {string} command - command to exetue and capture output from          "
+" @return {string} - output of command in a single line                        "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" run command and return captured output as a single line
+function! buell#helpers#CaptureLine(command) abort
+  redir => l:capture
+  execute a:command
+  redir END
+
+  return buell#helpers#sub_newlines(l:capture)
 endfunction
