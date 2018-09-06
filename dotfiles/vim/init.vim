@@ -367,7 +367,7 @@ let g:LoupeCenterResults=0
 call buell#autocomplete#deoplete_init()
 
 " turn on the hardtimes
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 
 """"""""""""""""
 "              "
