@@ -162,6 +162,9 @@ postplacehooks() {
   CURRENTTARGET=$1
 
   case $CURRENTTARGET in
+    Xresources )
+      xrdb ~/.Xresources
+      ;;
     vim )
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`

@@ -1,0 +1,66 @@
+! Source Sans
+URxvt*font: xft:Source Code Pro:size=12
+URxvt*boldFont: xft:Source Code Pro:bold:size=12
+URxvt*italicFont: xft:Source Code Pro:italic:size=12
+URxvt*boldItalicFont: xft:Source Code Pro:bolditalic:size=12
+
+! Look and Feel
+URxvt*iconFile: /usr/share/icons/Numix-Circle/48/apps/terminal.svg
+URxvt*iconName: terminal
+URxvt*visualBell: false
+URxvt*depth: 32
+URxvt*scrollBar: false
+
+! *.foreground:   #ffffff
+! *.background:   [85]#1b1918
+! *.cursorColor:  #ffffff
+! 
+! *.color0:       #1b1918
+! *.color1:       #f22c40
+! *.color2:       #5ab738
+! *.color3:       #d5911a
+! *.color4:       #407ee7
+! *.color5:       #6666ea
+! *.color6:       #00ad9c
+! *.color7:       #a8a19f
+! *.color8:       #766e6b
+! *.color9:       #f22c40
+! *.color10:      #5ab738
+! *.color11:      #d5911a
+! *.color12:      #407ee7
+! *.color13:      #6666ea
+! *.color14:      #00ad9c
+! *.color15:      #f1efee
+! *.color16:      #df5320
+! *.color17:      #c33ff3
+! *.color18:      #2c2421
+! *.color19:      #68615e
+! *.color20:      #9c9491
+! *.color21:      #e6e2e0
+
+! What the fuck.
+URxvt*iso14755: false
+URxvt*iso14755_52: false
+
+! Plugins: URL Matcher, Clipboard, Tabs, Scrollwheel
+URxvt*perl-ext-common: default,matcher,clipboard,tabbedex,vtwheel
+URxvt*modifier: super
+URxvt*url-launcher: /usr/bin/palemoon
+URxvt*matcher.button: 1
+URxvt*keysym.Shift-Control-C: perl:clipboard:copy
+URxvt*keysym.Shift-Control-V: perl:clipboard:paste
+URxvt*tabbed.autohide: true
+URxvt*keysym.Control-t: perl:tabbedex:new_tab
+URxvt*keysym.Control-Tab: perl:tabbedex:next_tab
+URxvt*keysym.Control-Shift-Tab: perl:tabbedex:prev_tab
+URxvt*keysym.Control-Shift-Left: perl:tabbedex:move_tab_left
+URxvt*keysym.Control-Shift-Right: perl:tabbedex:move_tab_right
+
+! Xft Font Configuration
+Xft.dpi: 82
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: false
+Xft.hintstyle: hintnone
+
+! Xcursor.theme: OpenZone_Black_Slim

@@ -235,6 +235,8 @@ Todo
 - [ ] build out `script/docker.sh`
 - [ ] initialize kubernetes cluster
 
-### virtualbox ###
+#### virtualbox ####
 
 - [ ] set vm location on host to a var in `.config`
+
+#### rxvt ####
