@@ -193,7 +193,7 @@ endfunction
 function! s:update_statusline(default, action) abort
   let l:statusline = s:get_custom_statusline(a:action)
   if type(l:statusline) == type('')
-    " Apply custom statusline.
+    " apply custom statusline
     execute 'setlocal statusline=' . l:statusline
   elseif l:statusline == 0
     " Do nothing.
@@ -210,14 +210,16 @@ endfunction
 
 function! s:get_custom_statusline(action) abort
   if &ft ==# 'command-t'
-    " Will use Command-T-provided buffer name, but need to escape spaces.
+    " will use Command-T-provided buffer name, but need to escape spaces
     return '\ \ ' . substitute(bufname('%'), ' ', '\\ ', 'g')
   elseif &ft ==# 'diff' && exists('t:diffpanel') && t:diffpanel.bufname ==# bufname('%')
-    return 'Undotree\ preview' " Less ugly, and nothing really useful to show.
+    return 'Undotree\ preview' " less ugly, and nothing really useful to show
+  elseif &ft ==# 'tagbar'
+    return 0 " don't override, tagbar does its own thing
   elseif &ft ==# 'undotree'
-    return 0 " Don't override; undotree does its own thing.
+    return 0 " don't override, undotree does its own thing
   elseif &ft ==# 'nerdtree'
-    return 0 " Don't override; NERDTree does its own thing.
+    return 0 " don't override, NERDTree does its own thing
   elseif &ft ==# 'qf'
     if a:action ==# 'blur'
       return 'Quickfix'
@@ -226,5 +228,6 @@ function! s:get_custom_statusline(action) abort
     endif
   endif
 
-  return 1 " Use default.
+  " use default
+  return 1
 endfunction
