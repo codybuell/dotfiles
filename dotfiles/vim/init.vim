@@ -344,12 +344,11 @@ let g:ScalpelCommand = 'S'
 " don't override vim-vinegar's mapping of -
 let g:NERDTreeHijackNetrw = 0
 
-" use tab for ultisnips expansion and jumping
+" ultisnips expansion and jumping, we'll handle tab mapping with an
+" autocommand in after/plugin/deoplete.vim
 let g:UltiSnipsExpandTrigger = "<C-l>"
-" we'll handle tab mapping with an autocommand in after/plugin/deoplete.vim
-" if we dont set these they default to <C-j>  and <C-k> respectively
-"let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 " disable default easymotion mappings
 let g:EasyMotion_do_mapping = 0
