@@ -12,21 +12,23 @@ endif
 " sources - raw data for completion candidates
 " filters - how to display candidates (order etc)
 
-" sources:
-"   around     - from around the current cursor location
-"   buffer     - from the currently open file
-"   dictionary - keywords from the dictionary
-"   file       - filesystem paths and files
-"   member     - members of the current buffer
-"   omni       - uses whatever the defined omnifunc is at the time
-"   tag        - keywords from ctag files
-"   ultisnips  - ultisnip snippets
-"   go         - keywords from gocode server
-"   syntax     - synax suggestions for multiple languages
-"   vim        - vim languague keywords
-"   mail       - query addresses from lbdb
-"   contact    - same as mail but without header req and email address
-"   emoji      - :emoji: completion (markdown and gitcommit only)
+" core sources:
+"   around     [~]     - from around the current cursor location
+"   buffer     [B]     - from the currently open file
+"   dictionary [D]     - keywords from the dictionary
+"   file       [F]     - filesystem paths and files
+"   member     [M]     - members of the current buffer
+"   omni       [O]     - uses whatever the defined omnifunc is at the time
+"   tag        [T]     - keywords from ctag files
+
+" plugin sources:
+"   ultisnips  [US]    - ultisnip snippets (ultisnips)
+"   go         [Go]    - keywords from gocode server (deoplete-go)
+"   syntax     [S]     - synax suggestions for multiple languages (neco-syntax)
+"   vim        [vim]   - vim languague keywords (neco-vim)
+"   mail       [@]     - query addresses from lbdb (repo)
+"   contact    [@]     - mail but without header req and email address (repo)
+"   emoji      [emoji] - :emoji: completion for md & gitcommit docs (deoplete-emoji)
 
 " define sources, otherwise deoplete uses complete() by default :set complete?
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
@@ -37,7 +39,7 @@ call deoplete#custom#option('sources', {
 \   'html':      ['around', 'buffer'],
 \   'mail':      ['dictionary', 'mail'],
 \   'vim':       ['around', 'buffer', 'file', 'ultisnips', 'vim'],
-\   'markdown':  ['around', 'buffer', 'file', 'ultisnips', 'contact', 'emoji']
+\   'markdown':  ['around', 'buffer', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
 \ })
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
