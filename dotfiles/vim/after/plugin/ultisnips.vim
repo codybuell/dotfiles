@@ -4,6 +4,8 @@
 "               "
 """""""""""""""""
 
+" see after/plugin/deoplete.vim for tab mappings
+
 " when editing ultisnips, open in a vertical split
 let g:UltiSnipsEditSplit = "vertical"
 

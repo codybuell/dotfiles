@@ -195,6 +195,7 @@ if !has('nvim') && has('python3')
   silent! python3 1
 endif
 
+" make sure everything is using the right pythons
 "let g:python_host_prog = '/usr/local/bin/python'
 "let g:python3_host_prog = '/usr/local/bin/python3'
 
@@ -345,8 +346,10 @@ let g:NERDTreeHijackNetrw = 0
 
 " use tab for ultisnips expansion and jumping
 let g:UltiSnipsExpandTrigger = "<C-l>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+" we'll handle tab mapping with an autocommand in after/plugin/deoplete.vim
+" if we dont set these they default to <C-j>  and <C-k> respectively
+"let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
 " disable default easymotion mappings
 let g:EasyMotion_do_mapping = 0
