@@ -34,9 +34,9 @@ endif
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
 call deoplete#custom#option('sources', {
 \   '_':         ['around', 'buffer', 'file', 'ultisnips'],
-\   'cpp':       ['buffer','tag'],
-\   'go':        ['around', 'buffer', 'go', 'syntax', 'tag'],
-\   'html':      ['around', 'buffer'],
+\   'cpp':       ['buffer', 'ultisnips', 'tag'],
+\   'go':        ['around', 'buffer', 'go', 'syntax', 'ultisnips', 'tag'],
+\   'html':      ['around', 'buffer', 'ultisnips'],
 \   'mail':      ['dictionary', 'mail'],
 \   'vim':       ['around', 'buffer', 'file', 'ultisnips', 'vim'],
 \   'markdown':  ['around', 'buffer', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
