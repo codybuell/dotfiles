@@ -1,0 +1,124 @@
+# set our default priority
+priority -50
+
+################################################################################
+##                                                                            ##
+##  ternary operators                                                         ##
+##                                                                            ##
+################################################################################
+
+snippet =?: "ternary to variable"
+endsnippet
+
+snippet ?: "ternary operator"
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  comments                                                                  ##
+##                                                                            ##
+################################################################################
+
+snippet /** "class comment block"
+endsnippet
+
+snippet /* "comment block"
+/**
+ * ${0:description}
+ *
+ */
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  flow control                                                              ##
+##                                                                            ##
+################################################################################
+
+snippet switch "switch statement"
+switch ${1:var} {
+case ${2:value1}:
+	${0}
+default:
+	
+}
+endsnippet
+
+snippet case "case statement"
+case ${1:case}:
+	${0}
+endsnippet
+
+snippet for "for loop"
+for ${1} {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet fori "for 0..N-1 { ... }"
+for ${1:i} := 0; $1 < ${2:N}; $1++ {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet forr "for k, v := range items { ... }"
+for ${2:k}, ${3:v} := range ${1} {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet if "if statement"
+if ${1:true} {
+  ${0}
+}
+endsnippet
+
+snippet ifn "if not statement"
+if !${1:true} {
+  ${0}
+}
+endsnippet
+
+snippet ife "if else statement"
+if ${1:true} {
+  ${2}
+} else {
+  ${0}
+}
+endsnippet
+
+snippet el "else statement"
+else {
+  ${0}
+}
+endsnippet
+
+snippet eif "else if statement"
+else if ${1:true} {
+  ${0}
+}
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  functions                                                                 ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  classes, objects, etc.                                                    ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  debugging                                                                 ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  templates                                                                 ##
+##                                                                            ##
+################################################################################
