@@ -48,26 +48,29 @@ call deoplete#custom#option('sources', {
 "                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" cycle through popup menu if visible else jump snippet tabstops if a snippet
-" is active (not yet hit tabstop $0) or send an actual tab / shift+tab
-function s:remapTabKey(action)
-  if a:action == 'snippet'
-    inoremap    <expr><tab>               pumvisible() ? "\<C-n>" : "<C-O>:call UltiSnips#JumpForwards()<CR>"
-    inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "<C-O>:call UltiSnips#JumpBackwards()<CR>"
-  else
-    inoremap    <expr><tab>               pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  endif
-endfunction
+inoremap    <expr><tab>               pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-if has('autocmd')
-  augroup BuellAutotab
-    autocmd!
-    autocmd! User UltiSnipsEnterFirstSnippet
-    autocmd User UltiSnipsEnterFirstSnippet call s:remapTabKey('snippet')
-    autocmd! User UltiSnipsExitLastSnippet
-    autocmd User UltiSnipsExitLastSnippet call s:remapTabKey('normal')
-  augroup END
-endif
-
-call s:remapTabKey('normal')
+" " cycle through popup menu if visible else jump snippet tabstops if a snippet
+" " is active (not yet hit tabstop $0) or send an actual tab / shift+tab
+" function s:remapTabKey(action)
+"   if a:action == 'snippet'
+"     inoremap    <expr><tab>               pumvisible() ? "\<C-n>" : "<C-O>:call UltiSnips#JumpForwards()<CR>"
+"     inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "<C-O>:call UltiSnips#JumpBackwards()<CR>"
+"   else
+"     inoremap    <expr><tab>               pumvisible() ? "\<C-n>" : "\<Tab>"
+"     inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"   endif
+" endfunction
+" 
+" if has('autocmd')
+"   augroup BuellAutotab
+"     autocmd!
+"     autocmd! User UltiSnipsEnterFirstSnippet
+"     autocmd User UltiSnipsEnterFirstSnippet call s:remapTabKey('snippet')
+"     autocmd! User UltiSnipsExitLastSnippet
+"     autocmd User UltiSnipsExitLastSnippet call s:remapTabKey('normal')
+"   augroup END
+" endif
+" 
+" call s:remapTabKey('normal')
