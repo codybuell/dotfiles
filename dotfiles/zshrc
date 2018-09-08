@@ -80,8 +80,11 @@ setopt PROMPT_SUBST
 
 # anonymous function to avoid leaking NBSP variable
 function () {
+  PARENTPID=`ps -o ppid= $PPID | sed 's/[[:space:]]*//g'`
   # determine shell nesting level
-  if [[ -n "$TMUX" ]]; then
+  if [[ $PARENTPID == '1' ]]; then
+    local LVL=1
+  elif [[ -n "$TMUX" ]]; then
     local LVL=$(($SHLVL - 1))
   else
     local LVL=$SHLVL
