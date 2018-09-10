@@ -140,6 +140,7 @@ Todo
 
 ### New Features
 
+- [ ] Describe the system here in the readme, purpose of `Workbench`, `Projects`, `Repo`, `Codex`, etc.  and also document in `.config.example`
 - [ ] Additional make targets
   - `all`
   - `fonts`
