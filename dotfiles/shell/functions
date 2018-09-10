@@ -71,8 +71,8 @@ changedir() {
   eval cd $1/$2
 }
 
-ws() {
-  changedir '{{ NonRepoProjects }}' $@
+wb() {
+  changedir '{{ WorkbenchPath }}' $@
 }
 
 gist() {
@@ -116,6 +116,27 @@ codex() {
   else
     cd {{ CodexFolder }}
   fi
+}
+
+# link or unlink path to workbench
+wblink() {
+  CURPATHFULL=`pwd`
+  CURFOLDERNAME=${PWD##*/}
+  DESTINATION="{{ WorkbenchPath }}/$CURFOLDERNAME"
+
+  [[ -d $DESTINATION || -L $DESTINATION ]] && {
+    [[ -L $DESTINATION ]] && {
+      echo "Unlinking '$CURFOLDERNAME' from the workbench."
+      unlink $DESTINATION
+    } || {
+      echo "The folder '$CURFOLDERNAME' exists in the workbench."
+      exit 1
+    }
+  } || {
+    echo "Linking '$CURFOLDERNAME' to the workbench."
+    ln -s $CURPATHFULL $DESTINATION
+  }
+
 }
 
 # todo-txt.sh wrapper

@@ -214,6 +214,7 @@ TasksFolder     = "/Path/home/Google Drive/Tasks"      # full path, no escapes
 NotesFolder     = "~/Google\\ Drive/Notes"
 CodexFolder     = "~/Google\\ Drive/Codex"
 NonRepoProjects = "~/Google\\ Drive/Projects"
+WorkbenchPath   = "~/Google\\ Drive/Workbench" 
 PersonalJournal = "/Path/home/Google\\ Drive/Journal/personal"  # full path, escapes
 WorkJournal     = "/Path/home/Google\\ Drive/Journal/work"      # full path, escapes
 
