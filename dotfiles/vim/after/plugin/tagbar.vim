@@ -20,6 +20,8 @@ let g:tagbar_map_togglefold = ["o","za","<Tab>"]
 " tweak highlighting so it's less glaring
 highlight clear TagbarHighlight
 highlight! link TagbarHighlight Type
+highlight clear TagbarAccessPrivate
+highlight! link TagbarAccessPrivate WarningMsg
 
 " add support for additional languaguse (assuming use of exuberant-ctags)
 " test out to see if universal ctags will do the trick without these settings
