@@ -9,13 +9,19 @@ if has('autocmd')
     autocmd!
 
     " disable paste mode on leaving insert mode
-    autocmd InsertLeave * set nopaste
+    au InsertLeave * set nopaste
 
     " don't insert a new comment character after o/O cmd
-    autocmd BufEnter * setlocal formatoptions-=o
+    au BufEnter * setlocal formatoptions-=o
 
     " setting this in vimrc is not working... can't find culprit so set here
-    autocmd BufEnter * set foldtext=buell#foldtext#CustomFoldText()
+    au BufEnter * set foldtext=buell#foldtext#CustomFoldText()
+
+    " close vim/nvim if nerdtee is the only thing left open
+    au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    " close vim/nvim if quickfix is the only thing left open
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 
     " enforce relative numbers on all buffers and tabs
     au BufWinEnter * set nu rnu
@@ -38,7 +44,7 @@ if has('autocmd')
     au BufEnter * call buell#helpers#GitCommitBufEnter()
 
     " equalize splits on window resize
-    autocmd VimResized * execute "normal! \<c-w>="
+    au VimResized * execute "normal! \<c-w>="
 
     """"""""""""""""""""
     "                  "
@@ -46,7 +52,7 @@ if has('autocmd')
     "                  "
     """"""""""""""""""""
 
-    autocmd BufEnter,FocusGained,VimEnter,WinEnter * call buell#statusline#focus_statusline()
+    au BufEnter,FocusGained,VimEnter,WinEnter * call buell#statusline#focus_statusline()
 
     """""""""""""""""""
     "                 "
@@ -54,7 +60,7 @@ if has('autocmd')
     "                 "
     """""""""""""""""""
 
-    autocmd FocusLost,WinLeave * call buell#statusline#blur_statusline()
+    au FocusLost,WinLeave * call buell#statusline#blur_statusline()
 
   augroup END
 endif

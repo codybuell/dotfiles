@@ -34,6 +34,3 @@ call NERDTreeAddKeyMap({
 function! NERDTreeTabHandler(dirnode)
   normal o
 endfunction
-
-" close vim/nvim if nerdtee is the only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
