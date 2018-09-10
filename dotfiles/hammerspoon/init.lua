@@ -68,7 +68,7 @@ local layoutConfig = {
 --      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
 --      hs.grid.set(window, side, hs.screen.primaryScreen())
 --    end
-    if primaryWxH == "1440x900" then
+    if primaryWxH == "1680x1050" then
       hs.grid.set(window, grid.laptopGoldenLarge)
     else
       hs.grid.set(window, grid.goldenLarge)
