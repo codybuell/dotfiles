@@ -34,7 +34,7 @@
 "     ␣u underline text       ␣7                                               "
 "     ␣m easymotion           ␣8                      ferret:                  "
 "     ␣↵ re-run last macro    ␣9                      ␣a ack (quickfix list)   "
-"     ↹  toggle fold          ␣0                      ␣s ack current word      "
+"     ↹  toggle fold          ␣0 cycle lists          ␣s ack current word      "
 "                             ␣- cycle sidebars       ␣r search & replace      "
 "                             ␣=                                               "
 "                             ␣␣                      scalpel:                 "

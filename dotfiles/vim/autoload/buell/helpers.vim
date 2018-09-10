@@ -178,13 +178,37 @@ endfunction
 "                                                                              "
 " Cycle Lists                                                                  "
 "                                                                              "
-" Cycle location list, quick fix and no list.                                  "
+" Cycle location list, quickfix and no list.                                   "
 "                                                                              "
 " @return null                                                                 "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! buell#helpers#CycleLists() abort
+  if exists("g:buell_quickfix_open") && g:buell_quickfix_open
+    " close quickfix
+    cclose
+    " open loclist if it exists
+    try
+      lopen
+      let g:buell_quickfix_open = 0
+      let g:buell_loclist_open  = 1
+    catch /\m^Vim\%((\a\+)\)\=:E776/
+      " E776: No location list
+      let g:buell_quickfix_open = 0
+      let g:buell_loclist_open  = 0
+    endtry
+  elseif exists("g:buell_loclist_open") && g:buell_loclist_open
+    " close loclist
+    lclose
+    let g:buell_quickfix_open = 0
+    let g:buell_loclist_open  = 0
+  else
+    " open quickfix
+    copen
+    let g:buell_quickfix_open = 1
+    let g:buell_loclist_open  = 0
+  endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

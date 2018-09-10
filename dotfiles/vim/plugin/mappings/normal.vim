@@ -34,6 +34,9 @@ nmap                        <leader>c         <Plug>(CommandTTag)
 nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
 nnoremap  <silent>          <leader>n         :CommandT {{ NotesFolder }}<CR>
 
+" cycle quickfix and location lists
+nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
+
 " jump list navigation
 nnoremap  <silent>          <Up>              <C-O>
 nnoremap  <silent>          <Down>            <C-I>
