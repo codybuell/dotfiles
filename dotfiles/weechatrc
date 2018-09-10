@@ -27,6 +27,8 @@
 #    /secure set mattermosturl <url.tld>                                       #
 #    /secure set mattermostun <username>                                       #
 #    /secure set mattermost <pass>                                             #
+#    /secure set mattermostircd <matterircd server:port>                       #
+#    /secure set mattermostteam <mattermost team to login as>                  #
 #                                                                              #
 #    # if you are using slack irc gateway set (also uncomment the config):     #
 #    /secure set slackgwun <gateway username>                                  #
@@ -396,7 +398,7 @@
 ## you will need mattermost-auth.py in your path
 #/alias add /mattermost_auth /exec -o -buffer irc.$1.mattermost mattermost-auth.py $2-
 #/server add mattermost ${sec.data.mattermostaddr} -ssl -autoconnect
-#/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost}
+#/set irc.server.mattermost.command /query -server mattermost mattermost;/mattermost_auth mattermost -d ${sec.data.mattermosturl} -u ${sec.data.mattermostun} -p ${sec.data.mattermost} -i ${sec.data.mattermostircd} -t ${sec.data.mattermostteam}
 
 ################################################################################
 #                                                                              #

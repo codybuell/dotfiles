@@ -65,12 +65,14 @@ def get_auth_cookie(domain, login, password):
 @click.command()
 @click.option('-d', '--domain', required=True, help='Mattermost url')
 @click.option('-u', '--user', required=True, help='Mattermost username')
+@click.option('-i', '--ircd', required=True, help='Mattermost ircd server')
+@click.option('-t', '--team', required=True, help='Mattermost team to login as')
 @click.option('-p', '--password', required=True, help='Mattermost password')
 
-def main(domain, user, password):
+def main(domain, user, password, ircd, team):
     cookie = get_auth_cookie(domain, user, password)
     token  = cookie['value']
-    print('login {} MMAUTHTOKEN={}'.format(user, token))
+    print('login {} {} {} MMAUTHTOKEN={}'.format(ircd, team, user, token))
 
 if __name__ == "__main__":
     main()
