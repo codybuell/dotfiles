@@ -39,14 +39,17 @@ snippet switch "switch statement"
 switch ${1:var} {
 case ${2:value1}:
 	${0}
-default:
-	
 }
 endsnippet
 
 snippet case "case statement"
 case ${1:case}:
 	${0}
+endsnippet
+
+snippet def "default: ..."
+default:
+	${0:${VISUAL}}
 endsnippet
 
 snippet for "for loop"
@@ -99,17 +102,149 @@ else if ${1:true} {
 }
 endsnippet
 
+snippet br "break"
+break
+endsnippet
+
+snippet cn "continue"
+continue
+endsnippet
+
+snippet ft "fallthrough"
+fallthrough
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  errors                                                                    ##
+##                                                                            ##
+################################################################################
+
+snippet iferr "if with inline erro"
+if err := ${1:condition}; err != nil {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet errn "error return " !b
+if err != nil {
+	return err
+}
+${0}
+endsnippet
+
+snippet errl "error with log.Fatal(err)" !b
+if err != nil {
+	log.Fatal(err)
+}
+${0}
+endsnippet
+
+snippet errn, "error return with two return values" !b
+if err != nil {
+	return ${1:nil}, ${2:err}
+}
+${0}
+endsnippet
+
+snippet errp "error panic" !b
+if err != nil {
+	panic(${1})
+}
+${0}
+endsnippet
+
+snippet errt "error test fatal " !b
+if err != nil {
+	t.Fatal(err)
+}
+${0}
+endsnippet
+
+snippet errh "error handle and return" !b
+if err != nil {
+	${1}
+	return
+}
+${0}
+endsnippet
+
 ################################################################################
 ##                                                                            ##
 ##  functions                                                                 ##
 ##                                                                            ##
 ################################################################################
 
+snippet func "func Function(...) [error] { ... }"
+func ${1:name}(${2:params})${3/(.+)/ /}`!p opening_par(snip, 3)`$3`!p closing_par(snip, 3)` {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet anon "fn := func() { ... }"
+${1:fn} := func() {
+	${2:${VISUAL}}
+}
+${0}
+endsnippet
+
+snippet meth "func (self Type) Method(...) [error] { ... }"
+func (${1:receiver} ${2:type}) ${3:name}(${4:params})${5/(.+)/ /}`!p opening_par(snip, 5)`$5`!p closing_par(snip, 5)` {
+	${0:${VISUAL}}
+}
+endsnippet
+
 ################################################################################
 ##                                                                            ##
 ##  classes, objects, etc.                                                    ##
 ##                                                                            ##
 ################################################################################
+
+snippet st "type T struct { ... }"
+type ${1:Type} struct {
+${0}
+}
+endsnippet
+
+snippet : "v := value"
+${1} := ${0}
+endsnippet
+
+snippet ap "append(slice, value)"
+append(${1:slice}, ${0:value})
+endsnippet
+
+snippet ap= "a = append(a, value)"
+${1:slice} = append($1, ${0:value})
+endsnippet
+
+snippet ch "chan Type"
+chan ${0:int}
+endsnippet
+
+snippet con "const XXX Type = ..."
+const ${1:NAME} ${2:Type} = ${0:0}
+endsnippet
+
+snippet cons "const ( ... )"
+const (
+	${1:NAME} ${2:Type} = ${3:value}
+	${0}
+)
+endsnippet
+
+snippet iota "const ( ... = iota )"
+const (
+	${1:NAME} ${2:Type} = iota
+	${0}
+)
+endsnippet
+
+snippet import "import ( ... )"
+import (
+	"${1:package}"
+)
+endsnippet
 
 ################################################################################
 ##                                                                            ##
