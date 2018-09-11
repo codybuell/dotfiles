@@ -46,7 +46,7 @@ function! buell#statusline#linterstatus() abort
   let l:all_warnings = l:counts.total - l:all_errors
 
   return l:counts.total == 0 ? '' : printf(
-        \   '%d⚠  %d⤫ ',
+        \   '%d:⚠  %d:⤫ ',
         \   all_warnings,
         \   all_errors
         \)
