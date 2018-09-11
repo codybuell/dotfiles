@@ -27,14 +27,29 @@ function! buell#statusline#drawstatusline() abort
   "   %)                                               end item group
   set statusline+=%([%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}]%)
 
-  set statusline+=%*                                 " reset highlight group
+  set statusline+=%4*                                " reset highlight group
   set statusline+=%=                                 " split point for left and right groups
 
+  set statusline+=%{buell#statusline#linterstatus()} " ale warnings and errors
+  set statusline+=%*                                 " reset highlight group
   set statusline+=\                                  " space
   set statusline+=                                  " powerline arrow
   set statusline+=%5*                                " switch to User5 highlight group
   set statusline+=%{buell#statusline#rhs()}          " call rhs statusline autocommand
   set statusline+=%*                                 " reset highlight group
+endfunction
+
+function! buell#statusline#linterstatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_warnings = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '' : printf(
+        \   '%d⚠  %d⤫ ',
+        \   all_warnings,
+        \   all_errors
+        \)
 endfunction
 
 function! buell#statusline#gutterpadding() abort
