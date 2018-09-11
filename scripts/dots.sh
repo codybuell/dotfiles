@@ -43,6 +43,7 @@ DIFFEXCLUDES=( \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
+  "-path */__pycache__/*" \
   )
 
 # what to exclude when templating (tmp files, git submodules, etc)
