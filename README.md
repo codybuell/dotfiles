@@ -160,20 +160,15 @@ Todo
 
 #### vim/nvim ####
 
-- [ ] Fix tab completion while entered into a snippet, tab currently jumps to next stop rather than cycle options
 - [ ] pull in snippets for sh, css, js, html, etc from honza, build out more
       boilerplates (sass/scss, js, html, etc) consistent triggers across
       languages (for comments `/*` `/**` etc), check for same bbox sections in all
       snippets, even if emtpy for placeholder purposes
 - [ ] Setup php clang and js completion sources
-- [ ] setup some au FileType go nmap mappings for vim-go
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
 - [ ] Setup tabbar / tabline
 - [ ] Finish filetype support in tagbar (js, php)
 - [ ] Move `plugin/math.vim` to an auto-loaded function? fix instances where it doesn't work!
-- [ ] Improve foldtext to better show fold depth and folded object?
-  - Remove `#`s from title sections?
-  - Show a sparkline representation of size? `[:::.......]`
 - [ ] Improve markdown syntax highlighting so its super easy to digest
 - [ ] Dragvisuals plugin to replace text it is moving to rather than push it out of the way or flow through it, the stuff pushed over should flow to the back of the motion (moving down the text covered on the bottom would go to the top where the moved text once was)
 - [ ] CycleViews function, additional modes:

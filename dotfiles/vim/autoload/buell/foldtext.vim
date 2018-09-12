@@ -33,7 +33,9 @@ function! buell#foldtext#CustomFoldText() abort
     let foldSizeStr = " " . foldSize . " lines "
     let foldLevelStr = repeat(" ", indent(line))
     let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return foldLevelStr . line . expansionString . foldSizeStr . foldPercentage
+    let foldPercentage = printf("[%.1f%%] ", (foldSize*1.0)/lineCount*100)
+    let foldColonCount = printf("%.0f", round(((foldSize*1.0)/lineCount) * 15))
+    let foldSizeSparkline = "[" . repeat(":", foldColonCount) . repeat(".", 15 - foldColonCount) . "] "
+    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldSizeSparkline))
+    return foldLevelStr . line . expansionString . foldSizeStr . foldSizeSparkline
 endfunction
