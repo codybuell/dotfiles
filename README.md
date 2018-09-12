@@ -169,6 +169,7 @@ Todo
 - [ ] setup some au FileType go nmap mappings for vim-go
 - [ ] Deoplete completion source for generating wiki links (internal links, inter wiki links, etc)
 - [ ] Setup tabbar / tabline
+- [ ] Finish filetype support in tagbar (js, php)
 - [ ] Move `plugin/math.vim` to an auto-loaded function? fix instances where it doesn't work!
 - [ ] Improve foldtext to better show fold depth and folded object?
   - Remove `#`s from title sections?
