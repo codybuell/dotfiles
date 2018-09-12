@@ -13,17 +13,20 @@ endglobal
 
 snippet min "meeting minutes framework"
 ${1:Meeting Title} (`date "+%H:%M"`)
-${1/./-/g}--------
+${1/./=/g}========
 
 ${2}
 
-## Attendees
+Attendees
+---------
 
 - ${0}
 
-## Notes
+Notes
+-----
 
-## Assignments
+Assignments
+-----------
 
 endsnippet
 
