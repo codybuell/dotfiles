@@ -146,6 +146,8 @@
 "                                                                              "
 "     vim-marked    open markdown documents in Marked2                         "
 "                                                                              "
+"     vim-blade     blade syntax highlighting                                  "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -329,6 +331,9 @@ Plug 'fszymanski/deoplete-emoji'
 
 " vim-marked: open markdown documents in Marked2
 Plug 'itspriddle/vim-marked'
+
+" vim-blade: blade syntax highlighting
+Plug 'jwalton512/vim-blade'
 
 call plug#end()
 
