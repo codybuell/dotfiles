@@ -4,6 +4,9 @@
 "            "
 """"""""""""""
 
+" open terminal in horizontal split
+let g:go_term_mode = "split"
+
 " auto add imports
 let g:go_fmt_command = "goimports"
 
