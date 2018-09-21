@@ -16,6 +16,7 @@
 "
 " <C-O>  - enters normal mode for one command
 " <C-R>= - insert the result of an expression at the cursor
+" <C-B>  - go to the beginning of the command line
 "
 " verbose nmap [key]
 
@@ -40,6 +41,9 @@ nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleList
 " jump list navigation
 nnoremap  <silent>          <Up>              <C-O>
 nnoremap  <silent>          <Down>            <C-I>
+
+" scalpen mappings
+nmap                        <leader>s         <Plug>(Scalpel)
 
 " ale mappings
 nmap                        <Right>           <Plug>(ale_next_wrap)
@@ -95,9 +99,10 @@ nnoremap                    <tab>             za
 nnoremap  <silent>          <localleader>c    :syntax sync fromstart<CR>
 
 " ack mappings
-nmap                        <leader>a         <Plug>(FerretAck)
-nmap                        <leader>s         <Plug>(FerretAckWord)
-nmap                        <leader>r         <Plug>(FerretAcks)
+nmap                        <leader>aa        <Plug>(FerretAck)
+nmap                        <leader>aw        <Plug>(FerretAckWord)
+nmap                        <leader>as        <Plug>(FerretAcks)
+nnoremap                    <leader>a.        :Ack  %:p:h<C-B><RIGHT><RIGHT><RIGHT><RIGHT>
 
 " laravel helpers
 " laravel (artisan -V | sed 's/[^[:digit:].]//g')

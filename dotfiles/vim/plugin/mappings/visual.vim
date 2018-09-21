@@ -16,6 +16,7 @@
 "
 " <C-O>  - enters normal mode for one command
 " <C-R>= - insert the result of an expression at the cursor
+" <C-B>  - go to the beginning of the command line
 "
 " verbose vmap [key]
 
