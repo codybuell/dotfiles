@@ -127,6 +127,7 @@ Todo
 #### vim/nvim ####
 
 - [ ] Hitting enter in markdown document on a `.` throws error when trying to make link
+- [ ] Auto paste mode sometimes appends `<paste>` along with the text being pasted (a wincent plugin?)
 - [ ] Tie `make pip` as a post vim make dots hook, pre `PlugInstall`
 - [ ] Make dots vim always replaces, even if no change (check your checksums)
 - [ ] Command-t help, ctr-t does not open help file in new tab
