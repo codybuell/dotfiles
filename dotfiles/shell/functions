@@ -2,15 +2,11 @@
 # function
 #
 
-# override cd to dynamically set paths
-cd () {
-  # perform the actual cd without risk of recursion (builtin)
-  builtin cd "$@"
-
-  # gopath (search up for ~/.gopath and set GOPATH to its parent dir)
+# search up for ~/.gopath and set GOPATH to its parent dir
+function gopath() {
   cdir=$PWD
   while [ "$cdir" != "/" ]; do
-    if [ -e "$cdir/.gopath" ]; then
+    if [ -f "$cdir/.gopath" ]; then
       export GOPATH=$cdir
       break
     fi
@@ -19,6 +15,15 @@ cd () {
       export GOPATH=$DEFGOP
     fi
   done
+}
+
+# override cd to dynamically set paths
+cd () {
+  # perform the actual cd without risk of recursion (builtin)
+  builtin cd "$@"
+
+  # gopath (search up for ~/.gopath and set GOPATH to its parent dir)
+  gopath
 }
 
 # markdown shortcut

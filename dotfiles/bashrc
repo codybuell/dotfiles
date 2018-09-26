@@ -15,3 +15,5 @@ which brew > /dev/null 2>&1
 }
 . ~/.shell/bin/bash-preexec.sh
 . ~/.shell/preexeccmd
+
+gopath

@@ -390,3 +390,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 
 # syntax highlighting
 #source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+################################################################################
+##                                                                            ##
+## Callbacks                                                                  ##
+##                                                                            ##
+################################################################################
+
+gopath
