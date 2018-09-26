@@ -17,5 +17,5 @@ PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH
 
 # gopath and default gopath (for dynamic gopath support, see cd in functions)
-export GOPATH=~/.gopath
+export GOPATH={{ GoPath }}
 export DEFGOP=$GOPATH
