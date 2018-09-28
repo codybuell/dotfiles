@@ -82,6 +82,7 @@ PACKAGES=( \
     'ruby' \                        # use brew ruby over osx provided
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
+    'sshrc' \                       # custom one time configs on remote servers
     'terminal-notifier' \           # send osx notifications through terminal
     'tmux' \                        # terminal multiplexer
     'todo-txt' \                    # ginas handy to do list manager
