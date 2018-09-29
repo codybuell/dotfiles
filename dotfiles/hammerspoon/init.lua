@@ -1,3 +1,7 @@
+-- print resolution in console:
+--   hs.screen.primaryScreen():currentMode().w
+--   hs.screen.primaryScreen():currentMode().h
+
 hs.grid.setGrid('12x12') -- allows us to place on quarters, thirds and halves
 hs.grid.MARGINX = 0
 hs.grid.MARGINY = 0
@@ -12,7 +16,7 @@ local primaryMode   = primaryScreen:currentMode()
 local primaryWidth  = primaryMode.w
 local primaryHeight = primaryMode.h
 local primaryWxH    = primaryMode.w .. "x" .. primaryMode.h
---log.i(primaryMode)
+log.i("detected resolution: " .. primaryWxH)
 
 local grid = {
   -- x start, y start, dimension
@@ -295,7 +299,7 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
   grid.bottomLeft,
 }))
 
-if primaryWxH == "1440x900" then
+if primaryWxH == "1680x1050" then
   hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
     grid.fullScreen,
     grid.laptopGoldenLarge,
