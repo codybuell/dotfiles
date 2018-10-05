@@ -8,6 +8,9 @@ LS_COLORS='di=1;34:ln=1;36:so=35:pi=33:ex=1;32:bd=34;46:cd=34;43:su=30;41:sg=30;
 export LSCOLORS
 export LS_COLORS
 
+# use ls_colors for zsh auto completion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # setup scheme and config locations
 BASE16_DIR=~/.shell/base16-shell/scripts
 BASE16_CONFIG=~/.base16
