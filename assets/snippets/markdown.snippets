@@ -12,8 +12,8 @@ endglobal
 ##################
 
 snippet min "meeting minutes framework"
-${1:Meeting Title} (`date "+%H:%M"`)
-${1/./=/g}========
+${1:Meeting Title} (`date "+%Y.%m.%d %H:%M"`)
+${1/./=/g}===================
 
 ${2}
 
@@ -47,15 +47,15 @@ ${1/./-/g}$0
 endsnippet
 
 snippet sss "### subsub section" b
-### ${1:Section Name} ###$0
+### ${1:Section Name}$0
 endsnippet
 
 snippet ssss "#### paragraph" b
-#### ${1:Paragraph Name} ####$0
+#### ${1:Paragraph Name}$0
 endsnippet
 
 snippet sssss "##### sub paragraph" b
-##### ${1:Paragraph Name} #####$0
+##### ${1:Paragraph Name}$0
 endsnippet
 
 #######################
