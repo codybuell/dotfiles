@@ -31,7 +31,9 @@ OSX=( \
 )
 
 ALL=( \
-  'github.com/nsf/gocode'                  # required for deoplete-go
+  'github.com/nsf/gocode' \                # required for deoplete-go
+  'github.com/dominikh/go-tools' \
+  'github.com/jstemmer/gotags' \
 )
 
 ###############
@@ -44,7 +46,6 @@ configurepassage() {
   # build and configure passage to start on boot
   cd $GOPATH/src/github.com/wincent/passage
   go build
-  sudo cp passage /usr/local/bin
   cp contrib/com.wincent.passage.plist ~/Library/LaunchAgents
   # NOTE: This won't work if run inside a tmux session:
   launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist
@@ -107,15 +108,12 @@ createsymlink() {
 
 readconfig
 
+# build out gopaths if necessary
+
 # set gopath if currently null
 if [ -z "$GOPATH" ]; then
   export GOPATH=$GoPath
 fi
-
-createdir $GoPath
-createsymlink "$GoPathBin $GOPATH/bin"
-createsymlink "$GoPathSrc $GOPATH/src"
-createdir ${GOPATH}/pkg
 
 #######################
 #                     #
