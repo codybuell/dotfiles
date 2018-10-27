@@ -102,7 +102,8 @@ COMMAND01 = ln -s '/Volumes/GoogleDrive/My Drive/' '/Path/home/Google Drive'
 Name       = Cody Buell                        # your full name
 Email      = cody@codybuell.com                # preferred email
 OSUsername = codybuell                         # your system username
-IRCNick    = codybuell                         # your irc nickname
+IRCNick    = codybuell,bueller                 # your irc nick(s)
+OSHomeRoot = /Users/                           # /Users/ on osx /home/ on linux
 
 
 ################################################################################
@@ -133,8 +134,6 @@ TPAMPassword = `command to get password`
 
 
 GoPath    = /Path/home/.gopath
-GoPathBin = /Path/home/Bin               # path to symlink to $GOPATH/bin
-GoPathSrc = /Path/home/Repos             # path to symlink to $GOPATH/src
 
 
 ################################################################################
