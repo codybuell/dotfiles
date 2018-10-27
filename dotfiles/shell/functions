@@ -361,27 +361,29 @@ function tmux() {
   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u new -A -s "$SESSION_NAME"
 }
 
-# email
-function email() {
+# email controller
+function control() {
   if [ -z "$TMUX" ]; then
-    if ! tmux has-session -t email 2> /dev/null; then
-      # Make saved attachments go to ~/Downloads by default.
-      tmux new-session -d -s email -c ~/Downloads -n mutt
-      tmux send-keys -t email:mutt mutt Enter
-      tmux new-window -t email -c ~/.mutt -n sync
-      tmux send-keys -t email:sync '~/.mutt/scripts/control.sh home' Enter
-      tmux split-window -t email:sync -h -p 66 -c ~/.mutt
-      tmux send-keys -t email:sync.right '~/.mutt/scripts/control.sh work' Enter
-      tmux split-window -t email:sync -h -p 50 -c ~/.mutt
-      tmux send-keys -t email:sync.3 '~/.mutt/scripts/control.sh client' Enter
-      tmux split-window -t email:sync -v -f -l 8 -c ~/.mutt
-      tmux send-keys -t email:sync.bottom '~/.mutt/scripts/control.sh' Enter
-      tmux -u attach -t email:mutt
+    if ! tmux has-session -t control 2> /dev/null; then
+      cd ~
+      # build home window
+      tmux new-session -d -s control -n control -c ~/.mutt -x `tput cols` -y `tput lines`
+      tmux set-window-option -t control:control automatic-rename off
+      tmux set-window-option -t control:control monitor-activity off
+      tmux split-window -t control:control -h -p 66 -c ~/.mutt
+      tmux split-window -t control:control -h -p 50 -c ~/.mutt
+      tmux split-window -t control:control -v -l 7 -f -c ~/.mutt
+      tmux send-keys -t control:control.1 '~/.mutt/scripts/control.sh home' Enter
+      tmux send-keys -t control:control.2 '~/.mutt/scripts/control.sh work' Enter
+      tmux send-keys -t control:control.3 '~/.mutt/scripts/control.sh stratus' Enter
+      tmux send-keys -t control:control.4 '~/.mutt/scripts/control.sh' Enter
+      # attach to home session, home window, weechat pane
+      tmux -u attach -t control:control.4
     else
-      tmux -u attach -t email:mutt
+      tmux -u attach -t control:control.4
     fi
   else
-    tmux switch-client -t email:mutt
+    tmux switch-client -t control:control.4
   fi
 }
 
@@ -399,15 +401,15 @@ function home() {
 #     tmux send-keys -t HOME:home.2 't mit' Enter
       tmux send-keys -t HOME:home.3 'weechat' Enter
       # build control window
-      tmux new-window -t HOME: -c ~/.mutt -n control
-      tmux set-window-option -t HOME:control monitor-activity off
-      tmux split-window -t HOME:control -h -p 66 -c ~/.mutt
-      tmux split-window -t HOME:control -h -p 50 -c ~/.mutt
-      tmux split-window -t HOME:control -v -l 7 -f -c ~/.mutt
-      tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
-      tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
-      tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh client' Enter
-      tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
+#     tmux new-window -t HOME: -c ~/.mutt -n control
+#     tmux set-window-option -t HOME:control monitor-activity off
+#     tmux split-window -t HOME:control -h -p 66 -c ~/.mutt
+#     tmux split-window -t HOME:control -h -p 50 -c ~/.mutt
+#     tmux split-window -t HOME:control -v -l 7 -f -c ~/.mutt
+#     tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
+#     tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
+#     tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh client' Enter
+#     tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
       # attach to home session, home window, weechat pane
       tmux -u attach -t HOME:home.3
     else
