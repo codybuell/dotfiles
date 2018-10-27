@@ -174,7 +174,7 @@ for i in ${PACKAGES[@]}; do
 done
 
 # install packages that need flags
-brew install weechat --with-perl --with-python --with-lua --with-ruby     # chat client
+brew install weechat --with-aspell --with-lua --with-perl --with-python@2 --with-ruby     # chat client
 
 # install brew casks
 for i in ${CASKS[@]}; do
