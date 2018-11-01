@@ -22,3 +22,4 @@ dotfiles/vim/tmp
 dotfiles/vim/bundles
 dotfiles/vim/snippits
 *__pycache__
+staging/*
