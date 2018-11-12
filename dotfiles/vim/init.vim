@@ -151,6 +151,8 @@
 "                                                                              "
 "     vim-vue       syntax highlighting for vue components                     "
 "                                                                              "
+"     typescript    typscript support for vim                                  "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -340,6 +342,9 @@ Plug 'jwalton512/vim-blade'
 
 " vim-vue: syntax highlighting for vue components
 Plug 'posva/vim-vue'
+
+" typescript: typscript support for vim
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
