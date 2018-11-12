@@ -149,6 +149,8 @@
 "                                                                              "
 "     vim-blade     blade syntax highlighting                                  "
 "                                                                              "
+"     vim-vue       syntax highlighting for vue components                     "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -335,6 +337,9 @@ Plug 'itspriddle/vim-marked'
 
 " vim-blade: blade syntax highlighting
 Plug 'jwalton512/vim-blade'
+
+" vim-vue: syntax highlighting for vue components
+Plug 'posva/vim-vue'
 
 call plug#end()
 
