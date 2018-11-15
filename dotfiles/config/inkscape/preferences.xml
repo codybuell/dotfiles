@@ -336,8 +336,8 @@
        selcue="1"
        align_mode="1">
       <group
-         display_unit="0"
-         id="lineheight" />
+         id="lineheight"
+         display_unit="0" />
     </eventcontext>
     <eventcontext
        id="nodes"
@@ -424,12 +424,12 @@
        offset="0"
        offsetunits="pt" />
     <group
-       unit="px"
-       offset="5"
-       scale="100"
-       precision="2"
+       id="measure"
        fontsize="10"
-       id="measure" />
+       precision="2"
+       scale="100"
+       offset="5"
+       unit="px" />
   </group>
   <group
      id="palette">
@@ -576,8 +576,8 @@
        page="0"
        x="0"
        y="0"
-       w="1"
-       h="1"
+       w="353"
+       h="396"
        visible="1"
        state="3"
        placement="1" />
@@ -596,8 +596,8 @@
        rotateCounterClockwise="1"
        x="0"
        y="0"
-       w="1"
-       h="1"
+       w="495"
+       h="397"
        visible="1"
        state="3"
        placement="1" />
@@ -635,14 +635,14 @@
        panel_border="0"
        x="0"
        y="0"
-       w="501"
-       h="691"
+       w="495"
+       h="692"
        visible="1"
        placement="1" />
     <group
        id="preferences"
        state="1"
-       page="46"
+       page="32"
        panel_size="1"
        panel_ratio="100"
        panel_mode="1"
@@ -687,17 +687,17 @@
        placement="1">
       <group
          id="exportarea"
-         value="page" />
+         value="drawing" />
       <group
          id="defaultxdpi"
-         value="312" />
+         value="72" />
     </group>
     <group
        id="save_as"
        default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/Users/pbuell/Desktop"
+       path="/Users/pbuell/Repos/gitlab.cloudtamer.io/cloudtamer/diagrams/resources"
        use_current_dir="1" />
     <group
        id="save_copy"
@@ -708,17 +708,18 @@
     <group
        id="open"
        enable_preview="1"
-       path="/Users/pbuell/Repos/gitlab.cloudtamer.io/cloudtamer/diagrams/resources/logos/cloudtamer/" />
+       path="/Users/pbuell/Repos/github.com/stratussolutions/diagrams/" />
     <group
        id="import"
        enable_preview="1"
-       path="/Users/pbuell/Repos/gitlab.cloudtamer.io/cloudtamer/diagrams/resources/icons/miscellaneous/"
+       path="/Users/pbuell/Desktop/"
        ask="1"
-       link="link"
-       scale="optimizeSpeed">
+       link="embed"
+       scale="auto"
+       forcexdpi="1">
       <group
-         id="defaultxdpi"
-         value="212" />
+         value="212"
+         id="defaultxdpi" />
     </group>
     <group
        id="debug"
@@ -776,33 +777,33 @@
        on-blur="0.50"
        animate-time="100" />
     <group
-       placement="1"
-       state="2"
-       visible="0"
-       h="201"
+       id="objects"
+       panel_size="1"
+       panel_ratio="100"
+       panel_mode="1"
+       panel_wrap="0"
+       panel_border="0"
+       x="0"
+       y="0"
        w="243"
-       y="0"
-       x="0"
-       panel_border="0"
-       panel_wrap="0"
-       panel_mode="1"
-       panel_ratio="100"
-       panel_size="1"
-       id="objects" />
+       h="201"
+       visible="0"
+       state="2"
+       placement="1" />
     <group
-       placement="1"
-       state="3"
-       visible="1"
-       id="symbols"
-       panel_size="1"
-       panel_ratio="100"
-       panel_mode="1"
-       panel_wrap="0"
-       panel_border="0"
-       x="0"
-       y="0"
+       h="1"
        w="1"
-       h="1" />
+       y="0"
+       x="0"
+       panel_border="0"
+       panel_wrap="0"
+       panel_mode="1"
+       panel_ratio="100"
+       panel_size="1"
+       id="symbols"
+       visible="1"
+       state="2"
+       placement="1" />
   </group>
   <group
      id="printing">
@@ -840,7 +841,7 @@
        value="1" />
     <group
        id="nudgedistance"
-       value="2px" />
+       value="1px" />
     <group
        id="rotationsnapsperpi"
        value="12" />
@@ -873,10 +874,10 @@
        value="0" />
     <group
        id="defaultoffsetwidth"
-       value="2px" />
+       value="1px" />
     <group
        id="defaultscale"
-       value="2px" />
+       value="1px" />
     <group
        id="maxrecentdocuments"
        value="36" />
@@ -1090,15 +1091,16 @@
        id="rendering" />
   </group>
   <group
-     id="extensions" />
+     id="extensions"
+     org.inkscape.input.gdkpixbuf.png.dpi="from_default" />
   <group
      id="desktop"
-     style="line-height:1.25;fill:#333333;stroke:#666666;fill-opacity:1;stroke-width:11.33858268;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'sans-serif Bold';font-family:sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;stroke-opacity:1;text-anchor:middle;text-align:center;font-size:192px;stroke-linejoin:round;stroke-linecap:round">
+     style="line-height:1.25;fill:#ddbbbd;stroke:#1968f8;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'sans-serif Bold';font-family:sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;stroke-opacity:1;text-anchor:middle;text-align:center;font-size:192px;stroke-linejoin:round;stroke-linecap:round">
     <group
        width="1920"
        height="1063"
-       x="293"
-       y="66"
+       x="314"
+       y="117"
        fullscreen="0"
        id="geometry"
        maximized="0" />
