@@ -7,7 +7,8 @@ class Source(Base):
     def __init__(self, vim):
         super().__init__(vim)
 
-        self.__pattern = re.compile(r'[A-Z][A-z]*$')
+        self.__pattern = re.compile(r'[A-Z].*$')
+        self.__comma_pattern = re.compile(r'.+,\s?')
         self.__binary = self.__find_lbdbq_binary()
         self.__candidates = None
 
@@ -28,7 +29,9 @@ class Source(Base):
 
     def get_complete_position(self, context):
         match = self.__pattern.search(context['input'])
-        return match.start() if match is not None else -1
+        comma = self.__comma_pattern.search(context['input'])
+        return max(match.start() if match is not None else -1,
+                   comma.end() if comma is not None else -1)
 
     def on_event(self, context):
         self.__cache()
@@ -48,8 +51,13 @@ class Source(Base):
                 try:
                     address, name, source = line.strip().split('\t')
                     if name:
-                        completion = name
-                    self.__candidates.append({'word': completion, 'kind': address})
+                        # remove text within parenthesis
+                        name = re.sub(r'\([^)]*\)', '', name)
+                        # reverse any names sorted last, first
+                        nameSplit = [x.strip() for x in name.split(',')]
+                        nameSplit.reverse()
+                        completion = ' '.join(nameSplit) + ' <' + address + '>'
+                    self.__candidates.append({'word': completion, 'kind': source})
                 except:
                     pass
 

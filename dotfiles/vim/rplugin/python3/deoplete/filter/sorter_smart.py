@@ -9,7 +9,7 @@ class Filter(Base):
         self.description = 'smart sorter'
 
     def filter(self, context):
-        rank = context['vars']['deoplete#_rank']
+        # rank = context['vars']['deoplete#_rank']
         complete_str = context['complete_str']
         input_len = len(complete_str)
         smart_case = int(complete_str.lower() != complete_str)
