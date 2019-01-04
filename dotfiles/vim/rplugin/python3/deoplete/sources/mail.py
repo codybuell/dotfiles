@@ -50,7 +50,7 @@ class Source(Base):
                 try:
                     address, name, source = line.strip().split('\t')
                     if name:
-                        address = name + ' <' + address + '>'
+                        address = '"' + name + '" <' + address + '>'
                     self.__candidates.append({'word': address, 'kind': source})
                 except:
                     pass
