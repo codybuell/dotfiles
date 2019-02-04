@@ -24,12 +24,14 @@ local grid = {
   topThird = '0,0 12x4',
   topTwoThirds = '0,0 12x8',
   rightHalf = '6,0 6x12',
+  rightSixth = '10,0 2x12',
   rightThird = '8,0 4x12',
   rightTwoThirds = '4,0 8x12',
   bottomHalf = '0,6 12x6',
   bottomThird = '0,8 12x4',
   bottomTwoThirds = '0,4 12x8',
   leftHalf = '0,0 6x12',
+  leftSixth = '0,0 2x12',
   leftThird = '0,0 4x12',
   leftTwoThirds = '0,0 8x12',
   leftThreeQuarters = '0,0 9x12',
@@ -40,6 +42,7 @@ local grid = {
   bottomRight = '6,6 6x6',
   bottomLeft = '0,6 6x6',
   fullScreen = '0,0 12x12',
+  fullHalf = '3,0 6x12',
   centeredBig = '2,1 8x10',
   centeredSmall = '4,3 4x6',
   goldenLarge = '2,1 8x10',
@@ -72,11 +75,11 @@ local layoutConfig = {
 --      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
 --      hs.grid.set(window, side, hs.screen.primaryScreen())
 --    end
-    if primaryWxH == "1680x1050" then
+    -- if primaryWxH == "1680x1050" then
       hs.grid.set(window, grid.laptopGoldenLarge)
-    else
-      hs.grid.set(window, grid.goldenLarge)
-    end
+    -- else
+    --   hs.grid.set(window, grid.goldenLarge)
+    -- end
   end),
 
   ['com.google.Chrome.canary'] = (function(window, forceScreenCount)
@@ -103,11 +106,11 @@ local layoutConfig = {
     hs.grid.MARGINX = 6
     hs.grid.MARGINY = 5
     -- if laptop screen, improve with screen dpi density check?
-    if primaryWxH == "1440x900" then
+    -- if primaryWxH == "1680x1050" then
       hs.grid.set(window, grid.laptopLeftElevenTwewfths)
-    else
-      hs.grid.set(window, grid.leftThreeQuarters)
-    end
+    -- else
+    --   hs.grid.set(window, grid.leftThreeQuarters)
+    -- end
     hs.grid.MARGINX = 0
     hs.grid.MARGINY = 0
   end),
@@ -275,9 +278,10 @@ hs.hotkey.bind({'ctrl', 'alt'}, 'up', chain({
 }))
 
 hs.hotkey.bind({'ctrl', 'alt'}, 'right', chain({
+  grid.rightTwoThirds,
   grid.rightHalf,
   grid.rightThird,
-  grid.rightTwoThirds,
+  grid.rightSixth,
 }))
 
 hs.hotkey.bind({'ctrl', 'alt'}, 'down', chain({
@@ -287,9 +291,10 @@ hs.hotkey.bind({'ctrl', 'alt'}, 'down', chain({
 }))
 
 hs.hotkey.bind({'ctrl', 'alt'}, 'left', chain({
+  grid.leftTwoThirds,
   grid.leftHalf,
   grid.leftThird,
-  grid.leftTwoThirds,
+  grid.leftSixth,
 }))
 
 hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
@@ -299,19 +304,20 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
   grid.bottomLeft,
 }))
 
-if primaryWxH == "1680x1050" then
+--if primaryWxH == "1680x1050" then
   hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
     grid.fullScreen,
+    grid.fullHalf,
     grid.laptopGoldenLarge,
     grid.centeredSmall,
   }))
-else
-  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
-    grid.fullScreen,
-    grid.centeredBig,
-    grid.centeredSmall,
-  }))
-end
+--else
+--  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
+--    grid.fullScreen,
+--    grid.centeredBig,
+--    grid.centeredSmall,
+--  }))
+--end
 
 hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
   hs.alert('One-monitor layout')
