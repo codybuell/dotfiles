@@ -305,7 +305,9 @@ runcommands() {
 }
 
 fixperms() {
-  chmod 600 ~/.msmtprc
+  [ -e ~/.msmtprc ] && {
+    chmod 600 ~/.msmtprc
+  }
 }
 
 ##################
