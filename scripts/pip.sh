@@ -40,6 +40,7 @@ PYTHON3=( \
     'neovim' \                      # neovim client, required to use python with neovim
     'selenium' \                    # same as click
 )
+#   'pynvim' \                      # if your compiled version of neovim does not have python3 support...
 
 # osx specific python 3 packages
 OSXPYTHON3=( \
