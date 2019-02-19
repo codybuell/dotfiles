@@ -84,6 +84,8 @@ function () {
   # determine shell nesting level
   if [[ $PARENTPID == '1' ]]; then
     local LVL=1
+  elif [[ `ps -o cmd= $PARENTPID` == 'sh -c urxvt' ]]; then
+    local LVL=1
   elif [[ -n "$TMUX" ]]; then
     local LVL=$(($SHLVL - 1))
   else
