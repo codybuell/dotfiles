@@ -80,6 +80,7 @@ INSTALL='
   openssl
   ruby
   tree
+  xclip
 '
 REMOVE='
   mutt
