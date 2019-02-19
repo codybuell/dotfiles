@@ -11,3 +11,6 @@
 [submodule "submodules/mutt-notmuch-py"]
 	path = submodules/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
+[submodule "submodules/markdown2ctags"]
+	path = submodules/markdown2ctags
+	url = https://github.com/jszakmeister/markdown2ctags
