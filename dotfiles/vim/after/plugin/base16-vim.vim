@@ -24,7 +24,7 @@ function s:auto_termguicolors()
     return
   endif
 
-  if (&term == 'xterm-256color' || &term == 'nvim') && !s:is_mosh() && has('nvim')
+  if ($TERM == 'xterm-256color' || $TERM == 'tmux-256color') && !s:is_mosh() && has('nvim')
     set termguicolors
   else
     set notermguicolors
