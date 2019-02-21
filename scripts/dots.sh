@@ -97,6 +97,9 @@ prettyprint() {
 readconfig() {
 
   CONFIGVARS=()
+  # add in some baseline configs
+  CONFIGVARS+="CONFGDIR UNAME "
+  # parse the config file
   shopt -s extglob
   configfile="$CONFGDIR/.config"
   [[ -e $configfile ]] && {
