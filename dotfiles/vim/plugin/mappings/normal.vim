@@ -31,9 +31,9 @@ nmap                        <Leader>t         <Plug>(CommandT)
 nmap                        <Leader>b         <Plug>(CommandTBuffer)
 nmap                        <Leader>j         <Plug>(CommandTJump)
 nmap                        <leader>h         <Plug>(CommandTHelp)
-nmap                        <leader>c         <Plug>(CommandTTag)
 nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
 nnoremap  <silent>          <leader>n         :CommandT {{ NotesFolder }}<CR>
+nnoremap  <silent>          <leader>c         :CommandT {{ CodexFolder }}<CR>
 
 " cycle quickfix and location lists
 nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
