@@ -42,6 +42,10 @@ call deoplete#custom#option('sources', {
 \   'markdown':  ['around', 'buffer', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
 \ })
 
+" kick up the possible max number of results from 500 base
+call deoplete#custom#source('contact', 'max_candidates', 2000)
+call deoplete#custom#source('mail', 'max_candidates', 2000)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                    "
 "   TAB IMAPS NEED TO BE SET HERE ELSE ULTISNIPS WILL OVERWRITE IT   "

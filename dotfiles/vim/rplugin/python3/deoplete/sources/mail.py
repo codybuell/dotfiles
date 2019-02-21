@@ -45,11 +45,37 @@ class Source(Base):
     def __cache(self):
         self.__candidates = []
         data = self.__lbdbq('.')
+        uniqueAddresses = []
         if data:
             for line in data:
                 try:
                     address, name, source = line.strip().split('\t')
-                    if name:
+                    # lowercase the email address
+                    address = address.lower()
+                    # skip if address is has local or localdomain for tld
+                    if re.match(r'.*\.local(domain)?$', address) is not None:
+                        continue
+                    # skip if address is a noreply
+                    if re.match(r'.*no(t|t-|t_|-|_)?reply.*', address) is not None:
+                        continue
+                    # skip if address is in uniqueAddresses list
+                    if address in uniqueAddresses:
+                        continue
+                    # add to the uniqueAddresses list to prevent dupes
+                    uniqueAddresses.append(address)
+                    # remove wrapping quote marks from name
+                    name = name.strip('\'')
+                    # if name is an email address just add that else clean up the name
+                    if not re.match(r'[^@]+@[^@]+\.[^@]+', name):
+                        # remove text within parenthesis or brackets
+                        name = re.sub(r'[ ]*(\(|\[)[^\)]*(\)|\]|$)', '', name)
+                        # reverse any names sorted last, first
+                        nameSplit = [x.strip() for x in name.split(',')]
+                        nameSplit.reverse()
+                        name = ' '.join(nameSplit)
+                        # strip out the single quotes around the space in join
+                        name = re.sub(r'\' \'', ' ', name)
+                        # prepare our candidate
                         address = '"' + name + '" <' + address + '>'
                     self.__candidates.append({'word': address, 'kind': source})
                 except:
