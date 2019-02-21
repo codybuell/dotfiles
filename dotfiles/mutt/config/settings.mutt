@@ -44,7 +44,9 @@ set pager_format = '=%b %C/%m: %-20.20F   %s%*—(%P)'
 
 set pager_index_lines = 12
 set pager_stop = yes # Don't move to the next message when paging past the bottom of a message.
-set query_command="lbdbq %s 2> /dev/null"
+#set query_command="lbdbq %s 2> /dev/null"
+# convert email to all lowercase, dedupe by email, remove local(domain)? tld's, remove do not reply addresses...
+set query_command="lbdbq %s | awk -v OFS='\t' -F '\t' '{$1=tolower($1);print}' | awk '!seen[$1]++' | egrep -v '.*\.local(domain)?\t.*|.*no(t|t-|t_|-|_)?reply.*' 2> /dev/null"
 set realname = 'Cody Buell'
 set reply_to = yes # Instead of asking, always reply to Reply-to:
 set resolve = no # Don't auto-advance to the next message after every single op.
