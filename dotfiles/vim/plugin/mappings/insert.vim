@@ -30,4 +30,4 @@ inoremap                    <C-@>             <C-Space>
 inoremap  <silent>          <C-u>             <C-O>:call buell#helpers#Underline()<CR>
 
 " correct syntax highlighting
-nnoremap  <silent>          <localleader>c    <C-O>:syntax sync fromstart<CR>
+inoremap  <silent>          <localleader>c    <C-O>:syntax sync fromstart<CR>
