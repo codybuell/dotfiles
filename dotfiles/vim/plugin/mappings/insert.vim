@@ -21,7 +21,7 @@
 " verbose imap [key]
 
 " map esc to keep hand on home-row
-inoremap                    hh                <esc>
+"inoremap                    hh                <esc>
 
 " allow us to map <C-Space> elsewhere (some terms interpret it as <C-@>
 inoremap                    <C-@>             <C-Space>
