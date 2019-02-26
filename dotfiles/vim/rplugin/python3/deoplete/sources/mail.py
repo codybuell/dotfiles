@@ -76,7 +76,7 @@ class Source(Base):
                         # strip out the single quotes around the space in join
                         name = re.sub(r'\' \'', ' ', name)
                         # prepare our candidate
-                        address = '"' + name + '" <' + address + '>'
+                        address = "'" + name + "' <" + address + ">"
                     self.__candidates.append({'word': address, 'kind': source})
                 except:
                     pass
