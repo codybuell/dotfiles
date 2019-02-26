@@ -39,15 +39,15 @@ nnoremap  <silent>          <leader>c         :CommandT {{ CodexFolder }}<CR>
 nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
 
 " jump list navigation
-nnoremap  <silent>          <Up>              <C-O>
-nnoremap  <silent>          <Down>            <C-I>
+nnoremap  <silent>          <Left>            <C-O>
+nnoremap  <silent>          <Right>           <C-I>
 
 " scalpen mappings
 nmap                        <leader>s         <Plug>(Scalpel)
 
 " ale mappings
-nmap                        <Right>           <Plug>(ale_next_wrap)
-nmap                        <Left>            <Plug>(ale_previous_wrap)
+nmap                        <Up>              <Plug>(ale_previous_wrap)
+nmap                        <Down>            <Plug>(ale_next_wrap)
 
 " autoload helper functions
 nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>
@@ -61,7 +61,7 @@ nmap                        zuz               <Plug>(FastFoldUpdate)
 nmap                        <leader>f         <Plug>(easymotion-overwin-f)
 nmap                        <leader>w         <Plug>(easymotion-overwin-w)
 
-" fugitive handy git bindings
+" fugitive handy git bindings (in fugitive split, - to stage/unstage, c to commit)
 nnoremap                    <leader>gs        :Gstatus<CR>
 nnoremap                    <leader>gb        :Gblame<CR>
 nnoremap                    <leader>gp        :Gpush origin master<CR>
