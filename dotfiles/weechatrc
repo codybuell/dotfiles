@@ -212,6 +212,9 @@
 # show private messages in highmon
 /set plugins.var.perl.highmon.merge_private on
 
+# use shorter names
+/set plugins.var.perl.highmon.short_names on
+
 # configure highmon to use a bar rather than a buffer
 /set plugins.var.perl.highmon.output bar
 /set plugins.var.perl.highmon.bar_lines 250
