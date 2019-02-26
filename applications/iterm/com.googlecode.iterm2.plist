@@ -77,21 +77,25 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>828 474 445 77 0 0 2560 1440 </string>
+	<string>577 221 445 77 0 0 1920 1080 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>6 1283 400 129 0 0 2560 1440 </string>
+	<string>6 923 400 129 0 0 1920 1080 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>6 790 700 622 0 0 2560 1440 </string>
+	<string>1000 133 700 622 0 0 1920 1080 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>6 553 606 469 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>422 753 796 486 0 0 2560 1440 </string>
+	<string>6 629 918 423 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1431 1047 0 0 2560 1440 </string>
+	<string>641 0 1914 1577 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>23 18 1193 741 0 0 1680 1027 </string>
+	<string>1405 359 1130 1047 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>151 -5 1529 1013 0 0 1680 1027 </string>
+	<key>NeverWarnAboutShortLivedSessions_E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1350,6 +1354,8 @@
 	<string>/Users/pbuell/Repos/github.com/codybuell/dotfiles/applications/iterm</string>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
+	<key>RightCommand</key>
+	<integer>8</integer>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -1359,11 +1365,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-12-04T18:20:21Z</date>
+	<date>2019-02-21T10:49:21Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.12756410256410261</real>
+	<key>SuppressRestartAnnouncement</key>
+	<true/>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>ThreeFingerEmulates</key>
@@ -1371,6 +1379,6 @@
 	<key>WordCharacters</key>
 	<string>/-+\~_.:</string>
 	<key>iTerm Version</key>
-	<string>3.2.6</string>
+	<string>3.2.7</string>
 </dict>
 </plist>
