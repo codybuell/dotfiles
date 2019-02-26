@@ -1,0 +1,2 @@
+# if osx and using docker machine
+eval $(docker-machine env main)

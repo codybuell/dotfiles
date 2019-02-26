@@ -253,6 +253,9 @@ source $HOME/.shell/hash
 source $HOME/.shell/path
 source $HOME/.shell/vars
 source $HOME/.shell/vault
+source $HOME/.shell/docker
+
+source $HOME/.rvm/scripts/rvm
 
 test -e $HOME/.shell/functions.private && source $HOME/.shell/functions.private
 

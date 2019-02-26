@@ -6,6 +6,10 @@
 . ~/.shell/exports
 . ~/.shell/vault
 . ~/.shell/tmux
+. ~/.shell/docker
+
+. ~/.rvm/scripts/rvm
+
 which brew > /dev/null 2>&1
 [[ $? -eq 0 ]] && {
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
