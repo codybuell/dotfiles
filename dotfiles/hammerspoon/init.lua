@@ -383,11 +383,11 @@ local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', re
 -- Control Double Press
 --
 
-ctrlDoublePress = require("ctrlDoublePress")
-ctrlDoublePress.timeFrame = 2
-ctrlDoublePress.action = function()
-  hs.application.open('/Applications/Mission Control.app')
-end
+-- ctrlDoublePress = require("ctrlDoublePress")
+-- ctrlDoublePress.timeFrame = 2
+-- ctrlDoublePress.action = function()
+--   hs.application.open('/Applications/Mission Control.app')
+-- end
 
 --
 -- Cmd Double Press
