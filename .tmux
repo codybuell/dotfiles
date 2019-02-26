@@ -12,7 +12,7 @@
 
 CMDPANE1='git status'
 CMDPANE2=''
-CMDPANE3='vim -c CommandT'
+CMDPANE3=''
 
 # get session name based on folder
 SESSION=`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'`
