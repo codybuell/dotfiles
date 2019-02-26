@@ -2,6 +2,16 @@
 # function
 #
 
+# test regular expressions, ctrl-D to stop
+# testregex 'string to match against'
+# > enter a regex and match will be returned
+function testregex() {
+  [ "$#" -eq 1 ] || return 1
+  while IFS= read -r line; do
+    printf '%s\n' "$1" | grep -Eoe "$line"
+  done
+}
+
 # search up for ~/.gopath and set GOPATH to its parent dir
 function gopath() {
   cdir=$PWD
