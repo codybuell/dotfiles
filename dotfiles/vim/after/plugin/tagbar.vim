@@ -37,7 +37,7 @@ let g:tagbar_type_snippets = {
 " markdown support (requires markdown2ctags)
 let g:tagbar_type_markdown = {
 \   'ctagstype': 'markdown',
-\   'ctagsbin' : '~/bin/markdown2ctags.py',
+\   'ctagsbin' : '{{ CONFGDIR }}/submodules/markdown2ctags/markdown2ctags.py',
 \   'ctagsargs' : '-f - --sort=yes',
 \   'kinds' : [
       \ 's:sections',
