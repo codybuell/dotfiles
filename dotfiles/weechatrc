@@ -206,8 +206,8 @@
 #                                                                              #
 ################################################################################
 
-# configure highmon to show buffer number then name when identifying source
-/set plugins.var.perl.highmon.alignment "nchannel"
+# configure highmon to show buffer number only for source
+/set plugins.var.perl.highmon.alignment "schannel"
 
 # show private messages in highmon
 /set plugins.var.perl.highmon.merge_private on
@@ -391,6 +391,7 @@
 #/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
 #/set plugins.var.python.slack.show_reaction_nicks on
 #/set plugins.var.python.slack.background_load_all_history true
+#/set plugins.var.python.slack.short_buffer_names true
 
 ################################################################################
 #                                                                              #
