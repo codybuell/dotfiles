@@ -256,11 +256,15 @@
 # triggered, i.e. if you want core buffers to be at the top the first rule must
 # evaluiate to fales for core buffers, very very counter intuitive, /autosort
 # debug produces an array for each autosort rule for each buffer, look though
-# the array results for 0's... such a pain
+# the array results for 0's... such a pain, `/autosort debug` will output all the
+# current channels and how they are evaluated, an array will be provided for each,
+# each element in the array corresponds to a rule from `/autosort rules list`, if
+# the array's element is 0 then that means the rule matches and it is placed in
+# said order
 
 # need to clear out the default rule set
 /set autosort.v3.rules ""
-/set autosort.v3.rules "["${core_first}", "${if:${buffer.full_name}!=perl.iset}", "${irc_first}", "${buffer.plugin.name}", "${irc_raw_first}", "${if:${plugin}==irc?${server}}", "${if:${plugin}==irc?${info:autosort_order,${type},server,*,channel,private}}", "${if:${plugin}==irc?${hashless_name}}", "${buffer.full_name}"]"
+/set autosort.v3.rules "["${core_first}", "${if:${buffer.full_name}!=python.weemustfeed}", "${if:${buffer.full_name}!=perl.rssagg}", "${if:${buffer.full_name}!=perl.iset}", "${irc_first}", "${buffer.plugin.name}", "${irc_raw_first}", "${if:${plugin}==irc?${server}}", "${if:${plugin}==irc?${info:autosort_order,${type},server,*,channel,private}}", "${if:${plugin}==irc?${hashless_name}}", "${buffer.full_name}"]"
 
 ################################################################################
 #                                                                              #
