@@ -51,8 +51,8 @@
 #                                                                              #
 #  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
 #    OSX:                                                                      #
-#    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py
-#    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py
+#    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py weemustfeed.py
+#    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py weemustfeed.py
 #                                                                              #
 #    LINUX:                                                                    #
 #    /script install iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py

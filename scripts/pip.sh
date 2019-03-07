@@ -23,6 +23,7 @@
 # standard python 2 packages
 PYTHON2=( \
     'browsercookie' \               # for getting browser cookies with cookiemonster via cli
+    'feedparser' \                  # rss support for weechat plugin
     'jmespath-terminal' \           # json manipulation and parsing tool (run as `jpterm`)
     'neovim' \                      # neovim client, required to use python with neovim
     'websocket-client' \            # required for wee-slack weechat plugin
@@ -37,6 +38,7 @@ OSXPYTHON2=( \
 PYTHON3=( \
     'click' \                       # required for mattermost auth cookie gathering script
     'commandt.score' \              # search scoring utility used in custom deoplete filter
+    'feedparser' \                  # rss support for weechat plugin
     'neovim' \                      # neovim client, required to use python with neovim
     'selenium' \                    # same as click
 )
