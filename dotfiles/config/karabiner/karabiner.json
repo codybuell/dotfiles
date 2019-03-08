@@ -15,61 +15,160 @@
                 },
                 "rules": [
                     {
-                      "description": "Change left shift to left shift if pressed with other keys, to open paren if pressed alone.",
-                      "manipulators": [
-                        {
-                          "type": "basic",
-                          "from": {
-                            "key_code": "left_shift",
-                            "modifiers": {
-                              "optional": [
-                                "any"
-                              ]
-                            }
-                          },
-                          "to": [
+                        "description": "Control + enter to mouse middle click (button3).",
+                        "manipulators": [
                             {
-                              "key_code": "left_shift"
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "pointing_button": "button3"
+                                    }
+                                ],
+                                "type": "basic"
                             }
-                          ],
-                          "to_if_alone": [
-                            {
-                              "key_code": "9",
-                              "modifiers": "left_shift"
-                            }
-                          ]
-                        }
-                      ]
+                        ]
                     },
                     {
-                      "description": "Change right shift to right shift if pressed with other keys, to close paren if pressed alone.",
-                      "manipulators": [
-                        {
-                          "type": "basic",
-                          "from": {
-                            "key_code": "right_shift",
-                            "modifiers": {
-                              "optional": [
-                                "any"
-                              ]
-                            }
-                          },
-                          "to": [
+                        "description": "Return to right control when held, return if pressed alone.",
+                        "manipulators": [
                             {
-                              "key_code": "right_shift"
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
                             }
-                          ],
-                          "to_if_alone": [
-                            {
-                              "key_code": "0",
-                              "modifiers": "right_shift"
-                            }
-                          ]
-                        }
-                      ]
+                        ]
                     },
                     {
-                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+                        "description": "Return to right control when held, return if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_control",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "open_bracket"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Right control to right control when held, close bracket if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_control",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_control"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "close_bracket"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Left shift to left shift when held, open parenthesis if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_shift",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "9",
+                                        "modifiers": "left_shift"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Right shift to right shift when held, close parenthesis if pressed alone.",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_shift"
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": "right_shift"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Caps lock to left control when held, escape if pressed alone.",
                         "manipulators": [
                             {
                                 "from": {
