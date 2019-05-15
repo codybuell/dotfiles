@@ -405,11 +405,19 @@ function home() {
       # build home window
       tmux new-session -d -s HOME -n home -x `tput cols` -y `tput lines`
       tmux set-window-option -t HOME:home automatic-rename off
-      tmux split-window -t HOME:home -b -v -p 54 -c ~/
-      tmux split-window -t HOME:home -h -l 95 -c ~/
-      tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
-#     tmux send-keys -t HOME:home.2 't mit' Enter
-      tmux send-keys -t HOME:home.3 'weechat' Enter
+      #--- layout 1
+#     tmux split-window -t HOME:home -b -v -p 54 -c ~/
+#     tmux split-window -t HOME:home -h -l 95 -c ~/
+#     tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
+#     #tmux send-keys -t HOME:home.2 't mit' Enter
+#     tmux send-keys -t HOME:home.3 'weechat' Enter
+      #--- layout 2
+      tmux split-window -t HOME:home -h -p 66 -c ~/
+      tmux split-window -t HOME:home -b -v -p 40 -c ~/
+      tmux send-keys -t HOME:home.1 'weechat' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
+#     tmux send-keys -t HOME:home.3 't mit' Enter
+      #---
       # build control window
 #     tmux new-window -t HOME: -c ~/.mutt -n control
 #     tmux set-window-option -t HOME:control monitor-activity off
