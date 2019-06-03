@@ -13,5 +13,10 @@
   co = checkout
 [color]
   ui = true
+[color "status"]
+  added = green
+  changed = red
+  untracked = blue
+  deleted = magenta
 [credential]
 	helper = osxkeychain
