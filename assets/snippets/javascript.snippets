@@ -360,6 +360,45 @@ endsnippet
 ##                                                                            ##
 ################################################################################
 
+snippet pjscripts "package.json scripts for use with webpack" b
+"scripts": {
+  "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+},
+endsnippet
+
+snippet webpack "webpack boilerplate" b
+let mix = require('laravel-mix');
+let tailwindcss = require('tailwindcss');
+
+mix
+
+//////////////
+//  styles  //
+//////////////
+
+  .sass('resources/styles/screen.scss', 'public/assets/styles')
+  .sass('resources/styles/print.scss', 'public/assets/styles')
+  .sass('resources/styles/styleie.scss', 'public/assets/styles')
+
+///////////////
+//  scripts  //
+///////////////
+
+  .js('resources/scripts/app.js', 'public/assets/scripts')
+
+///////////////
+//  configs  //
+///////////////
+
+  .options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('./tailwind.js') ]
+  })
+endsnippet
+
 snippet docready "document ready boilerplate"
 $(document).ready(function(){
 
