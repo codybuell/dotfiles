@@ -38,4 +38,13 @@ vmap      <silent>          <leader>sa        :'<,'>!sort<CR>
 " override visual yank to overload with copying to system clipboard as well
 vnoremap  <silent>          y                 :<C-u>exe 'call buell#helpers#YankOverride()'<CR>
 
-vmap      <silent><expr>    <leader>=         VMATH_YankAndAnalyse()
+" maths
+"vmap      <silent><expr>    <leader>=         VMATH_YankAndAnalyse()
+" print out the total of the summation at the bottom of your visual selection
+"vmap       <silent>         <leader>=         :'<,'>!awk '1;{sum+=$1} END {print sum}'<CR>
+" print out the total of the summation at the bottom of your visual selection, strip out commas, needs vim-vis plugin!
+vmap       <silent>         <leader>=         :'<,'>B !awk '1;{sub(/,/, "");sum+=$1} END {print sum}'<CR>
+" print out the total of the summation in a shell window
+"vmap      <silent><expr>    <leader>=         :'<,'>w !awk '1;{sum+=$1} END {print sum}'
+" capture the sum into the default register
+"vmap      <silent><expr>    <leader>=         :'<,'>??????????????

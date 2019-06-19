@@ -153,6 +153,10 @@
 "                                                                              "
 "     typescript    typscript support for vim                                  "
 "                                                                              "
+"     howmuch       perform math operations on visual selections               "
+"                                                                              "
+"     vim-vis       improved visual mode functionality                         "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -345,6 +349,12 @@ Plug 'posva/vim-vue'
 
 " typescript: typscript support for vim
 Plug 'leafgarland/typescript-vim'
+
+" howmuch: perform math operations on visual selections
+Plug 'codybuell/HowMuch'
+
+" vim-vis: improved visual mode functionality
+Plug 'codybuell/vis'
 
 call plug#end()
 
