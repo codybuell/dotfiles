@@ -8,7 +8,7 @@
 " see plugins/autocommands.vim for setting foldmethod
 
 let g:vim_markdown_folding_disabled          = 0     " enable folding
-let g:vim_markdown_folding_level             = 1     " fold level+ to close by default
+let g:vim_markdown_folding_level             = 2     " fold level+ to close by default
 let g:vim_markdown_folding_style_pythonic    = 1     " fold on headers not below
 let g:vim_markdown_new_list_item_indent      = 0     " don't auto indent sub-lists
 let g:vim_markdown_override_foldtext         = 0     " don't override fold text
