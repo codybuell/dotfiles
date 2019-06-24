@@ -14,7 +14,7 @@ endif
 
 " core sources:
 "   around     [~]     - from around the current cursor location
-"   buffer     [B]     - from the currently open file
+"   buffer     [B]     - from the current buffer, all other buffers in current tab, and open buffers with same filetype
 "   dictionary [D]     - keywords from the dictionary
 "   file       [F]     - filesystem paths and files
 "   member     [M]     - members of the current buffer
@@ -33,18 +33,21 @@ endif
 " define sources, otherwise deoplete uses complete() by default :set complete?
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
 call deoplete#custom#option('sources', {
-\   '_':         ['around', 'buffer', 'file', 'ultisnips'],
-\   'cpp':       ['buffer', 'ultisnips', 'tag'],
-\   'go':        ['around', 'buffer', 'go', 'syntax', 'ultisnips', 'tag'],
-\   'html':      ['around', 'buffer', 'ultisnips'],
-\   'mail':      ['dictionary', 'mail'],
-\   'vim':       ['around', 'buffer', 'file', 'ultisnips', 'vim'],
-\   'markdown':  ['around', 'buffer', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
+\   '_':         ['around', 'buffer', 'member', 'file', 'ultisnips'],
+\   'cpp':       ['buffer', 'member', 'ultisnips', 'tag'],
+\   'go':        ['around', 'buffer', 'member', 'go', 'syntax', 'ultisnips', 'tag'],
+\   'html':      ['around', 'buffer', 'member', 'ultisnips'],
+\   'mail':      ['dictionary', 'mail', 'ultisnips'],
+\   'vim':       ['around', 'buffer', 'member', 'file', 'ultisnips', 'vim'],
+\   'markdown':  ['around', 'buffer', 'member', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
 \ })
 
 " kick up the possible max number of results from 500 base
 call deoplete#custom#source('contact', 'max_candidates', 2000)
 call deoplete#custom#source('mail', 'max_candidates', 2000)
+
+" get completions from any buffer regardless of matching filetype
+call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                    "
