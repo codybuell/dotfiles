@@ -429,7 +429,7 @@ function home() {
 #     tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh client' Enter
 #     tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
       # attach to home session, home window, weechat pane
-      tmux -u attach -t HOME:home.3
+      tmux -u attach -t HOME:home.1
     else
       tmux -u attach -t HOME
     fi
