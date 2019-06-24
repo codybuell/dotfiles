@@ -70,7 +70,7 @@ nnoremap                    <leader>gc        :Gcommit -v -q<CR>
 nnoremap                    <leader>gt        :Gcommit -v -q %:p<CR>
 nnoremap                    <leader>gd        :Gvdiff<CR>
 nnoremap                    <leader>ge        :Gedit<CR>
-nnoremap                    <leader>gr        :Gread<CR>
+" nnoremap                    <leader>gr        :Gread<CR>
 nnoremap                    <leader>gw        :Gwrite<CR><CR>
 nnoremap                    <leader>gl        :silent! Glog<CR>:bot copen<CR>
 nnoremap                    <leader>gm        :Gmove<Space>

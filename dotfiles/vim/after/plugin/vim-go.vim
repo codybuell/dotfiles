@@ -28,3 +28,8 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+
+" quick mapping for go run
+" au FileType go nmap <leader>gr <Plug>(go-run-tab)
+au FileType go nmap <leader>gr <Plug>(go-run-split)
+" au FileType go nmap <leader>gr <Plug>(go-run-vertical)
