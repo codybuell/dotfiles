@@ -1,6 +1,7 @@
 [user]
   name = {{ GitUsername }}
   email = {{ Email }}
+	signingkey = {{ GitSigningKey }}
 [core]
   editor = /usr/local/bin/nvim
   excludesfile = ~/.cvsignore
@@ -20,3 +21,10 @@
   deleted = magenta
 [credential]
 	helper = osxkeychain
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

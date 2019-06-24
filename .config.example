@@ -225,9 +225,10 @@ WorkJournal     = "/Path/home/Google\\ Drive/Journal/work"      # full path, esc
 ################################################################################
 
 
-GitUsername = codybuell                              # github username
-ReposPath   = /Path/home/Repos                       # folder for git repos
-GistsPath   = /Path/home/Gists                       # folder for git gists
+GitUsername   = codybuell                                # github username
+GitSigningKey = 12345678901234567890                     # gpg key to sign commits
+ReposPath     = /Path/home/Repos                         # folder for git repos
+GistsPath     = /Path/home/Gists                         # folder for git gists
 
 
 ################################################################################
