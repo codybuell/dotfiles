@@ -42,12 +42,12 @@ md() {
   target=README.txt
 
   HIERARCHY=(
-    README.txt
-    readme.txt
-    README.md
-    readme.md
-    README
-    readme
+    'README.txt' \
+    'readme.txt' \
+    'README.md' \
+    'readme.md' \
+    'README' \
+    'readme' \
   )
 
   for i in ${HIERARCHY[@]}; do
