@@ -28,7 +28,7 @@ function gopath() {
 }
 
 # override cd to dynamically set paths
-cd () {
+cd() {
   # perform the actual cd without risk of recursion (builtin)
   builtin cd "$@"
 
@@ -42,10 +42,10 @@ md() {
   target=README.txt
 
   HIERARCHY=(
-    'README.txt' \
-    'readme.txt' \
     'README.md' \
     'readme.md' \
+    'README.txt' \
+    'readme.txt' \
     'README' \
     'readme' \
   )
