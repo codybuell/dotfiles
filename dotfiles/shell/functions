@@ -39,7 +39,7 @@ cd() {
 # markdown shortcut
 md() {
 
-  target=README.txt
+  target=README.md
 
   HIERARCHY=(
     'README.md' \
