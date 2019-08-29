@@ -66,7 +66,7 @@ PACKAGES=( \
     'mysql'                         # database server for local dev
     'neomutt' \                     # command line email client
     'nmap' \                        # network utility
-    'node' \                        # server side js
+    'node@10' \                     # server side js (LTS Version as of 2019.07.11)
     'notmuch' \                     # mail search for mutt
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
@@ -76,6 +76,7 @@ PACKAGES=( \
     'pidgin' \                      # pidgin and finch xmpp protocol clients
     'python' \                      # python language
     'python3' \                     # python 3 language
+    'qrencode' \                    # utility to generate qr codes
     'ranger' \                      # cli file browser
     'rclone' \                      # cli for cloud storage providers
     'reattach-to-user-namespace' \  # reattach process to background
