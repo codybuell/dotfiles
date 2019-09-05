@@ -471,6 +471,8 @@ end
 ------------------
 
 -- get the media keys to actually control itunes again...
+-- in chrome, hit chrome://flags/#hardware-media-key-handling and disable
+-- 'Hardware Media Key Handling' else chrome will take over when focused
 MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
 AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
 DEBUG_TAP = false
