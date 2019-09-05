@@ -1,101 +1,115 @@
--- print resolution in console:
---   hs.screen.primaryScreen():currentMode().w
---   hs.screen.primaryScreen():currentMode().h
+-------------------------------------------------------------------------------
+--                                                                           --
+--  configuration                                                            --
+--                                                                           --
+-------------------------------------------------------------------------------
 
-hs.grid.setGrid('12x12') -- allows us to place on quarters, thirds and halves
+-- disaable animations
+hs.window.animationDuration = 0
+
+-- define our grid
+hs.grid.setGrid('24x24')
 hs.grid.MARGINX = 0
 hs.grid.MARGINY = 0
-hs.window.animationDuration = 0 -- disable animations
 
-local screenCount = #hs.screen.allScreens()
-local logLevel = 'info' -- generally want 'debug' or 'info'
-local log = hs.logger.new('buell', logLevel)
+-- configure logging (debug | info | ...)
+local logLevel = 'info'
+local log      = hs.logger.new('user log', logLevel)
 
+-- gather screen information
+local screenCount   = #hs.screen.allScreens()
 local primaryScreen = hs.screen.primaryScreen()
 local primaryMode   = primaryScreen:currentMode()
 local primaryWidth  = primaryMode.w
 local primaryHeight = primaryMode.h
 local primaryWxH    = primaryMode.w .. "x" .. primaryMode.h
+
+-- log our resolution to the console
 log.i("detected resolution: " .. primaryWxH)
 
+-- define our key combos
+local mash     = {"cmd", "alt", "ctrl"}
+local hyper    = {"cmd", "alt", "ctrl", "shift"}
+local minimash = {"ctrl", "alt"}
+
+-- standardize some grid positions 'x start, y start, grid dimension'
 local grid = {
-  -- x start, y start, dimension
-  topHalf = '0,0 12x6',
-  topThird = '0,0 12x4',
-  topTwoThirds = '0,0 12x8',
-  rightHalf = '6,0 6x12',
-  rightSixth = '10,0 2x12',
-  rightThird = '8,0 4x12',
-  rightTwoThirds = '4,0 8x12',
-  bottomHalf = '0,6 12x6',
-  bottomThird = '0,8 12x4',
-  bottomTwoThirds = '0,4 12x8',
-  leftHalf = '0,0 6x12',
-  leftSixth = '0,0 2x12',
-  leftThird = '0,0 4x12',
-  leftTwoThirds = '0,0 8x12',
-  leftThreeQuarters = '0,0 9x12',
-  laptopLeftThreeQuarters = '0,0 10x12',
-  laptopLeftElevenTwewfths = '0,0 11x12',
-  topLeft = '0,0 6x6',
-  topRight = '6,0 6x6',
-  bottomRight = '6,6 6x6',
-  bottomLeft = '0,6 6x6',
-  fullScreen = '0,0 12x12',
-  fullHalf = '3,0 6x12',
-  centeredBig = '2,1 8x10',
-  centeredSmall = '4,3 4x6',
-  goldenLarge = '2,1 8x10',
-  laptopGoldenLarge = '1,1 10x10',
-  goldenSmall = '2,1 6x8',
-  portraitLarge = '2,2 5x9',
-  portraitSmall = '2,2 4x7',
+  -- genral
+  topLeft           = '0,0 12x12',
+  topRight          = '12,0 12x12',
+  bottomRight       = '12,12 12x12',
+  bottomLeft        = '0,12 12x12',
+  fullScreen        = '0,0 24x24',
+  halfFull          = '6,0 12x24',
+  centeredBig       = '4,2 16x20',
+  centeredSmall     = '8,6 8x12',
+  goldenSmall       = '4,2 12x16',
+  goldenLarge       = '4,2 16x20',
+  portraitLarge     = '4,4 10x18',
+  portraitSmall     = '4,4 8x14',
+  -- tops
+  topHalf           = '0,0 24x12',
+  topThird          = '0,0 24x8',
+  topTwoThirds      = '0,0 24x16',
+  -- rights
+  rightSixth        = '20,0 4x24',
+  rightThird        = '16,0 8x24',
+  right37P          = '15,0 9x24', --web browser widescreen
+  rightHalf         = '12,0 12x24',
+  right62P          = '9,0 15x24',
+  rightTwoThirds    = '8,0 16x24',
+  -- bottoms
+  bottomHalf        = '0,12 24x12',
+  bottomThird       = '0,16 24x8',
+  bottomTwoThirds   = '0,8 24x16',
+  -- lefts
+  leftSixth         = '0,0 4x24',
+  leftThird         = '0,0 8x24',
+  left37P           = '0,0 9x24',
+  leftHalf          = '0,0 12x24',
+  left62P           = '0,0 15x24', -- terminal widescreen
+  leftTwoThirds     = '0,0 16x24',
+  leftThreeQuarters = '0,0 18x24',
+  -- customs
+  laptopLeftThreeQuarters  = '0,0 20x24',
+  laptopLeftElevenTwewfths = '0,0 22x24',
+  laptopGoldenLarge        = '2,2 20x20',
 }
 
+-- layout configuration
 local layoutConfig = {
+  ----------------
+  --  pre hook  --
+  ----------------
   _before_ = (function()
-    hide('com.spotify.client')
+    -- hide('com.spotify.client')
   end),
 
+  -----------------
+  --  post hook  --
+  -----------------
   _after_ = (function()
     -- make sure iterm appears in front of chrome
     activate('com.google.Chrome')
     activate('com.googlecode.iterm2')
   end),
 
+  --------------
+  --  chrome  --
+  --------------
   ['com.google.Chrome'] = (function(window, forceScreenCount)
---    local count = forceScreenCount or screenCount
---    if count == 1 then
---      hs.grid.set(window, grid.goldenLarge)
---    else
---      -- First/odd windows go on the RIGHT side of the screen.
---      -- Second/even windows go on the LEFT side.
---      -- (Note this is the opposite of what we do with Canary.)
---      local windows = windowCount(window:application())
---      local side = windows % 2 == 0 and grid.leftHalf or grid.rightHalf
---      hs.grid.set(window, side, hs.screen.primaryScreen())
---    end
-    -- if primaryWxH == "1680x1050" then
+    if primaryWxH == "3840x1600" then -- 38" ultrawide
+      hs.grid.set(window, grid.right37P)
+    elseif primaryWxH == "2560x1440" then -- 27"
+    --elseif then -- 27" + 24"
+    else -- default (laptop)
       hs.grid.set(window, grid.laptopGoldenLarge)
-    -- else
-    --   hs.grid.set(window, grid.goldenLarge)
-    -- end
-  end),
-
-  ['com.google.Chrome.canary'] = (function(window, forceScreenCount)
-    local count = forceScreenCount or screenCount
-    if count == 1 then
-      hs.grid.set(window, grid.fullScreen)
-    else
-      -- First/odd windows go on the LEFT side of the screen.
-      -- Second/even windows go on the RIGHT side.
-      -- (Note this is the opposite of what we do with Chrome.)
-      local windows = windowCount(window:application())
-      local side = windows % 2 == 0 and grid.rightHalf or grid.leftHalf
-      hs.grid.set(window, side, hs.screen.primaryScreen())
     end
   end),
 
+  --------------
+  --  iterm2  --
+  --------------
   ['com.googlecode.iterm2'] = (function(window, forceScreenCount)
 --    local count = forceScreenCount or screenCount
 --    if count == 1 then
@@ -103,28 +117,33 @@ local layoutConfig = {
 --    else
 --      hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
 --    end
-    hs.grid.MARGINX = 6
-    hs.grid.MARGINY = 5
-    -- if laptop screen, improve with screen dpi density check?
-    -- if primaryWxH == "1680x1050" then
-      hs.grid.set(window, grid.laptopLeftElevenTwewfths)
-    -- else
-    --   hs.grid.set(window, grid.leftThreeQuarters)
-    -- end
-    hs.grid.MARGINX = 0
-    hs.grid.MARGINY = 0
+--  hs.grid.MARGINX = 6
+--  hs.grid.MARGINY = 5
+    if primaryWxH == "3840x1600" then -- 38" ultrawide
+      hs.grid.set(window, grid.left62P)
+    elseif primaryWxH == "2560x1440" then -- 27" & 24"
+      hs.grid.set(window, grid.fullScreen)
+    else -- default (laptop)
+      hs.grid.set(window, grid.fullScreen)
+    end
+--  hs.grid.MARGINX = 0
+--  hs.grid.MARGINY = 0
   end),
 
 }
 
---
--- Utility and helper functions.
---
+-------------------------------------------------------------------------------
+--                                                                           --
+--  helpers                                                                  --
+--                                                                           --
+-------------------------------------------------------------------------------
 
--- Returns the number of standard, non-minimized windows in the application.
+-- Window Count
 --
--- (For Chrome, which has two windows per visible window on screen, but only one
--- window per minimized window).
+-- Returns the number of standard, non-minimized windows in the application.
+-- For Chrome, which has two windows per visible window on screen, but only one
+-- window per minimized window.
+-- 
 function windowCount(app)
   local count = 0
   if app then
@@ -137,6 +156,10 @@ function windowCount(app)
   return count
 end
 
+-- Hide
+--
+-- Hide the defined application by bundleID, eg 'com.googlecode.iterm2'
+--
 function hide(bundleID)
   local app = hs.application.get(bundleID)
   if app then
@@ -144,6 +167,10 @@ function hide(bundleID)
   end
 end
 
+-- Activcate
+--
+-- Focuses the defined application by bundleID, eg 'com.googlecode.iterm2'
+--
 function activate(bundleID)
   local app = hs.application.get(bundleID)
   if app then
@@ -151,25 +178,39 @@ function activate(bundleID)
   end
 end
 
+-- Can Manage Window
+--
+-- Returns the bundleID if the window can be managed.  Special handling for
+-- iterm since windows without tile bars are non-standard.
+--
 function canManageWindow(window)
   local application = window:application()
   local bundleID = application:bundleID()
 
-  -- Special handling for iTerm: windows without title bars are
-  -- non-standard.
   return window:isStandard() or
     bundleID == 'com.googlecode.iterm2'
 end
 
+-- Internal Display
+--
+-- Returns the internal laptop display.
+--
 function internalDisplay()
   -- Fun fact: this resolution matches both the 13" MacBook Air and the 15"
   -- (Retina) MacBook Pro.
   return hs.screen.find('1440x900')
 end
 
+-- Activate Layout
+--
+-- Applies window layout as defined in the config above.  Used to call on
+-- varying events (eg. new monitor plugged in or removed).
+--
 function activateLayout(forceScreenCount)
+  -- before hook
   layoutConfig._before_()
 
+  -- apply layouts
   for bundleID, callback in pairs(layoutConfig) do
     local application = hs.application.get(bundleID)
     if application then
@@ -182,12 +223,15 @@ function activateLayout(forceScreenCount)
     end
   end
 
+  -- after hook
   layoutConfig._after_()
 end
 
---
--- Event-handling
---
+-------------------------------------------------------------------------------
+--                                                                           --
+--  event handling                                                           --
+--                                                                           --
+-------------------------------------------------------------------------------
 
 function handleWindowEvent(window)
   if canManageWindow(window) then
@@ -224,6 +268,12 @@ function tearDownEventHandling()
 end
 
 initEventHandling()
+
+-------------------------------------------------------------------------------
+--                                                                           --
+--  chaining                                                                 --
+--                                                                           --
+-------------------------------------------------------------------------------
 
 local lastSeenChain = nil
 local lastSeenWindow = nil
@@ -271,33 +321,35 @@ end
 -- Key bindings.
 --
 
-hs.hotkey.bind({'ctrl', 'alt'}, 'up', chain({
-  grid.topHalf,
-  grid.topThird,
-  grid.topTwoThirds,
-}))
+--hs.hotkey.bind(minimash, 'up', chain({
+--  grid.topHalf,
+--  grid.topThird,
+--  grid.topTwoThirds,
+--}))
 
-hs.hotkey.bind({'ctrl', 'alt'}, 'right', chain({
+hs.hotkey.bind(mash, 'right', chain({
   grid.rightTwoThirds,
+  grid.right62P,
   grid.rightHalf,
+  grid.right37P,
   grid.rightThird,
-  grid.rightSixth,
 }))
 
-hs.hotkey.bind({'ctrl', 'alt'}, 'down', chain({
-  grid.bottomHalf,
-  grid.bottomThird,
-  grid.bottomTwoThirds,
-}))
+--hs.hotkey.bind({'ctrl', 'alt'}, 'down', chain({
+--  grid.bottomHalf,
+--  grid.bottomThird,
+--  grid.bottomTwoThirds,
+--}))
 
-hs.hotkey.bind({'ctrl', 'alt'}, 'left', chain({
+hs.hotkey.bind(mash, 'left', chain({
   grid.leftTwoThirds,
+  grid.left62P,
   grid.leftHalf,
+  grid.left37P,
   grid.leftThird,
-  grid.leftSixth,
 }))
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
+hs.hotkey.bind(mash, 'up', chain({
   grid.topLeft,
   grid.topRight,
   grid.bottomRight,
@@ -305,9 +357,9 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
 }))
 
 --if primaryWxH == "1680x1050" then
-  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
+  hs.hotkey.bind(mash, 'down', chain({
     grid.fullScreen,
-    grid.fullHalf,
+    grid.halfFull,
     grid.laptopGoldenLarge,
     grid.centeredSmall,
   }))
@@ -318,6 +370,12 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'up', chain({
 --    grid.centeredSmall,
 --  }))
 --end
+
+--Move windows slightly
+hs.hotkey.bind(minimash, 'down', hs.grid.pushWindowDown)
+hs.hotkey.bind(minimash, 'up', hs.grid.pushWindowUp)
+hs.hotkey.bind(minimash, 'left', hs.grid.pushWindowLeft)
+hs.hotkey.bind(minimash, 'right', hs.grid.pushWindowRight)
 
 hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
   hs.alert('One-monitor layout')
@@ -333,6 +391,7 @@ hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f3', (function()
   hs.alert('Hammerspoon console')
   hs.openConsole()
 end))
+
 
 --
 -- Screencast layout
@@ -379,96 +438,73 @@ end
 
 local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
 
---
--- Control Double Press
---
+-------------------------------------------------------------------------------
+--                                                                           --
+--  modules                                                                  --
+--                                                                           --
+-------------------------------------------------------------------------------
+
+-------------------------
+--  control dbl-press  --
+-------------------------
 
 -- ctrlDoublePress = require("ctrlDoublePress")
--- ctrlDoublePress.timeFrame = 2
+-- ctrlDoublePress.timeFrame = 1
 -- ctrlDoublePress.action = function()
+--  -- launch  mission control with double tap of ctrl
 --   hs.application.open('/Applications/Mission Control.app')
 -- end
 
---
--- Cmd Double Press
---
+-------------------------
+--  command dbl-press  --
+-------------------------
 
 cmdDoublePress = require("cmdDoublePress")
-cmdDoublePress.timeFrame = 2
+cmdDoublePress.timeFrame = 1
 cmdDoublePress.action = function()
+  -- launch  mission control with double tap of cmd
   hs.application.open('/Applications/Mission Control.app')
 end
 
---
--- Command Key Press (if cmd + key do that, else if cmd down and up with no modifier do our stuff)
---
+------------------
+--  media keys  --
+------------------
 
--- local module = {}
--- module.showPopUp = false
--- module.leftCmdLayout = "English - Ilya Birman Typography"
--- module.rightCmdLayout = "Russian - Ilya Birman Typography"
--- 
--- 
--- module.eventwatcher1 = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, function(e)
--- 
---     local flags = e:getFlags()
--- 
---     if flags.cmd
---        and not (flags.alt or flags.shift or flags.ctrl or flags.fn)
---     then
---         module.cmdWasPressed = true
---         module.cmdShouldBeIgnored = false
---         return false;
---     end
--- 
---     if flags.cmd
---        and (flags.alt or flags.shift or flags.ctrl or flags.fn)
---        and module.cmdWasPressed
---     then
---         module.cmdShouldBeIgnored = true
---         return false;
---     end
--- 
---     if not flags.cmd
---     then
---         if module.cmdWasPressed
---        and not module.cmdShouldBeIgnored
---         then
---             local keyCode = e:getKeyCode()
--- 
---             if keyCode == 0x37 then
---                 hs.application.open('/Applications/Mission Control.app')
---                 -- hs.keycodes.setLayout(module.leftCmdLayout)
--- 
---         if module.showPopUp then
---             hs.alert.show("English", 0.2)
---         end
--- 
---         -- elseif keyCode == 0x36 then
---         --     hs.application.open('/Applications/Mission Control.app')
---         --     -- hs.keycodes.setLayout(module.rightCmdLayout)
--- 
---         -- if module.showPopUp then
---         --     hs.alert.show("Russian", 0.2)
---         -- end
---         end
---     end
--- 
---     module.cmdWasPressed = false
---     module.cmdShouldBeIgnored = false
---     end
--- 
---     return false;
--- end):start()
--- 
--- 
--- module.eventwatcher2 = hs.eventtap.new({"all", hs.eventtap.event.types.flagsChanged}, function(e)
--- 
---     local flags = e:getFlags()
--- 
---     if flags.cmd and module.cmdWasPressed then
---     module.cmdShouldBeIgnored = true
---     end
--- 
---     return false;
--- end):start()
+-- get the media keys to actually control itunes again...
+MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
+AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
+DEBUG_TAP = false
+-- watching for special key presses
+tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
+	if DEBUG_TAP then
+		print("event tap debug got event:")
+		print(hs.inspect.inspect(event:getRawEventData()))
+		print(hs.inspect.inspect(event:getFlags()))
+		print(hs.inspect.inspect(event:systemKey()))
+	end
+
+	local sys_key_event = event:systemKey()
+	local delete_event  = false
+
+	if not sys_key_event or not sys_key_event.down then
+		return false
+	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
+	then
+		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
+		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
+      hs.itunes.playpause()
+    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+      hs.itunes.next()
+    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+      hs.itunes.previous()
+    end
+	end
+	return delete_event
+end)
+tap:start()
+
+-------------------------------------------------------------------------------
+--                                                                           --
+--  spoons                                                                   --
+--                                                                           --
+-------------------------------------------------------------------------------
