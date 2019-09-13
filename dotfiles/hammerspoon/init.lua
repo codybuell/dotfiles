@@ -54,9 +54,7 @@ local grid = {
   -- rights
   rightSixth        = '20,0 4x24',
   rightThird        = '16,0 8x24',
-  right37P          = '15,0 9x24', --web browser widescreen
   rightHalf         = '12,0 12x24',
-  right62P          = '9,0 15x24',
   rightTwoThirds    = '8,0 16x24',
   -- bottoms
   bottomHalf        = '0,12 24x12',
@@ -65,12 +63,14 @@ local grid = {
   -- lefts
   leftSixth         = '0,0 4x24',
   leftThird         = '0,0 8x24',
-  left37P           = '0,0 9x24',
   leftHalf          = '0,0 12x24',
-  left62P           = '0,0 15x24', -- terminal widescreen
   leftTwoThirds     = '0,0 16x24',
   leftThreeQuarters = '0,0 18x24',
   -- customs
+  widescreenRight37P = '15,0 9x24', --web browser widescreen
+  widescreenRight63P = '9,0 15x24',
+  widescreenLeft37P  = '0,0 9x24',
+  widescreenLeft63P  = '0,0 15x24', -- terminal widescreen
   laptopLeftThreeQuarters  = '0,0 20x24',
   laptopLeftElevenTwewfths = '0,0 22x24',
   laptopGoldenLarge        = '2,2 20x20',
@@ -78,6 +78,11 @@ local grid = {
 
 -- layout configuration
 local layoutConfig = {
+
+  -- 3840x1600: dell 38" ultrawide
+  -- 2560x1440: dell 27" std
+  -- 1920x1080: dell 24" std
+
   ----------------
   --  pre hook  --
   ----------------
@@ -99,11 +104,9 @@ local layoutConfig = {
   --------------
   ['com.google.Chrome'] = (function(window, forceScreenCount)
     if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.right37P)
-    elseif primaryWxH == "2560x1440" then -- 27"
-    --elseif then -- 27" + 24"
-    else -- default (laptop)
-      hs.grid.set(window, grid.laptopGoldenLarge)
+      hs.grid.set(window, grid.widescreenRight37P)
+    else -- default
+      hs.grid.set(window, grid.fullScreen)
     end
   end),
 
@@ -111,18 +114,18 @@ local layoutConfig = {
   --  iterm2  --
   --------------
   ['com.googlecode.iterm2'] = (function(window, forceScreenCount)
---    local count = forceScreenCount or screenCount
---    if count == 1 then
---      hs.grid.set(window, grid.portraitSmall)
---    else
---      hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
---    end
+--  local count = forceScreenCount or screenCount
+--  if count == 1 then
+--    hs.grid.set(window, grid.portraitSmall)
+--  else
+--    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
+--  end
 --  hs.grid.MARGINX = 6
 --  hs.grid.MARGINY = 5
     if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.left62P)
-    elseif primaryWxH == "2560x1440" then -- 27" & 24"
-      hs.grid.set(window, grid.fullScreen)
+      hs.grid.set(window, grid.widescreenLeft63P)
+--  elseif primaryWxH == "2560x1440" then -- 27" & 24"
+--    hs.grid.set(window, grid.fullScreen)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
@@ -329,9 +332,9 @@ end
 
 hs.hotkey.bind(mash, 'right', chain({
   grid.rightTwoThirds,
-  grid.right62P,
+  grid.widescreenRight63P,
   grid.rightHalf,
-  grid.right37P,
+  grid.widescreenRight37P,
   grid.rightThird,
 }))
 
@@ -343,9 +346,9 @@ hs.hotkey.bind(mash, 'right', chain({
 
 hs.hotkey.bind(mash, 'left', chain({
   grid.leftTwoThirds,
-  grid.left62P,
+  grid.widescreenLeft63P,
   grid.leftHalf,
-  grid.left37P,
+  grid.widescreenLeft37P,
   grid.leftThird,
 }))
 
@@ -377,21 +380,57 @@ hs.hotkey.bind(minimash, 'up', hs.grid.pushWindowUp)
 hs.hotkey.bind(minimash, 'left', hs.grid.pushWindowLeft)
 hs.hotkey.bind(minimash, 'right', hs.grid.pushWindowRight)
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
-  hs.alert('One-monitor layout')
-  activateLayout(1)
-end))
+--
+-- Gifcast layout
+--
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f2', (function()
-  hs.alert('Two-monitor layout')
-  activateLayout(2)
-end))
+function prepareGifcast()
+  local screen = 'Color LCD'
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f3', (function()
-  hs.alert('Hammerspoon console')
-  hs.openConsole()
-end))
+  -- unit rects: percentages of screen width and height btw 0..1
+  local top = {x=0, y=0, w=1, h=.92}
+  local bottom = {x=.4, y=.82, w=.5, h=.1}
 
+  -- full-frame rects: pixel x, y, width, height
+  local stdWindow   = hs.geometry.rect(10, -1000, 1186, 909)
+  local kcstrWindow = hs.geometry.rect(20, -110, 1166, 10)
+
+  -- layout
+  local windowLayout = {
+    -- [0]: app name or hs.application obj
+    -- [1]: window title or hs.window obj or func
+    -- [2]: screen name, os hs.screen object or func w no params that returns hs.screen
+    -- then one of the following...
+    -- [3]: unit rect, or func which returns hs.window.moveToUnit()
+    -- [4]: frame rect, or func which returns hs.screen:frame()
+    -- [5]: full-frame rect, or a func which returns hs.screen:fullFrame()
+    {'iTerm2', nil, screen, nil, nil, stdWindow},
+    {'Brave Browser', nil, screen, nil, nil, stdWindow},
+    {'KeyCastr', nil, screen, nil, nil, kcstrWindow},
+  }
+
+  -- hs.application.launchOrFocus('KeyCastr')
+  hs.application.launchOrFocus('Brave Browser')
+  hs.application.launchOrFocus('iTerm2')
+
+  local brave = hs.appfinder.appFromName('Brave Browser')
+  local iterm = hs.appfinder.appFromName('iTerm2')
+
+  -- hide everything but brave browser, iterm, and keycastr
+  for key, app in pairs(hs.application.runningApplications()) do
+    if app == brave or app == iterm or app:name() == 'KeyCastr' then
+      app:unhide()
+    else
+      app:hide()
+    end
+  end
+
+  -- apply the layout
+  hs.layout.apply(windowLayout)
+end
+
+-- `open hammerspoon://screencast in spotlight`
+hs.urlevent.bind('gifcast', prepareGifcast)
 
 --
 -- Screencast layout
@@ -399,29 +438,86 @@ end))
 
 function prepareScreencast()
   local screen = 'Color LCD'
+
+  -- unit rects: percentages of screen width and height btw 0..1
   local top = {x=0, y=0, w=1, h=.92}
   local bottom = {x=.4, y=.82, w=.5, h=.1}
+
+  -- full-frame rects: pixel x, y, width, height
+  local stdWindow   = hs.geometry.rect(10, -1200, 1920, 1080)
+  local kcstrWindow = hs.geometry.rect(20, -180, 1900, 10)
+
+  -- layout
   local windowLayout = {
-    {'iTerm2', nil, screen, top, nil, nil},
-    {'Google Chrome', nil, screen, top, nil, nil},
-    {'KeyCastr', nil, screen, bottom, nil, nil},
+    -- [0]: app name or hs.application obj
+    -- [1]: window title or hs.window obj or func
+    -- [2]: screen name, os hs.screen object or func w no params that returns hs.screen
+    -- then one of the following...
+    -- [3]: unit rect, or func which returns hs.window.moveToUnit()
+    -- [4]: frame rect, or func which returns hs.screen:frame()
+    -- [5]: full-frame rect, or a func which returns hs.screen:fullFrame()
+    {'iTerm2', nil, screen, nil, nil, stdWindow},
+    {'Brave Browser', nil, screen, nil, nil, stdWindow},
+    {'KeyCastr', nil, screen, nil, nil, kcstrWindow},
   }
 
-  hs.application.launchOrFocus('KeyCastr')
-  local chrome = hs.appfinder.appFromName('Google Chrome')
+  -- hs.application.launchOrFocus('KeyCastr')
+  hs.application.launchOrFocus('Brave Browser')
+  hs.application.launchOrFocus('iTerm2')
+
+  local brave = hs.appfinder.appFromName('Brave Browser')
   local iterm = hs.appfinder.appFromName('iTerm2')
+
+  -- hide everything but brave browser, iterm, and keycastr
   for key, app in pairs(hs.application.runningApplications()) do
-    if app == chrome or app == iterm or app:name() == 'KeyCastr' then
+    if app == brave or app == iterm or app:name() == 'KeyCastr' then
       app:unhide()
     else
       app:hide()
     end
   end
+
+  -- apply the layout
   hs.layout.apply(windowLayout)
 end
 
--- `open hammerspoon://screencast`
+-- `open hammerspoon://screencast in spotlight`
 hs.urlevent.bind('screencast', prepareScreencast)
+
+-----------------------
+--  layout mappings  --
+-----------------------
+
+hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
+  hs.alert('Reset layout')
+  for key, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  local screens = hs.screen.allScreens()
+  screenCount = #screens
+  activateLayout(screenCount)
+end))
+
+hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f2', (function()
+  hs.alert('One-monitor layout')
+  for key, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  activateLayout(1)
+end))
+
+hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f3', (function()
+  hs.alert('Two-monitor layout')
+  for key, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  activateLayout(2)
+end))
+
+hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f4', (function()
+  hs.alert('Hammerspoon console')
+  hs.openConsole()
+end))
 
 --
 -- Auto-reload config on change.
@@ -471,8 +567,6 @@ end
 ------------------
 
 -- get the media keys to actually control itunes again...
--- in chrome, hit chrome://flags/#hardware-media-key-handling and disable
--- 'Hardware Media Key Handling' else chrome will take over when focused
 MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
 AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
 DEBUG_TAP = false
