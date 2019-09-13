@@ -120,6 +120,33 @@ TPAMPassword = `command to get password`
 
 ################################################################################
 #                                                                              #
+# vpn configurations                                                           #
+#                                                                              #
+# This one is going to require a bit more config on your part...               #
+#                                                                              #
+# 1. Create 'application password' records in OSX Keychain Access, one for     #
+#    the vpn password and another for the totp token.                          #
+#                                                                              #
+#    - open keychain access                                                    #
+#    - create new application password                                         #
+#    - name / keychain item name = _KeychainVPNUsername setting below          #
+#    - account / acount name = _KeychainVPN[Password|Token] settings below     #
+#    - password = your email accounts password                                 #
+#                                                                              #
+# 3. And then configure the following services:                                #
+#                                                                              #
+#    - passage (pull go repo and build, see projects readme)                   #
+#                                                                              #
+################################################################################
+
+
+KeychainVPNUsername =  codybuell
+KeychainVPNPassword =  keychainobjectname
+KeychainVPNToken    =  keychainobjectname
+
+
+################################################################################
+#                                                                              #
 # golang configurations                                                        #
 #                                                                              #
 # The shell dotfiles will automatically reconfigure your gopath for each       #

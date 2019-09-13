@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# VPN
+#
+# Script to wrap up various vpn configuration.
+#
+# Author(s): Cody Buell
+#
+# Revisions: 2019.09.12 Initial framework.
+#
+# Requisite: openconnect
+#            oath-toolkit
+#
+# Resources:
+#
+# Task List: 
+#
+# Usage: 
+
+VPN_UN='bdfm'
+VPN_PW=$(get-keychain-pass {{ KeychainVPNUsername }} {{ KeychainVPNPassword }})
+VPN_TKN=$(get-keychain-pass {{ KeychainVPNUsername }} {{ KeychainVPNToken }})
+VPN_URL='cloudvpn.cms.gov'
+
+# We have no way of detecting if we are connected to an IKEv2 VPN thanks to a
+# lack of support from OSX.  As a workaround we list all known VPN external
+# IP's here and use them to check for a connection prior.  If we are connected
+# to an IKEv2 VPN then connect again via openconnect we will totally bork the
+# network interface and require a reboot...
+IKEv2_IPs=('0.0.0.0' '34.206.183.243')
+
+EXTERNAL_IP=$(/usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g')
+
+for i in ${IKEv2_IPs[@]}; do
+  if [[ "$i" == "$EXTERNAL_IP" ]]; then
+    echo 'already connected to a vpn'
+    exit
+  fi
+done
+
+echo "$VPN_PW" | sudo openconnect -v --protocol=anyconnect --passwd-on-stdin --user=$VPN_UN --token-mode=totp --token-secret="$VPN_TKN" $VPN_URL
