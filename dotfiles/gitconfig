@@ -19,6 +19,7 @@
   changed = red
   untracked = blue
   deleted = magenta
+  branch = yellow
 [credential]
 	helper = osxkeychain
 [commit]
