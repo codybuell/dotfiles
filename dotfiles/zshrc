@@ -259,9 +259,10 @@ source $HOME/.shell/vars
 source $HOME/.shell/vault
 source $HOME/.shell/docker
 
-source $HOME/.rvm/scripts/rvm
-
+# conditional sources
+test -e $HOME/.rvm/scripts/rvm && source $HOME/.rvm/scripts/rvm
 test -e $HOME/.shell/functions.private && source $HOME/.shell/functions.private
+test -e $HOME/.gvm/scripts/gvm && source $HOME/.gvm/scripts/gvm
 
 ################################################################################
 ##                                                                            ##
