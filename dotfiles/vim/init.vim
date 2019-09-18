@@ -157,6 +157,8 @@
 "                                                                              "
 "     vim-vis       improved visual mode functionality                         "
 "                                                                              "
+"     vim-obsession improved session management                                "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -355,6 +357,9 @@ Plug 'codybuell/HowMuch'
 
 " vim-vis: improved visual mode functionality
 Plug 'codybuell/vis'
+
+" vim-obsession: improved session management
+Plug 'tpope/vim-obsession'
 
 call plug#end()
 

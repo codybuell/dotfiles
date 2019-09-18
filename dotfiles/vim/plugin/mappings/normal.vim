@@ -42,8 +42,13 @@ nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleList
 nnoremap  <silent>          <Left>            <C-O>
 nnoremap  <silent>          <Right>           <C-I>
 
-" scalpen mappings
+" scalpel mappings
 nmap                        <leader>s         <Plug>(Scalpel)
+
+" sessions (save, restore, pause)
+nnoremap                    <localleader>ss   :Obsession ~/.vim/sessions/
+nnoremap                    <localleader>sr   :so ~/.vim/sessions/
+nnoremap                    <localleader>sp   :Obsession<CR>
 
 " ale mappings
 nmap                        <Up>              <Plug>(ale_previous_wrap)

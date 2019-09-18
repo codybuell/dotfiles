@@ -1,0 +1,2204 @@
+snippet aws-vim-plugin-author
+"============================================================================
+"File:        aws.snippets
+"Description: vim snippets to improve editing of AWS CloudFormation Templates.
+"Authors: Marcin Katulski ( marcin.katulski@gmail.com ),
+"         Carl Hall ( carl.hall@gmail.com ),
+"
+"============================================================================
+endsnippet
+
+snippet cft "Cloud Formation Template snippet"
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description" : "${1:#description}",
+    "Parameters" : 
+    {
+           ${2:#params}
+    },
+    "Mappings" : 
+    {
+           ${3:#mappings}
+    },
+    "Conditions" : 
+    {
+           ${4:#conditions}
+    },
+    "Outputs" : 
+    {
+           ${5:#outputs}
+    },
+    "Resources" : 
+    {
+           ${6:#resources}
+    }
+}
+endsnippet
+
+snippet aga "AWS::ApiGateway::Account"
+{
+  "Type" : "AWS::ApiGateway::Account",
+  "Properties" : {
+    "CloudWatchRoleArn" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet agak "AWS::ApiGateway::ApiKey"
+{
+  "Type" : "AWS::ApiGateway::ApiKey",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "Enabled" : ${2:#Boolean},
+    "Name" : ${3:#String},
+    "StageKeys" : [ ${4:#StageKey} ]
+  }
+}
+endsnippet
+
+snippet aga "AWS::ApiGateway::Authorizer"
+{
+  "Type" : "AWS::ApiGateway::Authorizer",
+  "Properties" : {
+    "AuthorizerCredentials" : ${1:#String},
+    "AuthorizerResultTtlInSeconds" : ${2:#Integer},
+    "AuthorizerUri" : ${3:#String},
+    "IdentitySource" : ${4:#String},
+    "IdentityValidationExpression" : ${5:#String},
+    "Name" : ${6:#String},
+    "RestApiId" : ${7:#String},
+    "Type" : ${8:#String}
+  }
+}
+endsnippet
+
+snippet agbpm "AWS::ApiGateway::BasePathMapping"
+{
+  "Type" : "AWS::ApiGateway::BasePathMapping",
+  "Properties" : {
+    "BasePath" : ${1:#String},
+    "DomainName" : ${2:#String},
+    "RestApiId" : ${3:#String},
+    "Stage" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet agcc "AWS::ApiGateway::ClientCertificate"
+{
+  "Type" : "AWS::ApiGateway::ClientCertificate",
+  "Properties" : {
+    "Description" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet agd "AWS::ApiGateway::Deployment"
+{
+  "Type" : "AWS::ApiGateway::Deployment",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "RestApiId" : ${2:#String},
+    "StageDescription" : ${3:#StageDescription},
+    "StageName" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet agm "AWS::ApiGateway::Method"
+{
+  "Type" : "AWS::ApiGateway::Method",
+  "Properties" : {
+    "ApiKeyRequired" : ${1:#Boolean},
+    "AuthorizationType" : ${2:#String},
+    "AuthorizerId" : ${3:#String},
+    "HttpMethod" : ${4:#String},
+    "Integration" : ${5:#Integration},
+    "MethodResponses" : [ ${6:#MethodResponse} ],
+    "RequestModels" : [ ${7:#StringString} ],
+    "RequestParameters" : [ ${8:#StringBoolean} ],
+    "ResourceId" : ${9:#String},
+    "RestApiId" : ${10:#String}
+  }
+}
+endsnippet
+
+snippet agm "AWS::ApiGateway::Model"
+{
+  "Type" : "AWS::ApiGateway::Model",
+  "Properties" : {
+    "ContentType" : ${1:#String},
+    "Description" : ${2:#String},
+    "Name" : ${3:#String},
+    "RestApiId" : ${4:#String},
+    "Schema" : ${5:#JSONobject}
+  }
+}
+endsnippet
+
+snippet agr "AWS::ApiGateway::Resource"
+{
+  "Type" : "AWS::ApiGateway::Resource",
+  "Properties" : {
+    "ParentId" : ${1:#String},
+    "PathPart" : ${2:#String},
+    "RestApiId" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet agra "AWS::ApiGateway::RestApi"
+{
+  "Type" : "AWS::ApiGateway::RestApi",
+  "Properties" : {
+    "Body" : ${1:#JSONobject},
+    "BodyS3Location" : ${2:#S3Location},
+    "CloneFrom" : ${3:#String},
+    "Description" : ${4:#String},
+    "FailOnWarnings" : ${5:#Boolean},
+    "Name" : ${6:#String},
+    "Parameters" : [ ${7:#String} ]
+  }
+}
+endsnippet
+
+snippet ags "AWS::ApiGateway::Stage"
+{
+  "Type" : "AWS::ApiGateway::Stage",
+  "Properties" : {
+    "CacheClusterEnabled" : ${1:#Boolean},
+    "CacheClusterSize" : ${2:#String},
+    "ClientCertificateId" : ${3:#String},
+    "DeploymentId" : ${4:#String},
+    "Description" : ${5:#String},
+    "MethodSettings" : ${6:#MethodSetting},
+    "RestApiId" : ${7:#String},
+    "StageName" : ${8:#String},
+    "Variables" : { String:String, ... }
+  }
+}
+endsnippet
+
+snippet asasg "AWS::AutoScaling::AutoScalingGroup"
+{
+   "Type" : "AWS::AutoScaling::AutoScalingGroup",
+   "Properties" : {
+      "AvailabilityZones" : [ ${1:#String} ],
+      "Cooldown" : ${2:#String},
+      "DesiredCapacity" : ${3:#String},
+      "HealthCheckGracePeriod" : ${4:#Integer},
+      "HealthCheckType" : ${5:#String},
+      "InstanceId" : ${6:#String},
+      "LaunchConfigurationName" : ${7:#String},
+      "LoadBalancerNames" : [ ${8:#String} ],
+      "MaxSize" : ${9:#String},
+      "MetricsCollection" : [ ${10:#MetricsCollection} ]
+      "MinSize" : ${11:#String},
+      "NotificationConfigurations" : [ ${12:#NotificationConfigurations} ],
+      "PlacementGroup" : ${13:#String},
+      "Tags" : [ ${14:#AutoScalingTag} ],
+      "TerminationPolicies" : [ ${15:#String} ],
+      "VPCZoneIdentifier" : [ ${16:#String} ]
+   }
+}
+endsnippet
+
+snippet aslc "AWS::AutoScaling::LaunchConfiguration"
+{
+   "Type" : "AWS::AutoScaling::LaunchConfiguration",
+   "Properties" : {
+      "AssociatePublicIpAddress" : ${1:#Boolean},
+      "BlockDeviceMappings" : [ ${2:#BlockDeviceMapping} ],
+      "ClassicLinkVPCId" : ${3:#String},
+      "ClassicLinkVPCSecurityGroups" : [ ${4:#String} ],
+      "EbsOptimized" : ${5:#Boolean},
+      "IamInstanceProfile" : ${6:#String},
+      "ImageId" : ${7:#String},
+      "InstanceId" : ${8:#String},
+      "InstanceMonitoring" : ${9:#Boolean},
+      "InstanceType" : ${10:#String},
+      "KernelId" : ${11:#String},
+      "KeyName" : ${12:#String},
+      "PlacementTenancy" : ${13:#String},
+      "RamDiskId" : ${14:#String},
+      "SecurityGroups" : [ ${15:#SecurityGroup} ],
+      "SpotPrice" : ${16:#String},
+      "UserData" : ${17:#String}
+   }
+}
+endsnippet
+
+snippet aslh "AWS::AutoScaling::LifecycleHook"
+{
+  "Type" : "AWS::AutoScaling::LifecycleHook",
+  "Properties" : {
+    "AutoScalingGroupName" : ${1:#String},
+    "DefaultResult" : ${2:#String},
+    "HeartbeatTimeout" : ${3:#Integer},
+    "LifecycleTransition" : ${4:#String},
+    "NotificationMetadata" : ${5:#String},
+    "NotificationTargetARN" : ${6:#String},
+    "RoleARN" : ${7:#String}
+  }
+}
+endsnippet
+
+snippet assp "AWS::AutoScaling::ScalingPolicy"
+{
+   "Type" : "AWS::AutoScaling::ScalingPolicy",
+   "Properties" : {
+      "AdjustmentType" : ${1:#String},
+      "AutoScalingGroupName" : ${2:#String},
+      "Cooldown" : ${3:#String},
+      "EstimatedInstanceWarmup" : ${4:#Integer},
+      "MetricAggregationType" : ${5:#String},
+      "MinAdjustmentMagnitude" : ${6:#Integer},
+      "PolicyType" : ${7:#String},
+      "ScalingAdjustment" : ${8:#Integer},
+      "StepAdjustments" : [ ${9:#StepAdjustments} ]
+   }
+}
+endsnippet
+
+snippet assa "AWS::AutoScaling::ScheduledAction"
+{
+  "Type" : "AWS::AutoScaling::ScheduledAction",
+  "Properties" : {
+    "AutoScalingGroupName" : ${1:#String},
+    "DesiredCapacity" : ${2:#Integer},
+    "EndTime" : ${3:#Timestamp},
+    "MaxSize" : ${4:#Integer},
+    "MinSize" : ${5:#Integer},
+    "Recurrence" : ${6:#String},
+    "StartTime" : ${7:#Timestamp}
+  }
+}
+endsnippet
+
+snippet cfa "AWS::CloudFormation::Authentication"
+{
+   "Type" : "AWS::CloudFormation::Authentication" {
+      "String" : {
+         "accessKeyId" : String,
+         "buckets" : [ String, ... ],
+         "password" : String,
+         "secretKey" : String,
+         "type" : String,
+         "uris" : [ String, ... ],
+         "username" : String,
+         "roleName" : String
+      },
+      ...
+   }
+}
+endsnippet
+
+snippet cfcr "AWS::CloudFormation::CustomResource"
+{
+   "Type" : "AWS::CloudFormation::CustomResource",
+   "Version" : "1.0",
+   "Properties" : {
+      "ServiceToken" : ${1:#String},
+      ... provider-defined properties .. : [ ${2:#} ]
+   }
+}
+endsnippet
+
+snippet cfi "AWS::CloudFormation::Interface"
+"Metadata" : {
+  "AWS::CloudFormation::Interface" : {
+    "ParameterGroups" : [ ParameterGroup, ... ],
+    "ParameterLabels" : ParameterLabel
+  }
+}
+endsnippet
+
+snippet cfs "AWS::CloudFormation::Stack"
+{
+  "Type" : "AWS::CloudFormation::Stack",
+  "Properties" : {
+    "NotificationARNs" : [ ${1:#String} ],
+    "Parameters" : ${2:#CloudFormationStackParametersPropertyType},
+    "Tags" : [ ${3:#ResourceTag} ],
+    "TemplateURL" : ${4:#String},
+    "TimeoutInMinutes" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet cfwc "AWS::CloudFormation::WaitCondition"
+{
+   "Type" : "AWS::CloudFormation::WaitCondition",
+   "Properties" : {
+      "Count" : ${1:#String},
+      "Handle" : ${2:#String},
+      "Timeout" : ${3:#String}
+   }
+}
+endsnippet
+
+snippet cfwch "AWS::CloudFormation::WaitConditionHandle"
+{
+   "Type" : "AWS::CloudFormation::WaitConditionHandle",
+   "Properties" : {
+   }
+}
+endsnippet
+
+snippet cfd "AWS::CloudFront::Distribution"
+{
+   "Type" : "AWS::CloudFront::Distribution",
+   "Properties" : {
+      "DistributionConfig" : ${1:#DistributionConfig}
+   }
+}
+endsnippet
+
+snippet ctt "AWS::CloudTrail::Trail"
+{
+  "Type" : "AWS::CloudTrail::Trail",
+  "Properties" : {
+    "CloudWatchLogsLogGroupArn" : ${1:#String},
+    "CloudWatchLogsRoleArn" : ${2:#String},
+    "EnableLogFileValidation" : ${3:#Boolean},
+    "IncludeGlobalServiceEvents" : ${4:#Boolean},
+    "IsLogging" : ${5:#Boolean},
+    "IsMultiRegionTrail" : ${6:#Boolean},
+    "KMSKeyId" : ${7:#String},
+    "S3BucketName" : ${8:#String},
+    "S3KeyPrefix" : ${9:#String},
+    "SnsTopicName" : ${10:#String},
+    "Tags" : [ ${11:#ResourceTag} ]
+  }
+}
+endsnippet
+
+snippet cwa "AWS::CloudWatch::Alarm"
+{
+   "Type" : "AWS::CloudWatch::Alarm",
+   "Properties" : {
+      "ActionsEnabled" : ${1:#Boolean},
+      "AlarmActions" : [ ${2:#String} ],
+      "AlarmDescription" : ${3:#String},
+      "AlarmName" : ${4:#String},
+      "ComparisonOperator" : ${5:#String},
+      "Dimensions" : [ ${6:#Metricdimension} ],
+      "EvaluationPeriods" : ${7:#String},
+      "InsufficientDataActions" : [ ${8:#String} ],
+      "MetricName" : ${9:#String},
+      "Namespace" : ${10:#String},
+      "OKActions" : [ ${11:#String} ],
+      "Period" : ${12:#String},
+      "Statistic" : ${13:#String},
+      "Threshold" : ${14:#String},
+      "Unit" : ${15:#String}
+   }
+}
+endsnippet
+
+snippet cda "AWS::CodeDeploy::Application"
+{
+  "Type" : "AWS::CodeDeploy::Application",
+  "Properties" : {
+    "ApplicationName" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet cddc "AWS::CodeDeploy::DeploymentConfig"
+{
+  "Type" : "AWS::CodeDeploy::DeploymentConfig",
+  "Properties" : {
+    "DeploymentConfigName" : ${1:#String},
+    "MinimumHealthyHosts" : ${2:#MinimumHealthyHosts}
+  }
+}
+endsnippet
+
+snippet cddg "AWS::CodeDeploy::DeploymentGroup"
+{
+  "Type" : "AWS::CodeDeploy::DeploymentGroup",
+  "Properties" : {
+    "ApplicationName" : ${1:#String},
+    "AutoScalingGroups" : [ ${2:#String} ],
+    "Deployment" : ${3:#Deployment},
+    "DeploymentConfigName" : ${4:#String},
+    "DeploymentGroupName" : ${5:#String},
+    "Ec2TagFilters" : [ ${6:#Ec2TagFilters} ],
+    "OnPremisesInstanceTagFilters" : [ ${7:#OnPremisesInstanceTagFilters} ],
+    "ServiceRoleArn" : ${8:#String}
+  }
+}
+endsnippet
+
+snippet cpcat "AWS::CodePipeline::CustomActionType"
+{
+  "Type" : "AWS::CodePipeline::CustomActionType",
+  "Properties" : {
+    "Category" : ${1:#String},
+    "ConfigurationProperties" : [ ${2:#ConfigurationProperties} ],
+    "InputArtifactDetails" : ${3:#ArtifactDetails},
+    "OutputArtifactDetails" : ${4:#ArtifactDetails},
+    "Provider" : ${5:#String},
+    "Settings" : ${6:#Settings},
+    "Version" : ${7:#String}
+  }
+}
+endsnippet
+
+snippet cpp "AWS::CodePipeline::Pipeline"
+{
+  "Type" : "AWS::CodePipeline::Pipeline",
+  "Properties" : {
+    "ArtifactStore" : ${1:#ArtifactStore},
+    "DisableInboundStageTransitions" : [ ${2:#DisableInboundStageTransitions} ],
+    "Name" : ${3:#String},
+    "RestartExecutionOnUpdate" : ${4:#Boolean},
+    "RoleArn" : ${5:#String},
+    "Stages" : [ ${6:#Stages} ]
+  }
+}
+endsnippet
+
+snippet ccr "AWS::Config::ConfigRule"
+{
+  "Type" : "AWS::Config::ConfigRule",
+  "Properties" : {
+    "ConfigRuleName" : ${1:#String},
+    "Description" : ${2:#String},
+    "InputParameters" : ${3:#ParameterNameValue},
+    "MaximumExecutionFrequency" : ${4:#String},
+    "Scope" : ${5:#Scope},
+    "Source" : ${6:#Source}
+  }
+}
+endsnippet
+
+snippet ccr "AWS::Config::ConfigurationRecorder"
+{
+  "Type" : "AWS::Config::ConfigurationRecorder",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "RecordingGroup" : ${2:#Recordinggroup},
+    "RoleARN" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet cdc "AWS::Config::DeliveryChannel"
+{
+  "Type" : "AWS::Config::DeliveryChannel",
+  "Properties" : {
+    "ConfigSnapshotDeliveryProperties" : ${1:#Configsnapshotdeliveryproperties},
+    "Name" : ${2:#String},
+    "S3BucketName" : ${3:#String},
+    "S3KeyPrefix" : ${4:#String},
+    "SnsTopicARN" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet dpp "AWS::DataPipeline::Pipeline"
+{
+  "Type" : "AWS::DataPipeline::Pipeline",
+  "Properties" : {
+    "Activate" : ${1:#Boolean},
+    "Description" : ${2:#String},
+    "Name" : ${3:#String},
+    "ParameterObjects" : [ ${4:#Parameterobject} ],
+    "ParameterValues" : [ ${5:#Parametervalue} ],
+    "PipelineObjects" : [ ${6:#Pipelineobject} ],
+    "PipelineTags" : [ ${7:#Pipelinetag} ]
+  }
+}
+endsnippet
+
+snippet dsmad "AWS::DirectoryService::MicrosoftAD"
+{
+  "Type" : "AWS::DirectoryService::MicrosoftAD",
+  "Properties" : {
+    "CreateAlias" : ${1:#Boolean},
+    "EnableSso" : ${2:#Boolean},
+    "Name" : ${3:#String},
+    "Password" : ${4:#String},
+    "ShortName" : ${5:#String},
+    "VpcSettings" : ${6:#VpcSettings}
+  }
+}
+endsnippet
+
+snippet dssad "AWS::DirectoryService::SimpleAD"
+{
+  "Type" : "AWS::DirectoryService::SimpleAD",
+  "Properties" : {
+    "CreateAlias" : ${1:#Boolean},
+    "Description" : ${2:#String},
+    "EnableSso" : ${3:#Boolean},
+    "Name" : ${4:#String},
+    "Password" : ${5:#String},
+    "ShortName" : ${6:#String},
+    "Size" : ${7:#String},
+    "VpcSettings" : ${8:#VpcSettings}
+  }
+}
+endsnippet
+
+snippet ddbt "AWS::DynamoDB::Table"
+{
+  "Type" : "AWS::DynamoDB::Table",
+  "Properties" : {
+    "AttributeDefinitions" : [ ${1:#AttributeDefinitions} ],
+    "GlobalSecondaryIndexes" : [ ${2:#GlobalSecondaryIndexes} ],
+    "KeySchema" : [ ${3:#KeySchema} ],
+    "LocalSecondaryIndexes" : [ ${4:#LocalSecondaryIndexes} ],
+    "ProvisionedThroughput" : ${5:#ProvisionedThroughput},
+    "StreamSpecification" : ${6:#StreamSpecification},
+    "TableName" : ${7:#String}
+  }
+}
+endsnippet
+
+snippet ec2cg "AWS::EC2::CustomerGateway"
+{
+   "Type" : "AWS::EC2::CustomerGateway",
+   "Properties" : {
+      "BgpAsn" : ${1:#Number},
+      "IpAddress" : ${2:#String},
+      "Tags" : [ ${3:#ResourceTag} ],
+      "Type" : ${4:#String}
+   }
+}
+endsnippet
+
+snippet ec2dhcpo "AWS::EC2::DHCPOptions"
+{
+   "Type" : "AWS::EC2::DHCPOptions",
+   "Properties" : {
+      "DomainName" : ${1:#String},
+      "DomainNameServers" : [ ${2:#String} ],
+      "NetbiosNameServers" : [ ${3:#String} ],
+      "NetbiosNodeType" : ${4:#Number},
+      "NtpServers" : [ ${5:#String} ],
+      "Tags" : [ ${6:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2eip "AWS::EC2::EIP"
+{
+   "Type" : "AWS::EC2::EIP",
+   "Properties" : {
+      "InstanceId" : ${1:#String},
+      "Domain" : ${2:#String}
+   }
+}
+endsnippet
+
+snippet ec2eipa "AWS::EC2::EIPAssociation"
+{
+   "Type": "AWS::EC2::EIPAssociation",
+   "Properties": {
+      "AllocationId" : ${1:#String},
+      "EIP" : ${2:#String},
+      "InstanceId" : ${3:#String},
+      "NetworkInterfaceId" : ${4:#String},
+      "PrivateIpAddress" : ${5:#String}
+   }
+}
+endsnippet
+
+snippet ec2fl "AWS::EC2::FlowLog"
+{
+  "Type" : "AWS::EC2::FlowLog",
+  "Properties" : {
+    "DeliverLogsPermissionArn" : ${1:#String},
+    "LogGroupName" : ${2:#String},
+    "ResourceId" : ${3:#String},
+    "ResourceType" : ${4:#String},
+    "TrafficType" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet ec2h "AWS::EC2::Host"
+{
+  "Type" : "AWS::EC2::Host",
+  "Properties" : {
+    "AutoPlacement" : ${1:#String},
+    "AvailabilityZone" : ${2:#String},
+    "InstanceType" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet ec2i "AWS::EC2::Instance"
+{
+   "Type" : "AWS::EC2::Instance",
+   "Properties" : {
+      "Affinity" : ${1:#String},
+      "AvailabilityZone" : ${2:#String},
+      "BlockDeviceMappings" : [ ${3:#EC2BlockDeviceMapping} ],
+      "DisableApiTermination" : ${4:#Boolean},
+      "EbsOptimized" : ${5:#Boolean},
+      "HostId" : ${6:#String},
+      "IamInstanceProfile" : ${7:#String},
+      "ImageId" : ${8:#String},
+      "InstanceInitiatedShutdownBehavior" : ${9:#String},
+      "InstanceType" : ${10:#String},
+      "KernelId" : ${11:#String},
+      "KeyName" : ${12:#String},
+      "Monitoring" : ${13:#Boolean},
+      "NetworkInterfaces" : [ ${14:#EC2NetworkInterface} ],
+      "PlacementGroupName" : ${15:#String},
+      "PrivateIpAddress" : ${16:#String},
+      "RamdiskId" : ${17:#String},
+      "SecurityGroupIds" : [ ${18:#String} ],
+      "SecurityGroups" : [ ${19:#String} ],
+      "SourceDestCheck" : ${20:#Boolean},
+      "SsmAssociations" : [ ${21:#SSMAssociation} ]
+      "SubnetId" : ${22:#String},
+      "Tags" : [ ${23:#ResourceTag} ],
+      "Tenancy" : ${24:#String},
+      "UserData" : ${25:#String},
+      "Volumes" : [ ${26:#EC2MountPoint} ],
+      "AdditionalInfo" : ${27:#String}
+   }
+}
+endsnippet
+
+snippet ec2ig "AWS::EC2::InternetGateway"
+{
+   "Type" : "AWS::EC2::InternetGateway",
+   "Properties" : {
+      "Tags" : [ ${1:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2ng "AWS::EC2::NatGateway"
+{
+  "Type" : "AWS::EC2::NatGateway",
+  "Properties" : {
+    "AllocationId" : ${1:#String},
+    "SubnetId" : ${2:#String}
+  }
+}
+endsnippet
+
+snippet ec2na "AWS::EC2::NetworkAcl"
+{
+   "Type" : "AWS::EC2::NetworkAcl",
+   "Properties" : {
+      "Tags" : [ ${1:#ResourceTag} ],
+      "VpcId" : ${2:#String}
+   }
+}
+endsnippet
+
+snippet ec2nae "AWS::EC2::NetworkAclEntry"
+{
+   "Type" : "AWS::EC2::NetworkAclEntry",
+   "Properties" : {
+      "CidrBlock" : ${1:#String},
+      "Egress" : ${2:#Boolean},
+      "Icmp" : ${3:#EC2ICMP},
+      "NetworkAclId" : ${4:#String},
+      "PortRange" : ${5:#EC2PortRange},
+      "Protocol" : ${6:#Integer},
+      "RuleAction" : ${7:#String},
+      "RuleNumber" : ${8:#Integer}
+   }
+}
+endsnippet
+
+snippet ec2ni "AWS::EC2::NetworkInterface"
+{
+   "Type" : "AWS::EC2::NetworkInterface",
+   "Properties" : {
+      "Description" : ${1:#String},
+      "GroupSet" : [ ${2:#String} ],
+      "PrivateIpAddress" : ${3:#String},
+      "PrivateIpAddresses" : [ ${4:#PrivateIpAddressSpecification} ],
+      "SecondaryPrivateIpAddressCount" : ${5:#Integer},
+      "SourceDestCheck" : ${6:#Boolean},
+      "SubnetId" : ${7:#String},
+      "Tags" : [ ${8:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2nia "AWS::EC2::NetworkInterfaceAttachment"
+{
+   "Type" : "AWS::EC2::NetworkInterfaceAttachment",
+   "Properties" : {
+      "DeleteOnTermination" : ${1:#Boolean},
+      "DeviceIndex" : ${2:#String},
+      "InstanceId" : ${3:#String},
+      "NetworkInterfaceId" : ${4:#String}
+   }
+}
+endsnippet
+
+snippet ec2pg "AWS::EC2::PlacementGroup"
+{
+  "Type" : "AWS::EC2::PlacementGroup",
+  "Properties" : {
+    "Strategy" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet ec2r "AWS::EC2::Route"
+{
+  "Type" : "AWS::EC2::Route",
+  "Properties" : {
+    "DestinationCidrBlock" : ${1:#String},
+    "GatewayId" : ${2:#String},
+    "InstanceId" : ${3:#String},
+    "NatGatewayId" : ${4:#String},
+    "NetworkInterfaceId" : ${5:#String},
+    "RouteTableId" : ${6:#String},
+    "VpcPeeringConnectionId" : ${7:#String}
+  }
+}
+endsnippet
+
+snippet ec2rt "AWS::EC2::RouteTable"
+{
+   "Type" : "AWS::EC2::RouteTable",
+   "Properties" : {
+      "VpcId" : ${1:#String},
+      "Tags" : [ ${2:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2sg "AWS::EC2::SecurityGroup"
+{
+  "Type" : "AWS::EC2::SecurityGroup",
+  "Properties" : {
+     "GroupDescription" : ${1:#String},
+     "SecurityGroupEgress" : [ ${2:#SecurityGroupRule} ],
+     "SecurityGroupIngress" : [ ${3:#SecurityGroupRule} ],
+     "Tags" : [ ${4:#ResourceTag} ],
+     "VpcId" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet ec2sge "AWS::EC2::SecurityGroupEgress"
+{
+   "CidrIp" : String,
+   "DestinationSecurityGroupId" : String,
+   "FromPort" : Integer,
+   "GroupId" : String,
+   "IpProtocol" : String,
+   "ToPort" : Integer
+}
+endsnippet
+
+snippet ec2sgi "AWS::EC2::SecurityGroupIngress"
+{
+   "CidrIp" : String,
+   "FromPort" : Integer,
+   "GroupId" : String,
+   "GroupName" : String,
+   "IpProtocol" : String,
+   "SourceSecurityGroupName" : String,
+   "SourceSecurityGroupId" : String,
+   "SourceSecurityGroupOwnerId" : String,
+   "ToPort" : Integer
+}
+endsnippet
+
+snippet ec2sf "AWS::EC2::SpotFleet"
+{
+  "Type" : "AWS::EC2::SpotFleet",
+  "Properties" : {
+    "SpotFleetRequestConfigData" : ${1:#SpotFleetRequestConfigData}
+  }
+}
+endsnippet
+
+snippet ec2s "AWS::EC2::Subnet"
+{
+   "Type" : "AWS::EC2::Subnet",
+   "Properties" : {
+      "AvailabilityZone" : ${1:#String},
+      "CidrBlock" : ${2:#String},
+      "MapPublicIpOnLaunch" : ${3:#Boolean},
+      "Tags" : [ ${4:#ResourceTag} ],
+      "VpcId" : { "Ref" : String }
+   }
+}
+endsnippet
+
+snippet ec2snaa "AWS::EC2::SubnetNetworkAclAssociation"
+"Type" : "AWS::EC2::SubnetNetworkAclAssociation",
+"Properties" : {
+   "SubnetId" : ${1:#String},
+   "NetworkAclId" : { String }
+}
+endsnippet
+
+snippet ec2srta "AWS::EC2::SubnetRouteTableAssociation"
+{
+   "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties" : {
+      "RouteTableId" : ${1:#String},
+      "SubnetId" : ${2:#String},
+   }
+}
+endsnippet
+
+snippet ec2v "AWS::EC2::Volume"
+{
+   "Type":"AWS::EC2::Volume",
+   "Properties" : {
+      "AutoEnableIO" : ${1:#Boolean},
+      "AvailabilityZone" : ${2:#String},
+      "Encrypted" : ${3:#Boolean},
+      "Iops" : ${4:#Number},
+      "KmsKeyId" : ${5:#String},
+      "Size" : ${6:#String},
+      "SnapshotId" : ${7:#String},
+      "Tags" : [ ${8:#ResourceTag} ],
+      "VolumeType" : ${9:#String}
+   }
+}
+endsnippet
+
+snippet ec2va "AWS::EC2::VolumeAttachment"
+{
+   "Type":"AWS::EC2::VolumeAttachment",
+   "Properties" : {
+      "Device" : ${1:#String},
+      "InstanceId" : ${2:#String},
+      "VolumeId" : ${3:#String}
+   }
+}
+endsnippet
+
+snippet ec2vpc "AWS::EC2::VPC"
+{
+   "Type" : "AWS::EC2::VPC",
+   "Properties" : {
+      "CidrBlock" : ${1:#String},
+      "EnableDnsSupport" : ${2:#Boolean},
+      "EnableDnsHostnames" : ${3:#Boolean},
+      "InstanceTenancy" : ${4:#String},
+      "Tags" : [ ${5:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2vpcdhcpoa "AWS::EC2::VPCDHCPOptionsAssociation"
+{
+   "Type" : "AWS::EC2::VPCDHCPOptionsAssociation",
+   "Properties" : {
+      "DhcpOptionsId" : ${1:#String},
+      "VpcId" : ${2:#String}
+   }
+}
+endsnippet
+
+snippet ec2vpce "AWS::EC2::VPCEndpoint"
+{
+  "Type" : "AWS::EC2::VPCEndpoint",
+  "Properties" : {
+    "PolicyDocument" : ${1:#JSONobject},
+    "RouteTableIds" : [ ${2:#String} ],
+    "ServiceName" : ${3:#String},
+    "VpcId" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet ec2vpcga "AWS::EC2::VPCGatewayAttachment"
+{
+   "Type" : "AWS::EC2::VPCGatewayAttachment",
+   "Properties" : {
+      "InternetGatewayId" : ${1:#String},
+      "VpcId" : ${2:#String},
+      "VpnGatewayId" : ${3:#String}
+   }
+}
+endsnippet
+
+snippet ec2vpcpc "AWS::EC2::VPCPeeringConnection"
+{
+   "Type" : "AWS::EC2::VPCPeeringConnection",
+   "Properties" : {
+      "PeerVpcId" : ${1:#String},
+      "Tags" : [ ${2:#ResourceTag} ],
+      "VpcId" : ${3:#String}
+   }
+}
+endsnippet
+
+snippet ec2vpnc "AWS::EC2::VPNConnection"
+{
+   "Type" : "AWS::EC2::VPNConnection",
+   "Properties" : {
+      "Type" : ${1:#String},
+      "CustomerGatewayId" : ${2:#GatewayID},
+      "StaticRoutesOnly" : ${3:#Boolean},
+      "Tags" : [ ${4:#ResourceTag} ],
+      "VpnGatewayId" : ${5:#GatewayID}
+   }
+}
+endsnippet
+
+snippet ec2vpncr "AWS::EC2::VPNConnectionRoute"
+{
+   "Type" : "AWS::EC2::VPNConnectionRoute",
+   "Properties" : {
+      "DestinationCidrBlock" : ${1:#String}
+      "VpnConnectionId" : ${2:#String},
+   }
+}
+endsnippet
+
+snippet ec2vpng "AWS::EC2::VPNGateway"
+{
+   "Type" : "AWS::EC2::VPNGateway",
+   "Properties" : {
+      "Type" : ${1:#String},
+      "Tags" : [ ${2:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ec2vpngrp "AWS::EC2::VPNGatewayRoutePropagation"
+{
+   "Type" : "AWS::EC2::VPNGatewayRoutePropagation",
+   "Properties" : {
+      "RouteTableIds" : [ ${1:#String} ],
+      "VpnGatewayId" : ${2:#String}
+   }
+}
+endsnippet
+
+snippet ecrr "AWS::ECR::Repository"
+{
+  "Type" : "AWS::ECR::Repository",
+  "Properties" : {
+    "RepositoryName" : ${1:#String},
+    "RepositoryPolicyText" : ${2:#JSONobject}
+  }
+}
+endsnippet
+
+snippet ecsc "AWS::ECS::Cluster"
+{
+  "Type" : "AWS::ECS::Cluster"
+}
+endsnippet
+
+snippet ecss "AWS::ECS::Service"
+{
+  "Type" : "AWS::ECS::Service",
+  "Properties" : {
+    "Cluster" : ${1:#String},
+    "DeploymentConfiguration" : ${2:#DeploymentConfiguration},
+    "DesiredCount" : ${3:#Integer},
+    "LoadBalancers" : [ ${4:#LoadBalancerObjects} ],
+    "Role" : ${5:#String},
+    "TaskDefinition" : ${6:#String}
+  }
+}
+endsnippet
+
+snippet ecstd "AWS::ECS::TaskDefinition"
+{
+  "Type" : "AWS::ECS::TaskDefinition",
+  "Properties" : {
+    "ContainerDefinitions" : [ ${1:#ContainerDefinition} ],
+    "Volumes" : [ ${2:#VolumeDefinition} ]
+  }
+}
+endsnippet
+
+snippet efsfs "AWS::EFS::FileSystem"
+{
+  "Type" : "AWS::EFS::FileSystem",
+  "Properties" : {
+    "FileSystemTags" : [ ${1:#FileSystemTags} ]
+  }
+}
+endsnippet
+
+snippet efsmt "AWS::EFS::MountTarget"
+{
+  "Type" : "AWS::EFS::MountTarget",
+  "Properties" : {
+    "FileSystemId" : ${1:#String},
+    "IpAddress" : ${2:#String},
+    "SecurityGroups" : [ ${3:#String} ],
+    "SubnetId" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet eccc "AWS::ElastiCache::CacheCluster"
+{
+   "Type" : "AWS::ElastiCache::CacheCluster",
+   "Properties" :
+   {
+      "AutoMinorVersionUpgrade" : ${1:#Boolean},
+      "AZMode" : ${2:#String},
+      "CacheNodeType" : ${3:#String},
+      "CacheParameterGroupName" : ${4:#String},
+      "CacheSecurityGroupNames" : [ ${5:#String} ],
+      "CacheSubnetGroupName" : ${6:#String},
+      "ClusterName" : ${7:#String},
+      "Engine" : ${8:#String},
+      "EngineVersion" : ${9:#String},
+      "NotificationTopicArn" : ${10:#String},
+      "NumCacheNodes" : ${11:#String},
+      "Port" : ${12:#Integer},
+      "PreferredAvailabilityZone" : ${13:#String},
+      "PreferredAvailabilityZones" : [ ${14:#String} ],
+      "PreferredMaintenanceWindow" : ${15:#String},
+      "SnapshotArns" : [ ${16:#String} ],
+      "SnapshotName" : ${17:#String},
+      "SnapshotRetentionLimit" : ${18:#Integer},
+      "SnapshotWindow" : ${19:#String},
+      "Tags" : [ ${20:#ResourceTag} ],
+      "VpcSecurityGroupIds" : [ ${21:#String} ]
+   }
+}
+endsnippet
+
+snippet ecpg "AWS::ElastiCache::ParameterGroup"
+{
+   "Type": "AWS::ElastiCache::ParameterGroup",
+   "Properties": {
+      "CacheParameterGroupFamily" : ${1:#String},
+      "Description" : ${2:#String},
+      "Properties" : { String:String, ... }
+   }
+}
+endsnippet
+
+snippet ecrg "AWS::ElastiCache::ReplicationGroup"
+{
+  "Type" : "AWS::ElastiCache::ReplicationGroup",
+  "Properties" : {
+    "AutomaticFailoverEnabled" : ${1:#Boolean},
+    "AutoMinorVersionUpgrade" : ${2:#Boolean},
+    "CacheNodeType" : ${3:#String},
+    "CacheParameterGroupName" : ${4:#String},
+    "CacheSecurityGroupNames" : [ ${5:#String} ],
+    "CacheSubnetGroupName" : ${6:#String},
+    "Engine" : ${7:#String},
+    "EngineVersion" : ${8:#String},
+    "NotificationTopicArn" : ${9:#String},
+    "NumCacheClusters" : ${10:#Integer},
+    "Port" : ${11:#Integer},
+    "PreferredCacheClusterAZs" : [ ${12:#String} ],
+    "PreferredMaintenanceWindow" : ${13:#String},
+    "ReplicationGroupDescription" : ${14:#String},
+    "SecurityGroupIds" : [ ${15:#String} ],
+    "SnapshotArns" : [ ${16:#String} ],
+    "SnapshotRetentionLimit" : ${17:#Integer},
+    "SnapshotWindow" : ${18:#String}
+  }
+}
+endsnippet
+
+snippet ecsg "AWS::ElastiCache::SecurityGroup"
+{
+  "Type" : "AWS::ElastiCache::SecurityGroup",
+  "Properties" :
+  {
+    "Description" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet ecsgi "AWS::ElastiCache::SecurityGroupIngress"
+{
+  "Type" : "AWS::ElastiCache::SecurityGroupIngress",
+  "Properties" :
+  {
+    "CacheSecurityGroupName" : ${1:#String},
+    "EC2SecurityGroupName" : ${2:#String},
+    "EC2SecurityGroupOwnerId" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet ecsg "AWS::ElastiCache::SubnetGroup "
+"SubnetGroup" : {
+    "Type" : "AWS::ElastiCache::SubnetGroup",
+    "Properties" : {
+        "Description" : ${1:#String},
+        "SubnetIds" : [ ${2:#String} ]
+    }
+}
+endsnippet
+
+snippet eba "AWS::ElasticBeanstalk::Application"
+{
+   "Type" : "AWS::ElasticBeanstalk::Application",
+   "Properties" : {
+      "ApplicationName" : ${1:#String},
+      "Description" : ${2:#String}
+   }
+}
+endsnippet
+
+snippet ebav "AWS::ElasticBeanstalk::ApplicationVersion"
+{
+  "Type" : "AWS::ElasticBeanstalk::ApplicationVersion",
+  "Properties" : {
+    "ApplicationName" : ${1:#String},
+    "Description" : ${2:#String},
+    "SourceBundle" : { SourceBundle }
+  }
+}
+endsnippet
+
+snippet ebct "AWS::ElasticBeanstalk::ConfigurationTemplate"
+{
+  "Type" : "AWS::ElasticBeanstalk::ConfigurationTemplate",
+  "Properties" : {
+    "ApplicationName" : ${1:#String},
+    "Description" : ${2:#String},
+    "EnvironmentId" : ${3:#String},
+    "OptionSettings" : [ ${4:#OptionSetting} ],
+    "SolutionStackName" : ${5:#String},
+    "SourceConfiguration" : ${6:#Sourceconfiguration}
+  }
+}
+endsnippet
+
+snippet ebe "AWS::ElasticBeanstalk::Environment"
+{
+   "Type" : "AWS::ElasticBeanstalk::Environment",
+   "Properties" : {
+      "ApplicationName" : ${1:#String},
+      "CNAMEPrefix" : ${2:#String},
+      "Description" : ${3:#String},
+      "EnvironmentName" : ${4:#String},
+      "OptionSettings" : [ ${5:#OptionSettings} ],
+      "SolutionStackName" : ${6:#String},
+      "Tags" : [ ${7:#ResourceTag} ],
+      "TemplateName" : ${8:#String},
+      "Tier" : ${9:#EnvironmentTier},
+      "VersionLabel" : ${10:#String}
+   }
+}
+endsnippet
+
+snippet elblb "AWS::ElasticLoadBalancing::LoadBalancer"
+{
+   "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+   "Properties": {
+      "AccessLoggingPolicy" : ${1:#AccessLoggingPolicy},
+      "AppCookieStickinessPolicy" : [ ${2:#AppCookieStickinessPolicy} ],
+      "AvailabilityZones" : [ ${3:#String} ],
+      "ConnectionDrainingPolicy" : ${4:#ConnectionDrainingPolicy},
+      "ConnectionSettings" : ${5:#ConnectionSettings},
+      "CrossZone" : ${6:#Boolean},
+      "HealthCheck" : ${7:#HealthCheck},
+      "Instances" : [ ${8:#String} ],
+      "LBCookieStickinessPolicy" : [ ${9:#LBCookieStickinessPolicy} ],
+      "LoadBalancerName" : ${10:#String},
+      "Listeners" : [ ${11:#Listener} ],
+      "Policies" : [ ${12:#ElasticLoadBalancingPolicy} ],
+      "Scheme" : ${13:#String},
+      "SecurityGroups" : [ ${14:#SecurityGroup} ],
+      "Subnets" : [ ${15:#String} ],
+      "Tags" : [ ${16:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet ed "AWS::Elasticsearch::Domain"
+{
+  "Type" : "AWS::Elasticsearch::Domain",
+  "Properties" : {
+    "AccessPolicies" : ${1:#JSONobject},
+    "AdvancedOptions" : ${2:#AdvancedOptions},
+    "DomainName" : ${3:#String},
+    "EBSOptions" : ${4:#EBSOptions},
+    "ElasticsearchClusterConfig" : ${5:#ElasticsearchClusterConfig},
+    "SnapshotOptions" : ${6:#SnapshotOptions},
+    "Tags" : [ ${7:#ResourceTag} ]
+  }
+}
+endsnippet
+
+snippet emrc "AWS::EMR::Cluster"
+{
+  "Type" : "AWS::EMR::Cluster",
+  "Properties" : {
+    "AdditionalInfo" : ${1:#JSONobject},
+    "Applications" : [ ${2:#Applications} ],
+    "BootstrapActions" [ Bootstrap Actions, ... ] : [ ${3:#} ],
+    "Configurations" : [ ${4:#Configurations} ],
+    "Instances" : ${5:#JobFlowInstancesConfig},
+    "JobFlowRole" : ${6:#String},
+    "LogUri" : ${7:#String},
+    "Name" : ${8:#String},
+    "ReleaseLabel" : ${9:#String},
+    "ServiceRole" : ${10:#String},
+    "Tags" : [ ${11:#ResourceTag} ],
+    "VisibleToAllUsers" : ${12:#Boolean}
+  }
+}
+endsnippet
+
+snippet emrigc "AWS::EMR::InstanceGroupConfig"
+{
+  "Type" : "AWS::EMR::InstanceGroupConfig",
+  "Properties" : {
+    "BidPrice" : ${1:#String},
+    "Configurations" : [ ${2:#Configuration} ],
+    "EbsConfiguration" : ${3:#EBSConfiguration},
+    "InstanceCount" : ${4:#Integer},
+    "InstanceRole" : ${5:#String},
+    "InstanceType" : ${6:#String},
+    "JobFlowId" : ${7:#String},
+    "Market" : ${8:#String},
+    "Name" : ${9:#String}
+  }
+}
+endsnippet
+
+snippet emrs "AWS::EMR::Step"
+{
+  "Type" : "AWS::EMR::Step",
+  "Properties" : {
+    "ActionOnFailure" : ${1:#String},
+    "HadoopJarStep" : ${2:#HadoopJarStepConfig},
+    "JobFlowId" : ${3:#String},
+    "Name" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet er "AWS::Events::Rule"
+{
+  "Type" : "AWS::Events::Rule",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "EventPattern" : ${2:#JSONobject},
+    "Name" : ${3:#String},
+    "RoleArn" : ${4:#String},
+    "ScheduleExpression" : ${5:#String},
+    "State" : ${6:#String},
+    "Targets" : [ ${7:#Target} ]
+  }
+}
+endsnippet
+
+snippet gla "AWS::GameLift::Alias"
+{
+  "Type" : "AWS::GameLift::Alias",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "Description" : ${2:#String},
+    "RoutingStrategy" : ${3:#RoutingStrategy}
+  }
+}
+endsnippet
+
+snippet glb "AWS::GameLift::Build"
+{
+  "Type" : "AWS::GameLift::Build",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "StorageLocation" : ${2:#StorageLocation},
+    "Version" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet glf "AWS::GameLift::Fleet"
+{
+  "Type" : "AWS::GameLift::Fleet",
+  "Properties" : {
+    "BuildId" : ${1:#String},
+    "Description" : ${2:#String},
+    "DesiredEC2Instances" : ${3:#Integer},
+    "EC2InboundPermissions" : [ ${4:#EC2InboundPermission} ],
+    "EC2InstanceType" : ${5:#String},
+    "LogPaths" : [ ${6:#String} ],
+    "MaxSize" : ${7:#Integer},
+    "MinSize" : ${8:#Integer},
+    "Name" : ${9:#String},
+    "ServerLaunchParameters" : ${10:#String},
+    "ServerLaunchPath" : ${11:#String}
+  }
+}
+endsnippet
+
+snippet iamak "AWS::IAM::AccessKey"
+{
+   "Type": "AWS::IAM::AccessKey",
+   "Properties": {
+      "Serial" : ${1:#Integer},
+      "Status" : ${2:#String},
+      "UserName" : ${3:#String}
+   }
+}
+endsnippet
+
+snippet iamg "AWS::IAM::Group"
+{
+  "Type": "AWS::IAM::Group",
+  "Properties": {
+    "GroupName" : ${1:#String},
+    "ManagedPolicyArns" : [ ${2:#String} ],
+    "Path" : ${3:#String},
+    "Policies" : [ ${4:#Policies} ]
+  }
+}
+endsnippet
+
+snippet iamip "AWS::IAM::InstanceProfile"
+{
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+      "Path" : ${1:#String},
+      "Roles" : ${2:#IAMRoles}
+   }
+}
+endsnippet
+
+snippet iammp "AWS::IAM::ManagedPolicy"
+{
+  "Type": "AWS::IAM::ManagedPolicy",
+  "Properties": {
+    "Description" : ${1:#String},
+    "Groups" : [ ${2:#String} ],
+    "Path" : ${3:#String},
+    "PolicyDocument" : ${4:#JSONobject},
+    "Roles" : [ ${5:#String} ],
+    "Users" : [ ${6:#String} ]
+  }
+}
+endsnippet
+
+snippet iamp "AWS::IAM::Policy"
+{
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+      "Groups" : [ ${1:#String} ],
+      "PolicyDocument" : ${2:#JSONobject},
+      "PolicyName" : ${3:#String},
+      "Roles" : [ ${4:#String} ],
+      "Users" : [ ${5:#String} ]
+   }
+}
+endsnippet
+
+snippet iamr "AWS::IAM::Role"
+{
+  "Type": "AWS::IAM::Role",
+  "Properties": {
+    "AssumeRolePolicyDocument" : ${1:#JSON},
+    "ManagedPolicyArns" : [ ${2:#String} ],
+    "Path" : ${3:#String},
+    "Policies" : [ ${4:#Policies} ],
+    "RoleName" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet iamu "AWS::IAM::User"
+{
+  "Type": "AWS::IAM::User",
+  "Properties": {
+    "Groups" : [ ${1:#String} ],
+    "LoginProfile" : ${2:#LoginProfileType},
+    "ManagedPolicyArns" : [ ${3:#String} ],
+    "Path" : ${4:#String},
+    "Policies" : [ ${5:#Policies} ],
+    "UserName" : ${6:#String}
+  }
+}
+endsnippet
+
+snippet iamutga "AWS::IAM::UserToGroupAddition"
+{
+   "Type": "AWS::IAM::UserToGroupAddition",
+   "Properties": {
+      "GroupName" : ${1:#String},
+      "Users" : [ ${2:#User1} ]
+   }
+}
+endsnippet
+
+snippet itc "AWS::IoT::Certificate"
+{
+   "Type": "AWS::IoT::Certificate",
+   "Properties": {
+      "CertificateSigningRequest" : ${1:#String},
+      "Status" : ${2:#String}
+    }
+}
+endsnippet
+
+snippet itp "AWS::IoT::Policy"
+{
+   "Type": "AWS::IoT::Policy",
+   "Properties": {
+      "PolicyDocument" : ${1:#JSONobject},
+      "PolicyName" : ${2:#String}
+    }
+}
+endsnippet
+
+snippet itppa "AWS::IoT::PolicyPrincipalAttachment"
+{
+   "Type": "AWS::IoT::PolicyPrincipalAttachment",
+   "Properties": {
+      "PolicyName" : ${1:#String},
+      "Principal" : ${2:#String}
+    }
+}
+endsnippet
+
+snippet itt "AWS::IoT::Thing"
+{
+   "Type": "AWS::IoT::Thing",
+   "Properties" : {
+      "AttributePayload" : [ ${1:#StringString} ],
+      "ThingName" : ${2:#String}
+    }
+}
+endsnippet
+
+snippet ittpa "AWS::IoT::ThingPrincipalAttachment"
+{
+   "Type": "AWS::IoT::ThingPrincipalAttachment",
+   "Properties": {
+      "Principal" : ${1:#String},
+      "ThingName" : ${2:#String}
+    }
+}
+endsnippet
+
+snippet ittr "AWS::IoT::TopicRule"
+{
+   "Type": "AWS::IoT::TopicRule",
+   "Properties": {
+      "RuleName" : ${1:#String},
+      "TopicRulePayload" : ${2:#TopicRulePayLoad}
+   }
+}
+endsnippet
+
+snippet ks "AWS::Kinesis::Stream"
+{
+   "Type" : "AWS::Kinesis::Stream",
+   "Properties" : {
+      "Name" : ${1:#String},
+      "ShardCount" : ${2:#Integer},
+      "Tags" : [ ${3:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet kfds "AWS::KinesisFirehose::DeliveryStream"
+{
+  "Type" : "AWS::KinesisFirehose::DeliveryStream",
+  "Properties" : {
+    "DeliveryStreamName" : ${1:#String},
+    "ElasticsearchDestinationConfiguration" : ${2:#ElasticsearchDestinationConfiguration},
+    "RedshiftDestinationConfiguration" : ${3:#RedshiftDestinationConfiguration},
+    "S3DestinationConfiguration" : ${4:#S3DestinationConfiguration}
+  }
+}
+endsnippet
+
+snippet kmsk "AWS::KMS::Key"
+{
+  "Type" : "AWS::KMS::Key",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "Enabled" : ${2:#Boolean},
+    "EnableKeyRotation" : ${3:#Boolean},
+    "KeyPolicy" : ${4:#JSONobject}
+  }
+}
+endsnippet
+
+snippet lesm "AWS::Lambda::EventSourceMapping"
+{
+  "Type" : "AWS::Lambda::EventSourceMapping",
+  "Properties" : {
+    "BatchSize" : ${1:#Integer},
+    "Enabled" : ${2:#Boolean},
+    "EventSourceArn" : ${3:#String},
+    "FunctionName" : ${4:#String},
+    "StartingPosition" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet la "AWS::Lambda::Alias"
+{
+  "Type" : "AWS::Lambda::Alias",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "FunctionName" : ${2:#String},
+    "FunctionVersion" : ${3:#String},
+    "Name" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet lf "AWS::Lambda::Function"
+{
+  "Type" : "AWS::Lambda::Function",
+  "Properties" : {
+    "Code" : ${1:#Code},
+    "Description" : ${2:#String},
+    "FunctionName" : ${3:#String},
+    "Handler" : ${4:#String},
+    "MemorySize" : ${5:#Integer},
+    "Role" : ${6:#String},
+    "Runtime" : ${7:#String},
+    "Timeout" : ${8:#Integer},
+    "VpcConfig" : ${9:#VPCConfig}
+  }
+}
+endsnippet
+
+snippet lp "AWS::Lambda::Permission"
+{
+  "Type" : "AWS::Lambda::Permission",
+  "Properties" : {
+    "Action" : ${1:#String},
+    "FunctionName" : ${2:#String},
+    "Principal" : ${3:#String},
+    "SourceAccount" : ${4:#String},
+    "SourceArn" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet lv "AWS::Lambda::Version"
+{
+  "Type" : "AWS::Lambda::Version",
+  "Properties" : {
+    "CodeSha256" : ${1:#String},
+    "Description" : ${2:#String},
+    "FunctionName" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet ld "AWS::Logs::Destination"
+{
+  "Type" : "AWS::Logs::Destination",
+  "Properties" : {
+    "DestinationName" : ${1:#String},
+    "DestinationPolicy" : ${2:#String},
+    "RoleArn" : ${3:#String},
+    "TargetArn" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet llg "AWS::Logs::LogGroup"
+{
+  "Type" : "AWS::Logs::LogGroup",
+  "Properties" : {
+    "RetentionInDays" : ${1:#Integer}
+  }
+}
+endsnippet
+
+snippet lls "AWS::Logs::LogStream"
+{
+  "Type" : "AWS::Logs::LogStream",
+  "Properties" : {
+    "LogGroupName" : ${1:#String},
+    "LogStreamName" : ${2:#String}
+  }
+}
+endsnippet
+
+snippet lmf "AWS::Logs::MetricFilter"
+{
+  "Type": "AWS::Logs::MetricFilter",
+  "Properties": {
+    "FilterPattern" : [ ${1:#String} ],
+    "LogGroupName" : ${2:#String},
+    "MetricTransformations" : [ ${3:#MetricTransformations} ]
+  }
+}
+endsnippet
+
+snippet lsf "AWS::Logs::SubscriptionFilter"
+{
+  "Type" : "AWS::Logs::SubscriptionFilter",
+  "Properties" : {
+    "DestinationArn" : ${1:#String},
+    "FilterPattern" : ${2:#String},
+    "LogGroupName" : ${3:#String},
+    "RoleArn" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet owa "AWS::OpsWorks::App"
+{
+  "Type": "AWS::OpsWorks::App",
+  "Properties": {
+    "AppSource" : ${1:#Source},
+    "Attributes" : [ ${2:#StringString} ],
+    "Description" : ${3:#String},
+    "Domains" : [ ${4:#String} ],
+    "EnableSsl" : ${5:#Boolean},
+    "Environment" : [ ${6:#Environment} ],
+    "Name" : ${7:#String},
+    "Shortname" : ${8:#String},
+    "SslConfiguration" : ${9:#SslConfiguration},
+    "StackId" : ${10:#String},
+    "Type" : ${11:#String}
+  }
+}
+endsnippet
+
+snippet owelba "AWS::OpsWorks::ElasticLoadBalancerAttachment"
+{
+  "Type": "AWS::OpsWorks::ElasticLoadBalancerAttachment",
+  "Properties": {
+    "ElasticLoadBalancerName" : ${1:#String},
+    "LayerId" : ${2:#String}
+  }
+}
+endsnippet
+
+snippet owi "AWS::OpsWorks::Instance"
+{
+  "Type": "AWS::OpsWorks::Instance",
+  "Properties": {
+    "AmiId" : ${1:#String},
+    "Architecture" : ${2:#String},
+    "AutoScalingType" : ${3:#String},
+    "AvailabilityZone" : ${4:#String},
+    "EbsOptimized" : ${5:#Boolean},
+    "InstallUpdatesOnBoot" : ${6:#Boolean},
+    "InstanceType" : ${7:#String},
+    "LayerIds" : [ ${8:#String} ],
+    "Os" : ${9:#String},
+    "RootDeviceType" : ${10:#String},
+    "SshKeyName" : ${11:#String},
+    "StackId" : ${12:#String},
+    "SubnetId" : ${13:#String},
+    "TimeBasedAutoScaling" : { TimeBasedAutoScaling }
+  }
+}
+endsnippet
+
+snippet owl "AWS::OpsWorks::Layer"
+{
+  "Type": "AWS::OpsWorks::Layer",
+  "Properties": {
+    "Attributes" : ${1:#StringString},
+    "AutoAssignElasticIps" : ${2:#Boolean},
+    "AutoAssignPublicIps" : ${3:#Boolean},
+    "CustomInstanceProfileArn" : ${4:#String},
+    "CustomRecipes" : ${5:#Recipes},
+    "CustomSecurityGroupIds" : [ ${6:#String} ],
+    "EnableAutoHealing" : ${7:#Boolean},
+    "InstallUpdatesOnBoot" : ${8:#Boolean},
+    "LifecycleEventConfiguration" : ${9:#LifeCycleEventConfiguration},
+    "LoadBasedAutoScaling" : ${10:#LoadBasedAutoScaling},
+    "Name" : ${11:#String},
+    "Packages" : [ ${12:#String} ],
+    "Shortname" : ${13:#String},
+    "StackId" : ${14:#String},
+    "Type" : ${15:#String},
+    "VolumeConfigurations" : [ ${16:#VolumeConfiguration} ]
+  }
+}
+endsnippet
+
+snippet ows "AWS::OpsWorks::Stack"
+{
+  "Type" : "AWS::OpsWorks::Stack",
+  "Properties" : {
+    "AgentVersion" : ${1:#String},
+    "Attributes" : [ ${2:#StringString} ],
+    "ChefConfiguration" : ${3:#ChefConfiguration},
+    "ConfigurationManager" : ${4:#StackConfigurationManager},
+    "CustomCookbooksSource" : ${5:#Source},
+    "CustomJson" : ${6:#JSON},
+    "DefaultAvailabilityZone" : ${7:#String},
+    "DefaultInstanceProfileArn" : ${8:#String},
+    "DefaultOs" : ${9:#String},
+    "DefaultRootDeviceType" : ${10:#String},
+    "DefaultSshKeyName" : ${11:#String},
+    "DefaultSubnetId" : ${12:#String},
+    "HostnameTheme" : ${13:#String},
+    "Name" : ${14:#String},
+    "ServiceRoleArn" : ${15:#String},
+    "UseCustomCookbooks" : ${16:#Boolean},
+    "UseOpsworksSecurityGroups" : ${17:#Boolean},
+    "VpcId" : ${18:#String}
+  }
+}
+endsnippet
+
+snippet rdsdbc "AWS::RDS::DBCluster"
+{
+  "Type" : "AWS::RDS::DBCluster",
+  "Properties" :
+  {
+    "AvailabilityZones" : [ ${1:#String} ],
+    "BackupRetentionPeriod" : ${2:#Integer},
+    "DatabaseName" : ${3:#String},
+    "DBClusterParameterGroupName" : ${4:#String},
+    "DBSubnetGroupName" : ${5:#String},
+    "Engine" : ${6:#String},
+    "EngineVersion" : ${7:#String},
+    "KmsKeyId" : ${8:#String},
+    "MasterUsername" : ${9:#String},
+    "MasterUserPassword" : ${10:#String},
+    "Port" : ${11:#Integer},
+    "PreferredBackupWindow" : ${12:#String},
+    "PreferredMaintenanceWindow" : ${13:#String},
+    "SnapshotIdentifier" : ${14:#String},
+    "StorageEncrypted" : ${15:#Boolean},
+    "Tags" : [ ${16:#ResourceTag} ],
+    "VpcSecurityGroupIds" : [ ${17:#String} ]
+  }
+}
+endsnippet
+
+snippet rdsdbcpg "AWS::RDS::DBClusterParameterGroup"
+{
+  "Type": "AWS::RDS::DBClusterParameterGroup",
+  "Properties" : {
+    "Description" : ${1:#String},
+    "Family" : ${2:#String},
+    "Parameters" : ${3:#DBParameters},
+    "Tags" : [ ${4:#ResourceTag} ]
+  }
+}
+endsnippet
+
+snippet rdsdbi "AWS::RDS::DBInstance"
+{
+  "Type" : "AWS::RDS::DBInstance",
+  "Properties" :
+  {
+    "AllocatedStorage" : ${1:#String},
+    "AllowMajorVersionUpgrade" : ${2:#Boolean},
+    "AutoMinorVersionUpgrade" : ${3:#Boolean},
+    "AvailabilityZone" : ${4:#String},
+    "BackupRetentionPeriod" : ${5:#String},
+    "CharacterSetName" : ${6:#String},
+    "DBClusterIdentifier" : ${7:#String},
+    "DBInstanceClass" : ${8:#String},
+    "DBInstanceIdentifier" : ${9:#String},
+    "DBName" : ${10:#String},
+    "DBParameterGroupName" : ${11:#String},
+    "DBSecurityGroups" : [ ${12:#String} ],
+    "DBSnapshotIdentifier" : ${13:#String},
+    "DBSubnetGroupName" : ${14:#String},
+    "Engine" : ${15:#String},
+    "EngineVersion" : ${16:#String},
+    "Iops" : ${17:#Number},
+    "KmsKeyId" : ${18:#String},
+    "LicenseModel" : ${19:#String},
+    "MasterUsername" : ${20:#String},
+    "MasterUserPassword" : ${21:#String},
+    "MultiAZ" : ${22:#Boolean},
+    "OptionGroupName" : ${23:#String},
+    "Port" : ${24:#String},
+    "PreferredBackupWindow" : ${25:#String},
+    "PreferredMaintenanceWindow" : ${26:#String},
+    "PubliclyAccessible" : ${27:#Boolean},
+    "SourceDBInstanceIdentifier" : ${28:#String},
+    "StorageEncrypted" : ${29:#Boolean},
+    "StorageType" : ${30:#String},
+    "Tags" : [ ${31:#ResourceTag} ],
+    "VPCSecurityGroups" : [ ${32:#String} ]
+  }
+}
+endsnippet
+
+snippet rdsdbpg "AWS::RDS::DBParameterGroup"
+{
+   "Type": "AWS::RDS::DBParameterGroup",
+   "Properties" : {
+      "Description" : ${1:#String},
+      "Family" : ${2:#String},
+      "Parameters" : ${3:#DBParameters},
+      "Tags" : [ ${4:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet rdsdbsg "AWS::RDS::DBSecurityGroup"
+{
+   "Type" : "AWS::RDS::DBSecurityGroup",
+   "Properties" :
+   {
+      "EC2VpcId" : ${1:#RefmyVPC},
+      "DBSecurityGroupIngress" : [ ${2:#RDSSecurityGroupRuleobject1} ],
+      "GroupDescription" : ${3:#String},
+      "Tags" : [ ${4:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet rdsdbsgi "AWS::RDS::DBSecurityGroupIngress"
+{
+   "CIDRIP": String,
+   "DBSecurityGroupName": String,
+   "EC2SecurityGroupId": String,
+   "EC2SecurityGroupName": String,
+   "EC2SecurityGroupOwnerId": String
+}
+endsnippet
+
+snippet rdsdbsg "AWS::RDS::DBSubnetGroup"
+{
+   "Type" : "AWS::RDS::DBSubnetGroup",
+   "Properties" : {
+      "DBSubnetGroupDescription" : ${1:#String},
+      "SubnetIds" : [ ${2:#String} ],
+      "Tags" : [ ${3:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet rdses "AWS::RDS::EventSubscription"
+{
+  "Type" : "AWS::RDS::EventSubscription",
+  "Properties" : {
+    "Enabled" : ${1:#Boolean},
+    "EventCategories" : [ ${2:#String} ],
+    "SnsTopicArn" : ${3:#String},
+    "SourceIds" : [ ${4:#String} ],
+    "SourceType" : ${5:#String}
+  }
+}
+endsnippet
+
+snippet rdsog "AWS::RDS::OptionGroup"
+{
+   "Type": "AWS::RDS::OptionGroup",
+   "Properties" : {
+      "EngineName" : ${1:#String},
+      "MajorEngineVersion" : ${2:#String},
+      "OptionGroupDescription" : ${3:#String},
+      "OptionConfigurations" : [ ${4:#OptionConfigurations} ],
+      "Tags" : [ ${5:#ResourceTag} ]
+   }
+}
+endsnippet
+
+snippet rc "AWS::Redshift::Cluster"
+{
+  "Type": "AWS::Redshift::Cluster",
+  "Properties": {
+    "AllowVersionUpgrade" : ${1:#Boolean},
+    "AutomatedSnapshotRetentionPeriod" : ${2:#Integer},
+    "AvailabilityZone" : ${3:#String},
+    "ClusterParameterGroupName" : ${4:#String},
+    "ClusterSecurityGroups" : [ ${5:#String} ],
+    "ClusterSubnetGroupName" : ${6:#String},
+    "ClusterType" : ${7:#String},
+    "ClusterVersion" : ${8:#String},
+    "DBName" : ${9:#String},
+    "ElasticIp" : ${10:#String},
+    "Encrypted" : ${11:#Boolean},
+    "HsmClientCertificateIdentifier" : ${12:#String},
+    "HsmConfigurationIdentifier" : ${13:#String},
+    "KmsKeyId" : ${14:#String},
+    "MasterUsername" : ${15:#String},
+    "MasterUserPassword" : ${16:#String},
+    "NodeType" : ${17:#String},
+    "NumberOfNodes" : ${18:#Integer},
+    "OwnerAccount" : ${19:#String},
+    "Port" : ${20:#Integer},
+    "PreferredMaintenanceWindow" : ${21:#String},
+    "PubliclyAccessible" : ${22:#Boolean},
+    "SnapshotClusterIdentifier" : ${23:#String},
+    "SnapshotIdentifier" : ${24:#String},
+    "VpcSecurityGroupIds" : [ ${25:#String} ]
+  }
+}
+endsnippet
+
+snippet rcpg "AWS::Redshift::ClusterParameterGroup"
+{
+  "Type": "AWS::Redshift::ClusterParameterGroup",
+  "Properties": {
+    "Description" : ${1:#String},
+    "ParameterGroupFamily" : ${2:#String},
+    "Parameters" : [ ${3:#Parameter} ]
+  }
+}
+endsnippet
+
+snippet rcsg "AWS::Redshift::ClusterSecurityGroup"
+{
+  "Type": "AWS::Redshift::ClusterSecurityGroup",
+  "Properties": {
+    "Description" : ${1:#String}
+  }
+}
+endsnippet
+
+snippet rcsgi "AWS::Redshift::ClusterSecurityGroupIngress"
+{
+  "Type": "AWS::Redshift::ClusterSecurityGroupIngress",
+  "Properties": {
+    "ClusterSecurityGroupName" : ${1:#String},
+    "CIDRIP" : ${2:#String},
+    "EC2SecurityGroupName" : ${3:#String},
+    "EC2SecurityGroupOwnerId" : ${4:#String}
+  }
+}
+endsnippet
+
+snippet rcsg "AWS::Redshift::ClusterSubnetGroup"
+{
+  "Type": "AWS::Redshift::ClusterSubnetGroup",
+  "Properties": {
+    "Description" : ${1:#String},
+    "SubnetIds" : [ ${2:#String} ]
+  }
+}
+endsnippet
+
+snippet r53hc "AWS::Route53::HealthCheck"
+{
+  "Type" : "AWS::Route53::HealthCheck",
+  "Properties" : {
+    "HealthCheckConfig" : ${1:#HealthCheckConfig},
+    "HealthCheckTags" : [ ${2:#HealthCheckTags} ]
+  }
+}
+endsnippet
+
+snippet r53hz "AWS::Route53::HostedZone"
+{
+  "Type" : "AWS::Route53::HostedZone",
+  "Properties" : {
+    "HostedZoneConfig" : ${1:#HostedZoneConfig},
+    "HostedZoneTags" : [ ${2:#HostedZoneTags} ],
+    "Name" : ${3:#String},
+    "VPCs" : [ ${4:#HostedZoneVPCs} ]
+  }
+}
+endsnippet
+
+snippet r53rs "AWS::Route53::RecordSet"
+{
+  "Type" : "AWS::Route53::RecordSet",
+  "Properties" : {
+    "AliasTarget" : ${1:#AliasTarget},
+    "Comment" : ${2:#String},
+    "Failover" : ${3:#String},
+    "GeoLocation" : ${4:#GeoLocation},
+    "HealthCheckId" : ${5:#String},
+    "HostedZoneId" : ${6:#String},
+    "HostedZoneName" : ${7:#String},
+    "Name" : ${8:#String},
+    "Region" : ${9:#String},
+    "ResourceRecords" : ${10:#String},
+    "SetIdentifier" : ${11:#String},
+    "TTL" : ${12:#String},
+    "Type" : ${13:#String},
+    "Weight" : ${14:#Integer}
+  }
+}
+endsnippet
+
+snippet r53rsg "AWS::Route53::RecordSetGroup"
+{
+   "Type" : "AWS::Route53::RecordSetGroup",
+   "Properties" : {
+      "Comment" : ${1:#String},
+      "HostedZoneId" : ${2:#String},
+      "HostedZoneName" : ${3:#String},
+      "RecordSets" : [ ${4:#RecordSet1} ]
+   }
+}
+endsnippet
+
+snippet s3b "AWS::S3::Bucket"
+{
+  "Type" : "AWS::S3::Bucket",
+  "Properties" : {
+    "AccessControl" : ${1:#String},
+    "BucketName" : ${2:#String},
+    "CorsConfiguration" : ${3:#CORSConfiguration},
+    "LifecycleConfiguration" : ${4:#LifecycleConfiguration},
+    "LoggingConfiguration" : ${5:#LoggingConfiguration},
+    "NotificationConfiguration" : ${6:#NotificationConfiguration},
+    "ReplicationConfiguration" : ${7:#ReplicationConfiguration},
+    "Tags" : [ ${8:#ResourceTag} ],
+    "VersioningConfiguration" : ${9:#VersioningConfiguration},
+    "WebsiteConfiguration" : ${10:#WebsiteConfigurationType}
+  }
+}
+endsnippet
+
+snippet s3bp "AWS::S3::BucketPolicy"
+{
+   "Type" : "AWS::S3::BucketPolicy",
+   "Properties" : {
+      "Bucket" : ${1:#String},
+      "PolicyDocument" : ${2:#JSON}
+   }
+}
+endsnippet
+
+snippet snst "AWS::SNS::Topic"
+{
+  "Type" : "AWS::SNS::Topic",
+  "Properties" : {
+    "DisplayName" : ${1:#String},
+    "Subscription" : [ ${2:#SNSSubscription} ],
+    "TopicName" : ${3:#String}
+  }
+}
+endsnippet
+
+snippet snstp "AWS::SNS::TopicPolicy"
+{
+  "Type" : "AWS::SNS::TopicPolicy",
+  "Properties" :
+    {
+      "PolicyDocument" : ${1:#JSON},
+      "Topics" : [ ${2:#ListofSNStopicARNs} ]
+    }
+}
+endsnippet
+
+snippet sqsq "AWS::SQS::Queue"
+{
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+      "DelaySeconds" : ${1:#Integer},
+      "MaximumMessageSize" : ${2:#Integer},
+      "MessageRetentionPeriod" : ${3:#Integer},
+      "QueueName" : ${4:#String},
+      "ReceiveMessageWaitTimeSeconds" : ${5:#Integer},
+      "RedrivePolicy" : ${6:#RedrivePolicy},
+      "VisibilityTimeout" : ${7:#Integer}
+   }
+}
+endsnippet
+
+snippet sqsqp "AWS::SQS::QueuePolicy"
+{
+   "Type" : "AWS::SQS::QueuePolicy",
+   "Properties" : {
+      "PolicyDocument" : ${1:#JSON},
+      "Queues" : [ ${2:#String} ]
+   }
+}
+endsnippet
+
+snippet ssmd "AWS::SSM::Document"
+{
+  "Type" : "AWS::SSM::Document",
+  "Properties" : {
+    "Content" : ${1:#JSONobject}
+  }
+}
+endsnippet
+
+snippet wafbms "AWS::WAF::ByteMatchSet"
+{
+  "Type" : "AWS::WAF::ByteMatchSet",
+  "Properties" : {
+    "ByteMatchTuples" : [ ${1:#Bytematchtuple} ],
+    "Name" : ${2:#String}
+  }
+}
+endsnippet
+
+snippet wafips "AWS::WAF::IPSet"
+{
+  "Type" : "AWS::WAF::IPSet",
+  "Properties" : {
+    "IPSetDescriptors" : [ ${1:#IPSetdescriptor} ],
+    "Name" : ${2:#String}
+  }
+}
+endsnippet
+
+snippet wafr "AWS::WAF::Rule"
+{
+  "Type" : "AWS::WAF::Rule",
+  "Properties" : {
+    "MetricName" : ${1:#String},
+    "Name" : ${2:#String},
+    "Predicates" : [ ${3:#Predicate} ]
+  }
+}
+endsnippet
+
+snippet wafscs "AWS::WAF::SizeConstraintSet"
+{
+  "Type" : "AWS::WAF::SizeConstraintSet",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "SizeConstraints" : [ ${2:#SizeConstraint} ]
+  }
+}
+endsnippet
+
+snippet wafsims "AWS::WAF::SqlInjectionMatchSet"
+{
+  "Type" : "AWS::WAF::SqlInjectionMatchSet",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "SqlInjectionMatchTuples" : [ ${2:#SqlInjectionMatchTuple} ]
+  }
+}
+endsnippet
+
+snippet wafwacl "AWS::WAF::WebACL"
+{
+  "Type" : "AWS::WAF::WebACL",
+  "Properties" : {
+    "DefaultAction" : ${1:#Action},
+    "MetricName" : ${2:#String},
+    "Name" : ${3:#String},
+    "Rules" : [ ${4:#Rule} ]
+  }
+}
+endsnippet
+
+snippet wafxms "AWS::WAF::XssMatchSet"
+{
+  "Type" : "AWS::WAF::XssMatchSet",
+  "Properties" : {
+    "Name" : ${1:#String},
+    "XssMatchTuples" : [ ${2:#XssMatchTuple} ]
+  }
+}
+endsnippet
+
+snippet wsw "AWS::WorkSpaces::Workspace"
+{
+  "Type" : "AWS::WorkSpaces::Workspace",
+  "Properties" : {
+    "BundleId" : ${1:#String},
+    "DirectoryId" : ${2:#String},
+    "UserName" : ${3:#String},
+    "RootVolumeEncryptionEnabled" : ${4:#Boolean},
+    "UserVolumeEncryptionEnabled" : ${5:#Boolean},
+    "VolumeEncryptionKey" : ${6:#String}
+  }
+}
+endsnippet
+

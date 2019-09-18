@@ -19,13 +19,14 @@ function! buell#statusline#drawstatusline() abort
   " Needs to be all on one line:
   "   %(                                               start item group
   "   [                                                left bracket (literal)
+  "   %{ObsessionStatus()}                             $ if in an active session, S if in a paused session
   "   %M                                               modified flag: ,+/,- (modified/unmodifiable) or nothing
   "   %R                                               read-only flag: ,RO or nothing
   "   %{buell#statusline#ft()}                         filetype (not using %Y because I don't want caps)
   "   %{buell#statusline#fenc()}                       file-encoding if not UTF-8
   "   ]                                                right bracket (literal)
   "   %)                                               end item group
-  set statusline+=%([%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}]%)
+  set statusline+=%([%{ObsessionStatus('$','S')}%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}]%)
 
   set statusline+=%4*                                " reset highlight group
   set statusline+=%=                                 " split point for left and right groups
@@ -33,10 +34,23 @@ function! buell#statusline#drawstatusline() abort
   set statusline+=%{buell#statusline#linterstatus()} " ale warnings and errors
   set statusline+=%*                                 " reset highlight group
   set statusline+=\                                  " space
+  set statusline+=%{buell#statusline#sessionname()}  " session name
   set statusline+=                                  " powerline arrow
   set statusline+=%5*                                " switch to User5 highlight group
   set statusline+=%{buell#statusline#rhs()}          " call rhs statusline autocommand
   set statusline+=%*                                 " reset highlight group
+endfunction
+
+function! buell#statusline#sessionname() abort
+  if exists(':Obsession')
+    if exists('v:this_session') && v:this_session != ''
+      let l:obsession_string = v:this_session
+      let l:obsession_parts = split(l:obsession_string, '/')
+      let l:obsession_filename = l:obsession_parts[-1]
+      return l:obsession_filename . ' '
+    endif
+  endif
+  return ''
 endfunction
 
 function! buell#statusline#linterstatus() abort
