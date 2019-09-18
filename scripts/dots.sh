@@ -173,7 +173,8 @@ postplacehooks() {
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
       $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
-      $VIMPATH +'PlugInstall --sync' +qa &> /dev/null
+      $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
+      gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/bundles/base16-vim/colors/*.vim
 
       # link up neovim
       NVIMRTPROOT='~/.config/nvim'
