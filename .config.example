@@ -233,6 +233,10 @@ ClientEmailAddress  = cody@exchange.com
 #                                                                              #
 #   * journals have a subdir structure of YYYY/MM/YYYY.MM.DD.txt               #
 #                                                                              #
+# CDPath works a bit differently, zsh will autocomplete from these locations   #
+# when you cd [tab][tab] regardless of where you are in the filesystem.        #
+# Separate out each path with a :                                              #
+#                                                                              #
 ################################################################################
 
 
@@ -243,6 +247,8 @@ NonRepoProjects = "~/Google\\ Drive/Projects"
 WorkbenchPath   = "~/Google\\ Drive/Workbench" 
 PersonalJournal = "/Path/home/Google\\ Drive/Journal/personal"  # full path, escapes
 WorkJournal     = "/Path/home/Google\\ Drive/Journal/work"      # full path, escapes
+
+CDPath          = "~/Repos/gitlab.company.com:~/Other/Path"
 
 
 ################################################################################

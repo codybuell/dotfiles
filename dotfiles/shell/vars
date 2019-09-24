@@ -1,2 +1,2 @@
 # don't export CDPATH (can cause problems with shell scripts etc)
-CDPATH=.:~:~/Repos/github.com/{{ GitUsername }}
+CDPATH=.:~:~/Repos/github.com/{{ GitUsername }}:{{ CDPath }}
