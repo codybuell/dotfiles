@@ -85,9 +85,9 @@ if exists("+showtabline")
     let en .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
 
     " get length of various tab bars and window
-    let lengthfull    = len(lo) - 180
-    let lengthmid     = len(me) - 180
-    let lengthcompact = len(sh) - 180
+    let lengthfull    = len(lo) - 140
+    let lengthmid     = len(me) - 140
+    let lengthcompact = len(sh) - 140
 
     " determine tabbar to use
     if lengthfull < winwidth(0)
