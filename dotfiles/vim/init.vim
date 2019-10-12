@@ -159,6 +159,8 @@
 "                                                                              "
 "     vim-obsession improved session management                                "
 "                                                                              "
+"     scss-syntax   fixes super slow load times with native nvim sass syntax   "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -360,6 +362,9 @@ Plug 'codybuell/vis'
 
 " vim-obsession: improved session management
 Plug 'tpope/vim-obsession'
+
+" scss-syntax: fixes super slow load times with native nvim sass syntax
+Plug 'cakebaker/scss-syntax.vim'
 
 call plug#end()
 
