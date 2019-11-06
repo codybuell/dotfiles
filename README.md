@@ -36,6 +36,14 @@ Minimal to no overrides of default mappings.  Fully documented additional mappin
 
 Consistent colorschemes and fonts throughout the terminal, with easy switching between Base16 themes.
 
+
+Assumptions / Best Practices
+----------------------------
+
+- git structure
+- dynamic and base go paths
+- keyboard remappings
+
 Structure
 ---------
 
@@ -118,4 +126,12 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make composer
         make dots
 
+Gotchas
+-------
 
+At the moment qlstephen, a quick look plugin, is not trusted by OSX Catalina.  You need to open it manually after installation, click to trust, then restart quick look.  Should be good to go from there on.
+
+    cd ~/Library/Quicklook/QLStephen.qlgenerator/Contents/MacOS/
+    open .
+    # right click on QLStephen, then click on open in the modal
+    qlmanage -r
