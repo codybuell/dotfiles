@@ -559,7 +559,8 @@ cmdDoublePress = require("cmdDoublePress")
 cmdDoublePress.timeFrame = 1
 cmdDoublePress.action = function()
   -- launch  mission control with double tap of cmd
-  hs.application.open('/Applications/Mission Control.app')
+  hs.application.open('/System/Applications/Mission Control.app')
+  log.i("double tap detected")
 end
 
 ------------------
