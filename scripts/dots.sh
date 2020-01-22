@@ -96,6 +96,7 @@ prettyprint() {
 
 readconfig() {
 
+  ENVVARS=()
   CONFIGVARS=()
   # add in some baseline configs
   CONFIGVARS+="CONFGDIR UNAME "
@@ -111,7 +112,12 @@ readconfig() {
         rhs="${rhs%\"*}"     # del opening string quotes
         rhs="${rhs#\"*}"     # del closing string quotes
         export $lhs="$rhs"
-        CONFIGVARS+="$lhs "
+        # build configvars and envvars arrays
+        if [[ $lhs =~ ENVVAR_.* ]]; then
+          ENVVARS+="$lhs "
+        else
+          CONFIGVARS+="$lhs "
+        fi
       fi
     done < $configfile.tmp
     export CONFIGVARS
@@ -152,9 +158,18 @@ preplacehooks() {
       ;;
     shell )
       cd ~/.shell.new.$DATE
+      # link up repo based resources
       ln -s $CONFGDIR/submodules/base16-shell .
       ln -s $CONFGDIR/submodules/zsh-autosuggestions .
       ln -s $CONFGDIR/submodules/zsh-syntax-highlighting .
+      # place dynamic environment variables from config
+      echo "" >> exports
+      echo "### CONFIG DRIVEN VARS ###" >> exports
+      for e in ${ENVVARS[@]}; do
+        VAR=`echo $e | sed "s/ENVVAR_//"`
+        eval VAL=\$$e
+        echo "export ${VAR}=${VAL}" >> exports
+      done
       cd - > /dev/null
       ;;
   esac

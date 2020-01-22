@@ -76,6 +76,22 @@ REPO00 = git@github.com:codybuell/mit.git
 
 
 ################################################################################
+##                                                                            ##
+##  Environment Variables to Create                                           ##
+##                                                                            ##
+##  Here you can setup any number of environment variables that will be       ##
+##  added to ~/.shell/vars.  The format is ENVVAR_[YOUR ENV VAR].  So for     ##
+##  example:                                                                  ##
+##                                                                            ##
+##    ENVVAR_FOO = BAR     # this will set FOO to BAR                         ##
+##                                                                            ##
+################################################################################
+
+
+ENVVAR_FOO = BAR
+
+
+################################################################################
 #                                                                              #
 # Custom Commands                                                              #
 #                                                                              #
