@@ -48,3 +48,9 @@ vmap       <silent>         <leader>=         :'<,'>B !awk '1;{sub(/,/, "");sum+
 "vmap      <silent><expr>    <leader>=         :'<,'>w !awk '1;{sum+=$1} END {print sum}'
 " capture the sum into the default register
 "vmap      <silent><expr>    <leader>=         :'<,'>??????????????
+
+" vim-camelsnek
+vmap      <silent>          <localleader>cs   :'<,'>Snek<CR>
+vmap      <silent>          <localleader>cc   :'<,'>Camel<CR>
+vmap      <silent>          <localleader>cb   :'<,'>CamelB<CR>
+vmap      <silent>          <localleader>ck   :'<,'>Kebab<CR>

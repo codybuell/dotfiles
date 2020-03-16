@@ -136,3 +136,9 @@ nnoremap                    <localleader>u    :UltiSnipsEdit<CR>
 
 " generate random characters
 nnoremap  <silent>          <localleader>r    :<C-U>call buell#helpers#RandomCharacters(v:count)<CR>
+
+" vim-camelsnek
+nnoremap  <silent>          <localleader>cs   :Snek<CR>
+nnoremap  <silent>          <localleader>cc   :Camel<CR>
+nnoremap  <silent>          <localleader>cb   :CamelB<CR>
+nnoremap  <silent>          <localleader>ck   :Kebab<CR>

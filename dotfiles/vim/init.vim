@@ -161,6 +161,8 @@
 "                                                                              "
 "     scss-syntax   fixes super slow load times with native nvim sass syntax   "
 "                                                                              "
+"     vim-camelsnek case conversion util                                       "
+"                                                                              "
 "     * settings in plugin/vim-plug.vim                                        "
 "                                                                              "
 "     (snippets)                                                               "
@@ -365,6 +367,9 @@ Plug 'tpope/vim-obsession'
 
 " scss-syntax: fixes super slow load times with native nvim sass syntax
 Plug 'cakebaker/scss-syntax.vim'
+
+" vim-camelsnek: case conversion util
+Plug 'nicwest/vim-camelsnek'
 
 call plug#end()
 
