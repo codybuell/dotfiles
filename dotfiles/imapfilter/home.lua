@@ -14,9 +14,10 @@ end
 
 function run()
 
-  home  = connect()
-  inbox = home.INBOX
-  spam  = home['[Gmail]/Spam']
+  home    = connect()
+  inbox   = home.INBOX
+  spam    = home['[Gmail]/Spam']
+  allmail = home['Gmail]/All Mail']
 
   -- list mailboxes and folders
 --  mailboxes, folders = home:list_all()
@@ -30,14 +31,14 @@ function run()
   archive = (function(description, matcher)
     messages = matcher()
     print_status(messages, description .. ' -> archive')
-    messages:move_messages(home.Archive)
+    messages:move_messages(allmail)
   end)
 
   archive_and_mark_read = (function(description, matcher)
     messages = matcher()
     print_status(messages, description .. ' -> archive & mark read')
     messages:mark_seen()
-    messages:move_messages(home.Archive)
+    messages:move_messages(allmail)
   end)
 
   flag = (function(description, matcher)
