@@ -1,17 +1,17 @@
 #!/bin/bash
 #
 # .--------------------------------------.
-# |                 |                    |
-# |        1        |                    |
-# |                 |                    |
-# |-----------------|          3         |
-# |                 |                    |
-# |        2        |                    |
-# |                 |                    |
+# |                      |               |
+# |                      |       2       |
+# |                      |               |
+# |           1          |---------------|
+# |                      |               |
+# |                      |       3       |
+# |                      |               |
 # '--------------------------------------'
 
-CMDPANE1='git status'
-CMDPANE2=''
+CMDPANE1='vi'
+CMDPANE2='git status'
 CMDPANE3=''
 
 # get session name based on folder
@@ -24,11 +24,11 @@ if tmux has-session -t $SESSION 2> /dev/null; then
 fi
 
 # else create a new session
-tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
+tmux new-session -d -s $SESSION -n main
 
 # build out panes
 tmux split-window -t ${SESSION}:main.1 -h -p 60
-tmux split-window -t ${SESSION}:main.1 -v -p 60
+tmux split-window -t ${SESSION}:main.2 -v -p 60
 
 # run commands
 tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
