@@ -105,7 +105,9 @@ local layoutConfig = {
   ['com.google.Chrome'] = (function(window, forceScreenCount)
     if primaryWxH == "3840x1600" then -- 38" ultrawide
       hs.grid.set(window, grid.widescreenRight37P)
-    else -- default
+    elseif primaryWxH == "3840x2160" then -- 32" 4k
+      hs.grid.set(window, grid.widescreenLeft37P)
+    else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
   end),
@@ -124,8 +126,8 @@ local layoutConfig = {
 --  hs.grid.MARGINY = 5
     if primaryWxH == "3840x1600" then -- 38" ultrawide
       hs.grid.set(window, grid.widescreenLeft63P)
---  elseif primaryWxH == "2560x1440" then -- 27" & 24"
---    hs.grid.set(window, grid.fullScreen)
+    elseif primaryWxH == "3840x2160" then -- 32" 4k
+      hs.grid.set(window, grid.widescreenRight63P)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
@@ -567,7 +569,10 @@ cmdDoublePress = require("cmdDoublePress")
 cmdDoublePress.timeFrame = 1
 cmdDoublePress.action = function()
   -- launch  mission control with double tap of cmd
-  hs.application.open('/System/Applications/Mission Control.app')
+  -- catalina on
+  --hs.application.open('/System/Applications/Mission Control.app')
+  -- pre-catalina
+  hs.application.open('/Applications/Mission Control.app')
   log.i("double tap detected")
 end
 
@@ -575,38 +580,38 @@ end
 --  media keys  --
 ------------------
 
--- get the media keys to actually control itunes again...
-MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
-AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
-DEBUG_TAP = false
--- watching for special key presses
-tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
-	if DEBUG_TAP then
-		print("event tap debug got event:")
-		print(hs.inspect.inspect(event:getRawEventData()))
-		print(hs.inspect.inspect(event:getFlags()))
-		print(hs.inspect.inspect(event:systemKey()))
-	end
-
-	local sys_key_event = event:systemKey()
-	local delete_event  = false
-
-	if not sys_key_event or not sys_key_event.down then
-		return false
-	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
-	then
-		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
-		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
-      hs.itunes.playpause()
-    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
-      hs.itunes.next()
-    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
-      hs.itunes.previous()
-    end
-	end
-	return delete_event
-end)
-tap:start()
+---- get the media keys to actually control itunes again...
+--MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
+--AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
+--DEBUG_TAP = false
+---- watching for special key presses
+--tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
+--	if DEBUG_TAP then
+--		print("event tap debug got event:")
+--		print(hs.inspect.inspect(event:getRawEventData()))
+--		print(hs.inspect.inspect(event:getFlags()))
+--		print(hs.inspect.inspect(event:systemKey()))
+--	end
+--
+--	local sys_key_event = event:systemKey()
+--	local delete_event  = false
+--
+--	if not sys_key_event or not sys_key_event.down then
+--		return false
+--	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
+--	then
+--		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
+--		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
+--      hs.itunes.playpause()
+--    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+--      hs.itunes.next()
+--    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+--      hs.itunes.previous()
+--    end
+--	end
+--	return delete_event
+--end)
+--tap:start()
 
 -------------------------------------------------------------------------------
 --                                                                           --
