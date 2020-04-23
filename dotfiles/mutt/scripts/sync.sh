@@ -47,7 +47,7 @@ while true; do
   echo "Running imapfilter ($ACCOUNT):"
   echo
 
-  ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" || {
+  ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" -t {{ CONFGDIR }}/assets/system_root_certificates.pem || {
     [[ -f /etc/redhat-release ]] && {
       notify-send "imapfilter" "imapfilter ($ACCOUNT) exited"
     } || {
@@ -80,6 +80,12 @@ while true; do
   echo
 
   time ~/.mutt/hooks/postsync/$ACCOUNT.sh # Runs notmuch, lbdb-fetchaddr etc
+
+  echo
+  echo "Deduplicating lbdb-fetchaddr db:"
+
+  CURTIME=`date '+%Y.%m.%d.%H.%M.%S'`
+  awk '!seen[$1]++' ~/.lbdb/m_inmail.utf-8 > /tmp/m_inmail.$CURTIME.utf-8 && mv /tmp/m_inmail.$CURTIME.utf-8 ~/.lbdb/m_inmail.utf-8
 
   echo
   echo "Updating mailboxes listing:"
