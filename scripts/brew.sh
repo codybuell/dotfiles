@@ -47,6 +47,7 @@ PACKAGES=( \
     'gifsicle' \                    # creating gifs from videos
     'git' \                         # git scm
     'git-lfs' \                     # large file support for git
+    'gnu-sed' \                     # needed for lbdbq m_muttalias module to work
     'gnu-typist' \                  # typing tutor, supports colemak
     'gnupg2' \                      # gpg utilities for openpgp
     'go' \                          # the go programming language
@@ -125,7 +126,7 @@ CASKS=( \
     'keycastr' \                    # show keystrokes on screen
     'libreoffice' \                 # open source office suite
     'licecap' \                     # gifcasting utility
-    'qlstephen' \                   # ability to open all plain text files in ql
+    'qlstephen' \                   # ability to open all plain text files in quick look
     'seil' \                        # utility for remapping caps lock
     'sketch' \                      # graphics design and layout
     'slack' \                       # collaboration and chat application
@@ -170,6 +171,12 @@ brew update
 # try to upgrade brew
 brew upgrade
 
+# install brew casks
+for i in ${CASKS[@]}; do
+  # echo "brew cask install $i"
+  brew cask install $i
+done
+
 # install brew packages
 for i in ${PACKAGES[@]}; do
   brew install $i
@@ -177,12 +184,6 @@ done
 
 # install packages that need flags
 brew install weechat --with-aspell --with-lua --with-perl --with-python@2 --with-ruby     # chat client
-
-# install brew casks
-for i in ${CASKS[@]}; do
-  # echo "brew cask install $i"
-  brew cask install $i
-done
 
 # start up services
 #brew services start --all
