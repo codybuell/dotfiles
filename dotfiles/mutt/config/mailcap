@@ -1,29 +1,55 @@
-# MS Word documents
-# application/msword; ~/.mutt/scripts/view_attachment.sh %s "-" com.apple.TextEdit
+##########
+# images #
+##########
 
-# Images
 image/jpg; ~/.mutt/scripts/view_attachment.sh %s jpg
 image/jpeg; ~/.mutt/scripts/view_attachment.sh %s jpg
 image/pjpeg; ~/.mutt/scripts/view_attachment.sh %s jpg
 image/png; ~/.mutt/scripts/view_attachment.sh %s png
 image/gif; ~/.mutt/scripts/view_attachment.sh %s gif
 
-# PDFs
+#########
+# pdf's #
+#########
+
 application/pdf; ~/.mutt/scripts/view_attachment.sh %s pdf
 
-# Calendar invites.
+####################
+# calendar invites #
+####################
+
 text/calendar; ~/.mutt/scripts/view_attachment.sh %s ics com.apple.iCal
 application/ics; ~/.mutt/scripts/view_attachment.sh %s ics com.apple.iCal
 
-# HTML
+########
+# html #
+########
 
-# Explicitly render in browser with "v" (view attachment):
+# explicitly render in browser with "v" (view attachment)
 text/html; CHARSET=%{charset} ~/.mutt/scripts/view_attachment.sh %s html
 
-# Try to display implicitly using elinks:
-text/html; elinks -dump %s -dump-charset %{charset} -force-html; nametemplate=%s.html; copiousoutput
+# try to display implicitly using elinks or w3m
+# text/html; elinks -dump %s -dump-charset %{charset} -force-html; nametemplate=%s.html; copiousoutput
+text/html; w3m -I %{charset} -T text/html -s; copiousoutput;
+
+########
+# text #
+########
 
 text/plain; ~/.mutt/scripts/view_mail.sh %s %{charset}; needsterminal
 
-# Unidentified files
+##################
+# microsoft bits #
+##################
+
+# powerpoint presentations
+application/vnd.openxmlformats-officedocument.presentationml.presentation; ~/.mutt/scripts/view_attachment.sh %s "-" com.microsoft.powerpoint
+
+# word documents
+application/msword; ~/.mutt/scripts/view_attachment.sh %s "-" com.microsoft.word
+
+######################
+# unidentified files #
+######################
+
 application/octet-stream; ~/.mutt/scripts/view_attachment.sh %s "-"
