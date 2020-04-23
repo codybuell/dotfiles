@@ -11,6 +11,7 @@ alias groot='cd $(git rev-parse --show-toplevel 2> /dev/null || echo -n ".")'
 alias h=history
 alias j=jump
 alias m=mosh
+alias sed=gsed
 
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
@@ -55,7 +56,13 @@ alias gp="git push"
 alias gs="git status"
 alias gc="git commit"
 alias gca="git commit -a"
+alias gbv="git branch -v"
+alias gba="git branch -a"
+alias gco="git checkout"
 alias log="git log --pretty=oneline"
+
+# arduino cli
+alias ard="arduino-cli"
 
 # recursive greps
 alias grepf="find . -type f -print0 | xargs -0 grep"

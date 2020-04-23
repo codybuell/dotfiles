@@ -385,7 +385,7 @@ function control() {
       tmux split-window -t control:control -v -l 7 -f -c ~/.mutt
       tmux send-keys -t control:control.1 '~/.mutt/scripts/control.sh home' Enter
       tmux send-keys -t control:control.2 '~/.mutt/scripts/control.sh work' Enter
-      tmux send-keys -t control:control.3 '~/.mutt/scripts/control.sh stratus' Enter
+      #tmux send-keys -t control:control.3 '~/.mutt/scripts/control.sh stratus' Enter
       tmux send-keys -t control:control.4 '~/.mutt/scripts/control.sh' Enter
       # attach to home session, home window, weechat pane
       tmux -u attach -t control:control.4
@@ -405,20 +405,22 @@ function home() {
       # build home window
       tmux new-session -d -s HOME -n home -x `tput cols` -y `tput lines`
       tmux set-window-option -t HOME:home automatic-rename off
-      #--- layout 1
-#     tmux split-window -t HOME:home -b -v -p 54 -c ~/
-#     tmux split-window -t HOME:home -h -l 95 -c ~/
-#     tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
-#     #tmux send-keys -t HOME:home.2 't mit' Enter
-#     tmux send-keys -t HOME:home.3 'weechat' Enter
-      #--- layout 2
-      tmux split-window -t HOME:home -h -p 66 -c ~/
-      tmux split-window -t HOME:home -b -v -p 40 -c ~/
-      tmux send-keys -t HOME:home.1 'weechat' Enter
-      tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
-#     tmux send-keys -t HOME:home.3 't mit' Enter
-      #---
-      # build control window
+
+      #--- layout 1 (left primary workspace)
+      tmux split-window -t HOME:home -h -p 45 -c ~/
+      tmux split-window -t HOME:home.1 -v -p 60 -c ~/
+      tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
+      tmux send-keys -t HOME:home.2 'vi' Enter
+      tmux send-keys -t HOME:home.3 'weechat' Enter
+
+      #--- layout 2 (right primary workspace)
+#     tmux split-window -t HOME:home -h -p 66 -c ~/
+#     tmux split-window -t HOME:home -b -v -p 40 -c ~/
+#     tmux send-keys -t HOME:home.1 'weechat' Enter
+#     tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
+#     tmux send-keys -t HOME:home.3 'vi' Enter
+
+      ## build control window
 #     tmux new-window -t HOME: -c ~/.mutt -n control
 #     tmux set-window-option -t HOME:control monitor-activity off
 #     tmux split-window -t HOME:control -h -p 66 -c ~/.mutt
@@ -428,8 +430,9 @@ function home() {
 #     tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
 #     tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh client' Enter
 #     tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
-      # attach to home session, home window, weechat pane
-      tmux -u attach -t HOME:home.1
+
+      ## attach to home session, home window, weechat pane
+      tmux -u attach -t HOME:home.3
     else
       tmux -u attach -t HOME
     fi
