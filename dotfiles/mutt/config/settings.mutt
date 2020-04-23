@@ -21,12 +21,30 @@ set header_cache =~/.mutt/cache/headers
 set header_cache_compress = no
 set include = yes # Include quoted copy of message in reply.
 
-# Default is: "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+# index_format structure:
+#     10  2.5K [N + 2] * 21-Jun-19 04:58PM  Joe Dirt     Re:some subject
+#     |    |    | | |  |      |       |         |          |
+#     |    |    | | |  |      |       |         |          `--  message subject
+#     |    |    | | |  |      |       |         |
+#     |    |    | | |  |      |       |         `-------------------  sender
+#     |    |    | | |  |      |       |
+#     |    |    | | |  |      |       `-----------------------------  time message received (current local timezone)
+#     |    |    | | |  |      |
+#     |    |    | | |  |      `-------------------------------------  date message received (current local timezone)
+#     |    |    | | |  |
+#     |    |    | | |  `--------------------------------------------  message collapsed count or thread indicator
+#     |    |    | | |
+#     |    |    | | `-----------------------------------------------  number of mime attachments
+#     |    |    | |
+#     |    |    | `-------------------------------------------------  message recipient flags or tagged / flagged
+#     |    |    |
+#     |    |    `---------------------------------------------------  message status flags
+#     |    |
+#     |    `--------------------------------------------------------  message size
+#     |
+#     `-------------------------------------------------------------  message number
 #
-# Changes:
-# - Show time in date/time.
-# - Show local date/time.
-#set index_format = "%4C %Z %[%b %d %R] %-15.15L (%?l?%4l&%4c?) %s"
+# Default is: "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
 set index_format = "%4C %?l?%4l&%4c? [%Z%?X?%2X&  ?] %?M?↱& ? %D  %-20.20L  %s%> %?y?[%Y]?"
 set date_format = "!%d-%b-%y %I:%M%p"
 #set date_format = "!%a %d.%m.%y %I:%M%P"
@@ -47,7 +65,7 @@ set pager_stop = yes # Don't move to the next message when paging past the botto
 #set query_command="lbdbq %s 2> /dev/null"
 # convert email to all lowercase, dedupe by email, remove local(domain)? tld's, remove do not reply addresses...
 set query_command="lbdbq %s | awk -v OFS='\t' -F '\t' '{$1=tolower($1);print}' | awk '!seen[$1]++' | egrep -v '.*\.local(domain)?\t.*|.*no(t|t-|t_|-|_)?reply.*' 2> /dev/null"
-set realname = 'Cody Buell'
+set realname = '{{ Name }}'
 set reply_to = yes # Instead of asking, always reply to Reply-to:
 set resolve = no # Don't auto-advance to the next message after every single op.
 set sidebar_divider_char = '│'
