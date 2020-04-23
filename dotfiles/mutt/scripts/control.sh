@@ -42,19 +42,16 @@ function resume() {
 function pausing() {
   pause "$HOME/.mutt/tmp/sync-home.pid"
   pause "$HOME/.mutt/tmp/sync-work.pid"
-  pause "$HOME/.mutt/tmp/sync-client.pid"
 }
 
 function resuming() {
   resume "$HOME/.mutt/tmp/sync-home.pid"
   resume "$HOME/.mutt/tmp/sync-work.pid"
-  resume "$HOME/.mutt/tmp/sync-client.pid"
 }
 
 function syncing() {
   "$HOME/.mutt/scripts/download.sh" home
   "$HOME/.mutt/scripts/download.sh" work
-  "$HOME/.mutt/scripts/download.sh" client
 }
 
 ##########
@@ -63,7 +60,7 @@ function syncing() {
 
 if [ $# -eq 1 ]; then
   case $1 in
-    home|work|client )
+    home|work )
       "$HOME/.mutt/scripts/sync.sh" "$1" || reattach-to-user-namespace terminal-notifier -title mutt -message "~/.mutt/scripts/sync.sh ($1) exited" Enter
       exit 0
       ;;
@@ -80,7 +77,7 @@ if [ $# -eq 1 ]; then
       exit 0
       ;;
     * )
-      echo "Unrecognized argument: $1 (supported arguments: home, work, client, pause, resume)"
+      echo "Unrecognized argument: $1 (supported arguments: home, work, pause, resume)"
       exit 1
       ;;
   esac
