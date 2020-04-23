@@ -15,17 +15,11 @@ PRIORITY = {
   'Work.Archive' => '04',
   'Work.Trash' => '05',
   'Work.Spam' => '06',
-  'Client' => '00',
-  'Client.Sent' => '02',
-  'Client.Drafts' => '03',
-  'Client.Archive' => '04',
-  'Client.Trash' => '05',
-  'Client.Spam' => '06',
 }
 
 mailboxes = []
 Dir.chdir(ENV['HOME'] + '/.mail') do
-  Dir['{Home,Work,Client}/*'].each do |d|
+  Dir['{Home,Work}/*'].each do |d|
     mailboxes << %{"+#{d}"}
   end
 end
