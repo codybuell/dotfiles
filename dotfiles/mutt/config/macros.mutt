@@ -18,10 +18,8 @@ macro browser gl "<exit><change-folder>?<toggle-mailboxes><redraw-screen>" "go t
 # These ones not standard Gmail.
 macro index,pager gh "<change-folder>+Home/Home<enter>" "go home"
 macro index,pager gw "<change-folder>+Work/Work<enter>" "go work"
-macro index,pager gc "<change-folder>+Client/Client<enter>" "go client"
 macro browser gh "<exit><change-folder>+Home/Home<enter>" "go home"
 macro browser gw "<exit><change-folder>+Work/Work<enter>" "go work"
-macro browser gc "<exit><change-folder>+Client/Client<enter>" "go client"
 
 # "Smart" equivalent to `set resolve = yes`: see "{next,previous}.mutt" for
 # info.

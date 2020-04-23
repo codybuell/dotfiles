@@ -226,14 +226,6 @@ WorkEmailUsername   = cody@workplace.com
 WorkEmailAddress    = cody@workplace.com
 
 
-# expected to be an exchange account ('client' account)
-ClientEmailSmtp     = smtp.exchange.com
-ClientEmailHost     = imap.exchange.com         # host and 'name' field in keychain
-ClientEmailKeychain = cody+mutt@exchange.com    # 'account' field in keychain
-ClientEmailUsername = cody@exchange.com
-ClientEmailAddress  = cody@exchange.com
-
-
 ################################################################################
 #                                                                              #
 # paths                                                                        #
