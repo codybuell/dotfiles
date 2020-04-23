@@ -13,21 +13,42 @@ endglobal
 
 snippet min "meeting minutes framework"
 ${1:Meeting Title} (`date "+%Y.%m.%d %H:%M"`)
-${1/./=/g}===================
+${1/./-/g}-------------------
 
-Attendees
----------
+${2}
+
+### Attendees
 
 - ${0}
+
+### Notes
+
+### Assignments
+
+endsnippet
+
+snippet wj "work journal scaffolding" b
+`date "+%Y.%m.%d"`
+==========
+
+[ ] able to zero out
+[ ] beyond work std hrs
+[ ] # meetings declined 
+[ ] # meetings accepted 
+[ ] # meetings held
 
 Agenda
 ------
 
+- ${0}
+
+Asks
+----
+
+- 
+
 Notes
 -----
-
-Assignments
------------
 
 endsnippet
 
@@ -84,6 +105,14 @@ endsnippet
 #                     #
 #######################
 
+snippet _ "italics"
+_$1_$0
+endsnippet
+
+snippet __ "bold"
+__$1__$0
+endsnippet
+
 snippet * "italics"
 *${1:${VISUAL}}*$0
 endsnippet
@@ -104,6 +133,10 @@ endsnippet
 
 snippet td "github style todo list item" b
 - [ ] $0
+endsnippet
+
+snippet t "github style todo list item for prepop list"
+[ ] $0
 endsnippet
 
 snippet a "link to something"
