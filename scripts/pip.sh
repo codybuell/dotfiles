@@ -26,6 +26,7 @@ PYTHON2=( \
     'feedparser' \                  # rss support for weechat plugin
     'jmespath-terminal' \           # json manipulation and parsing tool (run as `jpterm`)
     'neovim' \                      # neovim client, required to use python with neovim
+    'pynvim' \                      # neovim client, required to use python with neovim
     'websocket-client' \            # required for wee-slack weechat plugin
 )
 
@@ -40,6 +41,7 @@ PYTHON3=( \
     'commandt.score' \              # search scoring utility used in custom deoplete filter
     'feedparser' \                  # rss support for weechat plugin
     'neovim' \                      # neovim client, required to use python with neovim
+    'pynvim' \                      # neovim client, required to use python with neovim
     'selenium' \                    # same as click
 )
 #   'pynvim' \                      # if your compiled version of neovim does not have python3 support...
