@@ -136,7 +136,7 @@ preplacehooks() {
   case $CURRENTTARGET in
     vim )
       cd ~/.vim.new.$DATE
-      ln -s $CONFGDIR/assets/snippets snippits
+      ln -s $CONFGDIR/assets/snippits snippits
       ln -s $CONFGDIR/assets/en.utf-8.add spell/en.utf-8.add
       ln -s init.vim vimrc
       cd - > /dev/null
