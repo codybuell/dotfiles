@@ -52,7 +52,6 @@ configurepassage() {
 }
 
 readconfig() {
-
   CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
   CONFIGVARS=()
   shopt -s extglob
@@ -75,7 +74,6 @@ readconfig() {
     exit 1
   }
   rm $configfile.tmp
-
 }
 
 createdir() {
