@@ -48,6 +48,10 @@ set include = yes # Include quoted copy of message in reply.
 set index_format = "%4C %?l?%4l&%4c? [%Z%?X?%2X&  ?] %?M?↱& ? %D  %-20.20L  %s%> %?y?[%Y]?"
 set date_format = "!%d-%b-%y %I:%M%p"
 #set date_format = "!%a %d.%m.%y %I:%M%P"
+# mail_check is minimum time between 2 scans for new mail, otherwise it scans for new email with every keypress
+# $mail_check < $timeout ===> scan folders (alert New mail in ...) on next update (update shown list of emails)
+# $timeout < $mail_check ===> update (show list of emails) before scan (alert New mail in ...)
+# This means $mail_check < $timeout is more useful, because by the time mutt will update, it will also scan for external changes to incorporate them in the update.
 set mail_check = 60
 set mail_check_recent = no
 set mailcap_path = "~/.mutt/config/mailcap"
@@ -89,7 +93,7 @@ set status_format = "%f%r—[%?M?%M/?%m messages, %?n?%n new, ?%?d?%d deleted, ?
 
 set tilde = yes
 set time_inc = 250
-set timeout = 60
+set timeout = 30
 set ts_enabled = yes
 
 # Default is: Mutt with %?m?%m messages&no messages?%?n? [%n NEW]?
