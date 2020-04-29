@@ -165,18 +165,21 @@ KeychainVPNToken    =  keychainobjectname
 #                                                                              #
 # golang configurations                                                        #
 #                                                                              #
-# The shell dotfiles will automatically reconfigure your gopath for each       #
-# project when it detects a `.gopath` file in the current working directory    #
-# however here we will set a default for projects that dont contain that       #
-# file.  Note that GoPathBin needs to be somewhere in your path (we will be    #
-# adding `~/Bin`, another good alternative is `/usr/local/bin`).  GoPathBin    #
-# will still be used in projects containing `.gopath` as a symlink so we don't #
-# have to modify paths, just dont forget to .gitigtore it!                     #
+# Here we will define our default GOPATH.  It's recommended to provide two     #
+# two paths, the first of which where go get will place its sources, the       #
+# second being for your own personal packages.  The separation will keep bits  #
+# cleaner, but ultimately it's your call. The shell dotfiles on every change   #
+# of directory will look for a file called `.gopath` starting where you cd'd   #
+# to recursively upwards in directories.  If it finds that file it will note   #
+# where it found it and set your sessions GOPATH to that new location only.    #
+# When you cd away the default GOPATH you define below will be replaced. Each  #
+# GOPATH you define below will have it's child bin directory added to the      #
+# systems PATH automatically.                                                  #
 #                                                                              #
 ################################################################################
 
 
-GoPath    = /Path/home/.gopath
+GoPath = /Path/home/.gopath
 
 
 ################################################################################

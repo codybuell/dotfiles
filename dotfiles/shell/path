@@ -2,20 +2,26 @@
 # paths
 #
 
-SYSTEM_PATH=$PATH
-unset PATH
+# don't duplicate path in tmux (note updates to path will require restart of tmux and underlying shell session)
+if [[ -z $TMUX ]]; then
 
-# path
-PATH=$HOME/Bin
-PATH=$PATH:$HOME/.shell/bin
-PATH=$PATH:/usr/local/bin
-PATH=$PATH:/usr/local/sbin
-PATH=$PATH:$SYSTEM_PATH
-PATH=$PATH:$HOME/.gopath/bin
-PATH=$PATH:$HOME/.composer/vendor/bin
-PATH=$PATH:$HOME/.config/composer/vendor/bin
-export PATH
+  # grab the default system path
+  SYSTEM_PATH=$PATH
+  unset PATH
 
-# gopath and default gopath (for dynamic gopath support, see cd in functions)
-export GOPATH={{ GoPath }}
-export DEFGOP=$GOPATH
+  # gopath and default gopath (for dynamic gopath support, see cd in functions)
+  export GOPATH={{ GoPath }}
+  export DEFGOP=$GOPATH
+
+  # path
+  PATH=$HOME/Bin
+  PATH=$PATH:$HOME/.shell/bin
+  PATH=$PATH:/usr/local/bin
+  PATH=$PATH:/usr/local/sbin
+  PATH=$PATH:$SYSTEM_PATH
+  PATH=$PATH:${GOPATH//://bin:}/bin
+  PATH=$PATH:$HOME/.composer/vendor/bin
+  PATH=$PATH:$HOME/.config/composer/vendor/bin
+  export PATH
+
+fi
