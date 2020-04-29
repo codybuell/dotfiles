@@ -106,4 +106,13 @@ valet park
 ##########################
 
 composer global require statamic/cli
+
+############################
+#                          #
+#  install languageserver  #
+#                          #
+############################
+
+# composer global require felixfbecker/language-server
+
 exit 0

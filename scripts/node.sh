@@ -34,6 +34,11 @@ PACKAGES=( \
   'yarn' \                                  # package manager with version locking and caching
   'bash-language-server' \                  # bash language server
   'javascript-typescript-langserver' \      # javascript / typescript language server
+  'vscode-json-languageserver' \            # json language server
+  'dockerfile-language-server-nodejs' \     # dockerfile language server
+  'yaml-language-server' \                  # yaml language server
+  'vscode-html-languageserver-bin' \        # html language server
+  'markdown-language-server' \              # markdown language server
 )
 
 #######################

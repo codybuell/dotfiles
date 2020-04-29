@@ -28,7 +28,9 @@ PYTHON2=( \
     'neovim' \                      # neovim client, required to use python with neovim
     'pynvim' \                      # neovim client, required to use python with neovim
     'websocket-client' \            # required for wee-slack weechat plugin
+    'python-language-server' \      # a better python language server than pyls??
 )
+#   'pyls' \                        # python languageserver
 
 # osx specific python 2 packages
 OSXPYTHON2=( \
@@ -43,8 +45,10 @@ PYTHON3=( \
     'neovim' \                      # neovim client, required to use python with neovim
     'pynvim' \                      # neovim client, required to use python with neovim
     'selenium' \                    # same as click
+    'python-language-server' \      # a better python language server than pyls??
 )
 #   'pynvim' \                      # if your compiled version of neovim does not have python3 support...
+#   'pyls' \                        # python languageserver
 
 # osx specific python 3 packages
 OSXPYTHON3=( \

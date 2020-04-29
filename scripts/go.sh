@@ -22,18 +22,26 @@
 #                 #
 ###################
 
+# linux only packages
 LINUX=( \
 )
 
+# osx only packages
 OSX=( \
   'github.com/wincent/passage' \           # utility for proxying to osx keychain
   'github.com/keybase/go-keychain' \       # golang library for osx keychain
 )
 
+# all platforms
 ALL=( \
-  'github.com/nsf/gocode' \                # required for deoplete-go
+  'github.com/stamblerre/gocode' \         # replacement for nsf/gocode, deoplete-go dependency
   'github.com/dominikh/go-tools' \
   'github.com/jstemmer/gotags' \
+)
+
+# all platforms with GO111MODULE=on
+ALL_GO111MODULE_ON=( \
+  'golang.org/x/tools/gopls@latest' \      # langserver, no -u flag, or deps will update to imcompat versions
 )
 
 ###############
@@ -137,6 +145,11 @@ esac
 # general installations
 for i in ${ALL[@]}; do
   go get -u $i
+done
+
+# go111module installations NO -u OR GOMODULES WILL BREAK
+for i in ${ALL_GO111MODULE_ON[@]}; do
+  GO111MODULE=on go get $i
 done
 
 exit 0
