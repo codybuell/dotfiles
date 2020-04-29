@@ -39,6 +39,9 @@ PACKAGES=( \
   'yaml-language-server' \                  # yaml language server
   'vscode-html-languageserver-bin' \        # html language server
   'markdown-language-server' \              # markdown language server
+  'vim-language-server' \                   # vim language server
+  'intelephense' \                          # php language server
+  'vscode-css-languageserver-bin' \         # css/less/sass language server
 )
 
 #######################
