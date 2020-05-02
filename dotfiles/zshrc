@@ -58,6 +58,13 @@ autoload -U colors
 colors
 
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
+# %s - the current version control system, like git or svn
+# %r - the name of the root directory of the repository
+# %S - the current path relative to the repository root directory
+# %b - branch information, like master
+# %m - in case of Git, show information about stashes
+# %u - show unstaged changes in the repository
+# %c - show staged changes in the repository
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
@@ -65,7 +72,7 @@ zstyle ':vcs_info:*' stagedstr "%F{green}●%f"             # default 'S'
 zstyle ':vcs_info:*' unstagedstr "%F{red}●%f"             # default 'U'
 zstyle ':vcs_info:*' use-simple true
 zstyle ':vcs_info:git+set-message:*' hooks git-untracked
-zstyle ':vcs_info:git*:*' formats '%m%c%u'                # default ' (%s)-[%b]%c%u-'
+zstyle ':vcs_info:git*:*' formats '%F{59}%b%f %m%c%u'     # default ' (%s)-[%b]%c%u-'
 zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u]'   # default ' (%s)-[%b|%a]%c%u-'
 
 function +vi-git-untracked() {
