@@ -6,8 +6,8 @@
 
 " - [ ] test json and yaml schema support
 " - [ ] learn how to get info about type of item under cursor, function info, etc
-"       - setup mappings for them or have them auto displayed
-"       - configure them so they have syntax highlighting, and are type set well
+"      - setup mappings for them or have them auto displayed
+"      - configure them so they have syntax highlighting, and are type set well
 " - [ ] lsp completion does not appear unless the buffer has been saved
 " - [ ] adjust how quickly errors show up in real time... virtual text can be
 "       distsacting when popping in and out as you type
@@ -24,6 +24,9 @@
 "      - markdown??
 "      - other js server?? https://github.com/prabirshrestha/vim-lsp/wiki/Servers-JavaScript
 "      - other go server?? https://github.com/prabirshrestha/vim-lsp/wiki/Servers-Go
+" - [ ] fix for stuck floating windows, currently have to <C-w>o to close, see
+"       if issues are registered on git repo for it, if make an easy map?
+" - [ ] ocassional stuck error sign on a row...
 
 let g:lsp_diagnostics_enabled = 1           " turn on language warnings, errors, etc
 let g:lsp_diagnostics_echo_cursor = 1       " enable echo under cursor when in normal mode
