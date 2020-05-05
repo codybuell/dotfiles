@@ -67,7 +67,7 @@ endfunction
 "         \)
 " endfunction
 
-function! buell#statusline#gutterpadding() abort
+function! buell#statusline#gutterwidth() abort
 
   " determine how wide our gutter is
   "
@@ -83,7 +83,7 @@ function! buell#statusline#gutterpadding() abort
   "    gets widew than the default numberwidth of 4 or 8
   "  - numberwidth, 4 or 8 depending on vim/nvim or vi
   "  - 2, a min width
-  let l:gutterWidth=max([strlen(line('$')) + 1, &numberwidth, 2])
+  let l:numbercolumn=max([strlen(line('$')) + 1, &numberwidth, 2])
 
   " figure out the sign column width
   if &signcolumn =~ 'auto'
@@ -102,8 +102,9 @@ function! buell#statusline#gutterpadding() abort
   endif
 
   " put it all together and return the concatenated string
-  let l:padding=repeat(' ', l:gutterWidth + &foldcolumn + l:signColumn + 1)
-  return l:padding
+  " let l:padding=repeat(' ', l:numbercolumn + &foldcolumn + l:signColumn + 1)
+  let l:width=l:numbercolumn + &foldcolumn + l:signColumn + 1
+  return l:width
 endfunction
 
 function! buell#statusline#fileprefix() abort
@@ -133,7 +134,7 @@ function! buell#statusline#fenc() abort
 endfunction
 
 function! buell#statusline#lhs() abort
-  let l:line=buell#statusline#gutterpadding()
+  let l:line=repeat(' ', buell#statusline#gutterwidth())
   " HEAVY BALLOT X - Unicode: U+2718, UTF-8: E2 9C 98
   "let l:line.=&modified ? '✘   ' : '    '
   "let l:line.='    '
@@ -231,10 +232,7 @@ endfunction
 
 function! buell#statusline#blur_statusline() abort
   " buffer number: filename).
-  let l:blurred='%{buell#statusline#gutterpadding()}'
-  let l:blurred.='\ ' " space
-  let l:blurred.='\ ' " space
-  let l:blurred.='\ ' " space
+  let l:blurred=repeat('\ ', buell#statusline#gutterwidth())
   let l:blurred.='\ ' " space
   let l:blurred.='%<' " truncation point
   let l:blurred.='%f' " filename
