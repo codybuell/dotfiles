@@ -31,6 +31,7 @@ PACKAGES=( \
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
     'ctags' \                       # handy development tool, needed for vim ctags
     'ddclient' \                    # dynamic dns client, configurable for google dns
+    'direnv' \                      # dynamically set environment variables per directory
     'docker' \                      # the docker engine
     'docker-completion' \           # autocompletion for docker
     'docker-compose' \              # for building machines from yaml definitions
