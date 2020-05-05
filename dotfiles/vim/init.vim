@@ -76,76 +76,89 @@
 "     command mode                                                             "
 "     ------------                                                             "
 "                                                                              "
+"                                                                              "
+"   Lists:                                                                     "
+"                                                                              "
+"   QUICKFIX (global to one session)                                           "
+"     - ack results from ferret                                                "
+"                                                                              "
+"   LOCATION LIST (local to current tab or window within a tab)                "
+"                                                                              "
+"                                                                              "
+"     * difference relevant when running splits, vim windows are tmux panes    "
+"       equivalents, note however that tabs are collections of windows, so     "
+"       a tab is treated as a different window                                 "
+"                                                                              "
+"                                                                              "
 "   Plugins:                                                                   "
 "                                                                              "
 "   COMPLETION                                                                 "
-"     ultisnips      snippet utility                                           "
-"     deoplete       asynchronous completion utility                           "
-"     deoplete-go    deoplete completion source for go language                "
-"     neco-vim       deoplete completion source for viml                       "
-"     neco-syntax    deoplete completion source for various syntaxes           "
-"     emoji          deoplete completion source for emoji's                    "
+"     ultisnips         snippet utility                                        "
+"     deoplete          asynchronous completion utility                        "
+"     deoplete-go       deoplete completion source for go language             "
+"     neco-vim          deoplete completion source for viml                    "
+"     neco-syntax       deoplete completion source for various syntaxes        "
+"     emoji             deoplete completion source for emoji's                 "
+"     deoplete-vim-lsp  deoplete completion source for vim-lsp                 "
 "                                                                              "
 "                                                                              "
 "   IDE (linting & heavier syntax / language plugins)                          "
-"     ale            asynchronous linting engine                               "
-"     vim-go         improved go language support                              "
-"     tagbar         ctags of currently open buffer ordered by scope           "
+"     vim-go            improved go language support                           "
+"     tagbar            ctags of open buffer ordered by scope                  "
+"     vim-lsp           language server support, req async.vim                 "
+"   X ale               asynchronous linting engine                            "
 "                                                                              "
 "                                                                              "
 "   NAVIGATION                                                                 "
-"     vinegar        netrw mapped to -, and - to navigate up to parent folder  "
-"     nerdtree       tree-based file browser                                   "
-"     command-t      fuzzy search file navigatio                               "
-"     loupe          improved search configurations                            "
-"     easymotion     improved movement around files                            "
+"     vinegar           netrw mapped to -, and - to navigate up folders        "
+"     nerdtree          tree-based file browser                                "
+"     command-t         fuzzy search file navigatio                            "
+"     loupe             improved search configurations                         "
+"     easymotion        improved movement around files                         "
 "                                                                              "
 "                                                                              "
 "   SYNTAX & LIGIBILITY                                                        "
-"     pinnacle       highlight group manipulations                             "
-"     base16-vim     base16 color themes                                       "
-"     jsonc.vim      syntax support for cjson / jsonc                          "
-"     markdown       improved support and wiki like features for markdown      "
-"     typescript     typscript support for vim                                 "
-"     scss-syntax    fixes super slow load times with native nvim sass syntax  "
-"     vim-vue        syntax highlighting for vue components                    "
-"     vim-blade      blade syntax highlighting                                 "
+"     pinnacle          highlight group manipulations                          "
+"     base16-vim        base16 color themes                                    "
+"     jsonc.vim         syntax support for cjson / jsonc                       "
+"     markdown          improved support & wiki like features for markdown     "
+"     typescript        typscript support for vim                              "
+"     scss-syntax       fixes slow load times with native nvim sass syntax     "
+"     vim-vue           syntax highlighting for vue components                 "
+"     vim-blade         blade syntax highlighting                              "
 "                                                                              "
 "                                                                              "
 "   EDITING                                                                    "
-"     scalpel        improved in file word replacement                         "
-"     surround       ability to change surrounding enclosures                  "
-"     speeddating    ctrl-a ctrl-x to also increment decrement dates           "
-"     repeat         add ability to repeat non atomic functions                "
-"     commentary     comment out blocks of text, add comment w motions         "
-"     vim-camelsnek  case conversion util                                      "
-"     ferret         multi-file search and search/replace                      "
-"     expand-region  grow or shrink visual selections                          "
-"     splitjoin      toggle code between single and multi-line formats         "
+"     scalpel           improved in file word replacement                      "
+"     surround          ability to change surrounding enclosures               "
+"     speeddating       ctrl-a ctrl-x to also increment decrement dates        "
+"     repeat            add ability to repeat non atomic functions             "
+"     commentary        comment out blocks of text, add comment w motions      "
+"     vim-camelsnek     case conversion util                                   "
+"     ferret            multi-file search and search/replace                   "
+"     expand-region     grow or shrink visual selections                       "
+"     splitjoin         toggle code between single and multi-line formats      "
 "                                                                              "
 "                                                                              "
 "   INTEGRATIONS                                                               "
-"     terminus       improved terminal and tmux integration                    "
-"     fugitive       git integration to vim                                    "
-"     vim-marked     open markdown documents in Marked2                        "
+"     terminus         improved terminal and tmux integration                  "
+"     fugitive         git integration to vim                                  "
+"     vim-marked       open markdown documents in Marked2                      "
 "                                                                              "
 "                                                                              "
 "   MISCELLANEOUS                                                              "
-"     vim-plug       plugin manager that allows direct cloning of repositories "
-"                    by modifying the runtimepath to inclede each bundle dir   "
-"     hardtime       stop repeating basic movement keys                        "
-"     howmuch        perform math operations on visual selections              "
-"     goyo           writing room stylings for focused work                    "
-"     limelight      darken all text but current paragraph for improved focus  "
-"     fastfold       speed up folding by folding only when needed              "
-"     vim-vis        improved visual mode functionality                        "
-"     vim-obsession  improved session management                               "
+"     vim-plug          plugin manager that allows direct cloning of           "
+"                       repositories by modifying the runtimepath to           "
+"                       inclede each bundle dir                                "
+"     hardtime          stop repeating basic movement keys                     "
+"     howmuch           perform math operations on visual selections           "
+"     goyo              writing room stylings for focused work                 "
+"     limelight         darken all text but current paragraph, focus mode      "
+"     fastfold          speed up folding by folding only when needed           "
+"     vim-vis           improved visual mode functionality                     "
+"     vim-obsession     improved session management                            "
+"     async.vim         job normalization btw vim8 & neovem                    "
 "                                                                              "
-"     * settings in plugin/vim-plug.vim                                        "
-"                                                                              "
-"     (snippets)                                                               "
-"     (syntax checker)                                                         "
-"     (colors)                                                                 "
 "                                                                              "
 "   Tips:                                                                      "
 "                                                                              "
@@ -216,10 +229,6 @@ endfunction
 " define / initialize plugins, this needs to reside here and be sourced first
 call plug#begin('~/.vim/bundles')
 
-" vim-plug: this plugin manager (adding here for doc support)
-Plug 'junegunn/vim-plug'
-
-" deoplete: asynchronous completion utility
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', {
   \   'do': ':UpdateRemotePlugins'
@@ -230,132 +239,64 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" deoplete-go: deoplete completion source for go (deps in scripts/go.sh)
 Plug 'zchee/deoplete-go', {
 \   'do': 'make'
 \ }
 
-" neco-syntax: deoplete completion source for various syntaxes
-Plug 'Shougo/neco-syntax'
-
-" neco-vim: deoplete completion source for viml
-Plug 'Shougo/neco-vim'
-
-" vim-go: improved go language support (occasionally run :GoUpdateBinaries)
 Plug 'fatih/vim-go', {
 \   'do': ':GoInstallBinaries'
 \ }
 
-" command-t: fuzzyfinding file and buffer navigation
 Plug 'wincent/command-t', {
 \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
 \ }
 
-" terminus: improved terminal and tmux integration
+Plug 'junegunn/vim-plug'              " adding here for doc support
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neco-vim'
 Plug 'wincent/terminus'
-
-" loupe: improved search configruations
 Plug 'wincent/loupe'
-
-" ferret: multi-file search and search/replace
 Plug 'wincent/ferret'
-
-" scalpel: improved in file word replacement
 Plug 'wincent/scalpel'
-
-" ale: asynchronous file syntax linting
-Plug 'w0rp/ale'
-
-" vim vinegar: netrw improvements
 Plug 'tpope/vim-vinegar'
-
-" base16-vim: base16 color themes
 Plug 'chriskempson/base16-vim'
-
-" nerdtree: tree-based file browser
 Plug 'scrooloose/nerdtree'
-
-" tagbar: ctags of currently open buffer ordered by scope
 Plug 'majutsushi/tagbar'
-
-" ultisnips: snippet utility
 Plug 'SirVer/ultisnips'
-
-" vim-markdown: improved support and wiki like features for markdown
 Plug 'plasticboy/vim-markdown'
-
-" goyo: writing room stylings for focused work
 Plug 'junegunn/goyo.vim'
-
-" limelight: darken all text but current paragraph for improved focus
 Plug 'junegunn/limelight.vim'
-
-" vim-repeat: add ability to repeat non atomic functions
 Plug 'tpope/vim-repeat'
-
-" vim-surround: ability to change surrounding enclosures
 Plug 'tpope/vim-surround'
-
-" vim-fugitive: git integration to vim
 Plug 'tpope/vim-fugitive'
-
-" vim-speeddating: ctrl-a ctrl-x to also increment decrement dates
 Plug 'tpope/vim-speeddating'
-
-" vim-commentary: comment out blocks of text, add comment w motions
 Plug 'tpope/vim-commentary'
-
-" easymotion: improved movement around files
 Plug 'easymotion/vim-easymotion'
-
-" vim-hardtime: stop repeating basic movement keys
 Plug 'takac/vim-hardtime'
-
-" fastfold: speed up folding on large documents, fold only when needed
 Plug 'Konfekt/FastFold'
-
-" splitjoin: toggle code between single and multi-line formats
 Plug 'AndrewRadev/splitjoin.vim'
-
-" vim-expand-region: grow or shrink visual selections
 Plug 'terryma/vim-expand-region'
-
-" pinnacle: highlight group manipulations
 Plug 'codybuell/pinnacle'
-
-" deoplete-emoji: deoplete completion source for emoji's
 Plug 'fszymanski/deoplete-emoji'
-
-" vim-marked: open markdown documents in Marked2
 Plug 'itspriddle/vim-marked'
-
-" vim-blade: blade syntax highlighting
 Plug 'jwalton512/vim-blade'
-
-" vim-vue: syntax highlighting for vue components
 Plug 'posva/vim-vue'
-
-" typescript: typscript support for vim
 Plug 'leafgarland/typescript-vim'
-
-" howmuch: perform math operations on visual selections
 Plug 'codybuell/HowMuch'
-
-" vim-vis: improved visual mode functionality
 Plug 'codybuell/vis'
-
-" vim-obsession: improved session management
 Plug 'tpope/vim-obsession'
-
-" scss-syntax: fixes super slow load times with native nvim sass syntax
 Plug 'cakebaker/scss-syntax.vim'
-
-" vim-camelsnek: case conversion util
 Plug 'nicwest/vim-camelsnek'
-
-" jsonc.vim: support for commented json files
 Plug 'neoclide/jsonc.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'codybuell/vim-lsp'
+Plug 'lighttiger2505/deoplete-vim-lsp'
 
+" Plug 'thomasfaingnaert/vim-lsp-snippets'
+" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+" Plug 'w0rp/ale'
+
+" keep plug calls above this line
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -457,6 +398,8 @@ set lazyredraw                                     " no redraw during macros etc
 set backspace=2                                    " make bkspace work on line br & auto indent
 set hidden                                         " allow buffer switching when unsaved
 set confirm                                        " prompt to save modified hidden buffers
+set completeopt=menu,preview                       " aka cot, preview needed for lsp lang help
+set signcolumn=yes                                 " always show the sign column
 
 " vim specific (not nvim)
 if !has('nvim')

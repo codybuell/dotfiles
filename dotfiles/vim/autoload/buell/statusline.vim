@@ -31,7 +31,7 @@ function! buell#statusline#drawstatusline() abort
   set statusline+=%4*                                " reset highlight group
   set statusline+=%=                                 " split point for left and right groups
 
-  set statusline+=%{buell#statusline#linterstatus()} " ale warnings and errors
+" set statusline+=%{buell#statusline#linterstatus()} " ale warnings and errors
   set statusline+=%*                                 " reset highlight group
   set statusline+=\                                  " space
   set statusline+=%{buell#statusline#sessionname()}  " session name
@@ -53,28 +53,56 @@ function! buell#statusline#sessionname() abort
   return ''
 endfunction
 
-function! buell#statusline#linterstatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_warnings = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? '' : printf(
-        \   '%d:⚠  %d:⤫ ',
-        \   all_warnings,
-        \   all_errors
-        \)
-endfunction
+" function! buell#statusline#linterstatus() abort
+"   " ℓ ℒ ℘ ⨂  ● ○ 	✘ 	⨯  	×  x  	𐆒	𐆓
+"   let l:counts = ale#statusline#Count(bufnr(''))
+" 
+"   let l:all_errors = l:counts.error + l:counts.style_error
+"   let l:all_warnings = l:counts.total - l:all_errors
+" 
+"   return l:counts.total == 0 ? '' : printf(
+"         \   '%d:⚠  %d:⤫ ',
+"         \   all_warnings,
+"         \   all_errors
+"         \)
+" endfunction
 
 function! buell#statusline#gutterpadding() abort
-  let l:minwidth=2
-  let l:gutterWidth=max([strlen(line('$')) + 1, &numberwidth, l:minwidth])
-  "let l:padding=repeat(' ', l:gutterWidth - 1)
-  redir => signlist
-    silent! execute 'sign place buffer='. bufnr('%')
-  redir END
-  let l:signColumn=(len(signlist) > 17) ? 2 : 0
-  let l:padding=repeat(' ', l:gutterWidth - 1 + &foldcolumn + l:signColumn)
+
+  " determine how wide our gutter is
+  "
+  " gutter is comprised of:
+  "   - fold indicator - width set by foldcolumn
+  "   - signs - 1 by default if sign present or turned on, can be more
+  "   - number column - 4 or more chars wide based on doc length
+  "   - padding - one space for padding on the right of gutter
+
+  " figure out our number column width by grabbing the largest between:
+  "  - strlen(buffer line count) + 1, the digits in our buffers number of
+  "    lines + 1, we do this as after about 10K lines or so th number column
+  "    gets widew than the default numberwidth of 4 or 8
+  "  - numberwidth, 4 or 8 depending on vim/nvim or vi
+  "  - 2, a min width
+  let l:gutterWidth=max([strlen(line('$')) + 1, &numberwidth, 2])
+
+  " figure out the sign column width
+  if &signcolumn =~ 'auto'
+    " if our signcolumn is set to auto check to see if a sign is present
+    " todo: signcolumn can be set to a width wider than 1, detect and scale
+    "       see :help signcolumn
+    redir => signlist
+      silent! execute 'sign place buffer='. bufnr('%')
+    redir END
+    let l:signColumn=(len(signlist) > 17) ? 2 : 0
+  elseif &signcolumn !~ 'no'
+    " add width if signcolumn is set tak
+    " todo: signcolumn can be set to a width wider than 1, detect and scale
+    "       see :help signcolumn
+    let l:signColumn=(&signcolumn == 'yes') ? 2 : 0
+  endif
+
+  " put it all together and return the concatenated string
+  let l:padding=repeat(' ', l:gutterWidth + &foldcolumn + l:signColumn + 1)
   return l:padding
 endfunction
 
@@ -107,8 +135,8 @@ endfunction
 function! buell#statusline#lhs() abort
   let l:line=buell#statusline#gutterpadding()
   " HEAVY BALLOT X - Unicode: U+2718, UTF-8: E2 9C 98
-  "let l:line.=&modified ? '✘ ' : '  '
-  let l:line.='  '
+  "let l:line.=&modified ? '✘   ' : '    '
+  "let l:line.='    '
   return l:line
 endfunction
 

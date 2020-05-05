@@ -51,8 +51,8 @@ nnoremap                    <localleader>sr   :so ~/.vim/sessions/
 nnoremap                    <localleader>sp   :Obsession<CR>
 
 " ale mappings
-nmap                        <Up>              <Plug>(ale_previous_wrap)
-nmap                        <Down>            <Plug>(ale_next_wrap)
+"nmap                        <Up>              <Plug>(ale_previous_wrap)
+"nmap                        <Down>            <Plug>(ale_next_wrap)
 
 " autoload helper functions
 nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>

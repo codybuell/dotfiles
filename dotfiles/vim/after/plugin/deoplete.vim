@@ -13,7 +13,7 @@ endif
 " filters - how to display candidates (order etc)
 
 " core sources:
-"   around     [~]     - from around the current cursor location
+"   around     [A]     - from around the current cursor location
 "   buffer     [B]     - from the current buffer, all other buffers in current tab, and open buffers with same filetype
 "   dictionary [D]     - keywords from the dictionary
 "   file       [F]     - filesystem paths and files
@@ -29,17 +29,20 @@ endif
 "   mail       [@]     - query addresses from lbdb (repo)
 "   contact    [@]     - mail but without header req and email address (repo)
 "   emoji      [emoji] - :emoji: completion for md & gitcommit docs (deoplete-emoji)
+"   lsp        [lsp]   - vim-lsp language server support (deoplete-vim-lsp)
 
 " define sources, otherwise deoplete uses complete() by default :set complete?
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
 call deoplete#custom#option('sources', {
-\   '_':         ['around', 'buffer', 'member', 'file', 'ultisnips'],
-\   'cpp':       ['buffer', 'member', 'ultisnips', 'tag'],
-\   'go':        ['around', 'buffer', 'member', 'go', 'syntax', 'ultisnips', 'tag'],
-\   'html':      ['around', 'buffer', 'member', 'ultisnips'],
-\   'mail':      ['dictionary', 'mail', 'ultisnips'],
-\   'vim':       ['around', 'buffer', 'member', 'file', 'ultisnips', 'vim'],
-\   'markdown':  ['around', 'buffer', 'member', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji']
+\   '_':          ['lsp','around', 'buffer', 'member', 'file', 'ultisnips'],
+\   'cpp':        ['buffer', 'member', 'ultisnips', 'tag'],
+\   'go':         ['lsp', 'around', 'buffer', 'member', 'go', 'syntax', 'ultisnips', 'tag'],
+\   'html':       ['lsp', 'around', 'buffer', 'member', 'ultisnips'],
+\   'mail':       ['dictionary', 'mail', 'ultisnips'],
+\   'vim':        ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips', 'vim'],
+\   'markdown':   ['around', 'buffer', 'member', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji'],
+\   'javascript': ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag'],
+\   'python':     ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag']
 \ })
 
 " kick up the possible max number of results from 500 base
