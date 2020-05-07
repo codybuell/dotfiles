@@ -34,7 +34,7 @@ endif
 " define sources, otherwise deoplete uses complete() by default :set complete?
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
 call deoplete#custom#option('sources', {
-\   '_':          ['lsp','around', 'buffer', 'member', 'file', 'ultisnips'],
+\   '_':          ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips'],
 \   'cpp':        ['buffer', 'member', 'ultisnips', 'tag'],
 \   'go':         ['lsp', 'around', 'buffer', 'member', 'go', 'syntax', 'ultisnips', 'tag'],
 \   'html':       ['lsp', 'around', 'buffer', 'member', 'ultisnips'],
