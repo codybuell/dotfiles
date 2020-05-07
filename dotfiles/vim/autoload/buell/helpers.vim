@@ -440,7 +440,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
-" Highlight Groups                                                             "
+" Highlight Groups / Syntax Stacks                                             "
 "                                                                              "
 " Print highlight groups of element under the cursor.                          "
 "                                                                              "
@@ -449,10 +449,24 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! buell#helpers#HighlightGroups() abort
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  " option 1
+  for i1 in synstack(line("."), col("."))
+    let i2 = synIDtrans(i1)
+    let n1 = synIDattr(i1, "name")
+    let n2 = synIDattr(i2, "name")
+    echo n1 "->" n2
+  endfor
+
+  " " option 2
+  " if !exists("*synstack")
+  "   return
+  " endif
+  " echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+
+  " " option 3
+  " echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  "   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  "   \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
