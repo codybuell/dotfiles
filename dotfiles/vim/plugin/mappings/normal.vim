@@ -58,6 +58,8 @@ nnoremap                    <localleader>sp   :Obsession<CR>
 nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>
 nnoremap  <silent>          <leader>-         :<C-U>call buell#helpers#CycleSidebars()<CR>
 nnoremap  <silent>          <leader>`         :<C-U>call buell#helpers#CycleViews()<CR>
+nnoremap  <silent>          <leader>1         :so $VIMRUNTIME/syntax/hitest.vim<CR>
+nnoremap  <silent>          <leader>2         :<C-U>call buell#helpers#HighlightGroups()<CR>
 
 " fastfold update folds
 nmap                        zuz               <Plug>(FastFoldUpdate)
