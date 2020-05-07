@@ -83,7 +83,11 @@ function! buell#statusline#gutterwidth() abort
   "    gets widew than the default numberwidth of 4 or 8
   "  - numberwidth, 4 or 8 depending on vim/nvim or vi
   "  - 2, a min width
-  let l:numbercolumn=max([strlen(line('$')) + 1, &numberwidth, 2])
+  if &nu || &rnu
+    let l:numbercolumn=max([strlen(line('$')) + 1, &numberwidth, 2])
+  else
+    let l:numbercolumn=0
+  endif
 
   " figure out the sign column width
   if &signcolumn =~ 'auto'
@@ -99,6 +103,8 @@ function! buell#statusline#gutterwidth() abort
     " todo: signcolumn can be set to a width wider than 1, detect and scale
     "       see :help signcolumn
     let l:signColumn=(&signcolumn == 'yes') ? 2 : 0
+  else
+    let l:signColumn=0
   endif
 
   " put it all together and return the concatenated string

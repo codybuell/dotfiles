@@ -19,16 +19,22 @@ function! buell#foldtext#CustomFoldText() abort
         let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g') . " "
     endif
     " check if signs are showing
-    redir =>a |exe "sil sign place buffer=".bufnr('')|redir end
-    let signlist=split(a, '\n')
+    if &signcolumn =~ 'auto'
+      redir =>a |exe "sil sign place buffer=".bufnr('')|redir end
+      let signlist=split(a, '\n')
+      let l:signColumn=(len(signlist) > 2 ? 2 : 0)
+    elseif &signcolumn !~ 'no'
+      let l:signColumn=(&signcolumn == 'yes') ? 2 : 0
+    endif
+
     " check if numbercolumn is showing
-    if &nu
-      let ncw = &numberwidth
+    if &nu || &rnu
+      let l:ncw = max([strlen(line('$')) + 1, &numberwidth])
     else
-      let ncw = 0
+      let l:ncw = 0
     endif
     " define the available width for foldbar
-    let w = winwidth(0) - &foldcolumn - ncw - (len(signlist) > 2 ? 2 : 0)
+    let w = winwidth(0) - &foldcolumn - l:ncw - l:signColumn
     let foldSize = 1 + v:foldend - v:foldstart
     let foldSizeStr = " " . foldSize . " lines "
     let foldLevelStr = repeat(" ", indent(line))
