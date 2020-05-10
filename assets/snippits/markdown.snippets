@@ -11,7 +11,21 @@ endglobal
 #                #
 ##################
 
-snippet min "meeting minutes framework"
+snippet m "meeting minutes framework for journal entries" b
+${1:Meeting Title} (`date "+%H:%M"`)
+${1/./-/g}--------
+
+### Attendees
+
+- ${0}
+
+### Notes
+
+### Assignments / Asks
+
+endsnippet
+
+snippet min "meeting minutes framework" b
 ${1:Meeting Title} (`date "+%Y.%m.%d %H:%M"`)
 ${1/./-/g}-------------------
 
@@ -23,7 +37,9 @@ ${2}
 
 ### Notes
 
-### Assignments
+
+### Assignments / Asks
+
 
 endsnippet
 
@@ -31,24 +47,21 @@ snippet wj "work journal scaffolding" b
 `date "+%Y.%m.%d"`
 ==========
 
-[ ] able to zero out
-[ ] beyond work std hrs
-[ ] # meetings declined 
-[ ] # meetings accepted 
-[ ] # meetings held
+- [ ] prep next business day
+- [ ] zero out email inbox
+- [ ] zero out notion inbox
+- [ ] zero out gitlab inbox
+- [ ] zero out slack inbox
+- [ ] zero out journal entry
+- [ ] zero out scrap notes
 
 Agenda
-------
+======
 
-- ${0}
-
-Asks
-----
-
-- 
+${0}
 
 Notes
------
+=====
 
 endsnippet
 
