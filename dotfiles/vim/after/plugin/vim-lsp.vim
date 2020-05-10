@@ -27,6 +27,8 @@
 " - [ ] fix for stuck floating windows, currently have to <C-w>o to close, see
 "       if issues are registered on git repo for it, if make an easy map?
 " - [ ] ocassional stuck error sign on a row...
+" - [ ] https://github.com/thomasfaingnaert/vim-lsp-ultisnips
+" - [ ] review doc and config as you go
 
 let g:lsp_diagnostics_enabled = 1           " turn on language warnings, errors, etc
 let g:lsp_diagnostics_echo_cursor = 1       " enable echo under cursor when in normal mode
