@@ -165,7 +165,18 @@ function! buell#wiki#createFollowWikiLink() abort
     execute "normal \<Plug>Markdown_EditUrlUnderCursor"
   elseif l:type == 'section'
     let l:target = substitute(l:link, '.*(#\([^)]*\).*', '\1', '')
-    execute 'g/#* '.l:target.'/ norm ggn,/'
+    " check for headers using underlining -'s or ='s
+    let l:dashes = execute('%s/^'.l:target.'\n[=-]\+$//n', 'silent!')
+    " check for headers using #'s
+    let l:hashes = execute('%s/#* '.l:target.'//n', 'silent!')
+    " prefer -,= over #
+    if len(l:dashes)
+      execute 'g/^'.l:target.'\n[=-]\+$/ norm ggn,/'
+    elseif len(l:hashes)
+      execute 'g/#* '.l:target.'/ norm ggn,/'
+    else
+      echo 'section not found in the document'
+    endif
   elseif l:type == 'web'
     execute "normal \<Plug>Markdown_OpenUrlUnderCursor"
   elseif l:type == 'wiki'
