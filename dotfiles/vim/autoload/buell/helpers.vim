@@ -170,7 +170,8 @@ function! buell#helpers#CycleSidebars() abort
     TagbarClose
   " else open nerdtree
   else
-    NERDTree
+    " % opens to location of current buffer, remove to start at vim's cwd
+    NERDTree %
   endif
 endfunction
 
