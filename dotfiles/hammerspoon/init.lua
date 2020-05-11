@@ -546,20 +546,20 @@ local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', re
 --  control dbl-press  --
 -------------------------
 
--- you need to double tap somewhat slowly due to how you have
--- caps and the actual control keys remapped with karabiner
-ctrlDoublePress = require("ctrlDoublePress")
-ctrlDoublePress.timeFrame = 1
-ctrlDoublePress.action = function()
-  log.i("double tap detected")
-  hs.alert('Reset layout')
-  for key, app in pairs(hs.application.runningApplications()) do
-    app:unhide()
-  end
-  local screens = hs.screen.allScreens()
-  screenCount = #screens
-  activateLayout(screenCount)
-end
+-- -- you need to double tap somewhat slowly due to how you have
+-- -- caps and the actual control keys remapped with karabiner
+-- ctrlDoublePress = require("ctrlDoublePress")
+-- ctrlDoublePress.timeFrame = 1
+-- ctrlDoublePress.action = function()
+--   log.i("double tap detected")
+--   hs.alert('Reset layout')
+--   for key, app in pairs(hs.application.runningApplications()) do
+--     app:unhide()
+--   end
+--   local screens = hs.screen.allScreens()
+--   screenCount = #screens
+--   activateLayout(screenCount)
+-- end
 
 -------------------------
 --  command dbl-press  --
