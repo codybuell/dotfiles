@@ -158,6 +158,7 @@
 "     vim-vis           improved visual mode functionality                     "
 "     vim-obsession     improved session management                            "
 "     async.vim         job normalization btw vim8 & neovem                    "
+"     firenvim          use neovim in browser textareas!                       "
 "                                                                              "
 "                                                                              "
 "   Tips:                                                                      "
@@ -251,6 +252,10 @@ Plug 'wincent/command-t', {
 \   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
 \ }
 
+Plug 'glacambre/firenvim', {
+\   'do': { _ -> firenvim#install(0) }
+\ }
+
 Plug 'junegunn/vim-plug'              " adding here for doc support
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim'
@@ -291,6 +296,7 @@ Plug 'neoclide/jsonc.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'codybuell/vim-lsp'
 Plug 'lighttiger2505/deoplete-vim-lsp'
+
 
 " Plug 'thomasfaingnaert/vim-lsp-snippets'
 " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
