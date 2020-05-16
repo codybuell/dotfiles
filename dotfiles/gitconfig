@@ -31,3 +31,5 @@
 	required = true
 [status]
 	submoduleSummary = true
+[gpg]
+	program = /usr/local/bin/gpg
