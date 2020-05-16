@@ -76,6 +76,7 @@ PACKAGES=( \
     'php' \                         # latest and greatest php
     'picocom' \                     # used with ino for serial connection to arduino
     'pidgin' \                      # pidgin and finch xmpp protocol clients
+    'pinentry' \                    # interface used to prompt for gpg pins
     'python' \                      # python language
     'python3' \                     # python 3 language
     'qrencode' \                    # utility to generate qr codes
