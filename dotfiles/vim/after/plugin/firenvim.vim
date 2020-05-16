@@ -19,6 +19,9 @@ if exists('g:started_by_firenvim')
   " drop our status bar
   set laststatus=0
 
+  " get rid of our eol character
+  set lcs=tab:>-,trail:.,extends:»,precedes:«
+
   " configurations, global and site specific, manually launch with shortcut
   " set in chrome://extensions/shortcuts or about://addons in firefox, use
   " firenvim instead of the standard vim command line, simplifies interface
