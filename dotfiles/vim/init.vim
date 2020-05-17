@@ -144,6 +144,7 @@
 "     terminus         improved terminal and tmux integration                  "
 "     fugitive         git integration to vim                                  "
 "     vim-marked       open markdown documents in Marked2                      "
+"     vim-dadbod       database interactions                                   "
 "                                                                              "
 "                                                                              "
 "   MISCELLANEOUS                                                              "
@@ -296,6 +297,7 @@ Plug 'neoclide/jsonc.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'codybuell/vim-lsp'
 Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'tpope/vim-dadbod'
 
 
 " Plug 'thomasfaingnaert/vim-lsp-snippets'
