@@ -4,6 +4,11 @@
 "               "
 """""""""""""""""
 
+" bail if limelight is not installed
+if !buell#helpers#PluginExists('limelight')
+  finish
+endif
+
 " see after/plugin/goyo.vim
 
 " opacity, defaults 0.5

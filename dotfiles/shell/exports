@@ -112,11 +112,6 @@ export FTP_PASSIVE=1
 # colour ls listings
 export CLICOLOR=true
 
-# for Amazon Web Services EC2 API
-export EC2_HOME=~/bin/ec2-api-tools
-export EC2_PRIVATE_KEY=~/.ssh/ec2wincent_cert_pk.pem
-export EC2_CERT=~/.ssh/ec2wincent_cert.pem
-
 export GPG_TTY=$(tty)
 
 # lastpass session length (12 hours in seconds)

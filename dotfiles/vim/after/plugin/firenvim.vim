@@ -4,17 +4,15 @@
 "              "
 """"""""""""""""
 
+" bail if firenvim is not installed
+if !buell#helpers#PluginExists('firenvim')
+  finish
+endif
+
 " requires firenvim plugin in chrome or firefox
 
 " firevim specific settings
 if exists('g:started_by_firenvim')
-
-  " set a light colorscheme so it doesn't clash with the native webpage
-  colorscheme base16-github
-  " colorscheme base16-default-light
-  " colorscheme base16-google-light
-  " colorscheme base16-grayscale-light
-  " colorscheme base16-tomorrow
 
   " drop our status bar
   set laststatus=0
@@ -39,4 +37,26 @@ if exists('g:started_by_firenvim')
   \   }
   \ }
 
+endif
+
+function s:SetUpFirenvimColorscheme()
+  
+  " set a light colorscheme so it doesn't clash with the native webpage
+  colorscheme base16-github
+  " colorscheme base16-default-light
+  " colorscheme base16-google-light
+  " colorscheme base16-grayscale-light
+  " colorscheme base16-tomorrow
+
+endfunction
+
+if has('autocmd')
+  augroup BuellFirenvimAutocmds
+    autocmd!
+
+    if exists('g:started_by_firenvim')
+      autocmd ColorScheme * call s:SetUpFirenvimColorscheme()
+    endif
+
+  augroup END
 endif

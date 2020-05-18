@@ -54,6 +54,19 @@ function! buell#statusline#sessionname() abort
 endfunction
 
 " function! buell#statusline#linterstatus() abort
+
+"       let sl = ''
+"       if luaeval('vim.lsp.buf.server_ready()')
+"           let sl.='%#MyStatuslineLSP#E:'
+"           let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.util.buf_diagnostics_count(\"Error\")")}'
+"           let sl.='%#MyStatuslineLSP# W:'
+"           let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.util.buf_diagnostics_count(\"Warning\")")}'
+"       else
+"           let sl.='%#MyStatuslineLSPErrors#off'
+"       endif
+"       return sl
+
+
 "   " ℓ ℒ ℘ ⨂  ● ○ 	✘ 	⨯  	×  x  	𐆒	𐆓
 "   let l:counts = ale#statusline#Count(bufnr(''))
 " 

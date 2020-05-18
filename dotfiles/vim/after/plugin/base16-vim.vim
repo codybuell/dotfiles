@@ -45,7 +45,7 @@ function s:SetColorscheme()
     else
       echoerr 'Bad background ' . s:config[1] . ' in ' . s:config_file
     endif
-    if filereadable(expand('~/.vim/bundles/base16-vim/colors/base16-' . s:config[0] . '.vim'))
+    if filereadable(expand('~/.vim/pack/bundle/opt/base16-vim/colors/base16-' . s:config[0] . '.vim'))
       execute 'color base16-' . s:config[0]
     else
       echoerr 'Bad scheme ' . s:config[0] . ' in ' . s:config_file
@@ -62,9 +62,6 @@ function s:SetColorscheme()
   "let l:color=pinnacle#extract_bg('ColorColumn')
   "let l:highlight=pinnacle#highlight({'bg': l:color, 'fg': l:color})
   "execute 'highlight EndOfBuffer ' . l:highlight
-
-  " run all colorscheme autocommands to ensure consistency
-  doautocmd ColorScheme
 
 " " re-add matches for tabs after all loads so that they highlight correctly
 " " on the current line when cursorline is enabled, else hi below is ignored
@@ -90,16 +87,22 @@ function s:SetColorscheme()
 " " highlight any non ascii characters
 " syntax match nonascii "[^\x00-\x7F]"
 " highlight nonascii guibg=Red ctermbg=2
+
+  " run all colorscheme autocommands to ensure consistency
+  doautocmd ColorScheme
+
 endfunction
 
 " only run color configs if we are in vim+
 if v:progname !=# 'vi'
-" if has('autocmd')
-"   augroup BuellAutocolor
-"     autocmd!
-"     autocmd FocusGained * call s:SetColorscheme()
-"   augroup END
-" endif
+  " reload colorscheme func on focusgained, needed to allow the following in
+  " other plugin config:    autocmd ColorScheme * call s:someFuncForColor()
+  if has('autocmd')
+    augroup BuellAutocolor
+      autocmd!
+      autocmd FocusGained * call s:SetColorscheme()
+    augroup END
+  endif
 
   call s:SetColorscheme()
 endif

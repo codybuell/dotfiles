@@ -5,11 +5,9 @@
 """"""""""""""""
 
 " bail if nerdtree is not installed
-if !exists("loaded_nerd_tree")
+if !buell#helpers#PluginExists('nerdtree')
   finish
 endif
-
-" mappings are defined in plugin/mappings/normal.vim
 
 " widen the nerdtree window
 let g:NERDTreeWinSize = 40

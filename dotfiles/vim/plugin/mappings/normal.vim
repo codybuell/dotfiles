@@ -23,65 +23,21 @@
 " toggle current and previous buffers
 nnoremap                    <leader><leader>  <C-^>
 
-" loupe mappings
-nmap                        ,/                <Plug>(LoupeClearHighlight)
-
-" command t mappings
-nmap                        <Leader>t         <Plug>(CommandT)
-nmap                        <Leader>b         <Plug>(CommandTBuffer)
-nmap                        <Leader>j         <Plug>(CommandTJump)
-nmap                        <leader>h         <Plug>(CommandTHelp)
-nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
-nnoremap  <silent>          <leader>n         :CommandT {{ NotesFolder }}<CR>
-nnoremap  <silent>          <leader>c         :CommandT {{ CodexFolder }}<CR>
-
-" cycle quickfix and location lists
-nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
-
-" jump list navigation
+" quickfix / location / jump list navigation
+nnoremap  <silent>          <Up>              :cprevious<CR>
+nnoremap  <silent>          <Down>            :cnext<CR>
 nnoremap  <silent>          <Left>            <C-O>
 nnoremap  <silent>          <Right>           <C-I>
-
-" scalpel mappings
-nmap                        <leader>s         <Plug>(Scalpel)
-
-" sessions (save, restore, pause)
-nnoremap                    <localleader>ss   :Obsession ~/.vim/sessions/
-nnoremap                    <localleader>sr   :so ~/.vim/sessions/
-nnoremap                    <localleader>sp   :Obsession<CR>
-
-" ale mappings
-"nmap                        <Up>              <Plug>(ale_previous_wrap)
-"nmap                        <Down>            <Plug>(ale_next_wrap)
+nnoremap  <silent>          <S-Up>            :lprevious<CR>
+nnoremap  <silent>          <S-Down>          :lnext<CR>
 
 " autoload helper functions
 nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>
 nnoremap  <silent>          <leader>-         :<C-U>call buell#helpers#CycleSidebars()<CR>
 nnoremap  <silent>          <leader>`         :<C-U>call buell#helpers#CycleViews()<CR>
+nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
 nnoremap  <silent>          <leader>1         :so $VIMRUNTIME/syntax/hitest.vim<CR>
 nnoremap  <silent>          <leader>2         :<C-U>call buell#helpers#HighlightGroups()<CR>
-
-" fastfold update folds
-nmap                        zuz               <Plug>(FastFoldUpdate)
-
-" easymotion convenience mappings
-nmap                        <leader>f         <Plug>(easymotion-overwin-f)
-nmap                        <leader>w         <Plug>(easymotion-overwin-w)
-
-" fugitive handy git bindings (in fugitive split, - to stage/unstage, c to commit)
-nnoremap                    <leader>gs        :Gstatus<CR>
-nnoremap                    <leader>gb        :Gblame<CR>
-nnoremap                    <leader>gp        :Gpush origin master<CR>
-nnoremap                    <leader>ga        :Git add %:p<CR><CR>
-nnoremap                    <leader>gc        :Gcommit -v -q<CR>
-nnoremap                    <leader>gt        :Gcommit -v -q %:p<CR>
-nnoremap                    <leader>gd        :Gvdiff<CR>
-nnoremap                    <leader>ge        :Gedit<CR>
-" nnoremap                    <leader>gr        :Gread<CR>
-nnoremap                    <leader>gw        :Gwrite<CR><CR>
-nnoremap                    <leader>gl        :silent! Glog<CR>:bot copen<CR>
-nnoremap                    <leader>gm        :Gmove<Space>
-nnoremap                    <leader>go        :Git checkout<Space>
 
 " movement between splits
 nmap                        <C-h>             <C-w>h
@@ -105,12 +61,6 @@ nnoremap                    <tab>             za
 " redo buffer syntax
 nnoremap  <silent>          <localleader>c    :syntax sync fromstart<CR>
 
-" ack mappings
-nmap                        <leader>aa        <Plug>(FerretAck)
-nmap                        <leader>aw        <Plug>(FerretAckWord)
-nmap                        <leader>as        <Plug>(FerretAcks)
-nnoremap                    <leader>a.        :Ack  %:p:h<C-B><RIGHT><RIGHT><RIGHT><RIGHT>
-
 " laravel helpers
 " laravel (artisan -V | sed 's/[^[:digit:].]//g')
 " 5.3 and greater /routes/web.php
@@ -133,14 +83,5 @@ nnoremap  <silent>          <leader>lw        :tabnew webpack.mix.js<CR>
 nnoremap  <silent>          <localleader>w    :<C-U>call buell#helpers#OpenJournal('work')<CR>
 nnoremap  <silent>          <localleader>p    :<C-U>call buell#helpers#OpenJournal('personal')<CR>
 
-" quick navigation to edit ultisnips
-nnoremap                    <localleader>u    :UltiSnipsEdit<CR>
-
 " generate random characters
 nnoremap  <silent>          <localleader>r    :<C-U>call buell#helpers#RandomCharacters(v:count)<CR>
-
-" vim-camelsnek
-nnoremap  <silent>          <localleader>cs   :Snek<CR>
-nnoremap  <silent>          <localleader>cc   :Camel<CR>
-nnoremap  <silent>          <localleader>cb   :CamelB<CR>
-nnoremap  <silent>          <localleader>ck   :Kebab<CR>

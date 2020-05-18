@@ -4,6 +4,11 @@
 "            "
 """"""""""""""
 
+" bail if vim-go is not installed
+if !buell#helpers#PluginExists('vim-go')
+  finish
+endif
+
 " open terminal in horizontal split
 let g:go_term_mode = "split"
 

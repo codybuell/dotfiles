@@ -5,7 +5,7 @@
 """"""""""""""""
 
 " bail if deoplete is not installed
-if !buell#helpers#PluginExists('deoplete.nvim')
+if !buell#helpers#PluginExists('deoplete')
   finish
 endif
 
@@ -23,23 +23,20 @@ endif
 
 " plugin sources:
 "   ultisnips  [US]    - ultisnip snippets (ultisnips)
-"   go         [Go]    - keywords from gocode server (deoplete-go)
-"   syntax     [S]     - synax suggestions for multiple languages (neco-syntax)
-"   vim        [vim]   - vim languague keywords (neco-vim)
 "   mail       [@]     - query addresses from lbdb (repo)
 "   contact    [@]     - mail but without header req and email address (repo)
 "   emoji      [emoji] - :emoji: completion for md & gitcommit docs (deoplete-emoji)
-"   lsp        [lsp]   - vim-lsp language server support (deoplete-vim-lsp)
+"   lsp        [lsp]   - nvim-lsp language server support (deoplete-lsp)
 
 " define sources, otherwise deoplete uses complete() by default :set complete?
 " to see the current vim/nvim complete sources, see ops with :help 'complete'
 call deoplete#custom#option('sources', {
 \   '_':          ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips'],
 \   'cpp':        ['buffer', 'member', 'ultisnips', 'tag'],
-\   'go':         ['lsp', 'around', 'buffer', 'member', 'go', 'syntax', 'ultisnips', 'tag'],
+\   'go':         ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag'],
 \   'html':       ['lsp', 'around', 'buffer', 'member', 'ultisnips'],
 \   'mail':       ['dictionary', 'mail', 'ultisnips'],
-\   'vim':        ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips', 'vim'],
+\   'vim':        ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips'],
 \   'markdown':   ['around', 'buffer', 'member', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji'],
 \   'javascript': ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag'],
 \   'python':     ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag']

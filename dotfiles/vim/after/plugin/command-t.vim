@@ -4,7 +4,18 @@
 "               "
 """""""""""""""""
 
-" mappings are defined in plugin/mappings/normal.vim
+" bail if command-t is not installed
+if !buell#helpers#PluginExists('command-t')
+  finish
+endif
+
+nmap                        <Leader>t         <Plug>(CommandT)
+nmap                        <Leader>b         <Plug>(CommandTBuffer)
+nmap                        <Leader>j         <Plug>(CommandTJump)
+nmap                        <leader>h         <Plug>(CommandTHelp)
+nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
+nnoremap  <silent>          <leader>n         :CommandT {{ NotesFolder }}<CR>
+nnoremap  <silent>          <leader>c         :CommandT {{ CodexFolder }}<CR>
 
 " supplement vims wildignore for command-t searches
 let g:CommandTWildIgnore=&wildignore

@@ -4,9 +4,6 @@
 "                                                                              "
 "   Mappings:                                                                  "
 "                                                                              "
-"     Goal is to stick to default mappings as much as possible in order to     "
-"     stay effecient on other systems that don't have these configurations.    "
-"                                                                              "
 "     leader       ␣ (spacebar)                                                "
 "     localleader  \                                                           "
 "                                                                              "
@@ -21,8 +18,8 @@
 "         Ctrl  +   ( ↹←→↓↑`1234567890-=abcdefg i   mnopqrstuvwxyz[];,./↵ )    "
 "         Shift +   ( ↹    `1234567890-=abcdefghijklmnopqrstuvwxyz[];,./↵ )    "
 "                                                                              "
-"                                                     command-t:               "
-"     -  netrw                ␣` cycle views          ␣t start at (n)vim cwd   "
+"     misc:                   top row:                command-t:               "
+"     -  dirvish              ␣` cycle views          ␣t start at (n)vim cwd   "
 "     ,/ clear hl search      ␣1 hitest, better :hi   ␣. start at buffer dir   "
 "     ←  ale prev             ␣2 syn stack @curs      ␣b list buffers          "
 "     →  ale next             ␣3                      ␣j list jump list        "
@@ -35,28 +32,29 @@
 "     ↹  toggle fold          ␣0 cycle lists          ␣aw ack current word     "
 "                             ␣- cycle sidebars       ␣as ack search & replace "
 "                             ␣=                      ␣a. ack buffer dir       "
-"                             ␣␣                                               "
-"                             ␣␣                      scalpel:                 "
-"                                                     ␣s change word @ cursor  "
 "                                                                              "
-"                                                     fugitive (git...):       "
-"                             easymotion:             ␣gs status               "
-"                             ␣f find a char & move   ␣gb blame                "
-"     \c redo buffer syntax   ␣w move to word         ␣gp push orig mstr       "
-"     \r gen random chars                             ␣ga add %:p              "
-"     \w open work journal    fastfold:               ␣gc commit -v -q         "
-"     \p open personal jrnl   zuz update folds        ␣gt commit -v -q %:p     "
-"     \u edit ft's snippets                           ␣gd vdiff                "
-"     \v vertical split       splitjoin:              ␣ge edit                 "
-"     \h horizontal split     gS split oneliner       ␣gr read                 "
-"                             gJ join multiliner      ␣gw write                "
-"                                                     ␣gl log for cur file     "
-"                             laravel:                ␣gm move                 "
-"                             ␣lr edit routes.php     ␣go checkout             "
-"    <C-h> split motion       ␣la laravel artisan:                             "
-"    <C-j> split motion       ␣ll list routes         commentary:              "
-"    <C-k> split motion       ␣le edit .env           gcc comment out block    "
-"    <C-l> split motion       ␣lw edit webpack        gt  use with motion      "
+"     \c redo buffer syntax   easymotion:             scalpel:                 "
+"     \r gen random chars     ␣f find a char & move   ␣s change word @ cursor  "
+"     \w open work journal    ␣w move to word                                "
+"     \p open personal jrnl                           fugitive (git...):       "
+"     \u edit ft's snippets   fastfold:               ␣gs status               "
+"     \v vertical split       zuz update folds        ␣gb blame                "
+"     \h horizontal split                             ␣gp push orig mstr       "
+"                             splitjoin:              ␣ga add %:p              "
+"                             gS split oneliner       ␣gc commit -v -q         "
+"                             gJ join multiliner      ␣gt commit -v -q %:p     "
+"                                                     ␣gd vdiff                "
+"                             laravel:                ␣ge edit                 "
+"                             ␣lr edit routes.php     ␣gr read                 "
+"                             ␣la laravel artisan     ␣gw write                "
+"                             ␣ll list routes         ␣gl log for cur file     "
+"                             ␣le edit .env           ␣gm move                 "
+"                             ␣lw edit webpack        ␣go checkout             "
+"     <C-h> nav split win                                                      "
+"     <C-j> nav split win     commentary:                                      "
+"     <C-k> nav split win     gcc comment out block                            "
+"     <C-l> nav split win     gt  use with motion                              "
+"                                                                              "
 "                                                                              "
 "     insert mode                                                              "
 "     -----------                                                              "
@@ -80,9 +78,10 @@
 "   Lists:                                                                     "
 "                                                                              "
 "   QUICKFIX (global to one session)                                           "
-"     - ack results from ferret                                                "
+"     - results from ferret                                                    "
 "                                                                              "
 "   LOCATION LIST (local to current tab or window within a tab)                "
+"     - language server findings                                               "
 "                                                                              "
 "                                                                              "
 "     * difference relevant when running splits, vim windows are tmux panes    "
@@ -90,110 +89,19 @@
 "       a tab is treated as a different window                                 "
 "                                                                              "
 "                                                                              "
-"   Plugins:                                                                   "
-"                                                                              "
-"   COMPLETION                                                                 "
-"     ultisnips         snippet utility                                        "
-"     deoplete          asynchronous completion utility                        "
-"     deoplete-go       deoplete completion source for go language             "
-"     neco-vim          deoplete completion source for viml                    "
-"     neco-syntax       deoplete completion source for various syntaxes        "
-"     emoji             deoplete completion source for emoji's                 "
-"     deoplete-vim-lsp  deoplete completion source for vim-lsp                 "
-"                                                                              "
-"                                                                              "
-"   IDE (linting & heavier syntax / language plugins)                          "
-"     vim-go            improved go language support                           "
-"     tagbar            ctags of open buffer ordered by scope                  "
-"     vim-lsp           language server support, req async.vim                 "
-"   X ale               asynchronous linting engine                            "
-"                                                                              "
-"                                                                              "
-"   NAVIGATION                                                                 "
-"     vinegar           netrw mapped to -, and - to navigate up folders        "
-"     nerdtree          tree-based file browser                                "
-"     command-t         fuzzy search file navigatio                            "
-"     loupe             improved search configurations                         "
-"     easymotion        improved movement around files                         "
-"                                                                              "
-"                                                                              "
-"   SYNTAX & LIGIBILITY                                                        "
-"     pinnacle          highlight group manipulations                          "
-"     base16-vim        base16 color themes                                    "
-"     jsonc.vim         syntax support for cjson / jsonc                       "
-"     markdown          improved support & wiki like features for markdown     "
-"     typescript        typscript support for vim                              "
-"     scss-syntax       fixes slow load times with native nvim sass syntax     "
-"     vim-vue           syntax highlighting for vue components                 "
-"     vim-blade         blade syntax highlighting                              "
-"                                                                              "
-"                                                                              "
-"   EDITING                                                                    "
-"     scalpel           improved in file word replacement                      "
-"     surround          ability to change surrounding enclosures               "
-"     speeddating       ctrl-a ctrl-x to also increment decrement dates        "
-"     repeat            add ability to repeat non atomic functions             "
-"     commentary        comment out blocks of text, add comment w motions      "
-"     vim-camelsnek     case conversion util                                   "
-"     ferret            multi-file search and search/replace                   "
-"     expand-region     grow or shrink visual selections                       "
-"     splitjoin         toggle code between single and multi-line formats      "
-"                                                                              "
-"                                                                              "
-"   INTEGRATIONS                                                               "
-"     terminus         improved terminal and tmux integration                  "
-"     fugitive         git integration to vim                                  "
-"     vim-marked       open markdown documents in Marked2                      "
-"     vim-dadbod       database interactions                                   "
-"                                                                              "
-"                                                                              "
-"   MISCELLANEOUS                                                              "
-"     vim-plug          plugin manager that allows direct cloning of           "
-"                       repositories by modifying the runtimepath to           "
-"                       inclede each bundle dir                                "
-"     hardtime          stop repeating basic movement keys                     "
-"     howmuch           perform math operations on visual selections           "
-"     goyo              writing room stylings for focused work                 "
-"     limelight         darken all text but current paragraph, focus mode      "
-"     fastfold          speed up folding by folding only when needed           "
-"     vim-vis           improved visual mode functionality                     "
-"     vim-obsession     improved session management                            "
-"     async.vim         job normalization btw vim8 & neovem                    "
-"     firenvim          use neovim in browser textareas!                       "
-"                                                                              "
-"                                                                              "
-"   Tips:                                                                      "
-"                                                                              "
-"     execution    1. this file    ~/.vim/init.vim                             "
-"                  2. plugin code  ~/.vim/plugin/*.vim                         "
-"                  3. bundle code  ~/.vim/bundle/*/plugin/*.vim                "
-"                  4. after/*      ~/.vim/after/*                              "
-"                  * multiple matches are ordered alphabetically               "
-"                                                                              "
-"     structure    ~/.vim/after        loaded last, overriding other settings  "
-"                  ~/.vim/autoload     functions loaded dynamically as needed  "
-"                  ~/.vim/bundles      third party plugins, mngd by vim-plug   "
-"                  ~/.vim/colors       color schemes                           "
-"                  ~/.vim/ftdetect     file type identification modifications  "
-"                  ~/.vim/ftplugin     plugins loaded on specific file types   "
-"                  ~/.vim/plugin       configurations                          "
-"                  ~/.vim/syntax       syntax definitions for file types       "
-"                  ~/.vim/tmp          swap view and other temporary files     "
-"                                                                              "
-"     commands     :scriptnames        all scripts in order of evaluation      "
-"                  :checkhealth        test for missing providers etc...       "
-"                  : set runtimepath?  show all sourced dirs in order of op    "
-"                                                                              "
+"   Debugging:                                                                 "
 "                                                                              "
 "     profile application launch:                                              "
 "       `vim --startuptime vim.log`                                            "
 "                                                                              "
-"     see all leader mappings:                                                 "
-"       `vim -c 'set t_te=' -c 'set t_ti=' -c 'map <space> -c q | sort`        "
+"     capture debug info to log file:                                          "
+"       `NVIM_PYTHON_LOG_FILE=nvim.log NVIM_NCM_LOG_LEVEL=DEBUG nvim`          "
 "                                                                              "
-"   Debugging:                                                                 "
+"     show all scripts in order of evaluation:                                 "
+"       :scriptnames                                                           "
 "                                                                              "
-"     NVIM_PYTHON_LOG_FILE=nvim.log NVIM_NCM_LOG_LEVEL=DEBUG nvim              "
+"     check for missing providers / deps:                                      "
+"       :checkhealth                                                           "
 "                                                                              "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,9 +117,11 @@ if !has('nvim') && has('python3')
   silent! python3 1
 endif
 
-" make sure everything is using the right pythons
-"let g:python_host_prog = '/usr/local/bin/python'
-"let g:python3_host_prog = '/usr/local/bin/python3'
+" avoid search, speeding up start-up
+if filereadable('/usr/local/bin/python') && filereadable('/usr/local/bin/python3')
+  let g:python_host_prog  = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 
 """""""""""""""
 "             "
@@ -219,93 +129,79 @@ endif
 "             "
 """""""""""""""
 
-" define helper to prevent :PlugClean from removing plugins used by another
-" variant of vi / vim / nvim since all use the same configuration here
-" usage: Plug 'benekastah/neomake', Cond(has('nvim'))
-"        Plug 'benekastah/neomake', Cond(has('nvim'), { 'on': 'Neomake' })
-function! Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
+if &loadplugins
+  if has('packages')
+    " COMPLETION
+    packadd! deoplete               " asynchronous completion utility
+    packadd! deoplete-emoji         " deoplete completion source for emoji's
+    packadd! ultisnips              " snippet utility
 
-" define / initialize plugins, this needs to reside here and be sourced first
-call plug#begin('~/.vim/bundles')
+    " NAVIGATION
+    packadd! command-t              " fuzzy search file navigation
+    packadd! loupe                  " improved search configurations
+    packadd! nerdtree               " tree-based file browser
+    packadd! tagbar                 " ctags of open buffer ordered by scope
+    packadd! vim-dirvish            " path navigator, netrw replacement
+    packadd! vim-easymotion         " improved movement around files
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', {
-  \   'do': ':UpdateRemotePlugins'
-  \ }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+    " SYNTAX & LIGIBILITY
+    packadd! base16-vim             " base16 color themes
+    packadd! indentline             " add vertical line showing indentations
+    packadd! jsonc.vim              " syntax support for cjson / jsonc
+    packadd! pinnacle               " highlight group manipulations
+    packadd! scss-syntax.vim        " fix slow load times with native sass syntax
+    packadd! typescript-vim         " typscript support for vim
+    packadd! vim-blade              " blade syntax highlighting
+    packadd! vim-markdown           " improved markdown support
+    packadd! vim-vue                " syntax highlighting for vue components
+
+    " EDITING
+    packadd! ferret                 " multi-file search and search/replace
+    packadd! scalpel                " improved in file word replacement
+    packadd! splitjoin              " toggle between single & multi-line formats
+    packadd! vim-camelsnek          " case conversion util
+    packadd! vim-commentary         " apply or remove comments, motion support
+    packadd! vim-expand-region      " grow or shrink visual selections
+    packadd! vim-repeat             " add ability to repeat non atomic functions
+    packadd! vim-speeddating        " ctrl-a ctrl-x to increment decrement dates
+    packadd! vim-surround           " ability to change surrounding enclosures
+
+    " INTEGRATIONS
+    packadd! terminus               " improved terminal and tmux integration
+    packadd! vim-dadbod             " database interactions
+    packadd! vim-fugitive           " git integration to vim
+    packadd! vim-marked             " open markdown documents in Marked2
+
+    " MISCELLANEOUS
+    packadd! howmuch                " perform math on visual selections
+    packadd! goyo.vim               " writing room stylings for focused work
+    packadd! limelight.vim          " darken all text but current paragraph
+    packadd! fastfold               " speed up folding, fold only when needed
+    packadd! vim-obsession          " improved session management
+
+"   packadd! vim-go
+    if has('nvim')
+      packadd! firenvim             " use neovim in browser textareas
+      packadd! nvim-lsp             " configurations for native lsp client
+      packadd! deoplete-lsp         " native lsp completion support for deoplete
+      packadd! diagnostic-nvim      " overrides to native lsp diagnostic funcs
+"     packadd! float-preview
+    endif
+  else
+    source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim
+    call pathogen#infect('pack/bundle/opt/{}')
+    call pathogen#helptags()
+  endif
 endif
 
-Plug 'zchee/deoplete-go', {
-\   'do': 'make'
-\ }
+"""""""""""""""""""""""
+"                     "
+"   Initializations   "
+"                     "
+"""""""""""""""""""""""
 
-Plug 'fatih/vim-go', {
-\   'do': ':GoInstallBinaries'
-\ }
-
-Plug 'wincent/command-t', {
-\   'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-\ }
-
-Plug 'glacambre/firenvim', {
-\   'do': { _ -> firenvim#install(0) }
-\ }
-
-Plug 'junegunn/vim-plug'              " adding here for doc support
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neco-vim'
-Plug 'wincent/terminus'
-Plug 'wincent/loupe'
-Plug 'wincent/ferret'
-Plug 'wincent/scalpel'
-Plug 'tpope/vim-vinegar'
-Plug 'chriskempson/base16-vim'
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips'
-Plug 'plasticboy/vim-markdown'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-commentary'
-Plug 'easymotion/vim-easymotion'
-Plug 'takac/vim-hardtime'
-Plug 'Konfekt/FastFold'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'terryma/vim-expand-region'
-Plug 'codybuell/pinnacle'
-Plug 'fszymanski/deoplete-emoji'
-Plug 'itspriddle/vim-marked'
-Plug 'jwalton512/vim-blade'
-Plug 'posva/vim-vue'
-Plug 'leafgarland/typescript-vim'
-Plug 'codybuell/HowMuch'
-Plug 'codybuell/vis'
-Plug 'tpope/vim-obsession'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'nicwest/vim-camelsnek'
-Plug 'neoclide/jsonc.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'codybuell/vim-lsp'
-Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'tpope/vim-dadbod'
-
-
-" Plug 'thomasfaingnaert/vim-lsp-snippets'
-" Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-" Plug 'w0rp/ale'
-
-" keep plug calls above this line
-call plug#end()
+" turn on deoplete
+let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                                           "
@@ -316,7 +212,7 @@ call plug#end()
 " shorten command from :Scalpel to :S
 let g:ScalpelCommand = 'S'
 
-" don't override vim-vinegar's mapping of -
+" don't override vim-dirvish's mapping of -
 let g:NERDTreeHijackNetrw = 0
 
 " use ctrl+l for ultisnips expansion and jumping, shift+tab jumping back
@@ -333,17 +229,8 @@ let g:FerretMap = 0
 " dont center results
 let g:LoupeCenterResults=0
 
-"""""""""""""""""""""""
-"                     "
-"   Initializations   "
-"                     "
-"""""""""""""""""""""""
-
-" turn on deoplete
-call buell#autocomplete#deoplete_init()
-
-" turn on the hardtimes
-let g:hardtime_default_on = 0
+" prevent netrw from clobbering registers
+let g:netrw_banner=1
 
 """"""""""""""""
 "              "
@@ -351,8 +238,7 @@ let g:hardtime_default_on = 0
 "              "
 """"""""""""""""
 
-" actual mappings are stored in plugin/mappings/*
-" this section just contains settings pertaining to mappings
+" settings pertaining to mappings actual mappings are stored in plugin/mappings/*
 
 let mapleader="\<Space>"
 let maplocalleader="\\"

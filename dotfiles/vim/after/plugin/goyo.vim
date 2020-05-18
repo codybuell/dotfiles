@@ -4,6 +4,11 @@
 "          "
 """"""""""""
 
+" bail if goyo is not installed
+if !buell#helpers#PluginExists('goyo')
+  finish
+endif
+
 " width of text (default: 80)
 let g:goyo_width = 160
 

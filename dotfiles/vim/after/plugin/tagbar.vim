@@ -4,6 +4,11 @@
 "            "
 """"""""""""""
 
+" bail if tagbar is not installed
+if !buell#helpers#PluginExists('tagbar')
+  finish
+endif
+
 " match nerdtree styles
 let g:tagbar_left = 1
 let g:tagbar_width = 40

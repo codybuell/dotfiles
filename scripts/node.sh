@@ -30,19 +30,21 @@ PACKAGES=( \
   'topojson' \                              # tool for converting shape files into json for d3
   'jsonlint' \                              # json syntax checking utility
   'svgo' \                                  # svg optimization utility
+  'typescript' \                            # typescript, a dep for typescript-language-server
   'wscat' \                                 # websocket command line client
   'yarn' \                                  # package manager with version locking and caching
   'bash-language-server' \                  # bash language server
-  'javascript-typescript-langserver' \      # javascript / typescript language server
   'vscode-json-languageserver' \            # json language server
   'dockerfile-language-server-nodejs' \     # dockerfile language server
   'yaml-language-server' \                  # yaml language server
   'vscode-html-languageserver-bin' \        # html language server
-  'markdown-language-server' \              # markdown language server
   'vim-language-server' \                   # vim language server
   'intelephense' \                          # php language server
+  'typescript-language-server' \            # javascript / typescript language server
   'vscode-css-languageserver-bin' \         # css/less/sass language server
 )
+
+# 'javascript-typescript-langserver' \      # javascript / typescript language server
 
 #######################
 #                     #

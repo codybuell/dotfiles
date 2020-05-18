@@ -38,8 +38,10 @@ DIFFEXCLUDES=( \
   "-regex .*.vim.*/bundles" \
   "-regex .*.mutt*/tmp" \
   "-path *.vim*/tmp/*" \
+  "-path *.vim*/sessions/*" \
   "-path *.vim*/snippits/*" \
   "-path *.vim*/bundles/*" \
+  "-path *.vim*/pack/*" \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
@@ -53,6 +55,7 @@ TEMPLATEEXCLUDES=( \
   "-path *.shell*/base16-shell/*" \
   "-path *.shell*/zsh-*/*" \
   "-path *.vim*/bundles/*" \
+  "-path *.vim*/pack/*" \
   "-path *.vim*/tmp/*" \
   "-path *.terminfo*/*" \
   )
@@ -187,9 +190,29 @@ postplacehooks() {
     vim )
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
+
+      # vim-plug run plug install
       $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
       $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
-      gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/bundles/base16-vim/colors/*.vim
+
+      # run UpdateRemotePlugins for deoplete to populate ~/.local/share/nvim/rplugin.vim
+      $NVIMPATH -E -s -u "~/.vim/init.vim" +UpdateRemotePlugins +qa
+
+      # generate helptags for all plugins
+      $NVIMPATH -E -s -u "~/.vim/init.vim" +'helptags ALL' +qa
+      $VIMPATH -E +'helptags ALL' +qa &> /dev/null
+
+      # firenvim
+      $NVIMPATH -E -s -u "~/.vim/init.vim" +'+call firenvim#install(0)' +qa
+
+      # compile command-t
+      cd ~/.vim/pack/bundle/opt/command-t/ruby/command-t/ext/command-t > /dev/null
+      ruby extconf.rb > /dev/null 2>&1
+      make > /dev/null 2>&1
+      cd - > /dev/null
+
+      # what were you doing here??
+      #gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/pack/bundle/opt/base16-vim/colors/*.vim
 
       # link up neovim
       NVIMRTPROOT='~/.config/nvim'

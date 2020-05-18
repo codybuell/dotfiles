@@ -4,7 +4,13 @@
 "              "
 """"""""""""""""
 
-" mappings are defined in plugin/mappings/normal.vim
+" bail if fastfold is not installed
+if !buell#helpers#PluginExists('fastfold')
+  finish
+endif
+
+" fastfold update folds
+nmap                        zuz               <Plug>(FastFoldUpdate)
 
 " update folds on file save
 let g:fastfold_savehook = 1

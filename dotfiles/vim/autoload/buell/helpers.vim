@@ -170,8 +170,7 @@ function! buell#helpers#CycleSidebars() abort
     TagbarClose
   " else open nerdtree
   else
-    " % opens to location of current buffer, remove to start at vim's cwd
-    NERDTree %
+    NERDTree
   endif
 endfunction
 
@@ -388,7 +387,7 @@ endfunction
 function buell#helpers#PluginExists(plugin) abort
   if &runtimepath =~ a:plugin
     let l:runtimepaths = split(&rtp,",")
-    let l:listlocation = match(l:runtimepaths, a:plugin)
+    let l:listlocation = match(l:runtimepaths, '\/'.a:plugin)
     let l:path = l:runtimepaths[l:listlocation]
     if isdirectory(l:path)
       return 1
