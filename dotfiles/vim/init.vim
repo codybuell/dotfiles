@@ -179,6 +179,7 @@ if &loadplugins
     packadd! limelight.vim          " darken all text but current paragraph
     packadd! fastfold               " speed up folding, fold only when needed
     packadd! vim-obsession          " improved session management
+    packadd! vim-tmux-navigator     " use vim window motions to nav into tmux
 
 "   packadd! vim-go
     if has('nvim')
