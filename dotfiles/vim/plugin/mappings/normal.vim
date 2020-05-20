@@ -23,13 +23,21 @@
 " toggle current and previous buffers
 nnoremap                    <leader><leader>  <C-^>
 
-" quickfix / location / jump list navigation
+" jump list navigation
+"nnoremap  <silent>          <Left>            <C-O>
+"nnoremap  <silent>          <Right>           <C-I>
+
+" navigate quickfix (up/down: item in list, left/right: file in list)
 nnoremap  <silent>          <Up>              :cprevious<CR>
 nnoremap  <silent>          <Down>            :cnext<CR>
-nnoremap  <silent>          <Left>            <C-O>
-nnoremap  <silent>          <Right>           <C-I>
+nnoremap  <silent>          <Left>            :cpfile<CR>
+nnoremap  <silent>          <Right>           :cnfile<CR>
+
+" navigate jumplist (up/down: item in list, left/right: file in list)
 nnoremap  <silent>          <S-Up>            :lprevious<CR>
 nnoremap  <silent>          <S-Down>          :lnext<CR>
+nnoremap  <silent>          <S-Left>          :lpfile<CR>
+nnoremap  <silent>          <S-Right>         :lnfile<CR>
 
 " autoload helper functions
 nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline()<CR>
