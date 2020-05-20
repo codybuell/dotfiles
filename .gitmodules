@@ -143,3 +143,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/diagnostic-nvim"]
 	path = dotfiles/vim/pack/bundle/opt/diagnostic-nvim
 	url = git@github.com:haorenW1025/diagnostic-nvim.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-json"]
+	path = dotfiles/vim/pack/bundle/opt/vim-json
+	url = git@github.com:elzr/vim-json.git

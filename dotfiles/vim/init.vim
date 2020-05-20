@@ -152,6 +152,7 @@ if &loadplugins
     packadd! scss-syntax.vim        " fix slow load times with native sass syntax
     packadd! typescript-vim         " typscript support for vim
     packadd! vim-blade              " blade syntax highlighting
+    packadd! vim-json               " improved json syntax, no conceal
     packadd! vim-markdown           " improved markdown support
     packadd! vim-vue                " syntax highlighting for vue components
 
