@@ -218,8 +218,8 @@ let g:ScalpelCommand = 'S'
 let g:NERDTreeHijackNetrw = 0
 
 " use ctrl+l for ultisnips expansion and jumping, shift+tab jumping back
-let g:UltiSnipsExpandTrigger = "<C-l>"
-let g:UltiSnipsJumpForwardTrigger = "<C-l>"
+let g:UltiSnipsExpandTrigger = "<C-y>"
+let g:UltiSnipsJumpForwardTrigger = "<C-y>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
 " disable default easymotion mappings

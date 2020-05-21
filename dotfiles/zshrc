@@ -404,6 +404,7 @@ test -f $HOST_RC && source $HOST_RC
 # auto suggestions
 source ~/.shell/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
+bindkey '^y' autosuggest-accept
 
 # syntax highlighting
 #source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -10,6 +10,7 @@ if !buell#helpers#PluginExists('ultisnips')
 endif
 
 " see after/plugin/deoplete.vim for tab mappings
+" see init.vim for jump mappings
 
 " when editing ultisnips, open in a vertical split
 let g:UltiSnipsEditSplit = "vertical"
