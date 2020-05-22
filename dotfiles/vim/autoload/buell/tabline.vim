@@ -14,4 +14,3 @@ function! buell#tabline#gutterpadding() abort
   let l:padding=repeat(' ', l:gutterWidth + &foldcolumn + l:signColumn)
   return l:padding
 endfunction
-
