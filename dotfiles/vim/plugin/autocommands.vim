@@ -46,6 +46,11 @@ if has('autocmd')
     " equalize splits on window resize
     au VimResized * execute "normal! \<c-w>="
 
+    " flash highlight yanked text
+    if exists('##TextYankPost')
+      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank('Substitute', 200)
+    endif
+
     """"""""""""""""""""
     "                  "
     "   focus events   "
