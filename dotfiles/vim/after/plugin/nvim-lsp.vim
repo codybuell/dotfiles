@@ -11,8 +11,8 @@ endif
 
 " diagnostic-nvim available settings
 let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_virtual_text_prefix = ' ◂◂ '
-let g:diagnostic_trimmed_virtual_text = '20'
+let g:diagnostic_virtual_text_prefix = '◂'
+let g:diagnostic_trimmed_virtual_text = '100'
 let g:space_before_virtual_text = 2
 let g:diagnostic_show_sign = 1
 let g:diagnostic_sign_priority = 20
@@ -24,7 +24,13 @@ lua << END
   require'nvim_lsp'.gopls.setup{on_attach=require'diagnostic'.on_attach}
   require'nvim_lsp'.html.setup{on_attach=require'diagnostic'.on_attach}
   require'nvim_lsp'.intelephense.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.jsonls.setup{on_attach=require'diagnostic'.on_attach}
+  require'nvim_lsp'.jsonls.setup{
+      on_attach = require'diagnostic'.on_attach,
+      filetypes = {
+        "json",
+        "jsonc"
+      }
+    }
   require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
   require'nvim_lsp'.tsserver.setup{on_attach=require'diagnostic'.on_attach}
   require'nvim_lsp'.vimls.setup{on_attach=require'diagnostic'.on_attach}
@@ -52,19 +58,30 @@ function! s:SetUpLspHighlights()
     return
   endif
 
-  execute 'highlight LspDiagnosticsError ' . pinnacle#decorate('italic,underline', 'ModeMsg')
+  execute 'highlight LspDiagnosticsError ' . pinnacle#decorate('bold,italic', 'ModeMsg')
+  execute 'highlight LspDiagnosticsErrorSign ' . pinnacle#highlight({
+        \   'bg': pinnacle#extract_bg('ColorColumn'),
+        \   'fg': pinnacle#extract_fg('ErrorMsg')
+        \ })
 
-  execute 'highlight LspDiagnosticsHint ' . pinnacle#decorate('bold,italic,underline', 'Type')
+  execute 'highlight LspDiagnosticsWarning ' . pinnacle#decorate('bold,italic', 'Type')
+  execute 'highlight LspDiagnosticsWarningSign ' . pinnacle#highlight({
+        \   'bg': pinnacle#extract_bg('ColorColumn'),
+        \   'fg': pinnacle#extract_bg('Substitute')
+        \ })
 
+  execute 'highlight LspDiagnosticsInformation ' . pinnacle#decorate('bold,italic', 'Type')
+  execute 'highlight LspDiagnosticsInformationSign ' . pinnacle#highlight({
+        \   'bg': pinnacle#extract_bg('ColorColumn'),
+        \   'fg': pinnacle#extract_fg('Normal')
+        \ })
+
+  execute 'highlight LspDiagnosticsHint ' . pinnacle#decorate('bold,italic', 'Type')
   execute 'highlight LspDiagnosticsHintSign ' . pinnacle#highlight({
         \   'bg': pinnacle#extract_bg('ColorColumn'),
         \   'fg': pinnacle#extract_fg('Type')
         \ })
 
-  execute 'highlight LspDiagnosticsErrorSign ' . pinnacle#highlight({
-        \   'bg': pinnacle#extract_bg('ColorColumn'),
-        \   'fg': pinnacle#extract_fg('ErrorMsg')
-        \ })
 endfunction
 
 sign define LspDiagnosticsErrorSign text=×
