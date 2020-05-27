@@ -24,6 +24,7 @@
 
 # defaults
 SKIPBACKUPS=false
+FORCE=false
 
 # define locations
 CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
@@ -304,7 +305,7 @@ placefiles() {
         fi
 
         # compare checksums
-        if [ $MD5NEW == $MD5OLD ]; then
+        if [[ $MD5NEW == $MD5OLD && $FORCE == 'false' ]]; then
           # if the same
           prettyprint "  .${i} \033[0;32malready there\033[0m\n"
           rm -rf $HOME/.$i.new.$DATE
@@ -367,13 +368,17 @@ fixperms() {
   SKIPBACKUPS=true
 }
 
+[ x"$1" == x"--force" ] && {
+  FORCE=true
+}
+
 ###################
 #                 #
 #  Short Options  #
 #                 #
 ###################
 
-while getopts ":hi:n" Option; do
+while getopts ":hi:nf" Option; do
   case $Option in
     h )
       usage
@@ -385,6 +390,10 @@ while getopts ":hi:n" Option; do
       ;;
     n )
       SKIPBACKUPS=true
+      shift
+      ;;
+    f )
+      FORCE=true
       shift
       ;;
     : )
@@ -403,7 +412,7 @@ done
 readconfig
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
-  DOTFILES=($1)
+  DOTFILES=($@)
 fi
 placefiles
 fixperms
