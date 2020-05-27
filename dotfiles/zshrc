@@ -154,9 +154,9 @@ setopt histverify           # confirm history expansion (!$, !!, !foo)
 setopt interactivecomments  # allow comments, even in interactive shells
 setopt pushdignoredups      # don't push multiple copies of same dir onto stack
 setopt pushdsilent          # don't print dir stack after pushing/popping
-#setopt ignoreeof           # prevent accidental C-d from exiting shell
+setopt sharehistory         # share history across shells
 #setopt printexitvalue      # for non-zero exit status
-#setopt sharehistory        # share history across shells
+#setopt ignoreeof           # prevent accidental C-d from exiting shell
 #setopt correct             # command auto-correction
 #setopt correctall          # argument auto-correction
 
