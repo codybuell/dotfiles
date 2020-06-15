@@ -447,16 +447,22 @@ function repocheck() {
   # git the current working directory
   CWD=$(pwd)
 
+  # move into the repos root
+  cd {{ ReposPath }}
+
+  # build an array of all git repos found
+  REPOS=($(find . -type d -name .git | sed 's/\.git$//'))
+
   # print out some column headers
-  echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-50s %s %s\n", $1, $2, $3}'
+  echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-80s %s %s\n", $1, $2, $3}'
 
   # loop through all repos in ReposPath
-  for i in `ls {{ ReposPath }}`; do 
-    cd {{ ReposPath }}/$i
+  for i in ${REPOS[@]}; do
+    cd {{ ReposPath }}/$i > /dev/null 2>&1
     git status > /dev/null 2>&1
     if [ $? -gt 0 ]; then
       printf "$i \033[1;30mnot~a~repo\033[0;m" | \
-      awk '{printf "%-50s %s\n", $1, $2}' | \
+      awk '{printf "%-80s %s\n", $1, $2}' | \
       sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
       continue
     else
@@ -482,7 +488,7 @@ function repocheck() {
           RSTAT=$(printf "\033[0;33mdiverged\033[0;m")
         fi
       fi
-      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-50s %s\n", $1, $2}' | sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
+      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-80s %s\n", $1, $2}' | sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
     fi
   done
 
