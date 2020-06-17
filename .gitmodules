@@ -149,6 +149,3 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-tmux-navigator"]
 	path = dotfiles/vim/pack/bundle/opt/vim-tmux-navigator
 	url = git@github.com:christoomey/vim-tmux-navigator.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-go"]
-	path = dotfiles/vim/pack/bundle/opt/vim-go
-	url = git@github.com:fatih/vim-go.git

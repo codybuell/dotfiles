@@ -181,7 +181,6 @@ if &loadplugins
     packadd! vim-obsession          " improved session management
     packadd! vim-tmux-navigator     " use vim window motions to nav into tmux
 
-"   packadd! vim-go
     if has('nvim')
       packadd! firenvim             " use neovim in browser textareas
       packadd! nvim-lsp             " configurations for native lsp client
