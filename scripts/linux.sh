@@ -73,6 +73,7 @@ INSTALL='
   composer
   coreutils
   curl
+  direnv
   gcc
   git
   inkscape

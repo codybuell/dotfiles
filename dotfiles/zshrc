@@ -415,4 +415,5 @@ bindkey '^y' autosuggest-accept
 ##                                                                            ##
 ################################################################################
 
+eval "$(direnv hook zsh)"
 gopath
