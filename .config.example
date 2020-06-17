@@ -168,13 +168,9 @@ KeychainVPNToken    =  keychainobjectname
 # Here we will define our default GOPATH.  It's recommended to provide two     #
 # two paths, the first of which where go get will place its sources, the       #
 # second being for your own personal packages.  The separation will keep bits  #
-# cleaner, but ultimately it's your call. The shell dotfiles on every change   #
-# of directory will look for a file called `.gopath` starting where you cd'd   #
-# to recursively upwards in directories.  If it finds that file it will note   #
-# where it found it and set your sessions GOPATH to that new location only.    #
-# When you cd away the default GOPATH you define below will be replaced. Each  #
-# GOPATH you define below will have it's child bin directory added to the      #
-# systems PATH automatically.                                                  #
+# cleaner, but ultimately it's your call.  For monorepos use direnv to         #
+# dynamically set the gopath by placing a .envrc with the exports you want to  #
+# be executed when working in that workspace.                                  #
 #                                                                              #
 ################################################################################
 
