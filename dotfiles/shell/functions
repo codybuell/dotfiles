@@ -27,14 +27,14 @@ function gopath() {
   done
 }
 
-# override cd to dynamically set paths
-cd() {
-  # perform the actual cd without risk of recursion (builtin)
-  builtin cd "$@"
-
-  # gopath (search up for ~/.gopath and set GOPATH to its parent dir)
-  gopath
-}
+# # override cd to dynamically set paths
+# cd() {
+#   # perform the actual cd without risk of recursion (builtin)
+#   builtin cd "$@"
+# 
+#   # gopath (search up for ~/.gopath and set GOPATH to its parent dir)
+#   gopath
+# }
 
 # markdown shortcut
 md() {
@@ -51,7 +51,7 @@ md() {
   )
 
   for i in ${HIERARCHY[@]}; do
-    if [[ -f $i ]]; then
+    if [[ -a $i ]]; then
       target=$i
       break
     fi
