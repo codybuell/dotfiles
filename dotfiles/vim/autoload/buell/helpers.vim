@@ -4,6 +4,23 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Go Format                                                                    "
+"                                                                              "
+" Run goimports against the current buffer to format code and auto add in      "
+" any missing packages to imports.  Onece complete, reload the buffer.         "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#GoFormat() abort
+    silent! !goimports -w %
+    e!
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
 " Delete Vim View                                                              "

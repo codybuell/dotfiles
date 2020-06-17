@@ -51,6 +51,9 @@ if has('autocmd')
       autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank('Substitute', 200)
     endif
 
+    " for go files format and auto insert imports on save
+    au BufWritePre *.go call buell#helpers#GoFormat()
+
     """"""""""""""""""""
     "                  "
     "   focus events   "
