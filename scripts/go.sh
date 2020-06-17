@@ -37,6 +37,7 @@ ALL=( \
   'github.com/stamblerre/gocode' \         # replacement for nsf/gocode, deoplete-go dependency
   'github.com/dominikh/go-tools' \
   'github.com/jstemmer/gotags' \
+  'golang.org/x/tools/cmd/goimports' \     # go formatter and auto imports
 )
 
 # all platforms with GO111MODULE=on
