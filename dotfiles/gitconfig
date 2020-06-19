@@ -33,3 +33,5 @@
 	submoduleSummary = true
 [gpg]
 	program = /usr/local/bin/gpg
+[pull]
+	ff = only
