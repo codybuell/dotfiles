@@ -126,10 +126,11 @@ function run()
   print_status(new_spam, 'unread spam -> mark as read')
   new_spam:mark_seen()
 
-  -- all git related crap
+  -- all git related crap, except due date reminders
   movetofolder('git related notifications', git, (function()
     results = inbox:match_field('Reply-To', 'GitLab .*') + 
-              inbox:match_field('Reply-To', '.*internal-service-account+.*')
+              inbox:match_field('Reply-To', '.*internal-service-account+.*') -
+              inbox:contain_body('The following issue is due on')
 --    :contains_field('X-GitLab-NotificationReason', 'mentioned')
     return results
   end))
