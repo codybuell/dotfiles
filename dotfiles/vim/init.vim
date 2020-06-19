@@ -186,7 +186,7 @@ if &loadplugins
       packadd! nvim-lsp             " configurations for native lsp client
       packadd! deoplete-lsp         " native lsp completion support for deoplete
       packadd! diagnostic-nvim      " overrides to native lsp diagnostic funcs
-"     packadd! float-preview
+      packadd! float-preview.nvim   " floating windows for preview instead of splits
     endif
   else
     source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim
@@ -293,7 +293,7 @@ set lazyredraw                                     " no redraw during macros etc
 set backspace=2                                    " make bkspace work on line br & auto indent
 set hidden                                         " allow buffer switching when unsaved
 set confirm                                        " prompt to save modified hidden buffers
-set completeopt=menu,preview                       " aka cot, preview needed for lsp lang help
+set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
 set signcolumn=yes                                 " always show the sign column
 
 " vim specific (not nvim)
