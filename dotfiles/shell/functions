@@ -233,6 +233,12 @@ function gpo() {
   git push origin $BRANCH
 }
 
+# git push current branch
+function gpb() {
+  CURRENT=$(git rev-parse --abbrev-ref HEAD)
+  git push origin $CURRENT
+}
+
 # git pull origin [branch]
 function gpl() {
   [[ -z $1 ]] && {
