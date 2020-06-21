@@ -30,6 +30,7 @@ default:
 	    \033[1;34mdots\033[0;34m      place dotfiles for current user\033[0m\n\
 	    \033[1;34mosx\033[0;34m       run osx configurations\033[0m\n\
 	    \033[1;34mlinux\033[0;34m     run linux os configurations\033[0m\n\n\
+	    \033[1;34mkarabiner\033[0;34m regenerate karabiner dotfile from source script\033[0m\n\
 	\
 	    \033[1;31mclean\033[0;31m     delete all backups of previous dotfiles\033[0m\n\n"
 
@@ -77,5 +78,8 @@ osx:
 linux:
 	scripts/linux.sh
 
+karabiner:
+	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
+
 clean:
-	find ~/ -maxdepth 1 -name \*.dotorig.\* -prune -exec rm -rf {} \;
+	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;

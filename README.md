@@ -126,6 +126,15 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make composer
         make dots
 
+### Ad Hoc Dotfiles
+
+You can deloy specific dotfiles.  For example:
+
+    make dots vim
+    make dots config
+    make dots config/karabiner
+    make dots tmux tmux.conf
+
 Gotchas
 -------
 

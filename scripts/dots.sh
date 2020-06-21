@@ -188,6 +188,10 @@ postplacehooks() {
     Xresources )
       xrdb ~/.Xresources
       ;;
+    config/karabiner )
+      launchctl stop org.pqrs.karabiner.karabiner_console_user_server 
+      launchctl start org.pqrs.karabiner.karabiner_console_user_server 
+      ;;
     vim )
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
