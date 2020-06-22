@@ -365,6 +365,36 @@ const DEFAULT_PROFILE = applyExemptions({
         },
         rules: [
             {
+                description: 'Caps Lock and Return together mouse middle click',
+                manipulators: [
+                    {
+                        from: {
+                            modifiers: {
+                                optional: ['any'],
+                            },
+                            simultaneous: [
+                                {
+                                    key_code: 'caps_lock',
+                                },
+                                {
+                                    key_code: 'return_or_enter',
+                                },
+                            ],
+                            simultaneous_options: {
+                                key_down_order: 'insensitive',
+                                key_up_order: 'insensitive',
+                            },
+                        },
+                        to: [
+                            {
+                                pointing_button: 'button3',
+                            },
+                        ],
+                        type: 'basic',
+                    },
+                ],
+            },
+            {
                 description: 'Launcher',
                 manipulators: [
                     ...launch(
@@ -604,29 +634,61 @@ const DEFAULT_PROFILE = applyExemptions({
                 ],
             },
             {
-                description: 'Caps Lock and Return together mouse middle click',
+                description:
+                    'Change Left Shift to Left Shift when used as modifier, ( when used alone',
                 manipulators: [
                     {
                         from: {
+                            key_code: 'left_shift',
                             modifiers: {
                                 optional: ['any'],
-                            },
-                            simultaneous: [
-                                {
-                                    key_code: 'escape',
-                                },
-                                {
-                                    key_code: 'return_or_enter',
-                                },
-                            ],
-                            simultaneous_options: {
-                                key_down_order: 'insensitive',
-                                key_up_order: 'insensitive',
                             },
                         },
                         to: [
                             {
-                                key_code: 'button3',
+                                key_code: 'left_shift',
+                            },
+                        ],
+                        to_if_alone: [
+                            {
+                                key_code: '9',
+                                modifiers: 'left_shift',
+                            },
+                        ],
+                        to_if_held_down: [
+                            {
+                                key_code: 'left_shift',
+                            },
+                        ],
+                        type: 'basic',
+                    },
+                ],
+            },
+            {
+                description:
+                    'Change Right Shift to Right Shift when used as modifier, ( when used alone',
+                manipulators: [
+                    {
+                        from: {
+                            key_code: 'right_shift',
+                            modifiers: {
+                                optional: ['any'],
+                            },
+                        },
+                        to: [
+                            {
+                                key_code: 'right_shift',
+                            },
+                        ],
+                        to_if_alone: [
+                            {
+                                key_code: '0',
+                                modifiers: 'right_shift',
+                            },
+                        ],
+                        to_if_held_down: [
+                            {
+                                key_code: 'right_shift',
                             },
                         ],
                         type: 'basic',
