@@ -525,7 +525,6 @@ const DEFAULT_PROFILE = applyExemptions({
                         to: [
                             {
                                 key_code: 'left_control',
-                                lazy: true,
                             },
                         ],
                         to_if_alone: [
