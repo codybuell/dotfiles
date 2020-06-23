@@ -438,6 +438,16 @@ const DEFAULT_PROFILE = applyExemptions({
             {
                 description: 'SpaceFN layer',
                 manipulators: [
+                    ...spaceFN('x', '1'),
+                    ...spaceFN('c', '2'),
+                    ...spaceFN('v', '3'),
+                    ...spaceFN('s', '4'),
+                    ...spaceFN('d', '5'),
+                    ...spaceFN('f', '6'),
+                    ...spaceFN('w', '7'),
+                    ...spaceFN('e', '8'),
+                    ...spaceFN('r', '9'),
+                    ...spaceFN('z', '0'),
                     ...spaceFN('b', 'spacebar'),
                     ...spaceFN('u', 'right_arrow'),
                     ...spaceFN('y', 'down_arrow'),
