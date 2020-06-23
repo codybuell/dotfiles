@@ -293,7 +293,7 @@ set lazyredraw                                     " no redraw during macros etc
 set backspace=2                                    " make bkspace work on line br & auto indent
 set hidden                                         " allow buffer switching when unsaved
 set confirm                                        " prompt to save modified hidden buffers
-set completeopt=menu,noinsert,noselect             " aka cot, preview handled by float-preview.nvim
+set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
 set signcolumn=yes                                 " always show the sign column
 
 " vim specific (not nvim)
