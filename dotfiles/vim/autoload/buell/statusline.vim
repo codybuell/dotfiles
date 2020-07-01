@@ -23,7 +23,7 @@ function! buell#statusline#drawstatusline() abort
   "   %M                                               modified flag: ,+/,- (modified/unmodifiable) or nothing
   "   %R                                               read-only flag: ,RO or nothing
   "   %{buell#statusline#ft()}                         filetype (not using %Y because I don't want caps)
-  "   %{buell#statusline#fenc()}                       file-encoding if not UTF-8
+  "   %{buell#statusline#fenc()}                       file-encoding and file format
   "   ]                                                right bracket (literal)
   "   %)                                               end item group
   set statusline+=%([%{ObsessionStatus('$','S')}%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}]%)
@@ -53,6 +53,11 @@ function! buell#statusline#sessionname() abort
   return ''
 endfunction
 
+function! buell#statusline#lspstatus() abort
+  redir => lspstatusverbose
+    lua print(vim.inspect(vim.lsp.buf_get_clients()))
+  redir END
+endfunction
 " function! buell#statusline#linterstatus() abort
 
 "       let sl = ''
@@ -145,11 +150,20 @@ function! buell#statusline#ft() abort
 endfunction
 
 function! buell#statusline#fenc() abort
-  if strlen(&fenc) && &fenc !=# 'utf-8'
-    return ',' . &fenc
-  else
-    return ''
+  " if strlen(&fenc) && &fenc !=# 'utf-8'
+  "   return ',' . &fenc
+  " else
+  "   return ''
+  " endif
+  let l:fenc = ''
+  let l:ff = ''
+  if strlen(&fenc)
+    let l:fenc = ',' . &fenc
   endif
+  if strlen(&ff)
+    let l:ff = ',' . &ff
+  endif
+  return l:fenc . l:ff
 endfunction
 
 function! buell#statusline#lhs() abort
