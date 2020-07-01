@@ -135,6 +135,16 @@ Notes
 
 endsnippet
 
+snippet note "personal notes scaffolding" b
+${1:Note Title}
+${1/./=/g}
+
+See also:
+ - ${2}
+
+${0}
+endsnippet
+
 snippet epic "gitlab epic template" b
 Overview
 --------
@@ -235,6 +245,10 @@ endsnippet
 
 snippet as "link to section"
 [${1:${VISUAL:Text}}](#$1)$0
+endsnippet
+
+snippet ap "link to page"
+[${1:${VISUAL:Text}}]($1)$0
 endsnippet
 
 snippet img "image"
