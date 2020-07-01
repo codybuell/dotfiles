@@ -24,6 +24,7 @@ PACKAGES=( \
   'asciicast2gif' \                         # convert asciinema json files to gifs
   'bower' \                                 # web development 3rd party dependency / asset manager
   'gistup' \                                # a tool for creating gists from the terminal
+  'gitlab-ci-lint' \                        # linting of gitlab ci files
   'gulp' \                                  # asset compiler for web development
   'http-server' \                           # a light-weight web server for development and testing
   'neovim' \                                # node provider for neovim
