@@ -10,7 +10,7 @@
 # |                      |               |
 # '--------------------------------------'
 
-CMDPANE1='vi'
+CMDPANE1='vim -c CommandT'
 CMDPANE2='git status'
 CMDPANE3=''
 
@@ -24,7 +24,7 @@ if tmux has-session -t $SESSION 2> /dev/null; then
 fi
 
 # else create a new session
-tmux new-session -d -s $SESSION -n main
+tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
 
 # build out panes
 tmux split-window -t ${SESSION}:main.1 -h -p 60
