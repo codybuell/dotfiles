@@ -404,6 +404,17 @@ function control() {
 }
 
 # home tmux
+# .--------------------------------------.
+# |                  |                   |
+# |         1        |                   |
+# |                  |                   |
+# |------------------|         4         |
+# |                  |                   |
+# |         2        |                   |
+# |                  |                   |
+# |------------------|                   |
+# |         3        |                   |
+# '--------------------------------------'
 function home() {
   if [ -z "$TMUX" ]; then
     if ! tmux has-session -t HOME 2> /dev/null; then
@@ -415,6 +426,7 @@ function home() {
       #--- layout 1 (left primary workspace)
       tmux split-window -t HOME:home -h -p 45 -c ~/
       tmux split-window -t HOME:home.1 -v -p 60 -c ~/
+      tmux split-window -t HOME:home.2 -v -l 5 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
       tmux send-keys -t HOME:home.2 'vi' Enter
       tmux send-keys -t HOME:home.3 'weechat' Enter
