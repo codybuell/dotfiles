@@ -74,8 +74,11 @@ function s:SetColorscheme()
 " call matchadd('NonText', '\t\+', -1)
 
   " overrides for listchars (lcs)
+  " note that changes here need to also be reflected in
+  " autoload/buell/helpers ToggleSpecialChars function
   hi SpecialKey ctermfg=236 guifg=#303030
   hi NonText ctermfg=236 guifg=#303030
+  hi Whitespace ctermfg=236 guifg=#303030
 
   " overrides for warnings and errors
   hi slwarnings ctermfg=3 ctermbg=19 guifg=#808000 guibg=#0000af

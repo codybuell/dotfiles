@@ -7,6 +7,31 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
+" Toggle Special Characters                                                    "
+"                                                                              "
+" Toggle highlighting for special characters to help them stand out.           "
+" TODO: rework so you aren't hardcoding the default colors                     "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#ToggleSpecialChars() abort
+  if exists("g:buell_strong_special_chars") && g:buell_strong_special_chars
+    hi SpecialKey ctermfg=236 guifg=#303030
+    hi NonText ctermfg=236 guifg=#303030
+    hi Whitespace ctermfg=236 guifg=#303030
+    let g:buell_strong_special_chars = 0
+  else
+    hi SpecialKey ctermfg=3 guifg=#f0c674
+    hi NonText ctermfg=3 guifg=#f0c674
+    hi Whitespace ctermfg=3 guifg=#f0c674
+    let g:buell_strong_special_chars = 1
+  endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
 " Go Format                                                                    "
 "                                                                              "
 " Run goimports against the current buffer to format code and auto add in      "
@@ -17,8 +42,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! buell#helpers#GoFormat() abort
-    silent! !goimports -w %
-    e!
+  silent! !goimports -w %
+  e!
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -313,7 +338,9 @@ endfunction
 "                                                                              "
 " Open Journal                                                                 "
 "                                                                              "
-" Open up the current days journal, create the file as needed.                 "
+" Open up the current days journal, create the file as needed. Can accept a    "
+" count for N days into the future in order to open journal entries beyond     "
+" the current day (requires gdate on the system).                              "
 "                                                                              "
 " @param {strind} journal - journal to open                                    "
 " @return null                                                                 "
@@ -322,9 +349,19 @@ endfunction
 
 function! buell#helpers#OpenJournal(journal) abort
 
-  let l:year  = strftime('%Y')
-  let l:month = strftime('%m')
-  let l:day   = strftime('%d')
+  if executable('gdate')
+    let l:target = system('gdate --date="' . v:count . ' day" "+%Y %m %d"')
+    let l:dates  = split(l:target)
+
+    let l:year  = l:dates[0]
+    let l:month = l:dates[1]
+    let l:day   = l:dates[2]
+  else
+    let l:year  = strftime('%Y')
+    let l:month = strftime('%m')
+    let l:day   = strftime('%d')
+  endif
+
   if a:journal == 'work'
     let l:path  = "{{ WorkJournal }}" . "/" . l:year . "/" . l:month
   elseif a:journal == 'personal'

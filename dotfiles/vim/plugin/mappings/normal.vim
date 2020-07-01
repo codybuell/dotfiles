@@ -17,6 +17,7 @@
 " <C-O>  - enters normal mode for one command
 " <C-R>= - insert the result of an expression at the cursor
 " <C-B>  - go to the beginning of the command line
+" <C-U>  - remove range / count after hitting :, but still available v:count / v:count1
 "
 " verbose nmap [key]
 
@@ -44,8 +45,11 @@ nnoremap  <silent>          <C-u>             :<C-U>call buell#helpers#Underline
 nnoremap  <silent>          <leader>-         :<C-U>call buell#helpers#CycleSidebars()<CR>
 nnoremap  <silent>          <leader>`         :<C-U>call buell#helpers#CycleViews()<CR>
 nnoremap  <silent>          <leader>0         :<C-U>call buell#helpers#CycleLists()<CR>
-nnoremap  <silent>          <leader>1         :so $VIMRUNTIME/syntax/hitest.vim<CR>
-nnoremap  <silent>          <leader>2         :<C-U>call buell#helpers#HighlightGroups()<CR>
+nnoremap  <silent>          <leader>1         :<C-U>call buell#helpers#ToggleSyntaxHL()<CR>
+nnoremap  <silent>          <leader>2         :<C-U>call buell#helpers#SyncSplit()<CR>
+nnoremap  <silent>          <leader>3         :<C-U>call buell#helpers#ToggleSpecialChars()<CR>
+nnoremap  <silent>          <leader>4         :<C-U>call buell#helpers#HighlightGroups()<CR>
+nnoremap  <silent>          <leader>5         :so $VIMRUNTIME/syntax/hitest.vim<CR>
 
 " movement between splits
 nmap                        <C-h>             <C-w>h

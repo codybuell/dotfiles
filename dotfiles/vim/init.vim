@@ -20,11 +20,11 @@
 "                                                                              "
 "     misc:                   top row:                command-t:               "
 "     -  dirvish              ␣` cycle views          ␣t start at (n)vim cwd   "
-"     ,/ clear hl search      ␣1 hitest, better :hi   ␣. start at buffer dir   "
-"     ←  ale prev             ␣2 syn stack @curs      ␣b list buffers          "
-"     →  ale next             ␣3                      ␣j list jump list        "
-"     ↑  jump list nav        ␣4                      ␣h (n)vim help docs      "
-"     ↓  jump list nav        ␣5                      ␣c ctags                 "
+"     ,/ clear hl search      ␣1 toggle syntax hl     ␣. start at buffer dir   "
+"     ←  ale prev             ␣2 syncsplit long files ␣b list buffers          "
+"     →  ale next             ␣3 toggle lcs hi        ␣j list jump list        "
+"     ↑  jump list nav        ␣4 syn stack @curs      ␣h (n)vim help docs      "
+"     ↓  jump list nav        ␣5 hitest, better :hi   ␣c ctags                 "
 "     ␣␣ toggle buffers       ␣6                      ␣n notes                 "
 "     ␣u underline text       ␣7                                               "
 "     ␣m easymotion           ␣8                      ferret:                  "
@@ -279,10 +279,10 @@ set sw=2                                           " shift width, auto ind / shi
 set shiftround                                     " always indent by multiple of shiftwidth
 set cursorline                                     " highight line cursor is on
 set list                                           " show special characters
-set lcs=eol:¬,tab:>-,trail:.,extends:»,precedes:«  " special character labels
+set lcs=eol:¬,tab:>-,trail:·,extends:»,precedes:«  " special character labels
 set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
-set scrolloff=5                                    " scroll before end of page
+set scrolloff=5                                    " scroll before end of page      
 set shortmess+=I                                   " no intro text on plain vi start
 set foldmethod=syntax                              " enable folding by syntax
 set foldlevel=1                                    " fold second level and greater
