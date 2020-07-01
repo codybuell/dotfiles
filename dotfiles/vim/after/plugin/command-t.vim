@@ -29,3 +29,9 @@ let g:CommandTWildIgnore.=',*.DS_Store'
 
 " also use escape key to close out file listing
 let g:CommandTCancelMap=['<ESC>', '<C-c>']
+
+" use a faster scanner than the default ruby
+let g:CommandTFileScanner='find'
+
+" supress max files warning
+let g:CommandTSuppressMaxFilesWarning=1
