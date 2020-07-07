@@ -52,7 +52,7 @@ if has('autocmd')
     endif
 
     " for go files format and auto insert imports on save
-    au BufWritePre *.go call buell#helpers#GoFormat()
+    au BufWritePost *.go call buell#helpers#GoFormat()
 
     """"""""""""""""""""
     "                  "
