@@ -197,8 +197,8 @@ postplacehooks() {
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
 
       # vim-plug run plug install
-      $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
-      $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
+      # $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
+      # $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
 
       # run UpdateRemotePlugins for deoplete to populate ~/.local/share/nvim/rplugin.vim
       $NVIMPATH -E -s -u "~/.vim/init.vim" +UpdateRemotePlugins +qa
