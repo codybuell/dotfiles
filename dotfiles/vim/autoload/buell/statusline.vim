@@ -192,8 +192,7 @@ function! buell#statusline#rhs() abort
     let l:rhs.=l:line
     let l:rhs.='/'
     let l:rhs.=l:height
-    "let l:rhs.=' 𝚌 ' " (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
-    let l:rhs.=' @ '
+    let l:rhs.=' 𝚌 ' " (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
     let l:rhs.=l:column
     let l:rhs.='/'
     let l:rhs.=l:width
