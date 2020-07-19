@@ -428,8 +428,8 @@ function home() {
       tmux split-window -t HOME:home.1 -v -p 60 -c ~/
       tmux split-window -t HOME:home.2 -v -l 5 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
-      tmux send-keys -t HOME:home.2 'vi' Enter
-      tmux send-keys -t HOME:home.4 'weechat' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi' Enter
+      tmux send-keys -t HOME:home.4 'cd ~/Desktop; weechat' Enter
 
       #--- layout 2 (right primary workspace)
 #     tmux split-window -t HOME:home -h -p 66 -c ~/
