@@ -1,5 +1,5 @@
 # if osx and using docker machine
-docker-machine env main > /dev/null 2>&1
-[[ $? -eq 0 ]] && {
-  eval $(docker-machine env main)
-}
+# docker-machine env main > /dev/null 2>&1
+# [[ $? -eq 0 ]] && {
+#   eval $(docker-machine env main)
+# }

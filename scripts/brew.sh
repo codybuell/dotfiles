@@ -32,12 +32,6 @@ PACKAGES=( \
     'ctags' \                       # handy development tool, needed for vim ctags
     'ddclient' \                    # dynamic dns client, configurable for google dns
     'direnv' \                      # dynamically set environment variables per directory
-    'docker' \                      # the docker engine
-    'docker-completion' \           # autocompletion for docker
-    'docker-compose' \              # for building machines from yaml definitions
-    'docker-compose-completion' \   # autocompletion for docker-compose
-    'docker-machine' \              # manages machines as you can’t use docker directly on osx
-    'docker-machine-completion' \   # autocompletion for docker-machine
     'dos2unix' \                    # encoding conversion tool
     'elinks' \                      # text based web browser, used with mutt
     'ffmpeg' \                      # video encoding and editing utility
@@ -115,6 +109,7 @@ CASKS=( \
     'bartender' \                   # tool for simplifying the menubar
     'bitbar' \                      # shell output in menubar
     'cubicsdr' \                    # good sdr dongle front end
+    'docker' \                      # the docker engine
     'etcher' \                      # img to sd card writer
     'firefox' \                     # alternative web browser
     'geektool' \                    # desktop information center
