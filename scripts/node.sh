@@ -23,6 +23,7 @@
 PACKAGES=( \
   'asciicast2gif' \                         # convert asciinema json files to gifs
   'bower' \                                 # web development 3rd party dependency / asset manager
+  'cfn-lint' \                              # aws cloudformation template linting
   'gistup' \                                # a tool for creating gists from the terminal
   'gitlab-ci-lint' \                        # linting of gitlab ci files
   'gulp' \                                  # asset compiler for web development
