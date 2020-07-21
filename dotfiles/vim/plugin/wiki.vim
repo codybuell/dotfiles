@@ -33,11 +33,11 @@ let g:wiki_list = [wiki_1, wiki_2, wiki_3]
 " index], 
 
 " define standard link syntax regex's
-let g:mdWikiPageLink    = '\[[^]]*\]([^)]*)'                         " [title]([relative/path/]link)
-let g:mdWikiSectionLink = '\[[^]]*\](#[^)]*)'                        " [title](#link)
-let g:mdWikiWebURLLink  = '\[[^]]*\](http[s]\?://[^)]*\.[a-z]\{3\})' " [title](http[s]://link)
-let g:mdWikiWikiLink    = '\[[^]]*\]([^:)]*:[^)]*)'                  " [title](wiki:link)
-let g:mdWikiUnlinked    = '[ ]\?\zs[^ ]*\ze'                         " any block of text excluding spaces
+let g:mdWikiPageLink    = '\[[^]]*\]([^)]*)'             " [title]([relative/path/]link)
+let g:mdWikiSectionLink = '\[[^]]*\](#[^)]*)'            " [title](#link)
+let g:mdWikiWebURLLink  = '\[[^]]*\](http[s]\?://[^)]*)' " [title](http[s]://link)
+let g:mdWikiWikiLink    = '\[[^]]*\]([^:)]*:[^)]*)'      " [title](wiki:link)
+let g:mdWikiUnlinked    = '[ ]\?\zs[^ ]*\ze'             " any block of text excluding spaces
 
 " define wiki's dictionary
 "notes: path
