@@ -3,7 +3,9 @@
  *
  * Taken from @wincent https://github.com/wincent/wincent
  *
- * node karabiner.mjs --emit-karabiner-config
+ * node karabiner.mjs --emit-karabiner-config > ~/.config/karabiner/karabiner.json
+ * launchctl stop org.pqrs.karabiner.karabiner_console_user_server
+ * launchctl start org.pqrs.karabiner.karabiner_console_user_server
  */
 
 function fromTo(from, to) {
