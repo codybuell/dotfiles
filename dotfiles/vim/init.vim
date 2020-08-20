@@ -154,6 +154,7 @@ if &loadplugins
     packadd! vim-blade              " blade syntax highlighting
     packadd! vim-json               " improved json syntax, no conceal
     packadd! vim-markdown           " improved markdown support
+    packadd! vim-toml               " syntax support for toml
     packadd! vim-vue                " syntax highlighting for vue components
 
     " EDITING
