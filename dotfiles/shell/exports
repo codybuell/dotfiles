@@ -25,6 +25,7 @@ esac
 
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # ghi
 export GHI_TOKEN='{{ GitHubGHIAPIToken }}'
