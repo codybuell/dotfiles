@@ -87,9 +87,12 @@ set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
 set pgp_decryption_okay="^\\[GNUPG:\\] DECRYPTION_OKAY"
 
 # MISC SETTINGS
-set pgp_replyencrypt             # now crypt_replyencrypt
-set pgp_replysign                # now crypt_replysign
-set pgp_replysignencrypted       # now crypt_replysignencrypted
+#set pgp_replyencrypt             # now crypt_replyencrypt
+set crypt_replyencrypt
+#set pgp_replysign                # now crypt_replysign
+set crypt_replysign
+#set pgp_replysignencrypted       # now crypt_replysignencrypted
+set crypt_replysignencrypted
 set pgp_show_unusable = no
 set pgp_use_gpg_agent = yes
 set pgp_timeout = 0              # how long to store the passphrase in memory
