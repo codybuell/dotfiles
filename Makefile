@@ -28,6 +28,7 @@ default:
 	    \033[1;34mnode\033[0;34m      run node configuration\033[0m\n\
 	    \033[1;34mcomposer\033[0;34m  run composer configuration\033[0m\n\
 	    \033[1;34mfonts\033[0;34m     place fonts on system\033[0m\n\
+	    \033[1;34miterm\033[0;34m     configure iterm preferences\033[0m\n\
 	    \033[1;34mdots\033[0;34m      place dotfiles for current user\033[0m\n\
 	    \033[1;34mosx\033[0;34m       run osx configurations\033[0m\n\
 	    \033[1;34mlinux\033[0;34m     run linux os configurations\033[0m\n\n\
@@ -72,6 +73,9 @@ composer:
 
 fonts:
 	scripts/fonts.sh
+
+iterm:
+	scripts/iterm.sh
 
 dots:
 	scripts/dots.sh $(DOTS_RUN_ARGS)
