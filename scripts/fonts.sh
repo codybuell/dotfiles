@@ -11,7 +11,8 @@
 #
 # Task: 
 #
-# Usage: make fonts
+# Usage: scripts/fonts.sh
+#        make fonts
 
 source scripts/library.sh
 
