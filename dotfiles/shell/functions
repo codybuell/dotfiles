@@ -216,8 +216,9 @@ function gpb() {
 
 # git clone to folder structure $Repos/site/userORgroup/userORgroupN/repo
 function gcl() {
-  CLONEPATH=`echo $1 | sed -E 's/git\@|http(s)?:\/\///g;s/\.git$//'`
+  CLONEPATH=`echo $1 | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g'`
   git clone $1 {{ Repos }}/$CLONEPATH
+  cd {{ Repos }}/$CLONEPATH
 }
 
 # git pull origin [branch]
