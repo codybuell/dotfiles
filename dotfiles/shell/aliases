@@ -69,7 +69,7 @@ alias grepf="find . -type f -print0 | xargs -0 grep"
 alias grepd="find . -type d | grep"
 
 # locations
-alias notes="vi {{ NotesFolder }}/index.txt"
+alias notes="vi {{ Notes }}/index.txt"
 alias dt="cd ~/Desktop"
 alias dl="cd ~/Downloads"
 alias us="cd ~/Library/Application\ Support/Übersicht/widgets/"

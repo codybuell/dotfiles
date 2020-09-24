@@ -13,7 +13,7 @@
 " notes
 let wiki_1       = {}
 let wiki_1.name  = 'notes'
-let wiki_1.path  = '{{ NotesFolder }}'
+let wiki_1.path  = '{{ Notes }}'
 
 " work journal
 let wiki_2       = {}

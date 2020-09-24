@@ -1,4 +1,4 @@
 #compdef proj
 
 # -W specifies path prefixes are to be prepended
-_files -W {{ NonRepoProjects }}/
+_files -W {{ Projects }}/

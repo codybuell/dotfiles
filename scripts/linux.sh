@@ -841,12 +841,12 @@ package_remove $REMOVE
 package_install $INSTALL
 package_check $INSTALL
 installphp
-buildconky $ReposPath
-buildlbdb $ReposPath
-buildtmux $ReposPath
-buildvim $ReposPath
-buildzsh $ReposPath
-buildweechat $ReposPath
+buildconky $Repos
+buildlbdb $Repos
+buildtmux $Repos
+buildvim $Repos
+buildzsh $Repos
+buildweechat $Repos
 #configurekeyboard
 #setregiontous
 configurefonts

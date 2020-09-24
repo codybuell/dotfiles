@@ -31,35 +31,35 @@
 # ws alias completion
 _gotows() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ NonRepoProjects }}'`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls '{{ Projects }}'`" -- $cur) )
 }
 complete -F _gotows ws
 
 # gist alias completion
 _gotogist() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ GistsPath }}'`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls '{{ Gists }}'`" -- $cur) )
 }
 complete -F _gotogist gist
 
 # repo alias completion
 _gotorepos() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ ReposPath }}'`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls '{{ Repos }}'`" -- $cur) )
 }
 complete -F _gotorepos repo
 
 # note alias completion
 _gotoeditnotes() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ NotesFolder }}'`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls '{{ Notes }}'`" -- $cur) )
 }
 complete -F _gotoeditnotes note
 
 # codex alias completion
 _gotoeditcodex() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ CodexFolder }}'`" -- $cur) )
+  COMPREPLY=( $(compgen -W "`eval ls '{{ Codex }}'`" -- $cur) )
 }
 complete -F _gotoeditcodex codex
 

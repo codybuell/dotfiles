@@ -1,4 +1,4 @@
 #compdef note
 
 # -W specifies path prefixes are to be prepended
-_files -W {{ NotesFolder }}/
+_files -W {{ Notes }}/

@@ -105,20 +105,16 @@ changedir() {
   eval cd $1/$2
 }
 
-wb() {
-  changedir '{{ WorkbenchPath }}' $@
-}
-
 gist() {
-  changedir '{{ GistsPath }}' $@
+  changedir '{{ Gists }}' $@
 }
 
 repo() {
-  changedir '{{ ReposPath }}' $@
+  changedir '{{ Repos }}' $@
 }
 
-proj() {
-  changedir '{{ NonRepoProjects }}' $@
+p() {
+  changedir '{{ Projects }}' $@
 }
 
 # change directory or edit, used with aliases
@@ -131,46 +127,25 @@ changediroredit() {
 }
 
 # edit or cd to notes
-note() {
+n() {
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
-    vim {{ NotesFolder }}/${1}${EXT}
+    vim {{ Notes }}/${1}${EXT}
   else
-    cd {{ NotesFolder }}
+    cd {{ Notes }}
   fi
 }
 
 # edit or cd to codex
-codex() {
+c() {
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
-    vim {{ CodexFolder }}/${1}${EXT}
+    vim {{ Codex }}/${1}${EXT}
   else
-    cd {{ CodexFolder }}
+    cd {{ Codex }}
   fi
-}
-
-## link or unlink path to workbench
-wblink() {
-  CURPATHFULL=`pwd`
-  CURFOLDERNAME=${PWD##*/}
-  DESTINATION="{{ WorkbenchPath }}/$CURFOLDERNAME"
-
-  [[ -d $DESTINATION || -L $DESTINATION ]] && {
-    [[ -L $DESTINATION ]] && {
-      echo "Unlinking '$CURFOLDERNAME' from the workbench."
-      unlink $DESTINATION
-    } || {
-      echo "The folder '$CURFOLDERNAME' exists in the workbench."
-      exit 1
-    }
-  } || {
-    echo "Linking '$CURFOLDERNAME' to the workbench."
-    ln -s "$CURPATHFULL" "$DESTINATION"
-  }
-
 }
 
 # todo-txt.sh wrapper
@@ -466,7 +441,7 @@ function repocheck() {
   CWD=$(pwd)
 
   # move into the repos root
-  cd {{ ReposPath }}
+  cd {{ Repos }}
 
   # build an array of all git repos found
   REPOS=($(find . -type d -name .git | sed 's/\.git$//'))
@@ -474,9 +449,9 @@ function repocheck() {
   # print out some column headers
   echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-80s %s %s\n", $1, $2, $3}'
 
-  # loop through all repos in ReposPath
+  # loop through all repos in Repos path
   for i in ${REPOS[@]}; do
-    cd {{ ReposPath }}/$i > /dev/null 2>&1
+    cd {{ Repos }}/$i > /dev/null 2>&1
     git status > /dev/null 2>&1
     if [ $? -gt 0 ]; then
       printf "$i \033[1;30mnot~a~repo\033[0;m" | \

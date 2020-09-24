@@ -1,4 +1,4 @@
 #compdef codex
 
 # -W specifies path prefixes are to be prepended
-_files -W {{ CodexFolder }}/
+_files -W {{ Codex }}/

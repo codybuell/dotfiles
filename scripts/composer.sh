@@ -92,11 +92,11 @@ case `uname -s` in
     ;;
 esac
 
-# set .host tld (i.e. $ReposPath/project/ --> http://project.host
+# set .host tld (i.e. $Repos/project/ --> http://project.host
 valet domain host
 
 # set base dir for webroots
-cd $ReposPath
+cd $Repos
 valet park
 
 ##########################

@@ -1,5 +1,0 @@
-#compdef wb
-
-# -/ specifies that only directories should be completed
-# -W specifies path prefixes are to be prepended
-_files -/ -W {{ WorkbenchPath }}/

@@ -1,7 +1,7 @@
 [user]
   name = {{ GitUsername }}
   email = {{ Email }}
-	signingkey = {{ GitSigningKey }}
+	signingkey = {{ GitSignKey }}
 [core]
   editor = /usr/local/bin/nvim
   excludesfile = ~/.cvsignore
