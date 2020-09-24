@@ -22,6 +22,7 @@ default:
 	    \033[1;34mrepos\033[0;34m     clone repositories listed in the config file\033[0m\n\
 	    \033[1;34mpaths\033[0;34m     create all needed paths and symlinks\033[0m\n\
 	    \033[1;34mbrew\033[0;34m      run brew installations\033[0m\n\
+	    \033[1;34mmas\033[0;34m       run mas installations\033[0m\n\
 	    \033[1;34mgo\033[0;34m        run go configuration\033[0m\n\
 	    \033[1;34mpip\033[0;34m       run pip configuration\033[0m\n\
 	    \033[1;34mgem\033[0;34m       run gem configuration\033[0m\n\
@@ -55,6 +56,9 @@ paths:
 
 brew:
 	scripts/brew.sh
+
+mas:
+	scripts/mas.sh
 
 go:
 	scripts/go.sh
