@@ -62,7 +62,6 @@ PACKAGES=( \
     'mysql'                         # database server for local dev
     'neomutt' \                     # command line email client
     'nmap' \                        # network utility
-    'node@10' \                     # server side js (LTS Version as of 2019.07.11)
     'notmuch' \                     # mail search for mutt
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
@@ -96,12 +95,15 @@ PACKAGES=( \
     'webkit2png' \                  # tool for screenshotting websites via command line
     'wget' \                        # curl alternative
     'wireshark' \                   # network traffic analyzer
-    'yarn' \                        # bower replacement with checksums
     'ykman' \                       # yubikey manager (feature enabling / pgp)
     'ykpers' \                      # yubikey personalization tool (otp slots)
     'yubico-piv-tool' \             # yubekey piv manager (piv / cac card)
     'zsh' \                         # z-shell
 )
+
+# MANAGED BY NODE SCRIPT (and nvm):
+#   'node@12' \                     # server side js (LTS Version as of 2020.09.17)
+#   'yarn' \                        # bower replacement with checksums
 
 CASKS=( \
     'amazon-workspaces' \           # aws vdi client

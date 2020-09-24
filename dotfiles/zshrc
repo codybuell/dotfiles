@@ -417,3 +417,4 @@ bindkey '^y' autosuggest-accept
 
 eval "$(direnv hook zsh)"
 gopath
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

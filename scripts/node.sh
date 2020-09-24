@@ -47,6 +47,27 @@ PACKAGES=( \
 )
 
 # 'javascript-typescript-langserver' \      # javascript / typescript language server
+#################
+#               #
+#  install nvm  #
+#               #
+#################
+
+# install nvm if necessary
+which nvm > /dev/null
+[[ $? -gt 0 ]] && {
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+}
+
+# this should be setup in your shells rc file, running here manually to at least install
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# install latest lts version of node
+nvm install --lts
+
+# set to use latest lts version of node
+nvm use --lts
 
 #######################
 #                     #
