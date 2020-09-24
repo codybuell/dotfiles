@@ -9,7 +9,7 @@
 #
 # Requisite: Composer
 #
-# Task List: 
+# Tasks: 
 #
 # Usage: make composer
 #        scripts/composer.sh
