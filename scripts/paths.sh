@@ -8,7 +8,7 @@
 #
 # Requisite:
 #
-# Task List: 
+# Tasks: 
 #
 # Usage: make paths
 #        scripts/paths.sh

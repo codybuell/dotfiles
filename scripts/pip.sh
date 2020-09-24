@@ -8,7 +8,7 @@
 #
 # Requisite: Python3
 #
-# Task List: 
+# Tasks: 
 #
 # Usage: make pip
 #        ./pip.sh
