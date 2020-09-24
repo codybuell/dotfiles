@@ -4,17 +4,17 @@
 #
 # Place repository dotfiles into production.  Replaces variables formatted as
 # {{ var }} within the files with data from the repository .config and moves
-# any existing files to ~/.[file].dotorig.[datetime].
+# any existing files to [file].dotorig.[datetime]. 'dotorig' files can be
+# cleaned up by running `make clean`.
 #
 # Author(s): Cody Buell
 #
-# Revisions: 2018.01.17 Initial framework.
-#
 # Requisite: 
 #
-# Task List:
+# Task:
 #
-# Usage: ./dots.sh [file|folder]
+# Usage: make dots [file|folder] [file|folder] ...
+#        ./dots.sh [file|folder] [file|folder] ...
 
 #########################
 #                       #
