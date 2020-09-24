@@ -6,11 +6,9 @@
 #
 # Author(s): Cody Buell
 #
-# Revisions: 2018.08.13 Initial framework.
-#
 # Requisite:
 #
-# Task List: 
+# Tasks: 
 #
 # Usage: ./repos.sh
 
