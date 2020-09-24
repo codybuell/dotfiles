@@ -10,7 +10,8 @@
 #
 # Tasks: 
 #
-# Usage: ./repos.sh
+# Usage: make repos
+#        scripts/repos.sh
 
 source scripts/library.sh
 
