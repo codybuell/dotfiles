@@ -2,62 +2,19 @@
 #
 # Composer
 #
-# Install composer based tools and utilities.
+# Install composer based tools and utilities. Note that composer is installed
+# via brew.sh with `make brew`.
 #
 # Author(s): Cody Buell
-#
-# Revisions: 2018.01.17 Initial framework.
 #
 # Requisite: Composer
 #
 # Task List: 
 #
-# Usage: ./composer.sh
+# Usage: make composer
+#        scripts/composer.sh
 
-######################
-#                    #
-#  define locations  #
-#                    #
-######################
-
-CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
-
-######################
-#                    #
-#  define functions  #
-#                    #
-######################
-
-readconfig() {
-  CONFIGVARS=()
-  shopt -s extglob
-  configfile="$CONFGDIR/.config"
-  [[ -e $configfile ]] && {
-    tr -d '\r' < $configfile > $configfile.tmp
-    while IFS='= ' read -r lhs rhs; do
-      if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
-        rhs="${rhs%%\#*}"    # del in line right comments
-        rhs="${rhs%%*( )}"   # del trailing spaces
-        rhs="${rhs%\"*}"     # del opening string quotes
-        rhs="${rhs#\"*}"     # del closing string quotes
-        export $lhs="$rhs"
-        CONFIGVARS+="$lhs "
-      fi
-    done < $configfile.tmp
-    export CONFIGVARS
-  } || {
-    printf "\033[0;31mno configuration file detected\033[0m\n"
-    exit 1
-  }
-  rm $configfile.tmp
-}
-
-#########################
-#                       #
-#  read configurations  #
-#                       #
-#########################
-
+source scripts/library.sh
 readconfig
 
 ###################
