@@ -8,13 +8,14 @@
 #
 # Author(s): Cody Buell
 #
-# Revisions: 2018.01.17 Initial framework.
-#
 # Requisite: Go
 #
-# Task List: 
+# Tasks: 
 #
-# Usage: ./go.sh
+# Usage: make go
+#        scripts/go.sh
+
+source scripts/library.sh
 
 ###################
 #                 #
@@ -35,10 +36,12 @@ OSX=( \
 # all platforms
 ALL=( \
   'github.com/stamblerre/gocode' \         # replacement for nsf/gocode, deoplete-go dependency
-  'github.com/dominikh/go-tools' \
-  'github.com/jstemmer/gotags' \
   'golang.org/x/tools/cmd/goimports' \     # go formatter and auto imports
 )
+
+# no longer in use:
+# 'github.com/jstemmer/gotags' \
+# 'github.com/dominikh/go-tools' \
 
 # all platforms with GO111MODULE=on
 ALL_GO111MODULE_ON=( \
@@ -60,53 +63,6 @@ configurepassage() {
   launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist
 }
 
-readconfig() {
-  CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
-  CONFIGVARS=()
-  shopt -s extglob
-  configfile="$CONFGDIR/.config"
-  [[ -e $configfile ]] && {
-    tr -d '\r' < $configfile > $configfile.tmp
-    while IFS='= ' read -r lhs rhs; do
-      if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
-        rhs="${rhs%%\#*}"    # del in line right comments
-        rhs="${rhs%%*( )}"   # del trailing spaces
-        rhs="${rhs%\"*}"     # del opening string quotes
-        rhs="${rhs#\"*}"     # del closing string quotes
-        export $lhs="$rhs"
-        CONFIGVARS+="$lhs "
-      fi
-    done < $configfile.tmp
-    export CONFIGVARS
-  } || {
-    printf "\033[0;31mno configuration file detected\033[0m\n"
-    exit 1
-  }
-  rm $configfile.tmp
-}
-
-createdir() {
-  [[ ! -d $1 ]] && {
-    prettyprint "  '${1}' \033[0;32mcreating path\033[0m\n"
-    mkdir -p $1
-  }
-}
-
-createsymlink() {
-  DST=`echo $1 | awk '{print $2}'`
-  [[ -d $DST || -L $DST ]] && {
-    [[ -L $DST ]] && {
-      unlink $DST
-      LINKMSG="33mre-linking symlink"
-    } || {
-      prettyprint "  '${DST}' \033[0;33malready exists as a dir\033[0m\n"
-      continue
-    }
-  }
-  prettyprint "  '${DST}' \033[0;$LINKMSG\033[0m\n"
-  ln -s $1
-}
-
 #####################
 #                   #
 #  env preparation  #
@@ -115,12 +71,15 @@ createsymlink() {
 
 readconfig
 
-# build out gopaths if necessary
-
 # set gopath if currently null
 if [ -z "$GOPATH" ]; then
   export GOPATH=$GoPath
 fi
+
+# build out gopaths if necessary
+for godir in ${GOPATH//:/ }; do
+  [ ! -d "$godir" ] && mkdir -p $godir
+done
 
 #######################
 #                     #
