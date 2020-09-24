@@ -2,54 +2,57 @@
 #
 # Brew
 #
-# Install brew and brew packages.
+# Bootstrap homebrew, install packages, install casks, and startup services.
 #
+# Not all software is available via brew. Here are some packages I use that
+# have to be manually installed. Also see `mas.sh` for app store software.
+#
+#         - microsoft office          --> office 365 website
+#         - on1                       --> vendor website
+
 # Author(s): Cody Buell
 #
-# Revisions: 2016.07.18 Initial framework.
+# Requisite: none
 #
-# Requisite: 
+# Tasks: - [ ] virtualbox installs on the second pass, first fails, not listed,
+#              but is acually installed
 #
-# Task List:
-#
-# Usage: ./brew.sh
+# Usage: make brew
+#        ./brew.sh
+#        sh -c “$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/brew.sh)”
+
+################################################################################
+################################################################################
+##                                                                            ##
+##  Configuration                                                             ##
+##                                                                            ##
+##  Define packages and casks to be installed, services to be started.        ##
+##                                                                            ##
+################################################################################
+################################################################################
 
 PACKAGES=( \
     'ack' \                         # enhanced grep like functionality for development
     'ag' \                          # silver searcher, ack like func
-    'alpine' \                      # command line email client
-    'ansible' \                     # configuration management utility
     'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
-    'bash' \                        # newer version of bash
-    'bash-completion' \             # bash completion, nuff said
-    'bitlbee' \                     # google chat and other client for irssi
-    'cdrtools' \                    # contains mkisofs for building custom linux isos
-    'chromedriver' \                # webapp testing server
-    'clipper' \                     # clipboard listener service
     'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
-    'ctags' \                       # handy development tool, needed for vim ctags
-    'ddclient' \                    # dynamic dns client, configurable for google dns
     'direnv' \                      # dynamically set environment variables per directory
     'dos2unix' \                    # encoding conversion tool
     'elinks' \                      # text based web browser, used with mutt
     'ffmpeg' \                      # video encoding and editing utility
-    'figlet' \                      # ascii art
     'fwknop' \                      # port knocking
     'gcc' \                         # gnu c compiler
     'gdal' \                        # geographic tool for map development (org2org)
-    'gifsicle' \                    # creating gifs from videos
     'git' \                         # git scm
     'git-lfs' \                     # large file support for git
     'gnu-sed' \                     # needed for lbdbq m_muttalias module to work
-    'gnu-typist' \                  # typing tutor, supports colemak
-    'gnupg2' \                      # gpg utilities for openpgp
+    'gnupg' \                       # gpg utilities for openpgp
     'go' \                          # the go programming language
     'httrack' \                     # site mirroring application
     'imagemagick' \                 # command line graphics manipulation tool
     'imapfilter' \                  # tool for organizing mail directly on the server
-    'irssi' \                       # command line irc client
     'isync' \                       # package containing mbsync, imap sync to local fs
     'jq' \                          # json manipulation and parsing tool
     'lbdb' \                        # used by mutt to build email auto completes
@@ -57,6 +60,7 @@ PACKAGES=( \
     'lockrun' \                     # used for process flow control in mutt
     'mailhog' \                     # local mail trap service for testing
     'markdown' \                    # parsing of markdown syntax to html
+    'mas' \                         # brew like tool for the apple app store
     'minicom' \                     # modem control and serial terminal emulation
     'msmtp' \                       # smtp client used with mutt config
     'mysql'                         # database server for local dev
@@ -68,19 +72,15 @@ PACKAGES=( \
     'pandoc' \                      # markup converter, used with mutt to send html email
     'php' \                         # latest and greatest php
     'picocom' \                     # used with ino for serial connection to arduino
-    'pidgin' \                      # pidgin and finch xmpp protocol clients
     'pinentry' \                    # interface used to prompt for gpg pins
     'python' \                      # python language
-    'python3' \                     # python 3 language
     'qrencode' \                    # utility to generate qr codes
     'ranger' \                      # cli file browser
-    'rclone' \                      # cli for cloud storage providers
     'reattach-to-user-namespace' \  # reattach process to background
     'rg' \                          # ripgrep, faster ack
     'ruby' \                        # use brew ruby over osx provided
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
-    'sshrc' \                       # custom one time configs on remote servers
     'terminal-notifier' \           # send osx notifications through terminal
     'tmux' \                        # terminal multiplexer
     'todo-txt' \                    # ginas handy to do list manager
@@ -93,6 +93,7 @@ PACKAGES=( \
     'wakeonlan' \                   # wol client
     'watch' \                       # handy utility for monitoring
     'webkit2png' \                  # tool for screenshotting websites via command line
+    'weechat' \                     # irc client
     'wget' \                        # curl alternative
     'wireshark' \                   # network traffic analyzer
     'ykman' \                       # yubikey manager (feature enabling / pgp)
@@ -101,57 +102,104 @@ PACKAGES=( \
     'zsh' \                         # z-shell
 )
 
+# TEMPORARY UNTIL LSP READY
+#   'neovim' \                      # neovim
+
+# OLD PACKAGES
+#   'alpine' \                      # command line email client
+#   'ansible' \                     # configuration management utility
+#   'bash' \                        # newer version of bash
+#   'bash-completion' \             # bash completion, nuff said
+#   'bitlbee' \                     # google chat and other client for irssi
+#   'cdrtools' \                    # contains mkisofs for building custom linux isos
+#   'clipper' \                     # clipboard listener service
+#   'ctags' \                       # handy development tool, needed for vim ctags
+#   'ddclient' \                    # dynamic dns client, configurable for google dns
+#   'figlet' \                      # ascii art
+#   'gifsicle' \                    # creating gifs from videos
+#   'gnu-typist' \                  # typing tutor, supports colemak
+#   'irssi' \                       # command line irc client
+#   'pidgin' \                      # pidgin and finch xmpp protocol clients
+#   'rclone' \                      # cli for cloud storage providers
+#   'sshrc' \                       # custom one time configs on remote servers
+
 # MANAGED BY NODE SCRIPT (and nvm):
 #   'node@12' \                     # server side js (LTS Version as of 2020.09.17)
 #   'yarn' \                        # bower replacement with checksums
 
 CASKS=( \
     'amazon-workspaces' \           # aws vdi client
-    'balsamiq-mockups' \            # wireframing tool
+    'balenaetcher' \                # img to sd card writer
     'bartender' \                   # tool for simplifying the menubar
-    'bitbar' \                      # shell output in menubar
+    'bitwarden' \                   # password / secret management
+    'chromedriver' \                # webapp testing server
     'cubicsdr' \                    # good sdr dongle front end
     'docker' \                      # the docker engine
-    'etcher' \                      # img to sd card writer
+    'dropbox' \                     # file collaboration
+    'fantastical' \                 # calendar replacement
     'firefox' \                     # alternative web browser
-    'geektool' \                    # desktop information center
     'google-chrome' \               # chrome browser
     'google-drive-file-stream' \    # file collaboration
     'hammerspoon' \                 # osx automation tool
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
-    'itsycal' \                     # menubar calendar
     'karabiner-elements' \          # keyboard layout customization
     'keycastr' \                    # show keystrokes on screen
     'libreoffice' \                 # open source office suite
     'licecap' \                     # gifcasting utility
+    'meshmixer' \                   # 3d modeling software
+    'obs' \                         # open broadcast software
     'qlstephen' \                   # ability to open all plain text files in quick look
-    'seil' \                        # utility for remapping caps lock
     'sketch' \                      # graphics design and layout
     'slack' \                       # collaboration and chat application
-    'ubersicht' \                   # alternative to geektool
+    'steam' \                       # steam gaming service
+    'tg-pro' \                      # advanced fan control
     'vagrant' \                     # vms as packages management solution
     'virtualbox' \                  # virtualization utility
     'vmware-horizon-client' \       # vdi client
     'xquartz' \                     # osxs implemenrtation of x11
     'inkscape' \                    # vector graphics application, must be last
+    'zoomus' \                      # zoom video conferencing app
 )
 
-# other casks of interest
+# OLD CASKS
+#   'balsamiq-mockups' \            # wireframing tool
+#   'bitbar' \                      # shell output in menubar
+#   'geektool' \                    # desktop information center
+#   'itsycal' \                     # menubar calendar
+#   'seil' \                        # utility for remapping caps lock
+#   'ubersicht' \                   # alternative to geektool
 #   'caskroom/versions/google-chrome-canary'  # bleeding edge chrome
 
-# not available via brew cask
-#  - screenie                       --> download from vendor
-#  - meshmixer                      --> download from vendor
-#  - hazeover                       --> app store
-#  - noizio                         --> app store
-#  - screenflow6                    --> app store
-#  - microsoft remote desktop       --> app store
-#  - wifi explorer                  --> app store
-#  - aperture                       --> app store
-#  - xcode                          --> app store
-#  - icon slate                     --> app store
-#  - yubikey personalization tool   --> app store
+SERVICES=( \
+)
+
+# INACTIVE SERVICES
+#   'isync' \
+#   'mailhog' \
+#   'mysql' \
+#   'php' \
+#   'unbound' \
+#   'vault' \
+
+# OLD SERVICES
+#   'bitlbee' \
+#   'ddclient' \
+#   'clipper' \
+
+################################################################################
+################################################################################
+##                                                                            ##
+##  Run It                                                                    ##
+##                                                                            ##
+##  Bootstrap homebrew if needed, install and configure all the bits.         ##
+##                                                                            ##
+################################################################################
+################################################################################
+
+########################
+# INSTALL DEPENDENCIES #
+########################
 
 # install xcode tools if necessary
 [[ `pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version` -eq 0 ]] && {
@@ -161,14 +209,29 @@ CASKS=( \
 # install brew if necessary
 which brew > /dev/null
 [[ $? -gt 0 ]] && {
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 }
+
+#############
+# CONFIGURE #
+#############
+
+# disable analytics
+brew analytics off
+
+####################
+# UPDATE & UPGRADE #
+####################
 
 # try to update brew
 brew update
 
 # try to upgrade brew
 brew upgrade
+
+#####################
+# RUN INSTALLATIONS #
+#####################
 
 # install brew casks
 for i in ${CASKS[@]}; do
@@ -181,18 +244,14 @@ for i in ${PACKAGES[@]}; do
   brew install $i
 done
 
-# install packages that need flags
-brew install weechat --with-aspell --with-lua --with-perl --with-python@2 --with-ruby     # chat client
+# hack until neovim lsp is ready
+brew install neovim --HEAD
+
+##################
+# START SERVICES #
+##################
 
 # start up services
-#brew services start --all
-brew services start bitlbee
-brew services start clipper
-brew services start mysql
-#brew services start ddclient
-
-# any necessary re-linking
-brew unlink gnupg
-brew link gnupg2
-
-exit 0
+for i in ${SERVICES[@]}; do
+  brew services start $i
+done
