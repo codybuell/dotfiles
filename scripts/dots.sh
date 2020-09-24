@@ -192,6 +192,9 @@ postplacehooks() {
       launchctl stop org.pqrs.karabiner.karabiner_console_user_server 
       launchctl start org.pqrs.karabiner.karabiner_console_user_server 
       ;;
+    gnupg )
+      chmod 700 ~/.gnupg
+      ;;
     vim )
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
