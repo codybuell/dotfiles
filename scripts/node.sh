@@ -2,17 +2,24 @@
 #
 # Node
 #
-# Installation of node packages.
+# Install Node Verion Manager, the latest LTS version of Node, and a slew of
+# global npm packages. For more information on NVM, see:
+#
+#  - https://github.com/nvm-sh/nvm
+#
+# To update NVM:
+#
+#  `nvm install node --reinstall-packages-from=node`
 #
 # Author(s): Cody Buell
 #
-# Revisions: 2018.01.17 Initial framework.
+# Requisite: - `make dots shell profile bashrc zshrc` (for usage after)
 #
-# Requisite: NPM
+# Tasks:
 #
-# Task List: 
-#
-# Usage: ./node.sh
+# Usage: make node
+#        ./node.sh
+#        sh -c "$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/node.sh)"
 
 ###################
 #                 #
@@ -46,7 +53,6 @@ PACKAGES=( \
   'vscode-css-languageserver-bin' \         # css/less/sass language server
 )
 
-# 'javascript-typescript-langserver' \      # javascript / typescript language server
 #################
 #               #
 #  install nvm  #
