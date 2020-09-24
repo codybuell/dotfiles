@@ -6,7 +6,7 @@
 #
 # Author(s): Cody Buell
 #
-# Requisite: Python2 & Python3
+# Requisite: Python3
 #
 # Task List: 
 #
