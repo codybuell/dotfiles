@@ -64,6 +64,9 @@ nnoremap  <silent>          <localleader>h    :split<CR>
 " improved copy & paste
 nnoremap  <silent>          p                 p`]
 
+" search for non-ascii characters
+nnoremap  <silent>          ,,                /[^\x00-\x7F]<CR>
+
 " re-run last macro
 nnoremap                    <leader><enter>   @@
 
