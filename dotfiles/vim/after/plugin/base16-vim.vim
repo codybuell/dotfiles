@@ -58,11 +58,6 @@ function s:SetColorscheme()
   " italicize comments
   execute 'highlight Comment ' . pinnacle#italicize('Comment')
 
-  "" make tildes at EndOfBuffer less obvious
-  "let l:color=pinnacle#extract_bg('ColorColumn')
-  "let l:highlight=pinnacle#highlight({'bg': l:color, 'fg': l:color})
-  "execute 'highlight EndOfBuffer ' . l:highlight
-
 " " re-add matches for tabs after all loads so that they highlight correctly
 " " on the current line when cursorline is enabled, else hi below is ignored
 " " see also the corresponding autocommands in plugins/autocommands.vim
@@ -87,9 +82,11 @@ function s:SetColorscheme()
   " overrides for search results
   hi Search ctermfg=232 guifg=#080808
 
-" " highlight any non ascii characters
-" syntax match nonascii "[^\x00-\x7F]"
-" highlight nonascii guibg=Red ctermbg=2
+  " overrides for (vim)diffs
+  hi DiffAdd    ctermbg=22 guibg=#222f22
+  hi DiffDelete ctermbg=52 guibg=#2f2222
+  hi DiffChange ctermbg=24 guibg=#22222f
+  hi DiffText   ctermbg=24 guibg=#22222f
 
   " run all colorscheme autocommands to ensure consistency
   doautocmd ColorScheme
