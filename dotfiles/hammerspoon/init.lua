@@ -568,11 +568,15 @@ local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', re
 cmdDoublePress = require("cmdDoublePress")
 cmdDoublePress.timeFrame = 1
 cmdDoublePress.action = function()
+  -- grab the host os version information
+  os = hs.host.operatingSystemVersion()
+  osMajorMinor = tonumber(os.major .. os.minor)
   -- launch  mission control with double tap of cmd
-  -- catalina on
-  --hs.application.open('/System/Applications/Mission Control.app')
-  -- pre-catalina
-  hs.application.open('/Applications/Mission Control.app')
+  if osMajorMinor >= 1015 then -- catalina or higher
+    hs.application.open('/System/Applications/Mission Control.app')
+  else
+    hs.application.open('/Applications/Mission Control.app')
+  end
   log.i("double tap detected")
 end
 
