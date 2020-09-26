@@ -56,7 +56,7 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 #                                                                              #
 # 1. Edit the following files:                                                 #
 #                                                                              #
-#    - dotfiles/mbsyncrc                                                       #
+#    - dotfiles/mbsyncrc      # tweak folder structures, etc.                  #
 #                                                                              #
 # 2. Create 'application password' records in OSX Keychain Access              #
 #                                                                              #
@@ -70,6 +70,7 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 # 3. And then configure the following services:                                #
 #                                                                              #
 #    - passage (pull go repo and build, see projects readme)                   #
+#      * this is handled by `make go`                                          #
 #                                                                              #
 # Some common service configurations:                                          #
 #                                                                              #
