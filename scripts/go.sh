@@ -30,7 +30,7 @@ LINUX=( \
 # osx only packages
 OSX=( \
   'github.com/wincent/passage' \           # utility for proxying to osx keychain
-  'github.com/keybase/go-keychain' \       # golang library for osx keychain
+  'github.com/keybase/go-keychain' \       # golang library for osx keychain, passage dep
 )
 
 # all platforms
@@ -61,8 +61,9 @@ ALL_GO111MODULE_ON=( \
 configurepassage() {
   cd ${GOPATH//:*/}/src/github.com/wincent/passage
   go build
-  cp contrib/com.wincent.passage.plist ~/Library/LaunchAgents
-  launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist
+  cp contrib/com.wincent.passage.plist ~/Library/LaunchAgents                 # place launch agent
+  cp passage /usr/local/bin                                                   # expected location for launch agent
+  launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist  # fails if run inside tmux
 }
 
 #####################
