@@ -58,6 +58,7 @@
 #           - desktop & screen saver -> start screensaver after 10 min
 #           - security & privacy -> use apple watch
 #           - security & privacy -> require pw immediately
+#           - security & privacy -> turn on file vault (allow icloud to decrypt)
 #           - security & privacy -> turn on firewall
 #           - security & privacy -> full disk access
 #             - terminal
