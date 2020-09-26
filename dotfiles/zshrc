@@ -33,6 +33,9 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 # colorize completions using default `ls` colors
 zstyle ':completion:*' list-colors ''
 
+# keep cdpath functional but don't list in autocompletions
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
+
 ################################################################################
 ##                                                                            ##
 ## Correction                                                                 ##
