@@ -2,4 +2,8 @@
 
 # -/ specifies that only directories should be completed
 # -W specifies path prefixes are to be prepended
-_files -/ -W {{ Repos }}/
+#_files -/ -W {{ Repos }}/
+
+# find all git repositories
+# todo: handle duplicate repository names
+_values 'repos' $(find {{ Repos }} -type d -name .git | sed 's/\/\.git$//' | awk -F\/ '{print $NF}')

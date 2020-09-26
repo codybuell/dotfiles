@@ -110,7 +110,10 @@ gist() {
 }
 
 repo() {
-  changedir '{{ Repos }}' $@
+  REPOLIST=$(find {{ Repos }} -type d -name .git | sed 's/\/\.git$//')
+  TARGETREPO=$(echo $REPOLIST | grep "${1}$")
+  cd $TARGETREPO
+  #changedir '{{ Repos }}' $@
 }
 
 p() {
@@ -444,7 +447,7 @@ function home() {
 # repocheck
 function repocheck() {
 
-  # git the current working directory
+  # get the current working directory
   CWD=$(pwd)
 
   # move into the repos root
