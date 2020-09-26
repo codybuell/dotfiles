@@ -224,6 +224,26 @@ function gcl() {
   cd {{ Repos }}/$CLONEPATH
 }
 
+# git commit retry, if a commit fails use the last git commit message
+function gcr() {
+  cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG"
+  case `basename $SHELL` in
+    zsh )
+      read "selection?Retry commit with this message (y[es]/n[o]): "
+      ;;
+    * )
+      read -r -p "Retry commit with this message (y[es]/n[o]): " selection
+      ;;
+  esac
+  case $selection in
+    [yY][eE][sS]|[yY] )
+      git commit -m "$(cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG")"
+      ;;
+    [nN][oO]|[nN] )
+      ;;
+  esac
+}
+
 # git pull origin [branch]
 function gpl() {
   [[ -z $1 ]] && {
