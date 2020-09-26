@@ -50,6 +50,8 @@ md() {
     'readme' \
   )
 
+  unset i
+
   for i in ${HIERARCHY[@]}; do
     if [[ -a $i ]]; then
       target=$i
