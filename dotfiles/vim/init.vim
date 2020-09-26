@@ -118,8 +118,8 @@ if !has('nvim') && has('python3')
 endif
 
 " avoid search, speeding up start-up
-if filereadable('/usr/local/bin/python') && filereadable('/usr/local/bin/python3')
-  let g:python_host_prog  = '/usr/local/bin/python'
+if filereadable('/usr/bin/python') && filereadable('/usr/local/bin/python3')
+  let g:python_host_prog  = '/usr/bin/python'
   let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
