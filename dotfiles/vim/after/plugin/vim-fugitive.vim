@@ -53,5 +53,6 @@ nnoremap  <silent>          <leader>ge        :Gedit<CR>
 nnoremap  <silent>          <leader>gr        :Gread<CR>
 nnoremap  <silent>          <leader>gw        :Gwrite<CR><CR>
 nnoremap  <silent>          <leader>gl        :silent! Glog<CR>:bot copen<CR>
-nnoremap  <silent>          <leader>gm        :Gmove<Space>
-nnoremap  <silent>          <leader>go        :Git checkout<Space>
+nnoremap                    <leader>gm        :Gmove<Space>
+nnoremap                    <leader>go        :Git checkout<Space>
+nnoremap                    <leader>gg        :Ggrep<Space>
