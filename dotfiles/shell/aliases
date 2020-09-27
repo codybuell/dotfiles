@@ -5,12 +5,15 @@
 # misc commands
 alias b=bundle
 alias be='bundle exec'
+alias c=codex
 alias clip='nc -U ~/.clipper.sock'
 alias d='hash -d'
 alias groot='cd $(git rev-parse --show-toplevel 2> /dev/null || echo -n ".")'
 alias h=history
 alias j=jump
 alias m=mosh
+alias n=note
+alias p=project
 alias sed=gsed
 
 # change term when ssh'ing

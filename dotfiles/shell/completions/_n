@@ -1,0 +1,4 @@
+#compdef n
+
+# -W specifies path prefixes are to be prepended
+_files -W {{ Notes }}/

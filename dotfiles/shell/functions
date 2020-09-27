@@ -118,7 +118,7 @@ repo() {
   #changedir '{{ Repos }}' $@
 }
 
-p() {
+project() {
   changedir '{{ Projects }}' $@
 }
 
@@ -132,7 +132,7 @@ changediroredit() {
 }
 
 # edit or cd to notes
-n() {
+note() {
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
@@ -143,7 +143,7 @@ n() {
 }
 
 # edit or cd to codex
-c() {
+codex() {
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
