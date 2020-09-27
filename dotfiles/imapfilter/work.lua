@@ -42,11 +42,12 @@ function run()
   mssupp   = work['MS Support']
   msmark   = work['MS Marketing']
   bonusly  = work['Bonusly']
+  employee = work['Past Employees']
 
-  -- list mailboxes and folders
---  mailboxes, folders = work:list_all()
---  for _, m in ipairs(mailboxes) do print(m) end
---  for _, f in ipairs(folders) do print(f) end
+  -- List mailboxes and folders
+  --mailboxes, folders = work:list_all()
+  --for _, m in ipairs(mailboxes) do print(m) end
+  --for _, f in ipairs(folders) do print(f) end
 
   --
   -- Helpers
@@ -223,9 +224,16 @@ function run()
 
   -- bonusly
   movetofolder('bonusly messages', bonusly, (function()
-    results = inbox
-      :contain_from('noreply@bonus.ly')
+    results = inbox:contain_from('noreply@bonus.ly') +
+              inbox:contain_from('system@bonus.ly')
 --    :contain_subject('did something awesome')
+    return results
+  end))
+
+  -- past employees
+  movetofolder('past employee messages', employee, (function()
+    results = inbox
+      :contain_to('cmagee@cloudtamer.io')
     return results
   end))
 
