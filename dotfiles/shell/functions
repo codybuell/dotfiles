@@ -415,12 +415,11 @@ function control() {
 # |                  |                   |
 # |         1        |                   |
 # |                  |                   |
-# |------------------|         4         |
+# |------------------|         3         |
 # |                  |                   |
 # |         2        |                   |
 # |                  |                   |
-# |------------------|                   |
-# |         3        |                   |
+# |                  |                   |
 # '--------------------------------------'
 function home() {
   if [ -z "$TMUX" ]; then
@@ -433,10 +432,9 @@ function home() {
       #--- layout 1 (left primary workspace)
       tmux split-window -t HOME:home -h -p 45 -c ~/
       tmux split-window -t HOME:home.1 -v -p 60 -c ~/
-      tmux split-window -t HOME:home.2 -v -l 5 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
       tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi' Enter
-      tmux send-keys -t HOME:home.4 'cd ~/Desktop; weechat' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop; weechat' Enter
 
       #--- layout 2 (right primary workspace)
 #     tmux split-window -t HOME:home -h -p 66 -c ~/
@@ -457,7 +455,7 @@ function home() {
 #     tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
 
       ## attach to home session, home window, weechat pane
-      tmux -u attach -t HOME:home.4
+      tmux -u attach -t HOME:home.3
     else
       tmux -u attach -t HOME
     fi
