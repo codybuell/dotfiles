@@ -36,6 +36,7 @@ PACKAGES=( \
     'ag' \                          # silver searcher, ack like func
     'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
+#   'clipper' \                     # clipboard listener service, dep for vim configs
     'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
     'direnv' \                      # dynamically set environment variables per directory
@@ -112,7 +113,6 @@ PACKAGES=( \
 #   'bash-completion' \             # bash completion, nuff said
 #   'bitlbee' \                     # google chat and other client for irssi
 #   'cdrtools' \                    # contains mkisofs for building custom linux isos
-#   'clipper' \                     # clipboard listener service
 #   'ctags' \                       # handy development tool, needed for vim ctags
 #   'ddclient' \                    # dynamic dns client, configurable for google dns
 #   'figlet' \                      # ascii art
@@ -172,6 +172,7 @@ CASKS=( \
 #   'caskroom/versions/google-chrome-canary'  # bleeding edge chrome
 
 SERVICES=( \
+    'clipper' \
 )
 
 # INACTIVE SERVICES
@@ -185,7 +186,6 @@ SERVICES=( \
 # OLD SERVICES
 #   'bitlbee' \
 #   'ddclient' \
-#   'clipper' \
 
 ################################################################################
 ################################################################################
