@@ -33,7 +33,8 @@ _gotows() {
   local cur=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $(compgen -W "`eval ls '{{ Projects }}'`" -- $cur) )
 }
-complete -F _gotows ws
+complete -F _gotows project
+complete -F _gotows p
 
 # gist alias completion
 _gotogist() {
@@ -55,6 +56,7 @@ _gotoeditnotes() {
   COMPREPLY=( $(compgen -W "`eval ls '{{ Notes }}'`" -- $cur) )
 }
 complete -F _gotoeditnotes note
+complete -F _gotoeditnotes n
 
 # codex alias completion
 _gotoeditcodex() {
@@ -62,6 +64,7 @@ _gotoeditcodex() {
   COMPREPLY=( $(compgen -W "`eval ls '{{ Codex }}'`" -- $cur) )
 }
 complete -F _gotoeditcodex codex
+complete -F _gotoeditcodex c
 
 # todo-txt completion
 _todotxtcli() {
