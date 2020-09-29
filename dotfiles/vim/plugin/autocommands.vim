@@ -21,7 +21,10 @@ if has('autocmd')
     au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     " close vim/nvim if quickfix is the only thing left open
-    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"| q |endif
+
+    " close vim/nvim if fugitiveblame is the only thing left open
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&ft") == "fugitiveblame"| q |endif
 
     " enforce relative numbers on all buffers and tabs
     au BufWinEnter * set nu rnu
