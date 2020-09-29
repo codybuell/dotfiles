@@ -30,7 +30,7 @@
 "     ␣m easymotion           ␣8                      ferret:                  "
 "     ␣↵ re-run last macro    ␣9                      ␣aa ack all vim cwd      "
 "     ↹  toggle fold          ␣0 cycle lists          ␣aw ack current word     "
-"                             ␣- cycle sidebars       ␣as ack search & replace "
+"     ↵  make link (markdown) ␣- cycle sidebars       ␣as ack search & replace "
 "                             ␣=                      ␣a. ack buffer dir       "
 "                                                                              "
 "     \c redo buffer syntax   easymotion:             scalpel:                 "
