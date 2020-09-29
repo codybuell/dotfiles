@@ -307,6 +307,8 @@ function! s:get_custom_statusline(action) abort
     return 0 " don't override, undotree does its own thing
   elseif &ft ==# 'nerdtree'
     return 0 " don't override, NERDTree does its own thing
+  elseif &ft ==? 'fugitiveblame'
+    return '\ ' " no status bar for fugitiveblame windows
   elseif &ft ==# 'qf'
     if a:action ==# 'blur'
       return 'Quickfix'
