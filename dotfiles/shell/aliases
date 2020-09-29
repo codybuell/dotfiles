@@ -38,6 +38,7 @@ if [[ `which nvim | wc -l` -gt 0 ]]; then
   alias vi="nvim"
   alias vim="nvim"
   alias vix="nvim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+  alias vimdiff="nvim -d"
 elif [[ `which vim | wc -l` -gt 0 ]]; then
   alias vi="vim"
   alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
