@@ -73,6 +73,9 @@ nnoremap                    <leader><enter>   @@
 " toggle current fold
 nnoremap                    <tab>             za
 
+" zap white space
+nnoremap  <silent>          <localleader>z    :<C-U>call buell#helpers#ZapWhitespace()<CR>
+
 " redo buffer syntax
 nnoremap  <silent>          <localleader>c    :syntax sync fromstart<CR>
 

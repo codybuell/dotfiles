@@ -7,6 +7,39 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
+" Substitute                                                                   "
+"                                                                              "
+" Helper to search and replace.                                                "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#substitute(pattern, replacement, flags) abort
+  let l:number=1
+  for l:line in getline(1, '$')
+    call setline(l:number, substitute(l:line, a:pattern, a:replacement, a:flags))
+    let l:number=l:number + 1
+  endfor
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Zap Whitespace                                                               "
+"                                                                              "
+" Remove trailing whitespace from the doucment and return cursor to the        "
+" starting position.                                                           "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#ZapWhitespace() abort
+  call buell#helpers#substitute('\s\+$', '', '')
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
 " Toggle Special Characters                                                    "
 "                                                                              "
 " Toggle highlighting for special characters to help them stand out.           "
