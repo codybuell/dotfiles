@@ -33,10 +33,10 @@ clonerepos() {
     eval VAL=\$$r
     [[ $VAR =~ REPO.* ]] && {
       MAKEMODEL=`echo $VAL | sed 's/\// /g;s/\.git//;s/:/ /g' | awk '{print $(NF-1)"/"$NF}'`
-      TARGETPATH=${Repos}/`echo $VAL | sed 's/\// /g;s/\.git//' | awk 'END {print $NF}'`
-      [[ ! -d $TARGETPATH ]] && {
+      CLONEPATH=`echo $VAL | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g'`
+      [[ ! -d $CLONEPATH ]] && {
         prettyprint "  ${MAKEMODEL}:\033[0;32mcloning\033[0m\n"
-        git clone $VAL $TARGETPATH > /dev/null 2>&1
+        git clone $VAL {{ Repos }}/$CLONEPATH
       } || {
         prettyprint "  ${MAKEMODEL}:\033[0;32malready cloned\033[0m\n"
       }
