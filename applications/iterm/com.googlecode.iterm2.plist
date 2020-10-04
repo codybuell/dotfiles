@@ -29,7 +29,7 @@
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>FocusFollowsMouse</key>
-	<true/>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideActivityIndicator</key>
@@ -94,11 +94,11 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>1440 0 2400 2137 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1600 0 640 484 0 0 3840 2137 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1440 0 2397 2137 0 0 3840 2137 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>972 223 1277 1062 0 0 3840 2137 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>529 356 1144 926 0 0 3840 2137 </string>
+	<string>1440 0 2397 2137 0 0 3840 2137 </string>
 	<key>NeverWarnAboutShortLivedSessions_E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_E41DD3EA-94A9-445C-B54D-E3C0C4D64AA7_selection</key>
@@ -1329,12 +1329,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3840, 2160}}</string>
 		<key>topLeft</key>
-		<string>{590, 851}</string>
+		<string>{1440, 2137}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>56CC89F3-2E2D-4226-B038-D88244288B71</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>6</integer>
+	<integer>16</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2111,7 +2111,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-09-24T13:33:37Z</date>
+	<date>2020-10-04T13:33:13Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SoundForEsc</key>
