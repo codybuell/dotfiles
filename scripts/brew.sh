@@ -9,6 +9,7 @@
 #
 #         - microsoft office          --> office 365 website
 #         - on1                       --> vendor website
+#         - snap camera               --> vendor website
 
 # Author(s): Cody Buell
 #
@@ -138,6 +139,7 @@ CASKS=( \
     'dropbox' \                     # file collaboration
     'fantastical' \                 # calendar replacement
     'firefox' \                     # alternative web browser
+    'gimp' \                        # open source bitmap editor
     'google-chrome' \               # chrome browser
     'google-drive-file-stream' \    # file collaboration
     'hammerspoon' \                 # osx automation tool
