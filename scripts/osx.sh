@@ -263,6 +263,7 @@ UseSmartDashes='false'                        # enable smart dashes when typing
 CorrectSpellingAutomatically='false'          # auto fix spelling
 CtrlWithScrollZoom='true'                     # use scroll + ctrl to zoom
 ZoomFollowKeyboard='false'                    # follow kb focus when zoomed
+EnableLocate='true'                           # turn on locate service
 
 ################################################################################
 ################################################################################
@@ -736,6 +737,11 @@ defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
 # follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool $ZoomFollowKeyboard
+
+# enable the locate service
+[[ $EnableLocate == true ]] && {
+  sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+}
 
 ############
 # ARCHIVED #
