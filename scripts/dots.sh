@@ -211,8 +211,7 @@ postplacehooks() {
       $VIMPATH -E +'helptags ALL' +qa &> /dev/null
 
       # firenvim
-      #$NVIMPATH -E -s -u "~/.vim/init.vim" +'+call firenvim#install(0)' +qa
-      $NVIMPATH --headless -c "call firenvim#install(0, 'export PATH=\"$PATH\"')" -c quit
+      $NVIMPATH --headless -c "call firenvim#install(0, 'export LANG="en_US.UTF-8"; export PATH=\"$PATH\"')" -c quit > /dev/null 2>&1
 
       # compile command-t
       cd ~/.vim/pack/bundle/opt/command-t/ruby/command-t/ext/command-t > /dev/null
