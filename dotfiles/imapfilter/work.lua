@@ -230,6 +230,14 @@ function run()
     return results
   end))
 
+  -- zoom john doe has joined your meeting
+  archive_and_mark_read('zoom meeting attendee', (function()
+    results = inbox
+      :contain_from('no-reply@zoom.us')
+      :contain_subject('has joined your meeting -')
+    return results
+  end))
+
   -- past employees
   movetofolder('past employee messages', employee, (function()
     results = inbox
