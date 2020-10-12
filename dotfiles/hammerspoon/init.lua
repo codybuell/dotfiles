@@ -584,38 +584,43 @@ end
 --  media keys  --
 ------------------
 
----- get the media keys to actually control itunes again...
---MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
---AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
---DEBUG_TAP = false
----- watching for special key presses
---tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
---	if DEBUG_TAP then
---		print("event tap debug got event:")
---		print(hs.inspect.inspect(event:getRawEventData()))
---		print(hs.inspect.inspect(event:getFlags()))
---		print(hs.inspect.inspect(event:systemKey()))
---	end
---
---	local sys_key_event = event:systemKey()
---	local delete_event  = false
---
---	if not sys_key_event or not sys_key_event.down then
---		return false
---	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
---	then
---		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
---		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
---      hs.itunes.playpause()
---    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
---      hs.itunes.next()
---    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
---      hs.itunes.previous()
---    end
---	end
---	return delete_event
---end)
---tap:start()
+-- get the media keys to actually control itunes again...
+MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
+AIRFOIL_EVENTS = {SOUND_UP = "+", SOUND_DOWN = "-"}
+DEBUG_TAP = false
+-- watching for special key presses
+tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
+	if DEBUG_TAP then
+		print("event tap debug got event:")
+		print(hs.inspect.inspect(event:getRawEventData()))
+		print(hs.inspect.inspect(event:getFlags()))
+		print(hs.inspect.inspect(event:systemKey()))
+	end
+
+	local sys_key_event = event:systemKey()
+	local delete_event  = false
+
+	if not sys_key_event or not sys_key_event.down then
+		return false
+	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
+	then
+		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
+		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
+      -- this conditional makes no sense, but only works this way
+      if hs.itunes.isPlaying() then
+        hs.itunes.play()
+      else
+        hs.itunes.pause()
+      end
+    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+      hs.itunes.next()
+    elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
+      hs.itunes.previous()
+    end
+	end
+	return delete_event
+end)
+tap:start()
 
 -------------------------------------------------------------------------------
 --                                                                           --
