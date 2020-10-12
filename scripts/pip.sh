@@ -48,13 +48,13 @@ OSXPYTHON3=( \
 
 # install python3 packages
 for i in ${PYTHON3[@]}; do
-  /usr/bin/sudo pip3 install $i
+  /usr/local/bin/pip3 install $i
 done
 
 # osx specific installs
 if [ `uname -s` = 'Darwin' ]; then
   for i in ${OSXPYTHON3[@]}; do
-    /usr/bin/sudo pip3 install $i
+    /usr/local/bin/pip3 install $i
   done
 fi
 
