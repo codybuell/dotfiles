@@ -58,16 +58,7 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 #                                                                              #
 #    - dotfiles/mbsyncrc      # tweak folder structures, etc.                  #
 #                                                                              #
-# 2. Get the host smtp server fingerprints by running:                         #
-#                                                                              #
-#    msmtp --serverinfo \                                                      #
-#          --tls \                                                             #
-#          --tls-certcheck=off \                                               #
-#          --host=[server definde in _EmailSmtp variable] \                    #
-#          --port=587 \                                                        #
-#          | egrep -o "([0-9A-Za-z]{2}:){31}[0-9A-Za-z]{2}"                    #
-#                                                                              #
-# 3. Create 'application password' records in OSX Keychain Access              #
+# 2. Create 'application password' records in OSX Keychain Access              #
 #                                                                              #
 #    - open keychain access                                                    #
 #    - create new application password                                         #
@@ -76,7 +67,7 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 #    - password = your email accounts password                                 #
 #    - repeat for both home and work email addresses                           #
 #                                                                              #
-# 4. And then configure the following services:                                #
+# 3. And then configure the following services:                                #
 #                                                                              #
 #    - passage (pull go repo and build, see projects readme)                   #
 #      * this is handled by `make go`                                          #
@@ -101,7 +92,6 @@ HomeEmailHost     = imap.gmail.com             # host & 'name' field in keychain
 HomeEmailKeychain = cody+mutt@codybuell.com    # 'account' field in keychain
 HomeEmailUsername = cody@codybuell.com
 HomeEmailAddress  = cody@codybuell.com
-HomeEmailTLSFP    = A0:74:FC:1D:81:1A:BC:41:2E:6F:4B:39:0B:89:02:4D:D1:24:BA:D4:48:28:F3:30:D8:97:FC:E6:9F:6B:6F:E8
 
 # Work Email Account
 WorkEmailSmtp     = smtp.gmail.com
@@ -109,7 +99,6 @@ WorkEmailHost     = imap.gmail.com             # host & 'name' field in keychain
 WorkEmailKeychain = pbuell+mutt@cloudtamer.io  # 'account' field in keychain
 WorkEmailUsername = pbuell@cloudtamer.io
 WorkEmailAddress  = pbuell@cloudtamer.io
-WorkEmailTLSFP    = A0:74:FC:1D:81:1A:BC:41:2E:6F:4B:39:0B:89:02:4D:D1:24:BA:D4:48:28:F3:30:D8:97:FC:E6:9F:6B:6F:E8
 
 ################################################################################
 #                                                                              #
