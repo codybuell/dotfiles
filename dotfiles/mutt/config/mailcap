@@ -47,6 +47,7 @@ application/vnd.openxmlformats-officedocument.presentationml.presentation; ~/.mu
 
 # word documents
 application/msword; ~/.mutt/scripts/view_attachment.sh %s "-" com.microsoft.word
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; ~/.mutt/scripts/view_attachment.sh %s "-" com.microsoft.word
 
 ######################
 # unidentified files #
