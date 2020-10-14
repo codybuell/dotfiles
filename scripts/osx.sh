@@ -101,14 +101,16 @@
 #         - finder sidebar items and order
 #           - Favorites
 #             - home
-#             - airdrop
-#             - recents
-#             - desktop
-#             - downloads
-#             - documents
-#             - applications
-#             - icloud drive
-#             - dropbox
+#             - AirDrop
+#             - Recents
+#             - Desktop
+#             - Downloads
+#             - Documents
+#             - Screenshots
+#             - Applications
+#             - Google Drive
+#             - iCloud Drive
+#             - Dropbox
 #           - locations
 #             - host
 #             - [others]
