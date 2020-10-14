@@ -28,16 +28,20 @@ let wiki_3.path  = '{{ PersonalJournal }}'
 " define wiki's
 let g:wiki_list = [wiki_1, wiki_2, wiki_3]
 
+" files types to open in external programs
+let g:wiki_ext_ft = ['pdf', 'dmg']
+
 " define <plug> mapping functions (createfollowlink [only apply on markdown
 " files??] else put enter back to repeat last macro?, switch wiki [open up its
 " index], 
 
 " define standard link syntax regex's
-let g:mdWikiPageLink    = '\[[^]]*\]([^)]*)'             " [title]([relative/path/]link)
-let g:mdWikiSectionLink = '\[[^]]*\](#[^)]*)'            " [title](#link)
-let g:mdWikiWebURLLink  = '\[[^]]*\](http[s]\?://[^)]*)' " [title](http[s]://link)
-let g:mdWikiWikiLink    = '\[[^]]*\]([^:)]*:[^)]*)'      " [title](wiki:link)
-let g:mdWikiUnlinked    = '[ ]\?\zs[^ ]*\ze'             " any block of text excluding spaces
+let g:mdWikiFileLink    = '\[[^]]*\]([^)]*\.\('.join(g:wiki_ext_ft, "\\|").'\))' " [title]([any/path/]file.ext)
+let g:mdWikiPageLink    = '\[[^]]*\]([^)]*)'                                     " [title]([relative/path/]link)
+let g:mdWikiSectionLink = '\[[^]]*\](#[^)]*)'                                    " [title](#link)
+let g:mdWikiWebURLLink  = '\[[^]]*\](http[s]\?://[^)]*)'                         " [title](http[s]://link)
+let g:mdWikiWikiLink    = '\[[^]]*\]([^:)]*:[^)]*)'                              " [title](wiki:link)
+let g:mdWikiUnlinked    = '[ ]\?\zs[^ ]*\ze'                                     " any block of text excluding spaces
 
 " define wiki's dictionary
 "notes: path

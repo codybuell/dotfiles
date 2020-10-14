@@ -142,7 +142,13 @@ function! buell#wiki#createFollowWikiLink() abort
     let l:type = 'wiki'
   endif
 
-  " if link is still not set check for wiki page link
+  " if link is still not set check for wiki file link, run before page check
+  if l:link == ""
+    let l:link = buell#wiki#matchStrAtCursor(g:mdWikiFileLink)
+    let l:type = 'file'
+  endif
+
+  " if link is still not set check for wiki page link, run after file check
   if l:link == ""
     let l:link = buell#wiki#matchStrAtCursor(g:mdWikiPageLink)
     let l:type = 'page'
@@ -163,6 +169,16 @@ function! buell#wiki#createFollowWikiLink() abort
   " execute depending on link type
   if l:type == 'page'
     execute "normal \<Plug>Markdown_EditUrlUnderCursor"
+  elseif l:type == 'file'
+    let l:target    = substitute(l:link, '.*(\([^)]*\).*', '\1', '')
+    let l:firstchar = l:target[0:0]
+    let l:pathbase  = expand('%:p:h')
+    if l:firstchar =~ '[/~]'
+      let l:openpath = l:target
+    else
+      let l:openpath = l:pathbase . "/" . l:target
+    endif
+    silent execute "!open " . l:openpath
   elseif l:type == 'section'
     let l:target = substitute(l:link, '.*(#\([^)]*\).*', '\1', '')
     " check for headers using underlining -'s or ='s
