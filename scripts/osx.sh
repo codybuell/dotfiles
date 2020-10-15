@@ -79,6 +79,7 @@
 #           - volume
 #           - spotlight
 #           - tg pro
+#           - synology drive
 #           - docker
 #           - dropbox
 #           - google drive filestream
@@ -108,6 +109,7 @@
 #             - Documents
 #             - Screenshots
 #             - Applications
+#             - SynologyDrive
 #             - Google Drive
 #             - iCloud Drive
 #             - Dropbox
