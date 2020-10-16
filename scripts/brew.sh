@@ -152,6 +152,7 @@ CASKS=( \
     'meshmixer' \                   # 3d modeling software
     'obs' \                         # open broadcast software
     'qlstephen' \                   # ability to open all plain text files in quick look
+    'session-manager-plugin' \      # aws cli ssm plugin
     'sketch' \                      # graphics design and layout
     'slack' \                       # collaboration and chat application
     'steam' \                       # steam gaming service
