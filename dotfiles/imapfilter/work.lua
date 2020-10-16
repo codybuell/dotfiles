@@ -131,7 +131,8 @@ function run()
   movetofolder('git related notifications', git, (function()
     results = inbox:match_field('Reply-To', 'GitLab .*') + 
               inbox:match_field('Reply-To', '.*internal-service-account+.*') -
-              inbox:contain_body('The following issue is due on')
+              inbox:contain_body('The following issue is due on') -
+              inbox:contain_from('GitLab Support')
 --    :contains_field('X-GitLab-NotificationReason', 'mentioned')
     return results
   end))
