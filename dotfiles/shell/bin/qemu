@@ -27,18 +27,22 @@ usage() {
 
 	  -d <disk>      Target disk for the virtual machine.
 	  -i <cd>        CD iso to be mounted and booted from.
-	  -h             Run headless, uses curses.
+    -h             Run headless, uses curses (outputs text mode content).
+    -H             Run headless, uses nographit (connects a serial terminal).
 	  -s             Snapshot mode, changes won't persist after vm shutdown.
 
 	Not all options are compatible. For example -s will not work with -i. Possible
 	values are as follows:
 
 	  - 'di'   run a headed install of the cd image
-	  - 'dih'  run a headless install of the cd image
+    - 'dih'  run a headless install of the cd image (curses)
+    - 'diH'  run a headless install of the cd image (nographic)
 	  - 'd'    run a headed instance of the specified disk
-	  - 'dh'   run a headless instaece of the specified disk
+    - 'dh'   run a headless instaece of the specified disk (curses)
+    - 'dH'   run a headless instaece of the specified disk (nographic)
 	  - 'ds'   run a headed instance of the specified disk but don't persist changes
-	  - 'dhs'  run a headless instance of the specified disk but don't persist changes
+    - 'dhs'  run a headless instance of the specified disk but don't persist changes (curses)
+    - 'dHs'  run a headless instance of the specified disk but don't persist changes (nographic)
 
 	This is currently optimized for QEMU on OSX, update this script to switch hardware
 	acceleration to kvm if you are on Linux. VM's will be run with 2G of ram and forward
@@ -54,7 +58,7 @@ usage() {
 
 RUNMODE=""
 
-while getopts ":d:i:hs" opt; do
+while getopts ":d:i:hHs" opt; do
   case $opt in
     d  ) DISKIMAGE="$OPTARG"
          RUNMODE+="D"
@@ -62,7 +66,9 @@ while getopts ":d:i:hs" opt; do
     i  ) CDIMAGE="$OPTARG"
          RUNMODE+="I"
          ;;
-    h  ) RUNMODE+="H"
+    h  ) RUNMODE+="C"
+         ;;
+    H  ) RUNMODE+="N"
          ;;
     s  ) RUNMODE+="S"
          ;;
@@ -92,7 +98,7 @@ case $RUNMODE in
       -boot d \
       -no-reboot
     ;;
-  DIH )
+  DIC )
     # headless with an iso mounted, assuming installation, will shutdown instead of reboot
     qemu-system-x86_64 \
       -m 2048 \
@@ -102,6 +108,18 @@ case $RUNMODE in
       -boot d \
       -no-reboot \
       -curses
+    ;;
+  DIN )
+    # headless with an iso mounted, assuming installation, will shutdown instead of reboot
+    qemu-system-x86_64 \
+      -m 2048 \
+      -accel hvf \
+      -drive file=${DISKIMAGE},media=disk,if=virtio \
+      -cdrom ${CDIMAGE} \
+      -boot d \
+      -no-reboot \
+      -serial mon:stdio \
+      -nographic
     ;;
   D )
     # headed run of vm, standard running, changes will persist in targeted img, 2222 forwarded to 22
@@ -122,7 +140,7 @@ case $RUNMODE in
       -snapshot \
       -boot c
     ;;
-  DH )
+  DC )
     # headless run of vm, standard running, changes will persist in targeted img, 2222 forwarded to 22
     qemu-system-x86_64 \
       -m 2048 \
@@ -132,7 +150,18 @@ case $RUNMODE in
       -boot c \
       -curses
     ;;
-  DHS )
+  DN )
+    # headless run of vm, standard running, changes will persist in targeted img, 2222 forwarded to 22
+    qemu-system-x86_64 \
+      -m 2048 \
+      -accel hvf \
+      -net user,hostfwd=tcp::2222-:22 -net nic \
+      -drive file=${DISKIMAGE},media=disk,if=virtio \
+      -boot c \
+      -serial mon:stdio \
+      -nographic
+    ;;
+  DCS )
     # headless run of vm, snapshot running, changes be written to temp files, lost at shutdown, 2222 forwarded to 22
     qemu-system-x86_64 \
       -m 2048 \
@@ -142,6 +171,18 @@ case $RUNMODE in
       -boot c \
       -snapshot \
       -curses
+    ;;
+  DNS )
+    # headless run of vm, snapshot running, changes be written to temp files, lost at shutdown, 2222 forwarded to 22
+    qemu-system-x86_64 \
+      -m 2048 \
+      -accel hvf \
+      -net user,hostfwd=tcp::2222-:22 -net nic \
+      -drive file=${DISKIMAGE},media=disk,if=virtio \
+      -boot c \
+      -snapshot \
+      -serial mon:stdio \
+      -nographic
     ;;
   * )
     # bail if arguments are not compatible
