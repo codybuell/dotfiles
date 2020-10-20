@@ -80,6 +80,7 @@ PACKAGES=( \
     'ranger' \                      # cli file browser
     'reattach-to-user-namespace' \  # reattach process to background
     'rg' \                          # ripgrep, faster ack
+    'rsync' \                       # newer version than out of box, fewer errors
     'ruby' \                        # use brew ruby over osx provided
     's3cmd' \                       # aws s3 utility
     'sqlite' \                      # file based database
