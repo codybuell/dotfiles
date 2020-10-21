@@ -113,7 +113,7 @@ gist() {
 
 repo() {
   REPOLIST=$(find {{ Repos }} -type d -name .git -maxdepth 8 | sed 's/\/\.git$//')
-  TARGETREPO=$(echo $REPOLIST | grep "${1}$")
+  TARGETREPO=$(echo $REPOLIST | grep "/${1}$")
   cd $TARGETREPO
   #changedir '{{ Repos }}' $@
 }
