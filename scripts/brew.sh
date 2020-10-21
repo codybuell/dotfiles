@@ -33,11 +33,12 @@
 ################################################################################
 
 PACKAGES=( \
+    'aalib' \                       # library for ascii image creation
     'ack' \                         # enhanced grep like functionality for development
     'ag' \                          # silver searcher, ack like func
     'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
-#   'clipper' \                     # clipboard listener service, dep for vim configs
+    'clipper' \                     # clipboard listener service, dep for vim configs
     'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
     'direnv' \                      # dynamically set environment variables per directory
@@ -83,6 +84,7 @@ PACKAGES=( \
     'rsync' \                       # newer version than out of box, fewer errors
     'ruby' \                        # use brew ruby over osx provided
     's3cmd' \                       # aws s3 utility
+    'shellcheck' \                  # linter / checker for shell scripts
     'sqlite' \                      # file based database
     'terminal-notifier' \           # send osx notifications through terminal
     'tmux' \                        # terminal multiplexer
