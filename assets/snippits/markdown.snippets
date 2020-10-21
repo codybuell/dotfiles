@@ -61,14 +61,21 @@ snippet wj "work journal scaffolding" b
 `date "+%Y.%m.%d"`
 ==========
 
-- [ ] zero out calendar
-- [ ] zero out scrap notes
-- [ ] zero out email inbox
-- [ ] zero out slack inbox
-- [ ] zero out notion inbox
-- [ ] zero out gitlab inbox
-- [ ] zero out journal entry
-- [ ] prep next business day
+Morning Routine:
+	- zero out:
+		- [ ] scrap notes
+		- [ ] email inbox
+		- [ ] slack inbox
+		- [ ] notion inbox
+		- [ ] gitlab inbox
+		- [ ] prev journal
+	- review:
+		- [ ] calendar
+		- [ ] sprint
+		- [ ] team merge requests
+	- prepare:
+		- [ ] next business day
+		- [ ] upcoming meetings
 
 Schedule
 ========
@@ -136,8 +143,10 @@ Notes
 endsnippet
 
 snippet note "personal notes scaffolding" b
-See also:
+__See also:__
  - ${1}
+
+__Quick reference:__
 
 ${2:Note Title}
 ${2/./=/g}
