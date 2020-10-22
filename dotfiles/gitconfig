@@ -1,10 +1,22 @@
 [user]
   name = {{ GitUsername }}
   email = {{ Email }}
-	signingkey = {{ GitSignKey }}
+  signingkey = {{ GitSignKey }}
 [core]
   editor = /usr/local/bin/nvim
   excludesfile = ~/.cvsignore
+[credential]
+  helper = osxkeychain
+[gpg]
+  program = /usr/local/bin/gpg
+[commit]
+  gpgsign = true
+[status]
+  submoduleSummary = true
+[pull]
+  ff = only
+[push]
+  default = current
 [merge]
   tool = vimdiff
 [diff]
@@ -21,18 +33,8 @@
   untracked = blue
   deleted = magenta
   branch = yellow
-[credential]
-	helper = osxkeychain
-[commit]
-	gpgsign = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[status]
-	submoduleSummary = true
-[gpg]
-	program = /usr/local/bin/gpg
-[pull]
-	ff = only
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
