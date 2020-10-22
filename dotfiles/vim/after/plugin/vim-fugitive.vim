@@ -36,7 +36,7 @@ endif
 "    - ]c / [c jump to next or previous hunk / change
 "    - find another file and repeat
 " 5. commit (from within Gstatus):  cc
-" 6. close window (from within Gstatus):  ␣q
+" 6. close window (from within Gstatus):  gq
 " 7. push:  <space>gp  /  :GPush origin my-branch-name
 "
 " <https://www.reddit.com/r/vim/comments/6kfyae/vimfugitive_workflow/>
@@ -44,7 +44,7 @@ endif
 " fugitive handy git bindings (in fugitive split, - to stage/unstage, cc to commit)
 nnoremap  <silent>          <leader>gs        :Gstatus<CR>:20wincmd_<CR>
 nnoremap  <silent>          <leader>gb        :Gblame<CR>
-nnoremap  <silent>          <leader>gp        :Gpush<CR>
+nnoremap  <silent>          <leader>gp        :Git push<CR>
 nnoremap  <silent>          <leader>ga        :Git add %:p<CR><CR>
 nnoremap  <silent>          <leader>gc        :Gcommit -v -q<CR>
 nnoremap  <silent>          <leader>gt        :Gcommit -v -q %:p<CR>
@@ -53,6 +53,6 @@ nnoremap  <silent>          <leader>ge        :Gedit<CR>
 nnoremap  <silent>          <leader>gr        :Gread<CR>
 nnoremap  <silent>          <leader>gw        :Gwrite<CR><CR>
 nnoremap  <silent>          <leader>gl        :silent! Glog<CR>:bot copen<CR>
-nnoremap                    <leader>gm        :Gmove<Space>
+nnoremap  <silent>          <leader>gm        :Gdiffsplit!<CR>
 nnoremap                    <leader>go        :Git checkout<Space>
 nnoremap                    <leader>gg        :Ggrep<Space>
