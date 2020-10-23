@@ -408,6 +408,7 @@ test -f $HOST_RC && source $HOST_RC
 source ~/.shell/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 bindkey '^y' autosuggest-accept
+bindkey '^ ' forward-word
 
 # syntax highlighting
 #source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
