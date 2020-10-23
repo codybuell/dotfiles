@@ -296,6 +296,7 @@ set hidden                                         " allow buffer switching when
 set confirm                                        " prompt to save modified hidden buffers
 set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
 set signcolumn=yes                                 " always show the sign column
+set noequalalways                                  " don't auto resize splits
 
 " vim specific (not nvim)
 if !has('nvim')
