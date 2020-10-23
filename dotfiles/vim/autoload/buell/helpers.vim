@@ -129,27 +129,36 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
-" Location List Navigation                                                     "
+" List Navigation                                                              "
 "                                                                              "
-" Improve location list navigation.                                            "
+" Improved quickfix and location list navigation, by wrapping when at the top  "
+" or bottom of each list.                                                      "
 "                                                                              "
+" @param {string} list - expects 'c' or 'l' for quickfix or location lists     "
 " @param {string} direction - expects 'prev' or 'next'                         "
 " @return null                                                                 "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! buell#helpers#LocationListNav(direction) abort
+function! buell#helpers#ListNav(list, direction) abort
   try
-    exe 'l' . a:direction
+    echo ''
+    exe a:list . a:direction
   catch /^Vim\%((\a\+)\)\=:E/
     if v:exception =~#".*E553:.*$"
-      if a:direction == "prev"
-        llast
-      elseif a:direction == "next"
-        lfirst
+      if a:direction == 'prev'
+        echo 'Wrapping to the bottom.'
+        exe a:list . "last"
+      elseif a:direction == 'next'
+        echo 'Wrapping to the top.'
+        exe a:list . 'first'
       endif
     else
-      echo 'No items found in the location list.'
+      if a:list == "c"
+        echo 'No items found in the quickfix list.'
+      else
+        echo 'No items found in the location list.'
+      endif
     endif
   endtry
 endfunction

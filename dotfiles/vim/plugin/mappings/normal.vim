@@ -29,14 +29,14 @@ nnoremap                    <leader><leader>  <C-^>
 "nnoremap  <silent>          <Right>           <C-I>
 
 " navigate quickfix (up/down: item in list, left/right: file in list)
-nnoremap  <silent>          <Up>              :cprevious<CR>
-nnoremap  <silent>          <Down>            :cnext<CR>
+nnoremap  <silent>          <Up>              :<C-U> call buell#helpers#ListNav('c', 'prev')<CR>
+nnoremap  <silent>          <Down>            :<C-U> call buell#helpers#ListNav('c', 'next')<CR>
 nnoremap  <silent>          <Left>            :cpfile<CR>
 nnoremap  <silent>          <Right>           :cnfile<CR>
 
 " navigate jumplist (up/down: item in list, left/right: file in list)
-nnoremap  <silent>          <S-Up>            :lprevious<CR>
-nnoremap  <silent>          <S-Down>          :lnext<CR>
+nnoremap  <silent>          <S-Up>            :<C-U> call buell#helpers#ListNav('l', 'prev')<CR>
+nnoremap  <silent>          <S-Down>          :<C-U> call buell#helpers#ListNav('l', 'next')<CR>
 nnoremap  <silent>          <S-Left>          :lpfile<CR>
 nnoremap  <silent>          <S-Right>         :lnfile<CR>
 
