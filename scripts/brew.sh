@@ -38,9 +38,12 @@ PACKAGES=( \
     'ag' \                          # silver searcher, ack like func
     'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
+    'aws-sam-cli' \                 # aws serverless application model cli client
+    'azurecli' \                    # azure api cli client
     'clipper' \                     # clipboard listener service, dep for vim configs
     'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
+    'ctags' \                       # used by vim sidebar nav plugin
     'direnv' \                      # dynamically set environment variables per directory
     'dos2unix' \                    # encoding conversion tool
     'elinks' \                      # text based web browser, used with mutt
@@ -70,6 +73,7 @@ PACKAGES=( \
     'neomutt' \                     # command line email client
     'nmap' \                        # network utility
     'notmuch' \                     # mail search for mutt
+    'openconnect' \                 # robust vpn client for cisco vpns
     'openssl' \                     # the one and only...
     'packer' \                      # utility for building machine templates
     'pandoc' \                      # markup converter, used with mutt to send html email
@@ -77,6 +81,7 @@ PACKAGES=( \
     'picocom' \                     # used with ino for serial connection to arduino
     'pinentry' \                    # interface used to prompt for gpg pins
     'python' \                      # python language
+    'qemu' \                        # virtualization tool of choice
     'qrencode' \                    # utility to generate qr codes
     'ranger' \                      # cli file browser
     'reattach-to-user-namespace' \  # reattach process to background
@@ -117,7 +122,6 @@ PACKAGES=( \
 #   'bash-completion' \             # bash completion, nuff said
 #   'bitlbee' \                     # google chat and other client for irssi
 #   'cdrtools' \                    # contains mkisofs for building custom linux isos
-#   'ctags' \                       # handy development tool, needed for vim ctags
 #   'ddclient' \                    # dynamic dns client, configurable for google dns
 #   'figlet' \                      # ascii art
 #   'gifsicle' \                    # creating gifs from videos
@@ -159,6 +163,7 @@ CASKS=( \
     'sketch' \                      # graphics design and layout
     'slack' \                       # collaboration and chat application
     'steam' \                       # steam gaming service
+    'synology-drive' \              # synology drive client
     'tg-pro' \                      # advanced fan control
     'vagrant' \                     # vms as packages management solution
     'virtualbox' \                  # virtualization utility
