@@ -153,6 +153,7 @@ CASKS=( \
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
     'karabiner-elements' \          # keyboard layout customization
+    'keybase' \                     # encryption and crypto wallet
     'keycastr' \                    # show keystrokes on screen
     'libreoffice' \                 # open source office suite
     'licecap' \                     # gifcasting utility
