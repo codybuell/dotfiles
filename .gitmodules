@@ -44,9 +44,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-vinegar"]
 	path = dotfiles/vim/pack/bundle/opt/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar.git
-[submodule "dotfiles/vim/pack/bundle/opt/nvim-lsp"]
-	path = dotfiles/vim/pack/bundle/opt/nvim-lsp
-	url = https://github.com/neovim/nvim-lsp.git
 [submodule "dotfiles/vim/pack/bundle/opt/deoplete-lsp"]
 	path = dotfiles/vim/pack/bundle/opt/deoplete-lsp
 	url = https://github.com/Shougo/deoplete-lsp.git
@@ -153,3 +150,6 @@
 	path = dotfiles/vim/pack/bundle/opt/vim-toml
 	url = https://github.com/cespare/vim-toml.git
 	ignore = dirty
+[submodule "dotfiles/vim/pack/bundle/opt/nvim-lspconfig"]
+	path = dotfiles/vim/pack/bundle/opt/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git

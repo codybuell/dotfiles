@@ -184,7 +184,7 @@ if &loadplugins
 
     if has('nvim')
       packadd! firenvim             " use neovim in browser textareas
-      packadd! nvim-lsp             " configurations for native lsp client
+      packadd! nvim-lspconfig       " configurations for native lsp client
       packadd! deoplete-lsp         " native lsp completion support for deoplete
       packadd! diagnostic-nvim      " overrides to native lsp diagnostic funcs
       packadd! float-preview.nvim   " floating windows for preview instead of splits
