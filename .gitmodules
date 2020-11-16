@@ -137,9 +137,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-dirvish"]
 	path = dotfiles/vim/pack/bundle/opt/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
-[submodule "dotfiles/vim/pack/bundle/opt/diagnostic-nvim"]
-	path = dotfiles/vim/pack/bundle/opt/diagnostic-nvim
-	url = https://github.com/haorenW1025/diagnostic-nvim.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-json"]
 	path = dotfiles/vim/pack/bundle/opt/vim-json
 	url = https://github.com/elzr/vim-json.git

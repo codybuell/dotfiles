@@ -18,23 +18,22 @@ let g:diagnostic_show_sign = 1
 let g:diagnostic_sign_priority = 20
 
 lua << END
-  require'lspconfig'.bashls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.cssls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.dockerls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.gopls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.html.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.intelephense.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.bashls.setup{}
+  require'lspconfig'.cssls.setup{}
+  require'lspconfig'.dockerls.setup{}
+  require'lspconfig'.gopls.setup{}
+  require'lspconfig'.html.setup{}
+  require'lspconfig'.intelephense.setup{}
   require'lspconfig'.jsonls.setup{
-      on_attach = require'diagnostic'.on_attach,
       filetypes = {
         "json",
         "jsonc"
       }
     }
-  require'lspconfig'.pyls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.tsserver.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.vimls.setup{on_attach=require'diagnostic'.on_attach}
-  require'lspconfig'.yamlls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.pyls.setup{}
+  require'lspconfig'.tsserver.setup{}
+  require'lspconfig'.vimls.setup{}
+  require'lspconfig'.yamlls.setup{}
 
   -- Override hover winhighlight.
   local method = 'textDocument/hover'
@@ -97,36 +96,36 @@ function! s:SetUpLspHighlights()
     return
   endif
 
-  execute 'highlight LspDiagnosticsError ' . pinnacle#decorate('bold,italic', 'ModeMsg')
-  execute 'highlight LspDiagnosticsErrorSign ' . pinnacle#highlight({
+  execute 'highlight LspDiagnosticsVirtualTextError ' . pinnacle#decorate('bold,italic', 'ModeMsg')
+  execute 'highlight LspDiagnosticsSignError ' . pinnacle#highlight({
         \   'bg': pinnacle#extract_bg('ColorColumn'),
         \   'fg': pinnacle#extract_fg('ErrorMsg')
         \ })
 
-  execute 'highlight LspDiagnosticsWarning ' . pinnacle#decorate('bold,italic', 'Type')
-  execute 'highlight LspDiagnosticsWarningSign ' . pinnacle#highlight({
+  execute 'highlight LspDiagnosticsVirtualTextWarning ' . pinnacle#decorate('bold,italic', 'Type')
+  execute 'highlight LspDiagnosticsSignWarning ' . pinnacle#highlight({
         \   'bg': pinnacle#extract_bg('ColorColumn'),
         \   'fg': pinnacle#extract_bg('Substitute')
         \ })
 
-  execute 'highlight LspDiagnosticsInformation ' . pinnacle#decorate('bold,italic', 'Type')
-  execute 'highlight LspDiagnosticsInformationSign ' . pinnacle#highlight({
+  execute 'highlight LspDiagnosticsVirtualTextInformation ' . pinnacle#decorate('bold,italic', 'Type')
+  execute 'highlight LspDiagnosticsSignInformation ' . pinnacle#highlight({
         \   'bg': pinnacle#extract_bg('ColorColumn'),
         \   'fg': pinnacle#extract_fg('Normal')
         \ })
 
-  execute 'highlight LspDiagnosticsHint ' . pinnacle#decorate('bold,italic', 'Type')
-  execute 'highlight LspDiagnosticsHintSign ' . pinnacle#highlight({
+  execute 'highlight LspDiagnosticsVirtualTextHint ' . pinnacle#decorate('bold,italic', 'Type')
+  execute 'highlight LspDiagnosticsSignHint ' . pinnacle#highlight({
         \   'bg': pinnacle#extract_bg('ColorColumn'),
         \   'fg': pinnacle#extract_fg('Type')
         \ })
 
 endfunction
 
-sign define LspDiagnosticsErrorSign text=×
-sign define LspDiagnosticsWarningSign text=‼
-sign define LspDiagnosticsInformationSign text=ℹ
-sign define LspDiagnosticsHintSign text=☝
+sign define LspDiagnosticsSignError text=×
+sign define LspDiagnosticsSignWarning text=‼
+sign define LspDiagnosticsSignInformation text=ℹ
+sign define LspDiagnosticsSignHint text=☝
 
 if has('autocmd')
   augroup BuellLanguageClientAutocmds
