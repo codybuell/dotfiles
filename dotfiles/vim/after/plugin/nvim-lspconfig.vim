@@ -18,23 +18,23 @@ let g:diagnostic_show_sign = 1
 let g:diagnostic_sign_priority = 20
 
 lua << END
-  require'nvim_lsp'.bashls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.cssls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.dockerls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.gopls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.html.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.intelephense.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.jsonls.setup{
+  require'lspconfig'.bashls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.cssls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.dockerls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.gopls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.html.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.intelephense.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.jsonls.setup{
       on_attach = require'diagnostic'.on_attach,
       filetypes = {
         "json",
         "jsonc"
       }
     }
-  require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.tsserver.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.vimls.setup{on_attach=require'diagnostic'.on_attach}
-  require'nvim_lsp'.yamlls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.tsserver.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.vimls.setup{on_attach=require'diagnostic'.on_attach}
+  require'lspconfig'.yamlls.setup{on_attach=require'diagnostic'.on_attach}
 
   -- Override hover winhighlight.
   local method = 'textDocument/hover'
