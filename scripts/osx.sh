@@ -81,6 +81,7 @@
 #           - tg pro
 #           - synology drive
 #           - docker
+#           - keybase
 #           - dropbox
 #           - google drive filestream
 #           - lastpass
