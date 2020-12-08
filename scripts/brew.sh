@@ -84,6 +84,7 @@ PACKAGES=( \
     'qemu' \                        # virtualization tool of choice
     'qrencode' \                    # utility to generate qr codes
     'ranger' \                      # cli file browser
+    'rdesktop' \                    # rdp client
     'reattach-to-user-namespace' \  # reattach process to background
     'rg' \                          # ripgrep, faster ack
     'rsync' \                       # newer version than out of box, fewer errors
@@ -140,6 +141,7 @@ CASKS=( \
     'balenaetcher' \                # img to sd card writer
     'bartender' \                   # tool for simplifying the menubar
     'bitwarden' \                   # password / secret management
+    'blender' \                     # 3d cad software
     'chromedriver' \                # webapp testing server
     'cubicsdr' \                    # good sdr dongle front end
     'docker' \                      # the docker engine
