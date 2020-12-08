@@ -14,6 +14,7 @@ endif
 " 2. show repo status:  ␣gs
 " 3. craft commits via git status window:  ␣gs from any buffer
 "    - use <C-n>, <C-p> to navigate next, previous files in list
+"    - alternatively (, and ) will perform similar movement
 "    - use s, u, - to stage, unstage or toggle stage/unstage 
 "    - use > or < to expand and show diffs of file under cursor
 "      - visual select changes then use s, u, - to craft patches
@@ -32,15 +33,18 @@ endif
 "
 " Merge Conflict Workflow
 " 1. show three way diff for current buffer:  ␣gD
-" 2. //2 //3????
+" 2. navigate to merge conflict and place cursor somewhere within the markers
+"    - ␣gh to select changes from left split, mnemonic Get left movement
+"    - ␣gl to select changes from right split, mnemonic Get right movement
 
 " general buffer bindings
 nnoremap  <silent>          <leader>gs        :Git<CR>:20wincmd_<CR>
 nnoremap  <silent>          <leader>gb        :Git blame<CR>
 nnoremap  <silent>          <leader>gp        :Git push<CR>
-nnoremap  <silent>          <leader>gd        :Gvdiffsplit<CR>
-nnoremap  <silent>          <leader>gD        :Gvdiffsplit!<CR>
 nnoremap  <silent>          <leader>gl        :silent! Gclog!<CR>:bot copen<CR>
+nnoremap  <silent>          <leader>gd        :Gvdiffsplit!<CR>
+nnoremap  <silent>          <leader>gh        :diffget //2<CR>
+nnoremap  <silent>          <leader>gm        :diffget //3<CR>
 nnoremap                    <leader>gc        :Git checkout<Space>
 nnoremap                    <leader>gg        :Ggrep<Space>
 "nnoremap  <silent>          <leader>ge        :Gedit<CR>
