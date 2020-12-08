@@ -21,5 +21,8 @@ let UltiSnipsSnippetsDir = "~/.vim/snippits"
 " folders to _load_ snippets from (searches runtimepath for matches)
 let UltiSnipsSnippetDirectories = ['snippits']
 
+" use google styled docstrings
+let g:ultisnips_python_style = "google"
+
 " quick navigation to edit ultisnips
 nnoremap                    <localleader>u    :UltiSnipsEdit<CR>
