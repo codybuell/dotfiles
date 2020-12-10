@@ -9,7 +9,7 @@ if !buell#helpers#PluginExists('vim-fugitive')
   finish
 endif
 
-" General Workflow
+" General Workflow (use g? to show mappings in any fugitive split)
 " 1. make code changes
 " 2. show repo status:  ␣gs
 " 3. craft commits via git status window:  ␣gs from any buffer
@@ -36,6 +36,19 @@ endif
 " 2. navigate to merge conflict and place cursor somewhere within the markers
 "    - ␣gh to select changes from left split, mnemonic Get left movement
 "    - ␣gl to select changes from right split, mnemonic Get right movement
+"
+" Git Blame Workflow
+" 1. show the git blame window: ␣gb
+" 2. resize the blame window:
+"    - A -> to author
+"    - C -> to commit
+"    - D -> to datetime
+" 2. navigate lineage of commit under cursor
+"    - o to open the commit details in a horizontal split
+"    - - to reblame at commit under cursor (loads that commit and runs gblame)
+"    - P to reblame at the parent of commit under cursor
+" 3. close the gblame window: ␣gq
+" 4. return to working tree version: ␣ge
 
 " general buffer bindings
 nnoremap  <silent>          <leader>gs        :Git<CR>:20wincmd_<CR>
@@ -47,7 +60,7 @@ nnoremap  <silent>          <leader>gh        :diffget //2<CR>
 nnoremap  <silent>          <leader>gm        :diffget //3<CR>
 nnoremap                    <leader>gc        :Git checkout<Space>
 nnoremap                    <leader>gg        :Ggrep<Space>
-"nnoremap  <silent>          <leader>ge        :Gedit<CR>
+nnoremap  <silent>          <leader>ge        :Gedit<CR>
 "nnoremap  <silent>          <leader>gr        :Gread<CR>
 "nnoremap  <silent>          <leader>gw        :Gwrite<CR><CR>Gdiffsplit!Gdiffsplit!
 

@@ -150,3 +150,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/nvim-lspconfig"]
 	path = dotfiles/vim/pack/bundle/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext"]
+	path = dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext
+	url = https://github.com/tommcdo/vim-fugitive-blame-ext.git
