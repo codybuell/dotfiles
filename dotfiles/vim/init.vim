@@ -172,6 +172,7 @@ if &loadplugins
     packadd! terminus               " improved terminal and tmux integration
     packadd! vim-dadbod             " database interactions
     packadd! vim-fugitive           " git integration to vim
+    packadd! vim-fugitive-blame-ext " show commit message with Gblame
     packadd! vim-marked             " open markdown documents in Marked2
 
     " MISCELLANEOUS
