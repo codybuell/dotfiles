@@ -45,6 +45,7 @@ PACKAGES=( \
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
     'ctags' \                       # used by vim sidebar nav plugin
     'direnv' \                      # dynamically set environment variables per directory
+    'dive' \                        # docker container analyzer
     'dos2unix' \                    # encoding conversion tool
     'elinks' \                      # text based web browser, used with mutt
     'ffmpeg' \                      # video encoding and editing utility
