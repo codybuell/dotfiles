@@ -182,6 +182,7 @@ if &loadplugins
     packadd! fastfold               " speed up folding, fold only when needed
     packadd! vim-obsession          " improved session management
     packadd! vim-tmux-navigator     " use vim window motions to nav into tmux
+    packadd! vim-tmux-runner        " control tmux panes from vim
 
     if has('nvim')
       packadd! firenvim             " use neovim in browser textareas

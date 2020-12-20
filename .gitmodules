@@ -153,3 +153,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext"]
 	path = dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext
 	url = https://github.com/tommcdo/vim-fugitive-blame-ext.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-tmux-runner"]
+	path = dotfiles/vim/pack/bundle/opt/vim-tmux-runner
+	url = https://github.com/christoomey/vim-tmux-runner.git
