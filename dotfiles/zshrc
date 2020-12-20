@@ -107,7 +107,7 @@ function () {
   fi
   # only show two $'s if more than one shell level deep
   if [[ $LVL -gt 1 ]]; then
-    local LVL=2
+    local LVL=1
   fi
   # repeat #'s or $'s for shell level (root or std user respectively)
   if [[ $EUID -eq 0 ]]; then
