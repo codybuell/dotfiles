@@ -4,6 +4,8 @@
 #                                                                              #
 ################################################################################
 
+# this is used by multiple applications, eg standard python interpreter
+
 # man bash /Readline Variables
 
 # autocompletion settings
