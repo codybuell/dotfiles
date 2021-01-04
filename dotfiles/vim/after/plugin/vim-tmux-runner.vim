@@ -27,9 +27,12 @@ let g:vtr_filetype_runner_overrides = {
       \ 'python': 'python3 {file}',
       \ }
 
+" don't send clear command before executing, want to easily compare output
+let g:VtrClearBeforeSend = 0
+
 " clear sequence to send <C-c> clear <CR>
 " (insert mode -> ctrl-v -> desired ctrl sequence)
-let g:VtrClearSequence = "clear\r"
+let g:VtrClearSequence = "clear"
 
 " normal mode maps, mnemonics:
 "   runner attach
