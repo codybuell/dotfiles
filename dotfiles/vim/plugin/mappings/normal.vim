@@ -103,3 +103,6 @@ nnoremap  <silent>          <localleader>p    :<C-U>call buell#helpers#OpenJourn
 
 " generate random characters
 nnoremap  <silent>          <localleader>r    :<C-U>call buell#helpers#RandomCharacters(v:count)<CR>
+
+" general helpers
+nmap      <silent>          <enter>           csW)i

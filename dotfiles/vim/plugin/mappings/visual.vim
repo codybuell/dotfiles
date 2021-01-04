@@ -34,6 +34,9 @@ vmap      <silent>          <leader>sa        :'<,'>!sort<CR>
 " override visual yank to overload with copying to system clipboard as well
 vnoremap  <silent>          y                 :<C-u>exe 'call buell#helpers#YankOverride()'<CR>
 
+" general helpers
+vmap      <silent>          <enter>           S)i
+
 " maths
 "vmap      <silent><expr>    <leader>=         VMATH_YankAndAnalyse()
 " print out the total of the summation at the bottom of your visual selection
