@@ -20,6 +20,12 @@
 #                 #
 ###################
 
+# standard Python 2 pacakges
+PYTHON2=( \
+    'neovim' \                         # neovim client, required to use python with neovim
+    'pynvim' \                         # neovim client, required to use python with neovim
+)
+
 # standard Python 3 packages
 PYTHON3=( \
     'browsercookie' \                  # for getting browser cookies with cookiemonster via cli
@@ -45,6 +51,16 @@ OSXPYTHON3=( \
 #  run installations  #
 #                     #
 #######################
+
+# pip for python 2 is no longer available via brew and does not come standard with osx
+if ! which pip; then
+  sudo easy_install pip
+fi
+
+# install python2 packages
+for i in ${PYTHON2[@]}; do
+  /usr/local/bin/pip install $i
+done
 
 # install python3 packages
 for i in ${PYTHON3[@]}; do
