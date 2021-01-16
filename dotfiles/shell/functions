@@ -228,7 +228,9 @@ function gcl() {
 
 # git commit retry, if a commit fails use the last git commit message
 function gcr() {
-  cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG"
+  OLDCOMMITMESSAGE=`cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG" | sed '/^#.*$/d;${/^$/d}' | perl -p -e 'chomp if eof'`
+  echo $OLDCOMMITMESSAGE
+  echo
   case `basename $SHELL` in
     zsh )
       read "selection?Retry commit with this message (y[es]/n[o]): "
@@ -239,7 +241,8 @@ function gcr() {
   esac
   case $selection in
     [yY][eE][sS]|[yY] )
-      git commit -m "$(cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG")"
+      echo -n $OLDCOMMITMESSAGE | git commit -F - -e
+      #cat "$(git rev-parse --git-dir)/COMMIT_EDITMSG" | sed '/^#.*$/d' | perl -p -e 'chomp if eof' | git commit -F - -e
       ;;
     [nN][oO]|[nN] )
       ;;
