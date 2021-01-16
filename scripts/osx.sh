@@ -114,6 +114,8 @@
 #             - Google Drive
 #             - iCloud Drive
 #             - Dropbox
+#             - Repos
+#             - Notes
 #           - locations
 #             - host
 #             - [others]
