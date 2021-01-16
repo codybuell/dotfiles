@@ -34,6 +34,7 @@ PYTHON3=( \
     'feedparser' \                     # rss support for weechat plugin
     'jmespath-terminal' \              # json manipulation and parsing tool (run as `jpterm`)
     'neovim' \                         # neovim client, required to use python with neovim
+    'pync' \                           # wequired for weechat plugins
     'pynvim' \                         # neovim client, required to use python with neovim
     'selenium' \                       # same as click
     'websocket-client' \               # required for wee-slack weechat plugin
