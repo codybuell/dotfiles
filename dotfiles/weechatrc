@@ -3,8 +3,7 @@
 # PRE-REQ / SETUP INSTRUCTIONS                                                 #
 #                                                                              #
 #  - INSTALL MISC DEPENDENCIES                                                 #
-#    pip install pync websocket-client                                         #
-#    pip3 install click selenium                                               #
+#    pip3 install pync websocket-client click selenium                         #
 #                                                                              #
 #  - INSTALL WEESLACK SCRIPT                                                   #
 #    https://api.slack.com/custom-integrations/legacy-tokens                   #
@@ -49,14 +48,12 @@
 #    /secure set freenode <freenode passwd>                                    #
 #    /secure set freenodeun <freenode username>                                #
 #                                                                              #
-#  - INSTALL AND AUTOLOAD THE SCRIPTS                                          #
+#  - INSTALL THE SCRIPTS                                                       #
 #    OSX:                                                                      #
 #    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py weemustfeed.py
-#    /script autoload iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py weemustfeed.py
 #                                                                              #
 #    LINUX:                                                                    #
 #    /script install iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
-#    /script autoload iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
 #                                                                              #
 #  - RESTART WEECHAT AND CHECK YOU CAN UNLOCK WITH PASSPHRASE                  #
 #                                                                              #
@@ -114,7 +111,7 @@
 /vimode bind_keys
 
 # add custom bindings (`/key bind (press alt-k) (press ctrl-l) [cmd]`)
-/key bind ctrl-L /buffer clear
+#/key bind ctrl-L /buffer clear
 
 ################################################################################
 #                                                                              #
