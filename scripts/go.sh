@@ -37,6 +37,7 @@ OSX=( \
 ALL=( \
   'github.com/stamblerre/gocode' \         # replacement for nsf/gocode, deoplete-go dependency
   'golang.org/x/tools/cmd/goimports' \     # go formatter and auto imports
+  'github.com/schachmat/wego' \            # command line weather
 )
 
 # no longer in use:
