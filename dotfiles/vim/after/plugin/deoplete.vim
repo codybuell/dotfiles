@@ -49,6 +49,10 @@ call deoplete#custom#source('mail', 'max_candidates', 2000)
 " get completions from any buffer regardless of matching filetype
 call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
 
+" try to address error message that arises re dictionary changing size
+" when quickly navigating between files, disable parallel feature
+call deoplete#custom#option('num_processes', 1)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                    "
 "   TAB IMAPS NEED TO BE SET HERE ELSE ULTISNIPS WILL OVERWRITE IT   "
