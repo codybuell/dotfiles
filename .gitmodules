@@ -156,3 +156,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-tmux-runner"]
 	path = dotfiles/vim/pack/bundle/opt/vim-tmux-runner
 	url = https://github.com/christoomey/vim-tmux-runner.git
+[submodule "dotfiles/vim/pack/bundle/opt/editorconfig-vim"]
+	path = dotfiles/vim/pack/bundle/opt/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
