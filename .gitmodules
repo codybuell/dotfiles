@@ -159,3 +159,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/editorconfig-vim"]
 	path = dotfiles/vim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule "dotfiles/vim/pack/bundle/opt/lsp-status.nvim"]
+	path = dotfiles/vim/pack/bundle/opt/lsp-status.nvim
+	url = https://github.com/nvim-lua/lsp-status.nvim.git
