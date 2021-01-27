@@ -251,12 +251,8 @@ function gcr() {
 
 # git pull origin [branch]
 function gpl() {
-  [[ -z $1 ]] && {
-    BRANCH='master'
-  } || {
-    BRANCH=$1
-  }
-  git pull origin $BRANCH
+  CURRENT=$(git rev-parse --abbrev-ref HEAD)
+  git pull origin $CURRENT
 }
 
 # edit work journal
