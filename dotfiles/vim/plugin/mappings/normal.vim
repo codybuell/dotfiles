@@ -105,4 +105,4 @@ nnoremap  <silent>          <localleader>p    :<C-U>call buell#helpers#OpenJourn
 nnoremap  <silent>          <localleader>r    :<C-U>call buell#helpers#RandomCharacters(v:count)<CR>
 
 " general helpers
-nmap      <silent>          <enter>           csW)i
+nnoremap  <silent>          <enter>           :<C-U>call buell#helpers#WrapFuncParens()<CR>

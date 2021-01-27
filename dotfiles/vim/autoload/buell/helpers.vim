@@ -4,6 +4,27 @@
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
+" Wrap in Parenthesis                                                          "
+"                                                                              "
+" Helper to be used with a map in order to wrap the Word under the cursor in   "
+" parenthesis and enter insert mode at the start.                              "
+"                                                                              "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#WrapFuncParens() abort
+  " don't apply to quickfix, loclist (also id'd as quickfix), or
+  " command-window (id'd as nofile)
+  if &buftype ==# 'quickfix' || &buftype ==# 'nofile' || &buftype ==# 'help'
+    execute "normal! \<CR>"
+  else
+    normal csW)
+    startinsert
+  endif
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
