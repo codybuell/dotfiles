@@ -206,7 +206,7 @@ function root() {
 # git push origin [branch]
 function gpo() {
   [[ -z $1 ]] && {
-    BRANCH='master'
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
   } || {
     BRANCH=$1
   }
@@ -251,8 +251,12 @@ function gcr() {
 
 # git pull origin [branch]
 function gpl() {
-  CURRENT=$(git rev-parse --abbrev-ref HEAD)
-  git pull origin $CURRENT
+  [[ -z $1 ]] && {
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  } || {
+    BRANCH=$1
+  }
+  git pull origin $BRANCH
 }
 
 # edit work journal
