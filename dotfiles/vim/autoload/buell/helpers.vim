@@ -399,13 +399,46 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
+" Open Note                                                                    "
+"                                                                              "
+" Open up the note specified, create it if needed. Can handle paths, will      "
+" strip of any extension and replace it with .txt.                             "
+"                                                                              "
+" @param {string} note - note to open/create                                   "
+" @return null                                                                 "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! buell#helpers#OpenNote(note) abort
+
+  let l:part = split(a:note, '/')
+  let l:plen = len(l:part)
+  let l:note = substitute(l:part[-1], '\..*$', '', '')
+  let l:file = l:note . ".txt"
+
+  if l:plen > 1
+    let l:path = "{{ Notes }}" . "/" . join(l:part[0:-2], '/')
+  else
+    let l:path = "{{ Notes }}"
+  end
+
+  if !isdirectory(l:path)
+    call mkdir(l:path, "p")
+  endif
+
+  execute "edit " . fnameescape(l:path) . "/" . l:file
+
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
 " Open Journal                                                                 "
 "                                                                              "
 " Open up the current days journal, create the file as needed. Can accept a    "
 " count for N days into the future in order to open journal entries beyond     "
 " the current day (requires gdate on the system).                              "
 "                                                                              "
-" @param {strind} journal - journal to open                                    "
+" @param {string} journal - journal to open                                    "
 " @return null                                                                 "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -439,7 +472,6 @@ function! buell#helpers#OpenJournal(journal) abort
   execute "edit " . fnameescape(l:path) . "/" . l:file
 
 endfunction
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
