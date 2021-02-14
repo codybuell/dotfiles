@@ -5,102 +5,107 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if exists("+showtabline")
-  " function to generate tab line by looping through open pages
-  function! BuellTabLine() abort
-    " prep for building the tabline
-    let p = buell#tabline#gutterpadding()                       " start with gutter padding
-    let t = tabpagenr()                                   " get the current tab page number
-    let lo = p
-    let me = p
-    let sh = p
-    let sc = p
 
-    " loop through each tab page
-    for i in range(tabpagenr('$'))                        " '$' returns last tab number
-      let tab     = i + 1                                 " start counting from 1 rather than 0
-      let buflist = tabpagebuflist(tab)                   " determine how many buffers in the tab
-      let winnr   = tabpagewinnr(tab)                     " determine number of the current window in the tab     
-      let bufnr   = buflist[winnr - 1]                    " get the open buffer number
-      let bufname = bufname(bufnr)                        " get the buffers name, includes relative path
-      let bufmod  = getbufvar(bufnr, "&mod")              " determine if buffer is modified
-      if bufname == ''
-        let tabpath = ''
-        let tabname = '[ no name ]'
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "                                                                         "
+  "  Generate Tab Text                                                      "
+  "                                                                         "
+  "  @args                                                                  "
+  "    l_padding (str): padding to apply to lhs of tab bar                  "
+  "    abbrev_inactive (bool): show full path of inactive tabs?             "
+  "    abbrev_active (bool): show full path of active tab?                  "
+  "    truncate (int): truncate filename to length                          "
+  "                                                                         "
+  "  @return tab bar                                                        "
+  "                                                                         "
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  function! BuellGenTabText(l_padding, abbrev_inactive, abbrev_active, truncate) abort
+
+    let l:t = tabpagenr()                                        " get the current tab page number
+    let l:bar = a:l_padding                                      " start our tab bar with padding
+    let l:str = a:l_padding                                      " string only bar for finding size
+
+    " for each tab window
+    for i in range(tabpagenr('$'))                               " '$' returns last tab number
+      " gather window metadata
+      let l:tab     = i + 1                                      " start counting from 1 rather than 0
+      let l:buflist = tabpagebuflist(l:tab)                      " determine how many buffers in the tab
+      let l:winnr   = tabpagewinnr(l:tab)                        " determine number of the current window in the tab     
+      let l:bufnr   = l:buflist[l:winnr - 1]                     " get the open buffer number
+      let l:bufname = bufname(l:bufnr)                           " get the buffers name, includes relative path
+      let l:bufmod  = getbufvar(l:bufnr, "&mod")                 " determine if buffer is modified
+      if l:bufname == ''                                         " get path and filename
+        let l:tabpath = ''
+        let l:tabname = '[No Name]'
       else
-        let tabpath = fnamemodify(bufname, ':h')
-        let tabname = fnamemodify(bufname, ':t')
+        let l:tabpath = fnamemodify(l:bufname, ':h')
+        let l:tabname = fnamemodify(l:bufname, ':t')
       endif
 
-      " build full sized tabbar
-      let lo .= '%' . tab . 'T'                            " set the tab page number (for mouse clicks)
-      let lo .= (tab == t ? '%#ErrorMsg#' : '%#TabLine#')  " set hlgroup if active else default to TabLine hlgroup
-      let lo .= ' ' . tab . ': '                           " tab number folled by a colon, i.e. 1:
-      let lo .= pathshorten(tabpath . '/' . tabname)       " print the filename with abbreviated path
-      let lo .= (bufmod ? ' +' : '')                       " mark tab as modified if necessary
-      let lo .= ' '                                        " add a space
-      let lo .= '%*'                                       " reset colors
-
-      " build mid sized tabbar
-      let me .= '%' . tab . 'T'                            " set the tab page number (for mouse clicks)
-      let me .= (tab == t ? '%#ErrorMsg#' : '%#TabLine#')  " set hlgroup if active else default to TabLine hlgroup
-      let me .= ' ' . tab . ': '                           " tab number folled by a colon, i.e. 1:
-      if tab == t                                          " if we are on the curren tab then...
-        let me .= pathshorten(tabpath . '/' . tabname)     " print the filename with abbreviated path
+      " build the tab entry
+      let l:bar .= '%' . l:tab . 'T'                             " set the tab page number (for mouse clicks)
+      let l:bar .= (l:tab == l:t ? '%#ErrorMsg#' : '%#TabLine#') " set hlgroup if active else default to TabLine hlgroup
+      let l:bar .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
+      let l:str .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
+      if a:truncate
+        let l:bar .= strpart(l:tabname,0,a:truncate) . '...'     " truncate filename down
+        let l:str .= strpart(l:tabname,0,a:truncate) . '...'     " truncate filename down
+      elseif (l:tab == l:t && a:abbrev_active) || (l:tab != l:t && a:abbrev_inactive)
+        let l:bar .= l:tabname                                   " print just the filename
+        let l:str .= l:tabname                                   " print just the filename
       else
-        let me .= tabname
+        let l:bar .= pathshorten(l:tabpath . '/' . l:tabname)    " print the filename with abbreviated path
+        let l:str .= pathshorten(l:tabpath . '/' . l:tabname)    " print the filename with abbreviated path
       endif
-      let me .= (bufmod ? ' +' : '')                       " mark tab as modified if necessary
-      let me .= ' '                                        " add a space
-      let me .= '%*'                                       " reset colors
-
-      " build compact tabbar
-      let sh .= '%' . tab . 'T'                            " set the tab page number (for mouse clicks)
-      let sh .= (tab == t ? '%#ErrorMsg#' : '%#TabLine#')  " set hlgroup if active else default to TabLine hlgroup
-      let sh .= ' ' . tab . ': '                           " tab number folled by a colon, i.e. 1:
-      if tab == t                                          " if we are on the curren tab then...
-        let sh .= tabname
-      else
-        let sh .= strpart(tabname,0,4) . '...'
-      endif
-      let sh .= (bufmod ? ' +' : '')                       " mark tab as modified if necessary
-      let sh .= ' '                                        " add a space
-      let sh .= '%*'                                       " reset colors
-
-      " build sub compact tabbar
-      let sc .= '%' . tab . 'T'                            " set the tab page number (for mouse clicks)
-      let sc .= (tab == t ? '%#ErrorMsg#' : '%#TabLine#')  " set hlgroup if active else default to TabLine hlgroup
-      let sc .= ' ' . tab . ': '                           " tab number folled by a colon, i.e. 1:
-      if tab == t                                          " if we are on the curren tab then...
-        let sc .= tabname
-      else
-        let sc .= strpart(tabname,0,2) . '...'
-      endif
-      let sc .= (bufmod ? ' +' : '')                       " mark tab as modified if necessary
-      let sc .= ' '                                        " add a space
-      let sc .= '%*'                                       " reset colors
+      let l:bar .= (l:bufmod ? ' +' : '')                        " mark tab as modified if necessary
+      let l:str .= (l:bufmod ? ' +' : '')                        " mark tab as modified if necessary
+      let l:bar .= ' '                                           " add a space
+      let l:str .= ' '                                           " add a space
+      let l:bar .= '%*'                                          " reset colors
     endfor
 
     " tab bar ending
-    let en  = '%T%#TabLineFill#%='
-    let en .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+    " let l:bar .= '%T%#TabLineFill#%='
+    " let l:bar .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
 
-    " get length of various tab bars and window
-    let lengthfull    = len(lo) - 140
-    let lengthmid     = len(me) - 140
-    let lengthcompact = len(sh) - 140
+    " calc length of bar
+    let l:bar_len = len(l:str)
 
-    " determine tabbar to use
-    if lengthfull < winwidth(0)
-      let tabbar = lo . en
-    elseif lengthmid < winwidth(0)
-      let tabbar = me . en
-    elseif lengthcompact < winwidth(0)
-      let tabbar = sh . en
-    else
-      let tabbar = sc . en
+    return [l:bar_len, l:bar]
+
+  endfunction
+
+  " function to generate tab line by looping through open pages
+  function! BuellTabLine() abort
+    " set vars for the current state of affairs
+    let l:gutter_width = buell#statusline#gutterwidth()
+    let l:p = repeat(' ', gutter_width)
+
+    " try full size
+    let l:bar = BuellGenTabText(l:p, 0, 0, 0)
+    if l:bar[0] < &columns
+      return l:bar[1]
     endif
 
-    return tabbar
+    " try abbreviate only inactive tabs
+    let l:bar = BuellGenTabText(l:p, 1, 0, 0)
+    if l:bar[0] < &columns
+      return l:bar[1]
+    endif
+
+    " try abbreviate all tabs
+    let l:bar = BuellGenTabText(l:p, 1, 1, 0)
+    if l:bar[0] < &columns
+      return l:bar[1]
+    endif
+
+    " start truncating names at 10 chars and go down
+    let l:truncate_to = 10
+    while l:bar[0] > &columns
+      let l:bar = BuellGenTabText(l:p, 1, 1, l:truncate_to)
+      let l:truncate_to -= 1
+    endwhile
+    return l:bar[1]
   endfunction
 
   set stal=1                                              " show tabline 0=never 1=if 2 or more 2=always
