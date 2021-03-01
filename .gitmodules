@@ -162,3 +162,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/lsp-status.nvim"]
 	path = dotfiles/vim/pack/bundle/opt/lsp-status.nvim
 	url = https://github.com/nvim-lua/lsp-status.nvim.git
+[submodule "dotfiles/vim/pack/bundle/opt/vis"]
+	path = dotfiles/vim/pack/bundle/opt/vis
+	url = https://github.com/vim-scripts/vis
