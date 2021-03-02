@@ -1,0 +1,171 @@
+# set our default priority
+priority -50
+
+################################################################################
+##                                                                            ##
+##  miscellaneous                                                             ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  helpers                                                                   ##
+##                                                                            ##
+################################################################################
+
+# print
+snippet p "print" b
+print($0)
+endsnippet
+
+# print quoted
+snippet pq "print quoted" b
+print('$0')
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  flow control                                                              ##
+##                                                                            ##
+################################################################################
+
+###################
+#  if statements  #
+###################
+
+# if
+snippet if "if" b
+if $1 then
+  $0
+end
+endsnippet
+
+# if not
+snippet ifn "if not" b
+if not $1 then
+  $0
+end
+endsnippet
+
+# if and 
+snippet ifa "if and if" b
+if ($1 and $2) then
+  $0
+end
+endsnippet
+
+# if or
+snippet ifo "if or if" b
+if ($1 or $2) then
+  $0
+end
+endsnippet
+
+# if else
+snippet ife "if else" b
+if $1 then
+  $2
+else
+  $0
+end
+endsnippet
+
+# if else if
+snippet ifei "if else if" b
+if $1 then
+  $2
+elseif $3 then
+  $0
+end
+endsnippet
+
+# else
+snippet el "else chunck" b
+else
+  $0
+endsnippet
+
+###########
+#  loops  #
+###########
+
+# while
+snippet wh "while" b
+while $1 do
+	$0
+end
+endsnippet
+
+# for
+snippet for "for" b
+for ${1:i}=${2:first},${3:last}${4/^..*/(?0:,:)/}${4:step} do
+	$0
+end
+endsnippet
+
+# fori
+snippet fori "for ipair loop" b
+for ${1:idx},${2:val} in ipairs(${3:table_name}) do
+	$0
+end
+endsnippet
+
+# for range (in array)
+#forr
+
+##############
+#  switches  #
+##############
+
+# switch
+#sw
+
+# case
+#case
+
+#############
+#  ternary  #
+#############
+
+# ternary
+#?:
+
+# ternary to variable
+#=?:
+
+################
+#  exceptions  #
+################
+
+# try
+
+
+################################################################################
+##                                                                            ##
+##  comments                                                                  ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  functions                                                                 ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  objects                                                                   ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  templates                                                                 ##
+##                                                                            ##
+################################################################################
+
+# shebang
+snippet #! "#!/usr/bin/env lua" b
+#!/usr/bin/env lua
+$0
+endsnippet

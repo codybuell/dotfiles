@@ -3,6 +3,13 @@ priority -50
 
 extends cstylecomments
 
+snippet p "general print statement" b
+fmt.Println($0)
+endsnippet
+
+snippet pq "general print statement" b
+fmt.Println("$0")
+endsnippet
 ################################################################################
 ##                                                                            ##
 ##  ternary operators                                                         ##
@@ -256,10 +263,10 @@ snippet go "go starting template" b
 package ${1:main}
 
 import (
-	"${2:fmt}"
+	"fmt"
 )
 
 func main() {
-  ${0}
+  fmt.Println("Hello World!")${0}
 }
 endsnippet

@@ -1,294 +1,255 @@
 priority -50
 
-###########################################################################
-#                            TEXTMATE SNIPPETS                            #
-###########################################################################
+global !p
+from snippet_helpers_python import *
+endglobal
 
-snippet p "print()" b
-print($1)$0
-endsnippet
-snippet pq "print()" b
-print('$1')$0
-endsnippet
-
-###########################################################################
-#                            TEXTMATE SNIPPETS                            #
-###########################################################################
-
-#! header
-snippet #! "#!/usr/bin/env python" b
-#!/usr/bin/env python3
-#
-# ${2:Script Name}
-#
-# ${3:Script description.}
-#
-# Author(s): ${4:{{ Name }}}
-#
-# Requisite: ${7}
-#
-# Resources: ${8}
-#
-# Task List: ${9}
-#
-# Usage: ${10}
-$0
-endsnippet
-
-snippet "^# ?[uU][tT][fF]-?8" "# encoding: UTF-8" r
-# -*- coding: utf-8 -*-
-$0
-endsnippet
-
-snippet ifmain "ifmain" b
-if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_quoting_style(snip)`:
-	${1:${VISUAL:main()}}
-endsnippet
+################################################################################
+##                                                                            ##
+##  miscellaneous                                                             ##
+##                                                                            ##
+################################################################################
 
 snippet with "with" b
 with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
-	${3:${VISUAL:pass}}
-$0
+	${0:${VISUAL:pass}}
 endsnippet
 
-snippet for "for loop" b
+################################################################################
+##                                                                            ##
+##  helpers                                                                   ##
+##                                                                            ##
+################################################################################
+
+snippet p "print no quotes" b
+print($0)
+endsnippet
+
+snippet pq "print with quotes" b
+print('$0')
+endsnippet
+
+################################################################################
+##                                                                            ##
+##  flow control                                                              ##
+##                                                                            ##
+################################################################################
+
+###################
+#  if statements  #
+###################
+
+# if
+snippet if "if" b
+if ${1:condition}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+# if not
+snippet ifn "if not" b
+if not ${1:condition}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+# if and 
+snippet ifa "if and if" b
+if ${1:condition} and ${2:condition}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+# if or
+snippet ifo "if or if" b
+if ${1:condition} or ${2:condition}:
+	${0:${VISUAL:pass}}
+endsnippet
+
+# if else
+snippet ife "if else" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+else:
+	${0:pass}
+endsnippet
+
+# if else if
+snippet ifei "if else if" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+elif ${3:condition}:
+	${4:pass}
+else:
+	${0:pass}
+endsnippet
+
+# else
+snippet el "else chunck" b
+else:
+	${0:${VISUAL:pass}}
+endsnippet
+
+###########
+#  loops  #
+###########
+
+# while
+snippet wh "while" b
+while ${1:True}:
+	$0
+end
+endsnippet
+
+# for
+snippet for "for" b
 for ${1:item} in ${2:iterable}:
-	${3:${VISUAL:pass}}
+	${0:${VISUAL:pass}}
 endsnippet
 
-##########
-# COMMON #
-##########
+# fori
+snippet fori "for enumerated" b
+for ${1:idx}, ${1:item} in enumerate(${2:iterable}):
+	${0:${VISUAL:pass}}
+endsnippet
 
-# The smart def and smart class snippets use a global option called
-# "g:ultisnips_python_style" which, if set to "doxygen" will use doxygen
-# style comments in docstrings.
+# for range (in array)
+snippet forr "for in range" b
+for ${1:i} in range(${2:int}):
+	${0:${VISUAL:pass}}
+endsnippet
 
-global !p
+##############
+#  switches  #
+##############
 
-NORMAL  = 0x1
-DOXYGEN = 0x2
-SPHINX  = 0x3
-GOOGLE  = 0x4
-NUMPY   = 0x5
-JEDI    = 0x6
+# switch
+snippet sw "switch" b
+endsnippet
 
-SINGLE_QUOTES = "'"
-DOUBLE_QUOTES = '"'
+# case
+snippet case "case" b
+endsnippet
 
+#############
+#  ternary  #
+#############
 
-class Arg(object):
-	def __init__(self, arg):
-		self.arg = arg
-		name_and_type = arg.split('=')[0].split(':')
-		self.name = name_and_type[0].strip()
-		self.type = name_and_type[1].strip() if len(name_and_type) == 2 else None
+# ternary
+snippet ?: "description" b
+endsnippet
 
-	def __str__(self):
-		return self.name
+# ternary to variable
+snippet =?: "description" b
+endsnippet
 
-	def __unicode__(self):
-		return self.name
+################
+#  exceptions  #
+################
 
-	def is_kwarg(self):
-		return '=' in self.arg
+# try
+snippet try "try / except" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+endsnippet
 
-	def is_vararg(self):
-		return '*' in self.name
+snippet trye "try / except / else" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+else:
+	${5:pass}
+endsnippet
 
+snippet tryf "try / except / finally" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+finally:
+	${5:pass}
+endsnippet
 
-def get_args(arglist):
-	args = [Arg(arg) for arg in arglist.split(',') if arg]
-	args = [arg for arg in args if arg.name != 'self']
+snippet tryef "try / except / else / finally" b
+try:
+	${1:${VISUAL:pass}}
+except${2: ${3:Exception} as ${4:e}}:
+	${5:raise}
+else:
+	${6:pass}
+finally:
+	${7:pass}
+endsnippet
 
-	return args
+################################################################################
+##                                                                            ##
+##  comments                                                                  ##
+##                                                                            ##
+################################################################################
 
+snippet " "triple quoted string (double quotes)" b
+"""
+${1:${VISUAL:doc}}
+`!p triple_quotes_handle_trailing(snip, '"')`
+endsnippet
 
-def get_quoting_style(snip):
-	style = snip.opt("g:ultisnips_python_quoting_style", "double")
-	if style == 'single':
-		return SINGLE_QUOTES
-	return DOUBLE_QUOTES
+snippet ' "triple quoted string (single quotes)" b
+'''
+${1:${VISUAL:doc}}
+`!p triple_quotes_handle_trailing(snip, "'")`
+endsnippet
 
-def triple_quotes(snip):
-	style = snip.opt("g:ultisnips_python_triple_quoting_style")
-	if not style:
-		return get_quoting_style(snip) * 3
-	return (SINGLE_QUOTES if style == 'single' else DOUBLE_QUOTES) * 3
+snippet doc "doc block (triple quotes)"
+`!p snip.rv = triple_quotes(snip)`
+${1:${VISUAL:doc}}
+`!p snip.rv = triple_quotes(snip)`
+endsnippet
 
-def triple_quotes_handle_trailing(snip, quoting_style):
-	"""
-	Generate triple quoted strings and handle any trailing quote char,
-	which might be there from some autoclose/autopair plugin,
-	i.e. when expanding ``"|"``.
-	"""
-	if not snip.c:
-		# Do this only once, otherwise the following error would happen:
-		# RuntimeError: The snippets content did not converge: …
-		_, col = vim.current.window.cursor
-		line = vim.current.line
+################################################################################
+##                                                                            ##
+##  functions                                                                 ##
+##                                                                            ##
+################################################################################
 
-		# Handle already existing quote chars after the trigger.
-		_ret = quoting_style * 3
-		while True:
-			try:
-				nextc = line[col]
-			except IndexError:
-				break
-			if nextc == quoting_style and len(_ret):
-				_ret = _ret[1:]
-				col = col+1
-			else:
-				break
-		snip.rv = _ret
-	else:
-		snip.rv = snip.c
+snippet deff "function or class method"
+def ${1:fname}(`!p snip.rv = "self, " if snip.indent else ""`$2):
+	$0
+endsnippet
 
-def get_style(snip):
-	style = snip.opt("g:ultisnips_python_style", "normal")
-
-	if    style == "doxygen": return DOXYGEN
-	elif  style == "sphinx": return SPHINX
-	elif  style == "google": return GOOGLE
-	elif  style == "numpy": return NUMPY
-	elif  style == "jedi": return JEDI
-	else: return NORMAL
-
-
-def format_arg(arg, style):
-	if style == DOXYGEN:
-		return "@param %s TODO" % arg
-	elif style == SPHINX:
-		return ":param %s: TODO" % arg
-	elif style == NORMAL:
-		return ":%s: TODO" % arg
-	elif style == GOOGLE:
-		return "%s (TODO): TODO" % arg
-	elif style == JEDI:
-		return ":type %s: TODO" % arg
-	elif style == NUMPY:
-		return "%s : TODO" % arg
-
-
-def format_return(style):
-	if style == DOXYGEN:
-		return "@return: TODO"
-	elif style in (NORMAL, SPHINX, JEDI):
-		return ":returns: TODO"
-	elif style == GOOGLE:
-		return "Returns: TODO"
-
-
-def write_docstring_args(args, snip):
-	if not args:
-		snip.rv += ' {0}'.format(triple_quotes(snip))
-		return
-
-	snip.rv += '\n' + snip.mkline('', indent='')
-
-	style = get_style(snip)
-
-	if style == GOOGLE:
-		write_google_docstring_args(args, snip)
-	elif style == NUMPY:
-		write_numpy_docstring_args(args, snip)
-	else:
-		for arg in args:
-			snip += format_arg(arg, style)
+snippet def "function with docstrings" b
+def ${1:function}(`!p
+if snip.indent:
+	snip.rv = 'self' + (", " if len(t[2]) else "")`${2:arg1}):
+	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+write_function_docstring(t, snip) `
+	${5:${VISUAL:pass}}
+endsnippet
 
 
-def write_google_docstring_args(args, snip):
-	kwargs = [arg for arg in args if arg.is_kwarg()]
-	args = [arg for arg in args if not arg.is_kwarg()]
-
-	if args:
-		snip += "Args:"
-		snip.shift()
-		for arg in args:
-			snip += format_arg(arg, GOOGLE)
-		snip.unshift()
-		snip.rv += '\n' + snip.mkline('', indent='')
-
-	if kwargs:
-		snip += "Kwargs:"
-		snip.shift()
-		for kwarg in kwargs:
-			snip += format_arg(kwarg, GOOGLE)
-		snip.unshift()
-		snip.rv += '\n' + snip.mkline('', indent='')
+snippet defc "class method with docstrings" b
+@classmethod
+def ${1:function}(`!p
+if snip.indent:
+	snip.rv = 'cls' + (", " if len(t[2]) else "")`${2:arg1}):
+	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+write_function_docstring(t, snip) `
+	${5:${VISUAL:pass}}
+endsnippet
 
 
-def write_numpy_docstring_args(args, snip):
-	if args:
-		snip += "Parameters"
-		snip += "----------"
+snippet defs "static method with docstrings" b
+@staticmethod
+def ${1:function}(${2:arg1}):
+	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+write_function_docstring(t, snip) `
+	${5:${VISUAL:pass}}
+endsnippet
 
-	kwargs = [arg for arg in args if arg.is_kwarg()]
-	args = [arg for arg in args if not arg.is_kwarg()]
-
-	if args:
-		for arg in args:
-			snip += format_arg(arg, NUMPY)
-	if kwargs:
-		for kwarg in kwargs:
-			snip += format_arg(kwarg, NUMPY) + ', optional'
-	snip.rv += '\n' + snip.mkline('', indent='')
-
-
-def write_init_body(args, parents, snip):
-	parents = [p.strip() for p in parents.split(",")]
-	parents = [p for p in parents if p != 'object']
-
-	for p in parents:
-		snip += p + ".__init__(self)"
-
-	if parents:
-		snip.rv += '\n' + snip.mkline('', indent='')
-
-	for arg in filter(lambda arg: not arg.is_vararg(), args):
-		snip += "self._%s = %s" % (arg, arg)
-
-
-def write_slots_args(args, snip):
-	quote = get_quoting_style(snip)
-	arg_format = quote + '_%s' + quote
-	args = [arg_format % arg for arg in args]
-	snip += '__slots__ = (%s,)' % ', '.join(args)
-
-
-def write_function_docstring(t, snip):
-	"""
-	Writes a function docstring with the current style.
-
-	:param t: The values of the placeholders
-	:param snip: UltiSnips.TextObjects.SnippetUtil object instance
-	"""
-	snip.rv = ""
-	snip >> 1
-
-	args = get_args(t[2])
-	if args:
-		write_docstring_args(args, snip)
-
-	style = get_style(snip)
-
-	if style == NUMPY:
-		snip += 'Returns'
-		snip += '-------'
-		snip += 'TODO'
-	else:
-		snip += format_return(style)
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += triple_quotes(snip)
-
-def get_dir_and_file_name(snip):
-	return os.getcwd().split(os.sep)[-1] + '.' + snip.basename
-
-endglobal
-
-########################################
-# Class & Special Method Name Snippets #
-########################################
+################################################################################
+##                                                                            ##
+##  objects                                                                   ##
+##                                                                            ##
+################################################################################
 
 snippet class "class with docstrings" b
 class ${1:MyClass}(${2:object}):
@@ -312,34 +273,176 @@ write_init_body(args, t[2], snip)
 		$0
 endsnippet
 
+################################################################################
+##                                                                            ##
+##  templates                                                                 ##
+##                                                                            ##
+################################################################################
 
-snippet slotclass "class with slots and docstrings" b
-class ${1:MyClass}(${2:object}):
+##################
+#  boilerplates  #
+##################
 
-	`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
-`!p
-snip >> 1
-args = get_args(t[4])
-write_slots_args(args, snip)
-`
-
-	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
-snip.rv = ""
-snip >> 2
-
-args = get_args(t[4])
-
-write_docstring_args(args, snip)
-if args:
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += triple_quotes(snip)
-
-write_init_body(args, t[2], snip)
-`
-		$0
+# read from a file
+snippet #!read "#!/usr/bin/env python" b
+#!/usr/bin/env python3
+#
+# ${1:Script Name}
+#
+# ${2:Script description.}
+#
+# Author(s): ${3:{{ Name }}}
+#
+# Requisite: ${4}
+#
+# Resources: ${5}
+#
+# Usage: ${6}
+$0
+dataFile = open('myfile.txt', 'r')
+lines    = dataFile.read().splitlines()
+# or
+lines = []
+with open('myfile.txt') as file:
+	for line in file:
+		lines.append(line)
 endsnippet
 
+# http requests
+snippet #!req "#!/usr/bin/env python" b
+#!/usr/bin/env python3
+#
+# ${1:Script Name}
+#
+# ${2:Script description.}
+#
+# Author(s): ${3:{{ Name }}}
+#
+# Requisite: ${4}
+#
+# Resources: ${5}
+#
+# Usage: ${6}
+$0
+import os
+import sys
+import json
+import requests
+
+################################################################################
+##                                                                            ##
+##  Config                                                                    ##
+##                                                                            ##
+################################################################################
+
+# read in env variables
+API_KEY = os.getenv('API_KEY')
+
+# prep the headers
+headers = {}
+headers['apikey'] = API_KEY
+
+################################################################################
+##                                                                            ##
+##  Functions                                                                 ##
+##                                                                            ##
+################################################################################
+
+def request(method_type, url, headers, *args):
+    """ Requests makes a defined request and returns the response.
+
+        Args:
+      method_type (str): [post|get]
+      url (str): end point for request
+            headers (dict): request headers
+            args (dict): data to be posted
+
+        Returns:
+            requests.Response
+    """
+    methd_type = method_type.lower()
+    try:
+        if method_type == "post":
+            return requests.post(url, headers=headers, data=args[0])
+        if method_type == "get":
+            return requests.get(url, headers=headers, data=args[0])
+    except requests.RequestException as exception:
+        sys.exit(exception)o
+
+################################################################################
+##                                                                            ##
+##  Run                                                                       ##
+##                                                                            ##
+################################################################################
+
+resp = request('get', 'myurl.tld/api/endpoint', headers, {})
+body = resp.json()
+print(resp.text)      # text of response body
+print(resp.content)   # text of response bytes
+print(body)
+endsnippet
+
+# shebang
+snippet #! "#!/usr/bin/env python" b
+#!/usr/bin/env python3
+#
+# ${1:Script Name}
+#
+# ${2:Script description.}
+#
+# Author(s): ${3:{{ Name }}}
+#
+# Requisite: ${4}
+#
+# Resources: ${5}
+#
+# Usage: ${6}
+$0
+endsnippet
+
+# encoding
+snippet "^# ?[uU][tT][fF]-?8" "# encoding: UTF-8" r
+# -*- coding: utf-8 -*-
+$0
+endsnippet
+
+# dunder main
+snippet ifmain "ifmain" b
+if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_quoting_style(snip)`:
+	${1:${VISUAL:main()}}
+endsnippet
+
+######################
+#  Common Functions  #
+######################
+
+# requests
+snippet req "method for api requests" b
+def request(method_type, url, headers, *args):
+    """ Requests makes a defined request and returns the response.
+
+		Args:
+      method_type (str): [post|get]
+      url (str): end point for request
+			headers (dict): request headers
+			args (dict): data to be posted
+
+		Returns:
+			requests.Response
+    """
+    method_type = method_type.lower()
+    try:
+        if method_type == "post":
+            return requests.post(url, headers=headers, data=args[0])
+        if method_type == "get":
+            return requests.get(url, headers=headers, data=args[0])
+    except requests.RequestException as exception:
+        sys.exit(exception)
+endsnippet
+
+########################################
+# Class & Special Method Name Snippets #
+########################################
 
 snippet contain "methods for emulating a container type" b
 def __len__(self):
@@ -522,41 +625,6 @@ def __coerce__(self, other):
 	${25:pass}
 endsnippet
 
-snippet deff "function or class method"
-def ${1:fname}(`!p snip.rv = "self, " if snip.indent else ""`$2):
-	$0
-endsnippet
-
-snippet def "function with docstrings" b
-def ${1:function}(`!p
-if snip.indent:
-	snip.rv = 'self' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
-snippet defc "class method with docstrings" b
-@classmethod
-def ${1:function}(`!p
-if snip.indent:
-	snip.rv = 'cls' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
-snippet defs "static method with docstrings" b
-@staticmethod
-def ${1:function}(${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
 # doesn't expand when there is a word in front
 snippet /(^|(?<=\W))\./ "self." r
 self.
@@ -566,10 +634,10 @@ snippet from "from module import name" b
 from ${1:module} import ${2:Stuff}
 endsnippet
 
-
 ##############
 # PROPERTIES #
 ##############
+
 snippet roprop "Read Only Property" b
 @property
 def ${1:name}(self):
@@ -600,149 +668,8 @@ else:
 $1 = property(**$1(), doc=$1.__doc__)
 endsnippet
 
-
-####################
-# If / Else / Elif #
-####################
-snippet if "If" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-endsnippet
-
-snippet ife "If / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-else:
-	${3:pass}
-endsnippet
-
-snippet ifee "If / Elif / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-elif ${3:condition}:
-	${4:pass}
-else:
-	${5:pass}
-endsnippet
-
-
-##########################
-# Try / Except / Finally #
-##########################
-snippet try "Try / Except" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-endsnippet
-
-snippet trye "Try / Except / Else" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-else:
-	${5:pass}
-endsnippet
-
-snippet tryf "Try / Except / Finally" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-finally:
-	${5:pass}
-endsnippet
-
-snippet tryef "Try / Except / Else / Finally" b
-try:
-	${1:${VISUAL:pass}}
-except${2: ${3:Exception} as ${4:e}}:
-	${5:raise}
-else:
-	${6:pass}
-finally:
-	${7:pass}
-endsnippet
-
-
 ######################
 # Assertions & Tests #
 ######################
-
-snippet ae "Assert equal" b
-self.assertEqual(${1:${VISUAL:first}}, ${2:second})
-endsnippet
-
-snippet at "Assert True" b
-self.assertTrue(${1:${VISUAL:expression}})
-endsnippet
-
-snippet af "Assert False" b
-self.assertFalse(${1:${VISUAL:expression}})
-endsnippet
-
-snippet aae "Assert almost equal" b
-self.assertAlmostEqual(${1:${VISUAL:first}}, ${2:second})
-endsnippet
-
-snippet ar "Assert raises" b
-self.assertRaises(${1:exception}, ${2:${VISUAL:func}}${3/.+/, /}${3:arguments})
-endsnippet
-
-snippet an "Assert is None" b
-self.assertIsNone(${1:${VISUAL:expression}})
-endsnippet
-
-snippet ann "Assert is not None" b
-self.assertIsNotNone(${1:${VISUAL:expression}})
-endsnippet
-
-snippet testcase "pyunit testcase" b
-class Test${1:Class}(${2:unittest.TestCase}):
-
-	`!p snip.rv = triple_quotes(snip)`${3:Test case docstring.}`!p snip.rv = triple_quotes(snip)`
-
-	def setUp(self):
-		${4:pass}
-
-	def tearDown(self):
-		${5:pass}
-
-	def test_${6:name}(self):
-		${7:${VISUAL:pass}}
-endsnippet
-
-snippet " "triple quoted string (double quotes)" b
-"""
-${1:${VISUAL:doc}}
-`!p triple_quotes_handle_trailing(snip, '"')`
-endsnippet
-
-snippet ' "triple quoted string (single quotes)" b
-'''
-${1:${VISUAL:doc}}
-`!p triple_quotes_handle_trailing(snip, "'")`
-endsnippet
-
-snippet doc "doc block (triple quotes)"
-`!p snip.rv = triple_quotes(snip)`
-${1:${VISUAL:doc}}
-`!p snip.rv = triple_quotes(snip)`
-endsnippet
-
-snippet pmdoc "pocoo style module doc string" b
-# -*- coding: utf-8 -*-
-"""
-	`!p snip.rv = get_dir_and_file_name(snip)`
-	`!p snip.rv = '~' * len(get_dir_and_file_name(snip))`
-
-	${1:DESCRIPTION}
-
-	:copyright: (c) `date +%Y` by ${2:YOUR_NAME}.
-	:license: ${3:LICENSE_NAME}, see LICENSE for more details.
-"""
-$0
-endsnippet
 
 # vim:ft=snippets:

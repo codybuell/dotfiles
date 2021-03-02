@@ -122,8 +122,6 @@ snippet #! "script boilerplate" b
 #
 # Resources: ${8}
 #
-# Task List: ${9}
-#
 # Usage: ${10}
 
 ${0}
@@ -346,7 +344,11 @@ Type=simple
 # Another Type: forking
 User=${2:root}
 WorkingDirectory=${3:/opt}
+Environment="SECRET=abababababababab"
+Environment="ANOTHER_SECRET=erererererereree"
 ExecStart=${4:/usr/local/bin/executable --param}
+StandardOutput=append:/var/log/${5:app}-out.log
+StandardError=append:/var/log/$5-err.log
 Restart=on-failure
 # Other restart options: always, on-abort, etc
 

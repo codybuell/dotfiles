@@ -18,4 +18,207 @@ snippet vis "${VISUAL}" i
 \$\{VISUAL${1:${2:default}${3:/transform/}}\}
 endsnippet
 
+################################################################################
+##                                                                            ##
+##  templates                                                                 ##
+##                                                                            ##
+################################################################################
+
+snippet sniplang "language snippet template" b
+priority -50
+
+################################################################################
+##                                                                            ##
+##  miscellaneous                                                             ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  helpers                                                                   ##
+##                                                                            ##
+################################################################################
+
+`!p snip.rv = "snippet"` p "print no quotes" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` pq "print with quotes" b
+`!p snip.rv = "endsnippet"`
+
+################################################################################
+##                                                                            ##
+##  flow control                                                              ##
+##                                                                            ##
+################################################################################
+
+###################
+#  if statements  #
+###################
+
+# if
+`!p snip.rv = "snippet"` if "if" b
+`!p snip.rv = "endsnippet"`
+
+# if not
+`!p snip.rv = "snippet"` ifn "if not" b
+`!p snip.rv = "endsnippet"`
+
+# if and 
+`!p snip.rv = "snippet"` ifa "if and if" b
+`!p snip.rv = "endsnippet"`
+
+# if or
+`!p snip.rv = "snippet"` ifo "if or if" b
+`!p snip.rv = "endsnippet"`
+
+# if else
+`!p snip.rv = "snippet"` ife "if else" b
+`!p snip.rv = "endsnippet"`
+
+# if else if
+`!p snip.rv = "snippet"` ifei "if else if" b
+`!p snip.rv = "endsnippet"`
+
+# else
+`!p snip.rv = "snippet"` el "else chunck" b
+`!p snip.rv = "endsnippet"`
+
+###########
+#  loops  #
+###########
+
+# while
+`!p snip.rv = "snippet"` wh "while" b
+`!p snip.rv = "endsnippet"`
+
+# for
+`!p snip.rv = "snippet"` for "for" b
+`!p snip.rv = "endsnippet"`
+
+# fori
+`!p snip.rv = "snippet"` fori "for enumerated" b
+`!p snip.rv = "endsnippet"`
+
+# for range (in array)
+`!p snip.rv = "snippet"` forr "for in range" b
+`!p snip.rv = "endsnippet"`
+
+##############
+#  switches  #
+##############
+
+# switch
+`!p snip.rv = "snippet"` sw "switch" b
+`!p snip.rv = "endsnippet"`
+
+# case
+`!p snip.rv = "snippet"` case "case" b
+`!p snip.rv = "endsnippet"`
+
+#############
+#  ternary  #
+#############
+
+# ternary
+`!p snip.rv = "snippet"` ?: "description" b
+`!p snip.rv = "endsnippet"`
+
+# ternary to variable
+`!p snip.rv = "snippet"` =?: "description" b
+`!p snip.rv = "endsnippet"`
+
+################
+#  exceptions  #
+################
+
+# try
+`!p snip.rv = "snippet"` try "try / except" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` trye "try / except / else" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` tryf "try / except / finally" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` tryef "try / except / else / finally" b
+`!p snip.rv = "endsnippet"`
+
+################################################################################
+##                                                                            ##
+##  comments                                                                  ##
+##                                                                            ##
+################################################################################
+
+`!p snip.rv = "snippet"` " "triple quoted string (double quotes)" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` ' "triple quoted string (single quotes)" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` doc "doc block (triple quotes)"
+`!p snip.rv = "endsnippet"`
+
+################################################################################
+##                                                                            ##
+##  functions                                                                 ##
+##                                                                            ##
+################################################################################
+
+`!p snip.rv = "snippet"` deff "function or class method"
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` def "function with docstrings" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` defc "class method with docstrings" b
+`!p snip.rv = "endsnippet"`
+
+`!p snip.rv = "snippet"` defs "static method with docstrings" b
+`!p snip.rv = "endsnippet"`
+
+################################################################################
+##                                                                            ##
+##  objects                                                                   ##
+##                                                                            ##
+################################################################################
+
+`!p snip.rv = "snippet"` class "class" b
+`!p snip.rv = "endsnippet"`
+
+################################################################################
+##                                                                            ##
+##  templates                                                                 ##
+##                                                                            ##
+################################################################################
+
+##################
+#  boilerplates  #
+##################
+
+# shebang
+`!p snip.rv = "snippet"` #! "#!/usr/bin/env ${1:lang}" b
+#!/usr/bin/env $1
+#
+# \${1:Script Name}
+#
+# \${2:Script description.}
+#
+# Author(s): \${3:{{ Name }}}
+#
+# Requisite: \${4}
+#
+# Resources: \${5}
+#
+# Usage: \${6}
+\$0
+`!p snip.rv = "endsnippet"`
+
+######################
+#  Common Functions  #
+######################
+
+# vim:ft=snippets:
+endsnippet
+
 # vim:ft=snippets:

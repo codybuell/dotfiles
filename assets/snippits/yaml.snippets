@@ -1,0 +1,61 @@
+# set our default priority
+priority -50
+
+################################################################################
+##                                                                            ##
+##  Boilerplates                                                              ##
+##                                                                            ##
+################################################################################
+
+snippet gci ".gitlab-ci.yml boilerplate" b
+---
+stages:
+  - validate
+  - build
+  - test
+  - deploy
+  - bridge
+
+variables:
+  IMAGE: "python:3"
+  GIT_STRATEGY: fetch
+  GIT_DEPTH: "1"
+
+.job_template: &job_template
+  image: ${IMAGE}
+  tags:
+    - light
+  before_script:
+    # Install AWS CLI.
+    - pip install awscli -q
+
+.before_script: &before_script |
+  # grab jq & other packages
+  apt-get update && apt-get -y install jq
+
+# Run the application.
+deploy:production:
+  <<: *job_template
+  stage: deploy
+	only:
+    refs:
+      - master
+    variables: 
+      - $CI_PROJECT_NAME == "repository-name"
+  when: manual
+  script: |
+    apt-get....
+  artifacts:
+    paths:
+      - ./*.png
+
+another_job:
+  <<: *job_template
+	only:
+		- schedules
+  before_script:
+    # note this supercedes the job_template
+    - *before_script
+  script: |
+    echo "another job"
+endsnippet
