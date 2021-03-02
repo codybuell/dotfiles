@@ -566,7 +566,7 @@ cmdDoublePress.action = function()
   os = hs.host.operatingSystemVersion()
   osMajorMinor = tonumber(os.major .. os.minor)
   -- launch  mission control with double tap of cmd
-  if osMajorMinor >= 1015 then -- catalina or higher
+  if (osMajorMinor >= 1015 or os.major >= 11) then -- catalina or higher
     hs.application.open('/System/Applications/Mission Control.app')
   else
     hs.application.open('/Applications/Mission Control.app')
