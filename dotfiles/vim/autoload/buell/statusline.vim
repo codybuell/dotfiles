@@ -320,3 +320,11 @@ function! s:get_custom_statusline(action) abort
   " use default
   return 1
 endfunction
+
+function! buell#statusline#lsp_status() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    " return luaeval("require('lsp-status').status()")
+    return luaeval("require('buell.lsp').status()")
+  endif
+  return ''
+endfunction
