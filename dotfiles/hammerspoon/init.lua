@@ -7,6 +7,9 @@
 -- disaable animations
 hs.window.animationDuration = 0
 
+-- enable spotlight support (enable alternative names for applications)
+hs.application.enableSpotlightForNameSearches(true)
+
 -- define our grid
 hs.grid.setGrid('24x24')
 hs.grid.MARGINX = 0
