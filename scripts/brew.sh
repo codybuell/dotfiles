@@ -69,6 +69,7 @@ PACKAGES=( \
     'markdown' \                    # parsing of markdown syntax to html
     'mas' \                         # brew like tool for the apple app store
     'minicom' \                     # modem control and serial terminal emulation
+    'minikube' \                    # local kubernetes
     'msmtp' \                       # smtp client used with mutt config
     'mysql'                         # database server for local dev
     'neomutt' \                     # command line email client
@@ -151,7 +152,7 @@ CASKS=( \
     'firefox' \                     # alternative web browser
     'gimp' \                        # open source bitmap editor
     'google-chrome' \               # chrome browser
-    'google-drive-file-stream' \    # file collaboration
+    'google-drive' \                # file collaboration
     'hammerspoon' \                 # osx automation tool
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
@@ -201,6 +202,10 @@ SERVICES=( \
 # OLD SERVICES
 #   'bitlbee' \
 #   'ddclient' \
+
+TAPS=( \
+    'alt-romes/pcalc:pcalc' \      # visual binary calculator
+)
 
 ################################################################################
 ################################################################################
