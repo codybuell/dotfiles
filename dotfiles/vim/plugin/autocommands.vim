@@ -1,6 +1,4 @@
-" BufEnter       after entering a buffer, good for setting file type options
-" BufWinEnter    when a buffer is loaded and also when displayed in a window
-" BufWinLeave    when a buffer is removed from the window
+" see h:autocmd-events
 
 if has('autocmd')
   augroup BuellAutocmds
@@ -18,7 +16,10 @@ if has('autocmd')
     au BufEnter * set foldtext=buell#foldtext#CustomFoldText()
 
     " close vim/nvim if nerdtee is the only thing left open
-    au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    " dont restore cursor position on gitcommits
+    au BufEnter * call buell#helpers#GitCommitBufEnter()
 
     " close vim/nvim if quickfix is the only thing left open
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"| q |endif
@@ -29,49 +30,32 @@ if has('autocmd')
     " enforce relative numbers on all buffers and tabs
     au BufWinEnter * set nu rnu
 
+    " remember folding / view states
+    au BufWinEnter ?* silent! loadview
+    au BufWinLeave ?* silent! mkview
+
     " auto-remove trailing spaces on php and txt files
     au BufWritePre *.php,*.py,*.scss,*.md,*.txt :%s/\s\+$//e
-
-    " override fastfold breaking foldmethod on markdown docs
-    " move this to after/ftplugin/markdown.vim??
-    au FileType markdown setlocal foldmethod=expr
 
     " create parent directories as needed when saving buffers
     au BufWritePre * :call buell#helpers#CreateNeededDirs(expand('<afile>'), +expand('<abuf>'))
 
-    " remember folding / view states
-    au BufWinLeave ?* silent! mkview
-    au BufWinEnter ?* silent! loadview
-
-    " dont restore cursor position on gitcommits
-    au BufEnter * call buell#helpers#GitCommitBufEnter()
+    " override fastfold breaking foldmethod on markdown docs
+    au FileType markdown setlocal foldmethod=expr
 
     " equalize splits on window resize
     au VimResized * execute "normal! \<c-w>="
+
+    " focus events, update statusline
+    au BufEnter,FocusGained,VimEnter,WinEnter * call buell#statusline#focus_statusline()
+
+    " blur events, update statusline
+    au FocusLost,WinLeave * call buell#statusline#blur_statusline()
 
     " flash highlight yanked text
     if exists('##TextYankPost')
       au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Substitute", timeout=200}
     endif
-
-    " for go files format and auto insert imports on save
-    "au BufWritePost *.go call buell#helpers#GoFormat()
-
-    """"""""""""""""""""
-    "                  "
-    "   focus events   "
-    "                  "
-    """"""""""""""""""""
-
-    au BufEnter,FocusGained,VimEnter,WinEnter * call buell#statusline#focus_statusline()
-
-    """""""""""""""""""
-    "                 "
-    "   blur events   "
-    "                 "
-    """""""""""""""""""
-
-    au FocusLost,WinLeave * call buell#statusline#blur_statusline()
 
   augroup END
 endif
