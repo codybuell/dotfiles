@@ -417,16 +417,16 @@ function! buell#helpers#OpenNote(note) abort
   let l:file = l:note . ".txt"
 
   if l:plen > 1
-    let l:path = "{{ Notes }}" . "/" . join(l:part[0:-2], '/')
+    let l:path = fnameescape("{{ Notes }}" . "/" . join(l:part[0:-2], '/'))
   else
-    let l:path = "{{ Notes }}"
+    let l:path = fnameescape("{{ Notes }}")
   end
 
-  if !isdirectory(l:path)
-    call mkdir(l:path, "p")
-  endif
+  " if !isdirectory(l:path)
+  "   call mkdir(l:path, "p")
+  " endif
 
-  execute "edit " . fnameescape(l:path) . "/" . l:file
+  execute "edit " . l:path . "/" . l:file
 
 endfunction
 
