@@ -176,6 +176,7 @@ if &loadplugins
     packadd! vim-marked             " open markdown documents in Marked2
 
     " MISCELLANEOUS
+    packadd! vis                    " tool for executing on visual blocks
     packadd! howmuch                " perform math on visual selections
     packadd! goyo.vim               " writing room stylings for focused work
     packadd! limelight.vim          " darken all text but current paragraph
