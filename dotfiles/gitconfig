@@ -9,6 +9,8 @@
   helper = osxkeychain
 [gpg]
   program = /usr/local/bin/gpg
+[init]
+  defaultBranch = master
 [commit]
   gpgsign = true
 [status]
