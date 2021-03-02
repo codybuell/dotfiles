@@ -34,8 +34,8 @@ endif
 " Merge Conflict Workflow
 " 1. show three way diff for current buffer:  ␣gD
 " 2. navigate to merge conflict and place cursor somewhere within the markers
-"    - ␣gh to select changes from left split, mnemonic Get left movement
-"    - ␣gl to select changes from right split, mnemonic Get right movement
+"    - ␣gh to sel change from left split, mnemonic Get left move | Get head
+"    - ␣gm to sel change from right split, mnemonic Get main?
 "
 " Git Blame Workflow
 " 1. show the git blame window: ␣gb
