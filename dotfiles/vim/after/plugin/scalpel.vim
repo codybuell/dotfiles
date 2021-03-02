@@ -12,3 +12,4 @@ endif
 " some settings reside in init.vim due to load order reqs
 
 nmap                        <leader>s         <Plug>(Scalpel)
+vmap                        <leader>s         <Plug>(ScalpelVisual)
