@@ -48,8 +48,8 @@ if exists("+showtabline")
       let l:bar .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
       let l:str .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
       if a:truncate
-        let l:bar .= strpart(l:tabname,0,a:truncate) . '...'     " truncate filename down
-        let l:str .= strpart(l:tabname,0,a:truncate) . '...'     " truncate filename down
+        let l:bar .= strpart(l:tabname,0,a:truncate) . '…'       " truncate filename down
+        let l:str .= strpart(l:tabname,0,a:truncate) . '.'       " truncate filename down, only want to count it as single space
       elseif (l:tab == l:t && a:abbrev_active) || (l:tab != l:t && a:abbrev_inactive)
         let l:bar .= l:tabname                                   " print just the filename
         let l:str .= l:tabname                                   " print just the filename
