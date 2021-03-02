@@ -30,7 +30,7 @@ if has('autocmd')
     au BufWinEnter * set nu rnu
 
     " auto-remove trailing spaces on php and txt files
-    au BufWritePre *.md,*.php,*.txt,*.scss :%s/\s\+$//e
+    au BufWritePre *.php,*.py,*.scss,*.md,*.txt :%s/\s\+$//e
 
     " override fastfold breaking foldmethod on markdown docs
     " move this to after/ftplugin/markdown.vim??
@@ -51,11 +51,11 @@ if has('autocmd')
 
     " flash highlight yanked text
     if exists('##TextYankPost')
-      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank('Substitute', 200)
+      au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Substitute", timeout=200}
     endif
 
     " for go files format and auto insert imports on save
-    au BufWritePost *.go call buell#helpers#GoFormat()
+    "au BufWritePost *.go call buell#helpers#GoFormat()
 
     """"""""""""""""""""
     "                  "
