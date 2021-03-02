@@ -80,9 +80,10 @@ local grid = {
 -- layout configuration
 local layoutConfig = {
 
-  -- 3840x1600: dell 38" ultrawide
-  -- 2560x1440: dell 27" std
-  -- 1920x1080: dell 24" std
+  -- 3840x1600: dell 38" ultrawide (U3818DW)
+  -- 3840x2160: dell 32" std (U3219Q)
+  -- 2560x1440: dell 27" std (U2713HM)
+  -- 1920x1080: dell 24" std ()
 
   ----------------
   --  pre hook  --
@@ -184,19 +185,6 @@ function activate(bundleID)
   end
 end
 
--- Can Manage Window
---
--- Returns the bundleID if the window can be managed.  Special handling for
--- iterm since windows without tile bars are non-standard.
---
-function canManageWindow(window)
-  local application = window:application()
-  local bundleID = application:bundleID()
-
-  return window:isStandard() or
-    bundleID == 'com.googlecode.iterm2'
-end
-
 -- Internal Display
 --
 -- Returns the internal laptop display.
@@ -222,9 +210,7 @@ function activateLayout(forceScreenCount)
     if application then
       local windows = application:visibleWindows()
       for _, window in pairs(windows) do
-        if canManageWindow(window) then
-          callback(window, forceScreenCount)
-        end
+        callback(window, forceScreenCount)
       end
     end
   end
@@ -239,16 +225,19 @@ end
 --                                                                           --
 -------------------------------------------------------------------------------
 
-function handleWindowEvent(window)
-  if canManageWindow(window) then
-    local application = window:application()
-    local bundleID = application:bundleID()
-    if layoutConfig[bundleID] then
-      layoutConfig[bundleID](window)
-    end
+function handleWindowEvent(window, winname, event)
+  local application = window:application()
+  local bundleID = application:bundleID()
+  log.i('handling window event')
+  log.i('window name:  ' .. winname)
+  log.i('window event: ' .. event)
+  log.i('bundle id:    ' .. bundleID)
+  if layoutConfig[bundleID] then
+    layoutConfig[bundleID](window)
   end
 end
 
+-- Watch for windowCreated events, handle with handleWindowEvent
 local windowFilter=hs.window.filter.new()
 windowFilter:subscribe(hs.window.filter.windowCreated, handleWindowEvent)
 
