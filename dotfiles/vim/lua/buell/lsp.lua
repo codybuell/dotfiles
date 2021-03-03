@@ -21,6 +21,7 @@ local config = {
   indicator_ok = '●',
   status_symbol = '◎',
   spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
+  current_function = true,
 }
 
 local aliases = {
@@ -82,32 +83,25 @@ local on_attach = function(client, bufnr)
   -- source omnicompletion from lsp
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  -- configure diagnostic handler
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      -- Disable virtual_text
-      virtual_text = false,
-    }
-  )
-
   -- lsp mappings
   local mappings = {
     ['<c-]>']     = '<cmd>lua vim.lsp.buf.definition()<CR>',
     ['K']         = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['<leader>d'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
     ['<leader>i'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-    -- <cmd>lua vim.lsp.buf.signature_help()<CR>
+    ['<leader>e'] = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
+    
+
+    -- ['<leader>k'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+    -- -- use as an autocommand to auto show when in () in insert mode??
+    -- -- or get K to toggle between this and hover...
+
     -- <cmd>lua vim.lsp.buf.type_definition()<CR>
     -- <cmd>lua vim.lsp.buf.references()<CR>
     -- <cmd>lua vim.lsp.buf.document_symbol()<CR>
     -- <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-    -- <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
     -- <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
     -- <cmd>lua vim.lsp.diagnostic.get_count()<CR>
-    -- buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    -- buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    -- buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
@@ -115,25 +109,17 @@ local on_attach = function(client, bufnr)
     -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    -- nnoremap <silent> <buffer> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-    -- nnoremap <silent> <buffer> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-    -- nnoremap <silent> <buffer> K     <cmd>lua vim.lsp.buf.hover()<CR>
-    -- nnoremap <silent> <buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
     -- nnoremap <silent> <buffer> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
     -- nnoremap <silent> <buffer> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
     -- nnoremap <silent> <buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
     -- nnoremap <silent> <buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
     -- nnoremap <silent> <buffer> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR> 
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     --vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
@@ -157,9 +143,9 @@ local on_attach = function(client, bufnr)
 
   helpers.augroup('BuellLSPAutocmds', function()
       -- use a popup to show diagnostics instead of virtualtext
-      vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({show_header=false})')
+      --vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})')
       -- populate the loclist when errors are present
-      vim.api.nvim_command('au User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist=false, severity_limit="Warning"})')
+      vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.lsp.diagnostic.set_loclist({open_loclist=false, severity_limit="Warning"})')
       if client.resolved_capabilities.document_formatting then
         if vim.api.nvim_buf_get_option(bufnr, "filetype") == "go" then
           vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")
@@ -269,24 +255,43 @@ lsp.setup = function()
     capabilities = lsp_status.capabilities
   }
 
-  -----------------------------
-  --  override winhighlight  --
-  -----------------------------
+  -------------------------
+  --  handler overrides  --
+  -------------------------
 
+  -- configure diagnostic handler to not show virtual text
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      -- broadly disable virtual text diagnostics
+      virtual_text = false,
+    }
+  )
+
+  -- on hover windows, set wihhighlight (general window color) to clean up styles
   local method = 'textDocument/hover'
   local hover = vim.lsp.handlers[method]
   vim.lsp.handlers[method] = function (_, method, result)
-     hover(_, method, result)
-     for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-       if pcall(function ()
-         vim.api.nvim_win_get_var(winnr, 'textDocument/hover')
-       end) then
-         vim.api.nvim_win_set_option(winnr, 'winhighlight', 'Normal:Visual,NormalNC:Visual')
-         break
-       else
-         -- not a hover window
-       end
-     end
+    -- run the original hover handler
+    hover(_, method, result)
+
+    -- loop through windows to identify hover floating window
+    for _, winnr in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      if pcall(function ()
+        vim.api.nvim_win_get_var(winnr, 'textDocument/hover')
+      end) then
+        local wn = vim.api.nvim_win_get_number(winnr)
+        -- couple of options here to clean up shitty syntax in hover menus:
+        --  - use set option call below to set winhighlight
+        --  - set Pmenu hi group which affects all popup menus, preview and floating windows
+        --  - make :syntax clear [offender]
+        -- vim.api.nvim_win_set_option(winnr, 'winhighlight', 'Normal:Visual,NormalNC:Visual')
+        -- TODO: want to not focus on the hover window... no option via windo, may need to caputre og wn and pipe cmd back
+        vim.cmd(wn .. ',' .. wn .. 'windo syntax clear mkdLineBreak goSpaceError')
+        break
+      else
+        -- not a hover window
+      end
+    end
   end
   
 end
@@ -317,24 +322,27 @@ end
 lsp.setup_highlight = function()
   local pinnacle = require'wincent.pinnacle'
 
+  -- floating window background color (THIS SETS ALL NEW TABS TO HAVE THE SAME BG COLOR...)
+  --vim.api.nvim_set_option('winhighlight', 'Normal:Visual,NormalNC:Visual')
+
   -- error
   vim.cmd('highlight LspDiagnosticsVirtualTextError ' .. pinnacle.decorate('bold,italic', 'ModeMsg'))
-  vim.cmd('highlight LspDiagnosticsFloatingError ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('ErrorMsg')}))
+  vim.cmd('highlight LspDiagnosticsFloatingError ' .. pinnacle.highlight({fg = pinnacle.extract_fg('ErrorMsg')}))
   vim.cmd('highlight LspDiagnosticsSignError ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('ErrorMsg')}))
 
   -- warning
   vim.cmd('highlight LspDiagnosticsVirtualTextWarning ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingWarning ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_bg('Substitute')}))
+  vim.cmd('highlight LspDiagnosticsFloatingWarning ' .. pinnacle.highlight({fg = pinnacle.extract_bg('Substitute')}))
   vim.cmd('highlight LspDiagnosticsSignWarning ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_bg('Substitute')}))
 
   -- information
   vim.cmd('highlight LspDiagnosticsVirtualTextInformation ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingInformation ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Normal')}))
+  vim.cmd('highlight LspDiagnosticsFloatingInformation ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Normal')}))
   vim.cmd('highlight LspDiagnosticsSignInformation ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Normal')}))
 
   -- hint
   vim.cmd('highlight LspDiagnosticsVirtualTextHint ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingHint ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Type')}))
+  vim.cmd('highlight LspDiagnosticsFloatingHint ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
   vim.cmd('highlight LspDiagnosticsSignHint ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Type')}))
 
   -- document_highlight
