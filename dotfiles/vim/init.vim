@@ -302,6 +302,7 @@ set backspace=2                                    " make bkspace work on line b
 set hidden                                         " allow buffer switching when unsaved
 set confirm                                        " prompt to save modified hidden buffers
 set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
+set pumheight=30                                   " max height of popup menus
 set signcolumn=yes                                 " always show the sign column
 set noequalalways                                  " don't auto resize splits
 
