@@ -591,31 +591,22 @@ endfunction
 "                                                                              "
 " Highlight Groups / Syntax Stacks                                             "
 "                                                                              "
-" Print highlight groups of element under the cursor.                          "
+" Print syntax stack with syntax id and linked highlight group of element      "
+" under the cursor.                                                            "
 "                                                                              "
 " @return null                                                                 "
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! buell#helpers#HighlightGroups() abort
-  " option 1
-  for i1 in synstack(line("."), col("."))
-    let i2 = synIDtrans(i1)
-    let n1 = synIDattr(i1, "name")
-    let n2 = synIDattr(i2, "name")
-    echo n1 "->" n2
+  echo "   syntax id            -->    linked hi grp"
+  echo "====================================================="
+  for i1 in synstack(line("."), col("."))    " get the syntax stack for cur pos
+    let i2 = synIDtrans(i1)                  " get linked hi gpr id for syntax id
+    let n1 = synIDattr(i1, "name")           " get the name of the syntax id
+    let n2 = synIDattr(i2, "name")           " get linked hi grp name
+    echo printf("↧  %-20s -->    %s", n1, n2)
   endfor
-
-  " " option 2
-  " if !exists("*synstack")
-  "   return
-  " endif
-  " echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-
-  " " option 3
-  " echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-  "   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-  "   \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
