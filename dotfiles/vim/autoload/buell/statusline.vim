@@ -1,8 +1,10 @@
 scriptencoding utf-8
 
+"  LHS > path [buffer info]                session < RHS
 function! buell#statusline#drawstatusline() abort
   set statusline=%7*                                 " switch to User7 highlight group
   set statusline+=%{buell#statusline#lhs()}          " call lhs statusline autocommand
+  set statusline+=%{buell#statusline#lsp_status()}   " lsp status
   set statusline+=%*                                 " reset highlight group
   set statusline+=%4*                                " switch to User4 highlight group (powerline arrow)
   set statusline+=                                  " powerline arrow
@@ -183,15 +185,16 @@ function! buell#statusline#rhs() abort
     let l:height=line('$')
 
     " add padding to stop rhs from changing too much as we move the cursor
-    let l:padding=len(l:height) - len(l:line)
-    if (l:padding)
-      let l:rhs.=repeat(' ', l:padding)
-    endif
+    " let l:padding=len(l:height) - len(l:line)
+    " if (l:padding)
+    "   let l:rhs.=repeat(' ', l:padding)
+    " endif
 
     let l:rhs.='ℓ ' " (Literal, \u2113 "SCRIPT SMALL L").
-    let l:rhs.=l:line
-    let l:rhs.='/'
-    let l:rhs.=l:height
+    let l:rhs.=s:LineNoIndicator()
+    " let l:rhs.=l:line
+    " let l:rhs.='/'
+    " let l:rhs.=l:height
     let l:rhs.=' 𝚌 ' " (Literal, \u1d68c "MATHEMATICAL MONOSPACE SMALL C").
     let l:rhs.=l:column
     let l:rhs.='/'
@@ -327,4 +330,43 @@ function! buell#statusline#lsp_status() abort
     return luaeval("require('buell.lsp').status()")
   endif
   return ''
+endfunction
+
+" taken from https://github.com/drzel/vim-line-no-indicator
+function! s:LineNoIndicator() abort
+  if has('macunix')
+    let l:line_no_indicator_chars = ['⎺', '⎻', '─', '⎼', '⎽']
+  else
+    let l:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽', '⎯']
+  end
+
+  " let l:line_no_indicator_chars = [
+  "   \  ' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'
+  "   \  ]
+  " let g:line_no_indicator_chars = [
+  "   \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
+  "   \ ]
+  " three char wide solid horizontal bar
+  " let g:line_no_indicator_chars = [
+  "   \ '   ', '▏  ', '▎  ', '▍  ', '▌  ',
+  "   \ '▋  ', '▊  ', '▉  ', '█  ', '█▏ ',
+  "   \ '█▎ ', '█▍ ', '█▌ ', '█▋ ', '█▊ ',
+  "   \ '█▉ ', '██ ', '██▏', '██▎', '██▍',
+  "   \ '██▌', '██▋', '██▊', '██▉', '███'
+  "   \ ]
+
+  " zero index line number so 1/3 = 0, 2/3 = 0.5, and 3/3 = 1
+  let l:current_line = line('.') - 1
+  let l:total_lines = line('$') - 1
+
+  if l:current_line == 0
+    let l:index = 0
+  elseif l:current_line == l:total_lines
+    let l:index = -1
+  else
+    let l:line_no_fraction = floor(l:current_line) / floor(l:total_lines)
+    let l:index = float2nr(l:line_no_fraction * len(l:line_no_indicator_chars))
+  endif
+
+  return l:line_no_indicator_chars[l:index]
 endfunction
