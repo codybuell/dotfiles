@@ -49,7 +49,8 @@ nnoremap  <silent>          <leader>1         :<C-U>call buell#helpers#ToggleSyn
 nnoremap  <silent>          <leader>2         :<C-U>call buell#helpers#SyncSplit()<CR>
 nnoremap  <silent>          <leader>3         :<C-U>call buell#helpers#ToggleSpecialChars()<CR>
 nnoremap  <silent>          <leader>4         :<C-U>call buell#helpers#HighlightGroups()<CR>
-nnoremap  <silent>          <leader>5         :so $VIMRUNTIME/syntax/hitest.vim<CR>
+nnoremap  <silent>          <leader>5         :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
+nnoremap  <silent>          <leader>6         :so $VIMRUNTIME/syntax/hitest.vim<CR>
 
 " movement between splits
 nmap                        <C-h>             <C-w>h
