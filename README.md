@@ -46,8 +46,7 @@ Assumptions / Best Practices
 
 Structure
 ---------
-
-```
+```bash
 /                        # repository root, git dotfiles, configuration, readme, makefile
 applications/            # application configurations (non dotfile configs)
 assets/                  # other miscellaneous system files and resources
@@ -61,7 +60,6 @@ dotfiles/                # contains actual dotfiles in templated form
 scripts/                 # contains scrips utilized by repository for deployment and configuration
 submodules/              # repository submodules (external repos utilized by configurations)
 ```
-
 Installation
 ------------
 
@@ -128,7 +126,7 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
 
 ### Ad Hoc Dotfiles
 
-You can deloy specific dotfiles.  For example:
+You can deploy specific dotfiles.  For example:
 
     make dots vim
     make dots config
