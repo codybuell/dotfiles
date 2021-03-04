@@ -73,6 +73,7 @@ PACKAGES=( \
     'msmtp' \                       # smtp client used with mutt config
     'mysql'                         # database server for local dev
     'neomutt' \                     # command line email client
+    'ninja' \                       # build system needed for sumneko lua lsp server
     'nmap' \                        # network utility
     'notmuch' \                     # mail search for mutt
     'openconnect' \                 # robust vpn client for cisco vpns
