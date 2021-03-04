@@ -159,6 +159,22 @@ local on_attach = function(client, bufnr)
       end
     end
   )
+
+  ----------------------------------
+  --  tweak hl groups for hovers  --
+  ----------------------------------
+
+  -- this is not ideal as it applies everywhere, but it's only firing on
+  -- hover handler calls, the groups are somewhat obscure, and were
+  -- likely not working on any markdown files at the same time...
+  local hi_groups = {
+    [1] = "mkdLineBreak",
+    [2] = "goSpaceError",
+  }
+  for _,val in ipairs(hi_groups) do
+    vim.cmd('hi link ' .. val .. ' None')
+  end
+
 end
 
 --------------------------------------------------------------------------------
@@ -320,21 +336,25 @@ lsp.setup = function()
       if pcall(function ()
         vim.api.nvim_win_get_var(winnr, 'textDocument/hover')
       end) then
-        local wn = vim.api.nvim_win_get_number(winnr)
+        local hover_winnr = vim.api.nvim_win_get_number(winnr)
+        --local curr_winnr  = vim.api.nvim_win_get_number(0)
         -- couple of options here to clean up shitty syntax in hover menus:
         --  - use set option call below to set winhighlight
         --  - set Pmenu hi group which affects all popup menus, preview and floating windows
         --  - make :syntax clear [offender]
         -- vim.api.nvim_win_set_option(winnr, 'winhighlight', 'Normal:Visual,NormalNC:Visual')
         -- TODO: want to not focus on the hover window... no option via windo, may need to caputre og wn and pipe cmd back
-        vim.cmd(wn .. ',' .. wn .. 'windo syntax clear mkdLineBreak goSpaceError')
+        --vim.cmd(hover_winnr .. ',' .. hover_winnr .. 'windo syntax clear mkdLineBreak goSpaceError')
+
+        --vim.cmd(curr_winnr .. 'wincmd w')
+        -- TODO: test buf enter autocmd to remove syntax by calling a func? how to id the buf?
         break
       else
         -- not a hover window
       end
     end
   end
-  
+
 end
 
 ---------------------------------------------------------------------------------
