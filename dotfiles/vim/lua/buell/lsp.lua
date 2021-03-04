@@ -234,7 +234,16 @@ lsp.setup = function()
   lspconfig.pyls.setup{
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = lsp_status.capabilities,
+    settings = {
+      pyls = {
+        plugins = {
+          pycodestyle = {
+            maxLineLength = 120
+          }
+        }
+      }
+    }
   }
 
   lspconfig.tsserver.setup{
