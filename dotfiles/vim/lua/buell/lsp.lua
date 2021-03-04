@@ -324,11 +324,11 @@ lsp.setup = function()
     }
   )
 
-  -- on hover windows, set wihhighlight (general window color) to clean up styles
+  -- extend hover handler
   local method = 'textDocument/hover'
   local hover = vim.lsp.handlers[method]
   vim.lsp.handlers[method] = function (_, method, result)
-    -- run the original hover handler
+    -- run the original hover handler method
     hover(_, method, result)
 
     -- loop through windows to identify hover floating window
@@ -365,7 +365,7 @@ end
 
 lsp.bind = function ()
   pcall(function ()
-    -- bind keys to close floating/hover window/buffer
+    -- on entering lsp hover floating window bind keys to close
     if vim.api.nvim_win_get_var(0, 'textDocument/hover') then
       helpers.nnoremap('K', ':call nvim_win_close(0, v:true)<CR>')
       helpers.nnoremap('<Esc>', ':call nvim_win_close(0, v:true)<CR>')
