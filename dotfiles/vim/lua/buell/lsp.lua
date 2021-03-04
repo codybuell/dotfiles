@@ -264,11 +264,43 @@ lsp.setup = function()
     capabilities = lsp_status.capabilities
   }
 
+  -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
+  local cmd = vim.fn.expand(
+      '~/Repos/github.com/sumneko/lua-language-server/bin/macOS/lua-language-server'
+  )
+  local main = vim.fn.expand('~/Repos/github.com/sumneko/lua-language-server/main.lua')
+  if vim.fn.executable(cmd) == 1 then
+    lspconfig.sumneko_lua.setup{
+      cmd = {cmd, '-E', main},
+      on_attach = on_attach,
+      settings = {
+        Lua = {
+          diagnostics = {
+            enable = true,
+            globals = {'vim'},
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = {
+              [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+              [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+            },
+          },
+          filetypes = {'lua'},
+          runtime = {
+            path = vim.split(package.path, ';'),
+            version = 'LuaJIT',
+          },
+        }
+      },
+    }
+  end
+
   -------------------------
   --  handler overrides  --
   -------------------------
 
-  -- configure diagnostic handler to not show virtual text
+  -- configure diagnostic handler
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       -- broadly disable virtual text diagnostics
