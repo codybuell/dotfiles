@@ -213,6 +213,9 @@ postplacehooks() {
       # firenvim
       $NVIMPATH --headless -c "call firenvim#install(0, 'export LANG="en_US.UTF-8"; export PATH=\"$PATH\"')" -c quit > /dev/null 2>&1
 
+      # markdown-preview.nvim
+      $NVIMPATH --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
+
       # compile command-t
       cd ~/.vim/pack/bundle/opt/command-t/ruby/command-t/ext/command-t > /dev/null
       ruby extconf.rb > /dev/null 2>&1
