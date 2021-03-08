@@ -165,3 +165,9 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vis"]
 	path = dotfiles/vim/pack/bundle/opt/vis
 	url = https://github.com/vim-scripts/vis
+[submodule "dotfiles/vim/pack/bundle/opt/markdown-preview.nvim"]
+	path = dotfiles/vim/pack/bundle/opt/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim.git
+[submodule "dotfiles/vim/pack/bundle/opt/SimplylFold.git"]
+	path = dotfiles/vim/pack/bundle/opt/SimplylFold.git
+	url = https://github.com/tmhedberg/SimpylFold.git

@@ -132,66 +132,68 @@ endif
 if &loadplugins
   if has('packages')
     " COMPLETION
-    packadd! deoplete               " asynchronous completion utility
-    packadd! deoplete-emoji         " deoplete completion source for emoji's
-    packadd! ultisnips              " snippet utility
+    packadd! deoplete                " asynchronous completion utility
+    packadd! deoplete-emoji          " deoplete completion source for emoji's
+    packadd! ultisnips               " snippet utility
 
     " NAVIGATION
-    packadd! command-t              " fuzzy search file navigation
-    packadd! loupe                  " improved search configurations
-    packadd! nerdtree               " tree-based file browser
-    packadd! tagbar                 " ctags of open buffer ordered by scope
-    packadd! vim-dirvish            " path navigator, netrw replacement
-    packadd! vim-easymotion         " improved movement around files
+    packadd! command-t               " fuzzy search file navigation
+    packadd! loupe                   " improved search configurations
+    packadd! nerdtree                " tree-based file browser
+    packadd! tagbar                  " ctags of open buffer ordered by scope
+    packadd! vim-dirvish             " path navigator, netrw replacement
+    packadd! vim-easymotion          " improved movement around files
 
     " SYNTAX & LIGIBILITY
-    packadd! base16-vim             " base16 color themes
-    packadd! indentline             " add vertical line showing indentations
-    packadd! jsonc.vim              " syntax support for cjson / jsonc
-    packadd! pinnacle               " highlight group manipulations
-    packadd! scss-syntax.vim        " fix slow load times with native sass syntax
-    packadd! typescript-vim         " typscript support for vim
-    packadd! vim-blade              " blade syntax highlighting
-    packadd! vim-json               " improved json syntax, no conceal
-    packadd! vim-markdown           " improved markdown support
-    packadd! vim-toml               " syntax support for toml
-    packadd! vim-vue                " syntax highlighting for vue components
+    packadd! base16-vim              " base16 color themes
+    packadd! indentline              " add vertical line showing indentations
+    packadd! jsonc.vim               " syntax support for cjson / jsonc
+    packadd! pinnacle                " highlight group manipulations
+    packadd! scss-syntax.vim         " fix slow load times with native sass syntax
+    packadd! typescript-vim          " typscript support for vim
+    packadd! vim-blade               " blade syntax highlighting
+    packadd! vim-json                " improved json syntax, no conceal
+    packadd! vim-markdown            " improved markdown support
+    packadd! vim-toml                " syntax support for toml
+    packadd! vim-vue                 " syntax highlighting for vue components
 
     " EDITING
-    packadd! ferret                 " multi-file search and search/replace
-    packadd! scalpel                " improved in file word replacement
-    packadd! splitjoin              " toggle between single & multi-line formats
-    packadd! vim-camelsnek          " case conversion util
-    packadd! vim-commentary         " apply or remove comments, motion support
-    packadd! vim-expand-region      " grow or shrink visual selections
-    packadd! vim-repeat             " add ability to repeat non atomic functions
-    packadd! vim-speeddating        " ctrl-a ctrl-x to increment decrement dates
-    packadd! vim-surround           " ability to change surrounding enclosures
+    packadd! ferret                  " multi-file search and search/replace
+    packadd! scalpel                 " improved in file word replacement
+    packadd! splitjoin               " toggle between single & multi-line formats
+    packadd! vim-camelsnek           " case conversion util
+    packadd! vim-commentary          " apply or remove comments, motion support
+    packadd! vim-expand-region       " grow or shrink visual selections
+    packadd! vim-repeat              " add ability to repeat non atomic functions
+    packadd! vim-speeddating         " ctrl-a ctrl-x to increment decrement dates
+    packadd! vim-surround            " ability to change surrounding enclosures
 
     " INTEGRATIONS
-    packadd! terminus               " improved terminal and tmux integration
-    packadd! vim-dadbod             " database interactions
-    packadd! vim-fugitive           " git integration to vim
-    packadd! vim-fugitive-blame-ext " show commit message with Gblame
-    packadd! vim-marked             " open markdown documents in Marked2
+    packadd! terminus                " improved terminal and tmux integration
+    packadd! vim-dadbod              " database interactions
+    packadd! vim-fugitive            " git integration to vim
+    packadd! vim-fugitive-blame-ext  " show commit message with Gblame
+    packadd! vim-marked              " open markdown documents in Marked2
 
     " MISCELLANEOUS
-    packadd! vis                    " tool for executing on visual blocks
-    packadd! howmuch                " perform math on visual selections
-    packadd! goyo.vim               " writing room stylings for focused work
-    packadd! limelight.vim          " darken all text but current paragraph
-    packadd! fastfold               " speed up folding, fold only when needed
-    packadd! vim-obsession          " improved session management
-    packadd! vim-tmux-navigator     " use vim window motions to nav into tmux
-    packadd! vim-tmux-runner        " control tmux panes from vim
-    packadd! editorconfig-vim       " support project defined syntax standards
+    packadd! vis                     " tool for executing on visual blocks
+    packadd! howmuch                 " perform math on visual selections
+    packadd! goyo.vim                " writing room stylings for focused work
+    packadd! limelight.vim           " darken all text but current paragraph
+    packadd! fastfold                " speed up folding, fold only when needed
+    packadd! vim-obsession           " improved session management
+    packadd! vim-tmux-navigator      " use vim window motions to nav into tmux
+    packadd! vim-tmux-runner         " control tmux panes from vim
+    packadd! editorconfig-vim        " support project defined syntax standards
+    packadd! SimplylFold             " improved python syntax folding
 
     if has('nvim')
-      packadd! firenvim             " use neovim in browser textareas
-      packadd! nvim-lspconfig       " configurations for native lsp client
-      packadd! lsp-status.nvim      " library of utilities for lsp
-      packadd! deoplete-lsp         " native lsp completion support for deoplete
-      packadd! float-preview.nvim   " floating windows for preview instead of splits
+      packadd! firenvim              " use neovim in browser textareas
+      packadd! nvim-lspconfig        " configurations for native lsp client
+      packadd! lsp-status.nvim       " library of utilities for lsp
+      packadd! deoplete-lsp          " native lsp completion support for deoplete
+      packadd! markdown-preview.nvim " sync'd, browser based mkd preview
+     "packadd! float-preview.nvim    " floating windows for preview instead of splits
     endif
   else
     source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim
