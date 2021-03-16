@@ -44,3 +44,9 @@ syntax enable
 
 " mapping to quickly reload, leader defaults to \
 nnoremap  <leader>so  :so $HOME/.devimrc.vim<cr>
+
+""""""""""""""""
+"  testconfig  "
+""""""""""""""""
+
+" place test configs here

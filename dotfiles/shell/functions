@@ -12,6 +12,11 @@ function testregex() {
   done
 }
 
+# testing with minimal vimrc, devim [path to package]
+function devim() {
+  VIMDEVPATH=$1 vim -Nu ~/.devimrc.vim
+}
+
 # search up for ~/.gopath and set GOPATH to its parent dir
 function gopath() {
   cdir=$PWD
