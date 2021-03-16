@@ -30,6 +30,12 @@ if has('autocmd')
     " enforce relative numbers on all buffers and tabs
     au BufWinEnter * set nu rnu
 
+    " but not for command-t windows, note that this doesn't seem to trigger the first time command-t is invoked
+    au BufWinEnter * if &l:filetype ==? 'command-t' | setlocal signcolumn=no nonu nornu winhighlight=Normal:Visual,NormalNC:Visual | endif
+    "au BufWinEnter * setlocal signcolumn=no nonu nornu
+    "au BufWinEnter * lua require'buell.helpers'.check_command_t()
+    "au BufWinEnter * if commandt#CheckBuffer(bufnr('%')) | setlocal signcolumn=no nonu nornu |endif
+
     " remember folding / view states
     au BufWinEnter ?* silent! loadview
     au BufWinLeave ?* silent! mkview
