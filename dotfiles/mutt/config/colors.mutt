@@ -1,3 +1,4 @@
+color normal default color0
 
 color body brightcolor6 color0 "(https?|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
 color body brightcolor6 color0 "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
