@@ -92,7 +92,7 @@ function s:SetColorscheme()
   " execute 'hi Pmenu ' . pinnacle#highlight({
   "       \   'bg': pinnacle#extract_bg('Visual')
   "       \ })
-  
+
   " run all colorscheme autocommands to ensure consistency
   doautocmd ColorScheme
 
