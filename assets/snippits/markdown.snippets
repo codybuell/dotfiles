@@ -11,6 +11,62 @@ endglobal
 #                #
 ##################
 
+snippet issue "rough structure for git[hub|lab] issues" b
+Summary
+
+\`\`\`vim
+" configs in question
+\`\`\`
+
+[screencapture]
+
+<details><summary><b>Version info</b></summary>
+<p>
+
+\`\`\`
+~ $ cd .vim/pack/bundle/opt/command-t; git log --format="%H" -n 1
+~ $
+~ $ nvim --version
+~ $
+~ $ tmux -V
+~ $
+~ $ ruby -v
+~ $
+~ $ nvim +CheckHealth
+~ $
+\`\`\`
+
+</p>
+</details>
+
+<details><summary><b>Minimal config from screen capture</b></summary>
+<p>
+
+\`\`\`vim
+" ~/.devimrc.vim
+set rtp-=~/.vim
+set rtp-=~/.vim/after
+set rtp-=~/.config/nvim
+set rtp-=~/.config/nvim/after
+set rtp^=$VIMDEVPATH
+set rtp+=$VIMDEVPATH/after
+set vif=NONE
+set sdf=NONE
+set gcr=
+filetype plugin indent on
+syntax enable
+set signcolumn=yes nu rnu
+au BufWinEnter * if &l:filetype ==? 'command-t' | setlocal signcolumn=no nonu nornu | endif
+\`\`\`
+
+\`\`\`bash
+VIMDEVPATH=~/.vim/pack/bundle/opt/package nvim -Nu ~/.devimrc.vim 
+\`\`\`
+
+</p>
+</details>
+endsnippet
+
 snippet m "meeting minutes" b
 ${1:Meeting Title}
 ${1/./-/g}
