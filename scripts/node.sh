@@ -37,6 +37,7 @@ PACKAGES=( \
   'http-server' \                           # a light-weight web server for development and testing
   'neovim' \                                # node provider for neovim
   'topojson' \                              # tool for converting shape files into json for d3
+  '@mapbox/togeojson' \                     # tool for converting gpx / kml to geojson
   'jsonlint' \                              # json syntax checking utility
   'svgo' \                                  # svg optimization utility
   'typescript' \                            # typescript, a dep for typescript-language-server
