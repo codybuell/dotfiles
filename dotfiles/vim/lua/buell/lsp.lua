@@ -85,50 +85,14 @@ local on_attach = function(client, bufnr)
 
   -- lsp mappings
   local mappings = {
-    ['<c-]>']     = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['K']         = '<cmd>lua vim.lsp.buf.hover()<CR>',
-    ['<leader>d'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-    ['<leader>i'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-    ['<leader>e'] = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
-    
-
-    -- ['<leader>k'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-    -- -- use as an autocommand to auto show when in () in insert mode??
-    -- -- or get K to toggle between this and hover...
-
-    -- <cmd>lua vim.lsp.buf.type_definition()<CR>
-    -- <cmd>lua vim.lsp.buf.references()<CR>
-    -- <cmd>lua vim.lsp.buf.document_symbol()<CR>
-    -- <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-    -- <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-    -- <cmd>lua vim.lsp.diagnostic.get_count()<CR>
-    -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    -- nnoremap <silent> <buffer> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    -- nnoremap <silent> <buffer> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-    -- nnoremap <silent> <buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
-    -- nnoremap <silent> <buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-    -- nnoremap <silent> <buffer> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR> 
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "pd", "<cmd>lua lsp_peek_definition()<CR>", opts)
-    ---- TODO: Try out github.com/RishabhRD/nvim-lsputils for more stylish code
-    ---- actions. Example: https://github.com/ahmedelgabri/dotfiles/commit/546dfc37cd9ef110664286eb50ece4713108a511.
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-    --vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    -- <C-o> to jump back to the 'older' location in jump list
+    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
+    ['<leader>i']  = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+    ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
+    ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
+    ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
   }
 
   for lhs, rhs in pairs(mappings) do
@@ -194,13 +158,13 @@ end
 --                                                                            --
 --------------------------------------------------------------------------------
 
--- setup lsp 
+-- setup lsp
 lsp.setup = function()
 
   ------------------------
   --  language servers  --
   ------------------------
-  
+
   lspconfig.bashls.setup{
     on_attach = on_attach,
     on_exit = on_exit,
@@ -255,7 +219,13 @@ lsp.setup = function()
       pyls = {
         plugins = {
           pycodestyle = {
-            maxLineLength = 120
+            maxLineLength = 120,
+            ignore = {
+              "E221",    -- multiple spaces before operator
+              "E241",    -- multiple spaces after :
+              "E266",    -- too many leading ‘#’ for block comment
+              "W503",    -- line break occurs before binary operator (deprecated)
+            }
           }
         }
       }
@@ -277,7 +247,18 @@ lsp.setup = function()
   lspconfig.yamlls.setup{
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = lsp_status.capabilities,
+    settings = {
+      yaml = {
+        schemaStore = {
+          enable = true
+        },
+        schemas = {
+          ["./schemas/ct-compliance-checks.json"] = 'compliance-checks/cloud-custodian/*/*.yml',
+          ["./schemas/ct-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
+        }
+      }
+    }
   }
 
   -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
@@ -429,6 +410,7 @@ lsp.status = function(bufnr)
   local only_hint = true
   local some_diagnostics = false
   local status_parts = {}
+
   if buf_diagnostics.errors and buf_diagnostics.errors > 0 then
     table.insert(status_parts, config.indicator_errors .. config.indicator_separator .. buf_diagnostics.errors)
     only_hint = false
