@@ -10,6 +10,11 @@
 #    cd ~/.weechat/python/autoload                                             #
 #    wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/wee_slack.py
 #    chmod 755 wee_slack.py                                                    #
+#    cd ~/.weechat/                                                            #
+#    wget https://raw.githubusercontent.com/wee-slack/wee-slack/master/weemoji.json
+#                                                                              #
+#  - INSTALL DEP FOR MULTILINE.PL                                              #
+#    cpan install Pod::Parser                                                  #
 #                                                                              #
 #  - SETUP ENCRYPTED PASSWORD STORAGE                                          #
 #    /secure passphrase <pass>                                                 #
@@ -50,10 +55,10 @@
 #                                                                              #
 #  - INSTALL THE SCRIPTS                                                       #
 #    OSX:                                                                      #
-#    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py weemustfeed.py
+#    /script install iset.pl notification_center.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py tinyurl.py urlgrab.py multiline.pl
 #                                                                              #
 #    LINUX:                                                                    #
-#    /script install iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py
+#    /script install iset.pl notification.py autosort.py vimode.py bitlbee_completion.py bitlbee_typing_notice.py colorize_nicks.py go.py highmon.pl shell.py urlgrab.py multiline.pl
 #                                                                              #
 #  - RESTART WEECHAT AND CHECK YOU CAN UNLOCK WITH PASSPHRASE                  #
 #                                                                              #
@@ -76,8 +81,6 @@
 /set irc.look.buffer_switch_autojoin off
 /set irc.look.buffer_switch_join off
 
-# stop vimode complaining about tmux esc key settings
-/set plugins.var.python.vimode.no_warn on
 /set plugins.var.python.autoconf.autoload on
 /set plugins.var.python.autoconf.autosave on
 /set plugins.var.python.autoconf.file ~/.weerc
@@ -100,15 +103,13 @@
 # use partial completion rather than full first match
 /set weechat.completion.partial_completion_command on
 /set weechat.completion.partial_completion_command_arg on
+/set weechat.completion.partial_completion_templates " "
 
 ################################################################################
 #                                                                              #
 # KEY BINDINGS                                                                 #
 #                                                                              #
 ################################################################################
-
-# fix keybindings for vimode.py
-/vimode bind_keys
 
 # add custom bindings (`/key bind (press alt-k) (press ctrl-l) [cmd]`)
 #/key bind ctrl-L /buffer clear
@@ -227,6 +228,19 @@
 
 ################################################################################
 #                                                                              #
+#  MULTILINE SCRIPT                                                            #
+#                                                                              #
+################################################################################
+
+# don't prompt when pasting multiple lines as multipline.pl will handle it
+/set weechat.look.paste_max_lines -1
+
+# only add new lines with shift enter
+# /set plugins.var.perl.multiline.magic_paste_only on
+# /key bind ctrl-enter /input insert \n
+
+################################################################################
+#                                                                              #
 # AUTOSORT SCRIPT                                                              #
 #                                                                              #
 ################################################################################
@@ -271,6 +285,28 @@
 
 # configure vimode plugin
 /bar set vi_line_numbers conditions ${active} && ${weechat.bar.vi_cmd.hidden} == 0
+
+# stop vimode complaining about tmux esc key settings
+#/set plugins.var.python.vimode.no_warn on
+
+# set for osx
+/set plugins.var.python.vimode.copy_clipboard_cmd pbcopy
+/set plugins.var.python.vimode.paste_clipboard_cmd pbpaste
+
+# fix keybindings for vimode.py (needed to prevent weechat freezing after system wakes from sleep?)
+/vimode bind_keys
+
+# get rid of block color background
+/set plugins.var.python.vimode.mode_indicator_normal_color_bg ""
+/set plugins.var.python.vimode.mode_indicator_normal_color blue
+/set plugins.var.python.vimode.mode_indicator_insert_color_bg ""
+/set plugins.var.python.vimode.mode_indicator_insert_color white
+/set plugins.var.python.vimode.mode_indicator_cmd_color_bg ""
+/set plugins.var.python.vimode.mode_indicator_cmd_color cyan
+/set plugins.var.python.vimode.mode_indicator_replace_color_bg ""
+/set plugins.var.python.vimode.mode_indicator_replace_color magenta
+/set plugins.var.python.vimode.mode_indicator_search_color_bg ""
+/set plugins.var.python.vimode.mode_indicator_search_color red
 
 ################################################################################
 #                                                                              #
@@ -389,10 +425,20 @@
 #                                                                              #
 ################################################################################
 
+## general config
 #/set plugins.var.python.slack.slack_api_token ${sec.data.slackapi}
 #/set plugins.var.python.slack.show_reaction_nicks on
 #/set plugins.var.python.slack.background_load_all_history true
 #/set plugins.var.python.slack.short_buffer_names true
+#/set plugins.var.python.slack.never_away true
+#/set plugins.var.python.slack.auto_open_threads true
+
+## update completion to handle emoji and groups
+#/set weechat.completion.default_template "%(nicks)|%(irc_channels)|%(emoji)|%(usergroups)"
+
+## helpful aliases
+#/alias add zoom /slack slash /zoom
+#/alias add team /query {{ Team }}
 
 ################################################################################
 #                                                                              #
@@ -458,6 +504,7 @@
 ################################################################################
 
 /set plugins.var.python.notification_center.sound on
+/set plugins.var.python.notification_center.sound_name Pop
 
 ################################################################################
 #                                                                              #
