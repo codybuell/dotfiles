@@ -36,5 +36,5 @@ let g:EasyMotion_smartcase  = 1
 map <localleader><localleader>        <Plug>(easymotion-prefix)
 
 " easymotion convenience mappings
-nmap                        <leader>f         <Plug>(easymotion-overwin-f)
+"nmap                        <leader>f         <Plug>(easymotion-overwin-f)
 nmap                        <leader>w         <Plug>(easymotion-overwin-w)
