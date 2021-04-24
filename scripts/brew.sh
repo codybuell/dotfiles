@@ -140,6 +140,7 @@ PACKAGES=( \
 #   'yarn' \                        # bower replacement with checksums
 
 CASKS=( \
+    'alacritty' \                   # alacritty gpu accelerated terminal
     'amazon-workspaces' \           # aws vdi client
     'balenaetcher' \                # img to sd card writer
     'bartender' \                   # tool for simplifying the menubar
