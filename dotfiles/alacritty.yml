@@ -1,0 +1,46 @@
+---
+env:
+  #TERM: alacritty
+  TERM: xterm-256color
+window:
+  dynamic_padding: false
+  decorations: none
+  padding:
+    x: 2 
+    y: 2
+font:
+  normal:
+    family: "Source Code Pro"
+    style: "Light"
+    bold:
+      family: "Source Code Pro"
+      style: "Medium"
+    italic:
+      family: "Source Code Pro"
+      style: "Light Italic"
+    bold_italic:
+      family: "Source Code Pro"
+      style: "Medium Italic"
+  size: 12.5
+offset:
+  x: 0
+  y: 14
+glyph_offset:
+  x: 0
+  y: 7
+use_thin_strokes: false
+draw_bold_text_with_bright_colors: false
+live_config_reload: true
+background_opacity: 0.9
+semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+save_to_clipboard: true
+colors:
+  cursor:
+    text: CellBackground
+    cursor: '0xabb2bf'
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: '0xabb2bf'
+cursor:
+  style:
+    shape: Block
