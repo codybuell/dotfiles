@@ -7,7 +7,7 @@
 # Author(s): meain.io
 #            Cody Buell
 #
-# Requisite: tmux 3.2
+# Requisite: tmux 3.2-rc2
 #
 # Resources: <https://blog.meain.io/2020/tmux-flating-scratch-terminal/>
 #
@@ -15,8 +15,8 @@
 #
 # Usage: To be used with a tmux binding, eg `bind-key P run-shell 'popuptmux'`
 
-width=${2:-70%}
-height=${2:-70%}
+width=${2:-80%}
+height=${2:-80%}
 
 if [ "$(tmux display-message -p -F "#{session_name}")" = "popup" ];then
   tmux detach-client
