@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Repo Profiler
+#
+# Script to indentify all repositories in the {{ Repos }} directory and list
+# them in a file located at {{ Repos }}/.repos to be used for the `repo`
+# navigation function & faster autocompletion in `~/.shell/completions/_repo`.
+#
+# Author(s): Cody Buell
+#
+# Requisite: Run through `make dots shell` or manually set the REPODIR
+#            Schedule this to run either via cron or .plist launch agent in osx
+#              */5 * * * * /Users/[your username]/.shell/bin/repo_profiler
+#
+# Resources: 
+#
+# Usage: ./repo_profiler
+
+REPODIR="{{ Repos }}"
+cd ${REPODIR}
+find ${REPODIR} -type d -name .git -maxdepth 8 | sed 's/\/\.git$//' | awk -F\/ '{print $NF":"$0}' > .repos
