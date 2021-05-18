@@ -117,10 +117,14 @@ gist() {
 }
 
 repo() {
-  REPOLIST=$(cat {{ Repos }}/.repos | awk -F: '{print $2}')
-  TARGETREPO=$(echo $REPOLIST | grep "/${1}$")
-  cd $TARGETREPO
-  #changedir '{{ Repos }}' $@
+  if [ $1 ]; then
+    REPOLIST=$(cat {{ Repos }}/.repos | awk -F: '{print $2}')
+    TARGETREPO=$(echo $REPOLIST | grep "/${1}$")
+    cd $TARGETREPO
+    #changedir '{{ Repos }}' $@
+  else
+    cd {{ Repos }}
+  fi
 }
 
 project() {
