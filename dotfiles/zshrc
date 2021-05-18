@@ -36,6 +36,9 @@ zstyle ':completion:*' list-colors ''
 # keep cdpath functional but don't list in autocompletions
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
 
+# kubectl completions
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
 ################################################################################
 ##                                                                            ##
 ## Correction                                                                 ##
