@@ -47,6 +47,7 @@ PACKAGES=( \
     'direnv' \                      # dynamically set environment variables per directory
     'dive' \                        # docker container analyzer
     'dos2unix' \                    # encoding conversion tool
+    'efm-langserver' \              # general purpose language server
     'elinks' \                      # text based web browser, used with mutt
     'ffmpeg' \                      # video encoding and editing utility
     'fwknop' \                      # port knocking

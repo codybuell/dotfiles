@@ -16,7 +16,7 @@ local config = {
   indicator_separator = ' ',
   indicator_errors = '×',
   indicator_warnings = '‼',
-  indicator_info = 'ℹ',
+  indicator_info = 'i',
   indicator_hint = '☝',
   indicator_ok = '●',
   status_symbol = '◎',
@@ -86,9 +86,11 @@ local on_attach = function(client, bufnr)
   -- lsp mappings
   local mappings = {
     ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
     -- <C-o> to jump back to the 'older' location in jump list
     ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
+    ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
     ['<leader>i']  = '<cmd>lua vim.lsp.buf.implementation()<CR>',
     ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
@@ -254,12 +256,28 @@ lsp.setup = function()
           enable = true
         },
         schemas = {
-          ["./schemas/ct-compliance-checks.json"] = 'compliance-checks/cloud-custodian/*/*.yml',
-          ["./schemas/ct-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
+          ["http://schema.cloudtamer.io/v1/jumpstart-framework.json"] = 'frameworks/*.yml',
+          ["http://schema.cloudtamer.io/v1/jumpstart-cc-aws.json"] = 'compliance-checks/cloud-custodian/aws/*.yml',
+          ["http://schema.cloudtamer.io/v1/jumpstart-cc-azure.json"] = 'compliance-checks/cloud-custodian/azure/*.yml',
+          ["http://schema.cloudtamer.io/v1/jumpstart-cc-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
         }
       }
     }
   }
+
+  lspconfig.efm.setup{
+  init_options = {documentFormatting = true},
+    filetypes = {"sh"},
+    settings = {
+      rootMarkers = {".git/"},
+      languages = {
+          sh = {
+            {lintCommand = 'shellcheck -f gcc -x', lintSource = 'shellcheck', lintFormats= {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}}
+          }
+      }
+    }
+  }
+
 
   -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
   local cmd = vim.fn.expand(
@@ -380,7 +398,7 @@ lsp.setup_highlight = function()
   -- information
   vim.cmd('highlight LspDiagnosticsVirtualTextInformation ' .. pinnacle.decorate('bold,italic', 'Type'))
   vim.cmd('highlight LspDiagnosticsFloatingInformation ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Normal')}))
-  vim.cmd('highlight LspDiagnosticsSignInformation ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Normal')}))
+  vim.cmd('highlight LspDiagnosticsSignInformation ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Conceal')}))
 
   -- hint
   vim.cmd('highlight LspDiagnosticsVirtualTextHint ' .. pinnacle.decorate('bold,italic', 'Type'))
