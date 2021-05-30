@@ -85,13 +85,12 @@ local on_attach = function(client, bufnr)
 
   -- lsp mappings
   local mappings = {
-    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-    -- <C-o> to jump back to the 'older' location in jump list
     ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
     ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-    ['<leader>i']  = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+    ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
     ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
     ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
@@ -188,7 +187,17 @@ lsp.setup = function()
   lspconfig.gopls.setup{
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = lsp_status.capabilities,
+    settings = {
+      gopls = {
+        staticcheck = true,
+        analyses = {
+          -- full list: https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
+          unusedparams = true,
+          shadow = false,
+        }
+      }
+    }
   }
 
   lspconfig.html.setup{
