@@ -279,6 +279,36 @@ endsnippet
 ##                                                                            ##
 ################################################################################
 
+snippet slack "slak webhook" b
+import os
+import requests
+
+# webhook url (sensitive info)
+SLACK_WEBHOOK  = os.getenv('SLACK_WEBHOOK')
+
+# slack config
+slack_payload = {
+        'channel': '#test',
+        'username': 'devops',
+        'icon_emoji': ':hubot:',
+        'text': '',
+        }
+
+# gen slack text message and send
+slack_payload['text'] = ':tada: Tenable.sc scan has completed and been synced with sandbox 2.'
+resp = requests.post(SLACK_WEBHOOK, json=slack_payload)
+endsnippet
+
+snippet read "read in file" b
+dataFile = open('myfile.txt', 'r')
+lines    = dataFile.read().splitlines()
+# or
+lines = []
+with open('myfile.txt') as file:
+	for line in file:
+		lines.append(line)
+endsnippet
+
 ##################
 #  boilerplates  #
 ##################
