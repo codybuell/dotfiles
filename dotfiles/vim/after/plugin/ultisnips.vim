@@ -26,3 +26,8 @@ let g:ultisnips_python_style = "google"
 
 " quick navigation to edit ultisnips
 nnoremap                    <localleader>u    :UltiSnipsEdit<CR>
+
+" exit snippet as soon as you leave insert mode (if you are still mid snippet,
+" not reached $0, then change tabs, vim will freeze, this is a (workaround))
+" https://github.com/SirVer/ultisnips/issues/1017
+au InsertLeave * silent! exec "UltiSnips_Manager._current_snippet_is_done()"
