@@ -39,7 +39,8 @@ call deoplete#custom#option('sources', {
 \   'vim':        ['lsp', 'around', 'buffer', 'member', 'file', 'ultisnips'],
 \   'markdown':   ['around', 'buffer', 'member', 'dictionary', 'file', 'ultisnips', 'contact', 'emoji'],
 \   'javascript': ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag'],
-\   'python':     ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag']
+\   'python':     ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'tag'],
+\   'yaml':       ['lsp', 'around', 'buffer', 'member', 'syntax', 'ultisnips', 'file']
 \ })
 
 " kick up the possible max number of results from 500 base
