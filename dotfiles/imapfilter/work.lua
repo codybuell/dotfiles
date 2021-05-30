@@ -165,6 +165,13 @@ function run()
     return results
   end))
 
+  -- netdata related emails
+  movetofolder('netdata messages', netdata, (function()
+    results = inbox
+      :contain_from('Netdata .*')
+    return results
+  end))
+
   -- aws admin emails
   movetofolder('aws admin messages', awsadmin, (function()
     results = inbox
@@ -213,7 +220,21 @@ function run()
               inbox:match_subject('^Updated invitation with note: .*') +
               inbox:match_subject('^Canceled: .*') +
               inbox:match_subject('^Canceled event: .*') +
-              inbox:match_subject('^Canceled event with note: .*')
+              inbox:match_subject('^Canceled event with note: .*') +
+              inbox:contain_from('meetings@macro.io')
+    return results
+  end))
+
+  -----------------------------
+  --                         --
+  --  Archive & Mark as Read --
+  --                         --
+  -----------------------------
+  
+  -- cms services related emails
+  archive_and_mark_read('cms services messages', (function()
+    results = inbox
+      :contain_from('Centers for Medicare & Medicaid Services .*')
     return results
   end))
 
