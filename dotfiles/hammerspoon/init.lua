@@ -574,6 +574,12 @@ cmdDoublePress.action = function()
   log.i("double tap detected")
 end
 
+-------------------
+--  usb watcher  --
+-------------------
+
+require("usbWatcher")
+
 ------------------
 --  media keys  --
 ------------------
