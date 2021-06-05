@@ -18,10 +18,10 @@ local config = {
   indicator_warnings = '‼',
   indicator_info = 'i',
   indicator_hint = '☝',
-  indicator_ok = '●',
-  status_symbol = '◎',
+  indicator_ok = ' ',
+  status_symbol = 'ℒ ',
   spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
-  current_function = true,
+  current_function = false,
 }
 
 local aliases = {
@@ -35,6 +35,11 @@ lsp_status.register_progress()
 --  sort                                                                      --
 --                                                                            --
 --------------------------------------------------------------------------------
+
+function go_imports_on_save()
+  vim.api.nvim_command("silent! !goimports -w %")
+  vim.api.nvim_command("e!")
+end
 
 -- Synchronously organise (Go) imports. Taken from
 -- https://github.com/neovim/nvim-lsp/issues/115#issuecomment-654427197.
@@ -113,7 +118,8 @@ local on_attach = function(client, bufnr)
       vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.lsp.diagnostic.set_loclist({open_loclist=false, severity_limit="Warning"})')
       if client.resolved_capabilities.document_formatting then
         if vim.api.nvim_buf_get_option(bufnr, "filetype") == "go" then
-          vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")
+          -- vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")
+          vim.api.nvim_command("autocmd BufWritePost <buffer> lua go_imports_on_save()")
         end
         vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
       end

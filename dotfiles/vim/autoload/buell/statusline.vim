@@ -4,7 +4,6 @@ scriptencoding utf-8
 function! buell#statusline#drawstatusline() abort
   set statusline=%7*                                 " switch to User7 highlight group
   set statusline+=%{buell#statusline#lhs()}          " call lhs statusline autocommand
-  set statusline+=%{buell#statusline#lsp_status()}   " lsp status
   set statusline+=%*                                 " reset highlight group
   set statusline+=%4*                                " switch to User4 highlight group (powerline arrow)
   set statusline+=                                  " powerline arrow
@@ -169,7 +168,17 @@ function! buell#statusline#fenc() abort
 endfunction
 
 function! buell#statusline#lhs() abort
-  let l:line=repeat(' ', buell#statusline#gutterwidth())
+  let l:gutterwidth = buell#statusline#gutterwidth()
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    let l:line = '  ' . luaeval("require('buell.lsp').status()")
+    let l:diff = l:gutterwidth - strlen(l:line) + 2
+    if l:diff > 0
+      let l:line .= repeat(' ', l:diff)
+    endif
+  else
+    let l:line = repeat(' ', l:gutterwidth)
+  endif
+
   " HEAVY BALLOT X - Unicode: U+2718, UTF-8: E2 9C 98
   "let l:line.=&modified ? '✘   ' : '    '
   "let l:line.='    '
@@ -322,14 +331,6 @@ function! s:get_custom_statusline(action) abort
 
   " use default
   return 1
-endfunction
-
-function! buell#statusline#lsp_status() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    " return luaeval("require('lsp-status').status()")
-    return luaeval("require('buell.lsp').status()")
-  endif
-  return ''
 endfunction
 
 " taken from https://github.com/drzel/vim-line-no-indicator
