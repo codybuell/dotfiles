@@ -91,6 +91,7 @@ local on_attach = function(client, bufnr)
   -- lsp mappings
   local mappings = {
     ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['gA']         = '<cmd>lua vim.lsp.buf.code_action()<CR>',
     ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
     ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
     ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
@@ -104,6 +105,13 @@ local on_attach = function(client, bufnr)
   for lhs, rhs in pairs(mappings) do
     helpers.nnoremap(lhs, rhs)
   end
+
+  vim.api.nvim_buf_set_keymap(0, 'i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
+  vim.lsp.util.close_preview_autocmd = function(events, winnr)
+      -- I prefer to keep the preview (especially for signature_help) open while typing in insert mode
+      events = vim.tbl_filter(function(v) return v ~= 'CursorMovedI' and v ~= 'BufLeave' end, events)
+      vim.api.nvim_command("autocmd "..table.concat(events, ',').." <buffer> ++once lua pcall(vim.api.nvim_win_close, "..winnr..", true)")
+    end
 
   -- make sure the sign column is turned on
   vim.api.nvim_win_set_option(0, 'signcolumn', 'yes')
