@@ -33,7 +33,6 @@ nnoremap  <silent>          <Up>              :<C-U> call buell#helpers#ListNav(
 nnoremap  <silent>          <Down>            :<C-U> call buell#helpers#ListNav('c', 'next')<CR>
 nnoremap  <silent>          <Left>            :cpfile<CR>
 nnoremap  <silent>          <Right>           :cnfile<CR>
-
 " navigate jumplist (up/down: item in list, left/right: file in list)
 nnoremap  <silent>          <S-Up>            :<C-U> call buell#helpers#ListNav('l', 'prev')<CR>
 nnoremap  <silent>          <S-Down>          :<C-U> call buell#helpers#ListNav('l', 'next')<CR>
@@ -74,6 +73,10 @@ nnoremap                    <leader><enter>   @@
 
 " toggle current fold
 nnoremap                    <tab>             za
+
+" using karabiner to remap ctrl-i to f6, otherwise it maps to tab, then use f6
+" to reset default behavior for ctrl-i... solution for linux host?
+nnoremap                    <f6>              <C-i>
 
 " zap white space
 nnoremap  <silent>          <localleader>z    :<C-U>call buell#helpers#ZapWhitespace()<CR>
