@@ -41,3 +41,6 @@ let g:CommandTInputDebounce = 50
 
 " supress max files warning
 let g:CommandTSuppressMaxFilesWarning = 1
+
+" scan dot directories (relying on ignores above)
+let g:CommandTScanDotDirectories = 1
