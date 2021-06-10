@@ -220,6 +220,9 @@ let g:deoplete#enable_at_startup = 1
 " disable scalpel mappings
 let g:ScalpelMap=0
 
+" disable vim-surround insert mode mappings
+let g:surround_no_insert_mappings = 1
+
 " shorten command from :Scalpel to :S
 let g:ScalpelCommand = 'S'
 
