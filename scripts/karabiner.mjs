@@ -72,7 +72,7 @@ function launch(from, ...args) {
                 },
             },
             parameters: {
-                'basic.simultaneous_threshold_milliseconds': 500 /* Default: 1000 */,
+                'basic.simultaneous_threshold_milliseconds': 100 /* Default: 1000 */,
             },
             to: [
                 {
@@ -396,68 +396,88 @@ const DEFAULT_PROFILE = applyExemptions({
                     },
                 ],
             },
-            {
-                description: 'Launcher',
-                manipulators: [
-                    ...launch(
-                        colemak('b' /* [b]rowser */),
-                        '-b',
-                        'com.google.Chrome'
-                    ),
-                    ...launch(
-                        colemak('c' /* [c]alendar */),
-                        '-b',
-                        'com.flexibits.fantastical2.mac'
-                    ),
-                    ...launch(
-                        colemak('d' /* [d]ownloads */),
-                        '-b',
-                        'com.apple.Finder',
-                        '~/Downloads'
-                    ),
-                    ...launch(
-                        colemak('f' /* [F]inder */),
-                        '-b',
-                        'com.apple.Finder'
-                    ),
-                    ...launch(
-                        colemak('p' /* [p]asswords */),
-                        '-b',
-                        'com.lastpass.LastPass'
-                    ),
-                    ...launch(
-                        colemak('s' /* [S]lack */),
-                        '-b',
-                        'com.tinyspeck.slackmacgap'
-                    ),
-                    ...launch(
-                        colemak('t' /* [t]erminal */),
-                        '-b',
-                        'com.googlecode.iterm2'
-                    ),
-                ],
-            },
+            // {
+            //     description: 'Launcher',
+            //     manipulators: [
+            //         ...launch(
+            //             colemak('b' /* [b]rowser */),
+            //             '-b',
+            //             'com.google.Chrome'
+            //         ),
+            //         ...launch(
+            //             colemak('c' /* [c]alendar */),
+            //             '-b',
+            //             'com.flexibits.fantastical2.mac'
+            //         ),
+            //         ...launch(
+            //             colemak('d' /* [d]ownloads */),
+            //             '-b',
+            //             'com.apple.Finder',
+            //             '~/Downloads'
+            //         ),
+            //         ...launch(
+            //             colemak('f' /* [F]inder */),
+            //             '-b',
+            //             'com.apple.Finder'
+            //         ),
+            //         ...launch(
+            //             colemak('p' /* [p]asswords */),
+            //             '-b',
+            //             'com.lastpass.LastPass'
+            //         ),
+            //         ...launch(
+            //             colemak('s' /* [S]lack */),
+            //             '-b',
+            //             'com.tinyspeck.slackmacgap'
+            //         ),
+            //         ...launch(
+            //             colemak('t' /* [t]erminal */),
+            //             '-b',
+            //             'io.alacritty'
+            //         ),
+            //     ],
+            // },
             {
                 description: 'SpaceFN layer',
                 manipulators: [
-                    ...spaceFN('m', '1'),
-                    ...spaceFN('comma', '2'),
-                    ...spaceFN('period', '3'),
-                    ...spaceFN('j', '4'),
-                    ...spaceFN('k', '5'),
-                    ...spaceFN('l', '6'),
-                    ...spaceFN('u', '7'),
-                    ...spaceFN('i', '8'),
-                    ...spaceFN('o', '9'),
-                    ...spaceFN('n', '0'),
-                    ...spaceFN('slash', 'period'),
                     ...spaceFN('b', 'spacebar'),
                     ...spaceFN('f', 'right_arrow'),
                     ...spaceFN('d', 'down_arrow'),
                     ...spaceFN('s', 'left_arrow'),
                     ...spaceFN('e', 'up_arrow'),
+
+                    ...spaceFN('l', 'right_arrow'),
+                    ...spaceFN('k', 'down_arrow'),
+                    ...spaceFN('j', 'left_arrow'),
+                    ...spaceFN('i', 'up_arrow'),
+
+                    ...spaceFN('u', 'right_arrow'),
+                    ...spaceFN('y', 'down_arrow'),
+                    ...spaceFN('h', 'left_arrow'),
+                    ...spaceFN('n', 'up_arrow'),
                 ],
             },
+            // {
+            //     description: 'SpaceFN layer',
+            //     manipulators: [
+            //         ...spaceFN('m', '1'),
+            //         ...spaceFN('comma', '2'),
+            //         ...spaceFN('period', '3'),
+            //         ...spaceFN('j', '4'),
+            //         ...spaceFN('k', '5'),
+            //         ...spaceFN('l', '6'),
+            //         ...spaceFN('u', '7'),
+            //         ...spaceFN('i', '8'),
+            //         ...spaceFN('o', '9'),
+            //         ...spaceFN('n', '0'),
+            //         ...spaceFN('slash', 'period'),
+            //         ...spaceFN('b', 'spacebar'),
+            //         ...spaceFN('f', 'right_arrow'),
+            //         ...spaceFN('d', 'down_arrow'),
+            //         ...spaceFN('s', 'left_arrow'),
+            //         ...spaceFN('e', 'up_arrow'),
+            //     ],
+            // },
             // {
             //     description: 'SpaceFN layer',
             //     manipulators: [
@@ -612,6 +632,7 @@ const DEFAULT_PROFILE = applyExemptions({
                             {
                                 bundle_identifiers: [
                                     bundleIdentifier('com.apple.Terminal'),
+                                    bundleIdentifier('io.alacritty'),
                                     bundleIdentifier('com.googlecode.iterm2'),
                                     bundleIdentifier('org.vim.MacVim.plist'),
                                 ],
