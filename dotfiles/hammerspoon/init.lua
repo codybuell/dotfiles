@@ -140,6 +140,28 @@ local layoutConfig = {
 --  hs.grid.MARGINY = 0
   end),
 
+  -----------------
+  --  alacritty  --
+  -----------------
+  ['io.alacritty'] = (function(window, forceScreenCount)
+--  local count = forceScreenCount or screenCount
+--  if count == 1 then
+--    hs.grid.set(window, grid.portraitSmall)
+--  else
+--    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
+--  end
+--  hs.grid.MARGINX = 6
+--  hs.grid.MARGINY = 5
+    if primaryWxH == "3840x1600" then -- 38" ultrawide
+      hs.grid.set(window, grid.widescreenLeft63P)
+    elseif primaryWxH == "3840x2160" then -- 32" 4k
+      hs.grid.set(window, grid.widescreenRight63P)
+    else -- default (laptop)
+      hs.grid.set(window, grid.fullScreen)
+    end
+--  hs.grid.MARGINX = 0
+--  hs.grid.MARGINY = 0
+  end),
 }
 
 -------------------------------------------------------------------------------
