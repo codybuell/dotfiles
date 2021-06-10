@@ -113,6 +113,7 @@ PACKAGES=( \
     'wireshark' \                   # network traffic analyzer
     'ykman' \                       # yubikey manager (feature enabling / pgp)
     'ykpers' \                      # yubikey personalization tool (otp slots)
+    'yq' \                          # jq for yaml
     'yubico-piv-tool' \             # yubekey piv manager (piv / cac card)
     'zsh' \                         # z-shell
 )
