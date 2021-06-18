@@ -21,7 +21,7 @@ font:
     bold_italic:
       family: "Source Code Pro"
       style: "Medium Italic"
-  size: 12.5
+  size: 13.5
 offset:
   x: 0
   y: 14
