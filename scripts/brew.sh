@@ -160,6 +160,7 @@ CASKS=( \
     'hammerspoon' \                 # osx automation tool
     'imageoptim' \                  # image file optimizer
     'iterm2' \                      # improved terminal emulator
+    'kap' \                         # screen recording (gif mp4 etc)
     'karabiner-elements' \          # keyboard layout customization
     'keybase' \                     # encryption and crypto wallet
     'keycastr' \                    # show keystrokes on screen
