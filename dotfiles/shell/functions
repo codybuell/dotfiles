@@ -41,6 +41,13 @@ function gopath() {
 #   gopath
 # }
 
+# aws
+ec2ls() {
+  aws ec2 describe-instances --query \
+  "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Status:State.Name,ID:InstanceId,AZ:Placement.AvailabilityZone,Key:KeyName,Type:InstanceType,Launched:LaunchTime}" \
+  --output table
+}
+
 # markdown shortcut
 md() {
 

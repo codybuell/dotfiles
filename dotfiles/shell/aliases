@@ -16,9 +16,6 @@ alias n=note
 alias p=project
 alias sed=gsed
 
-# aws
-alias ec2ls="aws ec2 describe-instances --query \"Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Status:State.Name,ID:InstanceId,AZ:Placement.AvailabilityZone,Key:KeyName,Type:InstanceType}\" --output table"
-
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
 
