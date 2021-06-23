@@ -244,7 +244,7 @@ lsp.setup = function()
       pyls = {
         plugins = {
           pycodestyle = {
-            maxLineLength = 120,
+            maxLineLength = 200,
             ignore = {
               "E221",    -- multiple spaces before operator
               "E241",    -- multiple spaces after :
