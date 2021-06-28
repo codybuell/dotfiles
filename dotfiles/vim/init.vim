@@ -296,7 +296,7 @@ set lcs=eol:¬,tab:>-,trail:·,extends:»,precedes:«  " special character label
 set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
 set scrolloff=5                                    " scroll before end of page      
-set shortmess+=I                                   " no intro text on plain vi start
+set shortmess+=IA                                  " no intro text on plain vi start, no swap error
 set foldmethod=syntax                              " enable folding by syntax
 set foldlevel=1                                    " fold second level and greater
 set foldcolumn=2                                   " show the fold column
