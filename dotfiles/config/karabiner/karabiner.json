@@ -1536,7 +1536,16 @@
           "fn_function_keys": [],
           "ignore": false,
           "manipulate_caps_lock_led": true,
-          "simple_modifications": [],
+          "simple_modifications": [
+            {
+              "from": {
+                "key_code": "keypad_enter"
+              },
+              "to": {
+                "key_code": "return_or_enter"
+              }
+            }
+          ],
           "identifiers": {
             "is_keyboard": true,
             "is_pointing_device": false,
@@ -1587,7 +1596,16 @@
           "fn_function_keys": [],
           "ignore": false,
           "manipulate_caps_lock_led": true,
-          "simple_modifications": [],
+          "simple_modifications": [
+            {
+              "from": {
+                "key_code": "keypad_enter"
+              },
+              "to": {
+                "key_code": "return_or_enter"
+              }
+            }
+          ],
           "identifiers": {
             "is_keyboard": true,
             "is_pointing_device": false,

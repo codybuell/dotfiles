@@ -161,7 +161,9 @@ const DEVICE_DEFAULTS = {
     fn_function_keys: [],
     ignore: false,
     manipulate_caps_lock_led: true,
-    simple_modifications: [],
+    simple_modifications: [
+        ...fromTo('keypad_enter', 'return_or_enter'),
+    ],
 };
 
 const IDENTIFIER_DEFAULTS = {
