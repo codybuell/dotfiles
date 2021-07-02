@@ -2,6 +2,14 @@
 # function
 #
 
+# toggle alacritty configs
+function big() {
+  ln -sf ~/.alacritty.big.yml ~/.alacritty.yml
+}
+function small() {
+  ln -sf ~/.alacritty.normal.yml ~/.alacritty.yml
+}
+
 # test regular expressions, ctrl-D to stop
 # testregex 'string to match against'
 # > enter a regex and match will be returned

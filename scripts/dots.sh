@@ -241,6 +241,9 @@ postplacehooks() {
       # make tmp dirs
       mkdir -p ~/.vim/tmp/view ~/.vim/tmp/backup ~/.vim/tmp/undo ~/.vim/tmp/swap
       ;;
+    alacritty.normal.yml )
+      ln -sf ~/.alacritty.normal.yml ~/.alacritty.yml
+      ;;
   esac
 
 }
@@ -422,7 +425,11 @@ done
 readconfig
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
-  DOTFILES=($@)
+  if [[ "$1" == "alacritty" ]]; then
+    DOTFILES=('alacritty.normal.yml' 'alacritty.big.yml')
+  else
+    DOTFILES=($@)
+  fi
 fi
 placefiles
 fixperms
