@@ -88,6 +88,9 @@ function s:SetColorscheme()
   hi DiffChange ctermbg=24 guibg=#22222f
   hi DiffText   ctermbg=24 guibg=#22222f
 
+  " transparent background override
+  hi Normal guibg=none
+
   " overrides for pmenu, trickles down to virtual and preview windows
   " execute 'hi Pmenu ' . pinnacle#highlight({
   "       \   'bg': pinnacle#extract_bg('Visual')
