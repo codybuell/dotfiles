@@ -4,10 +4,10 @@
 
 # toggle alacritty configs
 function big() {
-  ln -sf ~/.alacritty.big.yml ~/.alacritty.yml
+  sed -i 's/\(^  size: \)\(.*$\)/\124/' ~/.alacritty.yml
 }
 function small() {
-  ln -sf ~/.alacritty.normal.yml ~/.alacritty.yml
+  sed -i 's/\(^  size: \)\(.*$\)/\113.5/' ~/.alacritty.yml
 }
 
 # test regular expressions, ctrl-D to stop
