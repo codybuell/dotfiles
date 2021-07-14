@@ -9,6 +9,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! buell#foldtext#CustomFoldText() abort
+    " get fold end
+    let endLineText = trim(getline(v:foldend))
+
     " get first non-blank line
     let fs = v:foldstart
     while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
@@ -16,8 +19,9 @@ function! buell#foldtext#CustomFoldText() abort
     if fs > v:foldend
         let line = getline(v:foldstart) . " "
     else
-        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g') . " "
+      let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g') . "..." . endLineText . " "
     endif
+
     " check if signs are showing
     if &signcolumn =~ 'auto'
       redir =>a |exe "sil sign place buffer=".bufnr('')|redir end
@@ -33,6 +37,7 @@ function! buell#foldtext#CustomFoldText() abort
     else
       let l:ncw = 0
     endif
+
     " define the available width for foldbar
     let w = winwidth(0) - &foldcolumn - l:ncw - l:signColumn
     let foldSize = 1 + v:foldend - v:foldstart

@@ -222,6 +222,9 @@ postplacehooks() {
       make > /dev/null 2>&1
       cd - > /dev/null
 
+      # treesitter
+      $VIMPATH -E +'TSUpdate' +qa &> /dev/null
+
       # what were you doing here??
       #gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/pack/bundle/opt/base16-vim/colors/*.vim
 
@@ -240,9 +243,6 @@ postplacehooks() {
 
       # make tmp dirs
       mkdir -p ~/.vim/tmp/view ~/.vim/tmp/backup ~/.vim/tmp/undo ~/.vim/tmp/swap
-      ;;
-    alacritty.normal.yml )
-      ln -sf ~/.alacritty.normal.yml ~/.alacritty.yml
       ;;
   esac
 
@@ -425,11 +425,7 @@ done
 readconfig
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
-  if [[ "$1" == "alacritty" ]]; then
-    DOTFILES=('alacritty.normal.yml' 'alacritty.big.yml')
-  else
-    DOTFILES=($@)
-  fi
+  DOTFILES=($@)
 fi
 placefiles
 fixperms

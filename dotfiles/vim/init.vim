@@ -37,23 +37,23 @@
 "     \r gen random chars     ␣f find a char & move   ␣s change word @ cursor  "
 "     \w open work journal    ␣w move to word                                  "
 "     \p open personal jrnl                           fugitive (git...):       "
-"     \u edit ft's snippets   fastfold:               ␣gs status               "
-"     \v vertical split       zuz update folds        ␣gb blame                "
-"     \h horizontal split                             ␣gp push orig mstr       "
-"     \z zap trailing spaces  splitjoin:              ␣ga add %:p              "
-"                             gS split oneliner       ␣gc commit -v -q         "
-"                             gJ join multiliner      ␣gt commit -v -q %:p     "
-"                                                     ␣gd vdiff                "
-"                             laravel:                ␣ge edit                 "
-"                             ␣lr edit routes.php     ␣gr read                 "
-"                             ␣la laravel artisan     ␣gw write                "
-"                             ␣ll list routes         ␣gl log for cur file     "
-"                             ␣le edit .env           ␣gm move                 "
-"                             ␣lw edit webpack        ␣go checkout             "
-"     <C-h> nav split win                                                      "
-"     <C-j> nav split win     commentary:                                      "
-"     <C-k> nav split win     gcc comment out block                            "
-"     <C-l> nav split win     gt  use with motion                              "
+"     \u edit ft's snippets   splitjoin:              ␣gs status               "
+"     \v vertical split       gS split oneliner       ␣gb blame                "
+"     \h horizontal split     gJ join multiliner      ␣gp push orig mstr       "
+"     \z zap trailing spaces                          ␣ga add %:p              "
+"                             laravel:                ␣gc commit -v -q         "
+"                             ␣lr edit routes.php     ␣gt commit -v -q %:p     "
+"                             ␣la laravel artisan     ␣gd vdiff                "
+"                             ␣ll list routes         ␣ge edit                 "
+"                             ␣le edit .env           ␣gr read                 "
+"                             ␣lw edit webpack        ␣gw write                "
+"                                                     ␣gl log for cur file     "
+"                             commentary:             ␣gm move                 "
+"                             gcc comment out block   ␣go checkout             "
+"     <C-h> nav split win     gt  use with motion                              "
+"     <C-j> nav split win                                                      "
+"     <C-k> nav split win                                                      "
+"     <C-l> nav split win                                                      "
 "                                                                              "
 "                                                                              "
 "     insert mode                                                              "
@@ -180,16 +180,15 @@ if &loadplugins
     packadd! howmuch                 " perform math on visual selections
     packadd! goyo.vim                " writing room stylings for focused work
     packadd! limelight.vim           " darken all text but current paragraph
-    packadd! fastfold                " speed up folding, fold only when needed
     packadd! vim-obsession           " improved session management
     packadd! vim-tmux-navigator      " use vim window motions to nav into tmux
     packadd! vim-tmux-runner         " control tmux panes from vim
     packadd! editorconfig-vim        " support project defined syntax standards
-    packadd! SimplylFold             " improved python syntax folding
 
     if has('nvim')
       packadd! firenvim              " use neovim in browser textareas
       packadd! nvim-lspconfig        " configurations for native lsp client
+      packadd! nvim-treesitter       " configurations for treesitter engine
       packadd! lsp-status.nvim       " library of utilities for lsp
       packadd! deoplete-lsp          " native lsp completion support for deoplete
       packadd! markdown-preview.nvim " sync'd, browser based mkd preview
@@ -297,7 +296,8 @@ set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
 set scrolloff=5                                    " scroll before end of page      
 set shortmess+=IA                                  " no intro text on plain vi start, no swap error
-set foldmethod=syntax                              " enable folding by syntax
+set foldmethod=syntax                              " enable folding by syntax by default
+set foldexpr=nvim_treesitter#foldexpr()            " use tresitter for fold expression method
 set foldlevel=1                                    " fold second level and greater
 set foldcolumn=2                                   " show the fold column
 set laststatus=2                                   " enable statusline
