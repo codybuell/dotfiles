@@ -168,3 +168,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/nvim-treesitter"]
 	path = dotfiles/vim/pack/bundle/opt/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "dotfiles/vim/pack/bundle/opt/nvim-compe"]
+	path = dotfiles/vim/pack/bundle/opt/nvim-compe
+	url = https://github.com/hrsh7th/nvim-compe.git

@@ -132,8 +132,9 @@ endif
 if &loadplugins
   if has('packages')
     " COMPLETION
-    packadd! deoplete                " asynchronous completion utility
-    packadd! deoplete-emoji          " deoplete completion source for emoji's
+    " packadd! deoplete                " asynchronous completion utility
+    " packadd! deoplete-emoji          " deoplete completion source for emoji's
+    packadd! nvim-compe
     packadd! ultisnips               " snippet utility
 
     " NAVIGATION
@@ -190,7 +191,7 @@ if &loadplugins
       packadd! nvim-lspconfig        " configurations for native lsp client
       packadd! nvim-treesitter       " configurations for treesitter engine
       packadd! lsp-status.nvim       " library of utilities for lsp
-      packadd! deoplete-lsp          " native lsp completion support for deoplete
+      " packadd! deoplete-lsp          " native lsp completion support for deoplete
       packadd! markdown-preview.nvim " sync'd, browser based mkd preview
      "packadd! float-preview.nvim    " floating windows for preview instead of splits
     endif
@@ -207,8 +208,8 @@ endif
 "                     "
 """""""""""""""""""""""
 
-" turn on deoplete
-let g:deoplete#enable_at_startup = 1
+" " turn on deoplete
+" let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                                           "
@@ -306,7 +307,8 @@ set lazyredraw                                     " no redraw during macros etc
 set backspace=2                                    " make bkspace work on line br & auto indent
 set hidden                                         " allow buffer switching when unsaved
 set confirm                                        " prompt to save modified hidden buffers
-set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
+"set completeopt=menu                               " aka cot, preview handled by float-preview.nvim
+set completeopt=menuone,noselect                   " cot, preview handled by float-preview.nvim
 set pumheight=30                                   " max height of popup menus
 set signcolumn=yes                                 " always show the sign column
 set noequalalways                                  " don't auto resize splits
