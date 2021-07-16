@@ -169,8 +169,16 @@ endfunction
 
 function! buell#statusline#lhs() abort
   let l:gutterwidth = buell#statusline#gutterwidth()
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    let l:line = '  ' . luaeval("require('buell.lsp').status()")
+  let l:treesitter  = nvim_treesitter#statusline(1)
+  let l:lspclient   = luaeval('#vim.lsp.buf_get_clients() > 0')
+  if l:treesitter != v:null || l:lspclient
+    let l:line = '  '
+    if l:treesitter != v:null
+      let l:line .= '𝒯'
+    endif
+    if l:lspclient
+      let l:line .= '  ' . luaeval("require('buell.lsp').status()")
+    endif
     let l:diff = l:gutterwidth - strlen(l:line) + 2
     if l:diff > 0
       let l:line .= repeat(' ', l:diff)
