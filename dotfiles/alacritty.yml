@@ -12,15 +12,15 @@ font:
   normal:
     family: "Source Code Pro"
     style: "Light"
-    bold:
-      family: "Source Code Pro"
-      style: "Medium"
-    italic:
-      family: "Source Code Pro"
-      style: "Light Italic"
-    bold_italic:
-      family: "Source Code Pro"
-      style: "Medium Italic"
+  bold:
+    family: "Source Code Pro"
+    style: "Medium"
+  italic:
+    family: "Source Code Pro"
+    style: "Light Italic"
+  bold_italic:
+    family: "Source Code Pro"
+    style: "Medium Italic"
   size: 13.5
 offset:
   x: 0
