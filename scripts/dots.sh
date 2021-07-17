@@ -136,6 +136,7 @@ readconfig() {
 preplacehooks() {
 
   CURRENTTARGET=$1
+  CWD=$(pwd)
 
   case $CURRENTTARGET in
     vim )
@@ -143,14 +144,14 @@ preplacehooks() {
       ln -s $CONFGDIR/assets/snippits snippits
       ln -s $CONFGDIR/assets/en.utf-8.add spell/en.utf-8.add
       ln -s init.vim vimrc
-      cd - > /dev/null
+      cd $CWD > /dev/null
       ;;
     terminfo )
       cd ~/.terminfo.new.$DATE
       for terminfo in `ls`; do
-        tic -o ~/.terminfo.new.$DATE $terminfo
+        tic -o ~/.terminfo.new.$DATE $terminfo > /dev/null 2>&1
       done
-      cd - > /dev/null
+      cd $CWD > /dev/null
       ;;
     mutt )
       # bundler gem bits (mime types) need to be installed
@@ -158,7 +159,7 @@ preplacehooks() {
       bundle install
       cd ~/.mutt.new.$DATE/vendor
       ln -s $CONFGDIR/submodules/mutt-notmuch-py
-      cd - > /dev/null
+      cd $CWD > /dev/null
       ;;
     shell )
       cd ~/.shell.new.$DATE
@@ -174,7 +175,7 @@ preplacehooks() {
         eval VAL=\$$e
         echo "export ${VAR}=${VAL}" >> exports
       done
-      cd - > /dev/null
+      cd $CWD > /dev/null
       ;;
   esac
 
@@ -183,6 +184,7 @@ preplacehooks() {
 postplacehooks() {
 
   CURRENTTARGET=$1
+  CWD=$(pwd)
 
   case $CURRENTTARGET in
     Xresources )
@@ -198,6 +200,17 @@ postplacehooks() {
     vim )
       NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
       VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
+
+      # link up neovim (do this first...)
+      NVIMRTPROOT='~/.config/nvim'
+      [[ -d $NVIMRTPROOT || -L $NVIMRTPROOT ]] && {
+        [[ -L $NVIMRTPROOT ]] && {
+          unlink $NVIMRTPROOT
+        } || {
+          mv ~/.config/nvim ~/.config/nvim.dotorig.`date +%Y%m%d%H%M%S`
+        }
+      }
+      ln -s ~/.vim ~/.config/nvim
 
       # vim-plug run plug install
       # $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
@@ -220,24 +233,13 @@ postplacehooks() {
       cd ~/.vim/pack/bundle/opt/command-t/ruby/command-t/ext/command-t > /dev/null
       ruby extconf.rb > /dev/null 2>&1
       make > /dev/null 2>&1
-      cd - > /dev/null
+      cd $CWD > /dev/null
 
       # treesitter
       $VIMPATH -E +'TSUpdate' +qa &> /dev/null
 
       # what were you doing here??
       #gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/pack/bundle/opt/base16-vim/colors/*.vim
-
-      # link up neovim
-      NVIMRTPROOT='~/.config/nvim'
-      [[ -d $NVIMRTPROOT || -L $NVIMRTPROOT ]] && {
-        [[ -L $NVIMRTPROOT ]] && {
-          unlink $NVIMRTPROOT
-        } || {
-          mv ~/.config/nvim ~/.config/nvim.dotorig.`date +%Y%m%d%H%M%S`
-        }
-      }
-      ln -s ~/.vim ~/.config/nvim
 
       # if linux (or vim older than ?), you need to symlink ~/.vimrc to .vim/init.vim
 
