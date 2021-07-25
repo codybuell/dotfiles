@@ -5,7 +5,7 @@
 """"""""""""""""""
 
 " bail if base16-vim is not installed
-if !buell#helpers#PluginExists('base16-vim')
+if !buell#helpers#PluginExists('nvim-base16')
   finish
 endif
 
@@ -90,6 +90,10 @@ function s:SetColorscheme()
 
   " transparent background override
   hi Normal guibg=none
+
+  " fixes for nvim-base16
+  hi LineNr ctermbg=1 guibg=#282a2e
+  hi SignColumn ctermbg=1 guibg=#282a2e
 
   " overrides for pmenu, trickles down to virtual and preview windows
   " execute 'hi Pmenu ' . pinnacle#highlight({

@@ -146,7 +146,7 @@ if &loadplugins
     packadd! vim-easymotion          " improved movement around files
 
     " SYNTAX & LIGIBILITY
-    packadd! base16-vim              " base16 color themes
+    " packadd! base16-vim              " base16 color themes
     packadd! indentline              " add vertical line showing indentations
     packadd! jsonc.vim               " syntax support for cjson / jsonc
     packadd! pinnacle                " highlight group manipulations
@@ -187,6 +187,7 @@ if &loadplugins
     packadd! editorconfig-vim        " support project defined syntax standards
 
     if has('nvim')
+      packadd! nvim-base16           " base16 colors themes with tresitter and lsp support
       packadd! firenvim              " use neovim in browser textareas
       packadd! nvim-lspconfig        " configurations for native lsp client
       packadd! nvim-treesitter       " configurations for treesitter engine
