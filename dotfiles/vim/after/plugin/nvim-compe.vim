@@ -17,5 +17,3 @@ lua require'buell.compe'.setup()
 inoremap    <silent><expr><CR>        compe#confirm('<CR>')
 inoremap    <expr><Tab>               pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap    <expr><S-Tab>             pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-highlight def link CompeDocumentation NormalFloat

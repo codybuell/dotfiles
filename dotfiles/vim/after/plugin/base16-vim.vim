@@ -95,6 +95,9 @@ function s:SetColorscheme()
   hi LineNr ctermbg=1 guibg=#282a2e
   hi SignColumn ctermbg=1 guibg=#282a2e
 
+  " compe documentation popup window 
+  highlight link CompeDocumentation Pmenu
+
   " overrides for pmenu, trickles down to virtual and preview windows
   " execute 'hi Pmenu ' . pinnacle#highlight({
   "       \   'bg': pinnacle#extract_bg('Visual')
