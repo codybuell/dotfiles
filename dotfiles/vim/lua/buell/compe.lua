@@ -19,7 +19,7 @@ compe.setup = function()
     source = {
       nvim_lsp = {
         priority = 100,
-        filetypes = {'python','yaml','sh','css','dockerfile','go','gomod','html','php','json','typescript','vim'},
+        filetypes = {'python', 'yaml', 'sh', 'css', 'dockerfile', 'go', 'gomod', 'html', 'php', 'json', 'typescript', 'vim'},
       },
       nvim_lua = {
         priority = 95,
@@ -28,12 +28,20 @@ compe.setup = function()
       ultisnips = {
         priority = 90,
       },
-      spell = {
+      mail = {
         priority = 85,
-        filetypes = {'mail','markdown'},
+        filetypes = {'markdown', 'mail'},
+      },
+      contact = {
+        priority = 80,
+        filetypes = {'markdown', 'mail'},
+      },
+      spell = {
+        priority = 75,
+        filetypes = {'markdown', 'mail'},
       },
       path = {
-        priority = 80,
+        priority = 70,
         ignored_filetypes = {'mail'},
       },
       buffer = {

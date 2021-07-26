@@ -9,6 +9,8 @@ if !buell#helpers#PluginExists('nvim-compe')
   finish
 endif
 
+lua require'buell.compe_mail'
+lua require'buell.compe_contact'
 lua require'buell.compe'.setup()
 
 "inoremap   <silent><expr><C-y>       compe#complete()       " conflicts with ultisnips completion mapping
