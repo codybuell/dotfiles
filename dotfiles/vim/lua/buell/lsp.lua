@@ -377,6 +377,24 @@ lsp.setup = function()
     end
   end
 
+  -- configure border for documentation hover / popup
+  vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(
+    vim.lsp.handlers.hover,
+    {
+      border = "solid",
+    }
+    )
+
+  -- configure border for signature help
+  vim.lsp.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    {
+      border = "solid",
+    }
+)
+
 end
 
 ---------------------------------------------------------------------------------

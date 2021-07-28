@@ -96,7 +96,11 @@ function s:SetColorscheme()
   hi SignColumn ctermbg=1 guibg=#282a2e
 
   " compe documentation popup window 
-  highlight link CompeDocumentation Pmenu
+  hi link CompeDocumentation Pmenu
+
+  " make popups a bit more distinct
+  hi NormalFloat ctermfg=0 ctermbg=13 guifg=#c5c8c6 guibg=#282a2e
+  hi FloatBorder ctermfg=0 ctermbg=13 guifg=#c5c8c6 guibg=#282a2e
 
   " overrides for pmenu, trickles down to virtual and preview windows
   " execute 'hi Pmenu ' . pinnacle#highlight({
