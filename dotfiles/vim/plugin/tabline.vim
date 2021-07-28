@@ -43,8 +43,8 @@ if exists("+showtabline")
       endif
 
       " build the tab entry
-      let l:bar .= '%' . l:tab . 'T'                             " set the tab page number (for mouse clicks)
       let l:bar .= (l:tab == l:t ? '%#ErrorMsg#' : '%#TabLine#') " set hlgroup if active else default to TabLine hlgroup
+      let l:bar .= '%' . l:tab . 'T'                             " set the tab page number (for mouse clicks)
       let l:bar .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
       let l:str .= ' ' . l:tab . ': '                            " tab number followed by a colon, i.e. 1:
       if a:truncate
@@ -79,7 +79,7 @@ if exists("+showtabline")
   function! BuellTabLine() abort
     " set vars for the current state of affairs
     let l:gutter_width = buell#statusline#gutterwidth()
-    let l:p = repeat(' ', gutter_width)
+    let l:p = repeat(' ', gutter_width - 1)
 
     " try full size
     let l:bar = BuellGenTabText(l:p, 0, 0, 0)
