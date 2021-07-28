@@ -90,6 +90,7 @@ function s:SetColorscheme()
 
   " transparent background override
   hi Normal guibg=none
+  hi NormalNC guibg=none
 
   " fixes for nvim-base16
   hi LineNr ctermbg=1 guibg=#282a2e

@@ -97,7 +97,7 @@ local on_attach = function(client, bufnr)
     ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
     ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
     ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-    ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})<CR>',
+    ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true, border="solid"})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
     ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
   }
@@ -373,6 +373,8 @@ lsp.setup = function()
         break
       else
         -- not a hover window
+        -- hacky shit to stop the parent buffers background changing color
+        -- vim.cmd('hi Normal guibg=none')
       end
     end
   end
@@ -412,6 +414,14 @@ lsp.bind = function ()
       vim.api.nvim_win_set_option(0, 'cursorline', false)
     end
   end)
+  pcall(function ()
+    -- on entering lsp line diagnostics floating window bind keys to close
+    if vim.api.nvim_win_get_var(0, 'line_diagnostics') then
+      helpers.nnoremap('<leader>e', ':call nvim_win_close(0, v:true)<CR>')
+      helpers.nnoremap('<Esc>', ':call nvim_win_close(0, v:true)<CR>')
+      -- vim.api.nvim_win_set_option(0, 'cursorline', false)
+    end
+  end)
 end
 
 --------------------------------------------------------------------------------
@@ -422,9 +432,6 @@ end
 
 lsp.setup_highlight = function()
   local pinnacle = require'wincent.pinnacle'
-
-  -- floating window background color (THIS SETS ALL NEW TABS TO HAVE THE SAME BG COLOR...)
-  --vim.api.nvim_set_option('winhighlight', 'Normal:Visual,NormalNC:Visual')
 
   -- error
   vim.cmd('highlight LspDiagnosticsVirtualTextError ' .. pinnacle.decorate('bold,italic', 'ModeMsg'))
