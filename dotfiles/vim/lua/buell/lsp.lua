@@ -100,6 +100,8 @@ local on_attach = function(client, bufnr)
     ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true, border="solid"})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
     ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    [']g']         = '<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={show_header=true, border="solid"}})<CR>',
+    ['[g']         = '<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={show_header=true, border="solid"}})<CR>',
   }
 
   for lhs, rhs in pairs(mappings) do
