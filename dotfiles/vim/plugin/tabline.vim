@@ -77,9 +77,20 @@ if exists("+showtabline")
 
   " function to generate tab line by looping through open pages
   function! BuellTabLine() abort
+
     " set vars for the current state of affairs
     let l:gutter_width = buell#statusline#gutterwidth()
     let l:p = repeat(' ', gutter_width - 1)
+
+    " hacky solution to keep tab line padded when entering lsp popups
+    if get(w:, 'textDocument/hover')
+      let l:p = '        '
+      return ""
+    endif
+    if get(w:, 'line_diagnostics')
+      let l:p = '        '
+      return ""
+    endif
 
     " try full size
     let l:bar = BuellGenTabText(l:p, 0, 0, 0)
