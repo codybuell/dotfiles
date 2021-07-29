@@ -82,7 +82,7 @@ if exists("+showtabline")
     let l:gutter_width = buell#statusline#gutterwidth()
     let l:p = repeat(' ', gutter_width - 1)
 
-    " hacky solution to keep tab line padded when entering lsp popups
+    " hacky solution to deal with tab line lhs padding when entering lsp popups
     if get(w:, 'textDocument/hover')
       let l:p = '        '
       return ""
