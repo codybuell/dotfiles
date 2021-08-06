@@ -125,7 +125,7 @@ local on_attach = function(client, bufnr)
       -- use a popup to show diagnostics instead of virtualtext
       --vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})')
       -- populate the loclist when errors are present
-      vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.lsp.diagnostic.set_loclist({open_loclist=false, severity_limit="Warning"})')
+      -- vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.lsp.diagnostic.set_loclist({open_loclist=false, severity_limit="Warning"})')
       if client.resolved_capabilities.document_formatting then
         if vim.api.nvim_buf_get_option(bufnr, "filetype") == "go" then
           -- vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")

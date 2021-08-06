@@ -35,11 +35,7 @@ compe.setup = function()
       ultisnips = {
         priority = 90,
       },
-      mail = {
-        priority = 85,
-        filetypes = {'markdown', 'mail'},
-      },
-      contact = {
+      lbdb = {
         priority = 80,
         filetypes = {'markdown', 'mail'},
       },
