@@ -4,7 +4,7 @@
 "                "
 """"""""""""""""""
 
-" bail if deoplete is not installed
+" bail if nvim-compe is not installed
 if !buell#helpers#PluginExists('nvim-compe')
   finish
 endif
