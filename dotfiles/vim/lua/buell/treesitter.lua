@@ -31,8 +31,7 @@ ts.setup = function ()
     --ignore_install = { "javascript" },        -- List of parsers to ignore installing
     highlight = {
       enable = true,                            -- false will disable the whole extension
-      -- disable = { "c", "rust" },             -- list of language that will be disabled
-      -- additional_vim_regex_highlighting = false,
+      disable = { "yaml" },                     -- native vim syntax highlighting is better
     },
   }
 
