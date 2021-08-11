@@ -174,3 +174,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/nvim-base16"]
 	path = dotfiles/vim/pack/bundle/opt/nvim-base16
 	url = https://github.com/RRethy/nvim-base16.git
+[submodule "dotfiles/vim/pack/bundle/opt/compe-lbdb"]
+	path = dotfiles/vim/pack/bundle/opt/compe-lbdb
+	url = https://github.com/codybuell/compe-lbdb.git

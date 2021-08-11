@@ -187,6 +187,7 @@ if &loadplugins
     packadd! editorconfig-vim        " support project defined syntax standards
 
     if has('nvim')
+      packadd! compe-lbdb            " lbdb completion for nvim-compe
       packadd! nvim-base16           " base16 colors themes with tresitter and lsp support
       packadd! firenvim              " use neovim in browser textareas
       packadd! nvim-lspconfig        " configurations for native lsp client

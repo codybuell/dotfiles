@@ -37,7 +37,6 @@ compe.setup = function()
       },
       lbdb = {
         priority = 80,
-        filetypes = {'markdown', 'mail'},
       },
       spell = {
         priority = 75,
@@ -50,7 +49,9 @@ compe.setup = function()
       buffer = {
         priority = 70,
       },
-      emoji = false,
+      emoji = {
+        filetypes = {'markdown', 'mail'},
+      },
       luasnip = false,
       calc = false,
       vsnip = false,
