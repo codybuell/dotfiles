@@ -14,7 +14,7 @@ endif
 "    -i  for case insensitive search :Ack -i term
 
 let g:FerretExecutableArguments = {
-  \   'rg': '--hidden'
+  \   'rg': '--vimgrep --no-heading --max-columns 4096 --hidden'
   \ }
 
 nmap                        <leader>aa        <Plug>(FerretAck)

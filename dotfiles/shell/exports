@@ -118,3 +118,6 @@ export PROMPT_EOL_MARK=
 
 # node version manager
 export NVM_DIR="$HOME/.nvm"
+
+# ripgrep configuration file
+export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
