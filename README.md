@@ -109,6 +109,7 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make composer
         make dots
         make osx
+        make symlinks
 
     Centos:
 
@@ -121,6 +122,7 @@ A `Makefile` has been provided to handle system preparation, testing, and ultima
         make node
         make composer
         make dots
+        make symlinks
 
 ### Ad Hoc Dotfiles
 

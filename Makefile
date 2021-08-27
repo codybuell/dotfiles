@@ -20,7 +20,8 @@ default:
 	    \033[1;32mfull\033[0;32m      attempt to detect os and run all configurations\033[0m\n\n\
 	\
 	    \033[1;34mrepos\033[0;34m     clone repositories listed in the config file\033[0m\n\
-	    \033[1;34mpaths\033[0;34m     create all needed paths and symlinks\033[0m\n\
+	    \033[1;34mpaths\033[0;34m     create all needed paths\033[0m\n\
+	    \033[1;34msymlinks\033[0;34m  create all needed symlinks\033[0m\n\
 	    \033[1;34mbrew\033[0;34m      run brew installations\033[0m\n\
 	    \033[1;34mmas\033[0;34m       run mas installations\033[0m\n\
 	    \033[1;34mgo\033[0;34m        run go configuration\033[0m\n\
@@ -53,6 +54,9 @@ repos:
 
 paths:
 	scripts/paths.sh
+
+symlinks:
+	scripts/symlinks.sh
 
 brew:
 	scripts/brew.sh
