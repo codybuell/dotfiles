@@ -312,6 +312,10 @@ case `sw_vers -productVersion | awk -F '.' '{print $1 "." $2}'` in
     NUMVER=1100
     OSVER='big sur'
     ;;
+  '11.5')
+    NUMVER=1105
+    OSVER='big sur'
+    ;;
   *)
     OSVER='unknown'
     ;;
