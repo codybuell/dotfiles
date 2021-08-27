@@ -38,8 +38,7 @@ PACKAGES=( \
     'ag' \                          # silver searcher, ack like func
     'asciinema' \                   # terminal screen recordings
     'awscli' \                      # aws api cli client
-    'aws-sam-cli' \                 # aws serverless application model cli client
-    'azurecli' \                    # azure api cli client
+    'azure-cli' \                   # azure api cli client
     'clipper' \                     # clipboard listener service, dep for vim configs
     'composer' \                    # php package manager
     'coreutils' \                   # gnu replacements for core utilities (gls, gdate, g*, etc)
@@ -142,55 +141,55 @@ PACKAGES=( \
 #   'yarn' \                        # bower replacement with checksums
 
 CASKS=( \
-    'alacritty' \                   # alacritty gpu accelerated terminal
-    'amazon-workspaces' \           # aws vdi client
-    'balenaetcher' \                # img to sd card writer
-    'bartender' \                   # tool for simplifying the menubar
-    'bitwarden' \                   # password / secret management
-    'blender' \                     # 3d cad software
-    'chromedriver' \                # webapp testing server
-    'cubicsdr' \                    # good sdr dongle front end
-    'docker' \                      # the docker engine
-    'dropbox' \                     # file collaboration
-    'fantastical' \                 # calendar replacement
-    'firefox' \                     # alternative web browser
-    'gimp' \                        # open source bitmap editor
-    'google-chrome' \               # chrome browser
-    'google-drive' \                # file collaboration
-    'hammerspoon' \                 # osx automation tool
-    'imageoptim' \                  # image file optimizer
-    'iterm2' \                      # improved terminal emulator
-    'kap' \                         # screen recording (gif mp4 etc)
-    'karabiner-elements' \          # keyboard layout customization
-    'keybase' \                     # encryption and crypto wallet
-    'keycastr' \                    # show keystrokes on screen
-    'libreoffice' \                 # open source office suite
-    'licecap' \                     # gifcasting utility
-    'meshmixer' \                   # 3d modeling software
-    'obs' \                         # open broadcast software
-    'qlstephen' \                   # ability to open all plain text files in quick look
-    'session-manager-plugin' \      # aws cli ssm plugin
-    'sketch' \                      # graphics design and layout
-    'slack' \                       # collaboration and chat application
-    'steam' \                       # steam gaming service
-    'synology-drive' \              # synology drive client
-    'tg-pro' \                      # advanced fan control
-    'vagrant' \                     # vms as packages management solution
-    'virtualbox' \                  # virtualization utility
-    'vmware-horizon-client' \       # vdi client
-    'xquartz' \                     # osxs implemenrtation of x11
-    'inkscape' \                    # vector graphics application, must be last
-    'zoomus' \                      # zoom video conferencing app
+    'alacritty' \                                # alacritty gpu accelerated terminal
+    'amazon-workspaces' \                        # aws vdi client
+    'balenaetcher' \                             # img to sd card writer
+    'bartender' \                                # tool for simplifying the menubar
+    'bitwarden' \                                # password / secret management
+    'blender' \                                  # 3d cad software
+    'chromedriver' \                             # webapp testing server
+    'cubicsdr' \                                 # good sdr dongle front end
+    'docker' \                                   # the docker engine
+    'dropbox' \                                  # file collaboration
+    'fantastical' \                              # calendar replacement
+    'firefox' \                                  # alternative web browser
+    'gimp' \                                     # open source bitmap editor
+    'google-chrome' \                            # chrome browser
+    'google-drive' \                             # file collaboration
+    'hammerspoon' \                              # osx automation tool
+    'imageoptim' \                               # image file optimizer
+    'iterm2' \                                   # improved terminal emulator
+    'kap' \                                      # screen recording (gif mp4 etc)
+    'karabiner-elements' \                       # keyboard layout customization
+    'keybase' \                                  # encryption and crypto wallet
+    'keycastr' \                                 # show keystrokes on screen
+    'libreoffice' \                              # open source office suite
+    'licecap' \                                  # gifcasting utility
+    'meshmixer' \                                # 3d modeling software
+    'obs' \                                      # open broadcast software
+    'qlstephen' \                                # ability to open all plain text files in quick look
+    'session-manager-plugin' \                   # aws cli ssm plugin
+    'sketch' \                                   # graphics design and layout
+    'slack' \                                    # collaboration and chat application
+    'steam' \                                    # steam gaming service
+    'homebrew/cask-drivers/synology-drive' \     # synology drive client
+    'tg-pro' \                                   # advanced fan control
+    'vagrant' \                                  # vms as packages management solution
+    'virtualbox' \                               # virtualization utility
+    'vmware-horizon-client' \                    # vdi client
+    'xquartz' \                                  # osxs implemenrtation of x11
+    'inkscape' \                                 # vector graphics application, must be last
+    'zoom' \                                     # zoom video conferencing app
 )
 
 # OLD CASKS
-#   'balsamiq-mockups' \            # wireframing tool
-#   'bitbar' \                      # shell output in menubar
-#   'geektool' \                    # desktop information center
-#   'itsycal' \                     # menubar calendar
-#   'seil' \                        # utility for remapping caps lock
-#   'ubersicht' \                   # alternative to geektool
-#   'caskroom/versions/google-chrome-canary'  # bleeding edge chrome
+#   'balsamiq-mockups' \                         # wireframing tool
+#   'bitbar' \                                   # shell output in menubar
+#   'geektool' \                                 # desktop information center
+#   'itsycal' \                                  # menubar calendar
+#   'seil' \                                     # utility for remapping caps lock
+#   'ubersicht' \                                # alternative to geektool
+#   'caskroom/versions/google-chrome-canary'     # bleeding edge chrome
 
 SERVICES=( \
     'clipper' \
@@ -231,10 +230,16 @@ TAPS=( \
   xcode-select --install
 }
 
+# install rosetta if m1 mac
+if [[ `uname -m` == 'arm64' ]]; then
+  softwareupdate --install-rosetta
+fi
+
 # install brew if necessary
 which brew > /dev/null
 [[ $? -gt 0 ]] && {
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
 #############
@@ -261,7 +266,7 @@ brew upgrade
 # install brew casks
 for i in ${CASKS[@]}; do
   # echo "brew cask install $i"
-  brew cask install $i
+  brew install --cask $i
 done
 
 # install brew packages
