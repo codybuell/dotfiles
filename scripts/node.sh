@@ -21,6 +21,9 @@
 #        ./node.sh
 #        sh -c "$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/node.sh)"
 
+PRIMARY_USER=$(whoami)
+PRIMARY_USER_HOME=$HOME
+
 ###################
 #                 #
 #  package lists  #
@@ -63,18 +66,21 @@ PACKAGES=( \
 # install nvm if necessary
 which nvm > /dev/null
 [[ $? -gt 0 ]] && {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 }
 
 # this should be setup in your shells rc file, running here manually to at least install
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# install latest lts version of node
-nvm install --lts
-
-# set to use latest lts version of node
-nvm use --lts
+# install v15 or latest lts depending on architecture
+if [ `/usr/bin/uname -m` == 'arm64' ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1" ]; then
+  nvm install v15
+  nvm use v15
+else
+  nvm install --lts
+  nvm use --lts
+fi
 
 #######################
 #                     #
@@ -86,5 +92,8 @@ nvm use --lts
 for i in ${PACKAGES[@]}; do
   sudo npm -g install $i
 done
+
+# ensure ~/.config is not owned by root
+sudo chown -R ${PRIMARY_USER}: ${PRIMARY_USER_HOME}/.config
 
 exit 0
