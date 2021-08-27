@@ -53,6 +53,12 @@ OSXPYTHON3=( \
 #                     #
 #######################
 
+# handle m1 mac architecture: https://stackoverflow.com/questions/66640705/how-can-i-install-grpcio-on-an-apple-m1-silicon-laptop
+if [ `/usr/bin/uname -m` == 'arm64' ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1" ]; then
+  export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
+  export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
+fi
+
 # pip for python 2 is no longer available via brew and does not come standard with osx
 if ! which pip; then
   sudo easy_install pip
@@ -60,18 +66,18 @@ fi
 
 # install python2 packages
 for i in ${PYTHON2[@]}; do
-  /usr/local/bin/pip install $i
+  pip install $i
 done
 
 # install python3 packages
 for i in ${PYTHON3[@]}; do
-  /usr/local/bin/pip3 install $i
+  pip3 install $i
 done
 
 # osx specific installs
 if [ `uname -s` = 'Darwin' ]; then
   for i in ${OSXPYTHON3[@]}; do
-    /usr/local/bin/pip3 install $i
+    pip3 install $i
   done
 fi
 
