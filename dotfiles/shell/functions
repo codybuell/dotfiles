@@ -311,6 +311,7 @@ function intip() {
 
 # fwknop helper
 function nok() {
+  TARGETPORT=${3:-22}
   case $1 in
     int )
       SRCIP=`intip`
@@ -336,9 +337,9 @@ function nok() {
 
   # fix ssh-agent issue
   if [ ! -z $TMUX ] && [ "$(uname)" = "Darwin" ]; then
-    TERM=xterm-256color reattach-to-user-namespace ssh $2
+    TERM=xterm-256color reattach-to-user-namespace ssh -p $TARGETPORT $2
   else
-    ssh $2
+    ssh -p $TARGETPORT $2
   fi
 }
 
