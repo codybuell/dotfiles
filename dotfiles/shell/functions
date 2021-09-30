@@ -240,7 +240,11 @@ function gpo() {
 # git push current branch
 function gpb() {
   CURRENT=$(git rev-parse --abbrev-ref HEAD)
-  git push origin $CURRENT
+  git push --progress origin $CURRENT 2>&1 | tee /tmp/lastgitpush
+  MRLINK=$(awk '/To create a merge request/{getline;print $2}' /tmp/lastgitpush)
+  if [[ ! -z "$MRLINK" ]]; then
+    open $MRLINK
+  fi
 }
 
 # git clone to folder structure $Repos/site/userORgroup/userORgroupN/repo
