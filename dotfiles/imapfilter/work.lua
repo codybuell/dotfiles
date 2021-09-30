@@ -43,6 +43,7 @@ function run()
   msmark   = work['MS Marketing']
   bonusly  = work['Bonusly']
   employee = work['Past Employees']
+  netdata  = work['Netdata']
 
   -- List mailboxes and folders
   --mailboxes, folders = work:list_all()
@@ -127,11 +128,12 @@ function run()
   print_status(new_spam, 'unread spam -> mark as read')
   new_spam:mark_seen()
 
-  -- all git related crap, except due date reminders
+  -- all git related crap, except due date reminders, failed pipelines, gitlab support
   movetofolder('git related notifications', git, (function()
-    results = inbox:match_field('Reply-To', 'GitLab .*') + 
+    results = inbox:match_field('Reply-To', 'GitLab .*') +
               inbox:match_field('Reply-To', '.*internal-service-account+.*') -
               inbox:contain_body('The following issue is due on') -
+              inbox:contain_subject('Failed pipeline for .*') -
               inbox:contain_from('GitLab Support')
 --    :contains_field('X-GitLab-NotificationReason', 'mentioned')
     return results
@@ -225,16 +227,10 @@ function run()
     return results
   end))
 
-  -----------------------------
-  --                         --
-  --  Archive & Mark as Read --
-  --                         --
-  -----------------------------
-  
   -- cms services related emails
   archive_and_mark_read('cms services messages', (function()
     results = inbox
-      :contain_from('Centers for Medicare & Medicaid Services .*')
+      :contain_from('cmslists@subscriptions.cms.hhs.gov')
     return results
   end))
 
