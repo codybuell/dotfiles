@@ -7,7 +7,7 @@
 let b:current_syntax = ''
 unlet b:current_syntax
 syntax include @SHELL syntax/sh.vim
-syntax region shellCode matchgroup=Identifier start="^  script: *| *$"rs=s+8 end="^  \w"he=s-1,me=s-1 contains=@SHELL
+syntax region shellCode matchgroup=Identifier start="^  script: *| *$"rs=s+8 end="^[ ]\{0,2\}\w"he=s-1,me=s-1 contains=@SHELL
 
 " let b:current_syntax = ''
 " unlet b:current_syntax
