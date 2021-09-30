@@ -847,6 +847,9 @@ defaults write com.apple.spotlight orderedItems -array \
   '{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
   '{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
 
+# bump banner notification auto dismissal from 5 to 10 seconds
+defaults write com.apple.notificationcenterui bannerTime -int 10
+
 # load new settings before rebuilding the index
 killall mds > /dev/null 2>&1
 
