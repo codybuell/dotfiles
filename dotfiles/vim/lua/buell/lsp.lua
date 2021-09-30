@@ -324,6 +324,7 @@ lsp.setup = function()
             library = {
               [vim.fn.expand('$VIMRUNTIME/lua')] = true,
               [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+              ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
             },
           },
           filetypes = {'lua'},
