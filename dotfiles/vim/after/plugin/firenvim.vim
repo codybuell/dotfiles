@@ -36,7 +36,6 @@ if exists('g:started_by_firenvim')
   \     },
   \   }
   \ }
-
 endif
 
 function s:SetUpFirenvimColorscheme()
