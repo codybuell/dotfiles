@@ -239,7 +239,7 @@ lsp.setup = function()
     }
   })
 
-  lspconfig.pyls.setup({
+  lspconfig.pylsp.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities,
@@ -294,7 +294,7 @@ lsp.setup = function()
   lspconfig.efm.setup({
     on_attach = on_attach,
     init_options = {
-      documentFormatting = true
+      documentFormatting = false
     },
     filetypes = {
       "sh"
@@ -323,7 +323,6 @@ lsp.setup = function()
     }
   })
 
-
   -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
   local cmd = vim.fn.expand(
       '~/Repos/github.com/sumneko/lua-language-server/bin/macOS/lua-language-server'
@@ -344,7 +343,7 @@ lsp.setup = function()
             library = {
               [vim.fn.expand('$VIMRUNTIME/lua')] = true,
               [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-              ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
+              -- ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
             },
           },
           filetypes = {'lua'},
