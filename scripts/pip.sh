@@ -38,7 +38,7 @@ PYTHON3=( \
     'pynvim' \                         # neovim client, required to use python with neovim
     'selenium' \                       # same as click
     'websocket-client' \               # required for wee-slack weechat plugin
-    'python-language-server[all]' \    # a better python language server than pyls??
+    'python-lsp-server[all]' \         # a better python language server than pyls??
     'c7n c7n-azure c7n-gcp c7n-org' \  # cloud custodian bits
 )
 

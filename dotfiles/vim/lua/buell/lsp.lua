@@ -455,7 +455,6 @@ end
 lsp.setup_highlight = function()
   local pinnacle = require'wincent.pinnacle'
 
-
   -- error
   vim.cmd('highlight DiagnosticVirtualTextError ' .. pinnacle.decorate('bold,italic', 'ModeMsg'))
   vim.cmd('highlight DiagnosticFloatingError ' .. pinnacle.highlight({fg = pinnacle.extract_fg('ErrorMsg')}))

@@ -55,6 +55,7 @@ PACKAGES=( \
   'intelephense' \                          # php language server
   'typescript-language-server' \            # javascript / typescript language server
   'vscode-css-languageserver-bin' \         # css/less/sass language server
+  'vscode-langservers-extracted' \          # a mix of language servers with bins copat with nvim-lspconfig
 )
 
 #################
@@ -90,7 +91,10 @@ fi
 
 # install node packages
 for i in ${PACKAGES[@]}; do
-  sudo npm -g install $i
+  echo
+  echo "-- installing $i --"
+  echo
+  npm -g install $i
 done
 
 # ensure ~/.config is not owned by root

@@ -68,6 +68,9 @@ function s:SetColorscheme()
 " call matchadd('NonText', '\s\+$', -1)
 " call matchadd('NonText', '\t\+', -1)
 
+  " TODO: use pinnacle to dynamically ingest the colors here, current method
+  " is not going to work if you switch themes...
+
   " overrides for listchars (lcs)
   " note that changes here need to also be reflected in
   " autoload/buell/helpers ToggleSpecialChars function
@@ -102,6 +105,9 @@ function s:SetColorscheme()
   " make popups a bit more distinct
   hi NormalFloat ctermfg=0 ctermbg=13 guifg=#c5c8c6 guibg=#282a2e
   hi FloatBorder ctermfg=0 ctermbg=13 guifg=#c5c8c6 guibg=#282a2e
+
+  " shim to make json errors readable with treesitter, else bg and fg are same
+  hi jsonNoQuotesError ctermfg=15 guifg=#1d1f21
 
   " overrides for pmenu, trickles down to virtual and preview windows
   " execute 'hi Pmenu ' . pinnacle#highlight({
