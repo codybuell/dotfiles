@@ -12,6 +12,7 @@ local messages    = require('lsp-status/messaging').messages
 --                                                                            --
 --------------------------------------------------------------------------------
 
+-- for lsp statusline
 local config = {
   indicator_separator = ' ',
   indicator_errors = '×',
@@ -182,25 +183,25 @@ lsp.setup = function()
   --  language servers  --
   ------------------------
 
-  lspconfig.bashls.setup{
+  lspconfig.bashls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.cssls.setup{
+  lspconfig.cssls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.dockerls.setup{
+  lspconfig.dockerls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.gopls.setup{
+  lspconfig.gopls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities,
@@ -214,21 +215,21 @@ lsp.setup = function()
         }
       }
     }
-  }
+  })
 
-  lspconfig.html.setup{
+  lspconfig.html.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.intelephense.setup{
+  lspconfig.intelephense.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.jsonls.setup{
+  lspconfig.jsonls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities,
@@ -236,9 +237,9 @@ lsp.setup = function()
       "json",
       "jsonc"
     }
-  }
+  })
 
-  lspconfig.pyls.setup{
+  lspconfig.pyls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities,
@@ -257,21 +258,21 @@ lsp.setup = function()
         }
       }
     }
-  }
+  })
 
-  lspconfig.tsserver.setup{
+  lspconfig.tsserver.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.vimls.setup{
+  lspconfig.vimls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities
-  }
+  })
 
-  lspconfig.yamlls.setup{
+  lspconfig.yamlls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = lsp_status.capabilities,
@@ -288,20 +289,39 @@ lsp.setup = function()
         }
       }
     }
-  }
+  })
 
-  lspconfig.efm.setup{
-  init_options = {documentFormatting = true},
-    filetypes = {"sh"},
+  lspconfig.efm.setup({
+    on_attach = on_attach,
+    init_options = {
+      documentFormatting = true
+    },
+    filetypes = {
+      "sh"
+    },
     settings = {
-      rootMarkers = {".git/"},
+      rootMarkers = {
+        ".git/"
+      },
       languages = {
           sh = {
-            {lintCommand = 'shellcheck -f gcc -x', lintSource = 'shellcheck', lintFormats= {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}}
+            {
+              lintCommand = 'shellcheck -f gcc -x',
+              lintSource  = 'shellcheck',
+              lintFormats = {
+                '%f:%l:%c: %trror: %m',
+                '%f:%l:%c: %tarning: %m',
+                '%f:%l:%c: %tote: %m'
+              }
+            },
+            {
+              lintCommand = 'shfmt -ci -s -bn',
+              formatStdin = true
+            }
           }
       }
     }
-  }
+  })
 
 
   -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
@@ -436,30 +456,37 @@ end
 lsp.setup_highlight = function()
   local pinnacle = require'wincent.pinnacle'
 
+
   -- error
-  vim.cmd('highlight LspDiagnosticsVirtualTextError ' .. pinnacle.decorate('bold,italic', 'ModeMsg'))
-  vim.cmd('highlight LspDiagnosticsFloatingError ' .. pinnacle.highlight({fg = pinnacle.extract_fg('ErrorMsg')}))
-  vim.cmd('highlight LspDiagnosticsSignError ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('ErrorMsg')}))
+  vim.cmd('highlight DiagnosticVirtualTextError ' .. pinnacle.decorate('bold,italic', 'ModeMsg'))
+  vim.cmd('highlight DiagnosticFloatingError ' .. pinnacle.highlight({fg = pinnacle.extract_fg('ErrorMsg')}))
+  vim.cmd('highlight DiagnosticSignError ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('ErrorMsg')}))
 
   -- warning
-  vim.cmd('highlight LspDiagnosticsVirtualTextWarning ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingWarning ' .. pinnacle.highlight({fg = pinnacle.extract_bg('Substitute')}))
-  vim.cmd('highlight LspDiagnosticsSignWarning ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_bg('Substitute')}))
+  vim.cmd('highlight DiagnosticVirtualTextWarning ' .. pinnacle.decorate('bold,italic', 'Type'))
+  vim.cmd('highlight DiagnosticFloatingWarning ' .. pinnacle.highlight({fg = pinnacle.extract_bg('Substitute')}))
+  vim.cmd('highlight DiagnosticSignWarn ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_bg('Substitute')}))
 
   -- information
-  vim.cmd('highlight LspDiagnosticsVirtualTextInformation ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingInformation ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Normal')}))
-  vim.cmd('highlight LspDiagnosticsSignInformation ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Conceal')}))
+  vim.cmd('highlight DiagnosticVirtualTextInformation ' .. pinnacle.decorate('bold,italic', 'Type'))
+  vim.cmd('highlight DiagnosticFloatingInformation ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Normal')}))
+  vim.cmd('highlight DiagnosticSignInfo ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Conceal')}))
 
   -- hint
-  vim.cmd('highlight LspDiagnosticsVirtualTextHint ' .. pinnacle.decorate('bold,italic', 'Type'))
-  vim.cmd('highlight LspDiagnosticsFloatingHint ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
-  vim.cmd('highlight LspDiagnosticsSignHint ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Type')}))
+  vim.cmd('highlight DiagnosticVirtualTextHint ' .. pinnacle.decorate('bold,italic', 'Type'))
+  vim.cmd('highlight DiagnosticFloatingHint ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
+  vim.cmd('highlight DiagnosticSignHint ' .. pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Type')}))
 
   -- document_highlight
   vim.cmd('highlight LspReferenceText ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
   vim.cmd('highlight LspReferenceRead ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
   vim.cmd('highlight LspReferenceWrite ' .. pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
+
+  -- config signs
+  vim.fn.sign_define("DiagnosticSignError", {text = "×", texthl = "DiagnosticSignError"})
+  vim.fn.sign_define("DiagnosticSignWarn", {text = "‼", texthl = "DiagnosticSignWarn"})
+  vim.fn.sign_define("DiagnosticSignInfo", {text = "i", texthl = "DiagnosticSignInfo"})
+  vim.fn.sign_define("DiagnosticSignHint", {text = "☝", texthl = "DiagnosticSignHint"})
 end
 
 --------------------------------------------------------------------------------

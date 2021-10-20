@@ -9,12 +9,6 @@ if !has('nvim') && !buell#helpers#PluginExists('nvim-lsp')
   finish
 endif
 
-" override sign column symbols
-sign define LspDiagnosticsSignError text=×
-sign define LspDiagnosticsSignWarning text=‼
-sign define LspDiagnosticsSignInformation text=i
-sign define LspDiagnosticsSignHint text=☝
-
 " load nvim-lsp lua config see ~/.vim/lua/buell/lsp.lua
 lua require'buell.lsp'.setup()
 
