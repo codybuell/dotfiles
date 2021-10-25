@@ -132,9 +132,13 @@ endif
 if &loadplugins
   if has('packages')
     " COMPLETION
-    " packadd! deoplete                " asynchronous completion utility
-    " packadd! deoplete-emoji          " deoplete completion source for emoji's
-    packadd! nvim-compe
+    packadd! nvim-cmp                " completion
+    packadd! cmp-path                " completion source
+    packadd! cmp-emoji               " completion source
+    packadd! cmp-buffer              " completion source
+    packadd! cmp-lbdb                " completion source
+    packadd! cmp-nvim-lsp            " completion source
+    packadd! cmp-nvim-ultisnips      " completion source
     packadd! ultisnips               " snippet utility
 
     " NAVIGATION
@@ -187,7 +191,6 @@ if &loadplugins
     packadd! editorconfig-vim        " support project defined syntax standards
 
     if has('nvim')
-      packadd! compe-lbdb            " lbdb completion for nvim-compe
       packadd! nvim-base16           " base16 colors themes with tresitter and lsp support
       packadd! firenvim              " use neovim in browser textareas
       packadd! nvim-lspconfig        " configurations for native lsp client

@@ -177,3 +177,24 @@
 [submodule "dotfiles/vim/pack/bundle/opt/compe-lbdb"]
 	path = dotfiles/vim/pack/bundle/opt/compe-lbdb
 	url = https://github.com/codybuell/compe-lbdb.git
+[submodule "dotfiles/vim/pack/bundle/opt/nvim-cmp"]
+	path = dotfiles/vim/pack/bundle/opt/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips
+	url = https://github.com/quangnguyen30192/cmp-nvim-ultisnips.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-path"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-nvim-lsp"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-emoji"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-emoji
+	url = https://github.com/hrsh7th/cmp-emoji.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-buffer"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-lbdb"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-lbdb
+	url = https://github.com/codybuell/cmp-lbdb.git

@@ -9,11 +9,6 @@ if !has('nvim') && !buell#helpers#PluginExists('nvim-lsp')
   finish
 endif
 
-" sign define DiagnosticSignError text=× texthl=DiagnosticSignError linehl= numhl=
-" sign define DiagnosticSignWarn text=‼ texthl=DiagnosticSignWarn linehl= numhl=
-" sign define DiagnosticSignInfo text=i texthl=DiagnosticSignInfo linehl= numhl=
-" sign define DiagnosticSignHint text=☝ texthl=DiagnosticSignHint linehl= numhl=
-
 " load nvim-lsp lua config see ~/.vim/lua/buell/lsp.lua
 lua require'buell.lsp'.setup()
 

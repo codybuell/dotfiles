@@ -31,6 +31,20 @@ local aliases = {
 
 lsp_status.register_progress()
 
+---------------------------------------------------------------------------------
+--                                                                           --
+--  capabilities                                                             --
+--                                                                           --
+---------------------------------------------------------------------------------
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+-- add cmp capabilities
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+-- add lsp-status capabilities
+capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
+
 --------------------------------------------------------------------------------
 --                                                                            --
 --  sort                                                                      --
@@ -186,25 +200,25 @@ lsp.setup = function()
   lspconfig.bashls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.cssls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.dockerls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.gopls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     settings = {
       gopls = {
         staticcheck = true,
@@ -220,19 +234,19 @@ lsp.setup = function()
   lspconfig.html.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.intelephense.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.jsonls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     filetypes = {
       "json",
       "jsonc"
@@ -242,9 +256,9 @@ lsp.setup = function()
   lspconfig.pylsp.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     settings = {
-      pyls = {
+      pylsp = {
         plugins = {
           pycodestyle = {
             maxLineLength = 200,
@@ -263,24 +277,21 @@ lsp.setup = function()
   lspconfig.tsserver.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.vimls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities
+    capabilities = capabilities
   })
 
   lspconfig.yamlls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     settings = {
       yaml = {
-        schemaStore = {
-          enable = true
-        },
         schemas = {
           ["http://schema.cloudtamer.io/v1/jumpstart-framework.json"] = 'frameworks/*.yml',
           ["http://schema.cloudtamer.io/v1/jumpstart-cc-aws.json"] = 'compliance-checks/cloud-custodian/aws/*.yml',
@@ -293,6 +304,8 @@ lsp.setup = function()
 
   lspconfig.efm.setup({
     on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities,
     init_options = {
       documentFormatting = false
     },
