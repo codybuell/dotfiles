@@ -198,3 +198,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/cmp-lbdb"]
 	path = dotfiles/vim/pack/bundle/opt/cmp-lbdb
 	url = https://github.com/codybuell/cmp-lbdb.git
+[submodule "dotfiles/vim/pack/bundle/opt/cmp-cmdline"]
+	path = dotfiles/vim/pack/bundle/opt/cmp-cmdline
+	url = https://github.com/hrsh7th/cmp-cmdline.git
