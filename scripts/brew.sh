@@ -64,6 +64,7 @@ PACKAGES=( \
     'jq' \                          # json manipulation and parsing tool
     'lbdb' \                        # used by mutt to build email auto completes
     'lastpass-cli' \                # lastpass command line interface
+    'llvm' \                        # clangd
     'lockrun' \                     # used for process flow control in mutt
     'mailhog' \                     # local mail trap service for testing
     'markdown' \                    # parsing of markdown syntax to html

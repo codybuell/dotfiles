@@ -197,6 +197,24 @@ lsp.setup = function()
   --  language servers  --
   ------------------------
 
+  lspconfig.clangd.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities
+  })
+
+  lspconfig.arduino_language_server.setup({
+    cmd = {
+      "arduino-language-server",
+      "-cli-config", "~/Library/Arduino15/arduino-cli.yaml",
+      "-cli", "/usr/local/bin/arduino-cli",
+      "-clangd", "/usr/local/Cellar/llvm/12.0.1/bin/clangd"
+    },
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities
+  })
+
   lspconfig.bashls.setup({
     on_attach = on_attach,
     on_exit = on_exit,

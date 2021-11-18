@@ -29,15 +29,16 @@ LINUX=( \
 
 # osx only packages
 OSX=( \
-  'github.com/wincent/passage' \           # utility for proxying to osx keychain
-  'github.com/keybase/go-keychain' \       # golang library for osx keychain, passage dep
+  'github.com/wincent/passage' \                   # utility for proxying to osx keychain
+  'github.com/keybase/go-keychain' \               # golang library for osx keychain, passage dep
 )
 
 # all platforms
 ALL=( \
-  'github.com/stamblerre/gocode' \         # replacement for nsf/gocode, deoplete-go dependency
-  'golang.org/x/tools/cmd/goimports' \     # go formatter and auto imports
-  'github.com/schachmat/wego' \            # command line weather
+  'github.com/stamblerre/gocode' \                 # replacement for nsf/gocode, deoplete-go dependency
+  'golang.org/x/tools/cmd/goimports' \             # go formatter and auto imports
+  'github.com/schachmat/wego' \                    # command line weather
+  'github.com/arduino/arduino-language-server' \   # lsp for aduino, requires clang and arduino-cli
 )
 
 # no longer in use:
