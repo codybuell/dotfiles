@@ -146,7 +146,9 @@ local on_attach = function(client, bufnr)
           -- vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")
           vim.api.nvim_command("autocmd BufWritePost <buffer> lua go_imports_on_save()")
         end
-        vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+        if vim.api.nvim_buf_get_option(bufnr, "filetype") ~= "arduino" then
+          vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+        end
       end
       if client.resolved_capabilities.document_highlight then
         vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
