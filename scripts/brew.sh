@@ -166,6 +166,7 @@ CASKS=( \
     'keycastr' \                                 # show keystrokes on screen
     'libreoffice' \                              # open source office suite
     'licecap' \                                  # gifcasting utility
+    'ltspice' \                                  # circuit simulation software
     'meshmixer' \                                # 3d modeling software
     'obs' \                                      # open broadcast software
     'qlstephen' \                                # ability to open all plain text files in quick look
