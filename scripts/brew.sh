@@ -101,6 +101,7 @@ PACKAGES=( \
     'todo-txt' \                    # ginas handy to do list manager
     'toilet' \                      # ascii art
     'tree' \                        # file and directory listing utility
+    'unar' \                        # tool for extracting rar and exe files
     'urlview' \                     # for viewing urls in mutt
     'vault' \                       # encrypted key value pair storage
     'vim' \                         # improved version of already installed vi
