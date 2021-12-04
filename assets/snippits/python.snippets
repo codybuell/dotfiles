@@ -279,6 +279,51 @@ endsnippet
 ##                                                                            ##
 ################################################################################
 
+snippet aoc "avent-of-code" b
+#!/usr/bin/env python
+# https://adventofcode.com/`date "+%Y"`/day/`date +%_d | sed 's/ //g'`
+
+###########
+#  setup  #
+###########
+
+
+# ingest data
+dataFile = open('data.txt', 'r')
+lines = dataFile.read().splitlines()
+
+# transform
+$0
+
+###########
+#  funcs  #
+###########
+
+
+
+###########
+#  parts  #
+###########
+
+
+def part1():
+    pass
+
+
+def part2():
+    pass
+
+
+##########
+#  main  #
+##########
+
+if __name__ == "__main__":
+    part1()
+    print('---')
+    part2()
+endsnippet
+
 snippet slack "slak webhook" b
 import os
 import requests
