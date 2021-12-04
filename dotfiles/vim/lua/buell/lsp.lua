@@ -20,7 +20,8 @@ local config = {
   indicator_info = 'i',
   indicator_hint = '☝',
   indicator_ok = ' ',
-  status_symbol = 'ℒ ',
+  -- status_symbol = 'ℒ ',
+  status_symbol = 'ι ',
   spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
   current_function = false,
 }

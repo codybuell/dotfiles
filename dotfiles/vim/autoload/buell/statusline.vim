@@ -174,7 +174,8 @@ function! buell#statusline#lhs() abort
   if l:treesitter != v:null || l:lspclient
     let l:line = '  '
     if l:treesitter != v:null
-      let l:line .= '𝒯'
+      " let l:line .= '𝒯'
+      let l:line .= 'τ'
     endif
     if l:lspclient
       let l:line .= '  ' . luaeval("require('buell.lsp').status()")
