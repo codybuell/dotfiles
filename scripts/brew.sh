@@ -93,6 +93,7 @@ PACKAGES=( \
     'rg' \                          # ripgrep, faster ack
     'rsync' \                       # newer version than out of box, fewer errors
     'ruby' \                        # use brew ruby over osx provided
+    'rust' \                        # rust programming language, needed for c7n
     's3cmd' \                       # aws s3 utility
     'shellcheck' \                  # linter / checker for shell scripts
     'sqlite' \                      # file based database
