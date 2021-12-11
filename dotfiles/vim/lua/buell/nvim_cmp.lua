@@ -21,24 +21,26 @@ nvim_cmp.setup = function()
       -- }),
     },
     sources = {
+      -- order of this list drive order in completion menu
+      {
+        name = 'ultisnips'
+      },
+      {
+        name = 'nvim_lsp'
+      },
       {
         name = 'emoji',
         insert = true
       },
       {
         name = 'buffer',
+        dup = 0,
         get_bufnrs = function()            -- complete from all buffers
           return vim.api.nvim_list_bufs()
         end
       },
       {
-        name = 'ultisnips'
-      },
-      {
         name = 'path'
-      },
-      {
-        name = 'nvim_lsp'
       },
       {
         name = 'lbdb'
@@ -51,21 +53,21 @@ nvim_cmp.setup = function()
     },
   })
 
-    -- Use buffer source for `/`.
-  cmp.setup.cmdline('/', {
-    sources = {
-      { name = 'buffer' }
-    }
-  })
+  -- -- Use buffer source for `/`.
+  -- cmp.setup.cmdline('/', {
+  --   sources = {
+  --     { name = 'buffer' }
+  --   }
+  -- })
 
-  -- Use cmdline & path source for ':'.
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
+  -- -- Use cmdline & path source for ':'.
+  -- cmp.setup.cmdline(':', {
+  --   sources = cmp.config.sources({
+  --     { name = 'path' }
+  --   }, {
+  --     { name = 'cmdline' }
+  --   })
+  -- })
 
 end
 
