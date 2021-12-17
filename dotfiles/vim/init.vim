@@ -307,6 +307,7 @@ set foldmethod=syntax                              " enable folding by syntax by
 set foldexpr=nvim_treesitter#foldexpr()            " use tresitter for fold expression method
 set foldlevel=1                                    " fold second level and greater
 set foldcolumn=2                                   " show the fold column
+set nofoldenable                                   " have folding off by default
 set laststatus=2                                   " enable statusline
 set noshowmode                                     " dont show modes, statusline does it
 set lazyredraw                                     " no redraw during macros etc
