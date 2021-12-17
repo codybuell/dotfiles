@@ -56,6 +56,7 @@ PACKAGES=( \
   'typescript-language-server' \            # javascript / typescript language server
   'vscode-css-languageserver-bin' \         # css/less/sass language server
   'vscode-langservers-extracted' \          # a mix of language servers with bins copat with nvim-lspconfig
+  'vls' \                                   # vue language server
 )
 
 #################

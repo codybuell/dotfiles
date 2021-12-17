@@ -258,6 +258,12 @@ lsp.setup = function()
     capabilities = capabilities
   })
 
+  lspconfig.vuels.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities
+  })
+
   lspconfig.intelephense.setup({
     on_attach = on_attach,
     on_exit = on_exit,
