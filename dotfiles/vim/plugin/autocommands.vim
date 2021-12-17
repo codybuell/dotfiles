@@ -63,5 +63,9 @@ if has('autocmd')
       au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Substitute", timeout=200}
     endif
 
+    " set a global variable for git branch so we don't have to make constant
+    " system calls when rendering the status bar (to show current file branch)
+    au BufWinEnter * let b:git_branch=buell#helpers#GitBranch()
+
   augroup END
 endif

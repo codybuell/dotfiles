@@ -25,9 +25,10 @@ function! buell#statusline#drawstatusline() abort
   "   %R                                               read-only flag: ,RO or nothing
   "   %{buell#statusline#ft()}                         filetype (not using %Y because I don't want caps)
   "   %{buell#statusline#fenc()}                       file-encoding and file format
+  "   %{buell#statusline#branch()}                     current branch if in a repo
   "   ]                                                right bracket (literal)
   "   %)                                               end item group
-  set statusline+=%([%{ObsessionStatus('$','S')}%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}]%)
+  set statusline+=%([%{ObsessionStatus('$','S')}%M%R%{buell#statusline#ft()}%{buell#statusline#fenc()}%{buell#statusline#branch()}]%)
 
   set statusline+=%4*                                " reset highlight group
   set statusline+=%=                                 " split point for left and right groups
@@ -41,6 +42,12 @@ function! buell#statusline#drawstatusline() abort
   set statusline+=%{buell#statusline#rhs()}          " call rhs statusline autocommand
   set statusline+=%*                                 " reset highlight group
 endfunction
+
+function! buell#statusline#branch() abort
+  if strlen(b:git_branch)
+    return ',' . b:git_branch
+  endif
+endfunc
 
 function! buell#statusline#sessionname() abort
   if exists(':Obsession')

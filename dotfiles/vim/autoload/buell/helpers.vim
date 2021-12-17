@@ -523,6 +523,20 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
+" Git Branch                                                                   "
+"                                                                              "
+" Get the git branch of the current file.                                      "
+"                                                                              "
+" @return string                                                               "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function buell#helpers#GitBranch() abort
+  return trim(system("git -C " . expand("%:p:h") . " branch --show-current 2>/dev/null"))
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                              "
 " Plugin Exists                                                                "
 "                                                                              "
 " Check that the plugin exists in the runtimepath and that the actual path     "
