@@ -10,24 +10,36 @@ window:
     y: 2
 font:
   normal:
-    family: "Source Code Pro"
-    style: "Light"
+    family: "JetBrains Mono"
+    style: "ExtraLight"
   bold:
-    family: "Source Code Pro"
-    style: "Medium"
+    family: "JetBrains Mono"
+    style: "SemiBold"
   italic:
-    family: "Source Code Pro"
-    style: "Light Italic"
+    family: "JetBrains Mono"
+    style: "ExtraLight Italic"
   bold_italic:
-    family: "Source Code Pro"
-    style: "Medium Italic"
+    family: "JetBrains Mono"
+    style: "SemiBold Italic"
+  # normal:
+  #   family: "Source Code Pro"
+  #   style: "Light"
+  # bold:
+  #   family: "Source Code Pro"
+  #   style: "Medium"
+  # italic:
+  #   family: "Source Code Pro"
+  #   style: "Light Italic"
+  # bold_italic:
+  #   family: "Source Code Pro"
+  #   style: "Medium Italic"
   size: 13.5
-offset:
-  x: 0
-  y: 14
-glyph_offset:
-  x: 0
-  y: 7
+  offset:
+    x: 1
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
 use_thin_strokes: false
 draw_bold_text_with_bright_colors: false
 live_config_reload: true
