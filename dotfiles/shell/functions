@@ -466,15 +466,15 @@ function home() {
       tmux split-window -t HOME:home -h -p 45 -c ~/
       tmux split-window -t HOME:home.1 -v -p 60 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
-      tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi' Enter
-      tmux send-keys -t HOME:home.3 'cd ~/Desktop; weechat' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Desktop; wj' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.vim/sessions/home"' Enter
 
       #--- layout 2 (right primary workspace)
 #     tmux split-window -t HOME:home -h -p 66 -c ~/
 #     tmux split-window -t HOME:home -b -v -p 40 -c ~/
-#     tmux send-keys -t HOME:home.1 'weechat' Enter
+#     tmux send-keys -t HOME:home.1 'cd ~/Desktop; vi -c ":so ~/.vim/sessions/home"' Enter
 #     tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
-#     tmux send-keys -t HOME:home.3 'vi' Enter
+#     tmux send-keys -t HOME:home.3 'cd ~/Desktop; wj' Enter
 
       # build control window
       tmux new-window -t HOME: -c ~/.mutt -n control
