@@ -261,7 +261,14 @@ lsp.setup = function()
   lspconfig.vuels.setup({
     on_attach = on_attach,
     on_exit = on_exit,
-    capabilities = capabilities
+    capabilities = capabilities,
+    init_options = {
+      config = {
+        vetur = {
+          ignoreProjectWarning = true,
+        }
+      }
+    }
   })
 
   lspconfig.intelephense.setup({
