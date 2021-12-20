@@ -198,10 +198,9 @@ function run()
   end))
 
   -- aws marketplace new daily customers
-  movetofolder('new aws mp customers', awsmp, (function()
-    results = inbox
-      :contain_from('aws-account-inbox@cloudtamer.io')
-      :contain_subject('You have a new Daily')
+  movetofolder('new aws marketplace', awsmp, (function()
+    results = inbox:contain_from('aws-account-inbox@kion.io'):contain_subject('You have a new Daily') +
+              inbox:contain_from('AWS Marketplace')
     return results
   end))
 
