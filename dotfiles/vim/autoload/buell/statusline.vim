@@ -44,8 +44,9 @@ function! buell#statusline#drawstatusline() abort
 endfunction
 
 function! buell#statusline#branch() abort
-  if strlen(b:git_branch)
-    return ',' . b:git_branch
+  let l:branch = get(b:, 'git_branch', '')
+  if strlen(l:branch)
+    return ',' . l:branch
   endif
 endfunc
 
