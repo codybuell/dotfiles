@@ -201,3 +201,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/cmp-cmdline"]
 	path = dotfiles/vim/pack/bundle/opt/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-schlepp"]
+	path = dotfiles/vim/pack/bundle/opt/vim-schlepp
+	url = https://github.com/zirrostig/vim-schlepp.git
