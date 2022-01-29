@@ -51,6 +51,7 @@ local grid = {
   portraitLarge     = '4,4 10x18',
   portraitSmall     = '4,4 8x14',
   landscapeSmall    = '7,7 10x11',
+  centeredMini      = '9.5,9 5x6',
   -- tops
   topHalf           = '0,0 24x12',
   topThird          = '0,0 24x8',
@@ -402,6 +403,7 @@ hs.hotkey.bind(mash, 'up', chain({
 --if primaryWxH == "1680x1050" then
   hs.hotkey.bind(mash, 'down', chain({
     grid.landscapeSmall,
+    grid.centeredMini,
     grid.fullScreen,
     grid.halfFull,
     grid.laptopGoldenLarge,
