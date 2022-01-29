@@ -41,7 +41,7 @@ if has('autocmd')
     au BufWinLeave ?* silent! mkview
 
     " auto-remove trailing spaces on php and txt files
-    au BufWritePre *.php,*.py,*.scss,*.md,*.txt :%s/\s\+$//e
+    au BufWritePre *.php,*.py,*.scss call buell#helpers#ZapWhitespace()
 
     " create parent directories as needed when saving buffers
     au BufWritePre * :call buell#helpers#CreateNeededDirs(expand('<afile>'), +expand('<abuf>'))
