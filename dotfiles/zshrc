@@ -271,6 +271,7 @@ source $HOME/.shell/path
 source $HOME/.shell/vars
 source $HOME/.shell/vault
 source $HOME/.shell/docker
+source $HOME/.shell/kubernetes
 
 # conditional sources
 test -e $HOME/.rvm/scripts/rvm && source $HOME/.rvm/scripts/rvm

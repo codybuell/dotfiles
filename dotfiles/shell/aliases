@@ -15,6 +15,7 @@ alias m=mosh
 alias n=note
 alias p=project
 alias sed=gsed
+alias k=kubectl
 
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
