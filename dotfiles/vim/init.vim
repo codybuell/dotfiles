@@ -173,6 +173,7 @@ if &loadplugins
     packadd! vim-repeat              " add ability to repeat non atomic functions
     packadd! vim-speeddating         " ctrl-a ctrl-x to increment decrement dates
     packadd! vim-surround            " ability to change surrounding enclosures
+    packadd! vim-schlepp             " visual block dragging
 
     " INTEGRATIONS
     packadd! terminus                " improved terminal and tmux integration

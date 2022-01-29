@@ -21,11 +21,15 @@
 " verbose vmap [key]
 
 " damian conways drag visul utility
-vmap      <expr>            <Left>            DVB_Drag('left')
-vmap      <expr>            <Right>           DVB_Drag('right')
-vmap      <expr>            <Down>            DVB_Drag('down')
-vmap      <expr>            <Up>              DVB_Drag('up')
+" vmap      <expr>            <Left>            DVB_Drag('left')
+" vmap      <expr>            <Right>           DVB_Drag('right')
+" vmap      <expr>            <Down>            DVB_Drag('down')
+" vmap      <expr>            <Up>              DVB_Drag('up')
 vmap      <expr>            D                 DVB_Duplicate()
+vmap      <unique>          <up>              <Plug>SchleppUp
+vmap      <unique>          <down>            <Plug>SchleppDown
+vmap      <unique>          <left>            <Plug>SchleppLeft
+vmap      <unique>          <right>           <Plug>SchleppRight
 
 " line sorting (length, alphabetical)
 vmap      <silent>          <leader>sl        :'<,'>!awk '{print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<CR>
