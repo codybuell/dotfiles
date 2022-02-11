@@ -198,9 +198,11 @@ if &loadplugins
       packadd! nvim-lspconfig        " configurations for native lsp client
       packadd! nvim-treesitter       " configurations for treesitter engine
       packadd! lsp-status.nvim       " library of utilities for lsp
-      " packadd! deoplete-lsp          " native lsp completion support for deoplete
+    " packadd! deoplete-lsp          " native lsp completion support for deoplete
       packadd! markdown-preview.nvim " sync'd, browser based mkd preview
-     "packadd! float-preview.nvim    " floating windows for preview instead of splits
+      packadd! todo-comments.nvim    " pulls comment tags into quickfix / loclist
+      packadd! plenary.nvim          " common lua functions library
+    " packadd! float-preview.nvim    " floating windows for preview instead of splits
     endif
   else
     source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim
