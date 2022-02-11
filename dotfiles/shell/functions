@@ -476,6 +476,10 @@ function home() {
 #     tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
 #     tmux send-keys -t HOME:home.3 'cd ~/Desktop; wj' Enter
 
+      # build notes/journal window
+      tmux new-window -t HOME: -c ~/.mutt -n notes
+      tmux send-keys -t HOME:notes.1 'wj' Enter
+
       # build control window
       tmux new-window -t HOME: -c ~/.mutt -n control
       tmux set-window-option -t HOME:control automatic-rename off
