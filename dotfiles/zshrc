@@ -15,6 +15,9 @@ fi
 ##                                                                            ##
 ## Completion                                                                 ##
 ##                                                                            ##
+## to flush completion cache and force a rebuild:                             ##
+##   rm -f ~/.zcompdump; compinit                                             ##
+##                                                                            ##
 ################################################################################
 
 # add completions folder to fpath
@@ -35,6 +38,13 @@ zstyle ':completion:*' list-colors ''
 
 # keep cdpath functional but don't list in autocompletions
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
+
+# allow stacking -i and -t options like -it and still support completion
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# group completions by source
+zstyle ':completion:*' group-name ''
 
 # kubectl completions
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)

@@ -16,6 +16,7 @@ alias n=note
 alias p=project
 alias sed=gsed
 alias k=kubectl
+alias d=docker
 
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
@@ -65,6 +66,7 @@ alias gbv="git branch -v"
 alias gba="git branch -a"
 alias gco="git checkout"
 alias log="git log --pretty=oneline"
+alias gsa="clear && git status && git branch -v"
 
 # arduino cli
 alias ard="arduino-cli"
