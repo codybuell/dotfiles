@@ -258,7 +258,7 @@ function! buell#statusline#update_highlight() abort
 
   " inverted error styling, for left-hand side "powerline" triangle
   let l:fg=pinnacle#extract_bg('Error')
-  let l:bg=pinnacle#extract_bg('StatusLine')
+  let l:bg=pinnacle#extract_bg('Visual')
   execute 'highlight User4 ' . pinnacle#highlight({'bg': l:bg, 'fg': l:fg})
 
   " and opposite for the buffer number area
