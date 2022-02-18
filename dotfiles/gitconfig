@@ -21,6 +21,7 @@
   default = current
 [merge]
   tool = vimdiff
+  conflictStyle = diff3
 [diff]
   tool = vimdiff
 [alias]
