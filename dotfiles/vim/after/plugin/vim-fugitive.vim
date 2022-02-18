@@ -49,12 +49,18 @@ endif
 "    - P to reblame at the parent of commit under cursor
 " 3. close the gblame window: ␣gq
 " 4. return to working tree version: ␣ge
+"
+" View previous version workflow
+" 1. open desired file, ␣gl, will jump to last committed state
+" 2. navigate quickfix list to select previos version of file
+" 3. when done ␣ge to jump back to the working version of the file
 
 " general buffer bindings
 nnoremap  <silent>          <leader>gs        :Git<CR>:20wincmd_<CR>
 nnoremap  <silent>          <leader>gb        :Git blame<CR>
 nnoremap  <silent>          <leader>gp        :Git push<CR>
-nnoremap  <silent>          <leader>gl        :silent! Gclog!<CR>:bot copen<CR>
+nnoremap  <silent>          <leader>gl        :silent! 0Gclog<CR>
+nnoremap  <silent>          <leader>gL        :silent! Gclog!<CR>:bot copen<CR>
 nnoremap  <silent>          <leader>gd        :Gvdiffsplit!<CR>
 nnoremap  <silent>          <leader>gh        :diffget //2<CR>
 nnoremap  <silent>          <leader>gm        :diffget //3<CR>
