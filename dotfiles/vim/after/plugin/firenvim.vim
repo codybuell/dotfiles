@@ -36,16 +36,19 @@ if exists('g:started_by_firenvim')
   \     },
   \   }
   \ }
+
 endif
 
 function s:SetUpFirenvimColorscheme()
   
   " set a light colorscheme so it doesn't clash with the native webpage
-  colorscheme base16-github
+  " colorscheme base16-github
   " colorscheme base16-default-light
   " colorscheme base16-google-light
   " colorscheme base16-grayscale-light
   " colorscheme base16-tomorrow
+
+  colorscheme base16-tomorrow-night
 
 endfunction
 
