@@ -218,6 +218,12 @@ lsp.setup = function()
     capabilities = capabilities
   })
 
+  lspconfig.angularls.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities
+  })
+
   lspconfig.bashls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
