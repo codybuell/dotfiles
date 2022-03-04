@@ -67,5 +67,8 @@ if has('autocmd')
     " system calls when rendering the status bar (to show current file branch)
     au BufWinEnter * let b:git_branch=buell#helpers#GitBranch()
 
+    " in quickfix windows open file under cursor in new tab with <C-t>
+    autocmd FileType qf nnoremap <buffer> <C-t> <C-W><Enter><C-W>T
+
   augroup END
 endif
