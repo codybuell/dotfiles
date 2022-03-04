@@ -217,10 +217,10 @@ postplacehooks() {
       # $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
 
       # run UpdateRemotePlugins for deoplete to populate ~/.local/share/nvim/rplugin.vim
-      $NVIMPATH -E -s -u "~/.vim/init.vim" +UpdateRemotePlugins +qa
+      $NVIMPATH -E -s -u "~/.vim/init.vim" +UpdateRemotePlugins +qa &> /dev/null
 
       # generate helptags for all plugins
-      $NVIMPATH -E -s -u "~/.vim/init.vim" +'helptags ALL' +qa
+      $NVIMPATH -E -s -u "~/.vim/init.vim" +'helptags ALL' +qa &> /dev/null
       $VIMPATH -E +'helptags ALL' +qa &> /dev/null
 
       # firenvim
