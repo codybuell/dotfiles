@@ -61,6 +61,7 @@ local grid = {
   rightThird        = '16,0 8x24',
   rightHalf         = '12,0 12x24',
   rightTwoThirds    = '8,0 16x24',
+  rightSeven12ths   = '10,0 14x24',
   -- bottoms
   bottomHalf        = '0,12 24x12',
   bottomThird       = '0,16 24x8',
@@ -71,6 +72,7 @@ local grid = {
   leftHalf          = '0,0 12x24',
   leftTwoThirds     = '0,0 16x24',
   leftThreeQuarters = '0,0 18x24',
+  leftSeven12ths    = '0,0 14x24',
   -- customs
   widescreenRight37P = '15,0 9x24', --web browser widescreen
   widescreenRight63P = '9,0 15x24',
@@ -156,7 +158,8 @@ local layoutConfig = {
     if primaryWxH == "3840x1600" then -- 38" ultrawide
       hs.grid.set(window, grid.widescreenLeft63P)
     elseif primaryWxH == "3840x2160" then -- 32" 4k
-      hs.grid.set(window, grid.widescreenRight63P)
+      -- hs.grid.set(window, grid.widescreenRight63P)
+      hs.grid.set(window, grid.rightSeven12ths)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
@@ -374,6 +377,7 @@ end
 hs.hotkey.bind(mash, 'right', chain({
   grid.rightTwoThirds,
   grid.widescreenRight63P,
+  grid.rightSeven12ths,
   grid.rightHalf,
   grid.widescreenRight37P,
   grid.rightThird,
@@ -388,6 +392,7 @@ hs.hotkey.bind(mash, 'right', chain({
 hs.hotkey.bind(mash, 'left', chain({
   grid.leftTwoThirds,
   grid.widescreenLeft63P,
+  grid.leftSeven12ths,
   grid.leftHalf,
   grid.widescreenLeft37P,
   grid.leftThird,
