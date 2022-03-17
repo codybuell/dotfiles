@@ -34,11 +34,21 @@ if exists("+showtabline")
       let l:bufnr   = l:buflist[l:winnr - 1]                     " get the open buffer number
       let l:bufname = bufname(l:bufnr)                           " get the buffers name, includes relative path
       let l:bufmod  = getbufvar(l:bufnr, "&mod")                 " determine if buffer is modified
+      let l:buftype = getbufvar(l:bufnr, "current_syntax")       " get the syntax of the buffer
       if l:bufname == ''                                         " get path and filename
-        let l:tabpath = ''
-        let l:tabname = '[No Name]'
+        if l:buftype == 'qf'
+          let l:tabpath = ''
+          let l:tabname = '[quickfix]'
+        else
+          let l:tabpath = ''
+          let l:tabname = '[No Name]'
+        endif
       else
-        let l:tabpath = fnamemodify(l:bufname, ':h')
+        if l:buftype == 'help'
+          let l:tabpath = '[help]'
+        else
+          let l:tabpath = fnamemodify(l:bufname, ':h')
+        endif
         let l:tabname = fnamemodify(l:bufname, ':t')
       endif
 
