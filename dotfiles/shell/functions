@@ -292,7 +292,7 @@ function gpl() {
 function wj() {
   cd {{ WorkJournal }}
   [[ ! -d {{ WorkJournal }}/`date +%Y/%m` ]] && mkdir -p {{ WorkJournal }}/`date +%Y/%m`
-  vim -c 'NERDTree' -c 'execute "normal \<C-W>l"' {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  vim {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
   cd - > /dev/null 2>&1
 }
 
@@ -467,7 +467,7 @@ function home() {
       tmux split-window -t HOME:home.1 -v -p 60 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
       tmux send-keys -t HOME:home.2 'cd ~/Desktop; wj' Enter
-      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.vim/sessions/home"' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
 
       #--- layout 2 (right primary workspace)
 #     tmux split-window -t HOME:home -h -p 66 -c ~/
@@ -476,9 +476,9 @@ function home() {
 #     tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
 #     tmux send-keys -t HOME:home.3 'cd ~/Desktop; wj' Enter
 
-      # build notes/journal window
-      tmux new-window -t HOME: -c ~/.mutt -n notes
-      tmux send-keys -t HOME:notes.1 'wj' Enter
+      # # build notes/journal window
+      # tmux new-window -t HOME: -c ~/.mutt -n notes
+      # tmux send-keys -t HOME:notes.1 'wj' Enter
 
       # build control window
       tmux new-window -t HOME: -c ~/.mutt -n control
