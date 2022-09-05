@@ -104,25 +104,25 @@ local on_attach = function(client, bufnr)
   -- source omnicompletion from lsp
   --vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  -- lsp mappings
-  local mappings = {
-    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
-    ['gA']         = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-    ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
-    ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-    ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-    ['<leader>e']  = '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true, border="solid"})<CR>',
-    ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
-    ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-    [']g']         = '<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={show_header=true, border="solid"}})<CR>',
-    ['[g']         = '<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={show_header=true, border="solid"}})<CR>',
-  }
+  -- -- lsp mappings
+  -- local mappings = {
+  --   ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
+  --   ['gA']         = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+  --   ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
+  --   ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
+  --   ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+  --   ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+  --   ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+  --   ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float({show_header=true, border="solid"})<CR>',
+  --   ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
+  --   ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+  --   [']g']         = '<cmd>lua vim.diagnostic.goto_next({popup_opts={show_header=true, border="solid"}})<CR>',
+  --   ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({popup_opts={show_header=true, border="solid"}})<CR>',
+  -- }
 
-  for lhs, rhs in pairs(mappings) do
-    helpers.nnoremap(lhs, rhs)
-  end
+  -- for lhs, rhs in pairs(mappings) do
+  --   helpers.nnoremap(lhs, rhs)
+  -- end
 
   vim.api.nvim_buf_set_keymap(0, 'i', '<c-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
   vim.lsp.util.close_preview_autocmd = function(events, winnr)
@@ -137,12 +137,15 @@ local on_attach = function(client, bufnr)
   -- reduce updatetime from 4 to 2 seconds
   vim.api.nvim_set_option('updatetime', 2000)
 
+  -- run the initial setting of the loclist
+  vim.diagnostic.setloclist({open=false, severity_limit=vim.diagnostic.severity.INFO})
+
   helpers.augroup('BuellLSPAutocmds', function()
       -- use a popup to show diagnostics instead of virtualtext
-      --vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({show_header=true})')
+      --vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.diagnostic.open_float({show_header=true})')
       -- populate the loclist when errors are present
-      vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.lsp.diagnostic.set_loclist({open=false, severity_limit="Warning"})')
-      if client.resolved_capabilities.document_formatting then
+      vim.api.nvim_command('au User LspDiagnosticsChanged silent! lua vim.diagnostic.setloclist({open=false, severity_limit=vim.diagnostic.severity.INFO})')
+      if client.server_capabilities.documentFormatting then
         if vim.api.nvim_buf_get_option(bufnr, "filetype") == "go" then
           -- vim.api.nvim_command("autocmd InsertLeave <buffer> lua go_organize_imports_sync(1000)")
           vim.api.nvim_command("autocmd BufWritePost <buffer> lua go_imports_on_save()")
@@ -150,8 +153,6 @@ local on_attach = function(client, bufnr)
         if vim.api.nvim_buf_get_option(bufnr, "filetype") ~= "arduino" then
           vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
         end
-      end
-      if client.resolved_capabilities.document_highlight then
         vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
         vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
         vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()")
@@ -195,6 +196,26 @@ end
 
 -- setup lsp
 lsp.setup = function()
+
+  -- lsp mappings
+  local mappings = {
+    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['gA']         = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+    ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
+    ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
+    ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
+    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+    ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float({show_header=true, border="solid"})<CR>',
+    ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
+    ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    [']g']         = '<cmd>lua vim.diagnostic.goto_next({popup_opts={show_header=true, border="solid"}})<CR>',
+    ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({popup_opts={show_header=true, border="solid"}})<CR>',
+  }
+
+  for lhs, rhs in pairs(mappings) do
+    helpers.nnoremap(lhs, rhs)
+  end
 
   ------------------------
   --  language servers  --
@@ -333,10 +354,10 @@ lsp.setup = function()
     settings = {
       yaml = {
         schemas = {
-          ["http://schema.cloudtamer.io/v1/jumpstart-framework.json"] = 'frameworks/*.yml',
-          ["http://schema.cloudtamer.io/v1/jumpstart-cc-aws.json"] = 'compliance-checks/cloud-custodian/aws/*.yml',
-          ["http://schema.cloudtamer.io/v1/jumpstart-cc-azure.json"] = 'compliance-checks/cloud-custodian/azure/*.yml',
-          ["http://schema.cloudtamer.io/v1/jumpstart-cc-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
+          ["http://schema.kion.io/v1/jumpstart-framework.json"] = 'frameworks/*.yml',
+          ["http://schema.kion.io/v1/jumpstart-cc-aws.json"] = 'compliance-checks/cloud-custodian/aws/*.yml',
+          ["http://schema.kion.io/v1/jumpstart-cc-azure.json"] = 'compliance-checks/cloud-custodian/azure/*.yml',
+          ["http://schema.kion.io/v1/jumpstart-cc-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
         }
       }
     }
@@ -376,7 +397,7 @@ lsp.setup = function()
     }
   })
 
-  -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
+  -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-Standalone
   local cmd = vim.fn.expand(
       '~/Repos/github.com/sumneko/lua-language-server/bin/macOS/lua-language-server'
   )
@@ -414,12 +435,17 @@ lsp.setup = function()
   -------------------------
 
   -- configure diagnostic handler
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      -- broadly disable virtual text diagnostics
-      virtual_text = false,
-    }
-  )
+
+  -- disable virtual text
+  vim.diagnostic.config{virtual_text=false}
+
+  -- -- old disable virtual text
+  -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  --   vim.lsp.diagnostic.on_publish_diagnostics, {
+  --     -- broadly disable virtual text diagnostics
+  --     virtual_text = false,
+  --   }
+  -- )
 
   -- extend hover handler
   local method = 'textDocument/hover'
