@@ -68,6 +68,13 @@ function s:SetColorscheme()
 " call matchadd('NonText', '\s\+$', -1)
 " call matchadd('NonText', '\t\+', -1)
 
+  " highlight unicode character ranges, note this may be covered by the
+  " specialkey, nontext, and whitespace hi settings below and space+3
+  " toggle...
+  call matchadd('NonAscii', '[^\x00-\x7F]', -1)
+  " hi NonAscii guibg=Red ctermbg=2
+  hi NonAscii ctermfg=3 guifg=#f0c674
+
   " TODO: use pinnacle to dynamically ingest the colors here, current method
   " is not going to work if you switch themes...
 
