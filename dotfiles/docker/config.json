@@ -1,0 +1,8 @@
+{
+  "credsStore": "desktop",
+  "experimental": "disabled",
+  "stackOrchestrator": "swarm",
+  "currentContext": "default",
+  "psFormat": "table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}",
+  "imagesFormat": "table {{.ID}}\\t{{.Size}}\\t{{.Tag}}\\t{{.Repository}}"
+}
