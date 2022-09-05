@@ -10,29 +10,34 @@ Setup
 -----
 
 Assuming a fresh system requiring all dependencies and configurations:
-```bash
-# on osx grant the terminal full disk access:
-#
-#   system preferences -> security & privacy -> privacy -> full disk access
-#
-git clone https://github.com/codybuell/dotfiles && cd dotfiles
-cp .config.example .config; vi .config      # edit configuration as needed
-make bootstrap                              # full install / configuration
-```
+
+1. Clone and `cd` into this repository.
+  ```bash
+  git clone https://github.com/codybuell/dotfiles && cd dotfiles
+  ```
+2. Edit the configuration file to as needed.
+  ```bash
+  cp .config.example .config; vi .config
+  ```
+3. Run the command to bootstrap the system.
+  ```bash
+  make bootstrap
+  ```
+
 There are several make targets that can be run sequentially in lieu of `make
 bootstrap` or independently as needed. They are ordered below as run by `make
 bootstrap`, which is determined by dependencies.
 ```bash
-make subs       # pull in all git repository submodules
-make dots       # places dotfiles, depends on repo `.config` file
-make nix        # installs nix and packages, depends on `make dots`
-make mas        # installs App Store apps, depends on `make nix`
-make brew       # installs brew packages, casks, services
-make node       # installs NVM, latest lts of Node, and global node packages
-make gem        # installs ruby gems needed for nvim support etc
-make pip        # installs pip packages needed for nvim support etc
-make karabiner  # compiles and places config, restarts service, depends on node
-make osx        # applies as many OSX configurations as possible via cli
+make subs                     # pull in all git repository submodules
+make dots                     # places dotfiles, depends on repo `.config` file
+make nix                      # installs nix and packages, depends on `make dots`
+make mas                      # installs App Store apps, depends on `make nix`
+make brew                     # installs brew packages, casks, services
+make node                     # installs NVM, latest lts of Node, and global node packages
+make gem                      # installs ruby gems needed for nvim support etc
+make pip                      # installs pip packages needed for nvim support etc
+make karabiner                # compiles and places config, restarts service, depends on node
+make osx                      # applies as many OSX configurations as possible via cli
 ```
 The `make dots` target is generally the most heavily used. This is because
 dotfiles are not symlinked back to this repository, so any changes made to
@@ -40,9 +45,9 @@ configurations must be placed into production. To reduce the lift the `make
 dots` endpoint takes any number of arguments, being the dotfiles or dotfolders
 you wish to place.
 ```bash
-make dots vim              # will place the dotfiles/vim folder to ~/.vim
-make dots tmux.conf tmux   # can take any number of arguments
-make dots config/karabiner # also handles explicitly calling out a sub path
+make dots vim                      # will place the dotfiles/vim folder to ~/.vim
+make dots tmux.conf tmux           # can take any number of arguments
+make dots config/karabiner         # also handles explicitly calling out a sub path
 ```
 Tooling
 -------
@@ -82,15 +87,15 @@ simpler now. All that to say there isn't a big need for a go version manager.
 Structure
 ---------
 ```bash
-/                   # repo root, git dotfiles, config file, readme, makefile
-applications/       # application configurations (non dotfile configs)
-assets/             # miscellaneous system files and resources
-  applications/     # small apps worth having that dont fit in submodules or ~/.shell/bin
-  autostart/        # linux *.desktop autostart files applied with `make linux`
-  dconf/            # dconf configurations applied with `make linux`
-  fonts/            # fonts utilized by configurations
-  keyboard/         # karabiner keyboard configurations
-dotfiles/           # contains actual dotfiles in templated form
-scripts/            # repo specific deployment scripts and utilities
-submodules/         # repository submodules (external repos utilized by configurations)
+/                         # repo root, git dotfiles, config file, readme, makefile
+applications/             # application configurations (non dotfile configs)
+assets/                   # miscellaneous system files and resources
+  applications/           # small apps worth having that dont fit in submodules or ~/.shell/bin
+  autostart/              # linux *.desktop autostart files applied with `make linux`
+  dconf/                  # dconf configurations applied with `make linux`
+  fonts/                  # fonts utilized by configurations
+  keyboard/               # karabiner keyboard configurations
+dotfiles/                 # contains actual dotfiles in templated form
+scripts/                  # repo specific deployment scripts and utilities
+submodules/               # repository submodules (external repos utilized by configurations)
 ```
