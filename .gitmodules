@@ -210,3 +210,9 @@
 [submodule "dotfiles/vim/pack/bundle/opt/plenary.nvim"]
 	path = dotfiles/vim/pack/bundle/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "dotfiles/vim/pack/bundle/opt/copilot.vim"]
+	path = dotfiles/vim/pack/bundle/opt/copilot.vim
+	url = https://github.com/github/copilot.vim.git
+[submodule "dotfiles/vim/pack/bundle/opt/null-ls.nvim"]
+	path = dotfiles/vim/pack/bundle/opt/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git

@@ -191,6 +191,7 @@ if &loadplugins
     packadd! vim-tmux-navigator      " use vim window motions to nav into tmux
     packadd! vim-tmux-runner         " control tmux panes from vim
     packadd! editorconfig-vim        " support project defined syntax standards
+    " packadd! copilot.vim             " github copilot ai code completion
 
     if has('nvim')
       packadd! nvim-base16           " base16 colors themes with tresitter and lsp support
@@ -203,6 +204,7 @@ if &loadplugins
       packadd! todo-comments.nvim    " pulls comment tags into quickfix / loclist
       packadd! plenary.nvim          " common lua functions library
     " packadd! float-preview.nvim    " floating windows for preview instead of splits
+      packadd! null-ls.nvim          " nvim as a language server
     endif
   else
     source $HOME/.vim/pack/bundle/opt/vim-pathogen/autoload/pathogen.vim
@@ -322,6 +324,7 @@ set completeopt=menu,menuone,noselect              " cot, preview handled by flo
 set pumheight=30                                   " max height of popup menus
 set signcolumn=yes                                 " always show the sign column
 set noequalalways                                  " don't auto resize splits
+"set clipboard+=unnamedplus                         " :help clipboard
 
 " vim specific (not nvim)
 if !has('nvim')
