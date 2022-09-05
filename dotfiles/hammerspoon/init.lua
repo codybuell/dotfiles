@@ -50,8 +50,11 @@ local grid = {
   goldenLarge       = '4,2 16x20',
   portraitLarge     = '4,4 10x18',
   portraitSmall     = '4,4 8x14',
-  landscapeSmall    = '7,7 10x11',
+  landscapeSmall    = '7,7 10x11', -- web broweser screen share
   centeredMini      = '9.5,9 5x6',
+  -- customs
+  topLeftBig        = '0 0 10x13',
+  bottomLeftSmall   = '0 14 10x11',
   -- tops
   topHalf           = '0,0 24x12',
   topThird          = '0,0 24x8',
@@ -61,7 +64,7 @@ local grid = {
   rightThird        = '16,0 8x24',
   rightHalf         = '12,0 12x24',
   rightTwoThirds    = '8,0 16x24',
-  rightSeven12ths   = '10,0 14x24',
+  rightSeven12ths   = '10,0 14x24', -- 4k alacritty
   -- bottoms
   bottomHalf        = '0,12 24x12',
   bottomThird       = '0,16 24x8',
@@ -110,15 +113,15 @@ local layoutConfig = {
   --------------
   --  chrome  --
   --------------
-  ['com.google.Chrome'] = (function(window, forceScreenCount)
-    if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.widescreenRight37P)
-    elseif primaryWxH == "3840x2160" then -- 32" 4k
-      hs.grid.set(window, grid.widescreenLeft37P)
-    else -- default (laptop)
-      hs.grid.set(window, grid.fullScreen)
-    end
-  end),
+  -- ['com.google.Chrome'] = (function(window, forceScreenCount)
+  --   if primaryWxH == "3840x1600" then -- 38" ultrawide
+  --     hs.grid.set(window, grid.widescreenRight37P)
+  --   elseif primaryWxH == "3840x2160" then -- 32" 4k
+  --     hs.grid.set(window, grid.widescreenLeft37P)
+  --   else -- default (laptop)
+  --     hs.grid.set(window, grid.fullScreen)
+  --   end
+  -- end),
 
   --------------
   --  iterm2  --
@@ -135,7 +138,7 @@ local layoutConfig = {
     if primaryWxH == "3840x1600" then -- 38" ultrawide
       hs.grid.set(window, grid.widescreenLeft63P)
     elseif primaryWxH == "3840x2160" then -- 32" 4k
-      hs.grid.set(window, grid.widescreenRight63P)
+      hs.grid.set(window, grid.widescreenLeft63P)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
@@ -159,13 +162,38 @@ local layoutConfig = {
       hs.grid.set(window, grid.widescreenLeft63P)
     elseif primaryWxH == "3840x2160" then -- 32" 4k
       -- hs.grid.set(window, grid.widescreenRight63P)
-      hs.grid.set(window, grid.rightSeven12ths)
+      hs.grid.set(window, grid.leftSeven12ths)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
 --  hs.grid.MARGINX = 0
 --  hs.grid.MARGINY = 0
   end),
+
+  ------------
+  --  zoom  --
+  ------------
+  
+  -- ['us.zoom.xos'] = (function(window, forceScreenCount)
+-- --  local count = forceScreenCount or screenCount
+-- --  if count == 1 then
+-- --    hs.grid.set(window, grid.portraitSmall)
+-- --  else
+-- --    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
+-- --  end
+-- --  hs.grid.MARGINX = 6
+-- --  hs.grid.MARGINY = 5
+  --   if primaryWxH == "3840x1600" then -- 38" ultrawide
+  --     hs.grid.set(window, grid.topLeftBig)
+  --   elseif primaryWxH == "3840x2160" then -- 32" 4k
+  --     -- hs.grid.set(window, grid.widescreenRight63P)
+  --     hs.grid.set(window, grid.topLeftBig)
+  --   else -- default (laptop)
+  --     hs.grid.set(window, grid.topLeftBig)
+  --   end
+-- --  hs.grid.MARGINX = 0
+-- --  hs.grid.MARGINY = 0
+  -- end),
 
   -------------
   --  kitty  --
@@ -182,7 +210,8 @@ local layoutConfig = {
     if primaryWxH == "3840x1600" then -- 38" ultrawide
       hs.grid.set(window, grid.widescreenLeft63P)
     elseif primaryWxH == "3840x2160" then -- 32" 4k
-      hs.grid.set(window, grid.widescreenRight63P)
+      -- hs.grid.set(window, grid.widescreenRight63P)
+      hs.grid.set(window, grid.leftSeven12ths)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
