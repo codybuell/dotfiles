@@ -239,7 +239,8 @@ AppStoreDebugMenu='true'                      # turn on app store debug?
 DiskUtilityDebugMenu='true'                   # turn on disk utility debug?
 
 # screenshots
-ScrnShotsFolder='~/Google\ Drive/Screenshots' # where to save screenshots
+ScrnShotsFolder='~/Library/Mobile
+Documents/com~apple~CloudDocs/Data/Resources/Screenshots' # where to save screenshots
 ScreenshotDropshadows='false'                 # dropshadows on screenshots?
 ScreenshotFormat='png'                        # bmp, gif, jpg, pdf, tiff
 
