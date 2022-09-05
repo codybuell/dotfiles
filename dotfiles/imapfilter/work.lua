@@ -38,12 +38,14 @@ function run()
   awsmark  = work['AWS Marketing']
   awsmp    = work['AWS Marketplace']
   awspart  = work['AWS Partner']
+  google   = work['Google']
   msadmin  = work['MS Admin']
   mssupp   = work['MS Support']
   msmark   = work['MS Marketing']
   bonusly  = work['Bonusly']
   employee = work['Past Employees']
   netdata  = work['Netdata']
+  security = work['Security']
 
   -- List mailboxes and folders
   --mailboxes, folders = work:list_all()
@@ -174,6 +176,12 @@ function run()
     return results
   end))
 
+  -- netdata related emails
+  movetofolder('dmarc reports', security, (function()
+    results = inbox:contain_from('.*dmarc.*') +
+              inbox:contain_subject('Report domain: kion.io .*')
+    return results
+  end))
   -- aws admin emails
   movetofolder('aws admin messages', awsadmin, (function()
     results = inbox
@@ -200,7 +208,8 @@ function run()
   -- aws marketplace new daily customers
   movetofolder('new aws marketplace', awsmp, (function()
     results = inbox:contain_from('aws-account-inbox@kion.io'):contain_subject('You have a new Daily') +
-              inbox:contain_from('AWS Marketplace')
+              inbox:contain_from('AWS Marketplace') +
+              inbox:contain_field('X-Original-Sender','aws-marketing-email-replies@amazon.com')
     return results
   end))
 
@@ -244,6 +253,12 @@ function run()
     results = inbox:contain_from('noreply@bonus.ly') +
               inbox:contain_from('system@bonus.ly')
 --    :contain_subject('did something awesome')
+    return results
+  end))
+
+  -- google
+  movetofolder('google bits', google, (function()
+    results = inbox:match_subject('Gmail Admin Quarantine Alert')
     return results
   end))
 
