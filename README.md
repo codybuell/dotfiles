@@ -1,144 +1,96 @@
 Dotfiles
 ========
 
-![Version](https://img.shields.io/badge/version-3.0.0--alpha-lightgrey.svg)
-![OSX](https://img.shields.io/badge/OSX-supported-green.svg)
-![Centos](https://img.shields.io/badge/Centos-supported-green.svg)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-unsupported-red.svg)
-![Windows](https://img.shields.io/badge/Windows-unsupported-red.svg)
+Personal scripts, configurations, and dotfiles to bootstrap a new system.
+Attempts to be idempotent, configurable, and composable while requiring as
+little pre-configuration as possible. A rough outline of this repository is
+below, refer to inline comments / documentation for more details.
 
-Personal host customizations primarily in the form of dotfiles for cli based applications.
+Setup
+-----
 
-Features
---------
+Assuming a fresh system requiring all dependencies and configurations:
+```bash
+# on osx grant the terminal full disk access:
+#
+#   system preferences -> security & privacy -> privacy -> full disk access
+#
+git clone https://github.com/codybuell/dotfiles && cd dotfiles
+cp .config.example .config; vi .config      # edit configuration as needed
+make bootstrap                              # full install / configuration
+```
+There are several make targets that can be run sequentially in lieu of `make
+bootstrap` or independently as needed. They are ordered below as run by `make
+bootstrap`, which is determined by dependencies.
+```bash
+make subs       # pull in all git repository submodules
+make dots       # places dotfiles, depends on repo `.config` file
+make nix        # installs nix and packages, depends on `make dots`
+make mas        # installs App Store apps, depends on `make nix`
+make brew       # installs brew packages, casks, services
+make node       # installs NVM, latest lts of Node, and global node packages
+make gem        # installs ruby gems needed for nvim support etc
+make pip        # installs pip packages needed for nvim support etc
+make karabiner  # compiles and places config, restarts service, depends on node
+make osx        # applies as many OSX configurations as possible via cli
+```
+The `make dots` target is generally the most heavily used. This is because
+dotfiles are not symlinked back to this repository, so any changes made to
+configurations must be placed into production. To reduce the lift the `make
+dots` endpoint takes any number of arguments, being the dotfiles or dotfolders
+you wish to place.
+```bash
+make dots vim              # will place the dotfiles/vim folder to ~/.vim
+make dots tmux.conf tmux   # can take any number of arguments
+make dots config/karabiner # also handles explicitly calling out a sub path
+```
+Tooling
+-------
 
-### Configurable ###
+Some general notes on what's being used for what. Despite aiming for simplicity
+there inevitably is a large set of tools being used because they are the right
+one for the job. See configurations for Nix, Brew, and Mas for a full list of
+all items used, just major items are referenced here.
 
-Configuration options are available via a `.config` file to customize settings to your account (think folder locations, email accounts, git configs, etc) so there is no need to dig through files.
+### Application / Package Management
 
-### Non Destructive ###
+- ~~__Nix:__ Used for package installations where possible. Useful for custom dev
+  environments when used in conjunction with direnv, testing packages, and
+  cross OS consistency.~~ This proved to be too difficult to keep in path.
+- Brew: Used for packages which are not well suited for Nix. Also used to
+  install OSX applications that are not installed through the App Store.
+- Mas: Command line installation of Apple App Store packages.
+- NVM: For managing / switching node versions.
 
-Dotfiles are moved in place rather than symlinked.  Before this occurs time-stamped backups are made of any existing configs.
+Since Go has a v1 compatibility promise we'll just make sure we install the
+latest version, and since go modules are now the default some things are a lot
+simpler now. All that to say there isn't a big need for a go version manager.
 
-### Automated ###
+### OSX Tooling
 
-Fully automated deployment of configurations via `make` as well as the ability to piecemeal deployments.
+- __Hammerspoon:__ Improved mappings, window management, automation of convenineces.
+- __Karabiner-Elements:__ Keyboard remappings, SpaceFN layering, key overloading.
+- __Raycast:__ Spotlight replacement that can do math and supports plugins.
 
-### Extensible ###
+### Terminal
 
-Ability to define extra commands in the repository configuration file.  You can automate the creation of folders, symlinks and also run any number of custom commands.
-
-### Vim ###
-
-Minimal to no overrides of default mappings.  Fully documented additional mappings and plugins in `~/.vim/init.vim`.  Smooth support for `vi`, `vim`, and `neovim` in single configuration.
-
-### Color Schemes and Fonts ###
-
-Consistent colorschemes and fonts throughout the terminal, with easy switching between Base16 themes.
-
-
-Assumptions / Best Practices
-----------------------------
-
-- git structure
-- dynamic and base go paths
-- keyboard remappings
+- __Kitty:__ Available on each OS and architecture. Fast.
+- __Tmux:__ Screen or Tmux, we use Tmux here... good terminal multiplexer.
+- __Neovim:__ Vim + Lua + LSP. A great editor to invest in if you have a career in tech.
+- __Zsh:__ Some great conveniences over bash, in particular working with history.
 
 Structure
 ---------
 ```bash
-/                        # repository root, git dotfiles, configuration, readme, makefile
-applications/            # application configurations (non dotfile configs)
-assets/                  # other miscellaneous system files and resources
-  applications/          # small apps worth having that dont fit into submodules or ~/.shell/bin
-  autostart/             # linux *.desktop autostart files applied with `make linux`
-  dconf/                 # dconf configurations applied with `make linux`
-  fonts/                 # fonts utilized by configurations
-  keyboard/              # karabiner keyboard configurations
-  snippets/              # ultisnip formatted snippets for vim (symlinked in place)
-dotfiles/                # contains actual dotfiles in templated form
-scripts/                 # contains scrips utilized by repository for deployment and configuration
-submodules/              # repository submodules (external repos utilized by configurations)
+/                   # repo root, git dotfiles, config file, readme, makefile
+applications/       # application configurations (non dotfile configs)
+assets/             # miscellaneous system files and resources
+  applications/     # small apps worth having that dont fit in submodules or ~/.shell/bin
+  autostart/        # linux *.desktop autostart files applied with `make linux`
+  dconf/            # dconf configurations applied with `make linux`
+  fonts/            # fonts utilized by configurations
+  keyboard/         # karabiner keyboard configurations
+dotfiles/           # contains actual dotfiles in templated form
+scripts/            # repo specific deployment scripts and utilities
+submodules/         # repository submodules (external repos utilized by configurations)
 ```
-Installation
-------------
-
-### Simple
-
-A `Makefile` has been provided to handle system preparation, testing, and ultimately deployment.  Run `make` from the root of the repository to see all available options.  The recommended flow is as follows:
-
-1. Clone this repository to your system.
-
-        git clone https://github.com/codybuell/dotfiles.git; cd dotfiles
-
-2. Test for compatibility and prepare the system.
-
-        make test       # checks that the host os can be properly detected among other things
-        make subs       # pulls down or updates the git submodules used in this repository
-        make config     # build the repository configuration file via the wizard
-
-3. Deploy the configurations.
-
-        make all
-
-### Manual
-
-1. Clone this repository to your system.
-
-        git clone https://github.com/codybuell/dotfiles.git; cd dotfiles
-
-2. Test for compatibility and prepare the system.
-
-        make test       # checks that the host os can be properly detected among other things
-        make subs       # pulls down or updates the git submodules used in this repository
-        cp .config.example .config      # then work through all the variables with you favorite editor
-
-3. Depending on your OS:
-
-    Note that order is important here!
-
-    OSX:
-
-        make repos
-        make paths
-        make brew
-        make go
-        make pip
-        make gem
-        make node
-        make composer
-        make dots
-        make osx
-        make symlinks
-
-    Centos:
-
-        make repos
-        make paths
-        make linux
-        make go
-        make pip
-        make gem
-        make node
-        make composer
-        make dots
-        make symlinks
-
-### Ad Hoc Dotfiles
-
-You can deploy specific dotfiles.  For example:
-
-    make dots vim
-    make dots config
-    make dots config/karabiner
-    make dots tmux tmux.conf
-
-Gotchas
--------
-
-At the moment qlstephen, a quick look plugin, is not trusted by OSX Catalina.  You need to open it manually after installation, click to trust, then restart quick look.  Should be good to go from there on.
-
-    cd ~/Library/Quicklook/QLStephen.qlgenerator/Contents/MacOS/
-    open .
-    # right click on QLStephen, then click on open in the modal
-    qlmanage -r
