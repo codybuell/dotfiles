@@ -1,101 +1,125 @@
-# turn all subsequent targets after dots into arguments for dots
-ifeq (dots,$(firstword $(MAKECMDGOALS)))
-  # use the remaining targets as arguments for "dots"
-  DOTS_RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+################################################################################
+#                                                                              #
+#  Helpers                                                                     #
+#                                                                              #
+################################################################################
+
+# turn all subsequent targets after some targets into arguments for command
+FIRSTWORD=$(firstword $(MAKECMDGOALS))
+ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots))
+  # use the remaining targets as arguments
+  CMD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   # and turn them into null / do-nothing targets
-  $(eval $(DOTS_RUN_ARGS):;@:)
+  $(eval $(CMD_ARGS):;@:)
 endif
+
+# set ALL targets to be PHONY
+.PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
+
+# text decoration helpers
+B="$$(tput bold)"
+UN="$$(tput smul)"
+NU="$$(tput rmul)"
+DIM="$$(tput dim)"
+
+# text color helpers
+RED="$$(tput setaf 1)"
+GRN="$$(tput setaf 2)"
+YLW="$$(tput setaf 3)"
+BLU="$$(tput setaf 4)"
+MGT="$$(tput setaf 5)"
+CYN="$$(tput setaf 6)"
+
+# color / decoration reset
+NRM="$$(tput sgr0)"
+
+################################################################################
+#                                                                              #
+#  Targets                                                                     #
+#                                                                              #
+################################################################################
 
 default:
 	@printf "\n\
 	\
-	  usage:      \033[1;37mmake [ command ]\033[0m\n\n\
+	  $(DIM)usage:$(NRM)        $(B)make <command>$(NRM)\n\n\
 	\
-	  commands:\n\n\
+	  $(DIM)commands:$(NRM)\n\n\
 	\
-	    \033[1;33mtest\033[0;33m      test to see if your env can be detected\033[0m\n\
-	    \033[1;33mconfig\033[0;33m    utility to help generate the repository config file\033[0m\n\
-	    \033[1;33msubs\033[0;33m      pull and or update all repository git submodules\033[0m\n\n\
+	    $(B)$(GRN)bootstrap$(NRM)   $(DIM)$(GRN)attempt to detect os and run all configurations$(NRM)\n\n\
 	\
-	    \033[1;32mfull\033[0;32m      attempt to detect os and run all configurations\033[0m\n\n\
+	    $(B)$(YLW)subs$(NRM)        $(DIM)$(YLW)pull and or update all repository git submodules$(NRM)\n\n\
 	\
-	    \033[1;34mrepos\033[0;34m     clone repositories listed in the config file\033[0m\n\
-	    \033[1;34mpaths\033[0;34m     create all needed paths\033[0m\n\
-	    \033[1;34msymlinks\033[0;34m  create all needed symlinks\033[0m\n\
-	    \033[1;34mbrew\033[0;34m      run brew installations\033[0m\n\
-	    \033[1;34mmas\033[0;34m       run mas installations\033[0m\n\
-	    \033[1;34mgo\033[0;34m        run go configuration\033[0m\n\
-	    \033[1;34mpip\033[0;34m       run pip configuration\033[0m\n\
-	    \033[1;34mgem\033[0;34m       run gem configuration\033[0m\n\
-	    \033[1;34mnode\033[0;34m      run node configuration\033[0m\n\
-	    \033[1;34mcomposer\033[0;34m  run composer configuration\033[0m\n\
-	    \033[1;34mfonts\033[0;34m     place fonts on system\033[0m\n\
-	    \033[1;34miterm\033[0;34m     configure iterm preferences\033[0m\n\
-	    \033[1;34mdots\033[0;34m      place dotfiles for current user\033[0m\n\
-	    \033[1;34mosx\033[0;34m       run osx configurations\033[0m\n\
-	    \033[1;34mlinux\033[0;34m     run linux os configurations\033[0m\n\n\
-	    \033[1;34mkarabiner\033[0;34m regenerate karabiner dotfile from source script\033[0m\n\
+	    $(B)$(BLU)dots$(NRM)        $(DIM)$(BLU)place dotfiles for current user$(NRM)\n\
+	    $(B)$(BLU)nix$(NRM)         $(DIM)$(BLU)install nix and nix managed packages$(NRM)\n\
+	    $(B)$(BLU)mas$(NRM)         $(DIM)$(BLU)install mas and app store packages$(NRM)\n\
+	    $(B)$(BLU)brew$(NRM)        $(DIM)$(BLU)install brew and brew managed packages$(NRM)\n\
+	    $(B)$(BLU)node$(NRM)        $(DIM)$(BLU)install nvm, node, and npm managed packages$(NRM)\n\
+	    $(B)$(BLU)gem$(NRM)         $(DIM)$(BLU)install required gem packages$(NRM)\n\
+	    $(B)$(BLU)pip$(NRM)         $(DIM)$(BLU)install required pip packages$(NRM)\n\
+	    $(B)$(BLU)karabiner$(NRM)   $(DIM)$(BLU)install generate karabiner config and place$(NRM)\n\
+	    $(B)$(BLU)osx$(NRM)         $(DIM)$(BLU)install brew and brew managed packages$(NRM)\n\n\
 	\
-	    \033[1;31mclean\033[0;31m     delete all backups of previous dotfiles\033[0m\n\n"
+	    $(B)$(RED)clean$(NRM)       $(DIM)$(RED)delete all backups of previous dotfiles$(NRM)\n\n"
 
-test:
-	scripts/test.sh
-
-config:
-	scripts/config.sh
+bootstrap: subs dots nix mas brew node karabiner osx
 
 subs:
 	git submodule init
 	git submodule update
 	git submodule update --init
 
-repos:
-	scripts/repos.sh
+dots:
+	scripts/dots.sh $(CMD_ARGS)
 
-paths:
-	scripts/paths.sh
-
-symlinks:
-	scripts/symlinks.sh
-
-brew:
-	scripts/brew.sh
+nix:
+	scripts/nix.sh
 
 mas:
 	scripts/mas.sh
 
-go:
-	scripts/go.sh
-
-pip:
-	scripts/pip.sh
-
-gem:
-	scripts/gem.sh
+brew:
+	scripts/brew.sh
 
 node:
 	scripts/node.sh
 
-composer:
-	scripts/composer.sh
+gem:
+	scripts/gem.sh
 
-fonts:
-	scripts/fonts.sh
+pip:
+	scripts/pip.sh
 
-iterm:
-	scripts/iterm.sh
-
-dots:
-	scripts/dots.sh $(DOTS_RUN_ARGS)
+karabiner:
+	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
+	scripts/dots.sh config/karabiner
+	launchctl stop org.pqrs.karabiner.karabiner_console_user_server
+	launchctl start org.pqrs.karabiner.karabiner_console_user_server
 
 osx:
 	scripts/osx.sh
 
-linux:
-	scripts/linux.sh
-
-karabiner:
-	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
-
 clean:
 	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;
+
+# TODO: implement
+# test:
+# 	scripts/test.sh
+# config:
+# 	scripts/config.sh
+# repos:
+# 	scripts/repos.sh
+# paths:
+# 	scripts/paths.sh
+# symlinks:
+# 	scripts/symlinks.sh
+# go:
+# 	scripts/go.sh
+# composer:
+# 	scripts/composer.sh
+# fonts:
+# 	scripts/fonts.sh
+# iterm:
+# 	scripts/iterm.sh
+# linux:
+# 	scripts/linux.sh
