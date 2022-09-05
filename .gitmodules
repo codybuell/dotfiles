@@ -9,7 +9,7 @@
 	path = dotfiles/shell/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "submodules/mutt-notmuch-py"]
-	path = submodules/mutt-notmuch-py
+	path = dotfiles/mutt/vendor/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
 [submodule "submodules/markdown2ctags"]
 	path = submodules/markdown2ctags

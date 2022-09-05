@@ -157,8 +157,6 @@ preplacehooks() {
       # bundler gem bits (mime types) need to be installed
       cd ~/.mutt.new.$DATE/scripts
       bundle install
-      cd ~/.mutt.new.$DATE/vendor
-      ln -s $CONFGDIR/submodules/mutt-notmuch-py
       cd $CWD > /dev/null
       ;;
     shell )
