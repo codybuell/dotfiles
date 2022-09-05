@@ -16,11 +16,13 @@ Assuming a fresh system requiring all dependencies and configurations:
     ```bash
     git clone https://github.com/codybuell/dotfiles && cd dotfiles
     ```
+
 2. Edit the configuration file to as needed.
 
     ```bash
     cp .config.example .config; vi .config
     ```
+
 3. Run the command to bootstrap the system.
 
     ```bash
@@ -102,3 +104,9 @@ dotfiles/                 # contains actual dotfiles in templated form
 scripts/                  # repo specific deployment scripts and utilities
 submodules/               # repository submodules (external repos utilized by configurations)
 ```
+Usage
+-----
+
+Take a look at the code and inline comments for a better understanding of the
+configurations applied. `.config.example` is a good place to start as it calls
+out a lot of specifics.
