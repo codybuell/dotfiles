@@ -48,4 +48,4 @@
 [log]
   date = short
 [format]
-  pretty = format:%C(yellow)%h %Cblue%>(11)%ad  %Cgreen%<(16,trunc)%aN%Cred%d %Creset%s
+  pretty = format:%C(yellow)%h %Cblue%>(11)%ad  %Cgreen%<(16,trunc)%aN %Cred%d %Creset%s
