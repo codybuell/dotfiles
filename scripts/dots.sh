@@ -163,10 +163,6 @@ preplacehooks() {
       ;;
     shell )
       cd ~/.shell.new.$DATE
-      # link up repo based resources
-      ln -s $CONFGDIR/submodules/base16-shell .
-      ln -s $CONFGDIR/submodules/zsh-autosuggestions .
-      ln -s $CONFGDIR/submodules/zsh-syntax-highlighting .
       # place dynamic environment variables from config
       echo "" >> exports
       echo "### CONFIG DRIVEN VARS ###" >> exports

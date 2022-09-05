@@ -1,12 +1,12 @@
 [submodule "submodules/base16-shell"]
-	path = submodules/base16-shell
+	path = dotfiles/shell/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
 	ignore = dirty
 [submodule "submodules/zsh-autosuggestions"]
-	path = submodules/zsh-autosuggestions
+	path = dotfiles/shell/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "submodules/zsh-syntax-highlighting"]
-	path = submodules/zsh-syntax-highlighting
+	path = dotfiles/shell/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "submodules/mutt-notmuch-py"]
 	path = submodules/mutt-notmuch-py
