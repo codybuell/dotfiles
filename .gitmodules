@@ -50,9 +50,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/deoplete"]
 	path = dotfiles/vim/pack/bundle/opt/deoplete
 	url = https://github.com/Shougo/deoplete.nvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/deoplete-emoji"]
-	path = dotfiles/vim/pack/bundle/opt/deoplete-emoji
-	url = https://github.com/fszymanski/deoplete-emoji.git
 [submodule "dotfiles/vim/pack/bundle/opt/tagbar"]
 	path = dotfiles/vim/pack/bundle/opt/tagbar
 	url = https://github.com/majutsushi/tagbar.git
