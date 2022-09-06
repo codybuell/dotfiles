@@ -13,7 +13,8 @@
 # Usage: make repos
 #        scripts/repos.sh
 
-source scripts/library.sh
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ######################
 #                    #
@@ -61,6 +62,6 @@ clonerepos() {
 #          #
 ############
 
-readconfig
+read_config
 clonerepos
 exit 0

@@ -9,12 +9,8 @@
 ##  `make dots`. Values defined here can also be used by other make targets   ##
 ##  such as `make paths`, see inline comments for more information.           ##
 ##                                                                            ##
-##  To get started run `make config`, or if you prefer to manually setup this ##
-##  file, copy it to `.config` in the repository root and fill out the values ##
-##  below before running make commands.                                       ##
-##                                                                            ##
 ##  Inline comments are allowed. Blank lines are ignored. Tailing spaces are  ##
-##  stripped. Wrapping double quotes are removed.                             ##
+##  stripped. Wrapping double quotes are removed. Items are case sensitive.   ##
 ##                                                                            ##
 ################################################################################
 ################################################################################
@@ -37,7 +33,9 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 
 ################################################################################
 #                                                                              #
-# API Tokens `make dots shell`                                                 #
+# API Tokens                                                                   #
+#                                                                              #
+# Targets: `make dots shell`                                                   #
 #                                                                              #
 # GitHubHomebrewAPIToken -> used for brew to prevent throttling                #
 #                                                                              #
@@ -49,11 +47,29 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 
 ################################################################################
 #                                                                              #
-# Email `make dots [mutt|imapfilter|mbsyncrc|msmtprc]`                         #
+# Git                                                                          #
+#                                                                              #
+# Targets: `make dots [gitconfig|zsh|shell|imapfilter]`                        #
+#                                                                              #
+# Your git information. Used for gitconfig, imapfilters, shell $CDPATH, shell  #
+# completion, shell navigation, linux builds, etc.                             #
+#                                                                              #
+################################################################################
+
+
+GitUsername = codybuell                                  # github username
+GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE   # gpg key used to sign
+
+
+################################################################################
+#                                                                              #
+# Email                                                                        #
+#                                                                              #
+# Targets: `make dots [mutt|imapfilter|mbsyncrc|msmtprc]`                      #
 #                                                                              #
 # A combination of tools are used to sort, index, read, and send email. The    #
-# configs here are for two accounts, one personal and one work.                #
-# This one is going to require a bit more config on your part...               #
+# configs here are for two accounts, one personal and one work. This one is    #
+# going to require a bit more config on your part...                           #
 #                                                                              #
 # 1. Edit the following files:                                                 #
 #                                                                              #
@@ -62,10 +78,10 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 # 2. Create 'application password' records in OSX Keychain Access              #
 #                                                                              #
 #    - open keychain access                                                    #
-#    - create new application password                                         #
-#    - name / keychain item name = _EmailHost setting below                    #
-#    - account / acount name = _EmailKeychain setting below                    #
-#    - password = your email accounts password                                 #
+#    - create new application password, set:                                   #
+#      - name / keychain item name = [Home|Work]EmailHost setting below        #
+#      - account / acount name     = [Home|Work]EmailKeychain setting below    #
+#      - password                  = your email accounts password              #
 #    - repeat for both home and work email addresses                           #
 #                                                                              #
 # 3. And then configure the following services:                                #
@@ -83,30 +99,30 @@ GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 ################################################################################
 
 
-DefaultEmailAccount = work
-DefaultEmailAccCaps = Work                     # capitalized DefaultEmailAccount
+DefaultEmailAccount = work                        # [work|home] case sensitive!
+DefaultEmailAccCaps = Work                        # [Work|Home] case sensitive!
 DefaultEmailAddress = pbuell@cloudtamer.io
 
 # Home / Personal Email Account
-HomeEmailSmtp     = smtp.gmail.com
-HomeEmailHost     = imap.gmail.com             # host & 'name' field in keychain
-HomeEmailKeychain = cody+mutt@codybuell.com    # 'account' field in keychain
-HomeEmailUsername = cody@codybuell.com
-HomeEmailAddress  = cody@codybuell.com
+HomeEmailSmtp       = smtp.gmail.com              # outgoing main server
+HomeEmailHost       = imap.gmail.com              # host & 'name' field in keychain
+HomeEmailKeychain   = cody+mutt@codybuell.com     # 'account' field in keychain
+HomeEmailUsername   = cody@codybuell.com
+HomeEmailAddress    = cody@codybuell.com
 
 # Work Email Account
-WorkEmailSmtp     = smtp.gmail.com
-WorkEmailHost     = imap.gmail.com             # host & 'name' field in keychain
-WorkEmailKeychain = pbuell+mutt@cloudtamer.io  # 'account' field in keychain
-WorkEmailUsername = pbuell@cloudtamer.io
-WorkEmailAddress  = pbuell@cloudtamer.io
+WorkEmailSmtp       = smtp.gmail.com              # outgoing main server
+WorkEmailHost       = imap.gmail.com              # host & 'name' field in keychain
+WorkEmailKeychain   = pbuell+mutt@kion.io         # 'account' field in keychain
+WorkEmailUsername   = pbuell@kion.io
+WorkEmailAddress    = pbuell@kion.io
+
 
 ################################################################################
 #                                                                              #
-# Locations `make dots [shell|vim]`                                            #
-#           `make linux`                                                       #
-#           `make repos`                                                       #
-#           `make composer`                                                    #
+# Locations                                                                    #
+#                                                                              #
+# Targets: `make dots [zsh zshrc|config/nvim]`                                 #
 #                                                                              #
 # Common / frequently visited locations that have a mix of automations and     #
 # integrations to speed up workflows.                                          #
@@ -114,43 +130,109 @@ WorkEmailAddress  = pbuell@cloudtamer.io
 #                                                                              #
 # variable          cli   vim    description                                   #
 # ---------------------------------------------------------------------------- #
-# Notes             n     ␣n    general markdown notes / notes vim wiki        #
-# Codex             c     ␣c    personal markdown notes / codex vim wiki       #
-# Projects          p     -     projects that are not git repos                #
-# Repos             repo  -     projects that are git repos                    #
-# Gists             gist  -     github gists, snippet repositories             #
-# PersonalJournal   pj    \p    root location of personal journal*             #
-# WorkJournal       wj    \w    root location of work journal*                 #
+# Notes                   ␣n    general markdown notes / notes vim wiki        #
+# Codex                   ␣c    personal markdown notes / codex vim wiki       #
+# Projects                ␣p    projects that are not git repos                #
+# Journal                 ␣j    daily joursals / notes / thoughts              #
+# Domains                 ␣d    chores, responsibilities, etc.                 #
+# Repos             repo        projects that are git repos                    #
+# Gists             gist        github gists, snippet repositories             #
 #                                                                              #
-# * journals have a subdir structure of YYYY/MM/YYYY.MM.DD.txt                 #
+# * journal has a subdir structure of YYYY/MM/YYYY.MM.DD.txt                   #
 # ** fully path out from root if you run into issues                           #
-# *** double quuote and double escape any paths with spaces, for example:      #
+# *** double quote and 4x escape any paths with spaces, for example:           #
 #                                                                              #
-#     "~/Google\\ Drive/Notes"                                                 #
+#    "~/Google\\\\ Drive/Notes"                                                #
+#    "~/Library/Mobile\\\\ Documents/com\\\\~apple\\\\~CloudDocs/"             #
 #                                                                              #
 # CDPath is a ':' separated list of paths that ZSH autocompletes and wormhole  #
 # navigates to. Any paths added below will be appended to the default set in   #
-# `dotfiles/shell/vars`                                                        #
+# `dotfiles/zsh/vars`                                                          #
 #                                                                              #
-#     .:~:~/Repos/github.com/{{ GitUsername }}:{{ CDPath }}                    #
+#    .:~:~/Repos/github.com/{{ GitUsername }}:{{ CDPath }}                     #
+#                                                                              #
+# The Repos directory expects to be structured like:                           #
+#                                                                              #
+#    ${Repos}/[domain]/[username]/[project]                                    #
+#                                                                              #
+# For example:                                                                 #
+#                                                                              #
+#    ~/Repos/github.com/codybuell/dotfiles                                     #
+#                                                                              #
+# To that end there are some helpers built in to make maintenance easiers:     #
+#                                                                              #
+#    `gcl [repo url]`   - creates paths as needed and then clones the repo     #
+#    `repo [repo name]` - cds into the repo, uses autocompletion, auto paths   #
 #                                                                              #
 ################################################################################
 
 
-Notes           = "~/Google\\ Drive/Notes"
-Codex           = "~/Google\\ Drive/Codex"
-Projects        = "~/Google\\ Drive/Projects"
+Notes           = "~/Google\\\\ Drive/My\\\\ Drive/Notes"
+Codex           = "~/Google\\\\ Drive/My\\\\ Drive/Codex"
+Projects        = "~/Google\\\\ Drive/My\\\\ Drive/Projects"
+Journal         = "~/Google\\\\ Drive/My\\\\ Drive/Journal"
+Domains         = "~/Google\\\\ Drive/My\\\\ Drive/Domains"
+
 Repos           = /Users/pbuell/Repos
 Gists           = /Users/pbuell/Gists
-PersonalJournal = "/Users/pbuell/Google\\ Drive/Journal/personal"
-WorkJournal     = "/Users/pbuell/Google\\ Drive/Journal/work"
 
 CDPath          = "~/Repos/git.cloudtamer.io"
 
 
 ################################################################################
 #                                                                              #
-# Paths `make paths`                                                           #
+# Go                                                                           #
+#                                                                              #
+# Targets: `make dots zshrc shell`  <- configures paths set below              #
+#          `make brew`              <- installs the latest version of go       #
+#          `make go`                <- installs go packages we want            #
+#                                                                              #
+# Here we will define our default GOPATH. It's recommended to provide two      #
+# paths, the first of which where go get will place its sources, the second    #
+# being for your own personal packages. The separation will keep bits cleaner  #
+# but ultimately it's your call. For monorepos use direnv to dynamically set   #
+# the gopath by placing a .envrc with the exports you want to be set when      #
+# in that workspace. Better yet use a newer verion of go that has modules.     #
+#                                                                              #
+# Old way, place an .envrc in your project root containing:                    #
+#                                                                              #
+#     export GOPATH=$(pwd)                                                     #
+#     export GOBIN=$(pwd)/bin                                                  #
+#     export PATH=$PATH:$GOBIN                                                 #
+#                                                                              #
+# New way, use go modules:                                                     #
+#                                                                              #
+#     mkdir myproject; cd !$; go mod init myproject                            #
+#                                                                              #
+################################################################################
+
+
+GoPath = /Users/pbuell/.go:/Users/pbuell/Repos
+
+
+################################################################################
+#                                                                              #
+# Hashicorp Vault                                                              #
+#                                                                              #
+# Targets: `make dots shell`                                                   #
+#                                                                              #
+# Configurations to set environment variables used by `vault`.                 #
+#                                                                              #
+################################################################################
+
+
+Vault        = false
+VaultCAPath  = 
+VaultToken   = 1234567890abcdefghijklmnopqrstuvwxyz
+VaultAddress = https://vaultserver.tld:8200
+VaultServer  = vaultserver.tld
+
+
+################################################################################
+#                                                                              #
+# Paths                                                                        #
+#                                                                              #
+# Targets: `make paths`                                                        #
 #                                                                              #
 # You can create unlimited paths, simply increment the variable name.  Paths   #
 # are created with the -p flag, so all subdirs will be created as needed. Use  #
@@ -182,7 +264,9 @@ PATH07 = /Users/pbuell/Sources                  # third party repos (go get...)
 
 ################################################################################
 #                                                                              #
-# Symlinks `make paths`                                                        #
+# Symlinks                                                                     #
+#                                                                              #
+# Targets: `make symlinks`                                                     #
 #                                                                              #
 # You can create unlimited symlinks, simply increment the variable name.       #
 # Each symlink should be in the format:                                        #
@@ -208,24 +292,26 @@ SYMLINK06 = /Users/pbuell/Repos/mit/mit:/Users/pbuell/.todo/addons/mit
 
 ################################################################################
 #                                                                              #
-# Git `make dots [gitconfig|shell|imapfilter]`                                 #
+# Repositories                                                                 #
 #                                                                              #
-# Your git information. Used for gitconfig, imapfilters, shell $CDPATH, shell  #
-# completion, shell navigation, valet parking (via composer), linux builds.    #
-#                                                                              #
-################################################################################
-
-
-GitUsername = codybuell                                # github username
-GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
-
-
-################################################################################
-#                                                                              #
-# Repositories `make repos`                                                    #
+# Targets: `make repos`                                                        #
 #                                                                              #
 # You can clone unlimited repos, simply increment the variable name.  Repos    #
-# are cloned into the directory defined by 'Repos' above. Use the format:  #
+# are cloned into the directory defined by 'Repos' above with the subfolder    #
+# structure:                                                                   #
+#                                                                              #
+#     ${Repos}/[domain]/[username]/[repository]                                #
+#                                                                              #
+# So for example this repository with this example config would result in:     #
+#                                                                              #
+#     ~/Repos/github.com/codybuell/dotfiles                                    #
+#                                                                              #
+# Helpers exist in the shell config to ease working with this structure:       #
+#                                                                              #
+#     `gcl [repo url]`: clone the repo into the folders structure described    #
+#     `repo [repo name]`: cd into the desired repo, uses autocompletion        #
+#                                                                              #
+# Use the format:                                                              #
 #                                                                              #
 #     REPO[NN] = [clone path]                                                  #
 #                                                                              #
@@ -237,15 +323,17 @@ GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
 
 
 ################################################################################
-##                                                                            ##
-##  Environment Variables `make dots shell`                                   ##
-##                                                                            ##
-##  Here you can setup any number of environment variables that will be       ##
-##  added to ~/.shell/exports. The format is ENVVAR_[YOUR ENV VAR].  For      ##
-##  example:                                                                  ##
-##                                                                            ##
-##    ENVVAR_FOO = BAR     # this will export FOO to BAR                      ##
-##                                                                            ##
+#                                                                              #
+#  Environment Variables                                                       #
+#                                                                              #
+#  Targets: `make dots shell`                                                  #
+#                                                                              #
+#  Here you can setup any number of environment variables that will be         #
+#  added to ~/.shell/exports. The format is ENVVAR_[YOUR ENV VAR].  For        #
+#  example:                                                                    #
+#                                                                              #
+#    ENVVAR_FOO = BAR     # this will export FOO to BAR                        #
+#                                                                              #
 ################################################################################
 
 
@@ -254,15 +342,17 @@ GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
 
 ################################################################################
 #                                                                              #
-# Commands `make dots`                                                         #
+# Commands                                                                     #
+#                                                                              #
+# Targets: `make commands`                                                     #
 #                                                                              #
 # You can run unlimited custom commands. These commands are run at the very    #
-# end of `make dots`. As with symlinks, paths, and repos, increment the var    #
-# name. Use the format:                                                        #
+# end of `make bootstrap`. As with symlinks, paths, and repos, increment the   #
+# var name. Use the format:                                                    #
 #                                                                              #
 #     COMMAND[NN] = [command to execute]                                       #
 #                                                                              #
-# * Only use single quotes in your commands.                                   #
+# * Only use single quotes in your commands. Escape as needed.                 #
 #                                                                              #
 ################################################################################
 
@@ -272,29 +362,9 @@ GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
 
 ################################################################################
 #                                                                              #
-# Go `make dots shell`                                                         #
-#    `make go`                                                                 #
+# TPAM                                                                         #
 #                                                                              #
-# Here we will define our default GOPATH.  It's recommended to provide two     #
-# two paths, the first of which where go get will place its sources, the       #
-# second being for your own personal packages.  The separation will keep bits  #
-# cleaner, but ultimately it's your call.  For monorepos use direnv to         #
-# dynamically set the gopath by placing a .envrc with the exports you want to  #
-# be executed when working in that workspace, for example:                     #
-#                                                                              #
-#     export GOPATH=$(pwd)                                                     #
-#     export GOBIN=$(pwd)/bin                                                  #
-#     export PATH=$PATH:$GOBIN                                                 #
-#                                                                              #
-################################################################################
-
-
-GoPath = /Users/pbuell/.go:/Users/pbuell/Repos
-
-
-################################################################################
-#                                                                              #
-# TPAM `make dots shell`                                                       #
+# Targets: `make dots shell`                                                   #
 #                                                                              #
 # Configurations for a shell function `tpam` that will query tpam and copy     #
 # fresh credentials to the system clipboard. Don't include the protocol when   #
@@ -306,35 +376,6 @@ GoPath = /Users/pbuell/.go:/Users/pbuell/Repos
 TPAMUrl      = tpam.tld
 TPAMUsername = codybuell
 TPAMPassword = `command to get password`
-
-
-################################################################################
-#                                                                              #
-# Hashicorp Vault `make dots shell`                                            #
-#                                                                              #
-# Configurations to set environment variables used by `vault`.                 #
-#                                                                              #
-################################################################################
-
-
-Vault        = false
-VaultCAPath  = 
-VaultToken   = 1234567890abcdefghijklmnopqrstuvwxyz
-VaultAddress = https://vaultserver.tld:8200
-VaultServer  = vaultserver.tld
-
-
-################################################################################
-#                                                                              #
-# DDclient (TO BE IMPLEMENTED)                                                 #
-#                                                                              #
-################################################################################
-
-
-DDclient         = false
-DDclientLogin    = 1234567890abcdef
-DDclientPassword = ghijklmnopqrstuv
-DDclientFQDN     = hostname.codybuell.com
 
 
 # vim: ft=conf

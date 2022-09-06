@@ -34,6 +34,9 @@ bootstrap` or independently as needed. They are ordered below as run by `make
 bootstrap`, which is determined by dependencies.
 ```bash
 make subs                       # pull in all git repository submodules
+make paths                      # create paths scaffolding as defined in `.config`
+make symlinks                   # create symlinks as defined in `.config`
+make repos                      # clone git repositories as defined in `.config`
 make dots                       # places dotfiles, depends on repo `.config` file
 make nix                        # installs nix and packages, depends on `make dots`
 make mas                        # installs App Store apps, depends on `make nix`
@@ -43,6 +46,7 @@ make gem                        # installs ruby gems needed for nvim support etc
 make pip                        # installs pip packages needed for nvim support etc
 make karabiner                  # compiles and places config, restarts service, depends on node
 make osx                        # applies as many OSX configurations as possible via cli
+make commands                   # run commands as defined in `.config`
 ```
 The `make dots` target is generally the most heavily used. This is because
 dotfiles are not symlinked back to this repository, so any changes made to

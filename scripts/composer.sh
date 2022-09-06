@@ -14,8 +14,10 @@
 # Usage: make composer
 #        scripts/composer.sh
 
-source scripts/library.sh
-readconfig
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
+
+read_config
 
 ###################
 #                 #

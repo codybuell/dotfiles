@@ -14,7 +14,8 @@
 # Usage: scripts/fonts.sh
 #        make fonts
 
-source scripts/library.sh
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 #################
 #  Place Fonts  #

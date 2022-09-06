@@ -46,28 +46,41 @@ default:
 	\
 	  $(DIM)commands:$(NRM)\n\n\
 	\
-	    $(B)$(GRN)bootstrap$(NRM)   $(DIM)$(GRN)attempt to detect os and run all configurations$(NRM)\n\n\
+	    $(B)$(GRN)bootstrap$(NRM)   $(GRN)attempt to detect os and run all configurations$(NRM)\n\n\
 	\
-	    $(B)$(YLW)subs$(NRM)        $(DIM)$(YLW)pull and or update all repository git submodules$(NRM)\n\n\
+	    $(B)$(YLW)subs$(NRM)        $(YLW)pull and or update all repository git submodules$(NRM)\n\n\
 	\
-	    $(B)$(BLU)dots$(NRM)        $(DIM)$(BLU)place dotfiles for current user$(NRM)\n\
-	    $(B)$(BLU)nix$(NRM)         $(DIM)$(BLU)install nix and nix managed packages$(NRM)\n\
-	    $(B)$(BLU)mas$(NRM)         $(DIM)$(BLU)install mas and app store packages$(NRM)\n\
-	    $(B)$(BLU)brew$(NRM)        $(DIM)$(BLU)install brew and brew managed packages$(NRM)\n\
-	    $(B)$(BLU)node$(NRM)        $(DIM)$(BLU)install nvm, node, and npm managed packages$(NRM)\n\
-	    $(B)$(BLU)gem$(NRM)         $(DIM)$(BLU)install required gem packages$(NRM)\n\
-	    $(B)$(BLU)pip$(NRM)         $(DIM)$(BLU)install required pip packages$(NRM)\n\
-	    $(B)$(BLU)karabiner$(NRM)   $(DIM)$(BLU)install generate karabiner config and place$(NRM)\n\
-	    $(B)$(BLU)osx$(NRM)         $(DIM)$(BLU)install brew and brew managed packages$(NRM)\n\n\
+	    $(B)$(BLU)paths$(NRM)       $(BLU)stub out paths as defined in .config$(NRM)\n\
+	    $(B)$(BLU)symlinks$(NRM)    $(BLU)stub out symlinks as defined in .config$(NRM)\n\
+	    $(B)$(BLU)repos$(NRM)       $(BLU)clone git repositories as defined in .config$(NRM)\n\
+	    $(B)$(BLU)dots$(NRM)        $(BLU)place dotfiles for current user$(NRM)\n\
+	    $(B)$(BLU)nix$(NRM)         $(BLU)install nix and nix managed packages$(NRM)\n\
+	    $(B)$(BLU)mas$(NRM)         $(BLU)install mas and app store packages$(NRM)\n\
+	    $(B)$(BLU)brew$(NRM)        $(BLU)install brew and brew managed packages$(NRM)\n\
+	    $(B)$(BLU)node$(NRM)        $(BLU)install nvm, node, and npm managed packages$(NRM)\n\
+	    $(B)$(BLU)gem$(NRM)         $(BLU)install required gem packages$(NRM)\n\
+	    $(B)$(BLU)pip$(NRM)         $(BLU)install required pip packages$(NRM)\n\
+	    $(B)$(BLU)karabiner$(NRM)   $(BLU)install generate karabiner config and place$(NRM)\n\
+	    $(B)$(BLU)osx$(NRM)         $(BLU)install brew and brew managed packages$(NRM)\n\n\
+	    $(B)$(BLU)commands$(NRM)    $(BLU)run commands as defined in .config$(NRM)\n\n\
 	\
-	    $(B)$(RED)clean$(NRM)       $(DIM)$(RED)delete all backups of previous dotfiles$(NRM)\n\n"
+	    $(B)$(RED)clean$(NRM)       $(RED)delete all backups of previous dotfiles$(NRM)\n\n"
 
-bootstrap: subs dots nix mas brew node karabiner osx
+bootstrap: subs paths symlinks repos dots nix mas brew node karabiner osx commands
 
 subs:
 	git submodule init
 	git submodule update
 	git submodule update --init
+
+paths:
+	scripts/paths.sh
+
+symlinks:
+	scripts/symlinks.sh
+
+repos:
+	scripts/repos.sh
 
 dots:
 	scripts/dots.sh $(CMD_ARGS)
@@ -99,6 +112,9 @@ karabiner:
 osx:
 	scripts/osx.sh
 
+commands:
+	scripts/commands.sh
+
 clean:
 	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;
 
@@ -107,12 +123,6 @@ clean:
 # 	scripts/test.sh
 # config:
 # 	scripts/config.sh
-# repos:
-# 	scripts/repos.sh
-# paths:
-# 	scripts/paths.sh
-# symlinks:
-# 	scripts/symlinks.sh
 # go:
 # 	scripts/go.sh
 # composer:
@@ -123,5 +133,3 @@ clean:
 # 	scripts/iterm.sh
 # linux:
 # 	scripts/linux.sh
-# commands:
-# 	tbd script that calls library.sh.runcommands to exec COMMAND.* variables in config

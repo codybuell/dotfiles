@@ -13,7 +13,8 @@
 # Usage: make paths
 #        scripts/paths.sh
 
-source scripts/library.sh
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ######################
 #                    #
@@ -48,6 +49,6 @@ runpaths() {
 ############
 
 cd
-readconfig
+read_config
 runpaths
 exit 0

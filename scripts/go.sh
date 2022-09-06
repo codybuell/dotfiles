@@ -15,7 +15,8 @@
 # Usage: make go
 #        scripts/go.sh
 
-source scripts/library.sh
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ###################
 #                 #
@@ -74,7 +75,7 @@ configurepassage() {
 #                   #
 #####################
 
-readconfig
+read_config
 
 # set gopath if currently null
 if [ -z "$GOPATH" ]; then

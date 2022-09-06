@@ -87,6 +87,7 @@ PACKAGES=( \
   'tmux' \                            # terminal multiplexer
   'tree' \                            # file and directory listing utility
   'urlview' \                         # for viewing urls in mutt
+  'vault' \                           # encrypted key value pair storage
   'w3m' \                             # cli web browser
   'wget' \                            # curl alternative
   'watch' \                           # handy utility for monitoring
@@ -177,7 +178,6 @@ TAPS=( \
 #   'todo-txt' \                        # ginas handy to do list manager
 #   'toilet' \                          # ascii art
 #   'unar' \                            # tool for extracting rar and exe files
-#   'vault' \                           # encrypted key value pair storage
 #   'vim' \                             # improved version of already installed vi
 #   'wakeonlan' \                       # wol client
 #   'webkit2png' \                      # tool for screenshotting websites via command line

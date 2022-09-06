@@ -14,7 +14,8 @@
 # Usage: scripts/iterm.sh
 #        make iterm
 
-source scripts/library.sh
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ######################
 #  Define Variables  #
