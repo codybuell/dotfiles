@@ -123,3 +123,5 @@ clean:
 # 	scripts/iterm.sh
 # linux:
 # 	scripts/linux.sh
+# commands:
+# 	tbd script that calls library.sh.runcommands to exec COMMAND.* variables in config

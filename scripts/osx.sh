@@ -9,13 +9,18 @@
 # updated for Catalina. In this case any new config commands will check for
 # Catalina, but may also work for the previous three releases as well.
 #
-# Note that towards the bottom of the script there is a hardcoded section, you
-# will need to check and adjust those configs in addition to the settings
-# contained in the 'Configuration' section at the top of this script.
+# Towards the bottom of the script there is a hardcoded section, you will need
+# to check and adjust those configs in addition to the settings contained in
+# the 'Configuration' section at the top of this script.
+#
+# Lately there are a bunch of settings that appear to be correct in the various
+# plist files but the settings just never take effect. This has been the case
+# in Big Sur and Monterey with settings around login screen, keyboard layouts
+# etc...
 #
 # Author(s): Cody Buell
 # 
-# Requisite: - path for screenshots
+# Requisite: - a path for screenshots, be sure to update the config below
 #            - full disk access for terminal app
 #            - desired default browser installed
 #
@@ -28,107 +33,27 @@
 #        - defaults      (configuring ~/Library/Preferences/ plist files)
 #                        * note that -g is shorthand for NSGlobalDomain
 #                          which are defaults intended for all applications
-#          
+#
 #          defaults read -g                                  show all global
 #          defaults read com.apple.finder                    show local
 #          defaults read com.apple.finder AppleShowAllFiles  show local value
 #          defaults find "NSStatusItem Preferred Position"   search all plists
 #
-# Coverage: - [ ] Yosemite
-#           - [ ] El Capitan
-#           - [ ] Sierra
-#           - [ ] High Sierra
-#           - [ ] Mojave
+# Coverage: - [?] Yosemite
+#           - [?] El Capitan
+#           - [?] Sierra
+#           - [~] High Sierra
+#           - [~] Mojave
 #           - [X] Catalina
-#           - [ ] Big Sur
+#           - [~] Big Sur
+#           - [~] Monterey
 #
-# Manual: A checklist of items that need to be run manually or are yet to be
-#         automated to finish setting up a system.
-#
-#         - add keyboard layout, set default
-#         - authorizations
-#           - weather to use current location
-#           - calendar to use current location
-#         - system preferences 
-#           - general -> set default browser
-#           - notifications -> allow repeat calls with dnd
-#           - internet accounts -> turn on account services
-#           - desktop & screen saver -> set wallpaper
-#           - desktop & screen saver -> set sreensaver (com.apple.screensaver w/ -currentHost)
-#           - desktop & screen saver -> start screensaver after 10 min
-#           - security & privacy -> use apple watch
-#           - security & privacy -> require pw immediately
-#           - security & privacy -> turn on file vault (allow icloud to decrypt)
-#           - security & privacy -> turn on firewall
-#           - security & privacy -> full disk access
-#             - terminal
-#             - iterm2
-#           - sharing -> enable screen sharing
-#           - sharing -> set hostname
-#           - energy saver -> ups -> shutdown when 5 minutes remaining
-#         - notification center widgets and order (com.apple.notificationcenterui)
-#           - now playing
-#           - calendar
-#           - weather
-#           - stocks
-#           - world clock
-#           - calculator
-#           - tomorrow
-#         - position menu bar icons ltr (com.apple.systemuiserver)
-#           - hammerspoon
-#           - volume
-#           - spotlight
-#           - tg pro
-#           - synology drive
-#           - docker
-#           - keybase
-#           - dropbox
-#           - google drive filestream
-#           - lastpass
-#           - karabiner-elements
-#           - text input
-#           - ups battery
-#           - airplay
-#           - bluetooth
-#           - vpn
-#           - airport
-#           - siri
-#           - hazeover
-#           - noizio
-#           - screenie
-#           - clock
-#           - fantastical
-#           - bartender
-#           - notification center
-#         - finder sidebar items and order
-#           - Favorites
-#             - home
-#             - AirDrop
-#             - Recents
-#             - Desktop
-#             - Downloads
-#             - Documents
-#             - Screenshots
-#             - Applications
-#             - SynologyDrive
-#             - Google Drive
-#             - iCloud Drive
-#             - Dropbox
-#             - Repos
-#             - Notes
-#           - locations
-#             - host
-#             - [others]
-#         - finder default view options (w x h, icon size, spacing, sort options)
-#
-# Tasks: - [ ] test and add conditionals on each major release (within reason)
-#        - [ ] build configurations for hardcoded section
-#        - [ ] automate manual steps where possible
-#        - [ ] inline todo's
-#
-# Usage: makes osx
+# Usage: make osx
 #        ./osx.sh
 #        sh -c “$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/osx.sh)”
+
+# shellcheck source=./lib.sh
+source "${BASH_SOURCE%/*}/lib.sh"
 
 ################################################################################
 ################################################################################
@@ -139,6 +64,9 @@
 ##                                                                            ##
 ################################################################################
 ################################################################################
+
+# keyboard layout
+DefaultColemak='true'                         # use colemak as default layout
 
 # finder
 ShowHiddenFiles='false'                       # show hidden files by default
@@ -239,8 +167,7 @@ AppStoreDebugMenu='true'                      # turn on app store debug?
 DiskUtilityDebugMenu='true'                   # turn on disk utility debug?
 
 # screenshots
-ScrnShotsFolder='~/Library/Mobile
-Documents/com~apple~CloudDocs/Data/Resources/Screenshots' # where to save screenshots
+ScreenshotFolder='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Screenshots'
 ScreenshotDropshadows='false'                 # dropshadows on screenshots?
 ScreenshotFormat='png'                        # bmp, gif, jpg, pdf, tiff
 
@@ -284,40 +211,71 @@ EnableLocate='true'                           # turn on locate service
 ################################################################################
 ################################################################################
 
-case `sw_vers -productVersion | awk -F '.' '{print $1 "." $2}'` in
-  '10.10')
-    NUMVER=1010
-    OSVER='yosemite'
+MAJOR=$(sw_vers -productVersion | awk -F '.' '{print $1}')
+MINOR=$(sw_vers -productVersion | awk -F '.' '{printf("%02d\n", $2)}')
+NUMVER=${MAJOR}${MINOR}
+
+case "$MAJOR" in
+'10')
+    case "$MINOR" in
+    '00')
+        OSVER='cheetah'
+        ;;
+    '01')
+        OSVER='puma'
+        ;;
+    '02')
+        OSVER='jaguar'
+        ;;
+    '03')
+        OSVER='panther'
+        ;;
+    '04')
+        OSVER='tiger'
+        ;;
+    '05')
+        OSVER='leopard'
+        ;;
+    '06')
+        OSVER='snow leopard'
+        ;;
+    '07')
+        OSVER='lion'
+        ;;
+    '08')
+        OSVER='mountain lion'
+        ;;
+    '09')
+        OSVER='mavericks'
+        ;;
+    '10')
+        OSVER='yosemite'
+        ;;
+    '11')
+        OSVER='el capitan'
+        ;;
+    '12')
+        OSVER='sierra'
+        ;;
+    '13')
+        OSVER='high sierra'
+        ;;
+    '14')
+        OSVER='mojave'
+        ;;
+    '15')
+        OSVER='catalina'
+        ;;
+    esac
     ;;
-  '10.11')
-    NUMVER=1011
-    OSVER='el capitan'
-    ;;
-  '10.12')
-    NUMVER=1012
-    OSVER='sierra'
-    ;;
-  '10.13')
-    NUMVER=1013
-    OSVER='high sierra'
-    ;;
-  '10.14')
-    NUMVER=1014
-    OSVER='mojave'
-    ;;
-  '10.15')
-    NUMVER=1015
-    OSVER='catalina'
-    ;;
-  '11.0')
-    NUMVER=1100
+
+'11')
     OSVER='big sur'
     ;;
-  '11.5')
-    NUMVER=1105
-    OSVER='big sur'
+'12')
+    OSVER='monterey'
     ;;
-  *)
+*)
     OSVER='unknown'
     ;;
 esac
@@ -537,7 +495,7 @@ defaults write com.apple.dock double-tap-jump-back -bool $EnableSpacesJumpBack
 }
 
 # transparent menu bar and other bits
-if [ $NUMVER -lt 1015 ]; then
+if [[ $NUMVER -lt 1015 ]]; then
   defaults write com.apple.universalaccess reduceTransparency -bool $ReduceTransparency
 fi
 
@@ -581,37 +539,37 @@ defaults write -g NSDocumentSaveNewDocumentsToCloud -bool $DefaultSaveToiCloud
 defaults write com.apple.dashboard mcx-disabled -boolean $DisableDashboard
 
 # set seconds till system should go into standby
-# sudo pmset -a standbydelay $StandbyDelay                   # in seconds
-sudo systemsetup -setcomputersleep $StandbyDelay > /dev/null # in minutes, never or off
+# sudo pmset -a standbydelay $StandbyDelay                     # in seconds
+sudo systemsetup -setcomputersleep $StandbyDelay 2> /dev/null  # in minutes, never or off
 
 # set the systems timezone
-sudo systemsetup -settimezone $SystemTimezone > /dev/null
+sudo systemsetup -settimezone $SystemTimezone 2> /dev/null
 
 # use ntp for setting time
 NTPStatus=`[[ $UseNTP == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setusingnetworktime $NTPStatus > /dev/null
+sudo systemsetup -setusingnetworktime $NTPStatus 2> /dev/null
 
 # set the display sleep time
-sudo systemsetup -setdisplaysleep $DisplaySleepTime > /dev/null
+sudo systemsetup -setdisplaysleep $DisplaySleepTime 2> /dev/null
 
 # set hard drive sleep time
-sudo systemsetup -setharddisksleep $HDDSleepTime > /dev/null
+sudo systemsetup -setharddisksleep $HDDSleepTime 2> /dev/null
 
 # configure ssh server
 SSHStatus=`[[ $EnableSSHServer == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setremotelogin $SSHStatus > /dev/null
+sudo systemsetup -setremotelogin $SSHStatus 2> /dev/null
 
 # wake on lan
 WOLStatus=`[[ $WakeOnLan == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setwakeonnetworkaccess $WOLStatus > /dev/null
+sudo systemsetup -setwakeonnetworkaccess $WOLStatus 2> /dev/null
 
 # auto restart after system freeze
 AutoRestartStatus=`[[ $AutoRebootOnFreeze == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setrestartfreeze $AutoRestartStatus
+sudo systemsetup -setrestartfreeze $AutoRestartStatus 2> /dev/null
 
 # allow remote scripting
 ScriptingStatus=`[[ $AllowRemoteScripting == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setremoteappleevents $ScriptingStatus > /dev/null
+sudo systemsetup -setremoteappleevents $ScriptingStatus 2> /dev/null
 
 # auto close printer application when done
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool $AutoQuitPrinterWhenDone
@@ -624,6 +582,7 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool $AutoQui
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool $ShowInputMenu
 
 # require username and password or show list of users
+# TODO: Monterey does not seem to respect this. Gets set but not used, have to toggle in sys pref.
 sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool $NameAndPasswordOnly
 
 # configure password hints
@@ -653,7 +612,7 @@ defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool $DiskUtilityDebugM
 ###############
 
 # set where to save screenshots
-defaults write com.apple.screencapture location "$ScrnShotsFolder"
+defaults write com.apple.screencapture location "$ScreenshotFolder"
 
 # disable dropshadow in screenshots
 DisableDrops=`[[ $ScreenshotDropshadows == 'true' ]] && echo false || echo true`
@@ -670,7 +629,7 @@ defaults write com.apple.screencapture type -string "$ScreenshotFormat"
 # todo: automate granting of full disk access for terminal and iterm
 [[ $DisableTimeMachine == 'true' ]] && {
   sudo tmutil disable
-  if [ $NUMVER -lt 1015 ]; then
+  if [[ $NUMVER -lt 1015 ]]; then
     sudo tmutil disablelocal
   fi
 }
@@ -770,6 +729,7 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool $ZoomFo
 ##  Hardcoded                                                                 ##
 ##                                                                            ##
 ##  Bits that have to be configured manually here.                            ##
+##  TODO: make this stuff configurable at top of script.                      ##
 ##                                                                            ##
 ################################################################################
 ################################################################################
@@ -811,7 +771,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # disable spotlight indexing for any volume that gets mounted and has not yet # been indexed before.
 # use `sudo mdutil -i off "/volumes/foo"` to stop indexing any volume.
-if [ $NUMVER -lt 1015 ]; then
+if [[ $NUMVER -lt 1015 ]]; then
   sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 fi
 
@@ -859,6 +819,24 @@ sudo mdutil -i on / > /dev/null
 
 # rebuild the index from scratch
 sudo mdutil -E / > /dev/null
+
+# add colemak to input sources
+# if [[ $DefaultColemak == "true" ]]; then
+#   # defaults delete com.apple.HIToolbox AppleEnabledInputSources
+#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; }'
+#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+#   defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.Colemak"
+#   # defaults delete com.apple.HIToolbox AppleInputSourceHistory
+#   defaults write com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+#   defaults write com.apple.HIToolbox AppleInputSourceHistory -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+#   defaults write com.apple.HIToolbox AppleSelectedInputSources -array '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+#   defaults write com.apple.HIToolbox AppleSelectedInputSources -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+#   sudo cp ~/Library/Preferences/com.apple.HIToolbox.plist /Library/Preferences/
+#   sudo chmod 644 /Library/Preferences/com.apple.HIToolbox.plist
+#   # TODO: setup caps map to escape https://apple.stackexchange.com/questions/13598/updating-modifier-key-mappings-through-defaults-command-tool
+# fi
 
 ################################################################################
 ################################################################################

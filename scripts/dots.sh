@@ -2,185 +2,189 @@
 #
 # Dots
 #
-# Place repository dotfiles into production.  Replaces variables formatted as
-# {{ var }} within the files with data from the repository .config and moves
-# any existing files to [file].dotorig.[datetime]. 'dotorig' files can be
-# cleaned up by running `make clean`.
+# Utility to place repository dotfiles into production. For the specified
+# dotfile (file or folder), or all dotfiles if none specified, the script will
+# first replace all variables found within each file. Variables take the format
+# of {{ variable }} where `variable` corresponds to a key in the repository
+# .config file. Variables are case sensitive. Next it will compare the
+# finalized dotfiles with the targets destination and do one of three things: 
+#
+#  - Skip placing the dotfile(s) if no change was detected.
+#  - Place the dotfile(s) if nothing was at the target already.
+#  - Backup the items currently in production by copying them and adding a
+#    `.dotorig.[datetime]` extension, then placing the new dotfile(s).
+#
+# There are also pre and post hooks that can be configured to run before or
+# after placing the corresponding dotfiles. See the functions pre_place_hooks
+# and post_place_hooks below.
+#
+# Backup dotfiles can be removed by running `make clean`.
 #
 # Author(s): Cody Buell
 #
-# Requisite: 
+# Requisite: - ../.config (or .config in dir $CONFIGDIR)
+#            - ../dotfiles/* (or dir configured by DOTS_LOC)
 #
-# Task:
+# Tools:
 #
 # Usage: make dots [file|folder] [file|folder] ...
 #        ./dots.sh [file|folder] [file|folder] ...
 
-#########################
-#                       #
-#  Establish Variables  #
-#                       #
-#########################
+# shellcheck source=./lib.sh
+source "${BASH_SOURCE%/*}/lib.sh"
 
-# defaults
+################################################################################
+#                                                                              #
+#  Configuration                                                               #
+#                                                                              #
+################################################################################
+
+# flag / option defaults
 SKIPBACKUPS=false
 FORCE=false
 
-# define locations
-CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
-DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
-DOTFILES=(`ls $DOTS_LOC`)
-UNAME=`uname -s`
+# what to exclude when templating (tmp files, git submodules, etc)
+TEMPLATEEXCLUDES=( \
+  "-name *.DS_Store" \
+  "-path *.mutt*/scripts/vendor/*" \
+  "-path *.zsh*/plugins/base16-shell/*" \
+  "-path *nvim*/bundles/*" \
+  "-path *nvim*/pack/*" \
+  "-path *nvim*/tmp/*" \
+  "-path *.terminfo*/*" \
+  )
 
 # what to exclude when comparing existing files (tmp files, compiled bits, etc)
 DIFFEXCLUDES=( \
   "-name *.DS_Store" \
-  "-regex .*.vim.*/.netrwhist" \
-  "-regex .*.vim.*/bundles" \
   "-regex .*.mutt*/tmp" \
-  "-path *.vim*/tmp/*" \
-  "-path *.vim*/sessions/*" \
-  "-path *.vim*/snippits/*" \
-  "-path *.vim*/bundles/*" \
-  "-path *.vim*/pack/*" \
+  "-path *.config/nvim*/backup" \
+  "-path *.config/nvim*/sessions" \
+  "-path *.config/nvim*/swap" \
+  "-path *.config/nvim*/undo" \
+  "-path *.config/nvim*/view" \
+  "-path *.config/nvim*/pack/bundle/opt/command-t/*" \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
   "-path */__pycache__/*" \
   )
 
-# what to exclude when templating (tmp files, git submodules, etc)
-TEMPLATEEXCLUDES=( \
-  "-name *.DS_Store" \
-  "-path *.mutt*/scripts/vendor/*" \
-  "-path *.shell*/base16-shell/*" \
-  "-path *.shell*/zsh-*/*" \
-  "-path *.vim*/bundles/*" \
-  "-path *.vim*/pack/*" \
-  "-path *.vim*/tmp/*" \
-  "-path *.terminfo*/*" \
-  )
+# grab home dir full path and timestamp
+HOME=$(cd && pwd)
+DATE=$(date +%Y%m%d%H%M%S)
 
-# compile excludes to find statement for diffs
-DIFFEXCLUDE=''
-for (( i = 0; i < ${#DIFFEXCLUDES[@]}; i++ )); do
-  DIFFEXCLUDE+=" -not ${DIFFEXCLUDES[$i]}"
-done
+# determine md5 binary name
+if which md5 &> /dev/null; then
+  MD5='md5'
+  MD5Q='md5 -q'
+else
+  MD5='md5sum'
+  MD5Q='md5sum'
+fi
 
-# compile excludes to find statement for templating
-TEMPLATEEXCLUDE=''
-for (( i = 0; i < ${#TEMPLATEEXCLUDES[@]}; i++ )); do
-  TEMPLATEEXCLUDE+=" -not ${TEMPLATEEXCLUDES[$i]}"
-done
+################################################################################
+#                                                                              #
+#  Functions                                                                   #
+#                                                                              #
+################################################################################
 
-######################
-#                    #
-#  Define Functions  #
-#                    #
-######################
-
+##
+ # Usage
+ #
+ # Prints script usage, does not exit.
+ #
+ # @params none
+ # @return none
+##
 usage() {
-
   cat <<-ENDOFUSAGE
-	usage: $(basename $0) [-i file] [-n]
+	usage: $(basename "$0") [-hfn] [-i file]
 
 	  -h, --help           Display usage information.
+	  -f, --force          Place files even if no diff is found
 	  -n, --no-backup      No backups, does not make a ".dotorig" copy.
 	  -i [file]            Dotfiles to ignore, one argument per flag
 
 	ENDOFUSAGE
-
 }
 
-prettyprint() {
-
-  printf "$1" | awk '{file=$1;$1="";printf "  %-40s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
-
-}
-
-readconfig() {
-
-  ENVVARS=()
-  CONFIGVARS=()
-  # add in some baseline configs
-  CONFIGVARS+="CONFGDIR UNAME "
-  # parse the config file
-  shopt -s extglob
-  configfile="$CONFGDIR/.config"
-  [[ -e $configfile ]] && {
-    tr -d '\r' < $configfile > $configfile.tmp
-    while IFS='= ' read -r lhs rhs; do
-      if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
-        rhs="${rhs%%\#*}"    # del in line right comments
-        rhs="${rhs%%*( )}"   # del trailing spaces
-        rhs="${rhs%\"*}"     # del opening string quotes
-        rhs="${rhs#\"*}"     # del closing string quotes
-        export $lhs="$rhs"
-        # build configvars and envvars arrays
-        if [[ $lhs =~ ENVVAR_.* ]]; then
-          ENVVARS+="$lhs "
-        else
-          CONFIGVARS+="$lhs "
-        fi
-      fi
-    done < $configfile.tmp
-    export CONFIGVARS
-  } || {
-    printf "\033[0;31mno configuration file detected\033[0m\n"
-    exit 1
-  }
-  rm $configfile.tmp
-
-}
-
-preplacehooks() {
-
+##
+ # Pre-Place Hooks
+ #
+ # Defines and exutes commands to be run BEFORE placing a corresponding dotfile
+ # into production. Case statements should match the name of the file here in
+ # the repository, ie no preceeding `.`.
+ #
+ # @params <TARGET>
+ #   TARGET (str): dotfile (file/folder) being placed
+ # @return none
+##
+pre_place_hooks() {
   CURRENTTARGET=$1
   CWD=$(pwd)
+  if [[ -d ~/".${CURRENTTARGET}.new.${DATE}" ]]; then
+    cd ~/".${CURRENTTARGET}.new.${DATE}" || exit 1
+  fi
 
   case $CURRENTTARGET in
     vim )
-      cd ~/.vim.new.$DATE
-      ln -s $CONFGDIR/assets/snippits snippits
-      ln -s $CONFGDIR/assets/en.utf-8.add spell/en.utf-8.add
-      ln -s init.vim vimrc
-      cd $CWD > /dev/null
+      # ln -s "$CONFIGDIR"/assets/snippits snippits
+      # ln -s "$CONFIGDIR"/assets/en.utf-8.add spell/en.utf-8.add
+      # ln -s init.vim vimrc
       ;;
     terminfo )
-      cd ~/.terminfo.new.$DATE
-      for terminfo in `ls`; do
-        tic -o ~/.terminfo.new.$DATE $terminfo > /dev/null 2>&1
+      for terminfo in *; do
+        tic -o ~/".terminfo.new.$DATE" "$terminfo" > /dev/null 2>&1
       done
-      cd $CWD > /dev/null
       ;;
     mutt )
       # bundler gem bits (mime types) need to be installed
-      cd ~/.mutt.new.$DATE/scripts
       bundle install
-      cd $CWD > /dev/null
+      cd ~/".mutt.new.$DATE"/vendor || exit 1
+      ln -s "$CONFIGDIR"/submodules/mutt-notmuch-py .
       ;;
     shell )
-      cd ~/.shell.new.$DATE
+      # link up repo based resources
+      ln -s "$CONFIGDIR"/submodules/base16-shell .
+      ln -s "$CONFIGDIR"/submodules/zsh-autosuggestions .
+      ln -s "$CONFIGDIR"/submodules/zsh-syntax-highlighting .
       # place dynamic environment variables from config
       echo "" >> exports
       echo "### CONFIG DRIVEN VARS ###" >> exports
-      for e in ${ENVVARS[@]}; do
-        VAR=`echo $e | sed "s/ENVVAR_//"`
-        eval VAL=\$$e
+      for e in "${ENVVARS[@]}"; do
+        VAR="${e//ENVVAR_/}"
+        eval VAL="\$$e"
         echo "export ${VAR}=${VAL}" >> exports
       done
-      cd $CWD > /dev/null
       ;;
   esac
 
+  cd "$CWD" > /dev/null || exit 1
 }
 
-postplacehooks() {
-
+##
+ # Post-Place Hooks
+ #
+ # Defines and exutes commands to be run AFTER placing a corresponding dotfile
+ # into production. Case statements should match the name of the file here in
+ # the repository, ie no preceeding `.`.
+ #
+ # @params <TARGET>
+ #   TARGET (str): dotfile (file/folder) being placed
+ # @return none
+##
+post_place_hooks() {
   CURRENTTARGET=$1
   CWD=$(pwd)
+  if [[ -d ~/".${CURRENTTARGET}.new.${DATE}" ]]; then
+    cd ~/".${CURRENTTARGET}.new.${DATE}" || exit 1
+  fi
 
   case $CURRENTTARGET in
+    msmtprc )
+      chmod 600 ~/.msmtprc
+      ;;
     Xresources )
       xrdb ~/.Xresources
       ;;
@@ -191,182 +195,140 @@ postplacehooks() {
     gnupg )
       chmod 700 ~/.gnupg
       ;;
-    vim )
-      NVIMPATH=`which -a nvim | uniq | grep -v 'alias' | head -1`
-      VIMPATH=`which -a vim | uniq | grep -v 'alias' | head -1`
-
-      # link up neovim (do this first...)
-      NVIMRTPROOT='~/.config/nvim'
-      [[ -d $NVIMRTPROOT || -L $NVIMRTPROOT ]] && {
-        [[ -L $NVIMRTPROOT ]] && {
-          unlink $NVIMRTPROOT
-        } || {
-          mv ~/.config/nvim ~/.config/nvim.dotorig.`date +%Y%m%d%H%M%S`
-        }
-      }
-      ln -s ~/.vim ~/.config/nvim
-
-      # vim-plug run plug install
-      # $NVIMPATH -E -s -u "~/.vim/init.vim" +PlugInstall +qa
-      # $VIMPATH -E +'PlugInstall --sync' +qa &> /dev/null
-
-      # run UpdateRemotePlugins for deoplete to populate ~/.local/share/nvim/rplugin.vim
-      $NVIMPATH -E -s -u "~/.vim/init.vim" +UpdateRemotePlugins +qa &> /dev/null
-
-      # generate helptags for all plugins
-      $NVIMPATH -E -s -u "~/.vim/init.vim" +'helptags ALL' +qa &> /dev/null
-      $VIMPATH -E +'helptags ALL' +qa &> /dev/null
-
-      # firenvim
-      $NVIMPATH --headless -c "call firenvim#install(0, 'export LANG="en_US.UTF-8"; export PATH=\"$PATH\"')" -c quit > /dev/null 2>&1
-
-      # markdown-preview.nvim
-      $NVIMPATH --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
+    *nvim )
+      NVIMPATH=$(which -a nvim | uniq | grep -v 'alias' | head -1)
 
       # compile command-t
-      cd ~/.vim/pack/bundle/opt/command-t/ruby/command-t/ext/command-t > /dev/null
-      ruby extconf.rb > /dev/null 2>&1
+      cd "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib > /dev/null || exit 1
       make > /dev/null 2>&1
-      cd $CWD > /dev/null
+      cd "$CWD" > /dev/null || exit 1
 
-      # treesitter
-      $VIMPATH -E +'TSUpdate' +qa &> /dev/null
+      # generate helptags for all plugins
+      ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
 
-      # what were you doing here??
-      #gsed -i '/Base16hi/! s/a:\(attr\|guisp\)/l:\1/g' ~/.vim/pack/bundle/opt/base16-vim/colors/*.vim
+      # run treesitter-install (not working)
+      # ${NVIMPATH} --headless +'TSInstall' +qa > /dev/null 2>&1
 
-      # if linux (or vim older than ?), you need to symlink ~/.vimrc to .vim/init.vim
+      # firenvim
+      # ${NVIMPATH} --headless -c "call firenvim#install(0, 'export LANG=\"en_US.UTF-8\"; export PATH=\"${PATH}\"')" -c quit > /dev/null 2>&1
 
-      # make tmp dirs
-      mkdir -p ~/.vim/tmp/view ~/.vim/tmp/backup ~/.vim/tmp/undo ~/.vim/tmp/swap
+      # markdown-preview.nvim
+      # ${NVIMPATH} --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
       ;;
   esac
 
+  cd "$CWD" > /dev/null || exit 1
 }
 
-placefiles() {
-
-  printf "\033[0;34mplacing files...\033[0m\n"
-
-  # grab home dir full path and timestamp
-  cd; HOME=`pwd`
-  DATE=`date +%Y%m%d%H%M%S`
+##
+ # Place Files
+ #
+ # Handles placing files into production and the associated logic to fill
+ # variables, diff, backup etc.
+ #
+ # @params none
+ # @return none
+##
+place_files() {
+  log blue "placing files..."
 
   # iterate through the dotfiles
-  for i in ${DOTFILES[@]}; do
+  for i in "${DOTFILES[@]}"; do
 
-    # if file or dir does not exist, bail
-    if [[ (! -f $DOTS_LOC/$i) && (! -d $DOTS_LOC/$i) ]]; then
-      prettyprint "  .${i} \033[0;31mnot found in repo\033[0m\n"
+    ###########
+    #  skips  #
+    ###########
+
+    # skip if file or dir does not exist
+    if [[ (! -f ${DOTS_LOC}/${i}) && (! -d ${DOTS_LOC}/${i}) ]]; then
+      log red "  .${i}" "not found in repo"
       continue 2
     fi
 
-    # pass on ignore files
-    for IGN in ${IGNORE[@]}; do
-      if [ $i == $IGN ]; then
-        prettyprint "  .${i} \033[0;31mignoring\033[0m\n"
+    # skip if in ignore list
+    for IGN in "${IGNORE[@]}"; do
+      if [ "${i}" == "${IGN}" ]; then
+        log red "  .${i}" "ignoring"
         continue 2
       fi
     done
 
+    ########################################
+    #  placing, pre hooks, and templating  #
+    ########################################
+
     # place dotfile as dotfile.new.date
-    cp -a $DOTS_LOC/$i $HOME/.$i.new.$DATE
+    cp -a "${DOTS_LOC}/${i}" "${HOME}/.${i}.new.${DATE}"
 
     # run custom commands as necessary
-    preplacehooks $i
+    pre_place_hooks "${i}"
 
-    # set the template variables
-    for c in ${CONFIGVARS[@]}; do
-      VAR=$c
-      eval VAL=\$$c
-      [[ $UNAME =~ ^Darwin ]] && {
-        find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -print0 | xargs -0 sed -i '' "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
-      } || {
-        find ~/.$i.new.$DATE $TEMPLATEEXCLUDE -type f -print0 | xargs -0 sed -i "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
-      }
+    # replace all variables found in dotfiles
+    for c in "${CONFIGVARS[@]}"; do
+      VAR=${c}
+      eval VAL="\$$c"
+      find ~/".${i}.new.${DATE}" ${TEMPLATEEXCLUDE} -type f -print0 | xargs -0 perl -pi -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
     done
 
+    #############
+    #  diffing  #
+    #############
+
     # if the target file or dir already exists
-    if [ -f $HOME/.$i ] || [ -d $HOME/.$i ]; then
+    if [ -f "${HOME}/.${i}" ] || [ -d "${HOME}/.${i}" ]; then
       # if it is a symlink then remove it
-      if [ -L $HOME/.$i ]; then
-        prettyprint "  .${i} \033[0;32mremoving old symlink and replacing\033[0m\n"
-        rm $HOME/.$i
+      if [ -L "${HOME}/.${i}" ]; then
+        log green "  .${i}" "removing old symlink and replacing"
+        rm "${HOME}/.${i}"
       # if it is not a symlink compare it
       else
-        # determine md5 binary name
-        which md5 > /dev/null 2>&1
-        [[ $? -gt 0 ]] && {
-          MD5='md5sum'
-          MD5Q='md5sum'
-        } || {
-          MD5='md5'
-          MD5Q='md5 -q'
-        }
-
         # gather the checksums
-        if [ -d $HOME/.$i ]; then
-          MD5NEW=`find $HOME/.$i.new.$DATE $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5 | awk '{print $1}'`
-          MD5OLD=`find $HOME/.$i $DIFFEXCLUDE -type f -exec $MD5 {} \; | sort -k 2 | awk '{print \$4}' | $MD5 | awk '{print $1}'`
+        if [ -d "${HOME}/.${i}" ]; then
+          MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
+          MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
         else
-          MD5NEW=`$MD5Q $HOME/.$i.new.$DATE | awk '{print $1}'`
-          MD5OLD=`$MD5Q $HOME/.$i | awk '{print $1}'`
+          MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | awk '{print $1}')
+          MD5OLD=$(${MD5Q} "${HOME}/.${i}" | awk '{print $1}')
         fi
 
         # compare checksums
-        if [[ $MD5NEW == $MD5OLD && $FORCE == 'false' ]]; then
+        if [[ "${MD5NEW}" == "${MD5OLD}" && "${FORCE}" == "false" ]]; then
           # if the same
-          prettyprint "  .${i} \033[0;32malready there\033[0m\n"
-          rm -rf $HOME/.$i.new.$DATE
+          log green "  .${i}" "already there"
+          rm -rf "${HOME}/.${i}.new.${DATE}"
           continue
-        elif [ $SKIPBACKUPS == 'false' ]; then
+        elif [ "${SKIPBACKUPS}" == "false" ]; then
           # if different with backups enabled
-          prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m (\033[0;33moriginal moved to ~/.$i.dotorig.$DATE\033[0m)\n"
-          mv $HOME/.$i $HOME/.$i.dotorig.$DATE
+          log green "  .${i}" "placing dotfile ${YELLOW}original moved to ~/.${i}.dotorig.${DATE}"
+          mv "${HOME}/.${i}" "${HOME}/.${i}.dotorig.${DATE}"
         else
-          # if different with backups disabled
-          prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
-          rm -rf $HOME/.$i
+          # if different with backups disabled or forcing
+          log green "  .${i}" "placing dotfile"
+          rm -rf "${HOME}/.${i}"
         fi
       fi
     else
-      prettyprint "  .${i} \033[0;32mplacing dotfile\033[0m\n"
+      log green "  .${i}" "placing dotfile"
     fi
 
+    ############################
+    #  placing and post hooks  #
+    ############################
+
     # place new dotfile
-    mv $HOME/.$i.new.$DATE $HOME/.$i
+    mv "${HOME}/.${i}.new.${DATE}" "${HOME}/.${i}"
 
     # run any needed configs after placing dotfiles
-    postplacehooks $i
+    post_place_hooks "${i}"
 
   done
-
 }
 
-runcommands() {
-
-  for c in ${CONFIGVARS[@]}; do
-    VAR=$c
-    eval VAL=\$$c
-    [[ $VAR =~ COMMAND.* ]] && {
-      printf "\033[0;34mexecuting: $VAL\033[0m\n"
-      eval "$VAL"
-    }
-  done
-
-}
-
-fixperms() {
-  [ -e ~/.msmtprc ] && {
-    chmod 600 ~/.msmtprc
-  }
-}
-
-##################
-#                #
-#  Long Options  #
-#                #
-##################
+################################################################################
+#                                                                              #
+#  Handle Options                                                              #
+#                                                                              #
+################################################################################
 
 [ x"$1" == x"--help" ] && {
   usage
@@ -381,12 +343,6 @@ fixperms() {
   FORCE=true
 }
 
-###################
-#                 #
-#  Short Options  #
-#                 #
-###################
-
 while getopts ":hi:nf" Option; do
   case $Option in
     h )
@@ -394,38 +350,50 @@ while getopts ":hi:nf" Option; do
       exit
       ;;
     i )
-      IGNORE=(${IGNORE[@]} $OPTARG)
-      shift 2
+      IGNORE+=("${OPTARG}")
       ;;
     n )
       SKIPBACKUPS=true
-      shift
       ;;
     f )
       FORCE=true
-      shift
       ;;
     : )
-      echo "Option -$OPTARG requires an argument." >&2
+      echo "Option -${OPTARG} requires an argument." >&2
       exit
+      ;;
+    \? )
+      echo "Invalid option: -${OPTARG}" >&2
       ;;
   esac
 done
 
-############
-#          #
-#  Run It  #
-#          #
-############
+shift $(( OPTIND - 1 ))
 
-readconfig
+################################################################################
+#                                                                              #
+#  Run                                                                         #
+#                                                                              #
+################################################################################
+
+# compile excludes to find statement for templating
+TEMPLATEEXCLUDE=''
+for (( i = 0; i < ${#TEMPLATEEXCLUDES[@]}; i++ )); do
+  TEMPLATEEXCLUDE+=" -not ${TEMPLATEEXCLUDES[$i]}"
+done
+
+# compile excludes to find statement for diffs
+DIFFEXCLUDE=''
+for (( i = 0; i < ${#DIFFEXCLUDES[@]}; i++ )); do
+  DIFFEXCLUDE+=" -not ${DIFFEXCLUDES[$i]}"
+done
+
+read_config
+
 # if unflagged arg passed set $DOTFILES with its value
 if [ "$1" != "" ]; then
+  # shellcheck disable=SC2206
   DOTFILES=($@)
 fi
-placefiles
-fixperms
-if [ "$1" == "" ]; then
-  runcommands
-fi
-exit 0
+
+place_files

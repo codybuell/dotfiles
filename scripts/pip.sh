@@ -3,6 +3,8 @@
 # Pip
 #
 # Install pip packages to support dotfiles and base level system configs.
+# Assumes Python 3 only but keeps Python 2 code around and commented out in
+# case it is needed for some odd reason.
 #
 # Author(s): Cody Buell
 #
@@ -12,7 +14,9 @@
 #
 # Usage: make pip
 #        ./pip.sh
-#        sh -c "$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/pip.sh)"
+
+# shellcheck source=./lib.sh
+source "${BASH_SOURCE%/*}/lib.sh"
 
 ###################
 #                 #
@@ -28,6 +32,7 @@ PYTHON2=( \
 
 # standard Python 3 packages
 PYTHON3=( \
+    'awscli' \                         # amazon web services cli
     'browsercookie' \                  # for getting browser cookies with cookiemonster via cli
     'click' \                          # required for mattermost auth cookie gathering script
     'commandt.score' \                 # search scoring utility used in custom deoplete filter
@@ -44,7 +49,7 @@ PYTHON3=( \
 
 # osx specific python 3 packages
 OSXPYTHON3=( \
-    'pync' \                        # required for notification-center.py weechat plugin
+    'pync' \                           # required for notification-center.py weechat plugin
 )
 
 #######################
@@ -59,15 +64,16 @@ if [ `/usr/bin/uname -m` == 'arm64' ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a 
   export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
 fi
 
-# pip for python 2 is no longer available via brew and does not come standard with osx
-if ! which pip; then
-  sudo easy_install pip
-fi
+# # pip for python 2 is no longer available via brew and does not come standard
+# # with osx, so use easy_install to put it on the system
+# if ! which pip; then
+#   sudo easy_install pip
+# fi
 
-# install python2 packages
-for i in ${PYTHON2[@]}; do
-  pip install $i
-done
+# # install python2 packages
+# for i in ${PYTHON2[@]}; do
+#   pip install $i
+# done
 
 # install python3 packages
 for i in ${PYTHON3[@]}; do

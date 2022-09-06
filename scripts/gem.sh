@@ -12,7 +12,6 @@
 #
 # Usage: make gem
 #        ./gem.sh
-#        sh -c "$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/gem.sh)"
 
 #################
 #               #
@@ -30,8 +29,8 @@
 ###################
 
 PACKAGES=( \
-  'bundler' \                     # needed for mutt sending markdown emails
-  'neovim' \                      # neovim client, required to use ruby with neovim
+  'bundler' \               # needed for mutt sending markdown emails
+  'neovim' \                # neovim client, required to use ruby with neovim
 )
 
 #######################
