@@ -1,9 +1,17 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Unicode                                                                   --
+--                                                                            --
+--  Null-ls source to add info lsp messages informing of unicode characters.  --
+--                                                                            --
+--------------------------------------------------------------------------------
+
 local unicode = {}
 local null_ls = require("null-ls")
 
 unicode.setup = function()
 
-  -- hacky but does the trick
+  -- feels hacky but does the trick
   vim.diagnostic.config{virtual_text=false}
 
   local warn_unicode = {
