@@ -23,7 +23,7 @@ source scripts/library.sh
 
 # Run Links
 #
-# Create symlinks as defined by every $SYMLINK.* variable in $CONFGDIR/.config.
+# Create symlinks as defined by every $SYMLINK.* variable in $CONFIGDIR/.config.
 
 runlinks() {
   printf "\033[0;34msetting up symlinks...\033[0m\n"

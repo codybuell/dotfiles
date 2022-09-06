@@ -33,7 +33,7 @@ function gcl() {
 # Clone Repos
 #
 # Clone repos to the $Repos path as defined by every $REPO.* variable in
-# $CONFGDIR/.config.
+# $CONFIGDIR/.config.
 
 clonerepos() {
   printf "\033[0;34msetting up repositories...\033[0m\n"

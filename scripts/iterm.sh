@@ -7,7 +7,7 @@
 # Author(s): Cody Buell
 #
 # Requisite: Intended to be used with dotfiles repo Makefile, and iterm config
-# file contained in `$CONFGDIR/applications/iterm`.
+# file contained in `$CONFIGDIR/applications/iterm`.
 #
 # Task: 
 #
@@ -21,7 +21,7 @@ source scripts/library.sh
 ######################
 
 CURRENT=`defaults read com.googlecode.iterm2 PrefsCustomFolder`
-EXPECTED="$CONFGDIR/applications/iterm"
+EXPECTED="$CONFIGDIR/applications/iterm"
 
 ##########################
 #  Apply Configurations  #
