@@ -30,8 +30,8 @@
 # Usage: make dots [file|folder] [file|folder] ...
 #        ./dots.sh [file|folder] [file|folder] ...
 
-# shellcheck source=./lib.sh
-source "${BASH_SOURCE%/*}/lib.sh"
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ################################################################################
 #                                                                              #
@@ -141,14 +141,8 @@ pre_place_hooks() {
     mutt )
       # bundler gem bits (mime types) need to be installed
       bundle install
-      cd ~/".mutt.new.$DATE"/vendor || exit 1
-      ln -s "$CONFIGDIR"/submodules/mutt-notmuch-py .
       ;;
     shell )
-      # link up repo based resources
-      ln -s "$CONFIGDIR"/submodules/base16-shell .
-      ln -s "$CONFIGDIR"/submodules/zsh-autosuggestions .
-      ln -s "$CONFIGDIR"/submodules/zsh-syntax-highlighting .
       # place dynamic environment variables from config
       echo "" >> exports
       echo "### CONFIG DRIVEN VARS ###" >> exports

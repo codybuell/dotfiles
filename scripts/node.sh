@@ -20,8 +20,8 @@
 # Usage: make node
 #        ./node.sh
 
-# shellcheck source=./lib.sh
-source "${BASH_SOURCE%/*}/lib.sh"
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 PRIMARY_USER=$(whoami)
 PRIMARY_USER_HOME=$HOME

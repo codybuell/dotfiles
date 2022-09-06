@@ -52,8 +52,8 @@
 #        ./osx.sh
 #        sh -c “$(curl -fsSL https://raw.githubusercontent.com/codybuell/dotfiles/master/scripts/osx.sh)”
 
-# shellcheck source=./lib.sh
-source "${BASH_SOURCE%/*}/lib.sh"
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ################################################################################
 ################################################################################

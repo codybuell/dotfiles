@@ -27,8 +27,8 @@
 # Usage: make nix
 #        ./nix.sh
 
-# shellcheck source=./lib.sh
-source "${BASH_SOURCE%/*}/lib.sh"
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 # check if nix is already installed, if not install
 if ! command -v nix-env &> /dev/null; then
