@@ -11,12 +11,6 @@
 [submodule "dotfiles/mutt/vendor/mutt-notmuch-py"]
 	path = dotfiles/mutt/vendor/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-pathogen"]
-	path = dotfiles/vim/pack/bundle/opt/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-camelsnek"]
-	path = dotfiles/vim/pack/bundle/opt/vim-camelsnek
-	url = https://github.com/nicwest/vim-camelsnek.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-repeat"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
@@ -26,15 +20,90 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-fugitive"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-speeddating"]
-	path = dotfiles/vim/pack/bundle/opt/vim-speeddating
-	url = https://github.com/tpope/vim-speeddating.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-commentary"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-obsession"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/ferret"]
+	path = dotfiles/config/nvim/pack/bundle/opt/ferret
+	url = https://github.com/wincent/ferret.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/command-t"]
+	path = dotfiles/config/nvim/pack/bundle/opt/command-t
+	url = https://github.com/wincent/command-t.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/loupe"]
+	path = dotfiles/config/nvim/pack/bundle/opt/loupe
+	url = https://github.com/wincent/loupe.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/pinnacle"]
+	path = dotfiles/config/nvim/pack/bundle/opt/pinnacle
+	url = https://github.com/wincent/pinnacle.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-dirvish"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish.git
+[submodule "/config/nvim/pack/bundle/opt/vim-tmux-navigator"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner
+	url = https://github.com/christoomey/vim-tmux-runner.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim
+	url = https://github.com/nvim-lua/lsp-status.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-cmp"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-path"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-emoji"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-emoji
+	url = https://github.com/hrsh7th/cmp-emoji.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-buffer"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb
+	url = https://github.com/codybuell/cmp-lbdb.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/plenary.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim
+	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/base16-nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/base16-nvim
+	url = https://github.com/wincent/base16-nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip
+	url = https://github.com/saadparwaiz1/cmp_luasnip.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/LuaSnip"]
+	path = dotfiles/config/nvim/pack/bundle/opt/LuaSnip
+	url = https://github.com/L3MON4D3/LuaSnip.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim
+	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-characterize"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-characterize
+	url = https://github.com/tpope/vim-characterize.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-pathogen"]
+	path = dotfiles/vim/pack/bundle/opt/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-camelsnek"]
+	path = dotfiles/vim/pack/bundle/opt/vim-camelsnek
+	url = https://github.com/nicwest/vim-camelsnek.git
+[submodule "dotfiles/vim/pack/bundle/opt/vim-speeddating"]
+	path = dotfiles/vim/pack/bundle/opt/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-dadbod"]
 	path = dotfiles/vim/pack/bundle/opt/vim-dadbod
 	url = https://github.com/tpope/vim-dadbod.git
@@ -50,18 +119,9 @@
 [submodule "dotfiles/vim/pack/bundle/opt/tagbar"]
 	path = dotfiles/vim/pack/bundle/opt/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/ferret"]
-	path = dotfiles/config/nvim/pack/bundle/opt/ferret
-	url = https://github.com/wincent/ferret.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/command-t"]
-	path = dotfiles/config/nvim/pack/bundle/opt/command-t
-	url = https://github.com/wincent/command-t.git
 [submodule "dotfiles/vim/pack/bundle/opt/terminus"]
 	path = dotfiles/vim/pack/bundle/opt/terminus
 	url = https://github.com/wincent/terminus.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/loupe"]
-	path = dotfiles/config/nvim/pack/bundle/opt/loupe
-	url = https://github.com/wincent/loupe.git
 [submodule "dotfiles/vim/pack/bundle/opt/scalpel"]
 	path = dotfiles/vim/pack/bundle/opt/scalpel
 	url = https://github.com/wincent/scalpel.git
@@ -95,9 +155,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-expand-region"]
 	path = dotfiles/vim/pack/bundle/opt/vim-expand-region
 	url = https://github.com/terryma/vim-expand-region.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/pinnacle"]
-	path = dotfiles/config/nvim/pack/bundle/opt/pinnacle
-	url = https://github.com/wincent/pinnacle.git
 [submodule "dotfiles/vim/pack/bundle/opt/howmuch"]
 	path = dotfiles/vim/pack/bundle/opt/howmuch
 	url = https://github.com/sk1418/HowMuch.git
@@ -125,43 +182,25 @@
 [submodule "dotfiles/vim/pack/bundle/opt/indentline"]
 	path = dotfiles/vim/pack/bundle/opt/indentline
 	url = https://github.com/Yggdroot/indentLine.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-dirvish"]
-	path = dotfiles/config/nvim/pack/bundle/opt/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-json"]
 	path = dotfiles/vim/pack/bundle/opt/vim-json
 	url = https://github.com/elzr/vim-json.git
-[submodule "/config/nvim/pack/bundle/opt/vim-tmux-navigator"]
-	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-toml"]
 	path = dotfiles/vim/pack/bundle/opt/vim-toml
 	url = https://github.com/cespare/vim-toml.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig"]
-	path = dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig
-	url = https://github.com/neovim/nvim-lspconfig.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext"]
 	path = dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext
 	url = https://github.com/tommcdo/vim-fugitive-blame-ext.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner"]
-	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner
-	url = https://github.com/christoomey/vim-tmux-runner.git
 [submodule "dotfiles/vim/pack/bundle/opt/editorconfig-vim"]
 	path = dotfiles/vim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim
-	url = https://github.com/nvim-lua/lsp-status.nvim.git
 [submodule "dotfiles/vim/pack/bundle/opt/vis"]
 	path = dotfiles/vim/pack/bundle/opt/vis
 	url = https://github.com/vim-scripts/vis
 [submodule "dotfiles/vim/pack/bundle/opt/markdown-preview.nvim"]
 	path = dotfiles/vim/pack/bundle/opt/markdown-preview.nvim
 	url = https://github.com/iamcco/markdown-preview.nvim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter"]
-	path = dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter.git
 [submodule "dotfiles/vim/pack/bundle/opt/nvim-compe"]
 	path = dotfiles/vim/pack/bundle/opt/nvim-compe
 	url = https://github.com/hrsh7th/nvim-compe.git
@@ -171,27 +210,9 @@
 [submodule "dotfiles/vim/pack/bundle/opt/compe-lbdb"]
 	path = dotfiles/vim/pack/bundle/opt/compe-lbdb
 	url = https://github.com/codybuell/compe-lbdb.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-cmp"]
-	path = dotfiles/config/nvim/pack/bundle/opt/nvim-cmp
-	url = https://github.com/hrsh7th/nvim-cmp.git
 [submodule "dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips"]
 	path = dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips
 	url = https://github.com/quangnguyen30192/cmp-nvim-ultisnips.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-path"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp-path
-	url = https://github.com/hrsh7th/cmp-path.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp
-	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-emoji"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp-emoji
-	url = https://github.com/hrsh7th/cmp-emoji.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-buffer"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp-buffer
-	url = https://github.com/hrsh7th/cmp-buffer.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb
-	url = https://github.com/codybuell/cmp-lbdb.git
 [submodule "dotfiles/vim/pack/bundle/opt/cmp-cmdline"]
 	path = dotfiles/vim/pack/bundle/opt/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline.git
@@ -201,27 +222,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/todo-comments.nvim"]
 	path = dotfiles/vim/pack/bundle/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/plenary.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim.git
 [submodule "dotfiles/vim/pack/bundle/opt/copilot.vim"]
 	path = dotfiles/vim/pack/bundle/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim
-	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/base16-nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/base16-nvim
-	url = https://github.com/wincent/base16-nvim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip"]
-	path = dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip
-	url = https://github.com/saadparwaiz1/cmp_luasnip.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/LuaSnip"]
-	path = dotfiles/config/nvim/pack/bundle/opt/LuaSnip
-	url = https://github.com/L3MON4D3/LuaSnip.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim
-	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-characterize"]
-	path = dotfiles/config/nvim/pack/bundle/opt/vim-characterize
-	url = https://github.com/tpope/vim-characterize.git
