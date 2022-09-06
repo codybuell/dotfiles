@@ -49,6 +49,7 @@ vim.opt.diffopt        = vim.opt.diffopt + 'foldcolumn:0'      -- don't show fol
 vim.opt.directory      = config .. '/nvim/swap//'              -- keep swap files out of the way
 vim.opt.directory      = vim.opt.directory + '.'               -- fallback
 vim.opt.emoji          = false                                 -- don't assume all emoji are double width
+vim.opt.equalalways    = false                                 -- don't auto resize splits 
 vim.opt.expandtab      = true                                  -- always use spaces instead of tabs
 vim.opt.fillchars      = {
   diff                 = '∙',                                  -- BULLET OPERATOR (U+2219, UTF-8: E2 88 99)
