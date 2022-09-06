@@ -1,14 +1,14 @@
-[submodule "submodules/base16-shell"]
+[submodule "dotfiles/shell/base16-shell"]
 	path = dotfiles/shell/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
 	ignore = dirty
-[submodule "submodules/zsh-autosuggestions"]
+[submodule "dotfiles/shell/zsh-autosuggestions"]
 	path = dotfiles/shell/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "submodules/zsh-syntax-highlighting"]
+[submodule "dotfiles/shell/zsh-syntax-highlighting"]
 	path = dotfiles/shell/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "submodules/mutt-notmuch-py"]
+[submodule "dotfiles/mutt/vendor/mutt-notmuch-py"]
 	path = dotfiles/mutt/vendor/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
 [submodule "dotfiles/vim/pack/bundle/opt/vim-pathogen"]
