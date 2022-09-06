@@ -24,6 +24,7 @@ case `uname` in
 esac
 
 # homebrew
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 export HOMEBREW_NO_AUTO_UPDATE=1
 
