@@ -140,7 +140,9 @@ pre_place_hooks() {
       ;;
     mutt )
       # bundler gem bits (mime types) need to be installed
+      cd scripts > /dev/null || exit 1
       bundle install
+      cd - > /dev/null || exit 1
       ;;
     shell )
       # place dynamic environment variables from config
