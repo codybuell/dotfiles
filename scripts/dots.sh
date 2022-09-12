@@ -128,7 +128,7 @@ pre_place_hooks() {
   fi
 
   case $CURRENTTARGET in
-    vim )
+    *nvim )
       # ln -s "$CONFIGDIR"/assets/snippits snippits
       # ln -s "$CONFIGDIR"/assets/en.utf-8.add spell/en.utf-8.add
       # ln -s init.vim vimrc
@@ -189,13 +189,15 @@ post_place_hooks() {
     gnupg )
       chmod 700 ~/.gnupg
       ;;
-    *nvim )
+    config|*nvim )
       NVIMPATH=$(which -a nvim | uniq | grep -v 'alias' | head -1)
 
       # compile command-t
-      cd "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib > /dev/null || exit 1
-      make > /dev/null 2>&1
-      cd "$CWD" > /dev/null || exit 1
+      if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib ]]; then
+        cd "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib > /dev/null || exit 1
+        make > /dev/null 2>&1
+        cd "$CWD" > /dev/null || exit 1
+      fi
 
       # generate helptags for all plugins
       ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
