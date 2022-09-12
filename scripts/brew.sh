@@ -75,7 +75,6 @@ PACKAGES=(\
   'qemu'\                            # virtualization tool of choice
   'qrencode'\                        # utility to generate qr codes
   'reattach-to-user-namespace'\      # reattach tmux etc to user namespace
-  'rdesktop'\                        # rdp client
   'rg'\                              # ripgrep, dep for command-t
   'rsync'\                           # newer version than out of box, fewer errors
   'rust'\                            # rust programming language, needed for c7n
@@ -93,7 +92,6 @@ PACKAGES=(\
   'watch'\                           # handy utility for monitoring
   'watchman'\                        # file watcher, dep for command-t
   'weechat'\                         # irc client
-  'wireshark'\                       # network traffic analyzer
   'ykman'\                           # yubikey manager (feature enabling / pgp)
   'ykpers'\                          # yubikey personalization tool (otp slots)
   'yq'\                              # jq for yaml
@@ -124,7 +122,7 @@ CASKS=(\
   'slack'\                           # collaboration and chat application
   'tg-pro'\                          # advanced fan control
   'vagrant'\                         # vms as packages management solution
-  'virtualbox'\                      # virtualization utility
+  'wireshark'\                       # network traffic analyzer
   'xquartz'\                         # osxs implemenrtation of x11
   'zoom'\                            # zoom video conferencing app
 )
@@ -172,6 +170,7 @@ TAPS=(\
 #   'php'\                             # latest and greatest php
 #   'pidgin'\                          # pidgin and finch xmpp protocol clients
 #   'ranger'\                          # cli file browser
+#   'rdesktop'\                        # rdp client
 #   'rclone'\                          # cli for cloud storage providers
 #   'ruby'\                            # use brew ruby over osx provided
 #   'sshrc'\                           # custom one time configs on remote servers
@@ -206,6 +205,7 @@ TAPS=(\
 #   'steam'\                           # steam gaming service
 #   'synology-drive'\                  # synology drive client
 #   'ubersicht'\                       # alternative to geektool
+#   'virtualbox'\                      # virtualization utility
 #   'vmware-horizon-client'\           # vdi client
 
 # services no longer used
@@ -239,13 +239,13 @@ brew upgrade
 # install brew casks
 log green "Installing casks..."
 for i in "${CASKS[@]}"; do
-  brew install --cask --quiet "${i}"
+  brew install --cask --quiet ${i}
 done
 
 # install brew packages
 log green "Installing packages..."
 for i in "${PACKAGES[@]}"; do
-  brew install --quiet "${i}"
+  brew install --quiet ${i}
 done
 
 # install brew taps
@@ -253,13 +253,13 @@ log green "Installing Taps..."
 for i in "${TAPS[@]}"; do
   TAP=$(echo "${i}" | awk -F":" '{print $1}')
   PKG=$(echo "${i}" | awk -F":" '{print $2}')
-  brew tap "${TAP}"
-  brew install "${PKG}"
+  brew tap ${TAP}
+  brew install ${PKG}
 done
 
 # start up services
 log green "Starting services..."
 for i in "${SERVICES[@]}"; do
-  brew install --quiet "${i}"
-  brew services start "${i}"
+  brew install --quiet ${i}
+  brew services start ${i}
 done
