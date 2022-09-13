@@ -6,6 +6,7 @@
 
 local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 
+-- underline helper
 vim.keymap.set('n', '<C-u>', '<CMD> lua buell.util.underline()<CR>', {remap=false, silent=true})
 
 -- toggle fold at current position

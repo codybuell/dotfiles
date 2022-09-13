@@ -4,4 +4,5 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
+-- underline helper
 vim.keymap.set('i', '<C-u>', '<C-O>: lua buell.util.underline()<CR>', {remap=false, silent=true})
