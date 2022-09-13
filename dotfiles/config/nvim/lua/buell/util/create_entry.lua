@@ -18,10 +18,21 @@ local create_entry = function (wiki)
 
     -- edit the file
     vim.cmd('edit ' .. path .. '/' .. file)
-  elseif wiki == 'note' then
+  elseif wiki == 'note' or wiki == 'codex' then
+    -- set prompt and path
+    local prompt
+    local path
+    if wiki == 'note' then
+      prompt = 'Note name: '
+      path   = '{{ Notes }}'
+    elseif wiki == 'codex' then
+      prompt = 'Codex name: '
+      path   = '{{ Codex }}'
+    end
+
     -- prompt for note name
     vim.fn.inputsave()
-    local name = vim.fn.input('Note name: ')
+    local name = vim.fn.input(prompt)
     vim.fn.inputrestore()
 
     -- append .md if needed
@@ -32,7 +43,7 @@ local create_entry = function (wiki)
       end
 
       -- open the file
-      vim.cmd('edit {{ Notes }}' .. '/' .. name)
+      vim.cmd('edit ' .. path .. '/' .. name)
     end
   end
 end

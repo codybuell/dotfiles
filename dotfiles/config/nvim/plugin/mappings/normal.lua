@@ -95,3 +95,8 @@ vim.keymap.set('n', '<Leader>rl', ':VtrSendLinesToRunner<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>re', ':VtrSendCommandToRunner<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>rr', ':VtrFlushCommand<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>rc', ':VtrClearRunner<CR>', {remap = false})
+
+-- wiki helpers
+vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal")<CR>', {remap = false})
+vim.keymap.set('n', '<Localleader>n', '<CMD>lua buell.util.create_entry("note")<CR>', {remap = false})
+vim.keymap.set('n', '<Localleader>c', '<CMD>lua buell.util.create_entry("codex")<CR>', {remap = false})
