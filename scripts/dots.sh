@@ -61,9 +61,9 @@ DIFFEXCLUDES=( \
   "-path *.config/nvim*/backup" \
   "-path *.config/nvim*/sessions" \
   "-path *.config/nvim*/swap" \
-  "-path *.config/nvim*/undo" \
-  "-path *.config/nvim*/view" \
-  "-path *.config/nvim*/pack/bundle/opt/command-t/*" \
+  "-path *.config/nvim*/undo/*" \
+  "-path *.config/nvim*/view/*" \
+  "-path *.config/nvim*/pack/bundle/opt/*" \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
@@ -284,6 +284,8 @@ place_files() {
         if [ -d "${HOME}/.${i}" ]; then
           MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
           MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
+          # find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/new.txt
+          # find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/old.txt
         else
           MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | awk '{print $1}')
           MD5OLD=$(${MD5Q} "${HOME}/.${i}" | awk '{print $1}')
