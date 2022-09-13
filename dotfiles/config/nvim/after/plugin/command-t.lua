@@ -11,7 +11,7 @@ require('wincent.commandt').setup({
         if directory ~= '' and directory ~= '.' and directory ~= './' then
           directory = vim.fn.shellescape(directory)
         end
-        return 'find ' .. directory .. ' -type f | sed "s/^.\\{' .. len .. '\\}//;s/^./\'&/;s/.$/&\'/" | xargs printf "%s\\0"'
+        return 'find ' .. directory .. ' -type f ! -name \\.DS_Store | sed "s/^.\\{' .. len .. '\\}//;s/^./\'&/;s/.$/&\'/" | xargs printf "%s\\0"'
       end,
       open = function(item, kind)
         local file_ext = item:match("^.+%.(.+)$")
