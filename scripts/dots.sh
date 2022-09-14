@@ -265,6 +265,8 @@ place_files() {
     for c in "${CONFIGVARS[@]}"; do
       VAR=${c}
       eval VAL="\$$c"
+      # escape any @'s in the value so perl dosen't hose it
+      VAL=$(echo $VAL | sed 's/\@/\\\@/g')
       find ~/".${i}.new.${DATE}" ${TEMPLATEEXCLUDE} -type f -print0 | xargs -0 perl -pi -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
     done
 
