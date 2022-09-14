@@ -1,5 +1,5 @@
 vim.opt_local.conceallevel = 2    -- conceal markdown syntax on markdown buffers
-vim.opt_local.textwidth    = 80   -- auto hard wrap lines at 80 characters wide
+-- vim.opt_local.textwidth    = 80   -- auto hard wrap lines at 80 characters wide
 
 local foldexpr_markdown = function(lnum)
   local l1 = vim.fn.getline(lnum)
