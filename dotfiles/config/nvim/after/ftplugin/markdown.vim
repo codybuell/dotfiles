@@ -6,6 +6,9 @@
 "   $HOME/.vim/after/ftplugin/markdown.vim
 "
 " original version from Steve Losh's gist: https://gist.github.com/1038710
+" TODO: - port to lua
+"       - improve refresh, you often have to for edit :e after saving to get
+"         things to sync
 
 function! s:is_mkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')

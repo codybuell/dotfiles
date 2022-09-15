@@ -41,6 +41,4 @@ local foldexpr_markdown = function(lnum)
     return '>0'
   elseif string.match(l2, '^--') then
   end
-
-
 end
