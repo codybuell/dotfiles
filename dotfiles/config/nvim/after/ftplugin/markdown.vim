@@ -12,6 +12,8 @@ function! s:is_mkdCode(lnum)
     return (name =~# '^mkd\%(Code$\|Snippet\)' || name !=# '' && name !~? '^\%(mkd\|html\)')
 endfunction
 
+let g:vim_markdown_folding_style_pythonic = 1
+
 if get(g:, 'vim_markdown_folding_style_pythonic', 0)
     function! Foldexpr_markdown(lnum)
         let l1 = getline(a:lnum)
