@@ -15,6 +15,8 @@ local autocmd = buell.util.autocmd
 --                                                                            --
 --------------------------------------------------------------------------------
 
+vim.opt_local.spell = true
+
 -- map misc filetypes to vim filetypes
 local filetype_dict = {
   ['c++']  = 'cpp',
