@@ -9,6 +9,9 @@
 " TODO: - port to lua
 "       - improve refresh, you often have to for edit :e after saving to get
 "         things to sync
+"       - headers of the same level end up folded underneath the first, eg 3
+"         folds of h3's will only show the first h3, expand it and you'll see
+"         the others h3's
 
 function! s:is_mkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')
