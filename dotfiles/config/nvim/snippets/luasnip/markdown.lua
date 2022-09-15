@@ -61,6 +61,24 @@ return {
   ----------------
 
   s({
+    trig = "t",
+    name = "Todo",
+    dscr = "Todo brackets",
+  },
+  {
+    t({"[ ] "}),
+  }),
+
+  s({
+    trig = "td",
+    name = "Todo",
+    dscr = "Todo list item",
+  },
+  {
+    t({"- [ ] "}),
+  }),
+
+  s({
     trig = "a",
     name = "Link",
     dscr = "Markdown link [txt](url)"
