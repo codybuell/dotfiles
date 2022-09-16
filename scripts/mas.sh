@@ -87,14 +87,14 @@ if ! command -v mas &> /dev/null; then
 fi
 
 # install apps
-for i in "${APPLICATIONS[@]}"; do
-  mas install "$i"
+for i in ${APPLICATIONS[@]}; do
+  mas install $i
 done
 
 # install ios packages if on arm architecture
 if [[ ("$(/usr/bin/uname -m)" == "arm64") || ("$(/usr/bin/uname -m)" == "x86_64" && "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1") ]]; then
-  for i in "${ARMAPPS[@]}"; do
-    mas install "$i"
+  for i in ${ARMAPPS[@]}; do
+    mas install $i
   done
 fi
 

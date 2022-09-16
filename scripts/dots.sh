@@ -231,7 +231,7 @@ place_files() {
   log blue "placing files..."
 
   # iterate through the dotfiles
-  for i in "${DOTFILES[@]}"; do
+  for i in ${DOTFILES[@]}; do
 
     ###########
     #  skips  #
@@ -244,7 +244,7 @@ place_files() {
     fi
 
     # skip if in ignore list
-    for IGN in "${IGNORE[@]}"; do
+    for IGN in ${IGNORE[@]}; do
       if [ "${i}" == "${IGN}" ]; then
         log red "  .${i}" "ignoring"
         continue 2
@@ -262,7 +262,7 @@ place_files() {
     pre_place_hooks "${i}"
 
     # replace all variables found in dotfiles
-    for c in "${CONFIGVARS[@]}"; do
+    for c in ${CONFIGVARS[@]}; do
       VAR=${c}
       eval VAL="\$$c"
       # escape any @'s in the value so perl dosen't hose it

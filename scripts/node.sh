@@ -83,11 +83,11 @@ nvm install --lts
 nvm use --lts
 
 # install node packages
-for i in "${PACKAGES[@]}"; do
+for i in ${PACKAGES[@]}; do
   echo
   echo "-- installing $i --"
   echo
-  npm -g install "$i"
+  npm -g install $i
 done
 
 # ensure ~/.config is not owned by root
