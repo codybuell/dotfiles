@@ -5,6 +5,7 @@
 -- @param path: string of desired path
 -- @return nil
 local create_directories = function(path)
+  path = vim.fn.expand(path)
   if vim.fn.isdirectory(path) == 0 then
     vim.fn.mkdir(path, 'p')
   end
