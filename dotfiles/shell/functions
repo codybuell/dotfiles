@@ -288,19 +288,11 @@ function gpl() {
   git pull origin $BRANCH
 }
 
-# edit work journal
-function wj() {
-  cd {{ WorkJournal }}
-  [[ ! -d {{ WorkJournal }}/`date +%Y/%m` ]] && mkdir -p {{ WorkJournal }}/`date +%Y/%m`
-  vim {{ WorkJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
-  cd - > /dev/null 2>&1
-}
-
-# edit personal journal
-function pj() {
-  cd {{ PersonalJournal }}
-  [[ ! -d {{ PersonalJournal }}/`date +%Y/%m` ]] && mkdir -p {{ PersonalJournal }}/`date +%Y/%m`
-  vim -c 'NERDTree' -c 'execute "normal \<C-W>l"' {{ PersonalJournal }}/`date +%Y/%m/%Y.%m.%d`.txt
+# edit journal
+function j() {
+  cd {{ Journal }}
+  [[ ! -d {{ Journal }}/`date +%Y/%m` ]] && mkdir -p {{ Journal }}/`date +%Y/%m`
+  vim {{ Journal }}/`date +%Y/%m/%Y.%m.%d`.txt
   cd - > /dev/null 2>&1
 }
 
