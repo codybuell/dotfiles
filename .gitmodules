@@ -225,3 +225,6 @@
 [submodule "dotfiles/vim/pack/bundle/opt/copilot.vim"]
 	path = dotfiles/vim/pack/bundle/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-abolish"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-abolish
+	url = https://github.com/tpope/vim-abolish.git
