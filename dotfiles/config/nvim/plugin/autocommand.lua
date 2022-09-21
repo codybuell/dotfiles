@@ -92,6 +92,9 @@ augroup('BuellAutocommands', function()
   autocmd('BufWritePre', '*', function()
     -- create dirs as needed when saving
     buell.util.create_directories(vim.fn.expand('%:p:h'))
+
+    -- remove trailing whitespace
+    buell.util.substitute('\\s\\+$', '', '')
   end)
 
   ----------------
