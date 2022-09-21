@@ -1,5 +1,30 @@
-vim.opt_local.conceallevel = 2    -- conceal markdown syntax on markdown buffers
--- vim.opt_local.textwidth    = 80   -- auto hard wrap lines at 80 characters wide
+vim.opt_local.conceallevel = 2                            -- conceal markdown syntax on markdown buffers
+
+----------------------------------
+--  list item wrap indentation  --
+----------------------------------
+
+-- Note that this works when set in the equivalent vimscript file but not when
+-- set below. May be due to the vimscript file being present? Test this at some
+-- point when migrating the vimscript file over to here.
+
+-- vim.opt_local.breakindent  = true                         -- turn on improved soft wrapping
+-- vim.opt_local.breakindentopt = 'list:-1,shift:2,sbr'      -- use formatlistpat to determine soft wrap depth
+-- We are dealing with double escaping for vim eg `\\s == \s` and then escaping
+-- again for lua eg `\\\\s == \\s == \s`, then joining multiple regexes with
+-- `\\\\\\|`, so do to deal with the complexity we'll break it into a table and
+-- concat for the setting. Defines regex for list type 'headers' used to
+-- determine the wrap depth.
+-- vim.opt_local.formatlistpat = table.concat({
+--   -- '^\\\\s*-\\\\s\\\\[\\\\s]\\\\s\\\\ze.*',             -- makdown todo lists '- [ ] '
+--   '^\\\\s*-\\\\s\\\\[.]\\\\s*',                           -- makdown todo lists '- [ ] '
+--   '\\\\\\|',                                              -- concatenation of regexes
+--   '^\\\\s*\\\\d\\\\+\\\\.\\\\s\\\\+',                     -- numbered lists '1. '
+--   '\\\\\\|',                                              -- concatenation of regexes
+--   '^\\\\s*[-*+]\\\\s\\\\+',                               -- unordered lists '-|*|+ '
+--   '\\\\\\|',                                              -- concatenation of regexes
+--   '^\\\\[^\\\\ze[^\\\\]]\\\\+\\\\]:\\\\&^.\\\\{4\\\\}',   -- ?? too lazy to read this regex now
+-- })
 
 -- TODO: finish porting implementation from ./markdown.vim
 local foldexpr_markdown = function(lnum)

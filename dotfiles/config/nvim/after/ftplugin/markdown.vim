@@ -13,6 +13,12 @@
 "         folds of h3's will only show the first h3, expand it and you'll see
 "         the others h3's
 
+" handle list wrap indentation, this works if set here, does not work if set
+" in the equivalent lua config, may be because this file exists?
+setlocal formatlistpat=^\\s*-\\s\\[.]\\s*\\\|^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+\\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}
+setlocal breakindent
+setlocal breakindentopt=list:-1,shift:2,sbr
+
 function! s:is_mkdCode(lnum)
     let name = synIDattr(synID(a:lnum, 1, 0), 'name')
     return (name =~# '^mkd\%(Code$\|Snippet\)' || name !=# '' && name !~? '^\%(mkd\|html\)')
