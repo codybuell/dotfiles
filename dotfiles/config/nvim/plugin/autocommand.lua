@@ -8,11 +8,18 @@ augroup('BuellAutocommands', function()
   -------------------
 
   autocmd('BufWinEnter', '*', function()
+    local ft = vim.bo.filetype
+
     -- set statusline based on buffer
     buell.statusline.update()
 
     -- load last folding views
     vim.cmd('silent! loadview')
+
+    -- if a git commit don't restore cursor position
+    if ft == 'gitcommit' then
+      vim.fn.setpos('.', {0, 1, 1, 0})
+    end
   end)
 
   ----------------
