@@ -7,7 +7,7 @@
 # first replace all variables found within each file. Variables take the format
 # of {{ variable }} where `variable` corresponds to a key in the repository
 # .config file. Variables are case sensitive. Next it will compare the
-# finalized dotfiles with the targets destination and do one of three things: 
+# finalized dotfiles with the targets destination and do one of three things:
 #
 #  - Skip placing the dotfile(s) if no change was detected.
 #  - Place the dotfile(s) if nothing was at the target already.
@@ -61,6 +61,7 @@ DIFFEXCLUDES=( \
   "-path *.config/nvim*/backup" \
   "-path *.config/nvim*/sessions" \
   "-path *.config/nvim*/swap" \
+  "-path *.config/nvim*/spell" \
   "-path *.config/nvim*/undo/*" \
   "-path *.config/nvim*/view/*" \
   "-path *.config/nvim*/pack/bundle/opt/*" \
@@ -185,14 +186,17 @@ post_place_hooks() {
       xrdb ~/.Xresources
       ;;
     config/karabiner )
-      launchctl stop org.pqrs.karabiner.karabiner_console_user_server 
-      launchctl start org.pqrs.karabiner.karabiner_console_user_server 
+      launchctl stop org.pqrs.karabiner.karabiner_console_user_server
+      launchctl start org.pqrs.karabiner.karabiner_console_user_server
       ;;
     gnupg )
       chmod 700 ~/.gnupg
       ;;
     config|*nvim )
       NVIMPATH=$(which -a nvim | uniq | grep -v 'alias' | head -1)
+
+      # symlink spell from this repo
+      rm -rf "${HOME}"/.config/nvim/spell; ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
 
       # compile command-t
       if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib ]]; then
