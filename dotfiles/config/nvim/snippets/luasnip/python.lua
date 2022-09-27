@@ -22,6 +22,7 @@ local postfix = require("luasnip.extras.postfix").postfix
 return {
   buell.sniputils.box("#"),
   buell.sniputils.bbox("#"),
+  buell.sniputils.shebang("#", "/usr/bin/env python3"),
 
   ------------
   --  wrap  --

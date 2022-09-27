@@ -74,7 +74,7 @@ sniputils.bbox = function(c_str)
     c_end  = string.reverse(c_str)
   else
     c_fill = c_str
-    c_end  = c_str
+    c_end  = c_str .. c_str
     c_str  = c_str .. c_str
   end
 
@@ -136,6 +136,26 @@ sniputils.pq = function(lhs, rhs)
       return sn(1, i(1, snip.env.TM_SELECTED_TEXT[1] or "var"))
     end, {}, {}),
     t({rhs}),
+  })
+end
+
+sniputils.shebang = function(c_str, shebang)
+  return s({
+    trig = "#!",
+    name = "shebang",
+    dscr = "Shebang + header for script details and usage.",
+  }, {
+    t({c_str .. "!" .. shebang, ""}),
+    t({c_str, ""}),
+    t({c_str .. " "}), i(1, "Name"), t({"", ""}),
+    t({c_str, ""}),
+    t({c_str .. " "}), i(2, "Description"), t({"", ""}),
+    t({c_str, ""}),
+    t({c_str .. " Author(s): "}), i(3, "Cody Buell"), t({"", ""}),
+    t({c_str, ""}),
+    t({c_str .. " Requisite: "}), i(4, ""), t({"", ""}),
+    t({c_str, ""}),
+    t({c_str .. " Usage: "}), i(5, ""), t({"", ""}),
   })
 end
 
