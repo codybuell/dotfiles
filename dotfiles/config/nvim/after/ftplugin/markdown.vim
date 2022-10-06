@@ -11,11 +11,12 @@ setlocal breakindentopt=list:-1,shift:2,sbr
 """"""""""""""""""""""
 
 function! MarkdownFoldLevel()
+    let prevline = getline(v:lnum-1)
     let thisline = getline(v:lnum)
     let nextline = getline(v:lnum+1)
 
     # Fenced Code Blocks
-    if thisline =~ '^\s*```.*$'
+    if thisline =~ '^\s*```.\+$'
         " start of a fenced block
         return "a1"
     elseif thisline =~ '^\s*```\s*$'
@@ -24,13 +25,13 @@ function! MarkdownFoldLevel()
     endif
 
     # Headers
-    if thisline =~ '^# '
+    if thisline =~ '^# ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
         " begin a fold of level one here
         return ">1"
-    elseif thisline =~ '^## '
+    elseif thisline =~ '^## ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
         " begin a fold of level two here
         return ">2"
-    elseif thisline =~ '^### '
+    elseif thisline =~ '^### ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
         " begin a fold of level three here
         return ">3"
     elseif thisline != '' && nextline =~ '^===*'
