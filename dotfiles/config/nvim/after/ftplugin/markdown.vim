@@ -24,24 +24,40 @@ function! MarkdownFoldLevel()
         return "s1"
     endif
 
-    # Headers
-    if thisline =~ '^# ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
-        " begin a fold of level one here
-        return ">1"
-    elseif thisline =~ '^## ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    " # Headers (fold h1 on)
+    " if thisline =~ '^# ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    "     " begin a fold of level one here
+    "     return ">1"
+    " elseif thisline =~ '^## ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    "     " begin a fold of level two here
+    "     return ">2"
+    " elseif thisline =~ '^### ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    "     " begin a fold of level three here
+    "     return ">3"
+    " elseif thisline != '' && nextline =~ '^===*'
+    "     " elseif the next line starts with at least two ==
+    "     return ">1"
+    " elseif thisline != '' && nextline =~ '^---*'
+    "     " elseif the line ends with at least two --
+    "     return ">2"
+    " elseif foldlevel(v:lnum-1) != "-1"
+    "     return foldlevel(v:lnum-1)
+    " else
+    "     return "="
+    " endif
+
+    # Headers (fold h2 on)
+    if thisline =~ '^## .*$' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
         " begin a fold of level two here
-        return ">2"
-    elseif thisline =~ '^### ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
-        " begin a fold of level three here
-        return ">3"
-    elseif thisline != '' && nextline =~ '^===*'
-        " elseif the next line starts with at least two ==
         return ">1"
-    elseif thisline != '' && nextline =~ '^---*'
-        " elseif the line ends with at least two --
+    elseif thisline =~ '^### .*$' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+        " begin a fold of level three here
         return ">2"
-    elseif foldlevel(v:lnum-1) != "-1"
-        return foldlevel(v:lnum-1)
+    elseif thisline != '' && nextline =~ '^---*$'
+        " elseif the line ends with at least two --
+        return ">1"
+    " elseif foldlevel(v:lnum-1) != "-1"
+    "     return foldlevel(v:lnum-1)
     else
         return "="
     endif
