@@ -145,7 +145,8 @@ local highlight_sources = function(force)
         include = '@' .. filetype:upper()
       end
       local command_backtick = 'syntax region %s matchgroup=%s start="^\\s*`\\{3,}\\s*%s.*$" matchgroup=%s end="\\s*`\\{3,}$" keepend contains=%s%s'
-      vim.cmd(string.format(command_backtick, group, startgroup, ft, endgroup, include, ' concealends'))
+      -- vim.cmd(string.format(command_backtick, group, startgroup, ft, endgroup, include, ' concealends'))
+      vim.cmd(string.format(command_backtick, group, startgroup, ft, endgroup, include, ''))
       vim.cmd(string.format('syntax cluster mkdNonListItem add=%s', group))
       known_filetypes[ft] = 1
       vim.b.mkd_known_filetypes = known_filetypes
