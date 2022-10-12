@@ -44,7 +44,7 @@ function gopath() {
 # cd() {
 #   # perform the actual cd without risk of recursion (builtin)
 #   builtin cd "$@"
-# 
+#
 #   # gopath (search up for ~/.gopath and set GOPATH to its parent dir)
 #   gopath
 # }
@@ -201,7 +201,7 @@ function Ersync() {
 # ping range of ips: pingsweep 10.10.1 1..50
 function pingsweep() {
   #trap "exit" INT
-  for i in $(eval echo "{$2}"); do 
+  for i in $(eval echo "{$2}"); do
     ping -noq -c 1 -t 1 -i 0.1 ${1}.${i} > /dev/null
     echo -e "${1}.${i}\t`[[ $? == 0 ]] && echo up || echo down`"
   done
@@ -327,7 +327,7 @@ function nok() {
       ;;
   esac
 
-  case "$choice" in 
+  case "$choice" in
     n|N|no ) return;;
   esac
 
@@ -455,11 +455,11 @@ function home() {
       tmux set-window-option -t HOME:home automatic-rename off
 
       #--- layout 1 (left primary workspace)
-      tmux split-window -t HOME:home -h -p 45 -c ~/
-      tmux split-window -t HOME:home.1 -v -p 60 -c ~/
-      tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
-      tmux send-keys -t HOME:home.2 'cd ~/Desktop; wj' Enter
-      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
+#     tmux split-window -t HOME:home -h -p 45 -c ~/
+#     tmux split-window -t HOME:home.1 -v -p 60 -c ~/
+#     tmux send-keys -t HOME:home.1 'cd ~/Downloads; mutt' Enter
+#     tmux send-keys -t HOME:home.2 'cd ~/Desktop; wj' Enter
+#     tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
 
       #--- layout 2 (right primary workspace)
 #     tmux split-window -t HOME:home -h -p 66 -c ~/
@@ -467,6 +467,13 @@ function home() {
 #     tmux send-keys -t HOME:home.1 'cd ~/Desktop; vi -c ":so ~/.vim/sessions/home"' Enter
 #     tmux send-keys -t HOME:home.2 'cd ~/Downloads; mutt' Enter
 #     tmux send-keys -t HOME:home.3 'cd ~/Desktop; wj' Enter
+
+      #--- layout 3 (top full width)
+      tmux split-window -t HOME:home -v -p 60 -c ~/
+      tmux split-window -t HOME:home.2 -h -p 55 -c ~/
+      tmux send-keys -t HOME:home.1 'cd ~/Downloads && mutt' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Desktop && clear' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
 
       # # build notes/journal window
       # tmux new-window -t HOME: -c ~/.mutt -n notes
