@@ -46,6 +46,7 @@ function run()
   employee = work['Past Employees']
   netdata  = work['Netdata']
   security = work['Security']
+  grnhouse = work['Greenhouse']
 
   -- List mailboxes and folders
   --mailboxes, folders = work:list_all()
@@ -59,6 +60,13 @@ function run()
   movetofolder = (function(description, folder, matcher)
     messages = matcher()
     print_status(messages, description .. ' -> move to folder')
+    messages:move_messages(folder)
+  end)
+
+  movetofolder_and_mark_read = (function(description, folder, matcher)
+    messages = matcher()
+    print_status(messages, description .. ' -> move to folder & mark read')
+    messages:mark_seen()
     messages:move_messages(folder)
   end)
 
@@ -131,7 +139,7 @@ function run()
   new_spam:mark_seen()
 
   -- all git related crap, except due date reminders, failed pipelines, gitlab support
-  movetofolder('git related notifications', git, (function()
+  movetofolder_and_mark_read('git related notifications', git, (function()
     results = inbox:match_field('Reply-To', 'GitLab .*') +
               inbox:match_field('Reply-To', '.*internal-service-account+.*') -
               inbox:contain_body('The following issue is due on') -
@@ -155,8 +163,15 @@ function run()
     return results
   end))
 
+  -- all greenhouse related crap
+  movetofolder('greenhouse messages', grnhouse, (function()
+    results = inbox
+      :contain_field('Sender', 'no-reply@greenhouse.io')
+    return results
+  end))
+
   -- notion related emails
-  movetofolder('notion messages', notion, (function()
+  movetofolder_and_mark_read('notion messages', notion, (function()
     results = inbox
       :contain_from('^Notion .*')
     return results
@@ -190,7 +205,7 @@ function run()
   end))
 
   -- aws marketing emails
-  movetofolder('aws marketing messages', awsmark, (function()
+  movetofolder_and_mark_read('aws marketing messages', awsmark, (function()
     results = inbox:contain_field('Reply-To', 'aws-marketing-email-replies@amazon.com') +
               inbox:contain_field('Reply-To', 'aws-marketplace-email-replies@amazon.com') +
               inbox:contain_field('Reply-To', 'aws-customer-research@amazon.com') +
@@ -206,7 +221,7 @@ function run()
   end))
 
   -- aws marketplace new daily customers
-  movetofolder('new aws marketplace', awsmp, (function()
+  movetofolder_and_mark_read('new aws marketplace', awsmp, (function()
     results = inbox:contain_from('aws-account-inbox@kion.io'):contain_subject('You have a new Daily') +
               inbox:contain_from('AWS Marketplace') +
               inbox:contain_field('X-Original-Sender','aws-marketing-email-replies@amazon.com')
@@ -222,7 +237,7 @@ function run()
   end))
 
   -- all meeting accepts, declines, updates, etc
-  movetofolder('meeting messages', meetings, (function()
+  movetofolder_and_mark_read('meeting messages', meetings, (function()
     results = inbox:match_subject('^Invitation: .*') +
               inbox:match_subject('^Declined: .*') +
               inbox:match_subject('^Accepted: .*') +
@@ -249,7 +264,7 @@ function run()
   end))
 
   -- bonusly
-  movetofolder('bonusly messages', bonusly, (function()
+  movetofolder_and_mark_read('bonusly messages', bonusly, (function()
     results = inbox:contain_from('noreply@bonus.ly') +
               inbox:contain_from('system@bonus.ly')
 --    :contain_subject('did something awesome')
@@ -258,7 +273,8 @@ function run()
 
   -- google
   movetofolder('google bits', google, (function()
-    results = inbox:match_subject('Gmail Admin Quarantine Alert')
+    results = inbox:contain_from('noreply+workspace@google.com') +
+              inbox:contain_from('google-workspace-alerts-noreply@google.com')
     return results
   end))
 
@@ -272,8 +288,9 @@ function run()
 
   -- past employees
   movetofolder('past employee messages', employee, (function()
-    results = inbox
-      :contain_to('cmagee@cloudtamer.io')
+    results = inbox:contain_to('cmagee@cloudtamer.io') +
+              inbox:contain_to('jspurrier@kion.io') +
+              inbox:contain_to('jspurrier@cloudtamer.io')
     return results
   end))
 
