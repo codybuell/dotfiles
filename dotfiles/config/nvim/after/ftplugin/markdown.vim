@@ -11,53 +11,32 @@ setlocal breakindentopt=list:-1,shift:2,sbr
 """"""""""""""""""""""
 
 function! MarkdownFoldLevel()
-    let prevline = getline(v:lnum-1)
-    let thisline = getline(v:lnum)
-    let nextline = getline(v:lnum+1)
+    let lines = getline(v:lnum-1, v:lnum+1)
 
     # Fenced Code Blocks
-    if thisline =~ '^\s*```.\+$'
+    if lines[1] =~ '^\s*```.\+$'
         " start of a fenced block
         return "a1"
-    elseif thisline =~ '^\s*```\s*$'
+    elseif lines[1] =~ '^\s*```\s*$'
         " end of a fenced block
         return "s1"
     endif
 
-    " # Headers (fold h1 on)
-    " if thisline =~ '^# ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
-    "     " begin a fold of level one here
-    "     return ">1"
-    " elseif thisline =~ '^## ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
-    "     " begin a fold of level two here
-    "     return ">2"
-    " elseif thisline =~ '^### ' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
-    "     " begin a fold of level three here
-    "     return ">3"
-    " elseif thisline != '' && nextline =~ '^===*'
-    "     " elseif the next line starts with at least two ==
-    "     return ">1"
-    " elseif thisline != '' && nextline =~ '^---*'
-    "     " elseif the line ends with at least two --
-    "     return ">2"
-    " elseif foldlevel(v:lnum-1) != "-1"
-    "     return foldlevel(v:lnum-1)
-    " else
-    "     return "="
-    " endif
-
     # Headers (fold h2 on)
-    if thisline =~ '^## .*$' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    if lines[1] =~ '^## .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
         " begin a fold of level two here
         return ">1"
-    elseif thisline =~ '^### .*$' && prevline =~ '^\s*$' && nextline =~ '^\s*$'
+    elseif lines[1] =~ '^### .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
         " begin a fold of level three here
         return ">2"
-    elseif thisline != '' && nextline =~ '^---*$'
+    elseif lines[1] != '' && lines[2] =~ '^---*$'
         " elseif the line ends with at least two --
         return ">1"
-    " elseif foldlevel(v:lnum-1) != "-1"
-    "     return foldlevel(v:lnum-1)
+    elseif foldlevel(v:lnum-1) != "-1"
+        return foldlevel(v:lnum-1)
+    " this as an absolute last resort! without the above condition this func
+    " gets recursively called some 66K times vs 1K times... 3 sec vs 0.03 sec
+    " save time difference
     else
         return "="
     endif
