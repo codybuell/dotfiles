@@ -80,6 +80,7 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim
 	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/base16-nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/base16-nvim
 	url = https://github.com/wincent/base16-nvim.git
