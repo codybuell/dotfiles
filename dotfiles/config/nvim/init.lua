@@ -158,6 +158,7 @@ vim.cmd('packadd! lsp-status.nvim')         -- lsp status capabilities
 vim.cmd('packadd! null-ls.nvim')            -- custom lsp injections
 
 -- syntax & color
+vim.cmd('packadd! editorconfig-vim')   -- indentation rulers
 vim.cmd('packadd! indent-blankline.nvim')   -- indentation rulers
 vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax highlighting
 vim.cmd('packadd! base16-nvim')             -- color consistency with shell

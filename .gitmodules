@@ -193,8 +193,8 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext"]
 	path = dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext
 	url = https://github.com/tommcdo/vim-fugitive-blame-ext.git
-[submodule "dotfiles/vim/pack/bundle/opt/editorconfig-vim"]
-	path = dotfiles/vim/pack/bundle/opt/editorconfig-vim
+[submodule "dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule "dotfiles/vim/pack/bundle/opt/vis"]
 	path = dotfiles/vim/pack/bundle/opt/vis
