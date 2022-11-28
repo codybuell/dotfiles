@@ -22,9 +22,9 @@
 # |                |                     |
 # '--------------------------------------'
 
-CMDPANE1='clear && git status && git branch -v'
-CMDPANE2=''
-CMDPANE3='vim -c so ~/.config/nvim/sessions/dotfiles'
+CMDPANE1='vim -c so ~/.config/nvim/sessions/dotfiles'
+CMDPANE2='clear && git status && git branch -v'
+CMDPANE3=''
 
 # get session name based on folder
 SESSION=`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'`
@@ -39,12 +39,12 @@ fi
 tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
 
 # build out panes - left
-# tmux split-window -t ${SESSION}:main.1 -h -p 45
-# tmux split-window -t ${SESSION}:main.2 -v -p 60
+tmux split-window -t ${SESSION}:main.1 -h -p 45
+tmux split-window -t ${SESSION}:main.2 -v -p 60
 
 # build out panes - right
-tmux split-window -t ${SESSION}:main.1 -h -p 55
-tmux split-window -t ${SESSION}:main.1 -v -p 60
+# tmux split-window -t ${SESSION}:main.1 -h -p 55
+# tmux split-window -t ${SESSION}:main.1 -v -p 60
 
 # run commands
 tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter

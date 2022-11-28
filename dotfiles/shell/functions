@@ -470,10 +470,10 @@ function home() {
 
       #--- layout 3 (top full width)
       tmux split-window -t HOME:home -v -p 60 -c ~/
-      tmux split-window -t HOME:home.2 -h -p 55 -c ~/
+      tmux split-window -t HOME:home.2 -h -p 45 -c ~/
       tmux send-keys -t HOME:home.1 'cd ~/Downloads && mutt' Enter
-      tmux send-keys -t HOME:home.2 'cd ~/Desktop && clear' Enter
-      tmux send-keys -t HOME:home.3 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop && clear' Enter
 
       # # build notes/journal window
       # tmux new-window -t HOME: -c ~/.mutt -n notes
