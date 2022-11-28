@@ -79,8 +79,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # install and use latest lts
-nvm install --lts
-nvm use --lts
+# nvm install --lts
+# nvm use --lts
+
+# pin to lts/gallium
+nvm install lts/gallium
+nvm alias defailt lts/gallium
+nvm use lts/gallium
 
 # install node packages
 for i in ${PACKAGES[@]}; do
