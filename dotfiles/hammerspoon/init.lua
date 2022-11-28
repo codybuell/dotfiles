@@ -173,7 +173,7 @@ local layoutConfig = {
   ------------
   --  zoom  --
   ------------
-  
+
   -- ['us.zoom.xos'] = (function(window, forceScreenCount)
 -- --  local count = forceScreenCount or screenCount
 -- --  if count == 1 then
@@ -211,7 +211,8 @@ local layoutConfig = {
       hs.grid.set(window, grid.widescreenLeft63P)
     elseif primaryWxH == "3840x2160" then -- 32" 4k
       -- hs.grid.set(window, grid.widescreenRight63P)
-      hs.grid.set(window, grid.leftSeven12ths)
+      hs.grid.set(wendow, grid.rightTwoThirds)
+      -- hs.grid.set(window, grid.leftSeven12ths)
     else -- default (laptop)
       hs.grid.set(window, grid.fullScreen)
     end
@@ -231,7 +232,7 @@ local layoutConfig = {
 -- Returns the number of standard, non-minimized windows in the application.
 -- For Chrome, which has two windows per visible window on screen, but only one
 -- window per minimized window.
--- 
+--
 function windowCount(app)
   local count = 0
   if app then
