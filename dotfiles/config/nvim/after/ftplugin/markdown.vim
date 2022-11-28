@@ -48,6 +48,7 @@ endfunction
 
 setlocal foldmethod=expr
 let &l:foldexpr = 'MarkdownFoldLevel()'
+" let &l:foldexpr = "%!luaeval('buell.markdown.markdown_fold_level()')"
 
 """"""""""""""
 "  Teardown  "
