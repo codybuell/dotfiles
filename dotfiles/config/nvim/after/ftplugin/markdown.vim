@@ -13,16 +13,16 @@ setlocal breakindentopt=list:-1,shift:2,sbr
 function! MarkdownFoldLevel()
     let lines = getline(v:lnum-1, v:lnum+1)
 
-    # Fenced Code Blocks
-    if lines[1] =~ '^\s*```.\+$'
-        " start of a fenced block
-        return "a1"
-    elseif lines[1] =~ '^\s*```\s*$'
-        " end of a fenced block
-        return "s1"
-    endif
+    " " Fenced Code Blocks
+    " if lines[1] =~ '^\s*```.\+$'
+    "     " start of a fenced block
+    "     return "a1"
+    " elseif lines[1] =~ '^\s*```\s*$'
+    "     " end of a fenced block
+    "     return "s1"
+    " endif
 
-    # Headers (fold h2 on)
+    " Headers (fold h2 on)
     if lines[1] =~ '^## .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
         " begin a fold of level two here
         return ">1"
