@@ -40,7 +40,7 @@ local link_types  = {
 
 -- TEST:
 -- file
--- file without extension (should default add on .md)
+-- file without extension (should default add on .txt)
 -- section within a file
 -- section in another file
 -- wiki:file
@@ -53,6 +53,38 @@ local link_types  = {
 --  Helpers                                                                   --
 --                                                                            --
 --------------------------------------------------------------------------------
+
+local markdown_fold_level = function ()
+  local lines = vim.fn.getline(vim.v.lnum - 1, vim.v.lnum + 1)
+
+  -- fenced code blocks
+  if lines[1]:match('^%s*```.+$') then
+      -- start of a fenced block
+      return "a1"
+  elseif lines[1]:match('^%s*```%s*$') then
+      -- end of a fenced block
+      return "s1"
+  end
+
+  -- headers (fold h2 on)
+  if lines[1]:match('^## .*$') and lines[0]:match('^%s*$') and lines[2]:match('^%s*$') then
+      -- begin a fold of level two here
+      return ">1"
+  elseif lines[1]:match('^### .*$') and lines[0]:match('^%s*$') and lines[2]:match('^%s*$') then
+      -- begin a fold of level three here
+      return ">2"
+  elseif lines[1] ~= '' and lines[2]:match('^---*$') then
+      -- elseif the line ends with at least two --
+      return ">1"
+  elseif vim.fn.foldlevel(vim.v.lnum-1) ~= "-1" then
+      return vim.fn.foldlevel(vim.v.lnum - 1)
+  -- this as an absolute last resort! without the above condition this func
+  -- gets recursively called some 66K times vs 1K times... 3 sec vs 0.03 sec
+  -- save time difference
+  else
+      return "="
+  end
+end
 
 -- Get URL for Position
 --
@@ -121,7 +153,7 @@ local open_link = function (link)
       if target ~= '' then
         -- append an extension if needed
         if not target:match('%.[%C%X]') then
-          target = target .. '.md'
+          target = target .. '.txt'
         end
 
         -- build full path to file

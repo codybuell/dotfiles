@@ -11,7 +11,7 @@ local create_entry = function (wiki)
     local month = os.date('%m', date)
     local day   = os.date('%d', date)
     local path  = '{{ Journal }}' .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
-    local file  = year .. '.' .. month .. '.' .. day .. '.md'
+    local file  = year .. '.' .. month .. '.' .. day .. '.txt'
 
     -- make directory if needed
     buell.util.create_directories(path)
@@ -35,11 +35,11 @@ local create_entry = function (wiki)
     local name = vim.fn.input(prompt)
     vim.fn.inputrestore()
 
-    -- append .md if needed
+    -- append .txt if needed
     if name ~= '' then
       -- append an extension if needed
       if not name:match('%.[%C%X]') then
-        name = name .. '.md'
+        name = name .. '.txt'
       end
 
       -- open the file
