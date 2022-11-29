@@ -233,7 +233,12 @@ markdown.create_or_follow_link = function ()
         return
       end
     end
-
+    -- run effectively a noop so that if you undo the following substitution it
+    -- returns cursor position as expected rather than jumping to the start of
+    -- the line
+    vim.cmd("normal! i ")
+    vim.cmd("normal! x")
+    vim.fn.cursor(0, col_nr)
     -- make substitution, put cursor back where it was, and clear hlsearch
     vim.cmd(':s/\\%' .. str_start .. 'c.*\\%' .. (str_end + 1) .. 'c/' .. link_str .. '/')
     vim.fn.cursor(0, col_nr + 1)
