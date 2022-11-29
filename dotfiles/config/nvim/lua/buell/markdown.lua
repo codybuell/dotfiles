@@ -10,6 +10,7 @@ local markdown = {}
 local wikis = {
   notes = '{{ Notes }}',
   journal = '{{ Journal }}',
+  codex = '{{ Codex }}',
 }
 
 -- define link syntaxes, order is important in link_types due to lua's lack of
