@@ -52,3 +52,14 @@ end, {
   complete = 'dir',
   nargs = '?',
 })
+
+-- supplement vims wildignore for command-t searches
+vim.g.CommandTWildIgnore = vim.o.wildignore
+  .. ',*/.git/*'
+  .. ',*/.hg/*'
+  .. ',*/bower_components/*'
+  .. ',*/tmp/*'
+  .. ',*.class'
+  .. ',*/classes/*'
+  .. ',*/build/*'
+  .. ',*.DS_Store'
