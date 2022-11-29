@@ -17,7 +17,7 @@ local foldtext = function()
 
   -- grab first and last line strings
   local first_line = ({vim.api.nvim_buf_get_lines(0, vim.v.foldstart - 1, vim.v.foldstart, true)[1]:gsub(' *', '', 1)})[1]
-  local last_line  = ({vim.api.nvim_buf_get_lines(0, vim.v.foldend - 1, vim.v.foldend, true)[1]:gsub(' *', '', 1)})[1]
+  -- local last_line  = ({vim.api.nvim_buf_get_lines(0, vim.v.foldend - 1, vim.v.foldend, true)[1]:gsub(' *', '', 1)})[1]
 
   -- sparkline numbers
   local sparkline_width = 15
@@ -42,7 +42,8 @@ local foldtext = function()
 
   -- assemble sparkline and summary strings
   local sparkline_str = " [" .. string.rep(":", normalized_size) .. string.rep(".", sparkline_width - normalized_size) .. "]  "
-  local summary_str   = first_line .. " ... " .. last_line .. " "
+  -- local summary_str   = first_line .. " ... " .. last_line .. " "
+  local summary_str   = first_line .. " "
 
   -- shorten summary_str if there is not enough space
   local space_available = pane_width - string.len(fold_lvl_str .. lines_count_str .. sparkline_str) - 15
