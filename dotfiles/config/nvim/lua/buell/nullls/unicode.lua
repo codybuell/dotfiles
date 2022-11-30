@@ -17,7 +17,7 @@ unicode.setup = function()
   local warn_unicode = {
     method = null_ls.methods.DIAGNOSTICS,
     filetypes = { },
-    disabled_filetypes = { "markdown" },
+    disabled_filetypes = { "markdown", "txt" },
     generator = {
       fn = function(params)
         -- params object contains info about the current file and editor state
