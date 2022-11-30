@@ -3,6 +3,12 @@ vim.g.command_t_loaded = 0     -- temp hack to prevent ruby version loading
 require('wincent.commandt').setup({
   always_show_dot_files = true,
   height = 30,
+  scanners = {
+    git = {
+      submodules = false,
+      untracked = true,
+    },
+  },
   finders = {
     wiki = {
       command = function(directory)
