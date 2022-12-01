@@ -1,5 +1,7 @@
 local luasnip = require("luasnip")
 local snip_lua = require("luasnip.loaders.from_lua")
+-- local snip_vscode = require("luasnip.loaders.from_vscode")
+local snip_snipmate = require("luasnip.loaders.from_snipmate")
 
 -- mappings are handled / defined in `after/plugin/nvim-cmp.lua`
 
@@ -20,3 +22,5 @@ luasnip.config.set_config({
 
 -- load luasnip snippets
 snip_lua.lazy_load({ paths = "./snippets/luasnip" })
+-- snip_vscode.lazy_load({ paths = "./snippets/vscode" })
+snip_snipmate.lazy_load({ paths = "./snippets/snipmate" })

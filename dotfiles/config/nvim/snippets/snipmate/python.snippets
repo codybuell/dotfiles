@@ -1,0 +1,11 @@
+snippet aoc "Advent of Code Boilerplate"
+	#!/usr/bin/env python3
+	# https://adventofcode.com/`strftime('%Y')`/day/`strftime('%-d')`
+
+	import os
+
+	# ingest data
+	data  = open(os.path.join(os.path.dirname(__file__), 'data.txt'), 'r')
+	lines = data.read().splitlines()
+
+	${0}
