@@ -15,6 +15,7 @@
   gpgsign = true
 [status]
   submoduleSummary = true
+  showUntrackedFiles = all
 [pull]
   ff = only
 [push]
