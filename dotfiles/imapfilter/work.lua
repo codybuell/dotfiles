@@ -258,10 +258,10 @@ function run()
   end))
 
   -- github personal action notifications
-  archive_and_mark_read('github personal activity', (function()
-    own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
-    return own + github_related(own)
-  end))
+  -- archive_and_mark_read('github personal activity', (function()
+  --   own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
+  --   return own + github_related(own)
+  -- end))
 
   -- bonusly
   movetofolder_and_mark_read('bonusly messages', bonusly, (function()
