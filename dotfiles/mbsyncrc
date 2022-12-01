@@ -30,39 +30,39 @@ Path ~/.mail/Home/
 Inbox ~/.mail/Home/Home
 
 Channel Home-Home
-Master :Home-remote:INBOX
-Slave :Home-local:Home
+Far :Home-remote:INBOX
+Near :Home-local:Home
 
 Channel Home-Drafts
-Master :Home-remote:"[Gmail]/Drafts"
-Slave :Home-local:Home.Drafts
+Far :Home-remote:"[Gmail]/Drafts"
+Near :Home-local:Home.Drafts
 
 Channel Home-Sent
-Master :Home-remote:"[Gmail]/Sent Mail"
-Slave :Home-local:Home.Sent
+Far :Home-remote:"[Gmail]/Sent Mail"
+Near :Home-local:Home.Sent
 
 Channel Home-Starred
-Master :Home-remote:"[Gmail]/Starred"
-Slave :Home-local:Home.Starred
+Far :Home-remote:"[Gmail]/Starred"
+Near :Home-local:Home.Starred
 
 Channel Home-Spam
-Master :Home-remote:"[Gmail]/Spam"
-Slave :Home-local:Home.Spam
+Far :Home-remote:"[Gmail]/Spam"
+Near :Home-local:Home.Spam
 
 Channel Home-Trash
-Master :Home-remote:"[Gmail]/Trash"
-Slave :Home-local:Home.Trash
+Far :Home-remote:"[Gmail]/Trash"
+Near :Home-local:Home.Trash
 
 Channel Home-All
-Master :Home-remote:"[Gmail]/All Mail"
-Slave :Home-local:Home.Archive
+Far :Home-remote:"[Gmail]/All Mail"
+Near :Home-local:Home.Archive
 
 # Catch-all for everything else: note that the `Patterns` have to exclude both
 # the remote and local names for all the folders we want to exclude (except
 # "INBOX", which is special-cased, it would seem).
 Channel Home-Default
-Master :Home-remote:
-Slave :Home-local:Home.
+Far :Home-remote:
+Near :Home-local:Home.
 Patterns *
 Patterns !INBOX
 Patterns ![Gmail]*
@@ -75,10 +75,10 @@ Patterns !Trash
 
 # For doing a quick sync of just the INBOX with `mbsync Home-Download`.
 Channel Home-Download
-Master :Home-remote:INBOX
-Slave :Home-local:Home
-Create Slave
-Expunge Slave
+Far :Home-remote:INBOX
+Near :Home-local:Home
+Create Near
+Expunge Near
 Sync Pull
 
 # Lower-case "h" here to match "~/.imapfilter/home.lua" script name (see
@@ -116,39 +116,39 @@ Path ~/.mail/Work/
 Inbox ~/.mail/Work/Work
 
 Channel Work-Work
-Master :Work-remote:INBOX
-Slave :Work-local:Work
+Far :Work-remote:INBOX
+Near :Work-local:Work
 
 Channel Work-Drafts
-Master :Work-remote:"[Gmail]/Drafts"
-Slave :Work-local:Work.Drafts
+Far :Work-remote:"[Gmail]/Drafts"
+Near :Work-local:Work.Drafts
 
 Channel Work-Sent
-Master :Work-remote:"[Gmail]/Sent Mail"
-Slave :Work-local:Work.Sent
+Far :Work-remote:"[Gmail]/Sent Mail"
+Near :Work-local:Work.Sent
 
 Channel Work-Starred
-Master :Work-remote:"[Gmail]/Starred"
-Slave :Work-local:Work.Starred
+Far :Work-remote:"[Gmail]/Starred"
+Near :Work-local:Work.Starred
 
 Channel Work-Spam
-Master :Work-remote:"[Gmail]/Spam"
-Slave :Work-local:Work.Spam
+Far :Work-remote:"[Gmail]/Spam"
+Near :Work-local:Work.Spam
 
 Channel Work-Trash
-Master :Work-remote:"[Gmail]/Trash"
-Slave :Work-local:Work.Trash
+Far :Work-remote:"[Gmail]/Trash"
+Near :Work-local:Work.Trash
 
 Channel Work-All
-Master :Work-remote:"[Gmail]/All Mail"
-Slave :Work-local:Work.Archive
+Far :Work-remote:"[Gmail]/All Mail"
+Near :Work-local:Work.Archive
 
 # Catch-all for everything else: note that the `Patterns` have to exclude both
 # the remote and local names for all the folders we want to exclude (except
 # "INBOX", which is special-cased, it would seem).
 Channel Work-Default
-Master :Work-remote:
-Slave :Work-local:Work.
+Far :Work-remote:
+Near :Work-local:Work.
 Patterns *
 Patterns !INBOX
 Patterns ![Gmail]*
@@ -161,10 +161,10 @@ Patterns !Trash
 
 # For doing a quick sync of just the INBOX with `mbsync Work-Download`.
 Channel Work-Download
-Master :Work-remote:INBOX
-Slave :Work-local:Work
-Create Slave
-Expunge Slave
+Far :Work-remote:INBOX
+Near :Work-local:Work
+Create Near
+Expunge Near
 Sync Pull
 
 # Lower-case "w" here to match "~/.imapfilter/work.lua" script name (see
@@ -193,49 +193,49 @@ Channel Work-Default
 #  SSLType IMAPS
 #  AuthMechs LOGIN
 #  PipelineDepth 1
-#  
+#
 #  IMAPStore Work-remote
 #  Account Work
-#  
+#
 #  MaildirStore Work-local
 #  Path ~/.mail/Work/
 #  Inbox ~/.mail/Work/Work
 #  SubFolders Legacy
-#  
+#
 #  Channel Work-Work
-#  Master :Work-remote:INBOX
-#  Slave :Work-local:Work
-#  
+#  Far :Work-remote:INBOX
+#  Near :Work-local:Work
+#
 #  Channel Work-Sent
-#  Master :Work-remote:"Sent Items"
-#  Slave :Work-local:Work.Sent
-#  
+#  Far :Work-remote:"Sent Items"
+#  Near :Work-local:Work.Sent
+#
 #  Channel Work-Spam
-#  Master :Work-remote:"Junk EMail"
-#  Slave :Work-local:Work.Spam
-#  
+#  Far :Work-remote:"Junk EMail"
+#  Near :Work-local:Work.Spam
+#
 #  Channel Work-Trash
-#  Master :Work-remote:"Deleted Items"
-#  Slave :Work-local:Work.Trash
-#  
+#  Far :Work-remote:"Deleted Items"
+#  Near :Work-local:Work.Trash
+#
 #  #Channel Work-Monitoring
-#  #Master :Work-remote:"Monitoring"
-#  #Slave :Work-local:Work.Monitoring
+#  #Far :Work-remote:"Monitoring"
+#  #Near :Work-local:Work.Monitoring
 #  #
 #  #Channel Work-Services
-#  #Master :Work-remote:"Services"
-#  #Slave :Work-local:Work.Services
+#  #Far :Work-remote:"Services"
+#  #Near :Work-local:Work.Services
 #  #
 #  #Channel Work-Vendors
-#  #Master :Work-remote:"Vendors"
-#  #Slave :Work-local:Work.Vendors
-#  
+#  #Far :Work-remote:"Vendors"
+#  #Near :Work-local:Work.Vendors
+#
 #  # Catch-all for everything else: note that the `Patterns` have to exclude both
 #  # the remote and local names for all the folders we want to exclude (except
 #  # "INBOX", which is special-cased, it would seem).
 #  Channel Work-Default
-#  Master :Work-remote:
-#  Slave :Work-local:Work.
+#  Far :Work-remote:
+#  Near :Work-local:Work.
 #  Patterns *
 #  Patterns !INBOX
 #  Patterns !"Deleted Items"
@@ -257,15 +257,15 @@ Channel Work-Default
 #  Patterns !"Issues*"
 #  Patterns !Tasks
 #  Patterns !Trash
-#  
+#
 #  # For doing a quick sync of just the INBOX with `mbsync Work-Download`.
 #  Channel Work-Download
-#  Master :Work-remote:INBOX
-#  Slave :Work-local:Work
-#  Create Slave
-#  Expunge Slave
+#  Far :Work-remote:INBOX
+#  Near :Work-local:Work
+#  Create Near
+#  Expunge Near
 #  Sync Pull
-#  
+#
 #  # Lower-case "c" here to match "~/.imapfilter/Work.lua" script name (see
 #  # "~/.mutt/scripts/sync.sh").
 #  Group work
