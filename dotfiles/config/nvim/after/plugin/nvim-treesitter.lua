@@ -30,6 +30,7 @@ treesitter.setup {
     "scss",
     "toml",
     "typescript",
+    "vim",
     "vue",
     "yaml",
   },
