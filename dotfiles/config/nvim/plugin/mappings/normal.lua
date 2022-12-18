@@ -9,6 +9,8 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 -- modes
 vim.keymap.set('n', '<Leader>1', '<CMD>lua vim.lsp.stop_client(vim.lsp.get_active_clients())', {remap = true})
 
+-- wrap for function call
+vim.keymap.set('n', '<Enter>', '<CMD>lua buell.util.toggle_wrap()<CR>', {silent = true})
 
 -- underline helper
 vim.keymap.set('n', '<C-u>', '<CMD> lua buell.util.underline()<CR>', {remap=false, silent=true})
