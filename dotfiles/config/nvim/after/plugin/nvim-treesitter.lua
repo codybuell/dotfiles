@@ -2,7 +2,7 @@ treesitter = require('nvim-treesitter.configs')
 
 -- Note you must use expr as the foldmethod for any language you want
 -- treesitter to handle folding for, eg `setlocal foldmethod=expr` in
--- ~/.config/nvim/after/ftplugin/[filetype].vim, also depends on 
+-- ~/.config/nvim/after/ftplugin/[filetype].vim, also depends on
 -- `vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'` in init.lua
 
 treesitter.setup {
@@ -17,6 +17,7 @@ treesitter.setup {
     "go",
     "gomod",
     "graphql",
+    "help",
     "html",
     "javascript",
     "json",
