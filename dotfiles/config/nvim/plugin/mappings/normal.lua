@@ -6,6 +6,10 @@
 
 local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 
+-- modes
+vim.keymap.set('n', '<Leader>1', '<CMD>lua vim.lsp.stop_client(vim.lsp.get_active_clients())', {remap = true})
+
+
 -- underline helper
 vim.keymap.set('n', '<C-u>', '<CMD> lua buell.util.underline()<CR>', {remap=false, silent=true})
 
@@ -49,7 +53,7 @@ vim.keymap.set('n', '<Leader>b', '<Plug>(CommandTBuffer)', {remap = true})
 vim.keymap.set('n', '<Leader>h', '<Plug>(CommandTHelp)', {remap  = true})
 -- Watchman + command-t causes random segfaults killing nvim! Not sure what's going on there...
 -- vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTWatchman)', {remap = true})
-vim.keymap.set('n', '<Leader>t', '<Plug>(CommandT)', {remap = true})
+vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTGit)', {remap = true})
 vim.keymap.set('n', '<Leader>.', ':CommandT %:p:h<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>n', ':CommandTWiki {{ Notes }}<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>c', ':CommandTWiki {{ Codex }}<CR>', {remap = false, silent = true})
