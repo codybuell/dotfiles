@@ -244,7 +244,7 @@ statusline.rhs = function()
 
   if vim.fn.winwidth(0) > 80 then
     local col_pos  = vim.fn.virtcol('.')
-    local col_size = vim.fn.virtcol('$')
+    local col_size = vim.fn.virtcol('$') - 1
     local horiz_pos = col_pos .. '/' .. col_size
 
     line = table.concat {
