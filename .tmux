@@ -22,7 +22,7 @@
 # |                |                     |
 # '--------------------------------------'
 
-CMDPANE1='vim -c so ~/.config/nvim/sessions/dotfiles'
+CMDPANE1=''
 CMDPANE2='clear && git status && git branch -v'
 CMDPANE3=''
 
