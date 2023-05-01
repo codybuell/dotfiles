@@ -10,7 +10,7 @@
 #
 # Requisite: Go
 #
-# Tasks: 
+# Tasks:
 #
 # Usage: make go
 #        scripts/go.sh
@@ -36,13 +36,13 @@ OSX=( \
 
 # all platforms
 ALL=( \
-  'github.com/stamblerre/gocode' \                 # replacement for nsf/gocode, deoplete-go dependency
   'golang.org/x/tools/cmd/goimports' \             # go formatter and auto imports
-  'github.com/schachmat/wego' \                    # command line weather
   'github.com/arduino/arduino-language-server' \   # lsp for aduino, requires clang and arduino-cli
 )
 
 # no longer in use:
+# 'github.com/schachmat/wego' \                    # command line weather
+# 'github.com/stamblerre/gocode' \                 # replacement for nsf/gocode, deoplete-go dependency
 # 'github.com/jstemmer/gotags' \
 # 'github.com/dominikh/go-tools' \
 
