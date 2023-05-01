@@ -11,11 +11,14 @@ local toggle_wrap = function()
     'quickfix',
     'nofile',
     'help',
+    'qf',
   }
 
   local filetype = vim.bo.filetype
 
-  if buell.util.has_value(ignore_types, filetype) then
+  if filetype == 'qf' then
+    vim.cmd('.cc')
+  elseif buell.util.has_value(ignore_types, filetype) then
     vim.cmd('execute "normal! <CR>"')
   else
     vim.cmd('execute "normal csw)"')
