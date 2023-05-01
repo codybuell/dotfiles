@@ -180,34 +180,52 @@ lsp.init = function()
   })
 
   -- Lua
-  lspconfig.sumneko_lua.setup{
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  lspconfig.lua_ls.setup {
     settings = {
       Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
         diagnostics = {
-          enable = true,
           globals = {'vim'},
         },
-        filetypes = {'lua'},
-        runtime = {
-          path = vim.split(package.path, ';'),
-          version = 'LuaJIT',
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
         },
         telemetry = {
           enable = false,
         },
-        workspace = {
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,            -- make server aware of vim runtime files
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,    -- make server aware of vim runtime files
-            -- ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
-          },
-        },
-      }
+      },
     },
   }
+  -- lspconfig.sumneko_lua.setup{
+  --   on_attach = on_attach,
+  --   on_exit = on_exit,
+  --   capabilities = capabilities,
+  --   settings = {
+  --     Lua = {
+  --       diagnostics = {
+  --         enable = true,
+  --         globals = {'vim'},
+  --       },
+  --       filetypes = {'lua'},
+  --       runtime = {
+  --         path = vim.split(package.path, ';'),
+  --         version = 'LuaJIT',
+  --       },
+  --       telemetry = {
+  --         enable = false,
+  --       },
+  --       workspace = {
+  --         library = {
+  --           [vim.fn.expand('$VIMRUNTIME/lua')] = true,            -- make server aware of vim runtime files
+  --           [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,    -- make server aware of vim runtime files
+  --           -- ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
+  --         },
+  --       },
+  --     }
+  --   },
+  -- }
 
   -- Python
   lspconfig.pylsp.setup({
