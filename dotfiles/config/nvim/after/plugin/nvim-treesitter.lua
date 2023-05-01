@@ -17,7 +17,6 @@ treesitter.setup {
     "go",
     "gomod",
     "graphql",
-    "help",
     "html",
     "javascript",
     "json",
