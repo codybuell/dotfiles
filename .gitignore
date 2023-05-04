@@ -21,6 +21,7 @@ dotfiles/vim/.netrwhist
 dotfiles/vim/tmp
 dotfiles/vim/bundles
 dotfiles/vim/snippits
+dotfiles/ssh/config
 *__pycache__
 staging/*
 .luarc.json
