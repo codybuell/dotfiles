@@ -94,7 +94,9 @@ augroup('BuellAutocommands', function()
     buell.util.create_directories(vim.fn.expand('%:p:h'))
 
     -- remove trailing whitespace
-    buell.util.substitute('\\s\\+$', '', '')
+    vim.cmd('silent! %s/\\v\\s+$//')
+    -- this command takes minutes to operate on large files...
+    -- buell.util.substitute('\\s\\+$', '', '')
   end)
 
   ----------------
