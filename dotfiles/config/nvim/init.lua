@@ -59,9 +59,12 @@ vim.opt.fillchars      = {
 }
 vim.opt.foldcolumn     = '2'                                   -- show the fold column
 vim.opt.foldlevelstart = 99                                    -- start unfolded
+vim.opt.foldenable     = false                                 -- start with folding disabled
 vim.opt.foldmethod     = 'indent'                              -- not as cool as syntax, but faster
 vim.opt.foldtext       = 'v:lua.buell.foldtext.three()'        -- override the generated fold text
 vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'          -- func for when method is expr (ie treesitter)
+vim.opt.foldminlines   = 1
+vim.opt.foldnestmax    = 4
 vim.opt.formatoptions  = vim.opt.formatoptions + 'j'           -- remove comment leader when joining comment lines
 vim.opt.formatoptions  = vim.opt.formatoptions + 'n'           -- smart auto-indenting inside numbered lists
 vim.opt.guifont        = 'Source Code Pro Light:h13'
