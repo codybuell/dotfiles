@@ -16,6 +16,7 @@ local autocmd = buell.util.autocmd
 --------------------------------------------------------------------------------
 
 vim.opt_local.spell = true
+vim.opt_local.synmaxcol = 0                  -- override to highlight full line
 
 -- map misc filetypes to vim filetypes
 local filetype_dict = {

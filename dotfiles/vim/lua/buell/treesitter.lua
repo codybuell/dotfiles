@@ -16,8 +16,8 @@ ts.setup = function ()
       "graphql",
       "html",
       "javascript",
-      "json",
-      "jsonc",
+      -- "json",       -- does not respect synmaxcol and so breaks on large single line files
+      -- "jsonc",      -- does not respect synmaxcol and so breaks on large single line files
       "lua",
       "php",
       "pug",

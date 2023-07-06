@@ -84,6 +84,29 @@ augroup('BuellAutocommands', function()
     vim.cmd('silent! mkview')
   end)
 
+  ------------------
+  --  BufReadPre  --
+  ------------------
+
+  autocmd('BufReadPre', '*', function()
+    -- disable treesitter on large files as it doesn't respect synmaxcol and can
+    -- get hosted on uglified files, taking forever to load and take any action
+    if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then
+      buell.util.disable_buf_ts()
+    end
+  end)
+
+  ------------------
+  --  FileReadPre  --
+  ------------------
+
+  autocmd('FileReadPre', '*', function()
+    -- disable treesitter on large files as it doesn't respect synmaxcol and can
+    -- get hosted on uglified files, taking forever to load and take any action
+    if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then
+      buell.util.disable_buf_ts()
+    end
+  end)
 
   -------------------
   --  BufWritePre  --
