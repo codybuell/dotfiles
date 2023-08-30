@@ -91,23 +91,23 @@ syn match  mkdRule /^\s*\*\s\{0,1}\*\s\{0,1}\*\(\*\|\s\)*$/
 syn match  mkdRule /^\s*-\s\{0,1}-\s\{0,1}-\(-\|\s\)*$/
 syn match  mkdRule /^\s*_\s\{0,1}_\s\{0,1}_\(_\|\s\)*$/
 
-" todo items
+" todo items `- [ ] text`
 syn match buellTodo      /\v^\s*-\s\[\s\]\s.*$/
 syn match buellTodoText  /\v\[\s\]\s.*$/ contained containedin=buellTodo contains=mkdCode,htmlItalic,htmlBold,mkdBoldItalic,htmlStrike,mkdInlineURL,mkdStrike
 
-" in progress todo items
+" in progress todo items `- [/] text`
 syn match buellInProgressTodo      /\v^\s*-\s\[[\/\\]\]\s.*$/
 syn match buellInProgressTodoText  /\v\[[\/\\]\]\s.*$/ contained containedin=buellInProgressTodo contains=mkdCode,htmlItalic,htmlBold,mkdBoldItalic,htmlStrike,mkdInlineURL,mkdStrike
 
-" completed todo items
+" completed todo items `- [x] text`
 syn match buellCompletedTodo      /\v^\s*-\s\[[xX×]\]\s.*$/
 syn match buellCompletedTodoText  /\v\[[xX×]\]\s.*$/ contained containedin=buellCompletedTodo contains=mkdStrike
 
-" dropped todo items
+" dropped todo items `- [-] text`
 syn match buellDroppedTodo      /\v^\s*-\s\[[-]\]\s.*$/
 syn match buellDroppedTodoText  /\v\[[-]\]\s.*$/ contained containedin=buellDroppedTodo
 
-" important todo items
+" important todo items `- [!] text`
 syn match buellImportantTodo      /\v^\s*-\s\[[!]\]\s.*$/
 syn match buellImportantTodoText  /\v\[[!]\]\s.*$/ contained containedin=buellImportantTodo
 
