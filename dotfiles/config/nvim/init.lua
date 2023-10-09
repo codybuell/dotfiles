@@ -161,7 +161,7 @@ vim.cmd('packadd! lsp-status.nvim')         -- lsp status capabilities
 vim.cmd('packadd! null-ls.nvim')            -- custom lsp injections
 
 -- syntax & color
-vim.cmd('packadd! editorconfig-vim')   -- indentation rulers
+vim.cmd('packadd! editorconfig-vim')        -- indentation rulers
 vim.cmd('packadd! indent-blankline.nvim')   -- indentation rulers
 vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax highlighting
 vim.cmd('packadd! base16-nvim')             -- color consistency with shell
@@ -175,6 +175,7 @@ vim.cmd('packadd! vim-tmux-navigator')      -- motion between vim and tmux
 vim.cmd('packadd! vim-tmux-runner')         -- execute commands in tmux panes
 
 -- utilities
+vim.cmd('packadd! corpus')                  -- note management
 vim.cmd('packadd! plenary.nvim')            -- lua helpers
 vim.cmd('packadd! pinnacle')                -- color/highlight utility
 vim.cmd('packadd! ferret')                  -- improved multi-file search + helpers
@@ -195,3 +196,4 @@ vim.cmd('packadd! cmp-buffer')              -- cmp plugin for luasnip
 vim.cmd('packadd! cmp-nvim-lsp')            -- cmp plugin for luasnip
 vim.cmd('packadd! cmp-lbdb')                -- cmp plugin for lbdb
 vim.cmd('packadd! cmp-emoji')               -- emoji completion for cmp
+vim.cmd('packadd! cmp-cmdline')             -- command line completion

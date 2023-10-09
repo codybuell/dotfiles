@@ -229,3 +229,9 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-abolish"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/corpus"]
+	path = dotfiles/config/nvim/pack/bundle/opt/corpus
+	url = https://github.com/wincent/corpus.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline
+	url = https://github.com/hrsh7th/cmp-cmdline.git
