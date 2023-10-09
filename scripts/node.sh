@@ -84,9 +84,9 @@ export NVM_DIR="$HOME/.nvm"
 # nvm use --lts
 
 # pin to lts/gallium
-nvm install lts/gallium
-nvm alias defailt lts/gallium
-nvm use lts/gallium
+nvm install lts/hydrogen
+nvm alias default lts/hydrogen
+nvm use lts/hydrogen
 
 # install node packages
 for i in ${PACKAGES[@]}; do
