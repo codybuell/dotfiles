@@ -12,12 +12,25 @@ local create_entry = function (wiki)
     local day   = os.date('%d', date)
     local path  = '{{ Journal }}' .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
     local file  = year .. '.' .. month .. '.' .. day .. '.txt'
+    local full  = path .. '/' .. file
 
     -- make directory if needed
     buell.util.create_directories(path)
 
     -- edit the file
-    vim.cmd('edit ' .. path .. '/' .. file)
+    vim.cmd('edit ' .. full)
+
+    -- stub out template if needed
+    if vim.fn.getfsize(vim.fn.expand(full)) <= 0 then
+      vim.api.nvim_buf_set_lines(0, 0, 5, false,{
+        "---",
+        "title: " .. year .. '.' .. month .. '.' .. day,
+        "tags:",
+        "---",
+        "",
+        ""
+      })
+    end
   elseif wiki == 'note' or wiki == 'codex' then
     -- set prompt and path
     local prompt

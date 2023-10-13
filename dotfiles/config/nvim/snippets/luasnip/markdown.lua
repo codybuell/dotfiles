@@ -33,27 +33,42 @@ return {
   {
     t({"---",
     "title: "}), i(1, "note_title"), t({"",
-    "author: "}), i(2, "author"), t({"",
     "date: "}), f(buell.sniputils.date, {}), t({"",
-    "categories: ["}), i(3, ""), t({"]",
+    "categories: ["}), i(2, ""), t({"]",
     "lastmod: "}), f(buell.sniputils.date, {}), t({"",
-    "tags: ["}), i(4), t({"]",
-    "comments: true",
+    "tags: ["}), i(3), t({"]",
     "---", ""}),
     i(0)
   }),
 
   s({
-    trig = "note",
+    trig = "j",
+    name = "Journal Template",
+    dscr = "Generic journal template"
+  },
+  {
+    t({"---",
+    "title: "}), f(buell.sniputils.date, {}), t({"",
+    "tags: ",
+    "---", "", ""}),
+    i(0)
+  }),
+
+  s({
+    trig = "n",
     name = "Note Template",
     dscr = "Generic note template"
   },
   {
-    t({"__See also:__","  - "}),i(2),t({"","",""}),
-    t({"__Quick reference:__","  - "}),i(3),t({"","",""}),
-    i(1, 'title'), t({"",""}),
-    f(function(args) return string.gsub(args[1][1], ".", "=") end, {1}),
-    t({"","","Examples","--------",""}),
+    t({"---",
+    "title: "}), i(1, 'title'), t({"",
+    "tags: "}), i(2), t({"",
+    "---", "", ""}),
+    t({"__See also:__","  - ", "",""}),
+    t({"__Quick reference:__","  - ","",""}),
+    f(function(args) local underline = string.gsub(args[1][1], ".", "="); return {args[1][1],underline} end, {1}),
+    t({"","",""}),
+    i(0)
   }),
 
   ----------------
