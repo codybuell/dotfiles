@@ -166,16 +166,16 @@ note() {
   fi
 }
 
-# edit or cd to codex
-codex() {
-  if [ $1 ]; then
-    ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
-    EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
-    vim {{ Codex }}/${1}${EXT}
-  else
-    cd {{ Codex }}
-  fi
-}
+# # edit or cd to codex
+# codex() {
+#   if [ $1 ]; then
+#     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
+#     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
+#     vim {{ Codex }}/${1}${EXT}
+#   else
+#     cd {{ Codex }}
+#   fi
+# }
 
 # todo-txt.sh wrapper
 function t() {

@@ -11,7 +11,7 @@ local create_entry = function (wiki)
     local month = os.date('%m', date)
     local day   = os.date('%d', date)
     local path  = '{{ Journal }}' .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
-    local file  = year .. '.' .. month .. '.' .. day .. '.txt'
+    local file  = year .. '.' .. month .. '.' .. day .. '.md'
     local full  = path .. '/' .. file
 
     -- make directory if needed
@@ -30,29 +30,32 @@ local create_entry = function (wiki)
         "",
         ""
       })
+      vim.cmd('6 | startinsert')
     end
   elseif wiki == 'note' or wiki == 'codex' then
     -- set prompt and path
-    local prompt
-    local path
-    if wiki == 'note' then
-      prompt = 'Note name: '
-      path   = '{{ Notes }}'
-    elseif wiki == 'codex' then
-      prompt = 'Codex name: '
-      path   = '{{ Codex }}'
-    end
+    local prompt = 'Note name: '
+    local path   = '{{ Notes }}'
+    -- local prompt
+    -- local path
+    -- if wiki == 'note' then
+    --   prompt = 'Note name: '
+    --   path   = '{{ Notes }}'
+    -- elseif wiki == 'codex' then
+    --   prompt = 'Codex name: '
+    --   path   = '{{ Codex }}'
+    -- end
 
     -- prompt for note name
     vim.fn.inputsave()
     local name = vim.fn.input(prompt)
     vim.fn.inputrestore()
 
-    -- append .txt if needed
+    -- append .md if needed
     if name ~= '' then
       -- append an extension if needed
       if not name:match('%.[%C%X]') then
-        name = name .. '.txt'
+        name = name .. '.md'
       end
 
       -- open the file

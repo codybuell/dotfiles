@@ -15,7 +15,7 @@ nmap                        <Leader>j         <Plug>(CommandTJump)
 nmap                        <leader>h         <Plug>(CommandTHelp)
 nnoremap  <silent>          <leader>.         :CommandT %:p:h<CR>
 nnoremap  <silent>          <leader>n         :CommandT {{ Notes }}<CR>
-nnoremap  <silent>          <leader>c         :CommandT {{ Codex }}<CR>
+" nnoremap  <silent>          <leader>c         :CommandT {{ Codex }}<CR>
 
 " supplement vims wildignore for command-t searches
 let g:CommandTWildIgnore=&wildignore

@@ -58,13 +58,13 @@ _gotoeditnotes() {
 complete -F _gotoeditnotes note
 complete -F _gotoeditnotes n
 
-# codex alias completion
-_gotoeditcodex() {
-  local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ Codex }}'`" -- $cur) )
-}
-complete -F _gotoeditcodex codex
-complete -F _gotoeditcodex c
+# # codex alias completion
+# _gotoeditcodex() {
+#   local cur=${COMP_WORDS[COMP_CWORD]}
+#   COMPREPLY=( $(compgen -W "`eval ls '{{ Codex }}'`" -- $cur) )
+# }
+# complete -F _gotoeditcodex codex
+# complete -F _gotoeditcodex c
 
 # todo-txt completion
 _todotxtcli() {

@@ -58,10 +58,9 @@ vim.keymap.set('n', '<Leader>h', '<Plug>(CommandTHelp)', {remap  = true})
 vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTGit)', {remap = true})
 vim.keymap.set('n', '<Leader>.', ':CommandT %:p:h<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>n', ':CommandTWiki {{ Notes }}<CR>', {remap = false, silent = true})
--- vim.keymap.set('n', '<Leader>c', ':CommandTWiki {{ Codex }}<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>j', ':CommandTWiki {{ Journal }}<CR>', {remap = false, silent = true})
-vim.keymap.set('n', '<Leader>p', ':CommandTWiki {{ Projects }}<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>d', ':CommandTWiki {{ Domains }}<CR>', {remap = false, silent = true})
+vim.keymap.set('n', '<Leader>p', ':CommandTWiki {{ Projects }}<CR>', {remap = false, silent = true})
 
 -- vim-fugitive
 vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})
@@ -106,6 +105,5 @@ vim.keymap.set('n', '<Leader>rr', ':VtrFlushCommand<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>rc', ':VtrClearRunner<CR>', {remap = false})
 
 -- wiki helpers
-vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal")<CR>', {remap = false})
 vim.keymap.set('n', '<Localleader>n', '<CMD>lua buell.util.create_entry("note")<CR>', {remap = false})
-vim.keymap.set('n', '<Localleader>c', '<CMD>lua buell.util.create_entry("codex")<CR>', {remap = false})
+vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal")<CR>', {remap = false})
