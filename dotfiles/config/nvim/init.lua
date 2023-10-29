@@ -190,6 +190,7 @@ vim.cmd('packadd! vim-abolish')             -- case toggling, replacements varia
 
 -- snippets and completion
 vim.cmd('packadd! LuaSnip')                 -- lua based snippets
+vim.cmd('packadd! autolist.nvim')           -- list continuation and formatting
 vim.cmd('packadd! nvim-cmp')                -- improved completion + improved sources
 vim.cmd('packadd! cmp_luasnip')             -- cmp plugin for luasnip
 vim.cmd('packadd! cmp-buffer')              -- cmp plugin for luasnip

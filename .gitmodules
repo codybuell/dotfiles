@@ -235,3 +235,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/autolist.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/autolist.nvim
+	url = https://github.com/gaoDean/autolist.nvim.git
