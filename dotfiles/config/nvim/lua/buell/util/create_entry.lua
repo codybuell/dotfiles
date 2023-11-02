@@ -22,15 +22,16 @@ local create_entry = function (wiki)
 
     -- stub out template if needed
     if vim.fn.getfsize(vim.fn.expand(full)) <= 0 then
-      vim.api.nvim_buf_set_lines(0, 0, 5, false,{
+      vim.api.nvim_buf_set_lines(0, 0, 6, false,{
         "---",
         "title: " .. year .. '.' .. month .. '.' .. day,
         "tags:",
         "---",
         "",
-        ""
+        "__I am grateful for:__",
+        "- "
       })
-      vim.cmd('6 | startinsert')
+      vim.cmd('7 | startinsert!')
     end
   elseif wiki == 'note' or wiki == 'codex' then
     -- set prompt and path
