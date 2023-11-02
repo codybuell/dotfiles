@@ -1,3 +1,14 @@
+snippet go "go starting template" b
+	package ${1:main}
+
+	import (
+		"fmt"
+	)
+
+	func main() {
+		fmt.Println("Hello World!")${0}
+	}
+
 snippet v "shorthand variable declaration"
 	${1} := ${2}
 
