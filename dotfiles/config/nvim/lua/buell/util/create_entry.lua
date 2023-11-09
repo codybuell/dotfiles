@@ -29,7 +29,7 @@ local create_entry = function (wiki)
         "---",
         "",
         "__I am grateful for:__",
-        "- "
+        "  - "
       })
       vim.cmd('7 | startinsert!')
     end
