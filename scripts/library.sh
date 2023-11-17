@@ -59,6 +59,15 @@ fi
 #                                                                              #
 ################################################################################
 
+# Pretty Print
+#
+# Helper for printing status. Expects left hand and right hand text, separated
+# by a ':'. Dots are added between to easily associate keys and values.
+
+prettyprint() {
+  printf "$1" | awk -F: '{file=$1;$1="";printf "%-50s %s\n", file, $0}' | sed "s/ /,/g;s/\([^,]\),/\1 /g;s/,\([^,]\)/ \1/g;s/^,/ /;s/,/./g";
+}
+
 ##
  # Read Config
  #
