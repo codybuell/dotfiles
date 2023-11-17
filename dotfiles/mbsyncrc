@@ -18,7 +18,7 @@ IMAPAccount Home
 Host {{ HomeEmailHost }}
 User {{ HomeEmailUsername }}
 PassCmd "get-keychain-pass {{ HomeEmailKeychain }} {{ HomeEmailHost }}"
-CertificateFile {{ CONFGDIR }}/assets/system_root_certificates.pem
+CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
 SSLType IMAPS
 AuthMechs LOGIN
 
@@ -103,7 +103,7 @@ IMAPAccount Work
 Host {{ WorkEmailHost }}
 User {{ WorkEmailUsername }}
 PassCmd "get-keychain-pass {{ WorkEmailKeychain }} {{ WorkEmailHost }}"
-CertificateFile {{ CONFGDIR }}/assets/system_root_certificates.pem
+CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
 SSLType IMAPS
 AuthMechs LOGIN
 PipelineDepth 1
@@ -189,7 +189,7 @@ Channel Work-Default
 #  Host {{ WorkEmailHost }}
 #  User {{ WorkEmailUsername }}
 #  PassCmd "get-keychain-pass {{ WorkEmailKeychain }} {{ WorkEmailHost }}"
-#  CertificateFile {{ CONFGDIR }}/assets/system_root_certificates.pem
+#  CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
 #  SSLType IMAPS
 #  AuthMechs LOGIN
 #  PipelineDepth 1
