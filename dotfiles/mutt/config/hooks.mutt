@@ -4,7 +4,7 @@ set from = '{{ DefaultEmailAddress }}'
 set mbox = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Archive'
 set postponed ='+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Drafts'
 unset record
-set sendmail = 'env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a {{ DefaultEmailAccount }}'
+set sendmail = 'env BUNDLE_GEMFILE={{ HOMEDIR }}/.mutt/scripts/Gemfile {{ HOMEDIR }}/.mutt/scripts/msmtp.rb -a {{ DefaultEmailAccount }}'
 set spoolfile = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}'
 set trash = '+{{ DefaultEmailAccCaps }}/{{ DefaultEmailAccCaps }}.Trash'
 

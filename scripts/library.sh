@@ -6,7 +6,7 @@
 # repo: https://github.com/codybuell/toolkit.
 #
 # Author(s): Cody Buell
-# 
+#
 # Requisite:
 #
 # Tools:
@@ -29,6 +29,9 @@ DOTFILES=($(ls "${DOTS_LOC}"))
 
 # system information
 UNAME=`uname -s`
+
+# home directory
+HOMEDIR=$(echo $HOME)
 
 # color helpers
 if [ -n "$TERM" ] && [ "$TERM" != "dumb" ]; then
@@ -66,7 +69,7 @@ fi
  # @return none
 ##
 read_config() {
-  CONFIGVARS=("CONFIGDIR" "UNAME")
+  CONFIGVARS=("CONFIGDIR" "UNAME" "HOMEDIR")
   shopt -s extglob
   configfile="$CONFIGDIR/.config"
   if [[ -e $configfile ]]; then
