@@ -103,6 +103,9 @@ gem:
 pip:
 	scripts/pip.sh
 
+go:
+	scripts/go.sh
+
 karabiner:
 	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
 	scripts/dots.sh config/karabiner
@@ -123,8 +126,6 @@ clean:
 # 	scripts/test.sh
 # config:
 # 	scripts/config.sh
-# go:
-# 	scripts/go.sh
 # composer:
 # 	scripts/composer.sh
 # fonts:

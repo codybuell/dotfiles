@@ -30,26 +30,22 @@ LINUX=( \
 
 # osx only packages
 OSX=( \
-  'github.com/wincent/passage' \                   # utility for proxying to osx keychain
-  'github.com/keybase/go-keychain' \               # golang library for osx keychain, passage dep
+  'github.com/wincent/passage@latest' \                   # utility for proxying to osx keychain
+  'github.com/keybase/go-keychain@latest' \               # golang library for osx keychain, passage dep
 )
 
 # all platforms
 ALL=( \
-  'golang.org/x/tools/cmd/goimports' \             # go formatter and auto imports
-  'github.com/arduino/arduino-language-server' \   # lsp for aduino, requires clang and arduino-cli
+  'golang.org/x/tools/cmd/goimports@latest' \             # go formatter and auto imports
+  'github.com/arduino/arduino-language-server@latest' \   # lsp for aduino, requires clang and arduino-cli
+  'golang.org/x/tools/gopls@latest' \                     # langserver
 )
 
 # no longer in use:
-# 'github.com/schachmat/wego' \                    # command line weather
-# 'github.com/stamblerre/gocode' \                 # replacement for nsf/gocode, deoplete-go dependency
+# 'github.com/schachmat/wego' \                           # command line weather
+# 'github.com/stamblerre/gocode' \                        # replacement for nsf/gocode, deoplete-go dependency
 # 'github.com/jstemmer/gotags' \
 # 'github.com/dominikh/go-tools' \
-
-# all platforms with GO111MODULE=on
-ALL_GO111MODULE_ON=( \
-  'golang.org/x/tools/gopls@latest' \      # langserver, no -u flag, or deps will update to imcompat versions
-)
 
 ###############
 #             #
@@ -62,11 +58,11 @@ ALL_GO111MODULE_ON=( \
 # Build and configure passage to start on boot.
 
 configurepassage() {
-  cd ${GOPATH//:*/}/src/github.com/wincent/passage
-  go build
+  PASSAGE_BUILD=$(ls -1 "${GOPATH//:*/}/pkg/mod/github.com/wincent/" | grep "passage@")
+  cd "${GOPATH//:*/}/pkg/mod/github.com/wincent/${PASSAGE_BUILD}" || exit
   cp contrib/com.wincent.passage.plist ~/Library/LaunchAgents                 # place launch agent
-  cp passage /usr/local/bin                                                   # expected location for launch agent
-  launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist  # fails if run inside tmux
+  sudo cp "${GOPATH//:*/}/bin/passage" /usr/local/bin                         # expected location for launch agent
+  launchctl load -w -S Aqua ~/Library/LaunchAgents/com.wincent.passage.plist
 }
 
 #####################
@@ -94,15 +90,15 @@ done
 #######################
 
 # os specific installations
-case `uname -s` in
+case $(uname -s) in
   Linux )
     for i in ${LINUX[@]}; do
-      go get -u $i
+      go install $i
     done
     ;;
   Darwin )
     for i in ${OSX[@]}; do
-      go get -u $i
+      go install $i
     done
     configurepassage
     ;;
@@ -110,12 +106,7 @@ esac
 
 # general installations
 for i in ${ALL[@]}; do
-  go get -u $i
-done
-
-# go111module installations NO -u OR GOMODULES WILL BREAK
-for i in ${ALL_GO111MODULE_ON[@]}; do
-  GO111MODULE=on go get $i
+  go install $i
 done
 
 exit 0
