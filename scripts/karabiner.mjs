@@ -104,6 +104,77 @@ function launch(from, ...args) {
 }
 
 /**
+  * TabFN, tab + <from> map to <to>.
+ **/
+function tabFN(from, to) {
+  return [
+    {
+      from: {
+        modifiers: {
+          optional: ['any'],
+        },
+        simultaneous: [
+          {
+            key_code: 'tab',
+          },
+          {
+            key_code: from,
+          },
+        ],
+        simultaneous_options: {
+          key_down_order: 'strict',
+          key_up_order: 'strict_inverse',
+          to_after_key_up: [
+            {
+              set_variable: {
+                name: 'TabFN',
+                value: 0,
+              },
+            },
+          ],
+        },
+      },
+      parameters: {
+        'basic.simultaneous_threshold_milliseconds': 500 /* Default: 1000 */,
+      },
+      to: [
+        {
+          set_variable: {
+            name: 'TabFN',
+            value: 1,
+          },
+        },
+        {
+          key_code: to,
+        },
+      ],
+      type: 'basic',
+    },
+    {
+      conditions: [
+        {
+          name: 'TabFN',
+          type: 'variable_if',
+          value: 1,
+        },
+      ],
+      from: {
+        key_code: from,
+        modifiers: {
+          optional: ['any'],
+        },
+      },
+      to: [
+        {
+          key_code: to,
+        },
+      ],
+      type: 'basic',
+    },
+  ];
+}
+
+/**
   * SpaceFN, space + <from> map to <to>.
  **/
 function spaceFN(from, to) {
@@ -499,27 +570,22 @@ const DEFAULT_PROFILE = applyExemptions({
           ...spaceFN('n', 'up_arrow'),
         ],
       },
-      // {
-      //   description: 'SpaceFN layer',
-      //   manipulators: [
-      //     ...spaceFN('m', '1'),
-      //     ...spaceFN('comma', '2'),
-      //     ...spaceFN('period', '3'),
-      //     ...spaceFN('j', '4'),
-      //     ...spaceFN('k', '5'),
-      //     ...spaceFN('l', '6'),
-      //     ...spaceFN('u', '7'),
-      //     ...spaceFN('i', '8'),
-      //     ...spaceFN('o', '9'),
-      //     ...spaceFN('n', '0'),
-      //     ...spaceFN('slash', 'period'),
-      //     ...spaceFN('b', 'spacebar'),
-      //     ...spaceFN('f', 'right_arrow'),
-      //     ...spaceFN('d', 'down_arrow'),
-      //     ...spaceFN('s', 'left_arrow'),
-      //     ...spaceFN('e', 'up_arrow'),
-      //   ],
-      // },
+      {
+        description: 'TabFN layer',
+        manipulators: [
+          ...tabFN('m', '1'),
+          ...tabFN('comma', '2'),
+          ...tabFN('period', '3'),
+          ...tabFN('j', '4'),
+          ...tabFN('k', '5'),
+          ...tabFN('l', '6'),
+          ...tabFN('u', '7'),
+          ...tabFN('i', '8'),
+          ...tabFN('o', '9'),
+          ...tabFN('n', '0'),
+          ...tabFN('slash', 'period'),
+        ],
+      },
       // {
       //   description: 'SpaceFN layer',
       //   manipulators: [
@@ -666,39 +732,39 @@ const DEFAULT_PROFILE = applyExemptions({
           },
         ],
       },
-      {
-        description: 'Left and Right Shift together toggle Caps Lock',
-        manipulators: [
-          {
-            from: {
-              simultaneous: [
-                {
-                  key_code: 'left_shift',
-                },
-                {
-                  key_code: 'right_shift',
-                },
-              ],
-              simultaneous_options: {
-                // detect_key_down_uninterruptedly: false,
-                key_down_order: 'insensitive',
-                key_up_order: 'insensitive',
-                // key_up_when: 'all'
-              },
-            },
-            to: [
-              {
-                key_code: 'caps_lock',
-                // repeat: false,
-              },
-            ],
-            modifiers: {
-              optional: ['any'],
-            },
-            type: 'basic',
-          },
-        ],
-      },
+      // {
+      //   description: 'Left and Right Shift together toggle Caps Lock',
+      //   manipulators: [
+      //     {
+      //       from: {
+      //         simultaneous: [
+      //           {
+      //             key_code: 'left_shift',
+      //           },
+      //           {
+      //             key_code: 'right_shift',
+      //           },
+      //         ],
+      //         simultaneous_options: {
+      //           // detect_key_down_uninterruptedly: false,
+      //           key_down_order: 'insensitive',
+      //           key_up_order: 'insensitive',
+      //           // key_up_when: 'all'
+      //         },
+      //       },
+      //       to: [
+      //         {
+      //           key_code: 'caps_lock',
+      //           // repeat: false,
+      //         },
+      //       ],
+      //       modifiers: {
+      //         optional: ['any'],
+      //       },
+      //       type: 'basic',
+      //     },
+      //   ],
+      // },
       {
         description: 'Change Control+I to F6 in Vim',
         manipulators: [
