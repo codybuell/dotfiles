@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/bin/zsh
 
 # Print a UNIX timestamp, optionally adjusted via a param (+1h, -55m etc).
 TS=$(expr \
