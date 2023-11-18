@@ -85,8 +85,7 @@ while true; do
   echo "Deduplicating lbdb-fetchaddr db:"
 
   CURTIME=`date '+%Y.%m.%d.%H.%M.%S'`
-  awk '!seen[$1]++' ~/.lbdb/m_inmail.utf-8 > /tmp/m_inmail.$CURTIME.utf-8 && mv /tmp/m_inmail.$CURTIME.utf-8 ~/.lbdb/m_inmail.utf-8
-
+  awk '!seen[$1]++' ~/.local/share/lbdb/m_inmail.db > /tmp/m_inmail.$CURTIME.db && mv /tmp/m_inmail.$CURTIME.db ~/.local/share/lbdb/m_inmail.db
   echo
   echo "Updating mailboxes listing:"
 
