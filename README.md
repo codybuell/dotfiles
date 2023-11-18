@@ -32,6 +32,7 @@ Assuming a fresh system requiring all dependencies and configurations:
 There are several make targets that can be run sequentially in lieu of `make
 bootstrap` or independently as needed. They are ordered below as run by `make
 bootstrap`, which is determined by dependencies.
+
 ```bash
 make subs                       # pull in all git repository submodules
 make paths                      # create paths scaffolding as defined in `.config`
@@ -43,21 +44,26 @@ make mas                        # installs App Store apps, depends on `make nix`
 make brew                       # installs brew packages, casks, services
 make node                       # installs NVM, latest lts of Node, and global node packages
 make gem                        # installs ruby gems needed for nvim support etc
+make go                         # installs go tools needed lsp and credential access
 make pip                        # installs pip packages needed for nvim support etc
 make karabiner                  # compiles and places config, restarts service, depends on node
 make osx                        # applies as many OSX configurations as possible via cli
+make fonts                      # install fonts found in `assets/fonts/*`
 make commands                   # run commands as defined in `.config`
 ```
+
 The `make dots` target is generally the most heavily used. This is because
 dotfiles are not symlinked back to this repository, so any changes made to
 configurations must be placed into production. To reduce the lift the `make
 dots` endpoint takes any number of arguments, being the dotfiles or dotfolders
 you wish to place.
+
 ```bash
 make dots vim                   # will place the dotfiles/vim folder to ~/.vim
 make dots tmux.conf tmux        # can take any number of arguments
 make dots config/karabiner      # also handles explicitly calling out a sub path
 ```
+
 Tooling
 -------
 
@@ -95,6 +101,7 @@ simpler now. All that to say there isn't a big need for a go version manager.
 
 Structure
 ---------
+
 ```bash
 /                         # repo root, git dotfiles, config file, readme, makefile
 applications/             # application configurations (non dotfile configs)
@@ -108,6 +115,7 @@ dotfiles/                 # contains actual dotfiles in templated form
 scripts/                  # repo specific deployment scripts and utilities
 submodules/               # repository submodules (external repos utilized by configurations)
 ```
+
 Usage
 -----
 
