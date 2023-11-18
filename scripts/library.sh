@@ -31,7 +31,11 @@ DOTFILES=($(ls "${DOTS_LOC}"))
 UNAME=`uname -s`
 
 # home directory
-HOMEDIR=$(echo $HOME)
+HOMEDIR=$HOME
+
+# homebrew directory
+tmp=$(brew --prefix 2> /dev/null)
+HOMEBREW_PREFIX=${tmp:-/opt/homebrew}
 
 # color helpers
 if [ -n "$TERM" ] && [ "$TERM" != "dumb" ]; then
@@ -51,7 +55,6 @@ if [ -n "$TERM" ] && [ "$TERM" != "dumb" ]; then
 
   export NORM="$(tput sgr0)"
 fi
-
 
 ################################################################################
 #                                                                              #
@@ -78,7 +81,7 @@ prettyprint() {
  # @return none
 ##
 read_config() {
-  CONFIGVARS=("CONFIGDIR" "UNAME" "HOMEDIR")
+  CONFIGVARS=("CONFIGDIR" "UNAME" "HOMEDIR" "HOMEBREW_PREFIX")
   shopt -s extglob
   configfile="$CONFIGDIR/.config"
   if [[ -e $configfile ]]; then

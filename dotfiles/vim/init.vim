@@ -118,9 +118,9 @@ if !has('nvim') && has('python3')
 endif
 
 " avoid search, speeding up start-up
-if filereadable('/usr/bin/python') && filereadable('/usr/local/bin/python3')
+if filereadable('/usr/bin/python') && filereadable('{{ HOMEBREW_PREFIX }}/bin/python3')
   let g:python_host_prog  = '/usr/bin/python'
-  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python3_host_prog = '{{ HOMEBREW_PREFIX }}/bin/python3'
 endif
 
 """""""""""""""
@@ -306,7 +306,7 @@ set list                                           " show special characters
 set lcs=eol:¬,tab:>-,trail:·,extends:»,precedes:«  " special character labels
 set ignorecase                                     " case insensitive searching
 set smartcase                                      " except when there is an uc char in search
-set scrolloff=5                                    " scroll before end of page      
+set scrolloff=5                                    " scroll before end of page
 set shortmess+=IA                                  " no intro text on plain vi start, no swap error
 set foldmethod=syntax                              " enable folding by syntax by default
 set foldexpr=nvim_treesitter#foldexpr()            " use tresitter for fold expression method

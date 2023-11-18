@@ -8,7 +8,7 @@
 
 require 'open3'
 
-MSMTP_PATH = '/usr/local/bin/msmtp'
+MSMTP_PATH = '{{ HOMEBREW_PREFIX }}/bin/msmtp'
 
 # Transform Markdown string `source` into an HTML string.
 #

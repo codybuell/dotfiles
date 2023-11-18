@@ -3,13 +3,13 @@
   email = {{ Email }}
   signingkey = {{ GitSignKey }}
 [core]
-  editor = /usr/local/bin/nvim
+  editor = {{ HOMEBREW_PREFIX }}/bin/nvim
   excludesfile = ~/.cvsignore
-  pager = /usr/local/bin/less -F -X
+  pager = /usr/bin/less -F -X
 [credential]
   helper = osxkeychain
 [gpg]
-  program = /usr/local/bin/gpg
+  program = {{ HOMEBREW_PREFIX }}/bin/gpg
   format = openpgp
 #  format = x509
 [commit]
