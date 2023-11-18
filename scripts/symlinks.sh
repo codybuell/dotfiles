@@ -8,7 +8,7 @@
 #
 # Requisite:
 #
-# Tasks: 
+# Tasks:
 #
 # Usage: make paths
 #        scripts/paths.sh
@@ -33,8 +33,19 @@ runlinks() {
     VAR=$c
     eval VAL=\$$c
     [[ $VAR =~ SYMLINK.* ]] && {
-      DST=`echo $VAL | awk -F: '{print $2}'`
-      SRC=`echo $VAL | awk -F: '{print $1}'`
+      DST=$(echo $VAL | awk -F: '{print $2}')
+      SRC=$(echo $VAL | awk -F: '{print $1}')
+
+      # replace any config vars within DST / SRC
+      for c in ${CONFIGVARS[@]}; do
+        VAR=${c}
+        eval VAL="\$$c"
+        # escape any @'s in the value so perl dosen't hose it
+        VAL=$(echo $VAL | sed 's/\@/\\\@/g')
+        DST=$(echo $DST | perl -p -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g")
+        SRC=$(echo $SRC | perl -p -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g")
+      done
+
       [[ -d $DST || -L $DST ]] && {
         [[ -L $DST ]] && {
           unlink "$DST"
