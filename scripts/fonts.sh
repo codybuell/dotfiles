@@ -9,7 +9,7 @@
 # Requisite: Intended to be used with dotfiles repo Makefile, and font assets
 # contained in `$CONFIGDIR/assets/fonts`.
 #
-# Task: 
+# Task:
 #
 # Usage: scripts/fonts.sh
 #        make fonts
@@ -36,7 +36,7 @@ case `uname -s` in
     }
     fontloc=/Library/Fonts/
     printf "\033[0;34msetting up fonts...\033[0m\n"
-    for font in `find ${CONFIGDIR}/assets/fonts -type f -name \*.otf`; do
+    for font in `find ${CONFIGDIR}/assets/fonts -type f -name \*.[ot]tf`; do
       fontname=`echo $font | awk -F\/ '{print $NF}'`
       if [ -f "${fontloc}${fontname}" ]; then
         MD5_INSTALLED=$($MD5Q ${fontloc}${fontname})

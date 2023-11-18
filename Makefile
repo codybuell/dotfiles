@@ -59,14 +59,16 @@ default:
 	    $(B)$(BLU)brew$(NRM)        $(BLU)install brew and brew managed packages$(NRM)\n\
 	    $(B)$(BLU)node$(NRM)        $(BLU)install nvm, node, and npm managed packages$(NRM)\n\
 	    $(B)$(BLU)gem$(NRM)         $(BLU)install required gem packages$(NRM)\n\
+	    $(B)$(BLU)go$(NRM)          $(BLU)install required go packages$(NRM)\n\
 	    $(B)$(BLU)pip$(NRM)         $(BLU)install required pip packages$(NRM)\n\
 	    $(B)$(BLU)karabiner$(NRM)   $(BLU)install generate karabiner config and place$(NRM)\n\
 	    $(B)$(BLU)osx$(NRM)         $(BLU)install brew and brew managed packages$(NRM)\n\n\
+	    $(B)$(BLU)fonts$(NRM)       $(BLU)install fonts located in assets/fonts/*$(NRM)\n\n\
 	    $(B)$(BLU)commands$(NRM)    $(BLU)run commands as defined in .config$(NRM)\n\n\
 	\
 	    $(B)$(RED)clean$(NRM)       $(RED)delete all backups of previous dotfiles$(NRM)\n\n"
 
-bootstrap: subs paths symlinks repos dots nix mas brew node karabiner osx commands
+bootstrap: subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
 
 subs:
 	git submodule init
@@ -100,11 +102,11 @@ node:
 gem:
 	scripts/gem.sh
 
-pip:
-	scripts/pip.sh
-
 go:
 	scripts/go.sh
+
+pip:
+	scripts/pip.sh
 
 karabiner:
 	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
@@ -114,6 +116,9 @@ karabiner:
 
 osx:
 	scripts/osx.sh
+
+fonts:
+	scripts/fonts.sh
 
 commands:
 	scripts/commands.sh
@@ -128,8 +133,6 @@ clean:
 # 	scripts/config.sh
 # composer:
 # 	scripts/composer.sh
-# fonts:
-# 	scripts/fonts.sh
 # iterm:
 # 	scripts/iterm.sh
 # linux:
