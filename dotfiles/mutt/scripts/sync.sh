@@ -1,7 +1,26 @@
 #!/bin/sh
 
+# color helpers
+if [ -n "$TERM" ] && [ "$TERM" != "dumb" ]; then
+  export BOLD="$(tput bold)"
+  export UNDER="$(tput smul)"
+  export NOUNDER="$(tput rmul)"
+  export DIM="$(tput dim)"
+
+  export BLACK="$(tput setaf 0)"
+  export RED="$(tput setaf 1)"
+  export GREEN="$(tput setaf 2)"
+  export YELLOW="$(tput setaf 3)"
+  export BLUE="$(tput setaf 4)"
+  export MAGENTA="$(tput setaf 5)"
+  export CYAN="$(tput setaf 6)"
+  export WHITE="$(tput setaf 7)"
+
+  export NORM="$(tput sgr0)"
+fi
+
 if [ $# -ne 1 ]; then
-  echo "error: expected exactly 1 argument, got $#"
+  echo "${RED}error: expected exactly 1 argument, got $#${NORM}"
   exit 1
 fi
 
@@ -17,7 +36,7 @@ trap "rm -f '$PIDFILE'" SIGTERM
 
 function delay() {
   if [ $BACKOFF -ne 0 ]; then
-    echo "Backing off for ${BACKOFF}s."
+    echo "${YELLOW}Backing off for ${BACKOFF}s.${NORM}"
     sleep $BACKOFF
   fi
 }
@@ -35,7 +54,7 @@ function backoff() {
 while true; do
   if [ -x "${HOME}/.mutt/hooks/presync/${ACCOUNT}.sh" ]; then
     "${HOME}/.mutt/hooks/presync/${ACCOUNT}.sh" || {
-      echo "Presync hook exited with status $?; skipping sync."
+      echo "${YELLOW}Presync hook exited with status $?; skipping sync.${NORM}"
       sleep 60
       BACKOFF=0
       continue
@@ -44,7 +63,7 @@ while true; do
 
   delay
 
-  echo "Running imapfilter ($ACCOUNT):"
+  echo "${BLUE}Running imapfilter ($ACCOUNT):${NORM}"
   echo
 
   ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" -t {{ CONFGDIR }}/assets/system_root_certificates.pem || {
@@ -58,7 +77,7 @@ while true; do
   }
 
   echo
-  echo "Running mbsync ($ACCOUNT):"
+  echo "${BLUE}Running mbsync ($ACCOUNT):${NORM}"
   echo
 
   [[ -f /etc/redhat-release ]] && {
@@ -76,28 +95,28 @@ while true; do
   }
 
   echo
-  echo "Running postsync hooks ($ACCOUNT):"
+  echo "${BLUE}Running postsync hooks ($ACCOUNT):${NORM}"
   echo
 
   time ~/.mutt/hooks/postsync/$ACCOUNT.sh # Runs notmuch, lbdb-fetchaddr etc
 
   echo
-  echo "Deduplicating lbdb-fetchaddr db:"
+  echo "${BLUE}Deduplicating lbdb-fetchaddr db:${NORM}"
 
   CURTIME=`date '+%Y.%m.%d.%H.%M.%S'`
   awk '!seen[$1]++' ~/.local/share/lbdb/m_inmail.db > /tmp/m_inmail.$CURTIME.db && mv /tmp/m_inmail.$CURTIME.db ~/.local/share/lbdb/m_inmail.db
   echo
-  echo "Updating mailboxes listing:"
+  echo "${BLUE}Updating mailboxes listing:${NORM}"
 
   ~/.mutt/scripts/mailboxes.rb
 
   echo
-  echo "Updating tmux window name:"
+  echo "${BLUE}Updating tmux window name:${NORM}"
 
   ~/.mutt/scripts/tmux_window_name.sh
 
-  echo "Finished at $(date)."
-  echo "Sleeping for 1m..."
+  echo "${BLUE}Finished at $(date)."
+  echo "Sleeping for 1m...${NORM}"
   echo
 
   BACKOFF=0
