@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-COLUMNS=${COLUMNS:-`tput cols`}
+COLUMNS=${COLUMNS:-$(tput cols)}
 TMPFILE="$1"
 ENCODING="${2:utf-8}"
 
