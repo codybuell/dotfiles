@@ -157,12 +157,13 @@ changediroredit() {
 
 # edit or cd to notes
 note() {
+  NOTEPATH=$(echo {{ Notes }} | sed 's/\\//g')
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
-    EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.txt'`
-    vim {{ Notes }}/${1}${EXT}
+    EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.md'`
+    vim ${NOTEPATH}/${1}${EXT}
   else
-    cd {{ Notes }}
+    cd ${NOTEPATH}
   fi
 }
 
