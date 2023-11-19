@@ -154,7 +154,7 @@ local open_link = function (link)
       if target ~= '' then
         -- append an extension if needed
         if not target:match('%.[%C%X]') then
-          target = target .. '.txt'
+          target = target .. '.md'
         end
 
         -- build full path to file
