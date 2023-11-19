@@ -2058,58 +2058,6 @@
             ]
           },
           {
-            "description": "Tab + Return to Backslash on ES Apple board",
-            "manipulators": [
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "tab"
-                    },
-                    {
-                      "key_code": "return_or_enter"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "insensitive",
-                    "key_up_order": "insensitive"
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "backslash"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "is_keyboard": true,
-                        "is_pointing_device": false,
-                        "product_id": 636,
-                        "vendor_id": 1452
-                      }
-                    ]
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
             "description": "Disable Karabiner-Elements with Fn+Control+Option+Command+Z",
             "manipulators": [
               {
