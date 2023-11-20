@@ -19,7 +19,7 @@
 # etc...
 #
 # Author(s): Cody Buell
-# 
+#
 # Requisite: - a path for screenshots, be sure to update the config below
 #            - full disk access for terminal app
 #            - desired default browser installed
@@ -167,7 +167,7 @@ AppStoreDebugMenu='true'                      # turn on app store debug?
 DiskUtilityDebugMenu='true'                   # turn on disk utility debug?
 
 # screenshots
-ScreenshotFolder='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Screenshots'
+ScreenshotFolder='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Data/Resources/Screenshots'
 ScreenshotDropshadows='false'                 # dropshadows on screenshots?
 ScreenshotFormat='png'                        # bmp, gif, jpg, pdf, tiff
 
