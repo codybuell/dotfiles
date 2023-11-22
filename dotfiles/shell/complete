@@ -53,7 +53,8 @@ complete -F _gotorepos repo
 # note alias completion
 _gotoeditnotes() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ Notes }}'`" -- $cur) )
+  NOTEPATH=$(echo {{ Notes }} | sed 's/\\//g')
+  COMPREPLY=( $(compgen -W "`eval ls $NOTEPATH`" -- $cur) )
 }
 complete -F _gotoeditnotes note
 complete -F _gotoeditnotes n
