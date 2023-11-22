@@ -291,9 +291,10 @@ function gpl() {
 
 # edit journal
 function j() {
-  cd {{ Journal }}
-  [[ ! -d {{ Journal }}/`date +%Y/%m` ]] && mkdir -p {{ Journal }}/`date +%Y/%m`
-  vim {{ Journal }}/`date +%Y/%m/%Y.%m.%d`.txt
+  JOURNALPATH=$(echo {{ Journal }} | sed 's/\\//g')
+  cd $JOURNALPATH
+  [[ ! -d $JOURNALPATH/`date +%Y/%m` ]] && mkdir -p $JOURNALPATH/`date +%Y/%m`
+  vim $JOURNALPATH/`date +%Y/%m/%Y.%m.%d`.md
   cd - > /dev/null 2>&1
 }
 
