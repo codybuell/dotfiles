@@ -31,7 +31,8 @@
 # ws alias completion
 _gotows() {
   local cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "`eval ls '{{ Projects }}'`" -- $cur) )
+  PROJPATH=$(echo {{ Projects }} | sed 's/\\//g')
+  COMPREPLY=( $(compgen -W "`eval ls $PROJPATH`" -- $cur) )
 }
 complete -F _gotows project
 complete -F _gotows p
