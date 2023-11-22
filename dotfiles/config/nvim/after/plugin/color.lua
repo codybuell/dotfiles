@@ -118,6 +118,13 @@ hlg('buellDroppedTodoText', pinnacle.decorate('strikethrough', 'buellCompletedTo
 vim.cmd('hi def link buellImportantTodo mkdListItem')
 hlg('buellImportantTodoText', pinnacle.decorate('bold', 'Label'))
 
+---------------
+--  tabline  --
+---------------
+
+vim.cmd("hi clear TabLineSel")
+vim.cmd('hi def link TabLineSel ErrorMsg')
+
 ---------------------
 --  miscellaneous  --
 ---------------------

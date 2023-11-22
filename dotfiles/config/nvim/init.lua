@@ -115,6 +115,7 @@ vim.opt.suffixes       = vim.opt.suffixes - '.h'               -- don't sort hea
 vim.opt.swapfile       = false                                 -- don't create swap files
 vim.opt.switchbuf      = 'usetab'                              -- try to reuse windows/tabs when switching buffers
 vim.opt.synmaxcol      = 200                                   -- don't bother syntax highlighting long lines (speed up ugly json files)
+vim.opt.tabline        = '%!v:lua.buell.tabline.render()'      -- custom tabline
 vim.opt.tabstop        = 2                                     -- spaces per tab
 vim.opt.termguicolors  = true                                  -- use guifg/guibg instead of ctermfg/ctermbg in terminal
 vim.opt.textwidth      = 0                                     -- don't automatically hard wrap
