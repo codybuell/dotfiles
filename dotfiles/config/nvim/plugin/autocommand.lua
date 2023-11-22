@@ -145,6 +145,20 @@ augroup('BuellAutocommands', function()
     if bt == 'quickfix' then
       vim.keymap.set('n', '<C-t>', '<C-W><Enter><C-W>T', {remap = false, silent = true, buffer = true})
     end
+
+    -- conditionally map return
+    local cr_map_ignore_types = {
+      'quickfix',   -- quickfix
+      'nofile',     -- empty buffer
+      'help',       -- help docs
+      'vim',        -- command window
+    }
+
+    -- wrap for function call
+    if not buell.util.has_value(cr_map_ignore_types, bt) then
+      vim.keymap.set('n', '<Enter>', '<CMD>lua buell.util.toggle_wrap()<CR>', {silent = true, buffer = true})
+    end
+
   end)
 
 end)

@@ -8,10 +8,10 @@
 -- @return nil
 local toggle_wrap = function()
   local ignore_types = {
-    'quickfix',
-    'nofile',
-    'help',
-    'qf',
+    'quickfix',   -- quickfix
+    'nofile',     -- empty buffer
+    'help',       -- help docs
+    'vim',        -- command window
   }
 
   local filetype = vim.bo.filetype
