@@ -181,51 +181,41 @@ lsp.init = function()
 
   -- Lua
   lspconfig.lua_ls.setup {
-    settings = {
-      Lua = {
-        runtime = {
-          version = 'LuaJIT',
-        },
-        diagnostics = {
-          globals = {'vim'},
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities,
+    on_init = function(client)
+      local path = client.workspace_folders[1].name
+      if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+        client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            },
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              -- (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT'
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME
+                -- "${3rd}/luv/library"
+                -- "${3rd}/busted/library",
+              }
+              -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+              -- library = vim.api.nvim_get_runtime_file("", true)
+            }
+          }
+        })
+
+        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+      end
+      return true
+    end
   }
-  -- lspconfig.sumneko_lua.setup{
-  --   on_attach = on_attach,
-  --   on_exit = on_exit,
-  --   capabilities = capabilities,
-  --   settings = {
-  --     Lua = {
-  --       diagnostics = {
-  --         enable = true,
-  --         globals = {'vim'},
-  --       },
-  --       filetypes = {'lua'},
-  --       runtime = {
-  --         path = vim.split(package.path, ';'),
-  --         version = 'LuaJIT',
-  --       },
-  --       telemetry = {
-  --         enable = false,
-  --       },
-  --       workspace = {
-  --         library = {
-  --           [vim.fn.expand('$VIMRUNTIME/lua')] = true,            -- make server aware of vim runtime files
-  --           [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,    -- make server aware of vim runtime files
-  --           -- ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,
-  --         },
-  --       },
-  --     }
-  --   },
-  -- }
 
   -- Python
   lspconfig.pylsp.setup({
