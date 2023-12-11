@@ -2,7 +2,8 @@
 -- counts, the modified flag, or the close widget.
 local render = function()
   local gutter_width = buell.util.gutter_width()
-  local line = string.rep(' ', gutter_width)
+  -- local window_width = vim.o.columns
+  local line    = string.rep(' ', gutter_width)
   local current = vim.api.nvim_tabpage_get_number(0)
 
   for i = 1, vim.fn.tabpagenr('$') do
