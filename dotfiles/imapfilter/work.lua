@@ -47,6 +47,8 @@ function run()
   netdata  = work['Netdata']
   security = work['Security']
   grnhouse = work['Greenhouse']
+  escrow   = work['Code Escrow']
+  kion     = work['Kion']
 
   -- List mailboxes and folders
   --mailboxes, folders = work:list_all()
@@ -197,6 +199,7 @@ function run()
               inbox:contain_subject('Report domain: kion.io .*')
     return results
   end))
+
   -- aws admin emails
   movetofolder('aws admin messages', awsadmin, (function()
     results = inbox
@@ -294,6 +297,19 @@ function run()
     return results
   end))
 
+  -- code escrow related emails
+  movetofolder('code escrow', escrow, (function()
+    results = inbox:match_field('Reply-To', '	ipmvaultadministration@nccgroup.com') +
+              inbox:contain_subject('RE: Materials Received for Escrow Account Number *')
+    return results
+  end))
+
+  -- kion application notifications
+  movetofolder('kion app', kion, (function()
+    results = inbox:contain_subject('Kion | *') *
+              inbox:contain_from('noreply@kion.io')
+    return results
+  end))
 end
 
 if os.getenv('ONCE') then
