@@ -238,3 +238,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/autolist.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/autolist.nvim
 	url = https://github.com/gaoDean/autolist.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/vim-gnupg"]
+	path = dotfiles/config/nvim/pack/bundle/opt/vim-gnupg
+	url = https://github.com/jamessan/vim-gnupg.git
