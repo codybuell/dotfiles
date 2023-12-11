@@ -1171,7 +1171,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1254,7 +1254,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1337,7 +1337,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1420,7 +1420,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1503,7 +1503,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1586,7 +1586,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1669,7 +1669,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1752,7 +1752,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1835,7 +1835,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1918,7 +1918,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -1984,6 +1984,89 @@
                       "key_code": "tab"
                     },
                     {
+                      "key_code": "spacebar"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "TabFN",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 2000
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "TabFN",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "0"
+                  }
+                ],
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "TabFN",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "0"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  },
+                  "simultaneous": [
+                    {
+                      "key_code": "tab"
+                    },
+                    {
                       "key_code": "slash"
                     }
                   ],
@@ -2001,7 +2084,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 2000
                 },
                 "to": [
                   {
@@ -2011,7 +2094,7 @@
                     }
                   },
                   {
-                    "key_code": "period"
+                    "key_code": "keypad_period"
                   }
                 ],
                 "type": "basic",
@@ -2050,7 +2133,173 @@
                 },
                 "to": [
                   {
-                    "key_code": "period"
+                    "key_code": "keypad_period"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  },
+                  "simultaneous": [
+                    {
+                      "key_code": "tab"
+                    },
+                    {
+                      "key_code": "semicolon"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "TabFN",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 2000
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "TabFN",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "keypad_plus"
+                  }
+                ],
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "TabFN",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "keypad_plus"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  },
+                  "simultaneous": [
+                    {
+                      "key_code": "tab"
+                    },
+                    {
+                      "key_code": "p"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "TabFN",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 2000
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "TabFN",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "keypad_hyphen"
+                  }
+                ],
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "TabFN",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "keypad_hyphen"
                   }
                 ],
                 "type": "basic"
