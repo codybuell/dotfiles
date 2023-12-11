@@ -34,6 +34,7 @@ PACKAGES=( \
   'ack' \                             # recursive grep like search
   'antibody' \                        # package management for zsh
   'asciinema' \                       # terminal session recorder
+  'automake' \                        # make toolkit
   'azure-cli' \                       # azure api cli client
   'bc' \                              # gnu software calculator
   'coreutils' \                       # gnu utility toolkit
@@ -80,6 +81,7 @@ PACKAGES=( \
   'rust' \                            # rust programming language, needed for c7n
   's3cmd' \                           # aws s3 utility
   'shellcheck' \                      # linter / checker for shell scripts
+  'smimesign' \                       # signing utility for use with git
   'sqlite' \                          # file based database
   'terminal-notifier' \               # send osx notifications via terminal
   'the_silver_searcher'               # ag, ack and ripgrep alternative
@@ -118,12 +120,15 @@ CASKS=( \
   'keycastr' \                        # show keystrokes on screen
   'kitty' \                           # fast terminal that supports arm + x86
   'obs' \                             # open broadcast software
+  'opensc' \                          # smartcard utility
   'raycast' \                         # spotlight search replacement
   'slack' \                           # collaboration and chat application
   'tg-pro' \                          # advanced fan control
   'vagrant' \                         # vms as packages management solution
+  'via' \                             # config editor for keychron keyboard
   'wireshark' \                       # network traffic analyzer
   'xquartz' \                         # osxs implemenrtation of x11
+  'yubiko-yubikey-manager' \          # yubikey configuration utility
   'zoom' \                            # zoom video conferencing app
 )
 
