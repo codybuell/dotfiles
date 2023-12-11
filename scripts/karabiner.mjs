@@ -135,7 +135,7 @@ function tabFN(from, to) {
         },
       },
       parameters: {
-        'basic.simultaneous_threshold_milliseconds': 500 /* Default: 1000 */,
+        'basic.simultaneous_threshold_milliseconds': 2000 /* Default: 1000 */,
       },
       to: [
         {
@@ -583,7 +583,10 @@ const DEFAULT_PROFILE = applyExemptions({
           ...tabFN('i', '8'),
           ...tabFN('o', '9'),
           ...tabFN('n', '0'),
-          ...tabFN('slash', 'period'),
+          ...tabFN('spacebar', '0'),
+          ...tabFN('slash', 'keypad_period'),
+          ...tabFN('semicolon', 'keypad_plus'),
+          ...tabFN('p', 'keypad_hyphen'),
         ],
       },
       // {
