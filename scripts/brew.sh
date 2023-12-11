@@ -69,6 +69,7 @@ PACKAGES=( \
   'openconnect' \                     # robust vpn client for cisco vpns
   'openssl' \                         # the one and only...
   'packer' \                          # utility for building machine templates
+  'pandoc' \                          # markup converter, used with mutt to send html email
   'pcalc' \                           # cli programming calculator
   'picocom' \                         # used with ino for serial connection to arduino
   'pinentry' \                        # interface used to prompt for gpg pins
@@ -171,7 +172,6 @@ TAPS=( \
 #   'markdown' \                        # parsing of markdown syntax to html
 #   'mysql'                             # database server for local dev
 #   'ninja' \                           # build system needed for sumneko lua lsp server
-#   'pandoc' \                          # markup converter, used with mutt to send html email
 #   'php' \                             # latest and greatest php
 #   'pidgin' \                          # pidgin and finch xmpp protocol clients
 #   'ranger' \                          # cli file browser
