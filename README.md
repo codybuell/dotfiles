@@ -122,3 +122,20 @@ Usage
 Take a look at the code and inline comments for a better understanding of the
 configurations applied. `.config.example` is a good place to start as it calls
 out a lot of specifics.
+
+`git-cipher` is used to encrypt or decrypt the config file:
+
+```bash
+gem install git-cipher
+brew install git gnupg gpg-agent
+git cipher encrypt [FILES...]
+git cipher decrypt [FILES...]
+```
+
+- You need to make the keychain entries manually for any mail servers you define.
+- On newer versions of OSX, the OS binds Ctrl-Space to change input sources. This blocks tmux from picking up the prefix. Go into System Preferences -> Keyboard -> Keyboard Shortcuts -> Input Sources and uncheck both mappings.
+- You need to tell Google Drive to stream by default but make the codex available offline for nvim to play nicely.
+- You need to import the gpg key you define in the config.
+- Currently you have to build isync manually because of bug with openssl3 (isync v 1.4.4 has a problem, 1.5.0 is good)
+    - Then update calls to mbsync under mutt dotfiles to path to `/usr/local/bin/mbsync`
+- Contacts on iCloud seems to be enabled by default, disable it if you are using Google or another service else new contacts may default to be stored in iCloud.
