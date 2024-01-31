@@ -30,7 +30,7 @@ lsp.go_imports = function(wait_ms)
   end
 
   -- run formatting sync (gofmt)
-  vim.lsp.buf.formatting_sync()
+  vim.lsp.buf.format({async = false})
 end
 
 ---------------------------------------------------------------------------------
