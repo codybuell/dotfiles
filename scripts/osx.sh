@@ -494,6 +494,9 @@ defaults write com.apple.dock double-tap-jump-back -bool $EnableSpacesJumpBack
   sudo nvram SystemAudioVolume=' '
 }
 
+# disable system sounds like the sceenshot shutter sound
+defaults write 'Apple Global Domain' com.apple.sound.uiaudio.enabled -int 0
+
 # transparent menu bar and other bits
 if [[ $NUMVER -lt 1015 ]]; then
   defaults write com.apple.universalaccess reduceTransparency -bool $ReduceTransparency
