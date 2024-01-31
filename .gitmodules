@@ -241,3 +241,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-gnupg"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-gnupg
 	url = https://github.com/jamessan/vim-gnupg.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot/lua"]
+	path = dotfiles/config/nvim/pack/bundle/opt/shellbot/lua
+	url = https://github.com/codybuell/shellbot.git

@@ -125,3 +125,16 @@ export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 
 # docker
 export DOCKER_BUILDKIT=1
+
+# openai
+export OPENAI_API_KEY='{{ OpenAIAPIKey }}'
+
+# shellbot
+export SHELLBOT=$HOME/.config/nvim/pack/bundle/opt/shellbot/lua/target/release/shellbot
+export SHELLBOT_PROMPT='
+  You are a helpful assistant who provides brief explanations and short code
+  snippets for technologies like TypeScript, JavaScript, Go, Lua, and Python.
+  Your user is an expert programmer, so you should be as concise as possible.
+  You do not show lengthy steps or setup instructions. Questions will be asked
+  using Markdown, and you should use Markdown syntax in your replies.
+'

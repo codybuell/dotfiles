@@ -43,7 +43,7 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 
 
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
-
+OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
 
 ################################################################################
 #                                                                              #

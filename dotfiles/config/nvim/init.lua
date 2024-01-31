@@ -189,6 +189,7 @@ vim.cmd('packadd! vim-surround')            -- easy editing of surrounding chars
 vim.cmd('packadd! vim-repeat')              -- repeat plugin work with .
 vim.cmd('packadd! vim-abolish')             -- case toggling, replacements variations
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
+vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
 
 -- snippets and completion
 vim.cmd('packadd! LuaSnip')                 -- lua based snippets
