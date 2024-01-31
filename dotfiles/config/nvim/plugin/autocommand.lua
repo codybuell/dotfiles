@@ -20,6 +20,12 @@ augroup('BuellAutocommands', function()
     if ft == 'gitcommit' then
       vim.fn.setpos('.', {0, 1, 1, 0})
     end
+
+    -- handling here instead of in ftplugin/markdown.lua because that file is firing for help docs and breaking ctrl-]
+    if ft == 'markdown' then
+      vim.keymap.set('n', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
+      vim.keymap.set('v', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
+    end
   end)
 
   ----------------
@@ -152,13 +158,13 @@ augroup('BuellAutocommands', function()
       'nofile',     -- empty buffer
       'help',       -- help docs
       'vim',        -- command window
+      'nowrite',    -- fugitive and others
     }
 
     -- wrap for function call
     if not buell.util.has_value(cr_map_ignore_types, bt) then
       vim.keymap.set('n', '<Enter>', '<CMD>lua buell.util.toggle_wrap()<CR>', {silent = true, buffer = true})
     end
-
   end)
 
 end)

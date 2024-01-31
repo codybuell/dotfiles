@@ -184,9 +184,6 @@ end)
 
 --------------------------------------------------------------------------------
 --                                                                            --
---  Mappings                                                                  --
+--  Mappings: managed in plugin/autocommand.lua                               --
 --                                                                            --
 --------------------------------------------------------------------------------
-
-vim.keymap.set('n', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
-vim.keymap.set('v', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
