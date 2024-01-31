@@ -42,12 +42,76 @@ function! MarkdownFoldLevel()
     endif
 endfunction
 
+function! MarkdownFoldHeadersFrontmatter()
+  let line  = getline(v:lnum)
+  let lines = getline(v:lnum-1, v:lnum+1)
+
+  " determine if frontmatter exist in the doc
+  if getline(1) == '---'
+    let frontmatter = 1
+  else
+    let frontmatter = 0
+  endif
+
+  " if we're on line 1 and frontmatter was found start fold
+  if (v:lnum == 1) && (frontmatter == 1)
+    return ">1"
+  endif
+
+  " if frontmatter found determine if we're within it
+  if frontmatter == 1
+    " find the closing frontmatter ---
+    let origPos = getpos('.')
+    let ok = cursor(1, 1)
+    let frontmatterEnd = search('---', '', line("w$"))
+
+    " return cursor to the original position
+    let ok = cursor(origPos[1], origPos[2])
+
+    " if fm closure is found and it's below our position keep fold level
+    if frontmatterEnd > 0 && frontmatterEnd > v:lnum
+      return "="
+    " if we're on the fm closure indicate the end of the fold
+    elseif frontmatterEnd == v:lnum
+      return "<1"
+    " if the fm closure was just above us start a no fold section
+    elseif frontmatterEnd == (v:lnum - 1)
+      return "0"
+    endif
+  endif
+
+  " h2 fold
+  if lines[1] =~ '^## .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
+    " begin a fold of level two here
+    return ">1"
+
+  " h3 fold
+  elseif lines[1] =~ '^### .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
+    " begin a fold of level three here
+    return ">2"
+
+  " h2 fold with underscores (2 or more dashes for underscores)
+  elseif lines[1] != '' && lines[2] =~ '^---*$'
+    return ">1"
+
+  " ensure h1 headers are not foleded
+  elseif lines =~ '^# .*$' || (lines[1] != '' && lines[2] =~ '^===*$')
+    return "0"
+
+  elseif foldlevel(v:lnum-1) != "-1"
+    return foldlevel(v:lnum-1)
+  endif
+
+  return "="
+
+endfunction
+
 """""""""""
 "  Setup  "
 """""""""""
 
 setlocal foldmethod=expr
-let &l:foldexpr = 'MarkdownFoldLevel()'
+let &l:foldexpr = 'MarkdownFoldHeadersFrontmatter()'
 " let &l:foldexpr = "%!luaeval('buell.markdown.markdown_fold_level()')"
 
 """"""""""""""
