@@ -10,7 +10,7 @@
 #
 # Requisite: Python3
 #
-# Tasks: 
+# Tasks:
 #
 # Usage: make pip
 #        ./pip.sh
@@ -32,6 +32,7 @@ PYTHON2=( \
 
 # standard Python 3 packages
 PYTHON3=( \
+    'ansible' \                        # cm utility
     'awscli' \                         # amazon web services cli
     'browsercookie' \                  # for getting browser cookies with cookiemonster via cli
     'click' \                          # required for mattermost auth cookie gathering script

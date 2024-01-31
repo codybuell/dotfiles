@@ -50,6 +50,7 @@ PACKAGES=( \
   'gnupg' \                           # gpg utilities for openpgp
   'gnu-sed' \                         # needed for lbdbq m_muttalias module to work
   'go' \                              # the go programming language
+  'helm' \                            # kubernetes manifest templating
   'imagemagick' \                     # command line graphics manipulation tool
   'imapfilter' \                      # tool for organizing mail directly on the server
   'isync' \                           # package containing mbsync, imap sync to local fs
@@ -95,6 +96,7 @@ PACKAGES=( \
   'watch' \                           # handy utility for monitoring
   'watchman' \                        # file watcher, dep for command-t
   'weechat' \                         # irc client
+  'yamale' \                          # schema and validator for yaml
   'ykman' \                           # yubikey manager (feature enabling / pgp)
   'ykpers' \                          # yubikey personalization tool (otp slots)
   'yq' \                              # jq for yaml
