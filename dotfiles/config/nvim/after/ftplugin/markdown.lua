@@ -1,4 +1,6 @@
 vim.opt_local.conceallevel = 2                            -- conceal markdown syntax on markdown buffers
+vim.opt_local.tabstop      = 2                            -- spaces per tab
+vim.opt_local.shiftwidth   = 2                            -- spaces per tab
 
 ----------------------------------
 --  list item wrap indentation  --
