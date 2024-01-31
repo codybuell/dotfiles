@@ -76,8 +76,8 @@ require("autolist").setup(config)
 
 augroup('BuellAutolist', function()
   autocmd('Filetype', 'markdown', function()
-    vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { buffer=true })
-    vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer=true })
+    -- vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", { buffer=true })
+    -- vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", { buffer=true })
     -- vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>") -- an example of using <c-t> to indent
     vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", { buffer=true })
     vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", { buffer=true })
@@ -96,8 +96,8 @@ augroup('BuellAutolist', function()
     -- functions to recalculate list on edit
     vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", { buffer=true })
     vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>", { buffer=true })
-    vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", { buffer=true })
-    vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", { buffer=true })
+    -- vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>", { buffer=true })
+    -- vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>", { buffer=true })
   end)
 end)
 
