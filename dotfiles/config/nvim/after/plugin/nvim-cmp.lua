@@ -114,7 +114,10 @@ cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'handles' },
     { name = 'luasnip' },
-    { name = 'lbdb' },
+    {
+      name = 'lbdb',
+      filetypes = { 'gitcommit' }
+    },
     { name = 'path' },
     {
       name = 'buffer',
