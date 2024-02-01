@@ -40,7 +40,7 @@ local lspstatus = function(bufnr)
   bufnr = bufnr or 0
 
   -- if no lsp clients registered bail
-  if #vim.lsp.buf_get_clients(bufnr) == 0 then
+  if #vim.lsp.get_active_clients({buffer = bufnr}) == 0 then
     return ''
   end
 

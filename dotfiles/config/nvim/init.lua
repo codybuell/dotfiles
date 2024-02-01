@@ -190,6 +190,8 @@ vim.cmd('packadd! vim-repeat')              -- repeat plugin work with .
 vim.cmd('packadd! vim-abolish')             -- case toggling, replacements variations
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
 vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
+vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
+vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
 
 -- snippets and completion
 vim.cmd('packadd! LuaSnip')                 -- lua based snippets

@@ -7,7 +7,16 @@
 local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 
 -- modes
-vim.keymap.set('n', '<Leader>1', '<CMD>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', {remap = true})
+vim.keymap.set('n', '<Leader>1', ':Goyo<CR>', {remap = false})
+vim.keymap.set('n', '<Leader>2', function()
+  if #vim.lsp.get_active_clients() == 0 then
+    vim.cmd("LspStart")
+    buell.lsp.init()
+  else
+    vim.cmd("LspStop")
+    -- vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>
+  end
+end, {remap = false})
 
 -- underline helper
 vim.keymap.set('n', '<C-u>', '<CMD> lua buell.util.underline()<CR>', {remap=false, silent=true})
