@@ -126,10 +126,10 @@
 [submodule "dotfiles/vim/pack/bundle/opt/scalpel"]
 	path = dotfiles/vim/pack/bundle/opt/scalpel
 	url = https://github.com/wincent/scalpel.git
-[submodule "dotfiles/vim/pack/bundle/opt/goyo.vim"]
+[submodule "dotfiles/config/nvim/pack/bundle/opt/goyo.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/limelight.vim"]
+[submodule "dotfiles/config/nvim/pack/bundle/opt/limelight.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
 [submodule "dotfiles/vim/pack/bundle/opt/base16-vim"]
