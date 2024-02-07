@@ -345,6 +345,27 @@ statusline.default = function()
   }
 end
 
+statusline.wordcountprogress = function(words)
+  local targetwords = words or 1500
+  local wordcount   = vim.fn.wordcount().words
+  local windowidth  = vim.fn.winwidth(0)
+
+  local padding = string.rep(' ', math.floor((wordcount * windowidth) / targetwords))
+
+  if wordcount >= targetwords then
+    return table.concat {
+      "%#Normal#",
+    }
+  else
+    return table.concat {
+      "%#Status7#",
+      padding,
+      "%#Status4#",
+      "",
+    }
+  end
+end
+
 statusline.update = function()
   local line
   local filetype = vim.bo.filetype

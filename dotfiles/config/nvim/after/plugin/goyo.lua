@@ -19,6 +19,8 @@ local goyo_enter = function ()
   vim.opt.showcmd    = false
   vim.opt.scrolloff  = 999
   vim.cmd("Limelight")
+  require('cmp').setup.buffer { enabled = false }
+  vim.wo.statusline = "%!luaeval('buell.statusline.wordcountprogress()')"
 end
 
 local goyo_leave = function ()
@@ -29,6 +31,7 @@ local goyo_leave = function ()
   vim.opt.showcmd    = false
   vim.opt.scrolloff      = 4
   vim.cmd("Limelight!")
+  require('cmp').setup.buffer { enabled = true }
   buell.color.update()
   buell.statusline.update()
 end
