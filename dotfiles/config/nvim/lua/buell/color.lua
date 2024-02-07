@@ -167,7 +167,7 @@ color.update = function()
   }))
 
   -- make use of lsp hl group for signature help active param
-  hlg('LspSignatureActiveParameter', pinnacle.decorate('bold'))
+  hlg('LspSignatureActiveParameter', pinnacle.decorate('bold', 'WarningMsg'))
 end
 
 return color
