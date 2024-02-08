@@ -249,10 +249,6 @@ function gpb() {
   fi
 }
 
-remote: Create a pull request for 'correct-gitignore' on GitHub by visiting:
-remote:      https://github.com/kionsoftware/kion-cli/pull/new/correct-gitignore
-
-
 # git clone to folder structure $Repos/site/userORgroup/userORgroupN/repo
 function gcl() {
   CLONEPATH=`echo $1 | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g'`
