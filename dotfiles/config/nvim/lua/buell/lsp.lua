@@ -89,6 +89,13 @@ local on_attach = function(client, bufnr)
 
   buell.util.augroup('BuellLSP', function()
     vim.api.nvim_command("autocmd BufWritePre *.go lua buell.lsp.go_imports(1000)")
+    vim.api.nvim_create_autocmd('DiagnosticChanged', {
+      callback = function(args)
+        -- local diagnostics = args.data.diagnostics
+        -- vim.print(diagnostics)
+        vim.diagnostic.setloclist({open=false,severity_limit=vim.diagnostic.severity.INFO})
+      end
+    })
   end)
 end
 

@@ -10,13 +10,19 @@
 --        list - navigate histories of quickfix ald location lists
 -- @return nil
 local list_nav = function (direction, object)
-  -- determine which window is open, if none assume quickfix even if closed
+  -- determine which window is open, if none see if loclist has entries, else assume quickfix even if closed
   local list
   if vim.fn.get(vim.fn.getloclist(0, {winid=0}), 'winid', 0) ~= 0 then
     -- the location window is open
     list = 'l'
+  elseif vim.fn.get(vim.fn.getqflist({winid=0}), 'winid', 0) ~= 0 then
+    -- the quickfix window is open
+    list = 'c'
+  elseif #vim.fn.getloclist(0, {winid=0}) then
+    -- both windows are closed but the loclist has entries
+    list = 'l'
   else
-    -- the location window is closed assume quickfix
+    -- both windows are closed and no entries in the loclist, assume quickfix
     list = 'c'
   end
 
