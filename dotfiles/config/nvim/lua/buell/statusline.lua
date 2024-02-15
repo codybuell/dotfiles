@@ -346,7 +346,7 @@ statusline.default = function()
 end
 
 statusline.wordcountprogress = function(words)
-  local targetwords = words or 1500
+  local targetwords = words or 750
   local wordcount   = vim.fn.wordcount().words
   local windowidth  = vim.fn.winwidth(0)
 
