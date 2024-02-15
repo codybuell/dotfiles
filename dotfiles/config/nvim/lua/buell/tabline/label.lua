@@ -12,11 +12,9 @@ local label = function(n, trim)
   local filepath = full_title:sub(0, #full_title - #filename)
 
   if trim <= #filepath then
-    print('trimpath only ' .. trim .. '(' .. #filepath .. ')' .. filepath)
     filepath = '…' .. filepath:sub(trim + 2)
   else
     trim = trim - #filepath
-    print('trimfile ' .. trim .. '(' .. #filename .. ')' .. filename)
     filepath = ''
     filename = filename:sub(0, #filename - trim - 2) .. '…'
   end
