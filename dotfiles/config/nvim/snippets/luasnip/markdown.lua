@@ -89,6 +89,29 @@ return {
     i(0),
   }),
 
+  s({
+    trig = "t",
+    name = "Ticket Template",
+    dscr = "Generic ticket template"
+  },
+  {
+    t({"Overview",
+    "--------", ""}),
+    i(1), t({"", "",
+    "Origin",
+    "------", ""}),
+    i(2), t({"", "",
+    "Acceptance Criteria",
+    "-------------------", "- [ ] "}),
+    i(3), t({"", "",
+    "Dependencies",
+    "------------", ""}),
+    i(4), t({"", "",
+    "Resources",
+    "---------", ""}),
+    i(0)
+  }),
+
   ----------------
   --  elements  --
   ----------------

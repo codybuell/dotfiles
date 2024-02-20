@@ -192,6 +192,7 @@ vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encryp
 vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
 vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
 vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
+vim.cmd('packadd! firenvim')                -- neovim in the browser
 
 -- snippets and completion
 vim.cmd('packadd! LuaSnip')                 -- lua based snippets

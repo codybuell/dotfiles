@@ -219,7 +219,7 @@ post_place_hooks() {
       # ${NVIMPATH} --headless +'TSInstall' +qa > /dev/null 2>&1
 
       # firenvim
-      # ${NVIMPATH} --headless -c "call firenvim#install(0, 'export LANG=\"en_US.UTF-8\"; export PATH=\"${PATH}\"')" -c quit > /dev/null 2>&1
+      ${NVIMPATH} --headless -c "call firenvim#install(0, 'export LANG=\"en_US.UTF-8\"; export PATH=\"${PATH}\"')" -c quit > /dev/null 2>&1
 
       # markdown-preview.nvim
       # ${NVIMPATH} --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
