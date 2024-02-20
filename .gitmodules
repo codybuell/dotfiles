@@ -159,8 +159,8 @@
 [submodule "dotfiles/vim/pack/bundle/opt/howmuch"]
 	path = dotfiles/vim/pack/bundle/opt/howmuch
 	url = https://github.com/sk1418/HowMuch.git
-[submodule "dotfiles/vim/pack/bundle/opt/firenvim"]
-	path = dotfiles/vim/pack/bundle/opt/firenvim
+[submodule "dotfiles/config/nvim/pack/bundle/opt/firenvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/firenvim
 	url = https://github.com/glacambre/firenvim.git
 [submodule "dotfiles/vim/pack/bundle/opt/typescript-vim"]
 	path = dotfiles/vim/pack/bundle/opt/typescript-vim
