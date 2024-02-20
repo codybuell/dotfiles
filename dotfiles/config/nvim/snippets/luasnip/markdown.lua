@@ -71,6 +71,24 @@ return {
     i(0)
   }),
 
+  s({
+    trig = "1:1",
+    name = "1:1 Template",
+    dscr = "Generic one on one template"
+  },
+  {
+    t({"1:1 "}), i(1, 'person'),
+    t({"","----"}),
+    f(function(args) local underline = string.gsub(args[1][1], ".", "-"); return {underline} end, {1}),
+    t({"","",""}),
+    t({"__Accomplishments:__", "  - "}),
+    i(2),
+    t({"", "","__Questions/Needs:__", "  - "}),
+    i(3),
+    t({"", "","__Priorities:__", "  - "}),
+    i(0),
+  }),
+
   ----------------
   --  elements  --
   ----------------
