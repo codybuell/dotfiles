@@ -272,7 +272,7 @@ markdown.create_or_follow_link = function ()
     vim.cmd("normal! x")
     vim.fn.cursor(0, col_nr)
     -- make substitution, put cursor back where it was, and clear hlsearch
-    vim.cmd(':s/\\%' .. str_start .. 'c.*\\%' .. (str_end + 1) .. 'c/' .. link_str .. '/')
+    vim.cmd(':s~\\%' .. str_start .. 'c.*\\%' .. (str_end + 1) .. 'c~' .. link_str .. '~')
     vim.fn.cursor(0, col_nr + 1)
     vim.cmd('let @/ = ""')
   end
