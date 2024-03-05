@@ -1,16 +1,17 @@
-vim.g.indent_blankline_filetype_exclude = {
-  -- defaults
-  'lspinfo',
-  'packer',
-  'checkhealth',
-  'help',
-  '',
+require('ibl').setup({
+  exclude = {
+    filetypes = {
+      -- defaults
+      'lspinfo',
+      'packer',
+      'checkhealth',
+      'help',
+      '',
 
-  -- additions
-  'gitcommit',
-  'markdown',
-}
-
-require('indent_blankline').setup({
-  space_char_blankline = ' ',
+      -- additions
+      'gitcommit',
+      'markdown',
+    }
+  },
+  -- space_char_blankline = ' ',
 })
