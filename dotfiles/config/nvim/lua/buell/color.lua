@@ -47,27 +47,28 @@ color.update = function()
   ------------------
 
   -- define user highlight groups for statusline
-  hlg("Status1", pinnacle.italicize('StatusLine'))
-  hlg("Status2", pinnacle.extract_highlight('StatusLine'))
-  hlg("Status3", pinnacle.embolden('StatusLine'))
-  hlg("Status4", pinnacle.highlight({
-    fg = pinnacle.extract_bg('Error'),
-    bg = pinnacle.extract_bg('Visual'),
-  }))
-  hlg("Status5", pinnacle.highlight({
-    fg = pinnacle.extract_fg("Cursor"),
-    bg = pinnacle.extract_fg("Status3"),
-  }))
-  hlg("Status6", pinnacle.highlight({
-    fg = pinnacle.extract_fg("Cursor"),
-    bg = pinnacle.extract_fg("Status3"),
-    term = 'bold,italic'
-  }))
-  hlg("Status7", pinnacle.highlight({
-    fg = pinnacle.extract_fg('Normal'),
-    bg = pinnacle.extract_bg('Error'),
-    term = 'bold',
-  }))
+  pinnacle.set("Status1", pinnacle.italicize('StatusLine'))
+  pinnacle.set("Status2", pinnacle.dump('StatusLine'))
+  pinnacle.set("Status3", pinnacle.embolden('StatusLine'))
+  pinnacle.set("Status4", {
+    fg = pinnacle.bg('Error'),
+    bg = pinnacle.bg('Visual'),
+  })
+  pinnacle.set("Status5", {
+    fg = pinnacle.fg("Cursor"),
+    bg = pinnacle.fg("Status3"),
+  })
+  pinnacle.set("Status6", {
+    fg = pinnacle.fg("Cursor"),
+    bg = pinnacle.fg("Status3"),
+    bold = true,
+    italic = true,
+  })
+  pinnacle.set("Status7", {
+    fg = pinnacle.fg('Normal'),
+    bg = pinnacle.bg('Error'),
+    bold = true,
+  })
 
   -- define statusline no color
   vim.cmd("highlight clear StatusLineNC")
@@ -78,29 +79,29 @@ color.update = function()
   -----------
 
   -- error
-  hlg('DiagnosticVirtualTextError', pinnacle.decorate('bold,italic', 'ModeMsg'))
-  hlg('DiagnosticFloatingError', pinnacle.highlight({fg = pinnacle.extract_fg('ErrorMsg')}))
-  hlg('DiagnosticSignError', pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('ErrorMsg')}))
+  pinnacle.set('DiagnosticVirtualTextError', pinnacle.decorate('bold,italic', 'ModeMsg'))
+  pinnacle.set('DiagnosticFloatingError', {fg = pinnacle.fg('ErrorMsg')})
+  pinnacle.set('DiagnosticSignError', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('ErrorMsg')})
 
   -- warning
-  hlg('DiagnosticVirtualTextWarning', pinnacle.decorate('bold,italic', 'Type'))
-  hlg('DiagnosticFloatingWarning', pinnacle.highlight({fg = pinnacle.extract_bg('Substitute')}))
-  hlg('DiagnosticSignWarn', pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_bg('Substitute')}))
+  pinnacle.set('DiagnosticVirtualTextWarning', pinnacle.decorate('bold,italic', 'Type'))
+  pinnacle.set('DiagnosticFloatingWarning', {fg = pinnacle.bg('Substitute')})
+  pinnacle.set('DiagnosticSignWarn', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.bg('Substitute')})
 
   -- information
-  hlg('DiagnosticVirtualTextInformation', pinnacle.decorate('bold,italic', 'Type'))
-  hlg('DiagnosticFloatingInformation', pinnacle.highlight({fg = pinnacle.extract_fg('Normal')}))
-  hlg('DiagnosticSignInfo', pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Conceal')}))
+  pinnacle.set('DiagnosticVirtualTextInformation', pinnacle.decorate('bold,italic', 'Type'))
+  pinnacle.set('DiagnosticFloatingInformation', {fg = pinnacle.fg('Normal')})
+  pinnacle.set('DiagnosticSignInfo', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('Conceal')})
 
   -- hint
-  hlg('DiagnosticVirtualTextHint', pinnacle.decorate('bold,italic', 'Type'))
-  hlg('DiagnosticFloatingHint', pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
-  hlg('DiagnosticSignHint', pinnacle.highlight({bg = pinnacle.extract_bg('ColorColumn'), fg = pinnacle.extract_fg('Type')}))
+  pinnacle.set('DiagnosticVirtualTextHint', pinnacle.decorate('bold,italic', 'Type'))
+  pinnacle.set('DiagnosticFloatingHint', {fg = pinnacle.fg('Type')})
+  pinnacle.set('DiagnosticSignHint', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('Type')})
 
   -- document_highlight
-  hlg('LspReferenceText', pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
-  hlg('LspReferenceRead', pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
-  hlg('LspReferenceWrite', pinnacle.highlight({fg = pinnacle.extract_fg('Type')}))
+  pinnacle.set('LspReferenceText', {fg = pinnacle.fg('Type')})
+  pinnacle.set('LspReferenceRead', {fg = pinnacle.fg('Type')})
+  pinnacle.set('LspReferenceWrite', {fg = pinnacle.fg('Type')})
 
   ----------------
   --  markdown  --
@@ -113,13 +114,13 @@ color.update = function()
   vim.cmd('hi def link buellInProgressTodoText Question')
 
   vim.cmd('hi def link buellCompletedTodo mkdListItem')
-  hlg('buellCompletedTodoText', pinnacle.highlight(pinnacle.adjust_lightness('Ignore', 0.30)))
+  pinnacle.set('buellCompletedTodoText', pinnacle.brighten('Ignore', 0.30))
 
   vim.cmd('hi def link buellDroppedTodo mkdListItem')
-  hlg('buellDroppedTodoText', pinnacle.decorate('strikethrough', 'buellCompletedTodoText'))
+  pinnacle.set('buellDroppedTodoText', pinnacle.decorate('strikethrough', 'buellCompletedTodoText'))
 
   vim.cmd('hi def link buellImportantTodo mkdListItem')
-  hlg('buellImportantTodoText', pinnacle.decorate('bold', 'Label'))
+  pinnacle.set('buellImportantTodoText', pinnacle.decorate('bold', 'Label'))
 
   ---------------
   --  tabline  --
@@ -149,25 +150,26 @@ color.update = function()
   hlg('DiffText', 'ctermbg=24 guibg=#22222f')
 
   -- make floating windows look nicer
-  local normal = pinnacle.adjust_lightness('Normal', 0.05)
+  local normal = pinnacle.brighten('Normal', 0.05)
   vim.cmd('highlight! clear NormalFloat')
-  hlg('NormalFloat', pinnacle.highlight(normal))
+  pinnacle.set('NormalFloat', normal)
   normal['fg'] = '#cccccc'
   vim.cmd('highlight! clear FloatBorder')
-  hlg('FloatBorder', pinnacle.highlight(normal) .. ' blend=' .. vim.o.winblend)
+  normal['blend'] = vim.o.winblend
+  pinnacle.set('FloatBorder', normal)
 
   -- italicize comments
-  hlg('Comment', pinnacle.italicize('Comment'))
+  pinnacle.set('Comment', pinnacle.italicize('Comment'))
 
   -- parentheses match is rough by deault
-  hlg('MatchParen', pinnacle.highlight({
-    fg = pinnacle.extract_bg('Error'),
+  pinnacle.set('MatchParen', {
+    fg = pinnacle.bg('Error'),
     bg = 'None',
-    term = 'bold',
-  }))
+    bold = true,
+  })
 
   -- make use of lsp hl group for signature help active param
-  hlg('LspSignatureActiveParameter', pinnacle.decorate('bold,italic', 'WarningMsg'))
+  pinnacle.set('LspSignatureActiveParameter', pinnacle.decorate('bold,italic', 'WarningMsg'))
 end
 
 return color
