@@ -6,10 +6,11 @@ require('ibl').setup({
       'packer',
       'checkhealth',
       'help',
+      'man',
+      'gitcommit',
       '',
 
       -- additions
-      'gitcommit',
       'markdown',
     }
   },
