@@ -139,9 +139,9 @@ color.update = function()
   hlg('Whitespace', 'ctermfg=237 guifg=#3a3a3a')
 
   -- indent blankline because it's linking to Whitespace hl group before it is being set here
-  hlg('IndentBlanklineChar', 'ctermfg=237 guifg=#3a3a3a')
-  hlg('IndentBlanklineSpaceChar', 'ctermfg=237 guifg=#3a3a3a')
-  hlg('IndentBlanklineSpaceChar', 'ctermfg=237 guifg=#3a3a3a')
+  hlg('IblIndent', 'ctermfg=237 guifg=#3a3a3a')
+  hlg('IblWhitespace', 'ctermfg=237 guifg=#3a3a3a')
+  pinnacle.set('IblScope', pinnacle.brighten('NonText', 0.05))
 
   -- overrides for (vim)diffs
   hlg('DiffAdd', 'ctermbg=22 guibg=#222f22')
