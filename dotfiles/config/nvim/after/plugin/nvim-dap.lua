@@ -14,5 +14,3 @@ vim.fn.sign_define('DapBreakpointCondition', { text='•', texthl='DiagnosticSig
 vim.fn.sign_define('DapBreakpointRejected',  { text='•', texthl='DiagnosticSignWarn', linehl='DapBreakpoint', numhl='DapBreakpoint' })
 vim.fn.sign_define('DapStopped',             { text='→', texthl='DiagnosticSignError',  linehl='DapBreakpoint', numhl='DapBreakpoint' })
 vim.fn.sign_define('DapLogPoint',            { text='•', texthl='FoldColumn', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-
-
