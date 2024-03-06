@@ -244,3 +244,12 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot/lua"]
 	path = dotfiles/config/nvim/pack/bundle/opt/shellbot/lua
 	url = https://github.com/codybuell/shellbot.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-ui"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-ui
+	url = https://github.com/rcarriga/nvim-dap-ui.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
+	url = https://github.com/leoluz/nvim-dap-go.git

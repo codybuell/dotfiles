@@ -39,6 +39,7 @@ ALL=( \
   'golang.org/x/tools/cmd/goimports@latest' \             # go formatter and auto imports
   'github.com/arduino/arduino-language-server@latest' \   # lsp for aduino, requires clang and arduino-cli
   'golang.org/x/tools/gopls@latest' \                     # langserver
+  'github.com/go-delve/delve/cmd/dlv@latest' \            # golang debugger utility
 )
 
 # no longer in use:

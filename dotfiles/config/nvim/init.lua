@@ -156,6 +156,11 @@ end
 --             --
 -----------------
 
+-- debugger
+vim.cmd('packadd! nvim-dap')                -- dap protocol shim
+vim.cmd('packadd! nvim-dap-ui')             -- dap user interface
+vim.cmd('packadd! nvim-dap-go')             -- dap extension for golang
+
 -- language server
 vim.cmd('packadd! nvim-lspconfig')          -- language server configurations
 vim.cmd('packadd! lsp-status.nvim')         -- lsp status capabilities
