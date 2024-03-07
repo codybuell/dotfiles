@@ -15,7 +15,24 @@ local render = function()
   for i = 1, tab_count do
     local buflist = vim.fn.tabpagebuflist(i)
     local winnr   = vim.fn.tabpagewinnr(i)
-    local label   = i .. ': ' .. vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.bufname(buflist[winnr]), ':t'))
+    local bufnr   = buflist[winnr]
+    local bufname = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t'))
+    local buftype = vim.fn.getbufvar(bufnr, "current_syntax")
+    if bufname == "" then
+      if buftype == 'qf' then
+        bufname = '[quickfix]'
+      elseif buftype == 'help' then
+        bufname = '[help]'
+      elseif buftype == 'fugitive' then
+        bufname = '[fugitive]'
+      else
+        bufname = '[No Name]'
+      end
+    end
+    if bufname:sub(1, 10) == "CommandT [" then
+      bufname = '[CommandT]'
+    end
+    local label   = i .. ': ' .. bufname
     table.insert(tabsinfo, {
       index  = i,
       length = #label + 2
