@@ -1,14 +1,14 @@
-local label = function(n, trim)
-  local buflist = vim.fn.tabpagebuflist(n)
-  local winnr   = vim.fn.tabpagewinnr(n)
+local label = function(n, size)
+  local buflist  = vim.fn.tabpagebuflist(n)
+  local winnr    = vim.fn.tabpagewinnr(n)
+  local filename = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.bufname(buflist[winnr]), ':t'))
 
-  local full_title = vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.bufname(buflist[winnr]), ':t'))
-
-  if trim == 0 then
-    return n .. ': ' .. full_title
+  if size == 0 then
+    return n .. ': ' .. filename
   else
-    return n .. ': ' .. full_title:sub(0, #full_title - trim - 1) .. '…'
+    return n .. ': ' .. filename:sub(0, #filename - size - 1) .. '…'
   end
+
   ------------------------------------
   -- VERSION THAT INCLUDES FILEPATH --
   ------------------------------------

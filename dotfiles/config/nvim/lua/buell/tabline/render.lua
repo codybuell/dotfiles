@@ -3,53 +3,59 @@
 local render = function()
   local gutter_width = buell.util.gutter_width()
   local window_width = vim.o.columns
-  local avail_width  = window_width - gutter_width
-  local line_start   = string.rep(' ', gutter_width)
   local current_tab  = vim.api.nvim_tabpage_get_number(0)
   local tab_count    = vim.fn.tabpagenr('$')
+  local line_start   = string.rep(' ', gutter_width)
+  local avail_width  = window_width - gutter_width
 
-  -- determine full size tab bar and build compression array
+  -- determine full size tab bar and build tab table
+  local tabs = {}
+  local tabsinfo = {}
   local width = 0
-  local trim_array = {}
   for i = 1, tab_count do
-    width = width + #buell.tabline.label(i, 0) + 2
-    table.insert(trim_array, 0)
+    local buflist = vim.fn.tabpagebuflist(i)
+    local winnr   = vim.fn.tabpagewinnr(i)
+    local label   = i .. ': ' .. vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.bufname(buflist[winnr]), ':t'))
+    table.insert(tabsinfo, {
+      index  = i,
+      length = #label + 2
+    })
+    table.insert(tabs, label)
+    width = width + #label + 2
   end
 
-  -- if the tabbar is too wide determine how many chars to remove from each tab
-  if width > avail_width then
-    local over = width - avail_width
-    local per_tab, slop
-    if over >= tab_count then
-      per_tab = math.floor(over / tab_count)
-      slop = over % tab_count
-    else
-      per_tab = 0
-      slop = over % tab_count
+  -- sort tab table by label size
+  table.sort(tabsinfo, function(a, b) return a.length > b.length end)
+
+  -- shorten longest labels one char at a time until we are within our avail_width
+  local iterations = 0
+  while width > avail_width do
+    -- break when we are within width, have looped 1k times or when we are down to just 4 chars per tab
+    if width <= avail_width or iterations > 1000 or tabsinfo[1].length < 4 then
+      break
     end
-    for i = 1, tab_count do
-      trim_array[i] = trim_array[i] + per_tab
-    end
-    for i = 1, slop do
-      trim_array[i] = trim_array[i] + 1
-    end
+    tabsinfo[1].length = tabsinfo[1].length - 1
+    tabs[tabsinfo[1].index] = tabs[tabsinfo[1].index]:sub(1, tabsinfo[1].length - 3) .. '…'
+    width = width - 1
+    iterations = iterations + 1
+    table.sort(tabsinfo, function(a, b) return a.length > b.length end)
   end
 
-  -- build the tabline with per tab trims
+  -- build the tabline
   local line = ''
-  for i = 1, vim.fn.tabpagenr('$') do
+  for i = 1, tab_count do
     if i == current_tab then
       line = line .. '%#TabLineSel#'
     else
       line = line .. '%#TabLine#'
     end
-    line = line .. '%' .. i .. 'T' -- Starts mouse click target region.
-    line = line .. ' %{v:lua.buell.tabline.label(' .. i .. ', ' .. trim_array[i] .. ')} '
+    line = line .. '%' .. i .. 'T' -- starts mouse click target region
+    line = line .. ' ' .. tabs[i] .. ' '
+    -- line = line .. ' %{v:lua.buell.tabline.label(' .. i .. ', ' .. capacity_array[i] .. ')} '
   end
 
-
   line = line .. '%#TabLineFill#'
-  line = line .. '%T' -- Ends mouse click target region(s).
+  line = line .. '%T' -- ends mouse click target region(s)
   return line_start .. line
 end
 
