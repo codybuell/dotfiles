@@ -287,10 +287,18 @@ lsp.init = function()
           ["http://schema.kion.io/v1/jumpstart-framework.json"] = 'frameworks/*.yml',
           ["http://schema.kion.io/v1/jumpstart-cc-aws.json"] = 'compliance-checks/cloud-custodian/aws/*.yml',
           ["http://schema.kion.io/v1/jumpstart-cc-azure.json"] = 'compliance-checks/cloud-custodian/azure/*.yml',
-          ["http://schema.kion.io/v1/jumpstart-cc-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml'
+          ["http://schema.kion.io/v1/jumpstart-cc-cost-savings.json"] = 'cost-savings/*/cloud-custodian/*/*.yml',
+          ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
         }
       }
     }
+  })
+
+  -- Tailwind
+  lspconfig.tailwindcss.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities
   })
 
 end
