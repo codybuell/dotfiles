@@ -35,6 +35,7 @@ return {
 
   buell.sniputils.p("fmt.Println(", ")"),
   buell.sniputils.pq('fmt.Println("', '")'),
+  buell.sniputils.po('fmt.Println("%+v\\n", ', ')'),
 
   ----------
   --  if  --

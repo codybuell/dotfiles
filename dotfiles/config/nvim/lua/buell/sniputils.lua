@@ -139,6 +139,20 @@ sniputils.pq = function(lhs, rhs)
   })
 end
 
+sniputils.po = function(lhs, rhs)
+  return s({
+    trig = "po",
+    name = "print object",
+    dscr = "Print object to standard out.",
+  }, {
+    t({lhs}),
+    d(1, function(_, snip, _, _)
+      return sn(1, i(1, snip.env.TM_SELECTED_TEXT[1] or "object"))
+    end, {}, {}),
+    t({rhs}),
+  })
+end
+
 sniputils.shebang = function(c_str, shebang)
   return s({
     trig = "#!",
