@@ -61,6 +61,7 @@ PACKAGES=( \
   'vscode-langservers-extracted' \         # a mix of language server bins
   'vls' \                                  # vue language server
   '@angular/language-server' \             # angular language server
+  '@tailwindcss/language-server' \         # tailwind language server
 )
 
 ################################################################################
@@ -89,12 +90,12 @@ nvm alias default lts/hydrogen
 nvm use lts/hydrogen
 
 # install node packages
-for i in ${PACKAGES[@]}; do
+for i in "${PACKAGES[@]}"; do
   echo
   echo "-- installing $i --"
   echo
-  npm -g install $i
+  npm -g install "$i"
 done
 
 # ensure ~/.config is not owned by root
-sudo chown -R ${PRIMARY_USER}: ${PRIMARY_USER_HOME}/.config
+sudo chown -R "${PRIMARY_USER}": "${PRIMARY_USER_HOME}/.config"
