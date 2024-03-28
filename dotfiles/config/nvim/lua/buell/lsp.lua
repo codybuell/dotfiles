@@ -48,6 +48,9 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- add lsp-status capabilities
 capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
+-- add snippet capabilities
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 -- configure sign column signs (hl groups defined in after/plugin/color.lua)
 vim.fn.sign_define("DiagnosticSignError", {text = "×", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DiagnosticSignWarn", {text = "‼", texthl = "DiagnosticSignWarn"})
@@ -206,6 +209,13 @@ lsp.init = function()
       "json",
       "jsonc"
     }
+  })
+
+  -- Html
+  lspconfig.html.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities,
   })
 
   -- Lua
