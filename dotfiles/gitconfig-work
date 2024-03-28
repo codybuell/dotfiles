@@ -1,0 +1,8 @@
+[user]
+  name = {{ WorkGitUsername }}
+  email = {{ WorkEmail }}
+  signingkey = {{ WorkGitSignKey }}
+[gpg]
+  format = x509
+[gpg "x509"]
+  program = smimesign

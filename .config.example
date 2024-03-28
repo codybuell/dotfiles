@@ -25,6 +25,7 @@
 
 Name       = Cody Buell                   # your full name
 Email      = cody@codybuell.com           # preferred email
+WorkEmail  = your@workemail.com           # work email address
 OSUsername = pbuell                       # your system username
 IRCNick    = pbuell,Cody                  # your irc nicknames, comma separated
 OSHomeRoot = /Users/                      # /Users/ on osx /home/ on linux
@@ -45,6 +46,7 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
 
+
 ################################################################################
 #                                                                              #
 # Git                                                                          #
@@ -59,6 +61,9 @@ OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
 
 GitUsername = codybuell                                  # github username
 GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE   # gpg key used to sign
+
+WorkGitUsername = pbuell
+WorkGitSignKey  = 1234567891234567891234567891234567891234
 
 
 ################################################################################
@@ -172,6 +177,7 @@ Journal         = "~/Google\\\\ Drive/My\\\\ Drive/Journal"
 Domains         = "~/Google\\\\ Drive/My\\\\ Drive/Domains"
 
 Repos           = /Users/pbuell/Repos
+WorkRepos       = /Users/pbuell/Repos/git.kion.io
 Gists           = /Users/pbuell/Gists
 
 CDPath          = "~/Repos/git.cloudtamer.io"
