@@ -50,7 +50,7 @@ PACKAGES=( \
   'yarn' \                                 # better node package manager
   'bash-language-server' \                 # bash language server
   'vscode-json-languageserver' \           # json language server
-  'vscode-langservers-extracted' \         # the new json language server for nvim
+  'vscode-langservers-extracted' \         # json, html, etc lsps for nvim
   'dockerfile-language-server-nodejs' \    # dockerfile language server
   'yaml-language-server' \                 # yaml language server
   'vscode-html-languageserver-bin' \       # html language server
