@@ -18,7 +18,7 @@ local list_nav = function (direction, object)
   elseif vim.fn.get(vim.fn.getqflist({winid=0}), 'winid', 0) ~= 0 then
     -- the quickfix window is open
     list = 'c'
-  elseif #vim.fn.getloclist(0, {winid=0}) ~= 0 then
+  elseif #vim.fn.getloclist(0) ~= 0 then
     -- both windows are closed but the loclist has entries
     list = 'l'
   else
