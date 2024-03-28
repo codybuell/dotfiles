@@ -220,8 +220,8 @@
 [submodule "dotfiles/vim/pack/bundle/opt/vim-schlepp"]
 	path = dotfiles/vim/pack/bundle/opt/vim-schlepp
 	url = https://github.com/zirrostig/vim-schlepp.git
-[submodule "dotfiles/vim/pack/bundle/opt/todo-comments.nvim"]
-	path = dotfiles/vim/pack/bundle/opt/todo-comments.nvim
+[submodule "dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
 [submodule "dotfiles/vim/pack/bundle/opt/copilot.vim"]
 	path = dotfiles/vim/pack/bundle/opt/copilot.vim

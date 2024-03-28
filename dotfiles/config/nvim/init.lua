@@ -171,6 +171,7 @@ vim.cmd('packadd! editorconfig-vim')        -- indentation rulers
 vim.cmd('packadd! indent-blankline.nvim')   -- indentation rulers
 vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax highlighting
 vim.cmd('packadd! base16-nvim')             -- color consistency with shell
+vim.cmd('packadd! todo-comments.nvim')      -- todo comment tags into quickfix / loclist
 
 -- navigation
 vim.cmd('packadd! vim-dirvish')             -- fast netrw replacement
