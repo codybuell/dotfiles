@@ -107,6 +107,7 @@ vim.opt.sidescroll     = 0                                     -- sidescroll in 
 vim.opt.sidescrolloff  = 3                                     -- same as scrolloff, but for columns
 vim.opt.signcolumn     = 'yes'                                 -- always show the sign column
 vim.opt.smarttab       = true                                  -- <tab>/<BS> indent/dedent in leading whitespace
+vim.opt.spell          = true                                  -- turn on spell check by default
 vim.opt.spellcapcheck  = ''                                    -- don't check for capital letters at start of sentence
 vim.opt.splitbelow     = true                                  -- open horizontal splits below current window
 vim.opt.splitright     = true                                  -- open vertical splits to the right of the current window

@@ -1,4 +1,4 @@
-treesitter = require('nvim-treesitter.configs')
+local treesitter = require('nvim-treesitter.configs')
 
 -- Note you must use expr as the foldmethod for any language you want
 -- treesitter to handle folding for, eg `setlocal foldmethod=expr` in
