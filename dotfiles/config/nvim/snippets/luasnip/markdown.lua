@@ -90,7 +90,7 @@ return {
   }),
 
   s({
-    trig = "t",
+    trig = "ticket",
     name = "Ticket Template",
     dscr = "Generic ticket template"
   },
