@@ -74,6 +74,7 @@ PACKAGES=( \
   'pcalc' \                           # cli programming calculator
   'picocom' \                         # used with ino for serial connection to arduino
   'pinentry' \                        # interface used to prompt for gpg pins
+  'pinentry-mac' \                    # gui interface used to prompt for gpg pins
   'python' \                          # python language
   'qemu' \                            # virtualization tool of choice
   'qrencode' \                        # utility to generate qr codes
