@@ -170,7 +170,7 @@ setopt histverify           # confirm history expansion (!$, !!, !foo)
 setopt interactivecomments  # allow comments, even in interactive shells
 setopt pushdignoredups      # don't push multiple copies of same dir onto stack
 setopt pushdsilent          # don't print dir stack after pushing/popping
-#setopt sharehistory        # share history across shells
+setopt sharehistory         # share history across shells
 #setopt printexitvalue      # for non-zero exit status
 #setopt ignoreeof           # prevent accidental C-d from exiting shell
 #setopt correct             # command auto-correction
@@ -221,8 +221,10 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 
 # additional vim like mappings
-bindkey '^P' up-history
-bindkey '^N' down-history
+bindkey "\e[A" up-history       # cursor up
+bindkey "\e[B" down-history     # cursor down
+# bindkey '^P' up-history
+# bindkey '^N' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
@@ -238,10 +240,12 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 # history-beginning-search-forward-end is clunky
+bindkey "^P" history-beginning-search-backward-end  # cursor up
+bindkey "^N" history-beginning-search-forward-end   # cursor down
 # bindkey "\e[A" history-beginning-search-backward-end  # cursor up
 # bindkey "\e[B" history-beginning-search-forward-end   # cursor down
-bindkey "\e[A" up-history       # cursor up
-bindkey "\e[B" down-history     # cursor down
+# bindkey "\e[A" up-history       # cursor up
+# bindkey "\e[B" down-history     # cursor down
 
 autoload -U select-word-style
 select-word-style bash # only alphanumeric chars are considered WORDCHARS
