@@ -35,6 +35,7 @@ PACKAGES=( \
   'antibody' \                        # package management for zsh
   'asciinema' \                       # terminal session recorder
   'automake' \                        # make toolkit
+  'awscli' \                          # aws command line tool
   'azure-cli' \                       # azure api cli client
   'bc' \                              # gnu software calculator
   'coreutils' \                       # gnu utility toolkit
