@@ -223,8 +223,8 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/copilot.vim"]
-	path = dotfiles/vim/pack/bundle/opt/copilot.vim
+[submodule "dotfiles/config/nvim/pack/bundle/opt/copilot.vim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-abolish"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-abolish
