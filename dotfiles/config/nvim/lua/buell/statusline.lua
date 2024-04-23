@@ -18,6 +18,7 @@ local symbols = {
   indicator_info           = 'i',
   indicator_hint           = '☝',
   lsp_status_symbol        = 'Ꮭ',
+  copilot_status_symbol    = 'Ꮯ',
   treesitter_status_symbol = 'T',
   line_indicator           = 'ℓ',
   column_indicator         = '𝚌',
@@ -194,6 +195,10 @@ statusline.lhs = function()
   local treesitter   = vim.fn['nvim_treesitter#statusline']({1})
   local lspclient    = #vim.lsp.buf_get_clients() > 0
   local line         = ' '
+
+  if require("copilot.client").buf_is_attached(0) == true then
+    line = line .. ' ' .. symbols.copilot_status_symbol
+  end
 
   if treesitter ~= vim.NIL or lspclient then
     if treesitter ~= vim.NIL then

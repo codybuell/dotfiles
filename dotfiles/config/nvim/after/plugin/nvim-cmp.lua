@@ -34,8 +34,12 @@ cmp.setup({
     end,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered({
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+    }),
+    documentation = cmp.config.window.bordered({
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+    }),
   },
   experimental = {
     ghost_text = true,
@@ -82,25 +86,28 @@ cmp.setup({
       end
     end, { "i", "s" }),
   }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'lbdb' },
-    { name = 'path' },
-    { name = 'nvim_lsp_signature_help' },
+  sources = {
+    { name = 'copilot', group_index = 2 },
+    { name = 'nvim_lsp', group_index = 2 },
+    { name = 'luasnip', group_index = 2 },
+    { name = 'lbdb', group_index = 2 },
+    { name = 'path', group_index = 2 },
+    { name = 'nvim_lsp_signature_help', group_index = 2 },
     {
       name = 'buffer',
       option = {
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()    -- source from all buffers
         end
-      }
+      },
+      group_index = 2
     },
     {
       name = 'emoji',
-      insert = true
+      insert = true,
+      group_index = 2
     },
-  })
+  }
 })
 
 --------------------------------------------------------------------------------

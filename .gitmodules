@@ -253,3 +253,9 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/copilot.lua"]
+	path = dotfiles/config/nvim/pack/bundle/opt/copilot.lua
+	url = https://github.com/zbirenbaum/copilot.lua.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/copilot-cmp"]
+	path = dotfiles/config/nvim/pack/bundle/opt/copilot-cmp
+	url = https://github.com/zbirenbaum/copilot-cmp.git
