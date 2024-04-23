@@ -20,7 +20,7 @@ require('copilot').setup({
     debounce = 75,
     keymap = {
       accept = "<M-l>",
-      accept_word = false,
+      accept_word = "<C-o>",
       accept_line = false,
       next = "<M-]>",
       prev = "<M-[>",
@@ -41,3 +41,9 @@ require('copilot').setup({
   copilot_node_command = 'node', -- Node.js version must be > 18.x
   server_opts_overrides = {},
 })
+
+-- mapping to accept one word at a time
+vim.keymap.set("i", "<C-o>", function()
+  require("copilot.suggestion").accept_word()
+  require("copilot.suggestion").next()
+end, { desc = "[copilot] accept (word) and next suggestion" })
