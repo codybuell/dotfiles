@@ -259,3 +259,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/copilot-cmp"]
 	path = dotfiles/config/nvim/pack/bundle/opt/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim
+	url = https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
