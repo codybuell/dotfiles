@@ -262,3 +262,9 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim
 	url = https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
+[submodule "dotfiles/tmux/tmux-resurrect"]
+	path = dotfiles/tmux/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "dotfiles/tmux/tmux-continuum"]
+	path = dotfiles/tmux/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
