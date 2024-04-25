@@ -113,7 +113,6 @@ assets/                   # miscellaneous system files and resources
   keyboard/               # karabiner keyboard configurations
 dotfiles/                 # contains actual dotfiles in templated form
 scripts/                  # repo specific deployment scripts and utilities
-submodules/               # repository submodules (external repos utilized by configurations)
 ```
 
 Usage
