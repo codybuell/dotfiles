@@ -33,9 +33,20 @@ folder-hook +Work/ set spoolfile = '+Work/Work'
 folder-hook +Work/ set trash = '+Work/Work.Trash'
 folder-hook +Work/ macro index,pager D '<shell-escape>~/.mutt/scripts/download.sh\ work<enter><sync-mailbox>' 'download\ messages'
 
+folder-hook +Proj/ set copy = yes
+folder-hook +Proj/ set from = '{{ ProjEmailAddress }}'
+folder-hook +Proj/ set mbox = '+Proj/Proj.Archive'
+folder-hook +Proj/ set postponed ='+Proj/Proj.Drafts'
+folder-hook +Proj/ unset record
+folder-hook +Proj/ set sendmail = 'env\ BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile\ $HOME/.mutt/scripts/msmtp.rb\ -a\ proj'
+folder-hook +Proj/ set spoolfile = '+Proj/Proj'
+folder-hook +Proj/ set trash = '+Proj/Proj.Trash'
+folder-hook +Proj/ macro index,pager D '<shell-escape>~/.mutt/scripts/download.sh\ proj<enter><sync-mailbox>' 'download\ messages'
+
 # Allow editing of `From:` header in composer to alter sending account.
 send2-hook '~f ^{{ HomeEmailAddress }}\.net$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a home"; unset record; set copy = no'
 send2-hook '~f ^{{ WorkEmailAddress }}\.com$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a work"; set record = "+Work/Work.Sent"; set copy = yes'
+send2-hook '~f ^{{ ProjEmailAddress }}\.com$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a proj"; set record = "+Proj/Proj.Sent"; set copy = yes'
 
 # sync mailbox every N seconds as defined by set timeout, also sync on startup/shutdown
 timeout-hook 'exec sync-mailbox'

@@ -181,6 +181,91 @@ Channel Work-Default
 
 ################################################################################
 #                                                                              #
+# proj email account                                                           #
+#                                                                              #
+################################################################################
+
+IMAPAccount Proj
+Host {{ ProjEmailHost }}
+User {{ ProjEmailUsername }}
+PassCmd "get-keychain-pass {{ ProjEmailKeychain }} {{ ProjEmailHost }}"
+CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
+TLSType IMAPS
+AuthMechs LOGIN
+
+IMAPStore Proj-remote
+Account Proj
+
+MaildirStore Proj-local
+Path ~/.mail/Proj/
+Inbox ~/.mail/Proj/Proj
+
+Channel Proj-Proj
+Far :Proj-remote:INBOX
+Near :Proj-local:Proj
+
+Channel Proj-Drafts
+Far :Proj-remote:"[Gmail]/Drafts"
+Near :Proj-local:Proj.Drafts
+
+Channel Proj-Sent
+Far :Proj-remote:"[Gmail]/Sent Mail"
+Near :Proj-local:Proj.Sent
+
+Channel Proj-Starred
+Far :Proj-remote:"[Gmail]/Starred"
+Near :Proj-local:Proj.Starred
+
+Channel Proj-Spam
+Far :Proj-remote:"[Gmail]/Spam"
+Near :Proj-local:Proj.Spam
+
+Channel Proj-Trash
+Far :Proj-remote:"[Gmail]/Trash"
+Near :Proj-local:Proj.Trash
+
+Channel Proj-All
+Far :Proj-remote:"[Gmail]/All Mail"
+Near :Proj-local:Proj.Archive
+
+# Catch-all for everything else: note that the `Patterns` have to exclude both
+# the remote and local names for all the folders we want to exclude (except
+# "INBOX", which is special-cased, it would seem).
+Channel Proj-Default
+Far :Proj-remote:
+Near :Proj-local:Proj.
+Patterns *
+Patterns !INBOX
+Patterns ![Gmail]*
+Patterns !Archive
+Patterns !Drafts
+Patterns !Sent
+Patterns !Spam
+Patterns !Starred
+Patterns !Trash
+
+# For doing a quick sync of just the INBOX with `mbsync Proj-Download`.
+Channel Proj-Download
+Far :Proj-remote:INBOX
+Near :Proj-local:Proj
+Create Near
+Expunge Near
+Sync Pull
+
+# Lower-case "p" here to match "~/.imapfilter/proj.lua" script name (see
+# "~/.mutt/scripts/sync.sh").
+Group proj
+Channel Proj-Proj
+Channel Proj-Drafts
+Channel Proj-Sent
+Channel Proj-Starred
+Channel Proj-Spam
+Channel Proj-Trash
+Channel Proj-All
+Channel Proj-Default
+
+################################################################################
+#                                                                              #
 # exchange work email account example                                          #
 #                                                                              #
 ################################################################################

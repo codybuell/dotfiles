@@ -122,6 +122,13 @@ WorkEmailKeychain   = pbuell+mutt@kion.io         # 'account' field in keychain
 WorkEmailUsername   = pbuell@kion.io
 WorkEmailAddress    = pbuell@kion.io
 
+# Proj Email Account
+ProjEmailSmtp       = smtp.gmail.com              # outgoing main server
+ProjEmailHost       = imap.gmail.com              # host & 'name' field in keychain
+ProjEmailKeychain   = cody+mutt@othersite.com     # 'account' field in keychain
+ProjEmailUsername   = cody@othersite.com
+ProjEmailAddress    = cody@othersite.com
+
 
 ################################################################################
 #                                                                              #
