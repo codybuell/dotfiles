@@ -1,13 +1,96 @@
 #!/bin/bash
+#
+# \033   escape sequence
+# [
+# 38|48  foreground|background
+# ;
+# 5      256 color mode
+# ;
+# 0..255 color code
+# ;
+# 1|2|3|4    bold|dim|italic|underline
+# m
+
+# Reset the color
+NC="\033[0m"
+
+echo "STANDARD COLORS:"
+for i in {0..255}; do
+  # Set the foreground color using ANSI escape code
+  FG="\033[38;5;${i}m"
+  if [ "$i" -lt 10 ]; then
+    PAD="   "
+  elif [ "$i" -lt 100 ]; then
+    PAD="  "
+  else
+    PAD=" "
+  fi
+  echo -ne "${FG}\\\033[38;5;${i}m${NC}$PAD"
+  # Print colors in 4 columns
+  if [ $((($i + 1) % 6)) == 0 ]; then
+    echo ""
+  fi
+done
+
+echo ""
+echo ""
+echo "DIM COLORS:"
+for i in {0..255}; do
+  # Set the foreground color using ANSI escape code
+  FG="\033[38;5;${i};2m"
+  if [ "$i" -lt 10 ]; then
+    PAD="   "
+  elif [ "$i" -lt 100 ]; then
+    PAD="  "
+  else
+    PAD=" "
+  fi
+  echo -ne "${FG}\\\033[38;5;${i};2m${NC}$PAD"
+  # Print colors in 6 columns
+  if [ $((($i + 1) % 6)) == 0 ]; then
+    echo ""
+  fi
+done
+
+echo ""
+echo ""
+echo "BRIGHT COLORS:"
+for i in {0..255}; do
+  # Set the foreground color using ANSI escape code
+  FG="\033[38;5;${i};1m"
+  if [ "$i" -lt 10 ]; then
+    PAD="   "
+  elif [ "$i" -lt 100 ]; then
+    PAD="  "
+  else
+    PAD=" "
+  fi
+  echo -ne "${FG}\\\033[38;5;${i};1m${NC}$PAD"
+  # Print colors in 6 columns
+  if [ $((($i + 1) % 6)) == 0 ]; then
+    echo ""
+  fi
+done
+
+echo ""  # Add a final newline for better output formatting
+
 # Prints a dump of ANSI colors.
 
-for fgbg in 38 48 ; do # For foreground/background
-  for color in {0..256} ; do # For all 256 colors
-    printf "\e[${fgbg};5;${color}m ${color}\t\e[0m"
-    # Newline after every 10 colors.
-    if [ $((($color + 1) % 10)) == 0 ] ; then
-      echo
-    fi
-  done
-  echo # Final newline.
-done
+# for brightness in 0 1 2 3 4 5; do # For bright/dim/italic/underline
+#   for fgbg in 38 48; do # For foreground/background
+#     for color in {0..256} ; do # For all 256 colors
+#       if [ $brightness == 0 ]; then
+#         printf "\e[${fgbg};5;${color}m \\\033[${fgbg};5;${color}m \e[0m\t"
+#       else
+#         printf "\e[${fgbg};5;${color};${brightness}m \\\033[${fgbg};5;${color};${brightness}m \e[0m\t"
+#       fi
+#       # printf "\e[${fgbg};5;${color}m \\\033[${fgbg};5;${color}m\t\e[0m"
+#       # Newline after every 10 colors.
+#       if [ $((($color + 1) % 6)) == 0 ] ; then
+#         echo
+#       fi
+#     done
+#     echo
+#     echo
+#   done
+# done
