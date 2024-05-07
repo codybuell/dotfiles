@@ -21,14 +21,17 @@ local postfix = require("luasnip.extras.postfix").postfix
 
 return {
   -- examples
-  s("!", f(buell.sniputils.bash, {}, { user_args = { ":" } })),
-
   s("novel", {
     t("It was a dark and stormy night on "),
     d(1, buell.sniputils.date_input, {}, { user_args = { "%A, %B %d of %Y" } }),
     t(" and the clocks were striking thirteen."),
   }),
   -- /examples
+
+  -- inject output of bash command into doc, type command, visually select, hit
+  -- tab, type !, then expand snippet, the original text will be replaced with
+  -- the commands output
+  s("!", f(buell.sniputils.bash, {}, { user_args = { ":" } })),
 
   buell.sniputils.box("#"),
   buell.sniputils.bbox("#"),
