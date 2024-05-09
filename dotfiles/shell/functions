@@ -62,18 +62,20 @@ ec2ls() {
 rmbuckets() {
   pattern=$1
   for b in $(aws s3 ls | grep $pattern | awk '{print $3}'); do
-    echo "emptying bucket $b"
-    aws s3 rm --recursive --quiet s3://$b/
-    aws s3api list-object-versions --bucket $b --output text | grep "DELETEMARKERS" | while read obj
-    do
-      KEY=$(echo $obj| awk '{print $3}')
-      VERSION_ID=$(echo $obj | awk '{print $5}')
-      #echo $KEY
-      #echo $VERSION_ID
-      aws s3api delete-object --bucket $b --key $KEY --version-id $VERSION_ID
-    done
-    aws s3api delete-bucket --bucket $b
-    echo "deleted bucket $b"
+    # prompt to confirm
+    read -p "Delete bucket $b? [y/n] " -n 1 -r confirmation
+    if [[ $confirmation =~ ^[Yy]$ ]]; then
+      echo "emptying bucket $b"
+      aws s3 rm --recursive --quiet s3://$b/
+      aws s3api list-object-versions --bucket $b --output text | grep "DELETEMARKERS" | while read obj
+      do
+        KEY=$(echo $obj| awk '{print $3}')
+        VERSION_ID=$(echo $obj | awk '{print $5}')
+        aws s3api delete-object --bucket $b --key $KEY --version-id $VERSION_ID
+      done
+      aws s3api delete-bucket --bucket $b
+      echo "deleted bucket $b"
+    fi
   done
 }
 
