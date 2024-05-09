@@ -47,6 +47,7 @@ augroup('BuellAutocommands', function()
     local close_if_ft = {
       'fugitiveblame',
       'fugitive',
+      'shellbot',
     }
 
     -- implement closing
@@ -135,15 +136,21 @@ augroup('BuellAutocommands', function()
   autocmd('FileType', '*', function()
     -- grab file & buffer types
     local bt = vim.bo.buftype
+    local ft = vim.bo.filetype
 
     -- map gq to close window on these buffer types
-    local map_gq_to_close = {
+    local map_gq_to_close_bt = {
       'quickfix',
       'help',
     }
 
+    -- map gq to close window on these file types
+    local map_gq_to_close_ft = {
+      'shellbot',
+    }
+
     -- implement map gq to close
-    if buell.util.has_value(map_gq_to_close, bt) then
+    if buell.util.has_value(map_gq_to_close_bt, bt) or buell.util.has_value(map_gq_to_close_ft, ft) then
       vim.keymap.set('n', 'gq', ':q<CR>', {remap = false, silent = true, buffer = true})
     end
 
