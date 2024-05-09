@@ -51,9 +51,30 @@ function gopath() {
 
 # aws
 ec2ls() {
+  if [ ! -z ${1} ]; then
+    REGION="--region ${1}"
+  fi
   aws ec2 describe-instances --query \
   "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Status:State.Name,ID:InstanceId,AZ:Placement.AvailabilityZone,Key:KeyName,Type:InstanceType,Launched:LaunchTime}" \
-  --output table
+  --output table $(echo ${REGION})
+}
+
+rmbuckets() {
+  pattern=$1
+  for b in $(aws s3 ls | grep $pattern | awk '{print $3}'); do
+    echo "emptying bucket $b"
+    aws s3 rm --recursive --quiet s3://$b/
+    aws s3api list-object-versions --bucket $b --output text | grep "DELETEMARKERS" | while read obj
+    do
+      KEY=$(echo $obj| awk '{print $3}')
+      VERSION_ID=$(echo $obj | awk '{print $5}')
+      #echo $KEY
+      #echo $VERSION_ID
+      aws s3api delete-object --bucket $b --key $KEY --version-id $VERSION_ID
+    done
+    aws s3api delete-bucket --bucket $b
+    echo "deleted bucket $b"
+  done
 }
 
 # markdown shortcut
