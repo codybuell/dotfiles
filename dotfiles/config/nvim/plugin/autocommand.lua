@@ -48,6 +48,7 @@ augroup('BuellAutocommands', function()
       'fugitiveblame',
       'fugitive',
       'shellbot',
+      'copilot-chat',
     }
 
     -- implement closing

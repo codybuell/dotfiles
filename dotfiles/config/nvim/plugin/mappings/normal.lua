@@ -9,8 +9,9 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 -- modes
 vim.keymap.set('n', '<Leader>1', ':Goyo<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>2', ':ChatGPT<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>3', ':Copilot toggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>4', function()
+vim.keymap.set('n', '<Leader>3', ':CopilotChatToggle<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>4', ':Copilot toggle<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>5', function()
   if #vim.lsp.get_active_clients() == 0 then
     vim.cmd("LspStart")
     buell.lsp.init()
