@@ -160,15 +160,19 @@ repo() {
     TARGETREPO=$(echo $REPOLIST | grep "/${1}$")
     if [[ "$TARGETREPO" =~ .*'\n'.* ]]; then
       OPTIONS=( $(echo $TARGETREPO | sed 's/\\n/ /g') )
-      echo "Please select a repo:"
-      select option in "${OPTIONS[@]}"; do
-        if [[ -z "$option" ]]; then
-          echo "Invalid selection"
-        else
-          cd $option
-          break
-        fi
-      done
+      if [ ${#OPTIONS[@]} -eq 1 ]; then
+        cd $TARGETREPO
+      else
+        echo "Please select a repo:"
+        select option in "${OPTIONS[@]}"; do
+          if [[ -z "$option" ]]; then
+            echo "Invalid selection"
+          else
+            cd $option
+            break
+          fi
+        done
+      fi
     else
       cd $TARGETREPO
       #changedir '{{ Repos }}' $@
