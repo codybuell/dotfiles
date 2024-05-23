@@ -6,7 +6,7 @@ vim.wo.showbreak = 'NONE'
 
 local has_shellbot = require('chatgpt')
 if has_shellbot then
-  vim.keymap.set({ 'i', 'n' }, '<M-CR>', ChatGPTSubmit, { buffer = true })
+  vim.keymap.set({ 'i', 'n' }, '<C-s>', ChatGPTSubmit, { buffer = true })
 end
 
 -- The following is a duplication of ftplugin/markdown.lua and thrown in out of

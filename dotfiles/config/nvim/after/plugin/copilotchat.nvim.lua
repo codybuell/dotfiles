@@ -1,10 +1,10 @@
 require("CopilotChat").setup {
-    debug = false, -- Enable debug logging
+  debug = false, -- Enable debug logging
   proxy = nil, -- [protocol://]host[:port] Use this proxy
   allow_insecure = false, -- Allow insecure server connections
 
   system_prompt = require('CopilotChat.prompts').COPILOT_INSTRUCTIONS, -- System prompt to use
-  model = 'gpt-4', -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4'
+  model = 'gpt-4o', -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4' 'gpt-4o'
   temperature = 0.1, -- GPT temperature
 
   question_header = '## User ', -- Header to use for user questions
@@ -13,12 +13,12 @@ require("CopilotChat").setup {
   separator = '---', -- Separator to use in chat
 
   show_folds = true, -- Shows folds for sections in chat
-  show_help = true, -- Shows help message as virtual lines when waiting for user input
+  show_help = false, -- Shows help message as virtual lines when waiting for user input
   auto_follow_cursor = true, -- Auto-follow cursor in chat
   auto_insert_mode = false, -- Automatically enter insert mode when opening window and if auto follow cursor is enabled on new prompt
   clear_chat_on_new_prompt = false, -- Clears chat on every new prompt
 
-  context = nil, -- Default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
+  context = 'buffer', -- Default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
   history_path = vim.fn.stdpath('data') .. '/copilotchat_history', -- Default path to stored history
   callback = nil, -- Callback to use when ask response is received
 
@@ -85,23 +85,28 @@ require("CopilotChat").setup {
   mappings = {
     complete = {
       detail = 'Use @<Tab> or /<Tab> for options.',
-      insert ='<Tab>',
+      -- insert ='<Tab>',
+      insert ='',
     },
     close = {
       normal = 'gq',
       insert = '<C-c>'
     },
     reset = {
+      -- normal ='<C-l>',
+      -- insert = '<C-l>'
       normal ='',
       insert = ''
     },
     submit_prompt = {
-      normal = '<CR>',
-      insert = '<C-m>'
+      normal = '<C-s>',
+      insert = '<C-s>'
     },
     accept_diff = {
-      normal = '<C-y>',
-      insert = '<C-y>'
+      -- normal = '<C-y>',
+      -- insert = '<C-y>'
+      normal ='',
+      insert = ''
     },
     yank_diff = {
       normal = 'gy',

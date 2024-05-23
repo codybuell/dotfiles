@@ -10,3 +10,5 @@ vim.api.nvim_create_user_command('ChatGPT', function()
   end
   shellbot.chatgpt()
 end, {})
+
+-- mapping to submit is in ftplugin/shellbot.lua

@@ -1,31 +1,9 @@
 require('copilot').setup({
   panel = {
     enabled = false,             -- using copilot-cmp instead
-    auto_refresh = false,
-    keymap = {
-      jump_prev = "[[",
-      jump_next = "]]",
-      accept = "<CR>",
-      refresh = "gr",
-      open = "<M-CR>"
-    },
-    layout = {
-      position = "bottom",       -- | top | left | right
-      ratio = 0.4
-    },
   },
   suggestion = {
     enabled = false,             -- using copilot-cmp instead
-    auto_trigger = false,
-    debounce = 75,
-    keymap = {
-      accept = "<M-l>",
-      accept_word = "<C-o>",
-      accept_line = false,
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<C-]>",
-    },
   },
   filetypes = {
     yaml = false,
