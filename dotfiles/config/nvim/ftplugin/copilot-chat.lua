@@ -161,7 +161,6 @@ end
 -- @return nil
 local refresh_syntax = function(force)
   if vim.bo.filetype == 'copilot-chat' and vim.fn.line('$') > 1 and vim.bo.syntax ~= 'OFF' then
-    print("doing it")
     highlight_sources(force)
   end
 end
