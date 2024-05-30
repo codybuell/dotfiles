@@ -25,6 +25,14 @@ function devim() {
   VIMDEVPATH=$1 vim -Nu ~/.devimrc.vim
 }
 
+# setup a python virtual environment
+function venv() {
+  python3 -m venv .venv
+  echo "source .venv/bin/activate" >> .envrc
+  echo ".venv" >> .gitignore
+  direnv allow
+}
+
 # search up for ~/.gopath and set GOPATH to its parent dir
 function gopath() {
   cdir=$PWD
