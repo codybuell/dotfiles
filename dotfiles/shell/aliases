@@ -68,7 +68,7 @@ alias gba="git branch -a"
 alias gco="git checkout"
 alias log="git log --pretty=oneline"
 alias gsa="clear && git status && git branch -v"
-alias gbc="git branch --merged | grep -Ev '(^\*|master|support-*|release-*)' | xargs git branch -d"
+alias gbc="git branch --merged | grep -Ev '^ *(^\*|main|master|support-*|release-[0-9]+)' | xargs git branch -d"
 
 # arduino cli
 alias ard="arduino-cli"
