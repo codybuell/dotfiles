@@ -28,8 +28,12 @@ function devim() {
 # setup a python virtual environment
 function venv() {
   python3 -m venv .venv
-  echo "source .venv/bin/activate" >> .envrc
-  echo ".venv" >> .gitignore
+  if ! grep -q "^source .venv/bin/activate$" .gitignore; then
+    echo "source .venv/bin/activate" >> .envrc
+  fi
+  if ! grep -q "^\.venv$" .gitignore; then
+    echo ".venv" >> .gitignore
+  fi
   direnv allow
 }
 
