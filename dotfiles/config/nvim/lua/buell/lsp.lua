@@ -437,6 +437,13 @@ lsp.init = function()
     },
   })
 
+  -- Svelte
+  lspconfig.svelte.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities,
+  })
+
 end
 
 return lsp

@@ -27,6 +27,7 @@ treesitter.setup {
     "regex",
     "ruby",
     "scss",
+    "svelte",
     "toml",
     "typescript",
     "vim",

@@ -56,6 +56,7 @@ PACKAGES=( \
   'vscode-html-languageserver-bin' \       # html language server
   'vim-language-server' \                  # vim language server
   'intelephense' \                         # php language server
+  'svelte-language-server' \               # svelte language server
   'typescript-language-server' \           # js / ts language server
   'vscode-css-languageserver-bin' \        # css/less/sass language server
   'vscode-langservers-extracted' \         # a mix of language server bins
