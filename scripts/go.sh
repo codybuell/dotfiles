@@ -40,6 +40,7 @@ ALL=( \
   'github.com/arduino/arduino-language-server@latest' \   # lsp for aduino, requires clang and arduino-cli
   'golang.org/x/tools/gopls@latest' \                     # langserver
   'github.com/go-delve/delve/cmd/dlv@latest' \            # golang debugger utility
+  'github.com/air-verse/air@latest' \                     # live reload for go
 )
 
 # no longer in use:
