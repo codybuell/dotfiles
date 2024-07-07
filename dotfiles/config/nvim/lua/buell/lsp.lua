@@ -162,6 +162,8 @@ lsp.init = function()
     settings = {
       gopls = {
         staticcheck = true,
+        buildFlags = {"-tags=prod"},  -- for production environment
+        -- buildFlags = {"-tags=!prod"},  -- for development environment
         analyses = {
           -- full list: https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
           unusedparams = true,
