@@ -268,3 +268,6 @@
 [submodule "dotfiles/tmux/tmux-continuum"]
 	path = dotfiles/tmux/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-nio"]
+	path = dotfiles/config/nvim/pack/bundle/opt/nvim-nio
+	url = https://github.com/nvim-neotest/nvim-nio.git

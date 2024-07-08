@@ -161,6 +161,7 @@ end
 vim.cmd('packadd! nvim-dap')                -- dap protocol shim
 vim.cmd('packadd! nvim-dap-ui')             -- dap user interface
 vim.cmd('packadd! nvim-dap-go')             -- dap extension for golang
+vim.cmd('packadd! nvim-nio')                -- dap ui dependency, async io
 
 -- language server
 vim.cmd('packadd! nvim-lspconfig')          -- language server configurations
