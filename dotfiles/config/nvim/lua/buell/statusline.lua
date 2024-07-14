@@ -402,6 +402,15 @@ statusline.update = function()
       '%{get(w:,"quickfix_title","")}',
       '%=',
     }
+  elseif buell.util.has_value({'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches', 'dapui_console'}, filetype) then
+    local winname = filetype:sub(7, -1)
+    line = table.concat {
+      '  [',
+      winname,
+      ']',
+    }
+  elseif filetype == 'dap-repl' then
+    line = '  [repl]'
   else
     line = "%!luaeval('buell.statusline.default()')"
   end

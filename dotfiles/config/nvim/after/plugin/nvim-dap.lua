@@ -3,6 +3,8 @@ local dap = require("dap")
 
 vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
 vim.keymap.set("n", "<leader>dc", dap.continue, {})
+vim.keymap.set("n", "<Leader>dr", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
+
 
 -- vim.api.nvim_set_hl(0, "blue",   { fg = "#3d59a1", bg = pinnacle.bg("LineNr")})
 -- vim.api.nvim_set_hl(0, "green",  { fg = "#9ece6a", bg = pinnacle.bg("LineNr")})

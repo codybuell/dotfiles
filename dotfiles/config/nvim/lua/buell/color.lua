@@ -129,6 +129,29 @@ color.update = function()
   vim.cmd("hi clear TabLineSel")
   vim.cmd('hi def link TabLineSel ErrorMsg')
 
+  --------------
+  --  dap-ui  --
+  --------------
+
+  vim.cmd("highlight clear WinBar")
+  vim.cmd("highlight! link WinBar Status2")
+  vim.cmd("highlight clear WinBarNC")
+  vim.cmd("highlight! link WinBarNC Status2")
+  pinnacle.set('DapUIPlayPause', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIPlayPause')})
+  pinnacle.set('DapUIPlayPauseNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIPlayPauseNC')})
+  pinnacle.set('DapUIStepInto', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepInto')})
+  pinnacle.set('DapUIStepIntoNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepIntoNC')})
+  pinnacle.set('DapUIStepOver', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOver')})
+  pinnacle.set('DapUIStepOverNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOverNC')})
+  pinnacle.set('DapUIStepOut', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOut')})
+  pinnacle.set('DapUIStepOutNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOutNC')})
+  pinnacle.set('DapUIStepBack', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepBack')})
+  pinnacle.set('DapUIStepBackNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepBackNC')})
+  pinnacle.set('DapUIRestart', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIRestart')})
+  pinnacle.set('DapUIRestartNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIRestartNC')})
+  pinnacle.set('DapUIStop', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStop')})
+  pinnacle.set('DapUIStopNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStopNC')})
+
   ---------------------
   --  miscellaneous  --
   ---------------------
