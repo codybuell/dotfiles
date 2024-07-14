@@ -37,7 +37,7 @@ treesitter.setup {
   },
   highlight = {
     enable = true,                       -- false will disable the whole extension
-    disable = { "yaml, json, jsonc" },   -- native vim syntax highlighting is better
+    disable = { "yaml", "json", "jsonc", "markdown" },   -- native vim syntax highlighting is better
     is_supported = function()            -- disable / stop trying to re-init highlighting on large files
       if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then
         return false
