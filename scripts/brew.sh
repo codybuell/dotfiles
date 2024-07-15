@@ -60,6 +60,7 @@ PACKAGES=( \
   'lockrun' \                         # used for process flow control in mutt
   'lua' \                             # the lua programming language
   'lua-language-server' \             # the lua language server
+  'luarocks' \                        # lua package manager
   'mas' \                             # mac app store package manager
   'minicom' \                         # modem control and serial terminal emulation
   'minikube' \                        # local kubernetes
