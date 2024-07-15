@@ -39,12 +39,12 @@ fi
 tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
 
 # build out panes - left
-tmux split-window -t ${SESSION}:main.1 -h -p 45
-tmux split-window -t ${SESSION}:main.2 -v -p 60
+tmux split-window -t ${SESSION}:main.1 -h -l 45%
+tmux split-window -t ${SESSION}:main.2 -v -l 60%
 
 # build out panes - right
-# tmux split-window -t ${SESSION}:main.1 -h -p 55
-# tmux split-window -t ${SESSION}:main.1 -v -p 60
+# tmux split-window -t ${SESSION}:main.1 -h -l 55%
+# tmux split-window -t ${SESSION}:main.1 -v -l 60%
 
 # run commands
 tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
