@@ -94,6 +94,26 @@ while true; do
     }
   }
 
+  # run work-archive only if it's the first 5 minutes of the hour
+  if [[ "$(date +%M)" -lt 5 && "$ACCOUNT" == "work" ]]; then
+    echo "${BLUE}Running mbsync work-archive:${NORM}"
+    echo
+
+    [[ -f /etc/redhat-release ]] && {
+      time timeout 600 mbsync "work-archive" || {
+        notify-send "mbsync" "mbsync (work-archive) exited"
+        backoff
+        continue
+      }
+    } || {
+      time gtimeout 600 mbsync "work-archive" || {
+        reattach-to-user-namespace terminal-notifier -title mbsync -message "mbsync (work-archive) exited"
+        backoff
+        continue
+      }
+    }
+  fi
+
   echo
   echo "${BLUE}Running postsync hooks ($ACCOUNT):${NORM}"
   echo

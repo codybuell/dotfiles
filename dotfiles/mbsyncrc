@@ -106,7 +106,7 @@ PassCmd "get-keychain-pass {{ WorkEmailKeychain }} {{ WorkEmailHost }}"
 CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
 TLSType IMAPS
 AuthMechs LOGIN
-PipelineDepth 1
+# PipelineDepth 1
 
 IMAPStore Work-remote
 Account Work
@@ -176,8 +176,10 @@ Channel Work-Sent
 Channel Work-Starred
 Channel Work-Spam
 Channel Work-Trash
-Channel Work-All
 Channel Work-Default
+
+Group work-archive
+Channel Work-All
 
 ################################################################################
 #                                                                              #
