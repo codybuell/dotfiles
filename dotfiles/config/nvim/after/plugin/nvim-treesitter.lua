@@ -6,7 +6,7 @@ local treesitter = require('nvim-treesitter.configs')
 -- `vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'` in init.lua
 
 treesitter.setup {
-  ensure_installed = {        -- "all", "maintained", or a list of languages
+  ensure_installed = {
     "bash",
     "c",
     "cmake",
@@ -36,6 +36,9 @@ treesitter.setup {
     "vue",
     "yaml",
   },
+  sync_install = true,
+  auto_install = true,
+  ignore_install = {},
   highlight = {
     enable = true,
     disable = { "yaml", "json", "jsonc", "markdown" },   -- native vim syntax highlighting is better
@@ -46,4 +49,17 @@ treesitter.setup {
       return true
     end,
   },
+  incremental_selection = {
+    enable = false,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  indent = {
+    enable = false,
+  },
+  modules = {},
 }
