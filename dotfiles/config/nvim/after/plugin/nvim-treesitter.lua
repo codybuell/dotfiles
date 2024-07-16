@@ -14,6 +14,7 @@ treesitter.setup {
     "cpp",
     "css",
     "dockerfile",
+    "diff",
     "go",
     "gomod",
     "graphql",
