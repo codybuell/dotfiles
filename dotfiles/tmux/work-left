@@ -11,7 +11,7 @@
 # '--------------------------------------'
 
 selectp -t 1
-splitw -v -p 48 -c "#{pane_current_path}"
+splitw -v -l 48% -c "#{pane_current_path}"
 
 selectp -t 1
 splitw -h -l 87 -c "#{pane_current_path}"

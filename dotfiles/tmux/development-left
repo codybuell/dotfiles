@@ -11,10 +11,10 @@
 # '--------------------------------------'
 
 selectp -t 1
-splitw -h -p 30 -c "#{pane_current_path}"
+splitw -h -l 30% -c "#{pane_current_path}"
 
 selectp -t 2
-splitw -v -p 35 -c "#{pane_current_path}"
+splitw -v -l 35% -c "#{pane_current_path}"
 
 selectp -t 3
 
