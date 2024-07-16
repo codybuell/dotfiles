@@ -22,7 +22,8 @@ augroup('BuellAutocommands', function()
     end
 
     -- handling here instead of in ftplugin/markdown.lua because that file is firing for help docs and breaking ctrl-]
-    if ft == 'markdown' then
+    local mkds = {'markdown', 'markdown.corpus'}
+    if buell.util.has_value(mkds, ft) then
       vim.keymap.set('n', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
       vim.keymap.set('v', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
     end
