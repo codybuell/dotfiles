@@ -88,7 +88,7 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(0, 'i', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {noremap = true, silent = true})
 
   -- language specific autocommands
-  -- local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  -- local filetype = vim.api.nvim_get_option_value("filetype", {buff = bufnr})
 
   buell.util.augroup('BuellLSP', function()
     vim.api.nvim_command("autocmd BufWritePre *.go lua buell.lsp.go_imports(1000)")

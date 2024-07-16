@@ -60,7 +60,7 @@ augroup('BuellAutocommands', function()
     pcall(function()
       if vim.api.nvim_win_get_var(0, 'textDocument/hover') then
         vim.keymap.set('n', 'K', ':call nvim_win_close(0, v:true)<CR>', {remap = false, silent = true})
-        vim.api.nvim_win_set_option(0, 'cursorline', false)
+        vim.api.nvim_set_option_value('cursorline', false, {scope = 'win', win = 0})
       end
     end)
 

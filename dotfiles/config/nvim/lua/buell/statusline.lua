@@ -41,7 +41,7 @@ local lspstatus = function(bufnr)
   bufnr = bufnr or 0
 
   -- if no lsp clients registered bail
-  if #vim.lsp.get_active_clients({buffer = bufnr}) == 0 then
+  if #vim.lsp.get_clients({bufnr = bufnr}) == 0 then
     return ''
   end
 
@@ -182,7 +182,7 @@ statusline.cur_func = function(bufnr)
   bufnr = bufnr or 0
 
   -- if no lsp clients registered bail
-  if #vim.lsp.buf_get_clients(bufnr) == 0 then
+  if #vim.lsp.get_clients({bufnr = bufnr}) == 0 then
     return ''
   end
 
@@ -193,7 +193,7 @@ end
 statusline.lhs = function()
   local gutter_width = buell.util.gutter_width()
   local treesitter   = vim.fn['nvim_treesitter#statusline']({1})
-  local lspclient    = #vim.lsp.buf_get_clients() > 0
+  local lspclient    = #vim.lsp.get_clients({bufnr = 0}) > 0
   local line         = ' '
 
   if require("copilot.client").buf_is_attached(0) == true then
