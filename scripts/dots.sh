@@ -223,6 +223,9 @@ post_place_hooks() {
 
       # markdown-preview.nvim
       # ${NVIMPATH} --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
+
+      # get rid of massive command-t benchmarks folder, keeps lua lsp happy
+      rm -rf ${HOME}/.config/nvim/pack/bundle/opt/command-t/data/wincent/commandt/benchmark
       ;;
   esac
 
