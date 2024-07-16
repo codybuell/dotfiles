@@ -114,7 +114,7 @@ color.update = function()
   vim.cmd('hi def link buellInProgressTodoText Question')
 
   vim.cmd('hi def link buellCompletedTodo mkdListItem')
-  pinnacle.set('buellCompletedTodoText', pinnacle.brighten('Ignore', 0.30))
+  pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.20))
 
   vim.cmd('hi def link buellDroppedTodo mkdListItem')
   pinnacle.set('buellDroppedTodoText', pinnacle.decorate('strikethrough', 'buellCompletedTodoText'))
