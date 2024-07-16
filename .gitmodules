@@ -5,78 +5,103 @@
 [submodule "dotfiles/shell/zsh-autosuggestions"]
 	path = dotfiles/shell/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+	ignore = dirty
 [submodule "dotfiles/shell/zsh-syntax-highlighting"]
 	path = dotfiles/shell/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	ignore = dirty
 [submodule "dotfiles/mutt/vendor/mutt-notmuch-py"]
 	path = dotfiles/mutt/vendor/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-repeat"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-surround"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-fugitive"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-commentary"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-obsession"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/ferret"]
 	path = dotfiles/config/nvim/pack/bundle/opt/ferret
 	url = https://github.com/wincent/ferret.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/command-t"]
 	path = dotfiles/config/nvim/pack/bundle/opt/command-t
 	url = https://github.com/wincent/command-t.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/loupe"]
 	path = dotfiles/config/nvim/pack/bundle/opt/loupe
 	url = https://github.com/wincent/loupe.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/pinnacle"]
 	path = dotfiles/config/nvim/pack/bundle/opt/pinnacle
 	url = https://github.com/wincent/pinnacle.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-dirvish"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish.git
+	ignore = dirty
 [submodule "/config/nvim/pack/bundle/opt/vim-tmux-navigator"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-tmux-runner
 	url = https://github.com/christoomey/vim-tmux-runner.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/lsp-status.nvim
 	url = https://github.com/nvim-lua/lsp-status.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-cmp"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-path"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-path
 	url = https://github.com/hrsh7th/cmp-path.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-emoji"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-emoji
 	url = https://github.com/hrsh7th/cmp-emoji.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-buffer"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-lbdb
 	url = https://github.com/codybuell/cmp-lbdb.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/plenary.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/null-ls.nvim
 	url = https://github.com/jose-elias-alvarez/null-ls.nvim.git
@@ -84,78 +109,104 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/base16-nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/base16-nvim
 	url = https://github.com/wincent/base16-nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp_luasnip
 	url = https://github.com/saadparwaiz1/cmp_luasnip.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/LuaSnip"]
 	path = dotfiles/config/nvim/pack/bundle/opt/LuaSnip
 	url = https://github.com/L3MON4D3/LuaSnip.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/indent-blankline.nvim
 	url = https://github.com/lukas-reineke/indent-blankline.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-characterize"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-characterize
 	url = https://github.com/tpope/vim-characterize.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/goyo.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/limelight.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/firenvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/firenvim
 	url = https://github.com/glacambre/firenvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/copilot.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-abolish"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/corpus"]
 	path = dotfiles/config/nvim/pack/bundle/opt/corpus
 	url = https://github.com/wincent/corpus.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/autolist.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/autolist.nvim
 	url = https://github.com/gaoDean/autolist.nvim.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-gnupg"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-gnupg
 	url = https://github.com/jamessan/vim-gnupg.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot/lua"]
 	path = dotfiles/config/nvim/pack/bundle/opt/shellbot/lua
 	url = https://github.com/codybuell/shellbot.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-ui"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-ui
 	url = https://github.com/rcarriga/nvim-dap-ui.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/copilot.lua"]
 	path = dotfiles/config/nvim/pack/bundle/opt/copilot.lua
 	url = https://github.com/zbirenbaum/copilot.lua.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/copilot-cmp"]
 	path = dotfiles/config/nvim/pack/bundle/opt/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp.git
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim
 	url = https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
+	ignore = dirty
 [submodule "dotfiles/tmux/tmux-resurrect"]
 	path = dotfiles/tmux/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
+	ignore = dirty
 [submodule "dotfiles/tmux/tmux-continuum"]
 	path = dotfiles/tmux/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-nio"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-nio
 	url = https://github.com/nvim-neotest/nvim-nio.git
+	ignore = dirty
