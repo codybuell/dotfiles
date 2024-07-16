@@ -194,7 +194,7 @@ vim.cmd('packadd! vim-commentary')          -- easy editing of surrounding chars
 vim.cmd('packadd! vim-obsession')           -- session management
 vim.cmd('packadd! vim-fugitive')            -- git wrapper
 vim.cmd('packadd! vim-surround')            -- easy editing of surrounding chars
--- vim.cmd('packadd! vim-repeat')           -- repeat plugin work with .
+vim.cmd('packadd! vim-repeat')              -- repeat plugin work with .
 vim.cmd('packadd! vim-abolish')             -- case toggling, replacements variations
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
 vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
