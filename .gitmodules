@@ -96,130 +96,18 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-characterize"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-characterize
 	url = https://github.com/tpope/vim-characterize.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-pathogen"]
-	path = dotfiles/vim/pack/bundle/opt/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-camelsnek"]
-	path = dotfiles/vim/pack/bundle/opt/vim-camelsnek
-	url = https://github.com/nicwest/vim-camelsnek.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-speeddating"]
-	path = dotfiles/vim/pack/bundle/opt/vim-speeddating
-	url = https://github.com/tpope/vim-speeddating.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-dadbod"]
-	path = dotfiles/vim/pack/bundle/opt/vim-dadbod
-	url = https://github.com/tpope/vim-dadbod.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-vinegar"]
-	path = dotfiles/vim/pack/bundle/opt/vim-vinegar
-	url = https://github.com/tpope/vim-vinegar.git
-[submodule "dotfiles/vim/pack/bundle/opt/deoplete-lsp"]
-	path = dotfiles/vim/pack/bundle/opt/deoplete-lsp
-	url = https://github.com/Shougo/deoplete-lsp.git
-[submodule "dotfiles/vim/pack/bundle/opt/deoplete"]
-	path = dotfiles/vim/pack/bundle/opt/deoplete
-	url = https://github.com/Shougo/deoplete.nvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/tagbar"]
-	path = dotfiles/vim/pack/bundle/opt/tagbar
-	url = https://github.com/majutsushi/tagbar.git
-[submodule "dotfiles/vim/pack/bundle/opt/terminus"]
-	path = dotfiles/vim/pack/bundle/opt/terminus
-	url = https://github.com/wincent/terminus.git
-[submodule "dotfiles/vim/pack/bundle/opt/scalpel"]
-	path = dotfiles/vim/pack/bundle/opt/scalpel
-	url = https://github.com/wincent/scalpel.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/goyo.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/limelight.vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/base16-vim"]
-	path = dotfiles/vim/pack/bundle/opt/base16-vim
-	url = https://github.com/chriskempson/base16-vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/ultisnips"]
-	path = dotfiles/vim/pack/bundle/opt/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
-[submodule "dotfiles/vim/pack/bundle/opt/splitjoin"]
-	path = dotfiles/vim/pack/bundle/opt/splitjoin
-	url = https://github.com/AndrewRadev/splitjoin.vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/jsonc.vim"]
-	path = dotfiles/vim/pack/bundle/opt/jsonc.vim
-	url = https://github.com/neoclide/jsonc.vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/nerdtree"]
-	path = dotfiles/vim/pack/bundle/opt/nerdtree
-	url = https://github.com/preservim/nerdtree.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-markdown"]
-	path = dotfiles/vim/pack/bundle/opt/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-easymotion"]
-	path = dotfiles/vim/pack/bundle/opt/vim-easymotion
-	url = https://github.com/easymotion/vim-easymotion.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-expand-region"]
-	path = dotfiles/vim/pack/bundle/opt/vim-expand-region
-	url = https://github.com/terryma/vim-expand-region.git
-[submodule "dotfiles/vim/pack/bundle/opt/howmuch"]
-	path = dotfiles/vim/pack/bundle/opt/howmuch
-	url = https://github.com/sk1418/HowMuch.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/firenvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/firenvim
 	url = https://github.com/glacambre/firenvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/typescript-vim"]
-	path = dotfiles/vim/pack/bundle/opt/typescript-vim
-	url = https://github.com/leafgarland/typescript-vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-vue"]
-	path = dotfiles/vim/pack/bundle/opt/vim-vue
-	url = https://github.com/posva/vim-vue.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-blade"]
-	path = dotfiles/vim/pack/bundle/opt/vim-blade
-	url = https://github.com/jwalton512/vim-blade.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-marked"]
-	path = dotfiles/vim/pack/bundle/opt/vim-marked
-	url = https://github.com/itspriddle/vim-marked.git
-[submodule "dotfiles/vim/pack/bundle/opt/scss-syntax.vim"]
-	path = dotfiles/vim/pack/bundle/opt/scss-syntax.vim
-	url = https://github.com/cakebaker/scss-syntax.vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/float-preview.nvim"]
-	path = dotfiles/vim/pack/bundle/opt/float-preview.nvim
-	url = https://github.com/ncm2/float-preview.nvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/indentline"]
-	path = dotfiles/vim/pack/bundle/opt/indentline
-	url = https://github.com/Yggdroot/indentLine.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-json"]
-	path = dotfiles/vim/pack/bundle/opt/vim-json
-	url = https://github.com/elzr/vim-json.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-toml"]
-	path = dotfiles/vim/pack/bundle/opt/vim-toml
-	url = https://github.com/cespare/vim-toml.git
-	ignore = dirty
-[submodule "dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext"]
-	path = dotfiles/vim/pack/bundle/opt/vim-fugitive-blame-ext
-	url = https://github.com/tommcdo/vim-fugitive-blame-ext.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule "dotfiles/vim/pack/bundle/opt/vis"]
-	path = dotfiles/vim/pack/bundle/opt/vis
-	url = https://github.com/vim-scripts/vis
-[submodule "dotfiles/vim/pack/bundle/opt/markdown-preview.nvim"]
-	path = dotfiles/vim/pack/bundle/opt/markdown-preview.nvim
-	url = https://github.com/iamcco/markdown-preview.nvim.git
-[submodule "dotfiles/vim/pack/bundle/opt/nvim-compe"]
-	path = dotfiles/vim/pack/bundle/opt/nvim-compe
-	url = https://github.com/hrsh7th/nvim-compe.git
-[submodule "dotfiles/vim/pack/bundle/opt/nvim-base16"]
-	path = dotfiles/vim/pack/bundle/opt/nvim-base16
-	url = https://github.com/RRethy/nvim-base16.git
-[submodule "dotfiles/vim/pack/bundle/opt/compe-lbdb"]
-	path = dotfiles/vim/pack/bundle/opt/compe-lbdb
-	url = https://github.com/codybuell/compe-lbdb.git
-[submodule "dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips"]
-	path = dotfiles/vim/pack/bundle/opt/cmp-nvim-ultisnips
-	url = https://github.com/quangnguyen30192/cmp-nvim-ultisnips.git
-[submodule "dotfiles/vim/pack/bundle/opt/cmp-cmdline"]
-	path = dotfiles/vim/pack/bundle/opt/cmp-cmdline
-	url = https://github.com/hrsh7th/cmp-cmdline.git
-[submodule "dotfiles/vim/pack/bundle/opt/vim-schlepp"]
-	path = dotfiles/vim/pack/bundle/opt/vim-schlepp
-	url = https://github.com/zirrostig/vim-schlepp.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/todo-comments.nvim
 	url = https://github.com/folke/todo-comments.nvim.git
