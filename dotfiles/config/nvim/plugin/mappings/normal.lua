@@ -68,8 +68,6 @@ vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTGit)', {remap = true})
 vim.keymap.set('n', '<Leader>.', ':CommandT %:p:h<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>n', ':CommandTWiki {{ Notes }}<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>j', ':CommandTWiki {{ Journal }}<CR>', {remap = false, silent = true})
-vim.keymap.set('n', '<Leader>d', ':CommandTWiki {{ Domains }}<CR>', {remap = false, silent = true})
-vim.keymap.set('n', '<Leader>p', ':CommandTWiki {{ Projects }}<CR>', {remap = false, silent = true})
 
 -- vim-fugitive
 vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})
