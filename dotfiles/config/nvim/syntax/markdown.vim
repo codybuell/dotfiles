@@ -117,9 +117,9 @@ syn region Comment matchgroup=mkdDelimiter start="\%^---$" end="^\(---\|\.\.\.\)
 unlet! b:current_syntax
 
 " markdown math
-syn include @tex syntax/tex.vim
-syn region mkdMath start="\\\@<!\$" end="\$" skip="\\\$" contains=@tex keepend
-syn region mkdMath start="\\\@<!\$\$" end="\$\$" skip="\\\$" contains=@tex keepend
+" syn include @tex syntax/tex.vim
+" syn region mkdMath start="\\\@<!\$" end="\$" skip="\\\$" contains=@tex keepend
+" syn region mkdMath start="\\\@<!\$\$" end="\$\$" skip="\\\$" contains=@tex keepend
 
 " strike through
 syn region mkdStrike matchgroup=htmlStrike start="\%(\~\~\)" end="\%(\~\~\)" concealends

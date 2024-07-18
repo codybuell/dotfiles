@@ -79,7 +79,7 @@ end
 -- @param nil
 -- @return nil
 local clear_syntax_vars = function()
-  if vim.bo.filetype == 'markdown' then
+  if buell.util.has_value({'markdown', 'markdown.corpus'}, vim.bo.filetype) then
     vim.b.mkd_included_filetypes = nil
   end
 end
@@ -162,9 +162,9 @@ end
 -- @param force: bool of whether to force a full run
 -- @return nil
 local refresh_syntax = function(force)
-    if vim.bo.filetype == 'markdown' and vim.fn.line('$') > 1 and vim.bo.syntax ~= 'OFF' then
-      highlight_sources(force)
-    end
+  if buell.util.has_value({'markdown', 'markdown.corpus'}, vim.bo.filetype) and vim.fn.line('$') > 1 and vim.bo.syntax ~= 'OFF' then
+    highlight_sources(force)
+  end
 end
 
 --------------------------------------------------------------------------------
