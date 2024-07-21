@@ -41,8 +41,10 @@ treesitter.setup {
   ignore_install = {},
   highlight = {
     enable = true,
-    disable = { "yaml", "json", "jsonc", "markdown" },   -- native vim syntax highlighting is better
-    is_supported = function()                            -- disable / stop trying to re-init highlighting on large files
+    -- native vim syntax highlighting is better
+    disable = { "yaml", "json", "jsonc", "markdown", "gitcommit", "shellbot", "copilot-chat" },
+    -- disable / stop trying to re-init highlighting on large files
+    is_supported = function()
       if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then
         return false
       end
