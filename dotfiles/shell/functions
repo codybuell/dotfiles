@@ -75,7 +75,8 @@ rmbuckets() {
   pattern=$1
   for b in $(aws s3 ls | grep $pattern | awk '{print $3}'); do
     # prompt to confirm
-    read -p "Delete bucket $b? [y/n] " -n 1 -r confirmation
+    echo -n "Delete bucket $b? [y/n] "
+    read -r confirmation
     if [[ $confirmation =~ ^[Yy]$ ]]; then
       echo "emptying bucket $b"
       aws s3 rm --recursive --quiet s3://$b/
