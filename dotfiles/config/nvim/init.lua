@@ -175,6 +175,9 @@ vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax highl
 vim.cmd('packadd! base16-nvim')             -- color consistency with shell
 vim.cmd('packadd! todo-comments.nvim')      -- todo comment tags into quickfix / loclist
 
+-- comment definitions for embedded languages in typescript (svelte, react, html, etc)
+vim.cmd('packadd! nvim-ts-context-commentstring')
+
 -- navigation
 vim.cmd('packadd! vim-dirvish')             -- fast netrw replacement
 vim.cmd('packadd! command-t')               -- fast file navigation
