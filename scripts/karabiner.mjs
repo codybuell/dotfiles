@@ -469,7 +469,7 @@ const VANILLA_PROFILE = {
   },
 };
 
-const EXEMPTIONS = ['com.factorio', 'com.feralinteractive.dirtrally'];
+const EXEMPTIONS = ['com.factorio', 'com.feralinteractive.dirtrally', 'com.mojang.minecraftlauncher'];
 
 const DEFAULT_PROFILE = applyExemptions({
   ...VANILLA_PROFILE,

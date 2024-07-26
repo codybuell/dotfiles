@@ -48,7 +48,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -106,7 +107,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -122,7 +124,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -189,7 +192,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -205,7 +209,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -272,7 +277,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -288,7 +294,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -355,7 +362,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -371,7 +379,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -438,7 +447,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -454,7 +464,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -521,7 +532,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -537,7 +549,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -604,7 +617,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -620,7 +634,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -687,7 +702,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -703,7 +719,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -770,7 +787,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -786,7 +804,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -853,7 +872,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -869,7 +889,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -936,7 +957,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -952,7 +974,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1019,7 +1042,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1035,7 +1059,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1102,7 +1127,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1118,7 +1144,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1190,7 +1217,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1206,7 +1234,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1273,7 +1302,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1289,7 +1319,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1356,7 +1387,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1372,7 +1404,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1439,7 +1472,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1455,7 +1489,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1522,7 +1557,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1538,7 +1574,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1605,7 +1642,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1621,7 +1659,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1688,7 +1727,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1704,7 +1744,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1771,7 +1812,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1787,7 +1829,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1854,7 +1897,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1870,7 +1914,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -1937,7 +1982,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -1953,7 +1999,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -2020,7 +2067,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2036,7 +2084,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -2103,7 +2152,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2119,7 +2169,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -2186,7 +2237,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2202,7 +2254,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -2269,7 +2322,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2285,7 +2339,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ],
@@ -2332,7 +2387,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2372,7 +2428,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2413,7 +2470,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2492,7 +2550,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2533,7 +2592,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
@@ -2570,7 +2630,8 @@
                     "type": "frontmost_application_unless",
                     "bundle_identifiers": [
                       "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
+                      "^com\\.feralinteractive\\.dirtrally$",
+                      "^com\\.mojang\\.minecraftlauncher$"
                     ]
                   }
                 ]
