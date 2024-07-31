@@ -39,6 +39,7 @@ PACKAGES=( \
   'azure-cli' \                       # azure api cli client
   'bc' \                              # gnu software calculator
   'coreutils' \                       # gnu utility toolkit
+  'danmx/sigil/sigil' \               # aws ssm manager client
   'direnv' \                          # dynamic folder based environments
   'dive' \                            # docker container analyzer
   'dos2unix' \                        # encoding conversion tool
