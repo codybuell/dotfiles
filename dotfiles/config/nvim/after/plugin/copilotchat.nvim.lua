@@ -4,19 +4,20 @@ require("CopilotChat").setup {
   allow_insecure = false, -- Allow insecure server connections
 
   system_prompt = require('CopilotChat.prompts').COPILOT_INSTRUCTIONS, -- System prompt to use
-  model = 'gpt-4', -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4' 'gpt-4o'
+  model = 'gpt-4o', -- GPT model to use, 'gpt-3.5-turbo', 'gpt-4', or 'gpt-4o'
   temperature = 0.1, -- GPT temperature
 
   question_header = '## User ', -- Header to use for user questions
   answer_header = '## Copilot ', -- Header to use for AI answers
   error_header = '## Error ', -- Header to use for errors
-  separator = '---', -- Separator to use in chat
+  separator = '───', -- Separator to use in chat
 
   show_folds = true, -- Shows folds for sections in chat
   show_help = false, -- Shows help message as virtual lines when waiting for user input
-  auto_follow_cursor = true, -- Auto-follow cursor in chat
+  auto_follow_cursor = false, -- Auto-follow cursor in chat
   auto_insert_mode = false, -- Automatically enter insert mode when opening window and if auto follow cursor is enabled on new prompt
   clear_chat_on_new_prompt = false, -- Clears chat on every new prompt
+  highlight_selection = true, -- Highlight selection in the source buffer when in the chat window
 
   context = 'buffers', -- Default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
   history_path = vim.fn.stdpath('data') .. '/copilotchat_history', -- Default path to stored history
@@ -34,9 +35,9 @@ require("CopilotChat").setup {
     },
     Review = {
       prompt = '/COPILOT_REVIEW Review the selected code.',
-      -- callback = function(response, source)
-      --   -- see config.lua for implementation
-      -- end,
+      callback = function(response, source)
+        -- see config.lua for implementation
+      end,
     },
     Fix = {
       prompt = '/COPILOT_GENERATE There is a problem in this code. Rewrite the code to show it with the bug fixed.',
@@ -68,7 +69,7 @@ require("CopilotChat").setup {
 
   -- default window options
   window = {
-    layout = 'vertical', -- 'vertical', 'horizontal', 'float'
+    layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
     width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
     height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
     -- Options below only apply to floating windows
