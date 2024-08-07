@@ -214,3 +214,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-ts-context-commentstring
 	url = https://github.com/JoosepAlviste/nvim-ts-context-commentstring.git
 	ignore = dirty
+[submodule "dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim.git

@@ -222,7 +222,7 @@ post_place_hooks() {
       ${NVIMPATH} --headless -c "call firenvim#install(0, 'export LANG=\"en_US.UTF-8\"; export PATH=\"${PATH}\"')" -c quit > /dev/null 2>&1
 
       # markdown-preview.nvim
-      # ${NVIMPATH} --headless -c "call BuellInstallMarkdownPreview()" > /dev/null 2>&1
+      ${NVIMPATH} --headless +'lua vim.fn["mkdp#util#install"]()' +qa > /dev/null 2>&1
 
       # get rid of massive command-t benchmarks folder, keeps lua lsp happy
       rm -rf "${HOME}/.config/nvim/pack/bundle/opt/command-t/data/wincent/commandt/benchmark"
@@ -346,16 +346,16 @@ place_files() {
 #                                                                              #
 ################################################################################
 
-[ x"$1" == x"--help" ] && {
+[ "$1" = "--help" ] && {
   usage
   exit
 }
 
-[ x"$1" == x"--no-backup" ] && {
+[ "$1" = "--no-backup" ] && {
   SKIPBACKUPS=true
 }
 
-[ x"$1" == x"--force" ] && {
+[ "$1" = "--force" ] && {
   FORCE=true
 }
 
