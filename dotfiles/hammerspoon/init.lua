@@ -1,231 +1,198 @@
--------------------------------------------------------------------------------
---                                                                           --
---  configuration                                                            --
---                                                                           --
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Configuration                                                             --
+--                                                                            --
+--------------------------------------------------------------------------------
 
--- disaable animations
-hs.window.animationDuration = 0
+-- toggles extra print statements
+DEBUG = false
+
+-- define our key combos
+local minimash = {"ctrl", "alt"}
+local mash     = {"cmd", "alt", "ctrl"}
+local hyper    = {"cmd", "alt", "ctrl", "shift"}
 
 -- enable spotlight support (enable alternative names for applications)
 hs.application.enableSpotlightForNameSearches(true)
+
+-- placeholders for chaining
+local lastSeenChain = nil
+local lastSeenWindow = nil
+
+-- disaable animations
+hs.window.animationDuration = 0
 
 -- define our grid
 hs.grid.setGrid('24x24')
 hs.grid.MARGINX = 0
 hs.grid.MARGINY = 0
 
--- configure logging (debug | info | ...)
-local logLevel = 'info'
-local log      = hs.logger.new('user log', logLevel)
-
 -- gather screen information
-local screenCount   = #hs.screen.allScreens()
+local screenCount   = hs.screen.allScreens()
 local primaryScreen = hs.screen.primaryScreen()
 local primaryMode   = primaryScreen:currentMode()
-local primaryWidth  = primaryMode.w
-local primaryHeight = primaryMode.h
+local primaryName   = primaryScreen:name()
 local primaryWxH    = primaryMode.w .. "x" .. primaryMode.h
-
--- log our resolution to the console
-log.i("detected resolution: " .. primaryWxH)
-
--- define our key combos
-local mash     = {"cmd", "alt", "ctrl"}
-local hyper    = {"cmd", "alt", "ctrl", "shift"}
-local minimash = {"ctrl", "alt"}
 
 -- standardize some grid positions 'x start, y start, grid dimension'
 local grid = {
   -- genral
-  topLeft           = '0,0 12x12',
-  topRight          = '12,0 12x12',
-  bottomRight       = '12,12 12x12',
-  bottomLeft        = '0,12 12x12',
-  fullScreen        = '0,0 24x24',
-  halfFull          = '6,0 12x24',
-  centeredBig       = '4,2 16x20',
-  centeredSmall     = '8,6 8x12',
-  goldenSmall       = '4,2 12x16',
-  goldenLarge       = '4,2 16x20',
-  portraitLarge     = '4,4 10x18',
-  portraitSmall     = '4,4 8x14',
-  landscapeSmall    = '7,7 10x11', -- web broweser screen share
-  centeredMini      = '9.5,9 5x6',
+  topLeft                  = '0,0 12x12',
+  topRight                 = '12,0 12x12',
+  bottomRight              = '12,12 12x12',
+  bottomLeft               = '0,12 12x12',
+  fullScreen               = '0,0 24x24',
+  halfFull                 = '6,0 12x24',
+  centeredBig              = '4,2 16x20',
+  centeredSmall            = '8,6 8x12',
+  goldenSmall              = '4,2 12x16',
+  goldenLarge              = '4,2 16x20',
+  portraitLarge            = '4,4 10x18',
+  portraitSmall            = '4,4 8x14',
+  landscapeSmall           = '7,7 10x11',
+  centeredMini             = '9.5,9 5x6',
   -- customs
-  topLeftBig        = '0 0 10x13',
-  bottomLeftSmall   = '0 14 10x11',
+  topLeftBig               = '0 0 10x13',
+  bottomLeftSmall          = '0 14 10x11',
   -- tops
-  topHalf           = '0,0 24x12',
-  topThird          = '0,0 24x8',
-  topTwoThirds      = '0,0 24x16',
+  topHalf                  = '0,0 24x12',
+  topThird                 = '0,0 24x8',
+  topTwoThirds             = '0,0 24x16',
   -- rights
-  rightSixth        = '20,0 4x24',
-  rightThird        = '16,0 8x24',
-  rightHalf         = '12,0 12x24',
-  rightTwoThirds    = '8,0 16x24',
-  rightSeven12ths   = '10,0 14x24', -- 4k alacritty
+  rightSixth               = '20,0 4x24',
+  rightThird               = '16,0 8x24',
+  rightHalf                = '12,0 12x24',
+  rightTwoThirds           = '8,0 16x24',
+  rightSeven12ths          = '10,0 14x24',
   -- bottoms
-  bottomHalf        = '0,12 24x12',
-  bottomThird       = '0,16 24x8',
-  bottomTwoThirds   = '0,8 24x16',
+  bottomHalf               = '0,12 24x12',
+  bottomThird              = '0,16 24x8',
+  bottomTwoThirds          = '0,8 24x16',
   -- lefts
-  leftSixth         = '0,0 4x24',
-  leftThird         = '0,0 8x24',
-  leftHalf          = '0,0 12x24',
-  leftTwoThirds     = '0,0 16x24',
-  leftThreeQuarters = '0,0 18x24',
-  leftSeven12ths    = '0,0 14x24',
+  leftSixth                = '0,0 4x24',
+  leftThird                = '0,0 8x24',
+  leftHalf                 = '0,0 12x24',
+  leftTwoThirds            = '0,0 16x24',
+  leftThreeQuarters        = '0,0 18x24',
+  leftSeven12ths           = '0,0 14x24',
   -- customs
-  widescreenRight37P = '15,0 9x24', --web browser widescreen
-  widescreenRight63P = '9,0 15x24',
-  widescreenLeft37P  = '0,0 9x24',
-  widescreenLeft63P  = '0,0 15x24', -- terminal widescreen
+  widescreenRight37P       = '15,0 9x24',
+  widescreenRight63P       = '9,0 15x24',
+  widescreenLeft37P        = '0,0 9x24',
+  widescreenLeft63P        = '0,0 15x24',
   laptopLeftThreeQuarters  = '0,0 20x24',
   laptopLeftElevenTwewfths = '0,0 22x24',
   laptopGoldenLarge        = '2,2 20x20',
 }
 
--- layout configuration
+-- application start up positions
 local layoutConfig = {
-
   -- 3840x1600: dell 38" ultrawide (U3818DW)
   -- 3840x2160: dell 32" std (U3219Q)
   -- 2560x1440: dell 27" std (U2713HM)
   -- 1920x1080: dell 24" std ()
 
-  ----------------
-  --  pre hook  --
-  ----------------
+  -- 'com.spotify.client'      Spotify
+  -- 'com.google.Chrome'       Chrome
+  -- 'com.googlecode.iterm2'   iTerm
+  -- 'net.kovidgoyal.kitty'    Kitty
+  -- 'io.alacritty'            Alacritty
+  -- 'us.zoom.xos'             Zoom
+  -- 'com.apple.Music'         Music
+
+  -- pre hook
   _before_ = (function()
-    -- hide('com.spotify.client')
+    -- Hide('com.spotify.client')
   end),
 
-  -----------------
-  --  post hook  --
-  -----------------
+  -- post hook
   _after_ = (function()
     -- make sure iterm appears in front of chrome
-    activate('com.google.Chrome')
-    activate('com.googlecode.iterm2')
+    Activate('com.google.Chrome')
+    Activate('net.kovidgoyal.kitty')
   end),
 
-  --------------
-  --  chrome  --
-  --------------
-  -- ['com.google.Chrome'] = (function(window, forceScreenCount)
-  --   if primaryWxH == "3840x1600" then -- 38" ultrawide
-  --     hs.grid.set(window, grid.widescreenRight37P)
-  --   elseif primaryWxH == "3840x2160" then -- 32" 4k
-  --     hs.grid.set(window, grid.widescreenLeft37P)
-  --   else -- default (laptop)
-  --     hs.grid.set(window, grid.fullScreen)
-  --   end
-  -- end),
-
-  --------------
-  --  iterm2  --
-  --------------
-  ['com.googlecode.iterm2'] = (function(window, forceScreenCount)
---  local count = forceScreenCount or screenCount
---  if count == 1 then
---    hs.grid.set(window, grid.portraitSmall)
---  else
---    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
---  end
---  hs.grid.MARGINX = 6
---  hs.grid.MARGINY = 5
-    if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.widescreenLeft63P)
-    elseif primaryWxH == "3840x2160" then -- 32" 4k
-      hs.grid.set(window, grid.widescreenLeft63P)
-    else -- default (laptop)
-      hs.grid.set(window, grid.fullScreen)
+  -- kitty
+  ['net.kovidgoyal.kitty'] = (function(window, _)
+    if primaryWxH == "3840x2160" then
+      hs.grid.set(window, grid.rightTwoThirds, hs.screen.primaryScreen())
+    else
+      hs.grid.set(window, grid.fullScreen, hs.screen.primaryScreen())
     end
---  hs.grid.MARGINX = 0
---  hs.grid.MARGINY = 0
   end),
 
-  -----------------
-  --  alacritty  --
-  -----------------
-  ['io.alacritty'] = (function(window, forceScreenCount)
---  local count = forceScreenCount or screenCount
---  if count == 1 then
---    hs.grid.set(window, grid.portraitSmall)
---  else
---    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
---  end
---  hs.grid.MARGINX = 6
---  hs.grid.MARGINY = 5
-    if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.widescreenLeft63P)
-    elseif primaryWxH == "3840x2160" then -- 32" 4k
-      -- hs.grid.set(window, grid.widescreenRight63P)
-      hs.grid.set(window, grid.leftSeven12ths)
-    else -- default (laptop)
+  -- music
+  ['com.apple.Music'] = (function(window, forceScreenCount)
+    local newSpace, spacesAfter
+    local spacesBefore = hs.spaces.allSpaces()
+    local count = forceScreenCount or screenCount
+    if count == 1 then
+      newSpace = hs.spaces.addSpaceToScreen("Primary")
+      spacesAfter = hs.spaces.allSpaces()
+    else
+      local screens = hs.screen.allScreens()
+      newSpace = hs.spaces.addSpaceToScreen(screens[2])
+      spacesAfter = hs.spaces.allSpaces()
+    end
+    if newSpace then
+      local spaceId = FindNewSpace(spacesBefore, spacesAfter)
+      hs.spaces.moveWindowToSpace(window, spaceId)
+      hs.grid.set(window, grid.fullScreen)
+      hs.spaces.gotoSpace(spaceId)
+    else
       hs.grid.set(window, grid.fullScreen)
     end
---  hs.grid.MARGINX = 0
---  hs.grid.MARGINY = 0
-  end),
-
-  ------------
-  --  zoom  --
-  ------------
-
-  -- ['us.zoom.xos'] = (function(window, forceScreenCount)
--- --  local count = forceScreenCount or screenCount
--- --  if count == 1 then
--- --    hs.grid.set(window, grid.portraitSmall)
--- --  else
--- --    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
--- --  end
--- --  hs.grid.MARGINX = 6
--- --  hs.grid.MARGINY = 5
-  --   if primaryWxH == "3840x1600" then -- 38" ultrawide
-  --     hs.grid.set(window, grid.topLeftBig)
-  --   elseif primaryWxH == "3840x2160" then -- 32" 4k
-  --     -- hs.grid.set(window, grid.widescreenRight63P)
-  --     hs.grid.set(window, grid.topLeftBig)
-  --   else -- default (laptop)
-  --     hs.grid.set(window, grid.topLeftBig)
-  --   end
--- --  hs.grid.MARGINX = 0
--- --  hs.grid.MARGINY = 0
-  -- end),
-
-  -------------
-  --  kitty  --
-  -------------
-  ['net.kovidgoyal.kitty'] = (function(window, forceScreenCount)
---  local count = forceScreenCount or screenCount
---  if count == 1 then
---    hs.grid.set(window, grid.portraitSmall)
---  else
---    hs.grid.set(window, grid.leftHalf, hs.screen.primaryScreen())
---  end
---  hs.grid.MARGINX = 6
---  hs.grid.MARGINY = 5
-    if primaryWxH == "3840x1600" then -- 38" ultrawide
-      hs.grid.set(window, grid.widescreenLeft63P)
-    elseif primaryWxH == "3840x2160" then -- 32" 4k
-      -- hs.grid.set(window, grid.widescreenRight63P)
-      hs.grid.set(wendow, grid.rightTwoThirds)
-      -- hs.grid.set(window, grid.leftSeven12ths)
-    else -- default (laptop)
-      hs.grid.set(window, grid.fullScreen)
-    end
---  hs.grid.MARGINX = 0
---  hs.grid.MARGINY = 0
   end),
 }
 
--------------------------------------------------------------------------------
---                                                                           --
---  helpers                                                                  --
---                                                                           --
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Helpers                                                                   --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+-- Print Table
+--
+-- Helper function to print tables.
+--
+function PrintTable(o)
+  if type(o) == 'table' then
+    local s = '{ '
+    for k,v in pairs(o) do
+      if type(k) ~= 'number' then k = '"'..k..'"' end
+      s = s .. '['..k..'] = ' .. PrintTable(v) .. ','
+    end
+    return s .. '} '
+  else
+    return tostring(o)
+  end
+end
+
+-- Find New Space
+--
+-- Compare spaces before and after and return the new space id.
+--
+function FindNewSpace(spacesBefore, spacesAfter)
+  for screenID, spaces in pairs(spacesAfter) do
+    local beforeSpaces = spacesBefore[screenID] or {}
+    local afterSpaces = spaces
+
+    -- create a set of space IDs before
+    local beforeSet = {}
+    for _, spaceID in ipairs(beforeSpaces) do
+      beforeSet[spaceID] = true
+    end
+
+    -- find the new space ID in afterSpaces
+    for _, spaceID in ipairs(afterSpaces) do
+      if not beforeSet[spaceID] then
+        return tonumber(spaceID)
+      end
+    end
+  end
+
+  return nil
+end
 
 -- Window Count
 --
@@ -233,7 +200,7 @@ local layoutConfig = {
 -- For Chrome, which has two windows per visible window on screen, but only one
 -- window per minimized window.
 --
-function windowCount(app)
+function WindowCount(app)
   local count = 0
   if app then
     for _, window in pairs(app:allWindows()) do
@@ -245,36 +212,36 @@ function windowCount(app)
   return count
 end
 
--- Hide
+-- Internal Display
 --
--- Hide the defined application by bundleID, eg 'com.googlecode.iterm2'
+-- Returns the internal laptop display.
 --
-function hide(bundleID)
-  local app = hs.application.get(bundleID)
-  if app then
-    app:hide()
-  end
+function InternalDisplay()
+  -- Fun fact: this resolution matches both the 13" MacBook Air and the 15"
+  -- (Retina) MacBook Pro.
+  return hs.screen.find('1440x900')
 end
 
--- Activcate
+-- Activate
 --
 -- Focuses the defined application by bundleID, eg 'com.googlecode.iterm2'
 --
-function activate(bundleID)
+function Activate(bundleID)
   local app = hs.application.get(bundleID)
   if app then
     app:activate()
   end
 end
 
--- Internal Display
+-- Hide
 --
--- Returns the internal laptop display.
+-- Hide the defined application by bundleID, eg 'com.googlecode.iterm2'
 --
-function internalDisplay()
-  -- Fun fact: this resolution matches both the 13" MacBook Air and the 15"
-  -- (Retina) MacBook Pro.
-  return hs.screen.find('1440x900')
+function Hide(bundleID)
+  local app = hs.application.get(bundleID)
+  if app then
+    app:hide()
+  end
 end
 
 -- Activate Layout
@@ -282,7 +249,7 @@ end
 -- Applies window layout as defined in the config above.  Used to call on
 -- varying events (eg. new monitor plugged in or removed).
 --
-function activateLayout(forceScreenCount)
+function ActivateLayout(forceScreenCount)
   -- before hook
   layoutConfig._before_()
 
@@ -301,61 +268,41 @@ function activateLayout(forceScreenCount)
   layoutConfig._after_()
 end
 
--------------------------------------------------------------------------------
---                                                                           --
---  event handling                                                           --
---                                                                           --
--------------------------------------------------------------------------------
-
-function handleWindowEvent(window, winname, event)
+-- Handle Window Event
+--
+-- Hook for window events.  Used to apply layout configurations on window
+-- events if a layout is defined for the bundle id.
+--
+function HandleWindowEvent(window, winname, event)
   local application = window:application()
   local bundleID = application:bundleID()
-  log.i('handling window event')
-  log.i('window name:  ' .. winname)
-  log.i('window event: ' .. event)
-  log.i('bundle id:    ' .. bundleID)
+  if DEBUG then
+    print('HANDLING WINDOW EVENT:')
+    print('  window name:  ' .. winname)
+    print('  window event: ' .. event)
+    print('  bundle id:    ' .. bundleID)
+  end
   if layoutConfig[bundleID] then
     layoutConfig[bundleID](window)
   end
 end
 
--- Watch for windowCreated events, handle with handleWindowEvent
-local windowFilter=hs.window.filter.new()
-windowFilter:subscribe(hs.window.filter.windowCreated, handleWindowEvent)
-
-function handleScreenEvent()
+-- Handle Screen Event
+--
+-- Hook for screen events.  Used to apply layout configurations on screens.
+--
+function HandleScreenEvent()
   -- Make sure that something noteworthy (display count) actually
   -- changed. We no longer check geometry because we were seeing spurious
   -- events.
   local screens = hs.screen.allScreens()
   if not (#screens == screenCount) then
     screenCount = #screens
-    activateLayout(screenCount)
+    ActivateLayout(screenCount)
   end
 end
 
-function initEventHandling()
-  screenWatcher = hs.screen.watcher.new(handleScreenEvent)
-  screenWatcher:start()
-end
-
-function tearDownEventHandling()
-  screenWatcher:stop()
-  screenWatcher = nil
-end
-
-initEventHandling()
-
--------------------------------------------------------------------------------
---                                                                           --
---  chaining                                                                 --
---                                                                           --
--------------------------------------------------------------------------------
-
-local lastSeenChain = nil
-local lastSeenWindow = nil
-
--- Chain the specified movement commands.
+-- Chain
 --
 -- This is like the "chain" feature in Slate, but with a couple of enhancements:
 --
@@ -364,7 +311,7 @@ local lastSeenWindow = nil
 --    one chain to another, or on switching from one app to another, or from one
 --    window to another.
 --
-function chain(movements)
+function Chain(movements)
   local chainResetInterval = 2 -- seconds
   local cycleLength = #movements
   local sequenceNumber = 1
@@ -377,7 +324,7 @@ function chain(movements)
 
     if
       lastSeenChain ~= movements or
-      lastSeenAt < now - chainResetInterval or
+      LastSeenAt < now - chainResetInterval or
       lastSeenWindow ~= id
     then
       sequenceNumber = 1
@@ -386,7 +333,7 @@ function chain(movements)
       -- At end of chain, restart chain on next screen.
       screen = screen:next()
     end
-    lastSeenAt = now
+    LastSeenAt = now
     lastSeenWindow = id
 
     hs.grid.set(win, movements[sequenceNumber], screen)
@@ -394,132 +341,30 @@ function chain(movements)
   end
 end
 
+-- Reload Config
 --
--- Key bindings.
+-- Auto-reload config on files change.
 --
-
---hs.hotkey.bind(minimash, 'up', chain({
---  grid.topHalf,
---  grid.topThird,
---  grid.topTwoThirds,
---}))
-
-hs.hotkey.bind(mash, 'right', chain({
-  grid.rightTwoThirds,
-  grid.widescreenRight63P,
-  grid.rightSeven12ths,
-  grid.rightHalf,
-  grid.widescreenRight37P,
-  grid.rightThird,
-}))
-
---hs.hotkey.bind({'ctrl', 'alt'}, 'down', chain({
---  grid.bottomHalf,
---  grid.bottomThird,
---  grid.bottomTwoThirds,
---}))
-
-hs.hotkey.bind(mash, 'left', chain({
-  grid.leftTwoThirds,
-  grid.widescreenLeft63P,
-  grid.leftSeven12ths,
-  grid.leftHalf,
-  grid.widescreenLeft37P,
-  grid.leftThird,
-}))
-
-hs.hotkey.bind(mash, 'up', chain({
-  grid.topLeft,
-  grid.topRight,
-  grid.bottomRight,
-  grid.bottomLeft,
-}))
-
---if primaryWxH == "1680x1050" then
-  hs.hotkey.bind(mash, 'down', chain({
-    grid.landscapeSmall,
-    grid.centeredMini,
-    grid.fullScreen,
-    grid.halfFull,
-    grid.laptopGoldenLarge,
-    grid.centeredSmall,
-  }))
---else
---  hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'down', chain({
---    grid.fullScreen,
---    grid.centeredBig,
---    grid.centeredSmall,
---  }))
---end
-
---Move windows slightly
-hs.hotkey.bind(minimash, 'down', hs.grid.pushWindowDown)
-hs.hotkey.bind(minimash, 'up', hs.grid.pushWindowUp)
-hs.hotkey.bind(minimash, 'left', hs.grid.pushWindowLeft)
-hs.hotkey.bind(minimash, 'right', hs.grid.pushWindowRight)
-
---
--- Gifcast layout
---
-
-function prepareGifcast()
-  local screen = 'Color LCD'
-
-  -- unit rects: percentages of screen width and height btw 0..1
-  local top = {x=0, y=0, w=1, h=.92}
-  local bottom = {x=.4, y=.82, w=.5, h=.1}
-
-  -- full-frame rects: pixel x, y, width, height
-  local stdWindow   = hs.geometry.rect(10, -1000, 1186, 909)
-  local kcstrWindow = hs.geometry.rect(20, -110, 1166, 10)
-
-  -- layout
-  local windowLayout = {
-    -- [0]: app name or hs.application obj
-    -- [1]: window title or hs.window obj or func
-    -- [2]: screen name, os hs.screen object or func w no params that returns hs.screen
-    -- then one of the following...
-    -- [3]: unit rect, or func which returns hs.window.moveToUnit()
-    -- [4]: frame rect, or func which returns hs.screen:frame()
-    -- [5]: full-frame rect, or a func which returns hs.screen:fullFrame()
-    {'iTerm2', nil, screen, nil, nil, stdWindow},
-    {'Brave Browser', nil, screen, nil, nil, stdWindow},
-    {'KeyCastr', nil, screen, nil, nil, kcstrWindow},
-  }
-
-  -- hs.application.launchOrFocus('KeyCastr')
-  hs.application.launchOrFocus('Brave Browser')
-  hs.application.launchOrFocus('iTerm2')
-
-  local brave = hs.appfinder.appFromName('Brave Browser')
-  local iterm = hs.appfinder.appFromName('iTerm2')
-
-  -- hide everything but brave browser, iterm, and keycastr
-  for key, app in pairs(hs.application.runningApplications()) do
-    if app == brave or app == iterm or app:name() == 'KeyCastr' then
-      app:unhide()
-    else
-      app:hide()
+function ReloadConfig(files)
+  for _, file in pairs(files) do
+    if file:sub(-4) == '.lua' then
+      hs.reload()
     end
   end
-
-  -- apply the layout
-  hs.layout.apply(windowLayout)
 end
 
--- `open hammerspoon://screencast in spotlight`
-hs.urlevent.bind('gifcast', prepareGifcast)
-
+-- Prepare Screencast
 --
--- Screencast layout
+-- Setup for a screen recording session.
 --
-
-function prepareScreencast()
+-- TODO: clean this up, test it out, find a better mapping down below
+-- target a specific final resolution and build to that...
+function PrepareScreencast()
   local screen = 'Color LCD'
 
   -- unit rects: percentages of screen width and height btw 0..1
-  local top = {x=0, y=0, w=1, h=.92}
-  local bottom = {x=.4, y=.82, w=.5, h=.1}
+  -- local top = {x=0, y=0, w=1, h=.92}
+  -- local bottom = {x=.4, y=.82, w=.5, h=.1}
 
   -- full-frame rects: pixel x, y, width, height
   local stdWindow   = hs.geometry.rect(10, -1200, 1920, 1080)
@@ -534,21 +379,21 @@ function prepareScreencast()
     -- [3]: unit rect, or func which returns hs.window.moveToUnit()
     -- [4]: frame rect, or func which returns hs.screen:frame()
     -- [5]: full-frame rect, or a func which returns hs.screen:fullFrame()
-    {'iTerm2', nil, screen, nil, nil, stdWindow},
-    {'Brave Browser', nil, screen, nil, nil, stdWindow},
+    {'kitty', nil, screen, nil, nil, stdWindow},
+    {'Google Chrome', nil, screen, nil, nil, stdWindow},
     {'KeyCastr', nil, screen, nil, nil, kcstrWindow},
   }
 
   -- hs.application.launchOrFocus('KeyCastr')
-  hs.application.launchOrFocus('Brave Browser')
-  hs.application.launchOrFocus('iTerm2')
+  hs.application.launchOrFocus('Google Chrome')
+  hs.application.launchOrFocus('kitty')
 
-  local brave = hs.appfinder.appFromName('Brave Browser')
-  local iterm = hs.appfinder.appFromName('iTerm2')
+  local chrome = hs.appfinder.appFromName('Google Chrome')
+  local kitty = hs.appfinder.appFromName('kitty')
 
-  -- hide everything but brave browser, iterm, and keycastr
-  for key, app in pairs(hs.application.runningApplications()) do
-    if app == brave or app == iterm or app:name() == 'KeyCastr' then
+  -- hide everything but chrome, kitty, and keycastr
+  for _, app in pairs(hs.application.runningApplications()) do
+    if app == chrome or app == kitty or app:name() == 'KeyCastr' then
       app:unhide()
     else
       app:hide()
@@ -559,152 +404,135 @@ function prepareScreencast()
   hs.layout.apply(windowLayout)
 end
 
--- `open hammerspoon://screencast in spotlight`
-hs.urlevent.bind('screencast', prepareScreencast)
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Startup                                                                   --
+--                                                                            --
+--------------------------------------------------------------------------------
 
------------------------
---  layout mappings  --
------------------------
-
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f1', (function()
-  hs.alert('Reset layout')
-  for key, app in pairs(hs.application.runningApplications()) do
-    app:unhide()
-  end
-  local screens = hs.screen.allScreens()
-  screenCount = #screens
-  activateLayout(screenCount)
-end))
-
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f2', (function()
-  hs.alert('One-monitor layout')
-  for key, app in pairs(hs.application.runningApplications()) do
-    app:unhide()
-  end
-  activateLayout(1)
-end))
-
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f3', (function()
-  hs.alert('Two-monitor layout')
-  for key, app in pairs(hs.application.runningApplications()) do
-    app:unhide()
-  end
-  activateLayout(2)
-end))
-
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'f4', (function()
-  hs.alert('Hammerspoon console')
-  hs.openConsole()
-end))
-
---
--- Auto-reload config on change.
---
-
-function reloadConfig(files)
-  for _, file in pairs(files) do
-    if file:sub(-4) == '.lua' then
-      tearDownEventHandling()
-      hs.reload()
-    end
-  end
+-- log our resolution to the console
+if DEBUG then
+  print("SCREENS DETECTED:")
+  print("  " .. PrintTable(screenCount))
+  print("PRIMARY SCREEN:")
+  print("  name: ".. primaryName)
+  print("  size: ".. primaryWxH)
 end
 
-local pathwatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', reloadConfig):start()
+-- watch and feed all windowCreated events to HandleWindowEvent
+local windowFilter = hs.window.filter.new()
+windowFilter:subscribe(hs.window.filter.windowCreated, HandleWindowEvent)
 
--------------------------------------------------------------------------------
---                                                                           --
---  modules                                                                  --
---                                                                           --
--------------------------------------------------------------------------------
+-- watch and feed all screenChanged events to HandleScreenEvent
+local screenWatcher = hs.screen.watcher.new(HandleScreenEvent)
+screenWatcher:start()
 
--------------------------
---  control dbl-press  --
--------------------------
+-- watch for media keys
+require('mediaKeys')
 
--- -- you need to double tap somewhat slowly due to how you have
--- -- caps and the actual control keys remapped with karabiner
--- ctrlDoublePress = require("ctrlDoublePress")
--- ctrlDoublePress.timeFrame = 1
--- ctrlDoublePress.action = function()
---   log.i("double tap detected")
---   hs.alert('Reset layout')
---   for key, app in pairs(hs.application.runningApplications()) do
---     app:unhide()
---   end
---   local screens = hs.screen.allScreens()
---   screenCount = #screens
---   activateLayout(screenCount)
--- end
-
--------------------------
---  command dbl-press  --
--------------------------
-
-cmdDoublePress = require("cmdDoublePress")
-cmdDoublePress.timeFrame = 1
+-- cmd double press to launch mission control
+local cmdDoublePress = require("keyDoublePress")
+cmdDoublePress.key = "cmd"
 cmdDoublePress.action = function()
   -- grab the host os version information
-  os = hs.host.operatingSystemVersion()
-  osMajorMinor = tonumber(os.major .. os.minor)
+  local os = hs.host.operatingSystemVersion()
+  local osMajorMinor = tonumber(os.major .. os.minor)
   -- launch  mission control with double tap of cmd
   if (osMajorMinor >= 1015 or os.major >= 11) then -- catalina or higher
     hs.application.open('/System/Applications/Mission Control.app')
   else
     hs.application.open('/Applications/Mission Control.app')
   end
-  log.i("double tap detected")
 end
 
--------------------
---  usb watcher  --
--------------------
+-- watch hammerspoon directory for changes, auto reload config
+local configWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', ReloadConfig)
+configWatcher:start()
 
-require("usbWatcher")
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Mappings                                                                  --
+--                                                                            --
+--------------------------------------------------------------------------------
 
-------------------
---  media keys  --
-------------------
+-- reset the layout
+hs.hotkey.bind(mash, 'f1', (function()
+  hs.alert('Reset layout')
+  for _, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  local screens = hs.screen.allScreens()
+  screenCount = #screens
+  ActivateLayout(screenCount)
+end))
 
--- -- get the media keys to actually control itunes again...
--- MPD_COMMANDS = {PLAY = "toggle"; FAST = "next"; REWIND = "prev"}
--- DEBUG_TAP = false
--- -- watching for special key presses
--- tap = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, function(event)
--- 	if DEBUG_TAP then
--- 		print("event tap debug got event:")
--- 		print(hs.inspect.inspect(event:getRawEventData()))
--- 		print(hs.inspect.inspect(event:getFlags()))
--- 		print(hs.inspect.inspect(event:systemKey()))
--- 	end
+-- one monitor layout
+hs.hotkey.bind(mash, 'f2', (function()
+  hs.alert('One-monitor layout')
+  for _, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  ActivateLayout(1)
+end))
 
--- 	local sys_key_event = event:systemKey()
--- 	local delete_event  = false
+-- two monitor layout
+hs.hotkey.bind(mash, 'f3', (function()
+  hs.alert('Two-monitor layout')
+  for _, app in pairs(hs.application.runningApplications()) do
+    app:unhide()
+  end
+  ActivateLayout(2)
+end))
 
--- 	if not sys_key_event or not sys_key_event.down then
--- 		return false
--- 	elseif MPD_COMMANDS[sys_key_event.key] and not sys_key_event['repeat']
--- 	then
--- 		print("received media event" .. MPD_COMMANDS[sys_key_event.key])
--- 		if MPD_COMMANDS[sys_key_event.key] == 'toggle' then
---       -- this conditional makes no sense, but only works this way
---       if hs.itunes.isPlaying() then
---         hs.itunes.play()
---       else
---         hs.itunes.pause()
---       end
---     elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
---       hs.itunes.next()
---     elseif MPD_COMMANDS[sys_key_event.key] == 'next' then
---       hs.itunes.previous()
---     end
--- 	end
--- 	return delete_event
--- end)
--- tap:start()
+-- hamerspoon console
+hs.hotkey.bind(mash, 'f4', (function()
+  hs.alert('Hammerspoon console')
+  hs.openConsole()
+end))
 
--------------------------------------------------------------------------------
---                                                                           --
---  spoons                                                                   --
---                                                                           --
--------------------------------------------------------------------------------
+-- prepare for a screencast
+hs.hotkey.bind(hyper, 'space', PrepareScreencast)
+
+-- move windows slightly
+hs.hotkey.bind(minimash, 'down', hs.grid.pushWindowDown)
+hs.hotkey.bind(minimash, 'up', hs.grid.pushWindowUp)
+hs.hotkey.bind(minimash, 'left', hs.grid.pushWindowLeft)
+hs.hotkey.bind(minimash, 'right', hs.grid.pushWindowRight)
+
+-- mash right window chain
+hs.hotkey.bind(mash, 'right', Chain({
+  grid.rightThird,
+  grid.widescreenRight37P,
+  grid.rightHalf,
+  grid.rightSeven12ths,
+  grid.widescreenRight63P,
+  grid.rightTwoThirds,
+}))
+
+-- mash left window chain
+hs.hotkey.bind(mash, 'left', Chain({
+  grid.leftThird,
+  grid.widescreenLeft37P,
+  grid.leftHalf,
+  grid.leftSeven12ths,
+  grid.widescreenLeft63P,
+  grid.leftTwoThirds,
+}))
+
+-- mash up window chain
+hs.hotkey.bind(mash, 'up', Chain({
+  grid.topLeft,
+  grid.topRight,
+  grid.bottomRight,
+  grid.bottomLeft,
+}))
+
+-- mash down window chain
+hs.hotkey.bind(mash, 'down', Chain({
+  grid.landscapeSmall,
+  grid.centeredMini,
+  grid.fullScreen,
+  grid.halfFull,
+  grid.laptopGoldenLarge,
+  grid.centeredSmall,
+}))

@@ -1,7 +1,9 @@
 -- unset usbwatcher
 local usbWatcher = nil
 
-function usbDeviceCallback(data)
+-- usb event callback
+local usbDeviceCallback = function(data)
+
   -------------------
   --  general usb  --
   -------------------
@@ -12,7 +14,7 @@ function usbDeviceCallback(data)
     -- usb device has been removed
     -- hs.notify.show("USB", "Device removed", data["productName"])
   end
-    
+
   ---------------
   --  yubikey  --
   ---------------
@@ -33,6 +35,7 @@ function usbDeviceCallback(data)
       -- os.execute("pmset displaysleepnow")
     end
   end
+
 end
 
 -- register the callback and start the usb watcher
