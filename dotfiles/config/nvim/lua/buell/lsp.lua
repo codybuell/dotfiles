@@ -226,9 +226,11 @@ lsp.init = function()
     on_exit = on_exit,
     capabilities = capabilities,
     on_init = function(client)
-      local path = client.workspace_folders[1].name
-      if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
-        return
+      if client.workspace_folders then
+        local path = client.workspace_folders[1].name
+        if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+          return
+        end
       end
 
       client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
@@ -239,6 +241,7 @@ lsp.init = function()
           checkThirdParty = false,
           library = {
             vim.env.VIMRUNTIME,
+            '/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/',
           }
           -- or pull in all of 'runtimepath'... this is a lot slower
           -- library = vim.api.nvim_get_runtime_file("", true)
@@ -248,6 +251,7 @@ lsp.init = function()
             'vim',
             'require',
             'buell',
+            'hs',
           },
         },
       })
