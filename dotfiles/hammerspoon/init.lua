@@ -122,27 +122,27 @@ local layoutConfig = {
   end),
 
   -- music
-  ['com.apple.Music'] = (function(window, forceScreenCount)
-    local newSpace, spacesAfter
-    local spacesBefore = hs.spaces.allSpaces()
-    local count = forceScreenCount or screenCount
-    if count == 1 then
-      newSpace = hs.spaces.addSpaceToScreen("Primary")
-      spacesAfter = hs.spaces.allSpaces()
-    else
-      local screens = hs.screen.allScreens()
-      newSpace = hs.spaces.addSpaceToScreen(screens[2])
-      spacesAfter = hs.spaces.allSpaces()
-    end
-    if newSpace then
-      local spaceId = FindNewSpace(spacesBefore, spacesAfter)
-      hs.spaces.moveWindowToSpace(window, spaceId)
-      hs.grid.set(window, grid.fullScreen)
-      hs.spaces.gotoSpace(spaceId)
-    else
-      hs.grid.set(window, grid.fullScreen)
-    end
-  end),
+  -- ['com.apple.Music'] = (function(window, forceScreenCount)
+  --   local newSpace, spacesAfter
+  --   local spacesBefore = hs.spaces.allSpaces()
+  --   local count = forceScreenCount or screenCount
+  --   if count == 1 then
+  --     newSpace = hs.spaces.addSpaceToScreen("Primary")
+  --     spacesAfter = hs.spaces.allSpaces()
+  --   else
+  --     local screens = hs.screen.allScreens()
+  --     newSpace = hs.spaces.addSpaceToScreen(screens[2])
+  --     spacesAfter = hs.spaces.allSpaces()
+  --   end
+  --   if newSpace then
+  --     local spaceId = FindNewSpace(spacesBefore, spacesAfter)
+  --     hs.spaces.moveWindowToSpace(window, spaceId)
+  --     hs.grid.set(window, grid.fullScreen)
+  --     hs.spaces.gotoSpace(spaceId)
+  --   else
+  --     hs.grid.set(window, grid.fullScreen)
+  --   end
+  -- end),
 }
 
 --------------------------------------------------------------------------------
