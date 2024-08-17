@@ -132,8 +132,10 @@ You can only give one reply for each conversation turn.
       insert = '<C-c>'
     },
     reset = {
-      normal ='<C-c>',
-      insert = '<C-c>'
+      -- normal ='<C-c>',
+      -- insert = '<C-c>'
+      normal ='',
+      insert = ''
     },
     submit_prompt = {
       normal = '<C-s>',
