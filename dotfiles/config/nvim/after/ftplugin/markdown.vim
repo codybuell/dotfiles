@@ -53,21 +53,13 @@ function! MarkdownFoldHeadersFrontmatter()
     let frontmatter = 0
   endif
 
-  " track if we are inside a fenced code block
-  let inside_fenced_code_block = 0
-  for i in range(1, v:lnum)
-    if getline(i) =~ '^\s*```'
-      let inside_fenced_code_block = !inside_fenced_code_block
-    endif
-  endfor
-
   " if we're on line 1 and frontmatter was found start fold
   if (v:lnum == 1) && (frontmatter == 1)
     return ">1"
   endif
 
   " if frontmatter found determine if we're within it
-  if frontmatter == 1 && !inside_fenced_code_block
+  if frontmatter == 1
     " find the closing frontmatter ---
     let origPos = getpos('.')
     let ok = cursor(1, 1)
@@ -89,17 +81,17 @@ function! MarkdownFoldHeadersFrontmatter()
   endif
 
   " h2 fold
-  if lines[1] =~ '^## .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$' && !inside_fenced_code_block
+  if lines[1] =~ '^## .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
     " begin a fold of level two here
     return ">1"
 
   " h3 fold
-  elseif lines[1] =~ '^### .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$' && !inside_fenced_code_block
+  elseif lines[1] =~ '^### .*$' && lines[0] =~ '^\s*$' && lines[2] =~ '^\s*$'
     " begin a fold of level three here
     return ">2"
 
   " h2 fold with underscores (2 or more dashes for underscores)
-  elseif lines[1] != '' && lines[2] =~ '^---*$' && !inside_fenced_code_block
+  elseif lines[1] != '' && lines[2] =~ '^---*$' && getline(v:lnum+2) == ''
     return ">1"
 
   " ensure h1 headers are not folded
