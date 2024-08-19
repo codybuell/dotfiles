@@ -9,7 +9,7 @@ augroup('BuellAutocommands', function()
 
   autocmd('InsertLeave', '*', function()
     -- force clear copilot virtual text
-    local copilotNS = vim.print(vim.api.nvim_get_namespaces()["copilot.suggestion"])
+    local copilotNS = vim.api.nvim_get_namespaces()["copilot.suggestion"]
     vim.api.nvim_buf_clear_namespace(0, copilotNS, 0, -1)
   end)
 
