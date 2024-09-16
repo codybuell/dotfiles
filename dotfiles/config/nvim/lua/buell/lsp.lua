@@ -73,6 +73,7 @@ local on_attach = function(client, bufnr)
     ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
     ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
     ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['t<c-]>']     = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
     ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
