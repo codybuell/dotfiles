@@ -196,7 +196,8 @@ function run()
   -- netdata related emails
   movetofolder('dmarc reports', security, (function()
     results = inbox:contain_from('.?dmarc.*') +
-              inbox:contain_subject('Report domain: kion.io .*')
+              inbox:contain_subject('Report domain: kion.io .*') +
+              inbox:contain_subject('Report domain: norlabs.com .*')
     return results
   end))
 
