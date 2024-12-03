@@ -32,6 +32,7 @@ function run()
   meetings = work['Meetings']
   bamboo   = work['Bamboo']
   notion   = work['Notion']
+  ramp     = work['Ramp']
   zendesk  = work['Zendesk']
   awsadmin = work['AWS Admin']
   awssupp  = work['AWS Support']
@@ -169,6 +170,13 @@ function run()
   movetofolder('greenhouse messages', grnhouse, (function()
     results = inbox
       :contain_field('Sender', 'no-reply@greenhouse.io')
+    return results
+  end))
+
+  -- all ramp related emails
+  movetofolder('ramp messages', ramp, (function()
+    results = inbox
+      :contain_from('^Ramp .*')
     return results
   end))
 
