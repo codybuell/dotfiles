@@ -175,32 +175,37 @@ lsp.init = function()
   })
 
   -- JavaScript / TypeScript
-  lspconfig.tsserver.setup({
+  -- lspconfig.tsserver.setup({
+  --   on_attach = on_attach,
+  --   on_exit = on_exit,
+  --   capabilities = capabilities,
+  --   handlers = {
+  --     ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  --       if err ~= nil then return end
+  --       if result and result.diagnostics then
+  --         -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+  --         local ignore_codes = {
+  --           [80001] = true,     -- File is a CommonJS module; it may be converted to an ES module.
+  --           -- [12345] = true,  -- example
+  --         }
+  --         -- filter out diagnostics with the ignored error codes
+  --         local diagnostics = vim.tbl_filter(function(diagnostic)
+  --           return not ignore_codes[diagnostic.code]
+  --         end, result.diagnostics)
+  --         -- update the diagnostics table to exclude the ignored diagnostics
+  --         result.diagnostics = diagnostics
+  --       end
+  --       -- disable virtual text by setting it to false in the config passed to the default handler
+  --       local updatedConfig = vim.tbl_deep_extend("force", { virtual_text = false }, config or {})
+  --       -- call the default handler with the filtered diagnostics and updated config
+  --       vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, updatedConfig)
+  --     end
+  --   },
+  -- })
+  lspconfig.ts_ls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = capabilities,
-    handlers = {
-      ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-        if err ~= nil then return end
-        if result and result.diagnostics then
-          -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
-          local ignore_codes = {
-            [80001] = true,     -- File is a CommonJS module; it may be converted to an ES module.
-            -- [12345] = true,  -- example
-          }
-          -- filter out diagnostics with the ignored error codes
-          local diagnostics = vim.tbl_filter(function(diagnostic)
-            return not ignore_codes[diagnostic.code]
-          end, result.diagnostics)
-          -- update the diagnostics table to exclude the ignored diagnostics
-          result.diagnostics = diagnostics
-        end
-        -- disable virtual text by setting it to false in the config passed to the default handler
-        local updatedConfig = vim.tbl_deep_extend("force", { virtual_text = false }, config or {})
-        -- call the default handler with the filtered diagnostics and updated config
-        vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, updatedConfig)
-      end
-    },
   })
 
   -- Json
