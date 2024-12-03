@@ -27,9 +27,9 @@ local create_entry = function (wiki)
         "title: " .. year .. '.' .. month .. '.' .. day,
         "tags:",
         "---",
-        "",
-        "__I am grateful for:__",
-        "  - "
+        -- "",
+        -- "__I am grateful for:__",
+        -- "  - "
       })
       vim.cmd('7 | startinsert!')
     end
