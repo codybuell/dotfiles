@@ -31,7 +31,7 @@ local create_entry = function (wiki)
         -- "__I am grateful for:__",
         -- "  - "
       })
-      vim.cmd('7 | startinsert!')
+      vim.cmd('4 | startinsert!')
     end
   elseif wiki == 'note' or wiki == 'codex' then
     -- set prompt and path
