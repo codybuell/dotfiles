@@ -204,8 +204,8 @@ vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
 vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
 vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
 vim.cmd('packadd! firenvim')                -- neovim in the browser
---vim.cmd('packadd! copilot.vim')           -- github copilot ai util
-vim.cmd('packadd! copilot.lua')             -- improved github copilot ai util
+vim.cmd('packadd! copilot.vim')             -- github copilot ai util
+-- vim.cmd('packadd! copilot.lua')          -- improved github copilot ai util
 vim.cmd('packadd! CopilotChat.nvim')        -- copilot chat support
 vim.cmd('packadd! markdown-preview.nvim')   -- markdown development support
 

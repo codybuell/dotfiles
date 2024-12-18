@@ -196,9 +196,16 @@ statusline.lhs = function()
   local lspclient    = #vim.lsp.get_clients({bufnr = 0}) > 0
   local line         = ' '
 
-  if require("copilot.client").buf_is_attached(0) == true then
+  -- copilot.vim
+  local copilot_status = vim.fn.execute('Copilot status')
+  if copilot_status:match('Copilot: Ready') ~= nil then
     line = line .. ' ' .. symbols.copilot_status_symbol
   end
+
+  -- copilot.lua
+  -- if require("copilot.client").buf_is_attached(0) == true then
+  --   line = line .. ' ' .. symbols.copilot_status_symbol
+  -- end
 
   if treesitter ~= vim.NIL or lspclient then
     if treesitter ~= vim.NIL then
