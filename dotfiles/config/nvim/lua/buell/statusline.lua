@@ -197,10 +197,10 @@ statusline.lhs = function()
   local line         = ' '
 
   -- copilot.vim
-  local copilot_status = vim.fn.execute('Copilot status')
-  if copilot_status:match('Copilot: Ready') ~= nil then
-    line = line .. ' ' .. symbols.copilot_status_symbol
-  end
+  -- local copilot_status = vim.fn.execute('Copilot status')
+  -- if copilot_status:match('Copilot: Ready') ~= nil then
+  --   line = line .. ' ' .. symbols.copilot_status_symbol
+  -- end
 
   -- copilot.lua
   -- if require("copilot.client").buf_is_attached(0) == true then
