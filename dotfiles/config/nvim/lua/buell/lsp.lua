@@ -241,10 +241,13 @@ lsp.init = function()
 
       client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
         runtime = {
+          path = vim.split(package.path, ';'),
           version = 'LuaJIT'
         },
         workspace = {
-          checkThirdParty = false,
+          -- checkThirdParty = false,
+          -- library = vim.api.nvim_get_runtime_file('', true),
+          -- or
           library = {
             vim.env.VIMRUNTIME,
             '/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/',
