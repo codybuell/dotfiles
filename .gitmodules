@@ -186,10 +186,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/copilot-cmp"]
-	path = dotfiles/config/nvim/pack/bundle/opt/copilot-cmp
-	url = https://github.com/zbirenbaum/copilot-cmp.git
-	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim
 	url = https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
