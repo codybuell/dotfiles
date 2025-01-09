@@ -218,3 +218,5 @@ vim.cmd('packadd! cmp-nvim-lsp')            -- cmp plugin for luasnip
 vim.cmd('packadd! cmp-lbdb')                -- cmp plugin for lbdb
 vim.cmd('packadd! cmp-emoji')               -- emoji completion for cmp
 vim.cmd('packadd! cmp-cmdline')             -- command line completion
+vim.cmd('packadd! cmp-nvim-lua')            -- neovim lua api completion
+vim.cmd('packadd! cmp-calc')                -- calculator completion
