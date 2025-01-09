@@ -217,3 +217,9 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim
 	url = https://github.com/iamcco/markdown-preview.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-calc"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-calc
+	url = https://github.com/hrsh7th/cmp-calc.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua"]
+	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua
+	url = https://github.com/hrsh7th/cmp-nvim-lua.git
