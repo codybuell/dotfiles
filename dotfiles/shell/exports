@@ -129,6 +129,9 @@ export DOCKER_BUILDKIT=1
 # openai
 export OPENAI_API_KEY='{{ OpenAIAPIKey }}'
 
+# anthropic
+export ANTHROPIC_API_KEY='{{ AnthropicAPIKey }}'
+
 # shellbot
 export SHELLBOT=$HOME/.config/nvim/pack/bundle/opt/shellbot/lua/target/release/shellbot
 export SHELLBOT_PROMPT='
