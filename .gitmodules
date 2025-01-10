@@ -170,10 +170,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-gnupg
 	url = https://github.com/jamessan/vim-gnupg.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot/lua"]
-	path = dotfiles/config/nvim/pack/bundle/opt/shellbot/lua
-	url = https://github.com/codybuell/shellbot.git
-	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap.git
