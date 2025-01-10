@@ -211,3 +211,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua
 	url = https://github.com/hrsh7th/cmp-nvim-lua.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot"]
+	path = dotfiles/config/nvim/pack/bundle/opt/shellbot
+	url = https://github.com/codybuell/shellbot.git

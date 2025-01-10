@@ -206,8 +206,8 @@ post_place_hooks() {
       fi
 
       # build shellbot
-      if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/shellbot/lua ]]; then
-        cd "${HOME}"/.config/nvim/pack/bundle/opt/shellbot/lua > /dev/null || exit 1
+      if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/shellbot ]]; then
+        cd "${HOME}"/.config/nvim/pack/bundle/opt/shellbot > /dev/null || exit 1
         cargo build --release > /dev/null 2>&1
         cd "$CWD" > /dev/null || exit 1
       fi

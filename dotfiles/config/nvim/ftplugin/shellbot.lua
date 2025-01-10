@@ -4,9 +4,9 @@ vim.wo.number = false
 vim.wo.relativenumber = true
 vim.wo.showbreak = 'NONE'
 
-local has_shellbot = require('chatgpt')
+local has_shellbot = require('chatbot')
 if has_shellbot then
-  vim.keymap.set({ 'i', 'n' }, '<C-s>', ChatGPTSubmit, { buffer = true })
+  vim.keymap.set({ 'i', 'n' }, '<C-s>', ChatBotSubmit, { buffer = true })
 end
 
 -- The following is a duplication of ftplugin/markdown.lua and thrown in out of
