@@ -17,12 +17,28 @@
 
 local has_shellbot = pcall(require, 'chatbot')
 if has_shellbot then
+
+  -- helper to toggle the shellbot buffer
+  local close_existing_shellbot_buffer = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.bo[buf].filetype == 'shellbot' then
+        vim.api.nvim_buf_delete(buf, { force = true })
+        return true
+      end
+    end
+    return false
+  end
+
   -- capture api keys
   local anthropic_api_key = vim.env['ANTHROPIC_API_KEY']
   local openai_api_key = vim.env['OPENAI_API_KEY']
 
   -- Set up wrapper commands for specifically targetting ChatGPT and Claude.
   local shellbot = function(config)
+    if close_existing_shellbot_buffer() then
+      return
+    end
+    close_existing_shellbot_buffer()
     local saved_variables = {}
     for _, unset in ipairs(config.unset or {}) do
       saved_variables[unset] = vim.env[unset]
