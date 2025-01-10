@@ -52,12 +52,12 @@ treesitter.setup {
     end,
   },
   incremental_selection = {
-    enable = false,
+    enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      -- init_selection = "gnn",
+      node_incremental = "v",
+      -- scope_incremental = "grc",
+      node_decremental = "V",
     },
   },
   indent = {
