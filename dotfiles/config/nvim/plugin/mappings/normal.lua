@@ -73,7 +73,11 @@ vim.keymap.set('n', '<Leader>h', '<Plug>(CommandTHelp)', {remap  = true})
 vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTGit)', {remap = true})
 vim.keymap.set('n', '<Leader>.', ':CommandT %:p:h<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>n', ':CommandTWiki {{ Notes }}<CR>', {remap = false, silent = true})
-vim.keymap.set('n', '<Leader>j', ':CommandTWiki {{ Journal }}<CR>', {remap = false, silent = true})
+-- vim.keymap.set('n', '<Leader>j', ':CommandTWiki {{ Journal }}<CR>', {remap = false, silent = true})
+
+-- treesj
+vim.keymap.set('n', '<Leader>s', ':TSJSplit<CR>', {remap = false, silent = true})
+vim.keymap.set('n', '<Leader>j', ':TSJJoin<CR>', {remap = false, silent = true})
 
 -- vim-fugitive
 vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})

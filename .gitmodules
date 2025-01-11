@@ -214,3 +214,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot"]
 	path = dotfiles/config/nvim/pack/bundle/opt/shellbot
 	url = https://github.com/codybuell/shellbot.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/treesj"]
+	path = dotfiles/config/nvim/pack/bundle/opt/treesj
+	url = https://github.com/Wansmer/treesj.git
