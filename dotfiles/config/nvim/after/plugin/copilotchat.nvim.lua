@@ -28,8 +28,10 @@ require("CopilotChat").setup {
       insert = '<C-c>',
     },
     reset = {
-      normal = '<C-l>',
-      insert = '<C-l>',
+      -- normal = '<C-l>',
+      -- insert = '<C-l>',
+      normal = '',
+      insert = '',
     },
     submit_prompt = {
       -- normal = '<CR>',
@@ -42,8 +44,10 @@ require("CopilotChat").setup {
       normal = 'gr',
     },
     accept_diff = {
-      normal = '<C-y>',
-      insert = '<C-y>',
+      -- normal = '<C-y>',
+      -- insert = '<C-y>',
+      normal = '',
+      insert = '',
     },
     jump_to_diff = {
       normal = 'gj',
