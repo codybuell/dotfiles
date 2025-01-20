@@ -49,6 +49,15 @@ snippet unit "systemd service unit file" b
 	WantedBy=multi-user.target
 
 snippet make "makefile template" b
+	# turn all subsequent targets after some targets into arguments for command
+	FIRSTWORD=$(firstword $(MAKECMDGOALS))
+	ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), one, two))
+	  # use the remaining targets as arguments
+	  CMD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	  # and turn them into null / do-nothing targets
+	  $(eval $(CMD_ARGS):;@:)
+	endif
+
 	# set ALL targets to be PHONY
 	.PHONY: $(shell sed -n -e '/^$$/ { n ; /^[^ .\#][^ ]*:/ { s/:.*$$// ; p ; } ; }' $(MAKEFILE_LIST))
 
@@ -85,6 +94,14 @@ snippet make "makefile template" b
 		@printf "${B}${UN}${BLU}Initializing the repo:${NRM}\n"
 		cp tools/pre-commit .git/hooks/pre-commit
 		chmod 755 .git/hooks/pre-commit
+
+	one:
+		@printf "${B}${UN}${BLU}Target one with args:${NRM}\n"
+		echo $(CMD_ARGS)
+
+	two:
+		@printf "${B}${UN}${BLU}Target two with args:${NRM}\n"
+		echo $(CMD_ARGS)
 
 snippet init "init script template" b
 	#!/bin/sh
