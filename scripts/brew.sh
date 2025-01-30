@@ -249,28 +249,28 @@ brew upgrade
 
 # install brew casks
 log green "Installing casks..."
-for i in ${CASKS[@]}; do
-  brew install --cask --quiet ${i}
+for i in "${CASKS[@]}"; do
+  brew install --cask --quiet "${i}"
 done
 
 # install brew packages
 log green "Installing packages..."
-for i in ${PACKAGES[@]}; do
-  brew install --quiet ${i}
+for i in "${PACKAGES[@]}"; do
+  brew install --quiet "${i}"
 done
 
 # install brew taps
 log green "Installing Taps..."
-for i in ${TAPS[@]}; do
+for i in "${TAPS[@]}"; do
   TAP=$(echo "${i}" | awk -F":" '{print $1}')
   PKG=$(echo "${i}" | awk -F":" '{print $2}')
-  brew tap ${TAP}
-  brew install ${PKG}
+  brew tap "${TAP}"
+  brew install "${PKG}"
 done
 
 # start up services
 log green "Starting services..."
-for i in ${SERVICES[@]}; do
-  brew install --quiet ${i}
-  brew services start ${i}
+for i in "${SERVICES[@]}"; do
+  brew install --quiet "${i}"
+  brew services start "${i}"
 done
