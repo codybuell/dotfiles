@@ -4,6 +4,9 @@
 #                                                                              #
 ################################################################################
 
+# work in bash as opposed to sh
+SHELL := /bin/bash
+
 # turn all subsequent targets after some targets into arguments for command
 FIRSTWORD=$(firstword $(MAKECMDGOALS))
 ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots))
@@ -121,7 +124,7 @@ fonts:
 	scripts/fonts.sh
 
 commands:
-	scripts/commands.sh
+	@source scripts/library.sh && read_config && cd && run_commands
 
 clean:
 	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;

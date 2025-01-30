@@ -264,9 +264,9 @@ run_commands() {
   for c in "${CONFIGVARS[@]}"; do
     VAR=$c
     eval VAL="\$$c"
-    [[ $VAR =~ COMMAND.* ]] && {
+    if [[ $VAR =~ COMMAND.* ]]; then
       log blue "executing: ${VAL}"
       eval "$VAL"
-    }
+    fi
   done
 }
