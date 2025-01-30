@@ -825,20 +825,32 @@ sudo mdutil -E / > /dev/null
 
 # add colemak to input sources
 # if [[ $DefaultColemak == "true" ]]; then
-#   # defaults delete com.apple.HIToolbox AppleEnabledInputSources
-#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
-#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; }'
-#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
-#   defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-#   defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.Colemak"
-#   # defaults delete com.apple.HIToolbox AppleInputSourceHistory
-#   defaults write com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-#   defaults write com.apple.HIToolbox AppleInputSourceHistory -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
-#   defaults write com.apple.HIToolbox AppleSelectedInputSources -array '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
-#   defaults write com.apple.HIToolbox AppleSelectedInputSources -array-add '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-#   sudo cp ~/Library/Preferences/com.apple.HIToolbox.plist /Library/Preferences/
-#   sudo chmod 644 /Library/Preferences/com.apple.HIToolbox.plist
-#   # TODO: setup caps map to escape https://apple.stackexchange.com/questions/13598/updating-modifier-key-mappings-through-defaults-command-tool
+  # defaults delete com.apple.HIToolbox AppleEnabledInputSources
+  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array \
+  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+  #   '{ "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; }'
+  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+  #   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+  #   '{ "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; }'
+
+  # defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.Colemak"
+
+  # defaults delete com.apple.HIToolbox AppleInputSourceHistory
+  # defaults write com.apple.HIToolbox AppleInputSourceHistory -array \
+  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+  # defaults write com.apple.HIToolbox AppleInputSourceHistory -array-add \
+  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+
+  # defaults delete com.apple.HIToolbox AppleSelectedInputSources
+  # defaults write com.apple.HIToolbox AppleSelectedInputSources -array \
+  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+  # defaults write com.apple.HIToolbox AppleSelectedInputSources -array-add \
+  #   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+  # TODO: setup caps map to escape https://apple.stackexchange.com/questions/13598/updating-modifier-key-mappings-through-defaults-command-tool
 # fi
 
 ################################################################################
