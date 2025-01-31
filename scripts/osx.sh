@@ -65,65 +65,61 @@ source "${BASH_SOURCE%/*}/library.sh"
 ################################################################################
 ################################################################################
 
-# keyboard layout
-DefaultColemak='true'                         # use colemak as default layout
-
 # finder
-ShowHiddenFiles='false'                       # show hidden files by default
-ShowLibraryFolder='true'                      # show ~/Library folder?
-ShowVolumesFolder='true'                      # show ~/Volumes folder?
-ShowFinderStatusBar='true'                    # show status bar in finder?
-ShowFinderPathBar='true'                      # show path bar in finder?
-FileExtWarning='false'                        # show warning on ext change?
-ExpandSaveMenus='true'                        # default expand save menus?
-ExpandPrintMenus='true'                       # default expand print menus?
-ShowFileExtensions='true'                     # show all file extensions?
-DSStoreOnNetwork='false'                      # .DS_Store file on rem vols?
-SideBarIconSize='small'                       # small, medium, large
-ShowMountsOnDesktop='false'                   # show mounts on desktop
-SpringLoading='true'                          # drag item over folders to open
-SpringLoadingDelay=0.1                        # open delay, float, 0.5 default
-FinderTargetLoc='file://${HOME}/Downloads/'   # new finder start location
-FinderTarget='PfLo'                           # corresponds to FinderTargetLoc
-                                              # 'PfDe' file://${HOME}/Desktop/
-                                              # 'PfHm' file://${HOME}/
-                                              # 'PfDo' file://${HOME}/Documents
-                                              # 'PfLo' file://any/custom/path
+ShowHiddenFiles="false"                       # show hidden files by default
+ShowLibraryFolder="true"                      # show ~/Library folder?
+ShowVolumesFolder="true"                      # show ~/Volumes folder?
+ShowFinderStatusBar="true"                    # show status bar in finder?
+ShowFinderPathBar="true"                      # show path bar in finder?
+FileExtWarning="false"                        # show warning on ext change?
+ExpandSaveMenus="true"                        # default expand save menus?
+ExpandPrintMenus="true"                       # default expand print menus?
+ShowFileExtensions="true"                     # show all file extensions?
+DSStoreOnNetwork="false"                      # .DS_Store file on rem vols?
+SideBarIconSize="small"                       # small, medium, large
+ShowMountsOnDesktop="false"                   # show mounts on desktop
+SpringLoading="true"                          # drag item over folders to open
+FinderTargetLoc="file://${HOME}/Downloads/"   # new finder start location
+FinderTarget="PfLo"                           # corresponds to FinderTargetLoc
+                                              # "PfDe" file://${HOME}/Desktop/
+                                              # "PfHm" file://${HOME}/
+                                              # "PfDo" file://${HOME}/Documents
+                                              # "PfLo" file://any/custom/path
 
 # dock
-AppRunningLights='false'                      # dock app is running lights?
-AutoHideDock='true'                           # auto hide the dock?
-RemoveAllDockIcons='true'                     # clean out the dock?
-HiddenAppsTranslucentIcons='true'             # translucent hidden app icons?
-DockLaunchAnimations='false'                  # dock launch bounce animations?
-DockHideDelay='none'                          # none, default, long
-SingleAppMode='false'                         # enable single app mode?
-ShowDockRecents='false'                       # show recent applications
-TileSize='40'                                 # dock size, 16 - 128
-HoverHighlightStack='true'                    # grid view hover effect
-MinMaxEffect='scale'                          # 'scale' or 'genie'
-MinimizeToIcon='true'                         # minimize apps to their icon
+AppRunningLights="false"                      # dock app is running lights?
+AutoHideDock="true"                           # auto hide the dock?
+RemoveAllDockIcons="true"                     # clean out the dock?
+HiddenAppsTranslucentIcons="true"             # translucent hidden app icons?
+DockLaunchAnimations="false"                  # dock launch bounce animations?
+DockHideDelay="none"                          # none, default, long
+SingleAppMode="false"                         # enable single app mode?
+ShowDockRecents="false"                       # show recent applications
+TileSize="40"                                 # dock size, 16 - 128
+HoverHighlightStack="true"                    # grid view hover effect
+MinMaxEffect="scale"                          # "scale" or "genie"
+MinimizeToIcon="true"                         # minimize apps to their icon
 
 # general ux / ui
-Appearance='graphite'                         # blue or graphite
-AutoHideMenuBar='false'                       # auto hide the menu bar?
-ShowScrollbars='Automatic'                    # WhenScrolling, Automatic, Always
-MissionControlAnimation='fast'                # fast, off, or default
-OpenCloseAnimations='false'                   # open and close animations?
-QLOpenCloseAnimations='false'                 # quick look animations?
-InfoOpenCloseAnimations='false'               # animate info windows?
-FullScreenAnimations='false'                  # animate fullscreen switch?
-AccellerateCocoa='true'                       # speed up cocoa resizings?
-UseNaturalScrolling='false'                   # use natural scrolling?
-AutoArrangeSpaces='false'                     # re-arrange spaces by use?
-EnableSpacesJumpBack='true'                   # enable go to last space?
-StartupNoise='true'                           # play osx boot noise?
-ReduceTransparency='false'                    # turn off transparent menu bar?
-AnalogMenuBarClock='true'                     # use anlog menu clock
-TopRightCorner='12'                           # set hot corner, see below
-BottomRightCorner='4'                         # set hot corner, see below
-TopLeftCorner='5'                             # set hot corner, see below
-BottomLeftCorner='6'                          # set hot corner, see below
+Appearance="graphite"                         # blue or graphite
+AutoHideMenuBar="false"                       # auto hide the menu bar?
+ShowScrollbars="Automatic"                    # WhenScrolling, Automatic, Always
+MissionControlAnimation="fast"                # fast, off, or default
+OpenCloseAnimations="false"                   # open and close animations?
+QLOpenCloseAnimations="false"                 # quick look animations?
+InfoOpenCloseAnimations="false"               # animate info windows?
+FullScreenAnimations="false"                  # animate fullscreen switch?
+AccellerateCocoa="true"                       # speed up cocoa resizings?
+UseNaturalScrolling="false"                   # use natural scrolling?
+AutoArrangeSpaces="false"                     # re-arrange spaces by use?
+EnableSpacesJumpBack="true"                   # enable go to last space?
+StartupNoise="true"                           # play osx boot noise?
+ReduceTransparency="false"                    # turn off transparent menu bar?
+AnalogMenuBarClock="true"                     # use anlog menu clock
+TopRightCorner="12"                           # set hot corner, see below
+BottomRightCorner="4"                         # set hot corner, see below
+TopLeftCorner="5"                             # set hot corner, see below
+BottomLeftCorner="6"                          # set hot corner, see below
 
 # HOT CORNER OPTIONS
 #
@@ -139,66 +135,66 @@ BottomLeftCorner='6'                          # set hot corner, see below
 #  12 ->  notification center
 
 # system
-CrashReportsAsNotifications='true'            # crash reports to not. cent.?
-LockSystemImmediately='true'                  # require passwd on ss start?
-DefaultSaveToiCloud='false'                   # default icloud as save loc?
-DisableDashboard='true'                       # disable the dashboard?
-StandbyDelay='30'                             # sleep time (minutes) or Never
-SystemTimezone='America/New_York'             # `systemsetup -listtimezones`
-UseNTP='true'                                 # use network time server
-DisplaySleepTime='15'                         # display sleep delay in minutes
-HDDSleepTime='Never'                          # hd sleep time (minutes) or Never
-EnableSSHServer='true'                        # turn on ssh server?
-WakeOnLan='true'                              # wake  with network admin pkt?
-AutoRebootOnFreeze='false'                    # auto restart frozen system?
-AllowRemoteScripting='false'                  # allow remote apple scripting?
-AutoQuitPrinterWhenDone='true'                # auto close printer app when done
+CrashReportsAsNotifications="true"            # crash reports to not. cent.?
+LockSystemImmediately="true"                  # require passwd on ss start?
+DefaultSaveToiCloud="false"                   # default icloud as save loc?
+DisableDashboard="true"                       # disable the dashboard?
+StandbyDelay="30"                             # sleep time (minutes) or Never
+SystemTimezone="America/New_York"             # `systemsetup -listtimezones`
+UseNTP="true"                                 # use network time server
+DisplaySleepTime="15"                         # display sleep delay in minutes
+HDDSleepTime="Never"                          # hd sleep time (minutes) or Never
+EnableSSHServer="true"                        # turn on ssh server?
+WakeOnLan="true"                              # wake  with network admin pkt?
+AutoRebootOnFreeze="false"                    # auto restart frozen system?
+AllowRemoteScripting="false"                  # allow remote apple scripting?
+AutoQuitPrinterWhenDone="true"                # auto close printer app when done
 
 # login menu
-ShowInputMenu='true'                          # show input menu for kb layouts
-NameAndPasswordOnly='true'                    # no list of users, require un & pw
+ShowInputMenu="true"                          # show input menu for kb layouts
+NameAndPasswordOnly="true"                    # no list of users, require un & pw
 TriesUntilHint=0                              # 0 to disable hits, else 3
 
 # debug menus
-SafariDebugMenu='true'                        # turn on safari debug menu?
-AddressBookDebugMenu='true'                   # turn on addressbook debug?
-iCalDebugMenu='true'                          # turn on ical debug menu?
-AppStoreDebugMenu='true'                      # turn on app store debug?
-DiskUtilityDebugMenu='true'                   # turn on disk utility debug?
+SafariDebugMenu="true"                        # turn on safari debug menu?
+AddressBookDebugMenu="true"                   # turn on addressbook debug?
+iCalDebugMenu="true"                          # turn on ical debug menu?
+AppStoreDebugMenu="true"                      # turn on app store debug?
+DiskUtilityDebugMenu="true"                   # turn on disk utility debug?
 
 # screenshots
-ScreenshotFolder='~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Data/Resources/Screenshots'
-ScreenshotDropshadows='false'                 # dropshadows on screenshots?
-ScreenshotFormat='png'                        # bmp, gif, jpg, pdf, tiff
+ScreenshotFolder="${HOME}/Library/Mobile\ Documents/com\~apple\~CloudDocs/Data/Resources/Screenshots"
+ScreenshotDropshadows="false"                 # dropshadows on screenshots?
+ScreenshotFormat="png"                        # bmp, gif, jpg, pdf, tiff
 
 # time machine
-DisableTimeMachine='true'                     # turn off time machine?
-DisableDiskPrompt='true'                      # disable use disk tm prompt?
+DisableTimeMachine="true"                     # turn off time machine?
+DisableDiskPrompt="true"                      # disable use disk tm prompt?
 
 # mail
-CopyNameAndAddress='false'                    # copy name with email addr?
-MailSendReplyAnimations='false'               # animate sends and replies?
+CopyNameAndAddress="false"                    # copy name with email addr?
+MailSendReplyAnimations="false"               # animate sends and replies?
 
 # text edit
-TextEditPlainTextDefault='true'               # use plain text by default?
-ShowRuler='false'                             # show the text edit ruler?
+TextEditPlainTextDefault="true"               # use plain text by default?
+ShowRuler="false"                             # show the text edit ruler?
 
 # iphoto
-AutoOpeniPhoto='false'                        # open iphoto automatically?
+AutoOpeniPhoto="false"                        # open iphoto automatically?
 
 # ical
-DefaultMeetingDuration='30'                   # default cal item minutes
+DefaultMeetingDuration="30"                   # default cal item minutes
 
 # terminal
-FocusFollowsMouse='true'                      # focus follows mouse?
+FocusFollowsMouse="true"                      # focus follows mouse?
 
 # miscellaneous
-UseSmartQuotes='false'                        # enable smart quotes when typing
-UseSmartDashes='false'                        # enable smart dashes when typing
-CorrectSpellingAutomatically='false'          # auto fix spelling
-CtrlWithScrollZoom='true'                     # use scroll + ctrl to zoom
-ZoomFollowKeyboard='false'                    # follow kb focus when zoomed
-EnableLocate='true'                           # turn on locate service
+UseSmartQuotes="false"                        # enable smart quotes when typing
+UseSmartDashes="false"                        # enable smart dashes when typing
+CorrectSpellingAutomatically="false"          # auto fix spelling
+CtrlWithScrollZoom="true"                     # use scroll + ctrl to zoom
+ZoomFollowKeyboard="false"                    # follow kb focus when zoomed
+EnableLocate="true"                           # turn on locate service
 
 ################################################################################
 ################################################################################
@@ -211,74 +207,78 @@ EnableLocate='true'                           # turn on locate service
 ################################################################################
 ################################################################################
 
-MAJOR=$(sw_vers -productVersion | awk -F '.' '{print $1}')
-MINOR=$(sw_vers -productVersion | awk -F '.' '{printf("%02d\n", $2)}')
-NUMVER=${MAJOR}${MINOR}
+detect_os_version() {
+  MAJOR=$(sw_vers -productVersion | awk -F '.' '{print $1}')
+  MINOR=$(sw_vers -productVersion | awk -F '.' '{printf("%02d\n", $2)}')
+  NUMVER=${MAJOR}${MINOR}
 
-case "$MAJOR" in
-'10')
-    case "$MINOR" in
-    '00')
-        OSVER='cheetah'
-        ;;
-    '01')
-        OSVER='puma'
-        ;;
-    '02')
-        OSVER='jaguar'
-        ;;
-    '03')
-        OSVER='panther'
-        ;;
-    '04')
-        OSVER='tiger'
-        ;;
-    '05')
-        OSVER='leopard'
-        ;;
-    '06')
-        OSVER='snow leopard'
-        ;;
-    '07')
-        OSVER='lion'
-        ;;
-    '08')
-        OSVER='mountain lion'
-        ;;
-    '09')
-        OSVER='mavericks'
-        ;;
-    '10')
-        OSVER='yosemite'
-        ;;
-    '11')
-        OSVER='el capitan'
-        ;;
-    '12')
-        OSVER='sierra'
-        ;;
-    '13')
-        OSVER='high sierra'
-        ;;
-    '14')
-        OSVER='mojave'
-        ;;
-    '15')
-        OSVER='catalina'
-        ;;
-    esac
-    ;;
+  case "$MAJOR" in
+  '10')
+      case "$MINOR" in
+      '00')
+          OSVER='cheetah'
+          ;;
+      '01')
+          OSVER='puma'
+          ;;
+      '02')
+          OSVER='jaguar'
+          ;;
+      '03')
+          OSVER='panther'
+          ;;
+      '04')
+          OSVER='tiger'
+          ;;
+      '05')
+          OSVER='leopard'
+          ;;
+      '06')
+          OSVER='snow leopard'
+          ;;
+      '07')
+          OSVER='lion'
+          ;;
+      '08')
+          OSVER='mountain lion'
+          ;;
+      '09')
+          OSVER='mavericks'
+          ;;
+      '10')
+          OSVER='yosemite'
+          ;;
+      '11')
+          OSVER='el capitan'
+          ;;
+      '12')
+          OSVER='sierra'
+          ;;
+      '13')
+          OSVER='high sierra'
+          ;;
+      '14')
+          OSVER='mojave'
+          ;;
+      '15')
+          OSVER='catalina'
+          ;;
+      esac
+      ;;
 
-'11')
-    OSVER='big sur'
-    ;;
-'12')
-    OSVER='monterey'
-    ;;
-*)
-    OSVER='unknown'
-    ;;
-esac
+  '11')
+      OSVER='big sur'
+      ;;
+  '12')
+      OSVER='monterey'
+      ;;
+  *)
+      OSVER='unknown'
+      ;;
+  esac
+
+  export OSVER
+}
 
 ################################################################################
 ################################################################################
@@ -303,13 +303,13 @@ defaults write com.apple.finder AppleShowAllFiles -bool $ShowHiddenFiles
 
 # show or hide ~/Library folder
 # todo: does not seem to be working on catalina, possibly earlier
-LibraryFlag=`[[ $ShowLibraryFolder == 'true' ]] && echo nohidden || echo hidden`
-sudo chflags $LibraryFlag ~/Library
+LibraryFlag=$([[ $ShowLibraryFolder == 'true' ]] && echo nohidden || echo hidden)
+sudo chflags "$LibraryFlag" ~/Library
 
 # show or hide the /Volumes folder
 # todo: does not seem to be working on catalina, possibly earlier
-VolumesFlag=`[[ $ShowVolumesFolder == 'true' ]] && echo nohidden || echo hidden`
-sudo chflags $VolumesFlag /Volumes
+VolumesFlag=$([[ $ShowVolumesFolder == 'true' ]] && echo nohidden || echo hidden)
+sudo chflags "$VolumesFlag" /Volumes
 
 # show status bar in finder windows
 defaults write com.apple.finder ShowStatusBar -bool $ShowFinderStatusBar
@@ -332,8 +332,8 @@ defaults write -g PMPrintingExpandedStateForPrint2 -bool $ExpandPrintMenus
 defaults write -g AppleShowAllExtensions -bool $ShowFileExtensions
 
 # avoid creating .DS_Store files on network volumes
-DSStore=`[[ $DSStoreOnNetwork == 'true' ]] && echo false || echo true`
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool $DSStore
+DSStore=$([[ $DSStoreOnNetwork == 'true' ]] && echo false || echo true)
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool "$DSStore"
 
 # set sidebar icon sizes
 case $SideBarIconSize in
@@ -431,8 +431,8 @@ case $Appearance in
 esac
 
 # menu bar auto hide config
-MenuHide=`[[ $AutoHideMenuBar == 'true' ]] && echo 1 || echo 0`
-defaults write -g _HIHideMenuBar $MenuHide
+MenuHide=$([[ $AutoHideMenuBar == 'true' ]] && echo 1 || echo 0)
+defaults write -g _HIHideMenuBar "$MenuHide"
 
 # configure scrollbars
 defaults write -g AppleShowScrollBars -string "$ShowScrollbars"
@@ -455,28 +455,28 @@ esac
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool $OpenCloseAnimations
 
 # quick look animated opening and closing
-[[ $QLOpenCloseAnimations == 'true' ]] && {
+if [[ $QLOpenCloseAnimations == 'true' ]]; then
   defaults delete -g QLPanelAnimationDuration > /dev/null 2>&1
-} || {
+else
   defaults write -g QLPanelAnimationDuration -float 0
-}
+fi
 
 # info window open close animation
 defaults write com.apple.finder DisableAllAnimations -bool $InfoOpenCloseAnimations
 
 # animate fullscreen transitions
-[[ $FullScreenAnimations == 'true' ]] && {
+if [[ $FullScreenAnimations == 'true' ]]; then
   defaults delete -g NSWindowResizeTime > /dev/null 2>&1
-} || {
+else
   defaults write -g NSWindowResizeTime -float 0.001
-}
+fi
 
 # speed up cocoa application window resizing
-[[ $AccellerateCocoa == 'true' ]] && {
+if [[ $AccellerateCocoa == 'true' ]]; then
   defaults write -g NSWindowResizeTime -float 0.001
-} || {
+else
   defaults delete -g NSWindowResizeTime > /dev/null 2>&1
-}
+fi
 
 # toggle the natural scrolling direction
 defaults write -g com.apple.swipescrolldirection -bool $UseNaturalScrolling
@@ -488,11 +488,11 @@ defaults write com.apple.dock mru-spaces -bool $AutoArrangeSpaces
 defaults write com.apple.dock double-tap-jump-back -bool $EnableSpacesJumpBack
 
 # boot up sound effect (you can view current nvram configs with nvram -xp)
-[[ $StartupNoise == 'true' ]] && {
+if [[ $StartupNoise == 'true' ]]; then
   sudo nvram -d SystemAudioVolume
-} || {
+else
   sudo nvram SystemAudioVolume=' '
-}
+fi
 
 # disable system sounds like the sceenshot shutter sound
 defaults write 'Apple Global Domain' com.apple.sound.uiaudio.enabled -int 0
@@ -526,8 +526,8 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 ##########
 
 # show crash reports in the notification center
-NCCrash=`[[ $CrashReportsAsNotifications == 'true' ]] && echo 1 || echo 0`
-defaults write com.apple.CrashReporter UseUNC $NCCrash
+NCCrash=$([[ $CrashReportsAsNotifications == 'true' ]] && echo 1 || echo 0)
+defaults write com.apple.CrashReporter UseUNC "$NCCrash"
 
 # require password immediately after sleep or screen saver begins
 [[ $LockSystemImmediately == 'true' ]] && {
@@ -549,8 +549,8 @@ sudo systemsetup -setcomputersleep $StandbyDelay 2> /dev/null  # in minutes, nev
 sudo systemsetup -settimezone $SystemTimezone 2> /dev/null
 
 # use ntp for setting time
-NTPStatus=`[[ $UseNTP == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setusingnetworktime $NTPStatus 2> /dev/null
+NTPStatus=$([[ $UseNTP == 'true' ]] && echo On || echo Off)
+sudo systemsetup -setusingnetworktime "$NTPStatus" 2> /dev/null
 
 # set the display sleep time
 sudo systemsetup -setdisplaysleep $DisplaySleepTime 2> /dev/null
@@ -559,20 +559,20 @@ sudo systemsetup -setdisplaysleep $DisplaySleepTime 2> /dev/null
 sudo systemsetup -setharddisksleep $HDDSleepTime 2> /dev/null
 
 # configure ssh server
-SSHStatus=`[[ $EnableSSHServer == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setremotelogin $SSHStatus 2> /dev/null
+SSHStatus=$([[ $EnableSSHServer == 'true' ]] && echo On || echo Off)
+sudo systemsetup -setremotelogin "$SSHStatus" 2> /dev/null
 
 # wake on lan
-WOLStatus=`[[ $WakeOnLan == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setwakeonnetworkaccess $WOLStatus 2> /dev/null
+WOLStatus=$([[ $WakeOnLan == 'true' ]] && echo On || echo Off)
+sudo systemsetup -setwakeonnetworkaccess "$WOLStatus" 2> /dev/null
 
 # auto restart after system freeze
-AutoRestartStatus=`[[ $AutoRebootOnFreeze == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setrestartfreeze $AutoRestartStatus 2> /dev/null
+AutoRestartStatus=$([[ $AutoRebootOnFreeze == 'true' ]] && echo On || echo Off)
+sudo systemsetup -setrestartfreeze "$AutoRestartStatus" 2> /dev/null
 
 # allow remote scripting
-ScriptingStatus=`[[ $AllowRemoteScripting == 'true' ]] && echo On || echo Off`
-sudo systemsetup -setremoteappleevents $ScriptingStatus 2> /dev/null
+ScriptingStatus=$([[ $AllowRemoteScripting == 'true' ]] && echo On || echo Off)
+sudo systemsetup -setremoteappleevents "$ScriptingStatus" 2> /dev/null
 
 # auto close printer application when done
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool $AutoQuitPrinterWhenDone
@@ -618,8 +618,8 @@ defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool $DiskUtilityDebugM
 defaults write com.apple.screencapture location "$ScreenshotFolder"
 
 # disable dropshadow in screenshots
-DisableDrops=`[[ $ScreenshotDropshadows == 'true' ]] && echo false || echo true`
-defaults write com.apple.screencapture disable-shadow -bool $DisableDrops
+DisableDrops=$([[ $ScreenshotDropshadows == 'true' ]] && echo false || echo true)
+defaults write com.apple.screencapture disable-shadow -bool "$DisableDrops"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "$ScreenshotFormat"
@@ -648,35 +648,35 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool $DisableD
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool $CopyNameAndAddress
 
 # animate mail sends and replies
-MailAnimations=`[[ $MailSendReplyAnimations == 'true' ]] && echo false || echo true`
-defaults write com.apple.mail DisableReplyAnimations -bool $MailAnimations
-defaults write com.apple.mail DisableSendAnimations -bool $MailAnimations
+MailAnimations=$([[ $MailSendReplyAnimations == 'true' ]] && echo false || echo true)
+defaults write com.apple.mail DisableReplyAnimations -bool "$MailAnimations"
+defaults write com.apple.mail DisableSendAnimations -bool "$MailAnimations"
 
 #############
 # TEXT EDIT #
 #############
 
 # use rich or plain text by default in textedit
-[[ $TextEditPlainTextDefault == 'true' ]] && {
+if [[ $TextEditPlainTextDefault == 'true' ]]; then
   defaults write com.apple.TextEdit RichText -int 0
-} || {
+else
   defaults delete com.apple.TextEdit RichText > /dev/null 2>&1
-}
+fi
 
 # text edit ruler
-Ruler=`[[ $ShowRuler == true ]] && echo 1 || echo 0`
-defaults write com.apple.TextEdit ShowRuler $Ruler
+Ruler=$([[ $ShowRuler == true ]] && echo 1 || echo 0)
+defaults write com.apple.TextEdit ShowRuler "$Ruler"
 
 ##########
 # IPHOTO #
 ##########
 
 # automatically open iphoto when camera is plugged in
-[[ $AutoOpeniPhoto == true ]] && {
+if [[ $AutoOpeniPhoto == true ]]; then
   defaults -currentHost delete com.apple.ImageCapture disableHotPlug > /dev/null 2>&1
-} || {
+else
   defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-}
+fi
 
 ########
 # ICAL #
@@ -717,15 +717,6 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool $ZoomFo
   sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 }
 
-############
-# ARCHIVED #
-############
-
-## configure the sudden motion sensor (stops disk when detecting a fall, or jostle)
-#RunSMS='false'                                # keep the sms sensor on?
-#SMSFlag=`[[ $RunSMS == 'true' ]] && echo 1 || echo 0`
-#sudo pmset -a sms $SMSFlag
-
 ################################################################################
 ################################################################################
 ##                                                                            ##
@@ -736,14 +727,6 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool $ZoomFo
 ##                                                                            ##
 ################################################################################
 ################################################################################
-
-## menu bar: hide the time machine, volume, and user icons
-## todo: this isn't working on a fresh catalina install
-#for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-#  defaults write "${domain}" dontAutoLoad -array \
-#    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-#    "/System/Library/CoreServices/Menu Extras/User.menu"
-#done
 
 # menu bar: show bluetooth, airport, battery, text input, and clock
 # todo: TextInput not showing up when reading config...
@@ -769,23 +752,11 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 60" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 60" ~/Library/Preferences/com.apple.finder.plist
 
-## hide spotlight tray-icon (and subsequent helper)
-#sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-
 # disable spotlight indexing for any volume that gets mounted and has not yet # been indexed before.
 # use `sudo mdutil -i off "/volumes/foo"` to stop indexing any volume.
 if [[ $NUMVER -lt 1015 ]]; then
   sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 fi
-
-# change indexing order and disable some search results
-# yosemite-specific search results (remove them if you are using macos 10.9 or older):
-#   MENU_DEFINITION
-#   MENU_CONVERSION
-#   MENU_EXPRESSION
-#   MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-#   MENU_WEBSEARCH             (send search queries to Apple)
-#   MENU_OTHER
 
 defaults write com.apple.spotlight orderedItems -array \
   '{"enabled" = 1;"name" = "APPLICATIONS";}' \
@@ -824,34 +795,32 @@ sudo mdutil -i on / > /dev/null
 sudo mdutil -E / > /dev/null
 
 # add colemak to input sources
-# if [[ $DefaultColemak == "true" ]]; then
-  # defaults delete com.apple.HIToolbox AppleEnabledInputSources
-  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array \
-  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
-  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
-  #   '{ "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; }'
-  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
-  #   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
-  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
-  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-  # defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
-  #   '{ "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; }'
+# defaults delete com.apple.HIToolbox AppleEnabledInputSources
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array \
+#   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+#   '{ "Bundle ID" = "com.apple.CharacterPaletteIM"; InputSourceKind = "Non Keyboard Input Method"; }'
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+#   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+#   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+#   '{ "Bundle ID" = "com.apple.PressAndHold"; InputSourceKind = "Non Keyboard Input Method"; }'
 
-  # defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.Colemak"
+# defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.Colemak"
 
-  # defaults delete com.apple.HIToolbox AppleInputSourceHistory
-  # defaults write com.apple.HIToolbox AppleInputSourceHistory -array \
-  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-  # defaults write com.apple.HIToolbox AppleInputSourceHistory -array-add \
-  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
+# defaults delete com.apple.HIToolbox AppleInputSourceHistory
+# defaults write com.apple.HIToolbox AppleInputSourceHistory -array \
+#   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+# defaults write com.apple.HIToolbox AppleInputSourceHistory -array-add \
+#   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 0; "KeyboardLayout Name" = "U.S."; }'
 
-  # defaults delete com.apple.HIToolbox AppleSelectedInputSources
-  # defaults write com.apple.HIToolbox AppleSelectedInputSources -array \
-  #   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
-  # defaults write com.apple.HIToolbox AppleSelectedInputSources -array-add \
-  #   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
-  # TODO: setup caps map to escape https://apple.stackexchange.com/questions/13598/updating-modifier-key-mappings-through-defaults-command-tool
-# fi
+# defaults delete com.apple.HIToolbox AppleSelectedInputSources
+# defaults write com.apple.HIToolbox AppleSelectedInputSources -array \
+#   '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 12825; "KeyboardLayout Name" = Colemak; }'
+# defaults write com.apple.HIToolbox AppleSelectedInputSources -array-add \
+#   '{ "Bundle ID" = "com.apple.inputmethod.EmojiFunctionRowItem"; InputSourceKind = "Non Keyboard Input Method"; }'
+# TODO: setup caps map to escape https://apple.stackexchange.com/questions/13598/updating-modifier-key-mappings-through-defaults-command-tool
 
 ################################################################################
 ################################################################################
