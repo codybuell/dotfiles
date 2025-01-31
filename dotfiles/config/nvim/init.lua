@@ -187,7 +187,7 @@ vim.cmd('packadd! vim-tmux-navigator')      -- motion between vim and tmux
 vim.cmd('packadd! vim-tmux-runner')         -- execute commands in tmux panes
 
 -- utilities
-vim.cmd('packadd! corpus')                  -- note management
+-- vim.cmd('packadd! corpus')               -- note management
 vim.cmd('packadd! plenary.nvim')            -- lua helpers
 vim.cmd('packadd! pinnacle')                -- color/highlight utility
 vim.cmd('packadd! ferret')                  -- improved multi-file search + helpers
