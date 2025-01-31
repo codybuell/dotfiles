@@ -530,9 +530,9 @@ hs.hotkey.bind(mash, 'up', Chain({
 -- mash down window chain
 hs.hotkey.bind(mash, 'down', Chain({
   grid.landscapeSmall,
-  grid.centeredMini,
   grid.fullScreen,
+  -- grid.centeredMini,
   grid.halfFull,
   grid.laptopGoldenLarge,
-  grid.centeredSmall,
+  -- grid.centeredSmall,
 }))
