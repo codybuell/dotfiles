@@ -1,5 +1,5 @@
 #compdef note
 
 # -W specifies path prefixes are to be prepended
-NOTEPATH=$(echo {{ Notes }} | sed 's/\\//g')
+NOTEPATH=$(echo {{ Notes }})
 _files -W $NOTEPATH/

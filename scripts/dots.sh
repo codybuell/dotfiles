@@ -198,34 +198,14 @@ post_place_hooks() {
       # symlink spell from this repo
       rm -rf "${HOME}"/.config/nvim/spell; ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
 
-      # compile command-t
-      if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib ]]; then
-        cd "${HOME}"/.config/nvim/pack/bundle/opt/command-t/lua/wincent/commandt/lib > /dev/null || exit 1
-        make > /dev/null 2>&1
-        cd "$CWD" > /dev/null || exit 1
-      fi
-
-      # build shellbot
-      if [[ -d "${HOME}"/.config/nvim/pack/bundle/opt/shellbot ]]; then
-        cd "${HOME}"/.config/nvim/pack/bundle/opt/shellbot > /dev/null || exit 1
-        cargo build --release > /dev/null 2>&1
-        cd "$CWD" > /dev/null || exit 1
-      fi
-
       # generate helptags for all plugins
       ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
 
       # run treesitter-install (not working)
       # ${NVIMPATH} --headless +'TSInstall' +qa > /dev/null 2>&1
 
-      # firenvim
-      ${NVIMPATH} --headless -c "call firenvim#install(0, 'export LANG=\"en_US.UTF-8\"; export PATH=\"${PATH}\"')" -c quit > /dev/null 2>&1
-
       # markdown-preview.nvim
       ${NVIMPATH} --headless +'lua vim.fn["mkdp#util#install"]()' +qa > /dev/null 2>&1
-
-      # get rid of massive command-t benchmarks folder, keeps lua lsp happy
-      rm -rf "${HOME}/.config/nvim/pack/bundle/opt/command-t/data/wincent/commandt/benchmark"
       ;;
   esac
 

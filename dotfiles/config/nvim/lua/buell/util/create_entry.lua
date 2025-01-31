@@ -10,7 +10,7 @@ local create_entry = function (wiki)
     local year  = os.date('%Y', date)
     local month = os.date('%m', date)
     local day   = os.date('%d', date)
-    local path  = '{{ Journal }}' .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
+    local path  = vim.fn.fnamemodify('{{ Journal }}', ':p') .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
     local file  = year .. '.' .. month .. '.' .. day .. '.md'
     local full  = path .. '/' .. file
 
@@ -36,16 +36,7 @@ local create_entry = function (wiki)
   elseif wiki == 'note' or wiki == 'codex' then
     -- set prompt and path
     local prompt = 'Note name: '
-    local path   = '{{ Notes }}'
-    -- local prompt
-    -- local path
-    -- if wiki == 'note' then
-    --   prompt = 'Note name: '
-    --   path   = '{{ Notes }}'
-    -- elseif wiki == 'codex' then
-    --   prompt = 'Codex name: '
-    --   path   = '{{ Codex }}'
-    -- end
+    local path   = vim.fn.fnamemodify('{{ Notes }}', ':p')
 
     -- prompt for note name
     vim.fn.inputsave()

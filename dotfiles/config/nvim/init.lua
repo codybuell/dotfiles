@@ -180,14 +180,13 @@ vim.cmd('packadd! nvim-ts-context-commentstring')
 
 -- navigation
 vim.cmd('packadd! vim-dirvish')             -- fast netrw replacement
-vim.cmd('packadd! command-t')               -- fast file navigation
+vim.cmd('packadd! mini.nvim')               -- fuzzy * navigation
 
 -- tmux navigation and control
 vim.cmd('packadd! vim-tmux-navigator')      -- motion between vim and tmux
 vim.cmd('packadd! vim-tmux-runner')         -- execute commands in tmux panes
 
 -- utilities
--- vim.cmd('packadd! corpus')               -- note management
 vim.cmd('packadd! plenary.nvim')            -- lua helpers
 vim.cmd('packadd! pinnacle')                -- color/highlight utility
 vim.cmd('packadd! ferret')                  -- improved multi-file search + helpers
@@ -200,16 +199,13 @@ vim.cmd('packadd! vim-surround')            -- easy editing of surrounding chars
 vim.cmd('packadd! vim-repeat')              -- repeat plugin work with .
 vim.cmd('packadd! vim-abolish')             -- case toggling, replacements variations
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
-vim.cmd('packadd! shellbot')                -- lightweight chatgpt integration
 vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
 vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
-vim.cmd('packadd! firenvim')                -- neovim in the browser
 vim.cmd('packadd! markdown-preview.nvim')   -- markdown development support
 vim.cmd('packadd! treesj')                  -- split/join treesitter nodes
 
 -- ai
 vim.cmd('packadd! copilot.vim')             -- github copilot ai util
-vim.cmd('packadd! CopilotChat.nvim')        -- copilot chat support
 vim.cmd('packadd! codecompanion.nvim')      -- ai agents in nvim
 
 -- snippets and completion

@@ -38,10 +38,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/ferret
 	url = https://github.com/wincent/ferret.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/command-t"]
-	path = dotfiles/config/nvim/pack/bundle/opt/command-t
-	url = https://github.com/wincent/command-t.git
-	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/loupe"]
 	path = dotfiles/config/nvim/pack/bundle/opt/loupe
 	url = https://github.com/wincent/loupe.git
@@ -134,10 +130,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/firenvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/firenvim
-	url = https://github.com/glacambre/firenvim.git
-	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
@@ -153,10 +145,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/vim-abolish"]
 	path = dotfiles/config/nvim/pack/bundle/opt/vim-abolish
 	url = https://github.com/tpope/vim-abolish.git
-	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/corpus"]
-	path = dotfiles/config/nvim/pack/bundle/opt/corpus
-	url = https://github.com/wincent/corpus.git
 	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-cmdline
@@ -181,10 +169,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go"]
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git
-	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/CopilotChat.nvim
-	url = https://github.com/CopilotC-Nvim/CopilotChat.nvim.git
 	ignore = dirty
 [submodule "dotfiles/tmux/tmux-resurrect"]
 	path = dotfiles/tmux/tmux-resurrect
@@ -211,12 +195,12 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-nvim-lua
 	url = https://github.com/hrsh7th/cmp-nvim-lua.git
-[submodule "dotfiles/config/nvim/pack/bundle/opt/shellbot"]
-	path = dotfiles/config/nvim/pack/bundle/opt/shellbot
-	url = https://github.com/codybuell/shellbot.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/treesj"]
 	path = dotfiles/config/nvim/pack/bundle/opt/treesj
 	url = https://github.com/Wansmer/treesj.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/codecompanion.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/codecompanion.nvim
 	url = https://github.com/olimorris/codecompanion.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/mini.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/mini.nvim
+	url = https://github.com/echasnovski/mini.nvim.git

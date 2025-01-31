@@ -211,7 +211,7 @@ changediroredit() {
 
 # edit or cd to notes
 note() {
-  NOTEPATH=$(echo {{ Notes }} | sed 's/\\//g')
+  NOTEPATH=$(echo {{ Notes }})
   if [ $1 ]; then
     ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
     EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.md'`
@@ -345,7 +345,7 @@ function gpl() {
 
 # edit journal
 function j() {
-  JOURNALPATH=$(echo {{ Journal }} | sed 's/\\//g')
+  JOURNALPATH=$(echo {{ Journal }})
   cd $JOURNALPATH
   [[ ! -d $JOURNALPATH/`date +%Y/%m` ]] && mkdir -p $JOURNALPATH/`date +%Y/%m`
   vim $JOURNALPATH/`date +%Y/%m/%Y.%m.%d`.md

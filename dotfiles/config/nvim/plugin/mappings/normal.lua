@@ -8,13 +8,13 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 
 -- modes
 vim.keymap.set('n', '<Leader>`', ':Goyo<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat Toggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>2', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<Leader>3', ':CopilotChatToggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>4', ':ChatGPT<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>5', ':ChatGPTX<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>6', ':Claude<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>7', ':Opus<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat copilot Toggle<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat anthropic Toggle<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat openai Toggle<CR>', {remap=false, silent=true})
+--4
+--5
+--6
+--7
 vim.keymap.set('n', '<Leader>8', ':MarkdownPreviewToggle<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>9', ':Copilot toggle<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>0', function()
@@ -64,16 +64,6 @@ vim.keymap.set('n', '<Right>', '<CMD>lua buell.util.list_nav("next", "list")<CR>
 -- search related maps
 vim.keymap.set('n', ',,', '/[^\\x00-\\x7F]<CR>', {silent = true})
 vim.keymap.set('n', ',/', '<Plug>(LoupeClearHighlight)', {})
-
--- command-t
-vim.keymap.set('n', '<Leader>b', '<Plug>(CommandTBuffer)', {remap = true})
-vim.keymap.set('n', '<Leader>h', '<Plug>(CommandTHelp)', {remap  = true})
--- Watchman + command-t causes random segfaults killing nvim! Not sure what's going on there...
--- vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTWatchman)', {remap = true})
-vim.keymap.set('n', '<Leader>t', '<Plug>(CommandTGit)', {remap = true})
-vim.keymap.set('n', '<Leader>.', ':CommandT %:p:h<CR>', {remap = false})
-vim.keymap.set('n', '<Leader>n', ':CommandTWiki {{ Notes }}<CR>', {remap = false, silent = true})
--- vim.keymap.set('n', '<Leader>j', ':CommandTWiki {{ Journal }}<CR>', {remap = false, silent = true})
 
 -- treesj
 vim.keymap.set('n', '<Leader>s', ':TSJSplit<CR>', {remap = false, silent = true})

@@ -8,8 +8,7 @@ local markdown = {}
 
 -- wikis, wiki cannot have a name of http[s]?
 local wikis = {
-  notes = '{{ Notes }}',
-  journal = '{{ Journal }}',
+  notes   = vim.fn.fnamemodify('{{ Notes }}', ':p'),
 }
 
 -- define link syntaxes, order is important in link_types due to lua's lack of

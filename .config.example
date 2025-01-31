@@ -45,6 +45,7 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
+AnthropicAPIKey = sk-ant-api03-123456789abcdefghijklmnopqrstuvwxyz
 
 
 ################################################################################
@@ -143,18 +144,12 @@ ProjEmailAddress    = cody@othersite.com
 # variable          cli   vim    description                                   #
 # ---------------------------------------------------------------------------- #
 # Notes                   ␣n    general markdown notes / notes vim wiki        #
-# Projects                ␣p    projects that are not git repos                #
-# Journal                 ␣j    daily joursals / notes / thoughts              #
-# Domains                 ␣d    chores, responsibilities, etc.                 #
 # Repos             repo        projects that are git repos                    #
 # Gists             gist        github gists, snippet repositories             #
 #                                                                              #
-# * journal has a subdir structure of YYYY/MM/YYYY.MM.DD.txt                   #
-# ** fully path out from root if you run into issues                           #
-# *** double quote and 4x escape any paths with spaces, for example:           #
+# * double quote any paths with spaces, for example:                           #
 #                                                                              #
-#    "~/Google\\\\ Drive/Notes"                                                #
-#    "~/Library/Mobile\\\\ Documents/com\\\\~apple\\\\~CloudDocs/"             #
+#    "~/Google Drive/My Drive/Notes"                                           #
 #                                                                              #
 # CDPath is a ':' separated list of paths that ZSH autocompletes and wormhole  #
 # navigates to. Any paths added below will be appended to the default set in   #
@@ -178,10 +173,11 @@ ProjEmailAddress    = cody@othersite.com
 ################################################################################
 
 
-Notes           = "~/Google\\\\ Drive/My\\\\ Drive/Notes"
-Projects        = "~/Google\\\\ Drive/My\\\\ Drive/Projects"
-Journal         = "~/Google\\\\ Drive/My\\\\ Drive/Journal"
-Domains         = "~/Google\\\\ Drive/My\\\\ Drive/Domains"
+Notes           = "~/Google Drive/My Drive/Notes"
+Journal         = "~/Google Drive/My Drive/Journal"
+
+Projects        = "~/Google Drive/My Drive/Projects"
+Domains         = "~/Google Drive/My Drive/Domains"
 
 Repos           = /Users/pbuell/Repos
 WorkRepos       = /Users/pbuell/Repos/git.kion.io

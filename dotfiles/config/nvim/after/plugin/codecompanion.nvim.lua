@@ -37,9 +37,41 @@ if has_codecompanion then
             modes = { n = "gq", i = "<C-c>" },
           },
         },
+        slash_commands = {
+          ["buffer"] = {
+            opts = {
+              provider = "mini_pick",
+            },
+          },
+          ["help"] = {
+            opts = {
+              provider = "mini_pick",
+            },
+          },
+          ["file"] = {
+            opts = {
+              provider = "mini_pick",
+            },
+          },
+          ["symbolos"] = {
+            opts = {
+              provider = "mini_pick",
+            },
+          },
+        },
       },
     },
     display = {
+      action_palette = {
+        width = 95,
+        height = 10,
+        prompt = "Prompt ",                   -- prompt used for interactive LLM calls
+        provider = "mini_pick",               -- default|telescope|mini_pick
+        opts = {
+          show_default_actions = true,        -- show the default actions in the action palette?
+          show_default_prompt_library = true, -- show the default prompt library in the action palette?
+        },
+      },
       chat = {
         -- general config options
         intro_message = "",
@@ -120,6 +152,7 @@ if has_codecompanion then
   -- other maps are in normal.lua
   vim.keymap.set('n', '<C-a>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
+  vim.keymap.set('n', '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
   ---------------------
   --  Miscellaneous  --
