@@ -8,7 +8,7 @@
 #
 # Requisite:
 #
-# Tasks: 
+# Tasks:
 #
 # Usage: make repos
 #        scripts/repos.sh

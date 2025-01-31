@@ -79,10 +79,10 @@ subs:
 	git submodule update --init
 
 paths:
-	scripts/paths.sh
+	@source scripts/library.sh && read_config && cd && run_paths
 
 symlinks:
-	scripts/symlinks.sh
+	@source scripts/library.sh && read_config && cd && run_links
 
 repos:
 	scripts/repos.sh
@@ -128,15 +128,3 @@ commands:
 
 clean:
 	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;
-
-# TODO: implement
-# test:
-# 	scripts/test.sh
-# config:
-# 	scripts/config.sh
-# composer:
-# 	scripts/composer.sh
-# iterm:
-# 	scripts/iterm.sh
-# linux:
-# 	scripts/linux.sh

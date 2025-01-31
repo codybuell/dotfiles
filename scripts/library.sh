@@ -2,7 +2,7 @@
 #
 # Shell Script Library
 #
-# A mix of helper variables and functions intended to be used with the toolkit
+# A mix of helper variables and functions intended to be used with the dotfiles
 # repo: https://github.com/codybuell/dotfiles.
 #
 # Author(s): Cody Buell
@@ -119,7 +119,7 @@ read_config() {
     done < "$configfile.tmp"
     export CONFIGVARS
   else
-    printf "\033[0;31mno configuration file detected\033[0m\n"
+    echo -e "${RED}no configuration file detected${NORM}"
     exit 1
   fi
   rm "$configfile.tmp"
@@ -267,6 +267,73 @@ run_commands() {
     if [[ $VAR =~ COMMAND.* ]]; then
       log blue "executing: ${VAL}"
       eval "$VAL"
+    fi
+  done
+}
+
+##
+ # Run Paths
+ #
+ # Create paths as defined by every $REPO.* variable in $CONFGDIR/.config.
+ #
+ # @params none
+ # @return none
+##
+run_paths() {
+  echo -e "${BLUE}setting up paths...${NORM}"
+  for p in "${CONFIGVARS[@]}"; do
+    VAR=$p
+    eval VAL="\$$p"
+    if [[ $VAR =~ PATH.* ]]; then
+      if [[ ! -d $VAL ]]; then
+        prettyprint "  ${VAL}:${GREEN}creating path${NORM}"
+        mkdir -p "$VAL"
+      else
+        prettyprint "  ${VAL}:${GREEN}already exists${NORM}"
+      fi
+    fi
+  done
+}
+
+##
+ # Run Links
+ #
+ # Create symlinks as defined by every $SYMLINK.* variable in $CONFIGDIR/.config.
+ #
+ # @params none
+ # @return none
+##
+run_links() {
+  echo -e "${BLUE}setting up symlinks...${NORM}"
+  LINKMSG="${GREEN}creating symlink${NORM}"
+  for c in "${CONFIGVARS[@]}"; do
+    VAR=$c
+    eval VAL="\$$c"
+    if [[ $VAR =~ SYMLINK.* ]]; then
+      DST=$(echo "$VAL" | awk -F: '{print $2}')
+      SRC=$(echo "$VAL" | awk -F: '{print $1}')
+
+      # replace any config vars within DST / SRC
+      for c_inner in "${CONFIGVARS[@]}"; do
+        VAR_INNER=${c_inner}
+        eval VAL_INNER="\$$c_inner"
+        # escape any @'s in the value so perl doesn't hose it
+        VAL_INNER=${VAL_INNER//@/\\@}
+        DST=$(echo "$DST" | perl -p -e "s|{{[[:space:]]*${VAR_INNER}[[:space:]]*}}|${VAL_INNER}|g")
+        SRC=$(echo "$SRC" | perl -p -e "s|{{[[:space:]]*${VAR_INNER}[[:space:]]*}}|${VAL_INNER}|g")
+      done
+
+      if [[ -d "$DST" || -L "$DST" ]]; then
+        if [[ -L "$DST" ]]; then
+          unlink "$DST"
+          LINKMSG="33mre-linking symlink"
+        else
+          prettyprint "  ${DST}:${YELLOW}already exists as a dir${NORM}"
+          continue
+        fi
+      fi
+      prettyprint "  ${DST}:${LINKMSG}${NORM}"
+      ln -s "$SRC" "$DST"
     fi
   done
 }
