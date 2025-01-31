@@ -184,7 +184,7 @@ color.update = function()
   -- italicize comments
   pinnacle.set('Comment', pinnacle.italicize('Comment'))
 
-  -- parentheses match is rough by deault
+  -- parentheses match is rough by default
   pinnacle.set('MatchParen', {
     fg = pinnacle.bg('Error'),
     bg = 'None',
