@@ -371,7 +371,7 @@ if has_cmp then
         scrolloff = 3,
         -- Default for bordered() is 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None'
         -- Default for non-bordered, which we'll use here, is:
-        winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+        winhighlight = 'Normal:Pmenu,FloatBorder:PmenuDarker,CursorLine:PmenuSel,Search:None',
       }),
       documentation = cmp.config.window.bordered({
         border = 'single',
@@ -381,7 +381,7 @@ if has_cmp then
         -- Suggestion from: https://github.com/hrsh7th/nvim-cmp/issues/2042
         -- is to use 'NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None'
         -- but this also seems to suffice:
-        winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+        winhighlight = 'Normal:Pmenu,FloatBorder:PmenuDarker,CursorLine:PmenuSel,Search:None',
         -- winhighlight = 'CursorLine:Visual,Search:None',
       }),
     },
@@ -417,13 +417,12 @@ if has_cmp then
   --   callback = toggle_ghost_text,
   -- })
 
-  ----------------------------------------------------------------------------------
-  ----                                                                            --
-  ----  FileType Specific Configurations                                          --
-  ----                                                                            --
-  ----------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+  --                                                                            --
+  --  FileType Specific Configurations                                          --
+  --                                                                            --
+  --------------------------------------------------------------------------------
 
-  ---- Set configuration for specific filetype.
   --cmp.setup.filetype('gitcommit', {
   --  sources = cmp.config.sources({
   --    { name = 'handles' },
@@ -448,18 +447,24 @@ if has_cmp then
   --  })
   --})
 
-  ----------------------------------------------------------------------------------
-  ----                                                                            --
-  ----  Command Mode Configurations                                               --
-  ----                                                                            --
-  ----------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+  --                                                                            --
+  --  Command Mode Configurations                                               --
+  --                                                                            --
+  --------------------------------------------------------------------------------
 
-  ---- cmp.setup.cmdline(':', {
-  ----   mapping = cmp.mapping.preset.cmdline(),
-  ----   sources = cmp.config.sources({
-  ----     { name = 'path' }
-  ----   }, {
-  ----     { name = 'cmdline' }
-  ----   })
-  ---- })
+  -- cmp.setup.cmdline(':', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = cmp.config.sources({
+  --     { name = 'path' }
+  --   }, {
+  --     {
+  --       name = 'cmdline',
+  --       option = {
+  --         ignore_cmds = { 'Man', '!' }
+  --       }
+  --     }
+  --   })
+  -- })
+
 end
