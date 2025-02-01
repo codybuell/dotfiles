@@ -13,5 +13,11 @@
 
 local has_miniextra, miniextra = pcall(require, 'mini.extra')
 if has_miniextra then
+
+  -------------
+  --  Setup  --
+  -------------
+
   miniextra.setup()
+
 end

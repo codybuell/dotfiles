@@ -14,7 +14,11 @@ if has_codecompanion then
   --  Configuration  --
   ---------------------
 
-  codecompanion.setup({
+  -- alias cc to CodeCompanion
+  vim.cmd([[cab cc CodeCompanion]])
+
+  -- plugin level configuration
+  local config = {
     strategies = {
       inline = {
         adapter = "anthropic",
@@ -143,7 +147,13 @@ if has_codecompanion then
         end,
       },
     },
-  })
+  }
+
+  -------------
+  --  Setup  --
+  -------------
+
+  codecompanion.setup(config)
 
   ----------------
   --  Mappings  --
@@ -154,19 +164,17 @@ if has_codecompanion then
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set('n', '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
-  ---------------------
-  --  Miscellaneous  --
-  ---------------------
+  --------------------
+  --  Autocommands  --
+  --------------------
 
-  -- alias cc to CodeCompanion
-  vim.cmd([[cab cc CodeCompanion]])
+  local augroup = buell.util.augroup
+  local autocmd = buell.util.autocmd
 
-  -- set syntax to markdown
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "codecompanion",
-    callback = function()
+  augroup('BuellCodeCompanion', function()
+    autocmd('Filetype', 'codecompanion', function()
       vim.bo.syntax = "markdown"
-    end,
-  })
+    end)
+  end)
 
 end

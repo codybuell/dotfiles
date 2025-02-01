@@ -9,6 +9,10 @@
 local has_minipick, minipick = pcall(require, 'mini.pick')
 if has_minipick then
 
+  ---------------
+  --  Helpers  --
+  ---------------
+
   -- helper to center the picker window
   local function get_centered_window_config()
     local max_width  = 150
@@ -39,6 +43,10 @@ if has_minipick then
       }
     })
   end
+
+  -------------
+  --  Setup  --
+  -------------
 
   initialize_config()
 

@@ -1,5 +1,14 @@
-local augroup = buell.util.augroup
-local autocmd = buell.util.autocmd
+--------------------------------------------------------------------------------
+--                                                                            --
+--  GOYO                                                                      --
+--                                                                            --
+--  https://github.com/junegunn/goyo.vim                                      --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+----------------------
+--  Configurations  --
+----------------------
 
 -- width of text (default: 80)
 vim.g.goyo_width = 160
@@ -9,6 +18,10 @@ vim.g.goyo_height = '85%'
 
 -- show line numbers (default: 0)
 vim.g.goyo_linenr = 0
+
+---------------
+--  Helpers  --
+---------------
 
 local goyo_enter = function ()
   vim.cmd("silent !tmux set status off")
@@ -35,6 +48,13 @@ local goyo_leave = function ()
   buell.color.update()
   buell.statusline.update()
 end
+
+--------------------
+--  Autocommands  --
+--------------------
+
+local augroup = buell.util.augroup
+local autocmd = buell.util.autocmd
 
 augroup('BuellGoyo', function()
   -- manually calling in buell#helpers#CycleViews to avoid artifacting

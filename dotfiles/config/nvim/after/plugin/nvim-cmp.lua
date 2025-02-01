@@ -1,8 +1,20 @@
-local has_cmp, cmp = pcall(require, 'cmp')
+--------------------------------------------------------------------------------
+--                                                                            --
+--  NVIM-CMP                                                                  --
+--                                                                            --
+--  https://github.com/hrsh7th/nvim-cmp                                       --
+--                                                                            --
+--------------------------------------------------------------------------------
 
+local has_cmp, cmp = pcall(require, 'cmp')
 if has_cmp then
+
   local rhs = buell.util.rhs
   local has_luasnip, luasnip = pcall(require, 'luasnip')
+
+  ---------------------
+  --  Configuration  --
+  ---------------------
 
   -- expects kitty terminal or a patched font for unicode character support
   local lsp_kinds = {
@@ -33,19 +45,12 @@ if has_cmp then
     Variable      = ' ',
   }
 
-  --------------------------------------------------------------------------------
-  --                                                                            --
-  --  Custom Sources                                                            --
-  --                                                                            --
-  --------------------------------------------------------------------------------
-
+  -- custom sources
   buell.cmp.handles.setup()        -- github handles
 
-  --------------------------------------------------------------------------------
-  --                                                                            --
-  --  Helpers                                                                   --
-  --                                                                            --
-  --------------------------------------------------------------------------------
+  ---------------
+  --  Helpers  --
+  ---------------
 
   -- Check if there are non-whitespace characters before the cursor.
   -- local has_words_before = function()
