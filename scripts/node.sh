@@ -86,9 +86,9 @@ export NVM_DIR="$HOME/.nvm"
 # nvm use --lts
 
 # pin to lts/gallium
-nvm install lts/hydrogen
-nvm alias default lts/hydrogen
-nvm use lts/hydrogen
+nvm install lts/jod
+nvm alias default lts/jod
+nvm use lts/jod
 
 # install node packages
 for i in "${PACKAGES[@]}"; do
