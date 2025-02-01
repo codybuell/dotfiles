@@ -71,6 +71,7 @@ if has_minipick then
   vim.cmd("highlight! link MiniPickMatchCurrent Directory")
   vim.cmd("highlight! link MiniPickBorder PmenuDarker")
   pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
+  pinnacle.set('MiniPickPrompt', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
 
   --------------------
   --  Autocommands  --
