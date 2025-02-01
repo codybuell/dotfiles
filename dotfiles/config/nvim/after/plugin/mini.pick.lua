@@ -8,7 +8,39 @@
 
 local has_minipick, minipick = pcall(require, 'mini.pick')
 if has_minipick then
-  minipick.setup()
+
+  -- helper to center the picker window
+  local function get_centered_window_config()
+    local max_width  = 150
+    local max_height = 60
+
+    local editor_width  = vim.api.nvim_win_get_width(0)
+    local editor_height = vim.api.nvim_win_get_height(0)
+    local width         = math.min(editor_width - 50, max_width)
+    local height        = math.min(editor_height - 10, max_height)
+    local row           = math.floor((editor_height - height) / 2)
+    local col           = math.floor((editor_width - width) / 2)
+
+    return {
+      relative = 'editor',
+      row      = row,
+      col      = col,
+      width    = width,
+      height   = height,
+      anchor   = 'NW',
+      style    = 'minimal'
+    }
+  end
+
+  local function initialize_config()
+    minipick.setup({
+      window = {
+        config = get_centered_window_config()
+      }
+    })
+  end
+
+  initialize_config()
 
   ----------------
   --  Mappings  --
@@ -26,7 +58,31 @@ if has_minipick then
 
   -- pick files from notes directory
   vim.keymap.set('n', '<Leader>n', function()
-    local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')
+    local notes_dir = vim.fn.fnamemodify('~/Google Drive/My Drive/Resources/Codex', ':p')
     minipick.builtin.files({}, { source = { cwd = notes_dir } })
   end, { silent = true })
+
+  --------------
+  --  Colors  --
+  --------------
+
+  local pinnacle = require('wincent.pinnacle')
+
+  vim.cmd("highlight! link MiniPickMatchCurrent Directory")
+  vim.cmd("highlight! link MiniPickBorder PmenuDarker")
+  pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
+
+  --------------------
+  --  Autocommands  --
+  --------------------
+
+  local augroup = buell.util.augroup
+  local autocmd = buell.util.autocmd
+
+  augroup('BuellMiniPick', function()
+    autocmd('VimResized', '*', function()
+      initialize_config()
+    end)
+  end)
+
 end
