@@ -1,22 +1,27 @@
--- vim.api.nvim_create_user_command('ChatGPT', function()
---   local has_shellbot, shellbot = pcall(require, 'chatbot')
---   if not has_shellbot then
---     vim.api.nvim_err_writeln("error: could not require 'chatbot'; is the submodule initialized?")
---     return
---   end
---   if vim.env['SHELLBOT'] == nil or vim.fn.executable(vim.env['SHELLBOT']) ~= 1 then
---     vim.api.nvim_err_writeln('error: SHELLBOT does not appear to be executable')
---     return
---   end
---   shellbot.chatbot()
--- end, {})
-
-
--- mapping to submit is in ftplugin/shellbot.lua
-
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Shellbot                                                                  --
+--                                                                            --
+--  https://github.com/wolffiex/shellbot                                      --
+--  https://github.com/wincent/shellbot                                       --
+--  https://github.com/codybuell/shellbot                                     --
+--                                                                            --
+--------------------------------------------------------------------------------
 
 local has_shellbot = pcall(require, 'chatbot')
 if has_shellbot then
+
+  ---------------------
+  --  Configuration  --
+  ---------------------
+
+  -- capture api keys
+  local anthropic_api_key = vim.env['ANTHROPIC_API_KEY']
+  local openai_api_key = vim.env['OPENAI_API_KEY']
+
+  ---------------
+  --  Helpers  --
+  ---------------
 
   -- helper to toggle the shellbot buffer
   local close_existing_shellbot_buffer = function()
@@ -28,10 +33,6 @@ if has_shellbot then
     end
     return false
   end
-
-  -- capture api keys
-  local anthropic_api_key = vim.env['ANTHROPIC_API_KEY']
-  local openai_api_key = vim.env['OPENAI_API_KEY']
 
   -- Set up wrapper commands for specifically targetting ChatGPT and Claude.
   local shellbot = function(config)
@@ -60,6 +61,10 @@ if has_shellbot then
     --   vim.fn.system(key .. "=" .. value)
     -- end
   end
+
+  -------------
+  --  Setup  --
+  -------------
 
   vim.api.nvim_create_user_command('ChatGPT', function()
     shellbot({
@@ -101,11 +106,22 @@ if has_shellbot then
     })
   end, {})
 
-  -- Set up an autocmd to stop me from accidentally quitting vim when shellbot is
-  -- the only thing running in it. I do this all the time, losing valuable state.
-  vim.api.nvim_create_autocmd('QuitPre', {
-    pattern = '*',
-    callback = function()
+  ----------------
+  --  Mappings  --
+  ----------------
+
+  --------------------
+  --  Autocommands  --
+  --------------------
+
+  local augroup = buell.util.augroup
+  local autocmd = buell.util.autocmd
+
+  augroup('BuellShellbot', function()
+    autocmd('Filetype', 'shellbot', function()
+      vim.keymap.set({ 'i', 'n' }, '<C-s>', ChatBotSubmit, { buffer = true })
+    end)
+    autocmd('QuitPre', '*', function()
       local buftype = vim.bo.buftype
       local filetype = vim.bo.filetype
       local win_count = #vim.api.nvim_tabpage_list_wins(0)
@@ -122,9 +138,11 @@ if has_shellbot then
         --
         vim.bo.buftype = ''
       end
-    end,
-  })
+    end)
+  end)
+
 else
+
   local print_error = function()
     vim.api.nvim_err_writeln('error: SHELLBOT does not appear to be executable')
   end
@@ -132,4 +150,5 @@ else
   vim.api.nvim_create_user_command('ChatGPTX', print_error, {})
   vim.api.nvim_create_user_command('Claude', print_error, {})
   vim.api.nvim_create_user_command('Opus', print_error, {})
+
 end

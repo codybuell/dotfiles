@@ -194,10 +194,7 @@ color.update = function()
   -- make use of lsp hl group for signature help active param
   pinnacle.set('LspSignatureActiveParameter', pinnacle.decorate('bold,italic', 'WarningMsg'))
 
-  ----------------
-  --  nvim-cmp  --
-  ----------------
-
+  -- used by nvim-cmp and others that want a darker border around popup menus
   pinnacle.set('PmenuDarker', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('NonText')})
 
 end

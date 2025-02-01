@@ -195,6 +195,10 @@ post_place_hooks() {
     config|*nvim )
       NVIMPATH=$(which -a nvim | uniq | grep -v 'alias' | head -1)
 
+      # clear out remnants from other locations
+      rm -rf "${HOME}"/.local/share/nvim
+      rm -rf "${HOME}"/.local/state/nvim
+
       # symlink spell from this repo
       rm -rf "${HOME}"/.config/nvim/spell; ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
 
@@ -202,10 +206,12 @@ post_place_hooks() {
       ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
 
       # run treesitter-install (not working)
-      # ${NVIMPATH} --headless +'TSInstall' +qa > /dev/null 2>&1
+      # ${NVIMPATH} --headless +'TSUpdate' +qa > /dev/null 2>&1
 
       # markdown-preview.nvim
-      ${NVIMPATH} --headless +'lua vim.fn["mkdp#util#install"]()' +qa > /dev/null 2>&1
+      cd ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ || exit 1
+      npx --yes yarn install > /dev/null 2>&1
+      npx --yes yarn build > /dev/null 2>&1
       ;;
   esac
 

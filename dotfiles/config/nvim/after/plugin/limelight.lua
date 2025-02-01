@@ -6,14 +6,18 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
-----------------------
---  Configurations  --
-----------------------
+if vim.fn.exists(':Limelight') then
 
--- see after/plugin/goyo.vim
+  ----------------------
+  --  Configurations  --
+  ----------------------
 
--- opacity, defaults 0.5
-vim.g.limelight_default_coefficient = 0.7
+  -- see after/plugin/goyo.vim
 
--- number of preceding/following paragraphs to include (default: 0)
-vim.g.limelight_paragraph_span = 0
+  -- opacity, defaults 0.5
+  vim.g.limelight_default_coefficient = 0.7
+
+  -- number of preceding/following paragraphs to include (default: 0)
+  vim.g.limelight_paragraph_span = 0
+
+end

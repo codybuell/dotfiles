@@ -2,6 +2,8 @@
 --                                                                            --
 --  Color                                                                     --
 --                                                                            --
+--  see lua/buell/color.lua                                                   --
+--                                                                            --
 --------------------------------------------------------------------------------
 
 -- initialize color configurations

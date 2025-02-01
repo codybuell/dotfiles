@@ -165,13 +165,12 @@ vim.cmd('packadd! nvim-nio')                -- dap ui dependency, async io
 
 -- language server
 vim.cmd('packadd! nvim-lspconfig')          -- language server configurations
-vim.cmd('packadd! lsp-status.nvim')         -- lsp status capabilities
-vim.cmd('packadd! null-ls.nvim')            -- custom lsp injections
+vim.cmd('packadd! lsp-status.nvim')         -- lsp helpers for statusline
 
 -- syntax & color
 vim.cmd('packadd! editorconfig-vim')        -- indentation rulers
 vim.cmd('packadd! indent-blankline.nvim')   -- indentation rulers
-vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax highlighting
+vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax
 vim.cmd('packadd! base16-nvim')             -- color consistency with shell
 vim.cmd('packadd! todo-comments.nvim')      -- todo comment tags into quickfix / loclist
 
