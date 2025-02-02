@@ -153,14 +153,9 @@ color.update = function()
   hlg('DiffChange', 'ctermbg=24 guibg=#22222f')
   hlg('DiffText', 'ctermbg=24 guibg=#22222f')
 
-  -- make floating windows look nicer
-  local normal = pinnacle.brighten('Normal', 0.05)
-  vim.cmd('highlight! clear NormalFloat')
-  pinnacle.set('NormalFloat', normal)
-  normal['fg'] = '#cccccc'
-  vim.cmd('highlight! clear FloatBorder')
-  normal['blend'] = vim.o.winblend
-  pinnacle.set('FloatBorder', normal)
+  -- make floating windows match pmenu
+  vim.cmd("highlight! link NormalFloat Pmenu")
+  pinnacle.set('FloatBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('NonText')})
 
   -- italicize comments
   pinnacle.set('Comment', pinnacle.italicize('Comment'))
