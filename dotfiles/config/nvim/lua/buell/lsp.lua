@@ -33,6 +33,32 @@ lsp.go_imports = function(wait_ms)
   vim.lsp.buf.format({async = false})
 end
 
+-- Check Unicode
+--
+-- Injects warning messages to the lsp diagnostics for any unicode characters
+-- found in the buffer.
+lsp.check_unicode = function(bufnr)
+  local diagnostics = {}
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  for i, line in ipairs(lines) do
+    local col, end_col = line:find("[^%z\1-\127]+")
+    if col and end_col then
+      table.insert(diagnostics, {
+        lnum = i - 1,
+        col = col - 1,
+        end_lnum = i - 1,
+        end_col = end_col,
+        severity = vim.diagnostic.severity.WARN,
+        source = 'custom_unicode',
+        message = 'Unicode characters found',
+      })
+    end
+  end
+
+  vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, diagnostics, {})
+end
+
 ---------------------------------------------------------------------------------
 --                                                                             --
 --  Overrides                                                                  --
@@ -92,6 +118,11 @@ local on_attach = function(client, bufnr)
   -- local filetype = vim.api.nvim_get_option_value("filetype", {buff = bufnr})
 
   buell.util.augroup('BuellLSP', function()
+    vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged"}, {
+      callback = function(args)
+        buell.lsp.check_unicode(args.buf)
+      end,
+    })
     vim.api.nvim_command("autocmd BufWritePre *.go lua buell.lsp.go_imports(1000)")
     vim.api.nvim_create_autocmd('DiagnosticChanged', {
       callback = function(args)
