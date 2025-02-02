@@ -103,25 +103,6 @@ color.update = function()
   pinnacle.set('LspReferenceRead', {fg = pinnacle.fg('Type')})
   pinnacle.set('LspReferenceWrite', {fg = pinnacle.fg('Type')})
 
-  ----------------
-  --  markdown  --
-  ----------------
-
-  vim.cmd('hi def link buellTodo mkdListItem')
-  vim.cmd('hi def link buellTodoText Directory')
-
-  vim.cmd('hi def link buellInProgressTodo mkdListItem')
-  vim.cmd('hi def link buellInProgressTodoText Question')
-
-  vim.cmd('hi def link buellCompletedTodo mkdListItem')
-  pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.20))
-
-  vim.cmd('hi def link buellDroppedTodo mkdListItem')
-  pinnacle.set('buellDroppedTodoText', pinnacle.decorate('strikethrough', 'buellCompletedTodoText'))
-
-  vim.cmd('hi def link buellImportantTodo mkdListItem')
-  pinnacle.set('buellImportantTodoText', pinnacle.decorate('bold', 'Label'))
-
   ---------------
   --  tabline  --
   ---------------

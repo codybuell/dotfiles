@@ -59,12 +59,6 @@ if has_treesitter then
       -- native vim syntax highlighting is better
       disable = {
         "yaml",
-        "json",
-        "jsonc",
-        -- "markdown",
-        "gitcommit",
-        "shellbot",
-        "copilot-chat"
       },
       -- disable / stop trying to re-init highlighting on large files
       is_supported = function()
@@ -109,17 +103,85 @@ if has_treesitter then
   -- ]]
   -- ts_query.set("markdown", "highlights", custom_query)
 
+  local function extend_markdown()
+    vim.cmd [[
+      " inline URLs
+      syn match buellInlineURL /http[s]\?:\/\/[[:alnum:]%\/_#?&=.-]*/
+
+      " todo items `- [ ] text`
+      syn match buellTodo /\v^\s*-\s\[\s\]\s.*$/
+      syn region buellTodoText
+        \ start=/\v\[\s\]\s/
+        \ end=/$/
+        \ contained
+        \ containedin=buellTodo
+        \ contains=buellInlineURL
+
+      " completed todo items `- [x] text`
+      syn match buellCompletedTodo      /\v^\s*-\s\[[xX×]\]\s.*$/
+      syn region buellCompletedTodoText
+        \ start=/\v\[[xX×]\]\s/
+        \ end=/$/
+        \ contained
+        \ containedin=buellCompletedTodo
+        \ contains=buellInlineURL
+
+      " code fences are concealed, set a char so we can see something
+      syntax match buellCodeFences /^\s*```.*/
+      syntax region @conceal
+        \ start=/``/
+        \ end=/`/
+        \ contained
+        \ containedin=buellCodeFences
+        \ conceal
+        \ cchar=≋
+    ]]
+  end
+
+  local function extend_gitcommit()
+    print('extending gitcommit')
+    vim.cmd [[
+      syntax match buellGitCommitOverLength /\%1l\%>50v.*$/
+    ]]
+  end
+
   --------------
   --  Colors  --
   --------------
 
   local pinnacle = require('wincent.pinnacle')
 
-  -- markdown overrides
+  -- adjust treesitter markdown highlight groups
   vim.cmd("highlight! link @markup.list.markdown Identifier")
   vim.cmd("highlight! link @markup.raw.markdown_inline Float")
   vim.cmd("highlight! link @markup.quote.markdown Comment")
+  pinnacle.set('@markup.heading.1.markdown', pinnacle.embolden('Title'))
   pinnacle.set('@markup.strong.markdown_inline', pinnacle.embolden('Tag'))
   pinnacle.set('@punctuation.special.markdown', pinnacle.embolden('Comment'))
+  pinnacle.set('@markup.list.unchecked.markdown', pinnacle.embolden('Directory'))
+  pinnacle.set('@markup.list.checked.markdown', pinnacle.darken('Directory', 0.20))
+
+  -- custom markdown highlight groups
+  vim.cmd("highlight! link buellInlineURL htmlLink")
+  vim.cmd("highlight! link buellTodoText Directory")
+  pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.30))
+
+  -- git commit over length
+  pinnacle.set('buellGitCommitOverLength', pinnacle.darken('Error', 0.30))
+
+  -- darken conceal character text
+  pinnacle.set('Conceal', pinnacle.darken('Directory', 0.35))
+
+  --------------------
+  --  Autocommands  --
+  --------------------
+
+  local augroup = buell.util.augroup
+  local autocmd = buell.util.autocmd
+
+  augroup('BuellTreesitter', function()
+    autocmd('BufRead,BufNewFile', '*.md', extend_markdown)
+    autocmd('BufRead,BufNewFile', 'COMMIT_EDITMSG', extend_gitcommit)
+  end)
 
 end
