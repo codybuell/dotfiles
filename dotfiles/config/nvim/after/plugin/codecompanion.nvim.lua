@@ -164,17 +164,4 @@ if has_codecompanion then
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set('n', '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
-  --------------------
-  --  Autocommands  --
-  --------------------
-
-  local augroup = buell.util.augroup
-  local autocmd = buell.util.autocmd
-
-  augroup('BuellCodeCompanion', function()
-    autocmd('Filetype', 'codecompanion', function()
-      vim.bo.syntax = "markdown"
-    end)
-  end)
-
 end

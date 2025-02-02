@@ -61,7 +61,7 @@ if has_treesitter then
         "yaml",
         "json",
         "jsonc",
-        "markdown",
+        -- "markdown",
         "gitcommit",
         "shellbot",
         "copilot-chat"
@@ -94,5 +94,32 @@ if has_treesitter then
   -------------
 
   treesitter.setup(config)
+
+  -----------------
+  --  Overrides  --
+  -----------------
+
+  -- local ts_query = require("vim.treesitter.query")
+
+  -- -- override fenced_code_block_delimiter in markdown to not conceal
+  -- -- this requires https://github.com/neovim/neovim/pull/30257
+  -- local custom_query = [[
+  -- ;; extends
+  -- (fenced_code_block_delimiter) @punctuation.delimiter
+  -- ]]
+  -- ts_query.set("markdown", "highlights", custom_query)
+
+  --------------
+  --  Colors  --
+  --------------
+
+  local pinnacle = require('wincent.pinnacle')
+
+  -- markdown overrides
+  vim.cmd("highlight! link @markup.list.markdown Identifier")
+  vim.cmd("highlight! link @markup.raw.markdown_inline Float")
+  vim.cmd("highlight! link @markup.quote.markdown Comment")
+  pinnacle.set('@markup.strong.markdown_inline', pinnacle.embolden('Tag'))
+  pinnacle.set('@punctuation.special.markdown', pinnacle.embolden('Comment'))
 
 end
