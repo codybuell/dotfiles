@@ -155,7 +155,7 @@ color.update = function()
 
   -- make floating windows match pmenu
   vim.cmd("highlight! link NormalFloat Pmenu")
-  pinnacle.set('FloatBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('NonText')})
+  pinnacle.set('FloatBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.darken('Normal', 0.3).fg})
 
   -- italicize comments
   pinnacle.set('Comment', pinnacle.italicize('Comment'))
@@ -171,7 +171,7 @@ color.update = function()
   pinnacle.set('LspSignatureActiveParameter', pinnacle.decorate('bold,italic', 'WarningMsg'))
 
   -- used by nvim-cmp and others that want a darker border around popup menus
-  pinnacle.set('PmenuDarker', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('NonText')})
+  vim.cmd("highlight! link PmenuDarker FloatBorder")
 
 end
 
