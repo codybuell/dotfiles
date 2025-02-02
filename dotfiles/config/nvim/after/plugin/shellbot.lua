@@ -141,14 +141,4 @@ if has_shellbot then
     end)
   end)
 
-else
-
-  local print_error = function()
-    vim.api.nvim_err_writeln('error: SHELLBOT does not appear to be executable')
-  end
-  vim.api.nvim_create_user_command('ChatGPT', print_error, {})
-  vim.api.nvim_create_user_command('ChatGPTX', print_error, {})
-  vim.api.nvim_create_user_command('Claude', print_error, {})
-  vim.api.nvim_create_user_command('Opus', print_error, {})
-
 end
