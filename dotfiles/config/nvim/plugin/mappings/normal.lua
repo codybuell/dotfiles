@@ -16,7 +16,15 @@ vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat openai Toggle<CR>', {remap=
 --6
 --7
 vim.keymap.set('n', '<Leader>8', ':MarkdownPreviewToggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>9', ':Copilot toggle<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>9', function()
+  local copilot_client = vim.fn['copilot#Enabled']()
+  if copilot_client ~= 0 then
+    vim.cmd("Copilot disable")
+  else
+    vim.cmd("Copilot enable")
+  end
+  vim.cmd('redrawstatus')
+end, {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>0', function()
   if #vim.lsp.get_clients() == 0 then
     vim.cmd("LspStart")
@@ -25,6 +33,7 @@ vim.keymap.set('n', '<Leader>0', function()
     vim.cmd("LspStop")
     -- vim.lsp.stop_client(vim.lsp.get_clients())<CR>
   end
+  vim.cmd('redrawstatus')
 end, {remap = false})
 
 -- underline helper
