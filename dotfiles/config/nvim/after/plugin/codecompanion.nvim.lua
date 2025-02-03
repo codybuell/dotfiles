@@ -35,7 +35,7 @@ if has_codecompanion then
         },
         keymaps = {
           send = {
-            modes = { n = "<C-s>", i = "<C-s>" },
+            modes = { n = "<C-a>", i = "<C-a>" },
           },
           close = {
             modes = { n = "gq", i = "<C-c>" },
@@ -163,5 +163,16 @@ if has_codecompanion then
   vim.keymap.set('v', '<C-a>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
+
+  -- overload send key to go back to normal mode then submit
+  vim.keymap.set({'i', 'n', 'v'}, '<C-s>', function()
+    vim.cmd('stopinsert')
+    vim.schedule(function()
+      local chat = require('codecompanion.strategies.chat')
+      if chat and chat.last_chat then
+        chat.last_chat():submit()
+      end
+    end)
+  end, { noremap = true, silent = true })
 
 end
