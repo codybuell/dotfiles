@@ -55,6 +55,7 @@ if has_minipick then
   ----------------
 
   vim.keymap.set('n', '<Leader>t', '<CMD>Pick files<CR>', { remap = true, silent = true })
+  vim.keymap.set('n', '<Leader>T', '<CMD>Pick grep_live tool="rg"<CR>', { remap = true, silent = true })
   vim.keymap.set('n', '<Leader>h', '<CMD>Pick help<CR>', { remap = true, silent = true })
   vim.keymap.set('n', '<Leader>b', '<CMD>Pick buffers<CR>', { remap = true, silent = true })
 
@@ -64,10 +65,22 @@ if has_minipick then
     minipick.builtin.files({}, { source = { cwd = buf_dir } })
   end, { silent = true })
 
+  -- ripgrep files from the current buffers directory
+  vim.keymap.set('n', '<Leader>>', function()
+    local buf_dir = vim.fn.expand('%:p:h')
+    minipick.builtin.grep_live({ tool = 'rg' }, { source = { cwd = buf_dir } })
+  end, { silent = true })
+
   -- pick files from notes directory
   vim.keymap.set('n', '<Leader>n', function()
-    local notes_dir = vim.fn.fnamemodify('~/Google Drive/My Drive/Resources/Codex', ':p')
+    local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')
     minipick.builtin.files({}, { source = { cwd = notes_dir } })
+  end, { silent = true })
+
+  -- ripgrep files from notes directory
+  vim.keymap.set('n', '<Leader>N', function()
+    local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')
+    minipick.builtin.grep_live({ tool = 'rg' }, { source = { cwd = notes_dir } })
   end, { silent = true })
 
   --------------
