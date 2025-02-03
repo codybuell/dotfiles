@@ -38,25 +38,33 @@ end
 -- Injects warning messages to the lsp diagnostics for any unicode characters
 -- found in the buffer.
 lsp.check_unicode = function(bufnr)
-  local diagnostics = {}
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local ft = vim.bo.filetype
+  local ignore_ft = {
+    'codecompanion',
+    'markdown',
+  }
 
-  for i, line in ipairs(lines) do
-    local col, end_col = line:find("[^%z\1-\127]+")
-    if col and end_col then
-      table.insert(diagnostics, {
-        lnum = i - 1,
-        col = col - 1,
-        end_lnum = i - 1,
-        end_col = end_col,
-        severity = vim.diagnostic.severity.WARN,
-        source = 'custom_unicode',
-        message = 'Unicode characters found',
-      })
+  if not buell.util.has_value(ignore_ft, ft) then
+    local diagnostics = {}
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+    for i, line in ipairs(lines) do
+      local col, end_col = line:find("[^%z\1-\127]+")
+      if col and end_col then
+        table.insert(diagnostics, {
+          lnum = i - 1,
+          col = col - 1,
+          end_lnum = i - 1,
+          end_col = end_col,
+          severity = vim.diagnostic.severity.WARN,
+          source = 'custom_unicode',
+          message = 'Unicode characters found',
+        })
+      end
     end
-  end
 
-  vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, diagnostics, {})
+    vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, diagnostics, {})
+  end
 end
 
 ---------------------------------------------------------------------------------
