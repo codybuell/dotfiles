@@ -9,10 +9,9 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 -- modes
 vim.keymap.set('n', '<Leader>`', ':Goyo<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat Toggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat copilot<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
---4
+vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat copilot<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
 --5
 --6
 --7
