@@ -1,0 +1,74 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--  CodeCompanion Dimming                                                     --
+--                                                                            --
+--  Handles dimming older exchanges to make it easier to track the active     --
+--  part of the conversation.                                                 --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+local ts = vim.treesitter
+local query = ts.query.parse('markdown', [[
+  (atx_heading (atx_h2_marker) @h2)
+  (atx_heading (atx_h3_marker) @h3)
+]])
+
+local function get_headings(bufnr)
+  local parser = ts.get_parser(bufnr, 'markdown')
+  local tree
+  if parser then
+      local parsed = parser:parse()
+      if parsed then
+          tree = parsed[1]
+      end
+  end
+  local root = tree:root()
+  local headings = {}
+
+  for id, node, _ in query:iter_captures(root, bufnr, 0, -1) do
+    local name = query.captures[id]
+    if name == 'h2' or name == 'h3' then
+      local start_row, _, end_row, _ = node:range()
+      table.insert(headings, {type = name, start_row = start_row, end_row = end_row})
+    end
+  end
+
+  return headings
+end
+
+local function dim_sections(bufnr)
+  local headings = get_headings(bufnr)
+  local cursor_row = vim.fn.line('.') - 1
+  local active_h2
+
+  for _, heading in ipairs(headings) do
+    if heading.type == 'h2' and heading.start_row <= cursor_row then
+      if vim.fn.getline(heading.start_row + 1):match('^## CodeCompanion') then
+        active_h2 = heading
+      end
+    end
+  end
+
+  vim.api.nvim_buf_clear_namespace(bufnr, -1, 0, -1)
+
+  if active_h2 then
+    for i = 0, active_h2.start_row - 1 do
+      vim.api.nvim_buf_add_highlight(bufnr, -1, 'buellDimmedText', i, 0, -1)
+    end
+  end
+end
+
+local augroup = buell.util.augroup
+local autocmd = buell.util.autocmd
+
+augroup('BuellCodeCompanion', function()
+  autocmd('CursorMoved,CursorMovedI', '*', function()
+    if vim.bo.filetype == 'codecompanion' then
+      dim_sections(vim.api.nvim_get_current_buf())
+    end
+  end)
+end)
+
+local pinnacle = require('wincent.pinnacle')
+
+pinnacle.set('buellDimmedText', {fg = pinnacle.darken('Normal', 0.5).fg})
