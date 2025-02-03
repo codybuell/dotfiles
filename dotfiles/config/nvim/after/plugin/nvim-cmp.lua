@@ -370,7 +370,7 @@ if has_cmp then
 
     window = {
       completion = cmp.config.window.bordered({
-        border = 'single',
+        border = 'rounded',
         col_offset = -1,
         scrollbar = false,
         scrolloff = 3,
@@ -379,7 +379,7 @@ if has_cmp then
         winhighlight = 'Normal:Pmenu,FloatBorder:PmenuDarker,CursorLine:PmenuSel,Search:None',
       }),
       documentation = cmp.config.window.bordered({
-        border = 'single',
+        border = 'rounded',
         scrollbar = false,
         -- Default for bordered() is 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None'
         -- Default for non-bordered is 'FloatBorder:NormalFloat'

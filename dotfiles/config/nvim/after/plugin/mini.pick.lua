@@ -77,7 +77,7 @@ if has_minipick then
   local pinnacle = require('wincent.pinnacle')
 
   vim.cmd("highlight! link MiniPickMatchCurrent Directory")
-  pinnacle.set('MiniPickBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('NonText')})
+  vim.cmd("highlight! link MiniPickBorder PmenuDarker")
   pinnacle.set('MiniPickBorderBusy', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
   pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
   pinnacle.set('MiniPickPrompt', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
