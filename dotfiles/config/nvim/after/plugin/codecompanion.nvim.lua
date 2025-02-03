@@ -82,7 +82,7 @@ if has_codecompanion then
         show_header_separator = false, -- show header separators? set false if using external markdown formatting plugin
         separator = "─",               -- the separator between the different messages in the chat buffer
         show_references = true,        -- show references (from slash commands and variables) in the chat buffer?
-        show_settings = false,         -- show LLM settings at the top of the chat buffer?
+        show_settings = true,          -- show LLM settings at the top of the chat buffer?
         show_token_count = true,       -- show the token count for each response?
         start_in_insert_mode = false,  -- open the chat buffer in insert mode?
 
