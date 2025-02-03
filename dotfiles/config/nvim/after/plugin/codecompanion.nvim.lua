@@ -21,10 +21,10 @@ if has_codecompanion then
   local config = {
     strategies = {
       inline = {
-        adapter = "anthropic",
+        adapter = "copilot",
       },
       chat = {
-        adapter = "anthropic",
+        adapter = "copilot",
         roles = {
           ---@type string|fun(adapter: CodeCompanion.Adapter): string
           llm = function(adapter)
