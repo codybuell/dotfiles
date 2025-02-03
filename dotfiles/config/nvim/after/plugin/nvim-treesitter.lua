@@ -139,7 +139,6 @@ if has_treesitter then
   end
 
   local function extend_gitcommit()
-    print('extending gitcommit')
     vim.cmd [[
       syntax match buellGitCommitOverLength /\%1l\%>50v.*$/
     ]]
