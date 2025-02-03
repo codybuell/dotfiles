@@ -10,24 +10,35 @@
 local ts = vim.treesitter
 local query = ts.query.parse('markdown', [[
   (atx_heading (atx_h2_marker) @h2)
-  (atx_heading (atx_h3_marker) @h3)
 ]])
 
-local function get_headings(bufnr)
+local function get_frontmatter_range(bufnr)
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  if lines[1]:match("^---") or lines[1]:match("^%%%+") then
+    for i = 2, #lines do
+      if lines[i]:match("^---") or lines[i]:match("^%%%+") then
+        return 0, i
+      end
+    end
+  end
+  return nil
+end
+
+local function get_headings(bufnr, query_start)
   local parser = ts.get_parser(bufnr, 'markdown')
   local tree
   if parser then
-      local parsed = parser:parse()
-      if parsed then
-          tree = parsed[1]
-      end
+    local parsed = parser:parse()
+    if parsed then
+      tree = parsed[1]
+    end
   end
   local root = tree:root()
   local headings = {}
 
-  for id, node, _ in query:iter_captures(root, bufnr, 0, -1) do
+  for id, node, _ in query:iter_captures(root, bufnr, query_start, -1) do
     local name = query.captures[id]
-    if name == 'h2' or name == 'h3' then
+    if name == 'h2' then
       local start_row, _, end_row, _ = node:range()
       table.insert(headings, {type = name, start_row = start_row, end_row = end_row})
     end
@@ -37,7 +48,9 @@ local function get_headings(bufnr)
 end
 
 local function dim_sections(bufnr)
-  local headings = get_headings(bufnr)
+  local _, frontmatter_end = get_frontmatter_range(bufnr)
+  local query_start = frontmatter_end and frontmatter_end + 1 or 0
+  local headings = get_headings(bufnr, query_start)
   local cursor_row = vim.fn.line('.') - 1
   local active_h2
 
@@ -52,7 +65,7 @@ local function dim_sections(bufnr)
   vim.api.nvim_buf_clear_namespace(bufnr, -1, 0, -1)
 
   if active_h2 then
-    for i = 0, active_h2.start_row - 1 do
+    for i = query_start, active_h2.start_row - 1 do
       vim.api.nvim_buf_add_highlight(bufnr, -1, 'buellDimmedText', i, 0, -1)
     end
   end
