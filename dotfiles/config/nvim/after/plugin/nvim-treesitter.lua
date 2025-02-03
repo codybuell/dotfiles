@@ -43,6 +43,7 @@ if has_treesitter then
       "regex",
       "ruby",
       "scss",
+      "sql",
       "svelte",
       "toml",
       "typescript",
