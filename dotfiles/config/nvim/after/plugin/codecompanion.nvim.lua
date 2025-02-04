@@ -163,6 +163,7 @@ if has_codecompanion then
 
   -- other maps are in normal.lua
   vim.keymap.set('v', '<C-c>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
+  vim.keymap.set('n', '<C-c>', 'V<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
