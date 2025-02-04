@@ -159,6 +159,7 @@ augroup('BuellAutocommands', function()
     -- map gq to close window on these file types
     local map_gq_to_close_ft = {
       'shellbot',
+      'codecompanion',
     }
 
     -- implement map gq to close

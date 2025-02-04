@@ -35,10 +35,10 @@ if has_codecompanion then
         },
         keymaps = {
           send = {
-            modes = { n = "<C-a>", i = "<C-a>" },
+            modes = { n = "<Localleader>s", i = "<Localleader>s" },
           },
           close = {
-            modes = { n = "gq", i = "<C-c>" },
+            modes = { n = "<Localleader>q", i = "<C-c>" },
           },
         },
         slash_commands = {
@@ -159,8 +159,10 @@ if has_codecompanion then
   --  Mappings  --
   ----------------
 
+  -- mapping to close without killing the session (gq) in plugin/autocommand.lua
+
   -- other maps are in normal.lua
-  vim.keymap.set('v', '<C-a>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
+  vim.keymap.set('v', '<C-c>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
