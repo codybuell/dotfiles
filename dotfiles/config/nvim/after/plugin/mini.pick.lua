@@ -13,42 +13,131 @@ if has_minipick then
   --  Helpers  --
   ---------------
 
-  -- helper to center the picker window
-  local function get_centered_window_config()
+  local function popup_window_size()
     local max_width  = 150
     local max_height = 60
 
-    local editor_width  = vim.api.nvim_win_get_width(0)
-    local editor_height = vim.api.nvim_win_get_height(0)
-    local width         = math.min(editor_width - 50, max_width)
-    local height        = math.min(editor_height - 10, max_height)
-    local row           = math.floor((editor_height - height) / 2)
-    local col           = math.floor((editor_width - width) / 2)
+    -- get the editor window size
+    local editor_width  = vim.o.columns
+    local editor_height = vim.o.lines
+
+    -- set horizontal padding based on window size
+    local width_padding = math.max(0, 25 - math.max(0, 150 - editor_width) / 6)
+
+    -- set the window size
+    local width  = math.min(editor_width - (2 * width_padding), max_width)
+    local height = math.min(editor_height - 10, max_height)
+
+    -- determine margins
+    local row = math.floor((editor_height - height) / 2)
+    local col = math.floor((editor_width - width) / 2)
+
+    -- ensure width and height are integers
+    width = math.floor(width)
+    height = math.floor(height)
 
     return {
-      relative = 'editor',
-      row      = row,
-      col      = col,
-      width    = width,
-      height   = height,
-      anchor   = 'NW',
-      style    = 'minimal'
+      width  = width,
+      height = height,
+      row    = row - 2,
+      col    = col
     }
   end
 
-  local function initialize_config()
-    minipick.setup({
-      window = {
-        config = get_centered_window_config()
-      }
-    })
+  local function shorten_path(path, max_width)
+    -- split path into parts
+    local parts = {}
+    for part in string.gmatch(path, "[^/]+") do
+      table.insert(parts, part)
+    end
+
+    -- if path is already short enough, return as is
+    if #path <= max_width then
+      return path
+    end
+
+    local filename = parts[#parts]
+    local dirs = {}
+    for i = 1, #parts - 1 do
+      dirs[i] = parts[i]
+    end
+
+    -- calculate minimum required length
+    local min_length = #filename + #dirs + 1  -- +1 for separators
+
+    -- if we can't fit even the minimum, truncate filename
+    if min_length > max_width then
+      return string.sub(path, 1, max_width - 1) .. "…"
+    end
+
+    -- calculate available space for directories
+    local available_space = max_width - #filename - #dirs
+    local space_per_dir = math.floor(available_space / #dirs)
+
+    -- ensure minimum of 3 chars (2 chars + "…") per directory
+    if space_per_dir < 3 then
+      -- Super short version
+      local result = {}
+      for i = 1, #dirs do
+        table.insert(result, string.sub(dirs[i], 1, 1))
+      end
+      return table.concat(result, "/") .. "/" .. filename
+    end
+
+    -- shorten all directories evenly
+    local shortened = {}
+    for i = 1, #dirs do
+      local dir = dirs[i]
+      if #dir > space_per_dir then
+        shortened[i] = string.sub(dir, 1, space_per_dir - 1) .. "…"
+      else
+        shortened[i] = dir
+      end
+    end
+
+    return table.concat(shortened, "/") .. "/" .. filename
+  end
+
+  -- custom function to show items in the picker
+  -- TODO: add support for icons
+  -- TODO: add support for highlighting matches
+  local function custom_show(buf_id, items, query)
+    local window = popup_window_size()
+    local max_width = window.width
+
+    local lines = vim.tbl_map(function(item)
+      return shorten_path(item, max_width)
+    end, items)
+    vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+  end
+
+  -- helper to center the picker window
+  local function get_centered_window_config()
+    local window = popup_window_size()
+
+    return {
+      relative = 'editor',
+      row      = window.row,
+      col      = window.col,
+      width    = window.width,
+      height   = window.height,
+      anchor   = 'NW',
+      style    = 'minimal'
+    }
   end
 
   -------------
   --  Setup  --
   -------------
 
-  initialize_config()
+  minipick.setup({
+    source = {
+      show = custom_show
+    },
+    window = {
+      config = get_centered_window_config
+    }
+  })
 
   ----------------
   --  Mappings  --
@@ -94,18 +183,5 @@ if has_minipick then
   pinnacle.set('MiniPickBorderBusy', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
   pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
   pinnacle.set('MiniPickPrompt', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
-
-  --------------------
-  --  Autocommands  --
-  --------------------
-
-  local augroup = buell.util.augroup
-  local autocmd = buell.util.autocmd
-
-  augroup('BuellMiniPick', function()
-    autocmd('VimResized', '*', function()
-      initialize_config()
-    end)
-  end)
 
 end
