@@ -60,3 +60,21 @@ vim.keymap.set('n', ',/', '<Plug>(LoupeClearHighlight)', {})
 -- wiki helpers
 vim.keymap.set('n', '<Localleader>n', '<CMD>lua buell.util.create_entry("note")<CR>', {remap = false})
 vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal")<CR>', {remap = false})
+
+-- jump to production dotfile
+vim.keymap.set('n', '<Localleader>p', function()
+  local cur_file = vim.fn.expand('%:~:.')
+  if string.match(cur_file, 'dotfiles/config/nvim') then
+    local prod_file = string.gsub(cur_file, 'dotfiles/config/nvim', '~/.config/nvim')
+    vim.cmd('tabnew ' .. prod_file)
+  end
+end, {silent = true, remap = false})
+
+-- overwrite production file
+vim.keymap.set('n', '<Localleader>P', function()
+  local cur_file = vim.fn.expand('%:~:.')
+  if string.match(cur_file, 'dotfiles/config/nvim') then
+    local prod_file = string.gsub(cur_file, 'dotfiles/config/nvim', '~/.config/nvim')
+    vim.cmd('!cp ' .. cur_file .. ' ' .. prod_file)
+  end
+end, {silent = true, remap = false})
