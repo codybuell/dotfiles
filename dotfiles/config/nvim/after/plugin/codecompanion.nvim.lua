@@ -84,7 +84,7 @@ if has_codecompanion then
         show_references = true,        -- show references (from slash commands and variables) in the chat buffer?
         show_settings = true,          -- show LLM settings at the top of the chat buffer?
         show_token_count = true,       -- show the token count for each response?
-        start_in_insert_mode = false,  -- open the chat buffer in insert mode?
+        start_in_insert_mode = true,   -- open the chat buffer in insert mode?
 
         -- diff provider options
         diff = {
