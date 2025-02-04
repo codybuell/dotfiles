@@ -56,14 +56,16 @@ lsp.check_unicode = function(bufnr)
           col = col - 1,
           end_lnum = i - 1,
           end_col = end_col,
-          severity = vim.diagnostic.severity.WARN,
-          source = 'custom_unicode',
-          message = 'Unicode characters found',
+          severity = vim.diagnostic.severity.HINT,
+          source = 'buell_unicode',
+          message = 'Unicode characters found.',
         })
       end
     end
 
-    vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, diagnostics, {})
+    vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, diagnostics, {
+      virtual_text = false,
+    })
   end
 end
 
@@ -124,6 +126,9 @@ local on_attach = function(client, bufnr)
 
   -- language specific autocommands
   -- local filetype = vim.api.nvim_get_option_value("filetype", {buff = bufnr})
+
+  -- perform an initial unicode check
+  buell.lsp.check_unicode(bufnr)
 
   buell.util.augroup('BuellLSP', function()
     vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged"}, {
