@@ -271,7 +271,7 @@ lsp.init = function()
   })
 
   -- Lua
-  lspconfig.lua_ls.setup {
+  lspconfig.lua_ls.setup({
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = capabilities,
@@ -314,9 +314,14 @@ lsp.init = function()
         telemetry = {
           enable = false,
         },
+        diagnostics = {
+          globals = {
+            'vim',
+          },
+        },
       }
     }
-  }
+  })
 
   -- Python
   lspconfig.pylsp.setup({
