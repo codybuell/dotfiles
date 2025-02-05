@@ -1,4 +1,4 @@
-vim.opt_local.conceallevel = 1    -- conceal markdown syntax on markdown buffers
+vim.opt_local.conceallevel = 2    -- conceal markdown syntax on markdown buffers
 vim.opt_local.tabstop      = 2    -- spaces per tab
 vim.opt_local.shiftwidth   = 2    -- spaces per tab
 
@@ -18,3 +18,4 @@ end
 
 -- append commands to reset fold options when the file type plugin is cleared
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. ' | setlocal foldmethod< foldtext< foldexpr<'
+

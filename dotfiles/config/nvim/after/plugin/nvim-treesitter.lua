@@ -128,14 +128,18 @@ if has_treesitter then
         \ contains=buellInlineURL
 
       " code fences are concealed, set a char so we can see something
-      syntax match buellCodeFences /^\s*```.*/
-      syntax region @conceal
+      syn match buellCodeFences /^\s*```.*/
+      syn region @conceal
         \ start=/``/
         \ end=/`/
         \ contained
         \ containedin=buellCodeFences
         \ conceal
         \ cchar=≋
+
+      " attempt to not conceal emojis as they are flakey with conceallevel=2
+      " conceallevel=1 addresses the issue but docs are less readable
+      syn match buellEmoji /[\U1F300-\U1F6FF]/ display
     ]]
   end
 
