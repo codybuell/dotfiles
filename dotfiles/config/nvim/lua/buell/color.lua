@@ -150,8 +150,8 @@ color.update = function()
   -- overrides for (vim)diffs
   hlg('DiffAdd', 'ctermbg=22 guibg=#222f22')
   hlg('DiffDelete', 'ctermbg=52 guibg=#2f2222')
-  hlg('DiffChange', 'ctermbg=24 guibg=#22222f')
-  hlg('DiffText', 'ctermbg=24 guibg=#22222f')
+  hlg('DiffChange', 'ctermbg=24 guibg=#1b2d4a')
+  hlg('DiffText', 'ctermbg=24 guibg=#1b2d4a ctermfg=3 guifg=#f0c674')
 
   -- make floating windows match pmenu
   vim.cmd("highlight! link NormalFloat Pmenu")
