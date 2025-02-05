@@ -138,13 +138,13 @@ color.update = function()
   ---------------------
 
   -- listchar overrides to make them more subtle :h listchar for mapping to characters
-  hlg('SpecialKey', 'ctermfg=237 guifg=#3a3a3a')
-  hlg('NonText', 'ctermfg=237 guifg=#3a3a3a')
-  hlg('Whitespace', 'ctermfg=237 guifg=#3a3a3a')
+  pinnacle.set('SpecialKey', { fg = pinnacle.darken('Normal', 0.55).fg })
+  pinnacle.set('NonText', { fg = pinnacle.darken('Normal', 0.55).fg })
+  pinnacle.set('Whitespace', { fg = pinnacle.darken('Normal', 0.55).fg })
 
   -- indent blankline because it's linking to Whitespace hl group before it is being set here
-  hlg('IblIndent', 'ctermfg=237 guifg=#3a3a3a')
-  hlg('IblWhitespace', 'ctermfg=237 guifg=#3a3a3a')
+  pinnacle.set('IblIndent', { fg = pinnacle.darken('Normal', 0.55).fg })
+  pinnacle.set('IblWhitespace', { fg = pinnacle.darken('Normal', 0.55).fg })
   pinnacle.set('IblScope', pinnacle.brighten('NonText', 0.05))
 
   -- overrides for (vim)diffs
