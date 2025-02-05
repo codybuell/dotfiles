@@ -10,6 +10,29 @@
 local has_codecompanion, codecompanion = pcall(require, 'codecompanion')
 if has_codecompanion then
 
+  ---------------
+  --  Helpers  --
+  ---------------
+
+  -- smart chat add
+  --
+  -- Prevent double code entries when calling CodeCompanionChat Add
+  local function smart_chat_add()
+    local mode = vim.api.nvim_get_mode().mode
+    local chat = require('codecompanion.strategies.chat')
+    local cmd  = ''
+
+    if mode == 'n' then
+      cmd = 'V'
+    end
+
+    if chat and chat.last_chat and chat.last_chat() then
+      return cmd .. '<CMD>CodeCompanionChat Add<CR>'
+    else
+      return cmd .. '<CMD>CodeCompanionChat<CR><CR><CR>'
+    end
+  end
+
   ---------------------
   --  Configuration  --
   ---------------------
@@ -162,8 +185,7 @@ if has_codecompanion then
   -- mapping to close without killing the session (gq) in plugin/autocommand.lua
 
   -- other maps are in normal.lua
-  vim.keymap.set('v', '<C-c>', '<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
-  vim.keymap.set('n', '<C-c>', 'V<CMD>CodeCompanionChat Add<CR>', { noremap = true, silent = true })
+  vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true })
   vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
