@@ -87,13 +87,14 @@ local lspstatus = function(bufnr)
     local contents = ''
     -- handle progress type messages
     if msg.progress then
-      contents = msg.title
-      if msg.message then
-        contents = contents .. ' ' .. msg.message
-      end
-      if msg.percentage then
-        contents = contents .. ' (' .. msg.percentage .. ')'
-      end
+      -- commented out temporarily to try out spinners only
+      -- contents = msg.title
+      -- if msg.message then
+      --   contents = contents .. ' ' .. msg.message
+      -- end
+      -- if msg.percentage then
+      --   contents = contents .. ' (' .. msg.percentage .. ')'
+      -- end
       if msg.spinner then
         contents = symbols.spinner_frames[(msg.spinner % #symbols.spinner_frames) + 1] .. ' ' .. contents
       end
