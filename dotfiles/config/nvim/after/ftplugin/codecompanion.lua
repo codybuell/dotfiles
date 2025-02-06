@@ -3,7 +3,7 @@
 --  CodeCompanion Dimming                                                     --
 --                                                                            --
 --  Handles dimming older exchanges to make it easier to track the active     --
---  part of the conversation.                                                 --
+--  part of the conversation. Like limelight for codecompanion chats.         --
 --                                                                            --
 --------------------------------------------------------------------------------
 
