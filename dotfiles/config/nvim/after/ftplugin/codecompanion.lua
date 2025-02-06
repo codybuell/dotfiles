@@ -7,6 +7,9 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
+-- create a dedicated namespace for dimming
+local dim_ns = vim.api.nvim_create_namespace('buell_dimming')
+
 local ts = vim.treesitter
 local query = ts.query.parse('markdown', [[
   (atx_heading (atx_h2_marker) @h2)
@@ -62,11 +65,11 @@ local function dim_sections(bufnr)
     end
   end
 
-  vim.api.nvim_buf_clear_namespace(bufnr, -1, 0, -1)
+  vim.api.nvim_buf_clear_namespace(bufnr, dim_ns, 0, -1)
 
   if active_h2 then
     for i = query_start, active_h2.start_row - 1 do
-      vim.api.nvim_buf_add_highlight(bufnr, -1, 'buellDimmedText', i, 0, -1)
+      vim.api.nvim_buf_add_highlight(bufnr, dim_ns, 'buellDimmedText', i, 0, -1)
     end
   end
 end
