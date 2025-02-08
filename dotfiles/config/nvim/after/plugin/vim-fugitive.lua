@@ -11,7 +11,7 @@ if vim.fn.exists(':Git') then
   -- Get Branches
   --
   -- Get all branches, both local and remote, for the current repository.
-  local function get_branches(file)
+  local get_branches = function()
     -- get all branches, both local and remote
     local branches = {}
     local raw_branches = vim.fn.systemlist('git branch -a --format="%(refname:short)"')
@@ -32,32 +32,33 @@ if vim.fn.exists(':Git') then
   --
   -- Diff the current file with a target, either a branch or a commit hash.
   local diff_with = function(file, target, target_win)
-    local function do_diff()
-      if target == "[ PREV COMMIT TO FILE ]" then
-        -- get the previous commit has where the file changed, HEAD^ is the current commit
-        local cmd = "git log HEAD^^ -m --follow -n 1 --format=%H -- " .. vim.fn.shellescape(file)
-        local handle = io.popen(cmd)
-        if not handle then
-          print("Failed to execute git command")
-          return
-        end
-
-        local commit_hash = handle:read("*a"):gsub("\n", "")
-        handle:close()
-
-        if commit_hash == "" then
-          print("No previous commit found for file: " .. file)
-          return
-        end
-
-        print("Diffing with " .. commit_hash)
-
-        -- run :Gvdiffsplit against the last commit
-        vim.cmd("Gvdiffsplit " .. commit_hash)
-      else
-        print("Diffing with " .. target)
-        vim.cmd('Gvdiffsplit ' .. target)
+    local function get_previous_commit_hash()
+      local cmd = "git log HEAD^^ -m --follow -n 1 --format=%H -- " .. vim.fn.shellescape(file)
+      local handle = io.popen(cmd)
+      if not handle then
+        print("Failed to execute git command")
+        return nil
       end
+
+      local commit_hash = handle:read("*a"):gsub("\n", "")
+      handle:close()
+
+      if commit_hash == "" then
+        print("No previous commit found for file: " .. file)
+        return nil
+      end
+      return commit_hash
+    end
+
+    local function do_diff()
+      local diff_target = target
+      if target == "[ PREV COMMIT TO FILE ]" then
+        diff_target = get_previous_commit_hash()
+        if not diff_target then return end
+      end
+
+      print("Diffing with " .. diff_target)
+      vim.cmd("Gvdiffsplit " .. diff_target)
       vim.cmd('windo set wrap')
       vim.cmd('wincmd h')
     end
@@ -92,7 +93,7 @@ if vim.fn.exists(':Git') then
   -- |              |    cur file     |               |
   -- |              |                 |               |
   -- +--------------+-----------------+---------------+
-  local function smart_diff()
+  local smart_diff = function()
     -- get the git status of current file
     local file = vim.fn.expand('%:p')
     local status = vim.fn.system('git status --porcelain ' .. vim.fn.shellescape(file))
