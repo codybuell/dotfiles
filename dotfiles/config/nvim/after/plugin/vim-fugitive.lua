@@ -165,14 +165,17 @@ if vim.fn.exists(':Git') then
   --  Mappings  --
   ----------------
 
+  -- committing flows (gs = status, gb = blame, gp = push)
   vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gb', ':Git blame<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gp', ':Git push<CR>', {remap = false, silent = true})
-  -- show log history for current file
+
+  -- diffing flows (gl = log for file, gL = log for all, gd = smart diff)
   vim.keymap.set('n', '<Leader>gl', ':silent! 0Gclog!<CR>:bot copen<CR>', {remap = false, silent = true})
-  -- show all log history
   vim.keymap.set('n', '<Leader>gL', ':silent! Git log --pretty="format:%h  %ad  %<(16,trunc)%aN %d %s"<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gd', smart_diff, {remap = false, silent = true})
+
+  -- other flows (gc = checkout, gg = grep, ge = edit/refresh buffer)
   vim.keymap.set('n', '<Leader>gc', ':Git checkout<Space>', {remap = false, silent = false})
   vim.keymap.set('n', '<Leader>gg', ':Ggrep<Space>', {remap = false, silent = false})
   vim.keymap.set('n', '<Leader>ge', ':Gedit<CR>', {remap = false, silent = true})
