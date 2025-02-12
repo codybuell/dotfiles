@@ -47,17 +47,43 @@ if has_dap and has_dapui then
   dap.listeners.before.launch.dapui_config = function()
     dapui.open()
   end
-  dap.listeners.before.event_terminated.dapui_config = function()
-    dapui.close()
-  end
-  dap.listeners.before.event_exited.dapui_config = function()
-    dapui.close()
-  end
+  -- dap.listeners.before.event_terminated.dapui_config = function()
+  --   dapui.close()
+  -- end
+  -- dap.listeners.before.event_exited.dapui_config = function()
+  --   dapui.close()
+  -- end
 
   ----------------
   --  Mappings  --
   ----------------
 
+  vim.keymap.set("n", "<leader>do", '<CMD>lua require("dapui").open()<CR>', {})
   vim.keymap.set("n", "<leader>dx", '<CMD>lua require("dapui").close()<CR>', {})
+
+  --------------
+  --  Colors  --
+  --------------
+
+  -- local pinnacle = require('wincent.pinnacle')
+
+  -- vim.cmd("highlight clear WinBar")
+  -- vim.cmd("highlight! link WinBar Status2")
+  -- vim.cmd("highlight clear WinBarNC")
+  -- vim.cmd("highlight! link WinBarNC Status2")
+  -- pinnacle.set('DapUIPlayPause', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIPlayPause')})
+  -- pinnacle.set('DapUIPlayPauseNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIPlayPauseNC')})
+  -- pinnacle.set('DapUIStepInto', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepInto')})
+  -- pinnacle.set('DapUIStepIntoNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepIntoNC')})
+  -- pinnacle.set('DapUIStepOver', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOver')})
+  -- pinnacle.set('DapUIStepOverNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOverNC')})
+  -- pinnacle.set('DapUIStepOut', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOut')})
+  -- pinnacle.set('DapUIStepOutNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepOutNC')})
+  -- pinnacle.set('DapUIStepBack', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepBack')})
+  -- pinnacle.set('DapUIStepBackNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStepBackNC')})
+  -- pinnacle.set('DapUIRestart', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIRestart')})
+  -- pinnacle.set('DapUIRestartNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIRestartNC')})
+  -- pinnacle.set('DapUIStop', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStop')})
+  -- pinnacle.set('DapUIStopNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStopNC')})
 
 end

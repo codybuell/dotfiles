@@ -22,6 +22,7 @@ if has_dap then
   ----------------
   --  Mappings  --
   ----------------
+
   vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
   vim.keymap.set("n", "<leader>dc", dap.continue, {})
   vim.keymap.set("n", "<Leader>dr", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
