@@ -42,6 +42,21 @@ if has_codecompanion then
 
   -- plugin level configuration
   local config = {
+    opts = {
+      system_prompt = function(opts)
+        -- get the default system prompt
+        local default_prompt = require("codecompanion.config").defaults.opts.system_prompt(opts)
+        -- add python formatting instructions
+        return default_prompt .. "\n\nWhen working with Python code you must:\n" ..
+          "- Follow PEP 8 style guidelines\n" ..
+          "- Use 4 spaces for indentation\n" ..
+          "- Keep lines under 88 characters\n" ..
+          "- Use descriptive variable names\n" ..
+          "- Add docstrings for functions and classes\n" ..
+          "- Organize imports according to PEP 8 (stdlib, third-party, local)\n" ..
+          "- Use type hints where appropriate"
+      end
+    },
     strategies = {
       inline = {
         adapter = "copilot",
