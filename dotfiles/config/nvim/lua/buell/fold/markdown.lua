@@ -29,16 +29,37 @@ local markdown = function ()
     return "="
   end
 
+  -- detect frontmatter
+  local is_in_frontmatter = false
+  if vim.fn.getline(1):match('^---$') then
+    for i = 2, vim.fn.line('$') do
+      if vim.fn.getline(i):match('^---$') then
+        if lnum <= i then
+          is_in_frontmatter = true
+        end
+        break
+      end
+    end
+  end
+
   -- handle header folding
-  if lines[2]:match('^## .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
-    return ">1"      -- begin a fold of level two here
-  elseif lines[2]:match('^### .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
-    return ">2"      -- begin a fold of level three here
-  elseif lines[2]:match('^#### .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
-    return ">3"      -- begin a fold of level four here
-  elseif lines[2] ~= '' and lines[3]:match('^---*$') and lines[4]:match('^%s*$') then
-    return ">1"      -- h2 fold with underscores (2 or more dashes for underscores)
-  elseif vim.fn.foldlevel(lnum - 1) ~= -1 then
+  if not is_in_frontmatter then
+    if lines[2]:match('^# .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
+      return ">1"      -- begin a fold of level one here
+    elseif lines[2]:match('^## .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
+      return ">2"      -- begin a fold of level two here
+    elseif lines[2]:match('^### .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
+      return ">3"      -- begin a fold of level three here
+    elseif lines[2]:match('^#### .*$') and lines[1]:match('^%s*$') and lines[3]:match('^%s*$') then
+      return ">4"      -- begin a fold of level four here
+    elseif lines[2] ~= '' and lines[3]:match('^===*$') and lines[4]:match('^%s*$') then
+      return ">1"      -- h1 fold with underscores (2 or more equals for underscores)
+    elseif lines[2] ~= '' and lines[3]:match('^---*$') and lines[4]:match('^%s*$') then
+      return ">2"      -- h2 fold with underscores (2 or more dashes for underscores)
+    end
+  end
+
+  if vim.fn.foldlevel(lnum - 1) ~= -1 then
     return vim.fn.foldlevel(lnum - 1)
   end
 
