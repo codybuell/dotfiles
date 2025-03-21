@@ -52,7 +52,6 @@ local markdown = function()
     elseif lines[2] ~= '' and lines[3]:match('^===+$') and lines[4]:match('^%s*$') then
       return ">1"
     elseif lines[2] ~= '' and lines[3]:match('^%-%-%-+$') and lines[4]:match('^%s*$') then
-      print(lines[1], lines[2], lines[3], lines[4])
       return ">2"
     end
   end
