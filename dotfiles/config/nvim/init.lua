@@ -179,13 +179,13 @@ vim.cmd('packadd! nvim-ts-context-commentstring')
 
 -- navigation
 vim.cmd('packadd! vim-dirvish')             -- fast netrw replacement
-vim.cmd('packadd! mini.nvim')               -- fuzzy * navigation
 
 -- tmux navigation and control
 vim.cmd('packadd! vim-tmux-navigator')      -- motion between vim and tmux
 vim.cmd('packadd! vim-tmux-runner')         -- execute commands in tmux panes
 
 -- utilities
+vim.cmd('packadd! mini.nvim')               -- mini plugins collection
 vim.cmd('packadd! plenary.nvim')            -- lua helpers
 vim.cmd('packadd! pinnacle')                -- color/highlight utility
 vim.cmd('packadd! ferret')                  -- improved multi-file search + helpers
@@ -194,7 +194,7 @@ vim.cmd('packadd! vim-characterize')        -- overload ga to show other char in
 vim.cmd('packadd! vim-commentary')          -- easy editing of surrounding chars
 vim.cmd('packadd! vim-obsession')           -- session management
 vim.cmd('packadd! vim-fugitive')            -- git wrapper
-vim.cmd('packadd! vim-surround')            -- easy editing of surrounding chars
+-- vim.cmd('packadd! vim-surround')         -- easy editing of surrounding chars
 vim.cmd('packadd! vim-repeat')              -- repeat plugin work with .
 vim.cmd('packadd! vim-abolish')             -- case toggling, replacements variations
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
