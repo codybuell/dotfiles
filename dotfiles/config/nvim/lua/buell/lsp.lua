@@ -88,10 +88,22 @@ capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilitie
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- configure sign column signs (hl groups defined in after/plugin/color.lua)
-vim.fn.sign_define("DiagnosticSignError", {text = "×", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignWarn",  {text = "‼", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignInfo",  {text = "i", texthl = "DiagnosticSignInfo"})
-vim.fn.sign_define("DiagnosticSignHint",  {text = "⚐", texthl = "DiagnosticSignHint"})
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "×",
+      [vim.diagnostic.severity.WARN]  = "‼",
+      [vim.diagnostic.severity.INFO]  = "i",
+      [vim.diagnostic.severity.HINT]  = "⚐",
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+      [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+    },
+  }
+})
 
 -- globally disable DiagnosticUnnecessary highlighting
 -- vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { link = "DiagnosticUnnecessary" })
