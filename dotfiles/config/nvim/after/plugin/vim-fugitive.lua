@@ -166,6 +166,7 @@ if vim.fn.exists(':Git') then
   ----------------
 
   -- committing flows (gs = status, gb = blame, gp = push)
+  vim.keymap.set('n', '<Leader>ga', ':Git commit --amend<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gb', ':Git blame<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gp', ':Git push<CR>', {remap = false, silent = true})
