@@ -94,6 +94,7 @@ PACKAGES=( \
   'tmux' \                            # terminal multiplexer
   'tree' \                            # file and directory listing utility
   'urlview' \                         # for viewing urls in mutt
+  'uv' \                              # python universal package manager
   'vault' \                           # encrypted key value pair storage
   'w3m' \                             # cli web browser
   'wget' \                            # curl alternative

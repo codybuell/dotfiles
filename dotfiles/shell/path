@@ -13,6 +13,7 @@ export DEFGOP=$GOPATH
 # path
 PATH=$HOME/Bin
 PATH=$PATH:$HOME/.shell/bin
+PATH=$PATH:$HOME/.local/bin
 # if we are on an m1 mac accomodate the new homebrew location
 if [ `/usr/bin/uname -m` == 'arm64' ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1" ]; then
   PATH=$PATH:/opt/homebrew/bin
