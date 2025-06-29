@@ -69,7 +69,7 @@ local function dim_sections(bufnr)
 
   if active_h2 then
     for i = query_start, active_h2.start_row - 1 do
-      vim.api.nvim_buf_add_highlight(bufnr, dim_ns, 'buellDimmedText', i, 0, -1)
+      vim.hl.range(bufnr, dim_ns, 'buellDimmedText', {i, 0}, {i, -1})
     end
   end
 end
