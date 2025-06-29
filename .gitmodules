@@ -204,3 +204,6 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/mini.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/mini.nvim
 	url = https://github.com/echasnovski/mini.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/VectorCode"]
+	path = dotfiles/config/nvim/pack/bundle/opt/VectorCode
+	url = https://github.com/Davidyz/VectorCode.git

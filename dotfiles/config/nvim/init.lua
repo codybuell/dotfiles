@@ -206,6 +206,7 @@ vim.cmd('packadd! treesj')                  -- split/join treesitter nodes
 -- ai
 vim.cmd('packadd! copilot.vim')             -- github copilot ai util
 vim.cmd('packadd! codecompanion.nvim')      -- ai agents in nvim
+vim.cmd('packadd! VectorCode')              -- vector code ai agent
 
 -- snippets and completion
 vim.cmd('packadd! LuaSnip')                 -- lua based snippets
