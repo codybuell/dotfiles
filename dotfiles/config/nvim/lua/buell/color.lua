@@ -134,6 +134,13 @@ color.update = function()
   vim.cmd("highlight! link NormalFloat Pmenu")
   pinnacle.set('FloatBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.darken('Normal', 0.3).fg})
 
+  -- make popup menu show current line selection
+  pinnacle.set('PmenuSel', {
+    bg = pinnacle.bg('Normal'),
+    fg = pinnacle.fg('CursorLine'),
+    bold = true,
+  })
+
   -- italicize comments
   pinnacle.set('Comment', pinnacle.italicize('Comment'))
 
