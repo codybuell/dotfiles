@@ -136,7 +136,7 @@ color.update = function()
 
   -- make popup menu show current line selection
   pinnacle.set('PmenuSel', {
-    bg = pinnacle.bg('Normal'),
+    bg = pinnacle.bg('Error'),
     fg = pinnacle.fg('CursorLine'),
     bold = true,
   })
