@@ -2,9 +2,13 @@ snippet sc "Svelte Component Boilerplate"
 	<script lang="ts">
 	  import { onMount } from 'svelte';
 
-	  /////////////////////////
-	  //  Types & Iterfaces  //
-	  /////////////////////////
+	  //////////////////////////
+	  //  Types & Interfaces  //
+	  //////////////////////////
+
+	  ///////////////
+	  //  Exports  //
+	  ///////////////
 
 	  /////////////////////
 	  //  Stores & Vars  //
@@ -18,14 +22,103 @@ snippet sc "Svelte Component Boilerplate"
 	  //  Lifecycle Hooks  //
 	  ///////////////////////
 
-	  onMount(async () => {
+	  onMount(() => {
 	  });
+
+	</script>
+
+	<div class="">
+	</div>
+
+snippet sct "Svelte Component Table Boilerplate"
+	<script lang="ts">
+	  import { onMount } from 'svelte';
+	  import { goto } from '$app/navigation';
+	  import { fetchAuth } from '$lib/utils/fetchAuth';
+
+	  //////////////////////////
+	  //  Types & Interfaces  //
+	  //////////////////////////
+
+	  interface Item {
+	    key: value;
+	  }
 
 	  ///////////////
 	  //  Exports  //
 	  ///////////////
 
+	  /////////////////////
+	  //  Stores & Vars  //
+	  /////////////////////
+
+	  let items: Item[] = [];
+
+	  /////////////////
+	  //  Functions  //
+	  /////////////////
+
+	  async function loadData() {
+	    try {
+	      const res = await fetchAuth(fetch, '/api/v1/app/items', {
+	        method: 'GET',
+	        headers: {
+	          'Content-Type': 'application/json'
+	        },
+	      });
+	      if (res.ok) {
+	        const json = await res.json();
+	        if (json.status === 'success' && Array.isArray(json.data)) {
+	          items = json.data.map((u: any) => ({
+	            key: u.Key,
+	          }));
+	        } else {
+	          error = 'Unexpected response format.';
+	        }
+	      } else {
+	        error = 'Failed to fetch items.';
+	      }
+	    } catch (e) {
+	      error = 'Error fetching items.';
+	    } finally {
+	      loading = false;
+	    }
+	  }
+
+	  ///////////////////////
+	  //  Lifecycle Hooks  //
+	  ///////////////////////
+
+	  onMount(() => {
+	    loadData();
+	  });
+
 	</script>
 
-	<div class="">
+	<div class="w-full my-6 p-6">
+	  <h1 class="text-2xl font-bold mb-5">Items</h1>
+	  {#if loading}
+	    <p>Loading items...</p>
+	  {:else if error}
+	    <p class="text-red-600">{error}</p>
+	  {:else}
+	    <div class="table-container text-primary-700">
+	      <table class="table table-hover">
+	        <thead>
+	          <tr>
+	            <th></th>
+	            <th>Key</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {#each items as item}
+	            <tr>
+	              <td></td>
+	              <td>{item.key}</td>
+	            </tr>
+	          {/each}
+	        </tbody>
+	      </table>
+	    </div>
+	  {/if}
 	</div>
