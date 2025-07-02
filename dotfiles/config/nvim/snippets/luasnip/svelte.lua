@@ -21,5 +21,5 @@
 
 return {
   buell.sniputils.box("//"),
-  buell.sniputils.bbox("//"),
+  buell.sniputils.bbox("//")
 }

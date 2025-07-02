@@ -1,19 +1,20 @@
 local ls = require"luasnip"
 local s = ls.snippet
 local sn = ls.snippet_node
-local isn = ls.indent_snippet_node
+-- local isn = ls.indent_snippet_node
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
-local c = ls.choice_node
+-- local c = ls.choice_node
 local d = ls.dynamic_node
-local r = ls.restore_node
-local events = require("luasnip.util.events")
-local ai = require("luasnip.nodes.absolute_indexer")
-local fmt = require("luasnip.extras.fmt").fmt
-local m = require("luasnip.extras").m
-local lambda = require("luasnip.extras").l
-local postfix = require("luasnip.extras.postfix").postfix
+-- local r = ls.restore_node
+-- local events = require("luasnip.util.events")
+-- local ai = require("luasnip.nodes.absolute_indexer")
+-- local fmt = require("luasnip.extras.fmt").fmt
+-- local m = require("luasnip.extras").m
+-- local lambda = require("luasnip.extras").l
+-- local postfix = require("luasnip.extras.postfix").postfix
+-- local ts_utils = require'nvim-treesitter.ts_utils'
 
 local sniputils = {}
 
@@ -32,10 +33,34 @@ sniputils.bash = function(_, snip, user_args)
   local command = snip.env.TM_SELECTED_TEXT[1] or user_args
   local file = io.popen(command, "r")
   local res = {}
-  for line in file:lines() do
-    table.insert(res, line)
+  if file then
+    for line in file:lines() do
+      table.insert(res, line)
+    end
   end
   return res
+end
+
+function sniputils.svelte_comment_style()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local row = cursor[1] - 1
+  local col = cursor[2]
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr, 'svelte')
+  if not ok or not parser then return "<!--" end
+  local tree = parser:parse()[1]
+  local root = tree:root()
+  local node = root:named_descendant_for_range(row, col, row, col)
+  while node do
+    local type = node:type()
+    if type == "script_element" then
+      return "//"
+    elseif type == "style_element" then
+      return "/*"
+    end
+    node = node:parent()
+  end
+  return "<!--"
 end
 
 -----------------------
