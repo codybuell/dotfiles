@@ -200,6 +200,13 @@ lsp.init = function()
     capabilities = capabilities,
   })
 
+  -- ESLint
+  lspconfig.eslint.setup({
+    on_attach = on_attach,
+    on_exit = on_exit,
+    capabilities = capabilities,
+  })
+
   -- Golang
   lspconfig.gopls.setup({
     on_attach = on_attach,
