@@ -16,7 +16,7 @@ local lsp_status = require('lsp-status')
 -- automatically update imports, so bonus.
 lsp.go_imports = function(wait_ms)
   -- handle setting go imports
-  local params = vim.lsp.util.make_range_params()
+  local params = vim.lsp.util.make_range_params(0, "utf-8")
   params.context = {only = {"source.organizeImports"}}
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
   for _, res in pairs(result or {}) do
@@ -24,7 +24,10 @@ lsp.go_imports = function(wait_ms)
       if r.edit then
         vim.lsp.util.apply_workspace_edit(r.edit, "utf-8")
       else
-        vim.lsp.buf.execute_command(r.command)
+        local clients = vim.lsp.get_clients({bufnr = 0})
+        if clients and clients[1] and clients[1].exec_cmd then
+            clients[1]:exec_cmd(r)
+        end
       end
     end
   end
@@ -88,6 +91,7 @@ capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilitie
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- configure sign column signs (hl groups defined in after/plugin/color.lua)
+-- and also disable virtual text
 vim.diagnostic.config({
   signs = {
     text = {
@@ -102,7 +106,8 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
       [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
     },
-  }
+  },
+  virtual_text = false,
 })
 
 -- globally disable DiagnosticUnnecessary highlighting
@@ -153,9 +158,7 @@ local on_attach = function(client, bufnr)
     })
     vim.api.nvim_command("autocmd BufWritePre *.go lua buell.lsp.go_imports(1000)")
     vim.api.nvim_create_autocmd('DiagnosticChanged', {
-      callback = function(args)
-        -- local diagnostics = args.data.diagnostics
-        -- vim.print(diagnostics)
+      callback = function()
         vim.diagnostic.setloclist({open=false,severity_limit=vim.diagnostic.severity.INFO})
       end
     })
@@ -176,14 +179,6 @@ end
 
 -- register the lsp_status progress handler
 lsp_status.register_progress()
-
--- diagnostics handler overrides
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- broadly disable virtual text diagnostics
-    virtual_text = false,
-  }
-)
 
 ---------------------------------------------------------------------------------
 --                                                                             --
