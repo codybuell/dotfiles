@@ -248,11 +248,40 @@ When given a task:
         ---@param tokens number
         ---@param adapter CodeCompanion.Adapter
         ---@return string
-        token_count = function(tokens, adapter)
+        token_count = function(tokens, _)
           return " (" .. tokens .. " tokens)"
         end,
       },
     },
+    -- temp fix for E350 folding error in v17.7.1
+    -- https://github.com/olimorris/codecompanion.nvim/discussions/1788
+    config = function(_, opts)
+      require("codecompanion").setup(opts)
+      local tools = require("codecompanion.strategies.chat.ui.tools")
+      local original = tools.create_fold
+
+      tools.create_fold = function(bufnr, start_line)
+        local win = vim.api.nvim_get_current_win()
+        vim.api.nvim_win_call(win, function()
+          local old = vim.wo.foldmethod
+          vim.wo.foldmethod = "manual"
+
+          local ok, err = pcall(original, bufnr, start_line)
+          if not ok then
+            vim.schedule(function()
+              vim.wo.foldmethod = old
+            end)
+            error(err)
+          end
+
+          vim.defer_fn(function()
+            if vim.api.nvim_win_is_valid(win) then
+              vim.wo.foldmethod = old
+            end
+          end, 50)
+        end)
+      end
+    end,
   }
 
   -------------
