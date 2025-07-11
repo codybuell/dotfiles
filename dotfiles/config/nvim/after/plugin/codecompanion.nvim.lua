@@ -132,7 +132,6 @@ When given a task:
       chat = {
         adapter = "copilot",
         roles = {
-          ---@type string|fun(adapter: CodeCompanion.Adapter): string
           llm = function(adapter)
             return "CodeCompanion (" .. adapter.formatted_name .. ")"
           end,
@@ -246,7 +245,7 @@ When given a task:
 
         ---token display opttions
         ---@param tokens number
-        ---@param adapter CodeCompanion.Adapter
+        ---@param _ table (adapter)
         ---@return string
         token_count = function(tokens, _)
           return " (" .. tokens .. " tokens)"
