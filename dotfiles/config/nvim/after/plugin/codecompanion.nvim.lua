@@ -133,7 +133,7 @@ When given a task:
         adapter = "copilot",
         roles = {
           llm = function(adapter)
-            return "CodeCompanion (" .. adapter.formatted_name .. ")"
+            return string.format("%s (%s)", adapter.formatted_name, adapter.model.name)
           end,
           ---@type string
           user = "Me",
