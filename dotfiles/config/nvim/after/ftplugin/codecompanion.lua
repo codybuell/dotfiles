@@ -12,7 +12,7 @@ local dim_ns = vim.api.nvim_create_namespace('buell_dimming')
 
 local ts = vim.treesitter
 local query = ts.query.parse('markdown', [[
-  (atx_heading (atx_h2_marker) @h2)
+  (atx_heading) @h2
 ]])
 
 local function get_frontmatter_range(bufnr)
