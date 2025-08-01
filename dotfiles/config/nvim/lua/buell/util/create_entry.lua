@@ -10,7 +10,7 @@ local create_entry = function (wiki)
     local year  = os.date('%Y', date)
     local month = os.date('%m', date)
     local day   = os.date('%d', date)
-    local path  = vim.fn.fnamemodify('{{ Journal }}', ':p') .. '/' .. os.date('%Y') .. '/' .. os.date('%m')
+    local path  = vim.fn.fnamemodify('{{ Journal }}', ':p') .. '/' .. year .. '/' .. month
     local file  = year .. '.' .. month .. '.' .. day .. '.md'
     local full  = path .. '/' .. file
 
