@@ -9,6 +9,10 @@ local messages    = require('lsp-status/messaging').messages
 --                                                                             --
 ---------------------------------------------------------------------------------
 
+-- codecompanion spinner state
+local codecompanion_processing = false
+local codecompanion_spinner_index = 1
+
 -- symbols for lsp status
 local symbols = {
   indicator_ok             = ' ',
@@ -23,12 +27,47 @@ local symbols = {
   line_indicator           = 'ℓ',
   column_indicator         = '𝚌',
   spinner_frames           = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
+  codecomp_spinner_frames  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+  codecompanion_status_symbol = 'Ꮆ',
 }
 
 -- aliases for client names
 local aliases = {
   pyls_ms = 'MPLS',
 }
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--  CodeCompanion Integration                                                 --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+local function init_codecompanion()
+  local group = vim.api.nvim_create_augroup("CodeCompanionStatuslineHooks", {})
+
+  vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = "CodeCompanionRequest*",
+    group = group,
+    callback = function(request)
+      if request.match == "CodeCompanionRequestStarted" then
+        codecompanion_processing = true
+      elseif request.match == "CodeCompanionRequestFinished" then
+        codecompanion_processing = false
+      end
+    end,
+  })
+end
+
+local function codecompanion_spinner()
+  if codecompanion_processing then
+    codecompanion_spinner_index = (codecompanion_spinner_index % #symbols.codecomp_spinner_frames) + 1
+    return symbols.codecomp_spinner_frames[codecompanion_spinner_index] .. ' ' .. symbols.codecompanion_status_symbol
+  else
+    return nil
+  end
+end
+
+init_codecompanion()
 
 ---------------------------------------------------------------------------------
 --                                                                             --
@@ -223,6 +262,12 @@ statusline.lhs = function()
     end
   else
     line = line .. string.rep(" ", gutter_width)
+  end
+
+  -- codecompanion spinner
+  local cc_spinner = codecompanion_spinner()
+  if cc_spinner then
+    line = line .. ' ' .. cc_spinner
   end
 
   return line
