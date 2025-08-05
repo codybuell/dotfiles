@@ -386,7 +386,7 @@ statusline.rhs = function()
   local line = ' '
 
   if vim.fn.winwidth(0) > 80 then
-    local _, c = unpack(vim.api.nvim_win_get_cursor(0))
+    local _, c = table.unpack(vim.api.nvim_win_get_cursor(0))
     local col_pos  = c + 1
     local col_size = vim.fn.strwidth(vim.fn.getline('.'))
     -- local col_pos  = vim.fn.virtcol('.')
