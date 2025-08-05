@@ -9,11 +9,18 @@ local messages    = require('lsp-status/messaging').messages
 --                                                                             --
 ---------------------------------------------------------------------------------
 
--- codecompanion spinner state
-local codecompanion_processing = false
-local codecompanion_spinner_index = 1
+ -- codecompanion enhanced state
+ local codecompanion_state = {
+   processing    = false,
+   spinner_index = 1,
+   adapter       = nil,
+   model         = nil,
+   token_count   = nil,
+   context_count = 0,
+   tools_count   = 0,
+   status        = 'idle', -- idle, processing, complete, error
+ }
 
--- symbols for lsp status
 local symbols = {
   indicator_ok             = ' ',
   indicator_separator      = ' ',
@@ -27,8 +34,13 @@ local symbols = {
   line_indicator           = 'ℓ',
   column_indicator         = '𝚌',
   spinner_frames           = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
-  codecomp_spinner_frames  = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
-  codecompanion_status_symbol = 'Ꮆ',
+  adapter_symbol           = '⚙',
+  token_symbol             = '⛁',
+  tools_symbol             = '⚒',
+  context_symbol           = '☷',
+  watch_symbol             = '◎',
+  error_symbol             = '‼',
+  complete_symbol          = '✓',
 }
 
 -- aliases for client names
@@ -45,26 +57,105 @@ local aliases = {
 local function init_codecompanion()
   local group = vim.api.nvim_create_augroup("CodeCompanionStatuslineHooks", {})
 
+  -- Show adapter/model immediately when entering chat buffer
+  vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = "CodeCompanionChatOpened",
+    group = group,
+    callback = function(request)
+      local ok, codecompanion = pcall(require, "codecompanion")
+      if ok and codecompanion.buf_get_chat then
+        local bufnr = request and request.buf or vim.api.nvim_get_current_buf()
+        local chat = codecompanion.buf_get_chat(bufnr)
+        if chat and chat.adapter then
+          codecompanion_state.adapter = chat.adapter.name or chat.adapter.formatted_name
+          local model = chat.adapter.model
+          if type(model) == "table" then
+            codecompanion_state.model = model.name or model.default or tostring(model)
+          else
+            codecompanion_state.model = model
+          end
+        end
+      end
+    end,
+  })
+
+  -- Enhanced request event handling
   vim.api.nvim_create_autocmd({ "User" }, {
     pattern = "CodeCompanionRequest*",
     group = group,
     callback = function(request)
       if request.match == "CodeCompanionRequestStarted" then
-        codecompanion_processing = true
+        codecompanion_state.processing = true
+        codecompanion_state.status = 'processing'
+        -- Extract adapter info if available
+        if request.data and request.data.adapter then
+          codecompanion_state.adapter = request.data.adapter.name
+          codecompanion_state.model = request.data.adapter.model
+        end
       elseif request.match == "CodeCompanionRequestFinished" then
-        codecompanion_processing = false
+        codecompanion_state.processing = false
+        codecompanion_state.status = request.data and request.data.status == 'success' and 'complete' or 'error'
+      end
+    end,
+  })
+
+  -- Track chat state changes
+  vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = "CodeCompanionChat*",
+    group = group,
+    callback = function(_)
+      -- Update context/tools count when chat changes
+      if vim.bo.filetype == 'codecompanion' then
+        -- Reset counts - could be enhanced to parse buffer content
+        codecompanion_state.context_count = 0
+        codecompanion_state.tools_count = 0
       end
     end,
   })
 end
 
-local function codecompanion_spinner()
-  if codecompanion_processing then
-    codecompanion_spinner_index = (codecompanion_spinner_index % #symbols.codecomp_spinner_frames) + 1
-    return symbols.codecomp_spinner_frames[codecompanion_spinner_index] .. ' ' .. symbols.codecompanion_status_symbol
-  else
-    return nil
+local function codecompanion_adapter_info()
+  if codecompanion_state.adapter then
+    local adapter_display = codecompanion_state.adapter
+    if codecompanion_state.model then
+      -- Shorten model name for display
+      local model = tostring(codecompanion_state.model):gsub("gpt%-4o%-", "4o-"):gsub("claude%-3%.5%-", "3.5-")
+      adapter_display = adapter_display .. ':' .. model
+    end
+    return symbols.adapter_symbol .. ' ' .. adapter_display
   end
+  return nil
+end
+
+local function codecompanion_status()
+  if codecompanion_state.processing then
+    codecompanion_state.spinner_index = (codecompanion_state.spinner_index % #symbols.spinner_frames) + 1
+    return symbols.spinner_frames[codecompanion_state.spinner_index] .. ' Processing'
+  elseif codecompanion_state.status == 'complete' then
+    return symbols.complete_symbol .. ' Complete'
+  elseif codecompanion_state.status == 'error' then
+    return symbols.error_symbol .. ' Error'
+  end
+  return nil
+end
+
+local function codecompanion_context_info()
+  local parts = {}
+
+  if codecompanion_state.tools_count > 0 then
+    table.insert(parts, symbols.tools_symbol .. codecompanion_state.tools_count)
+  end
+
+  if codecompanion_state.context_count > 0 then
+    table.insert(parts, symbols.context_symbol .. codecompanion_state.context_count)
+  end
+
+  -- Check for watching buffers (could be enhanced to check actual state)
+  -- if watching_buffers then
+  --   table.insert(parts, symbols.watch_symbol)
+  -- end
+
+  return #parts > 0 and table.concat(parts, ' ') or nil
 end
 
 init_codecompanion()
@@ -264,12 +355,6 @@ statusline.lhs = function()
     line = line .. string.rep(" ", gutter_width)
   end
 
-  -- codecompanion spinner
-  local cc_spinner = codecompanion_spinner()
-  if cc_spinner then
-    line = line .. ' ' .. cc_spinner
-  end
-
   return line
 end
 
@@ -374,6 +459,34 @@ end
 --                                                                             --
 ---------------------------------------------------------------------------------
 
+-- CodeCompanion-specific statusline
+statusline.codecompanion = function()
+  local adapter_info = codecompanion_adapter_info()
+  local status_info = codecompanion_status()
+  local context_info = codecompanion_context_info()
+
+  return table.concat {
+    "%#Status7#",                            -- switch to Status7 highlight group
+    "%{v:lua.buell.statusline.lhs()}",       -- render statusline left hand side
+    "%#Status4#",                            -- switch to Status4 highlight group
+    "",                                     -- powerline arrow
+    "%#Status2#",                            -- switch to Status2 highlight group
+    " CodeCompanion ",                       -- buffer type indicator
+    "%#Status3#",                            -- switch to Status3 highlight group
+    adapter_info and (adapter_info .. " ") or "",
+    "%<",                                    -- truncation point
+    -- Could show chat title/ID here if available
+    "%=",                                    -- split point for left and right groups
+    "%#Status2#",                            -- switch to Status2 highlight group
+    context_info and (context_info .. " ") or "",
+    status_info and (status_info .. " ") or "",
+    "%#Status1#",                            -- switch to Status1 highlight group
+    "",                                     -- powerline arrow
+    "%#Status5#",                            -- switch to Status5 highlight group
+    "%{v:lua.buell.statusline.rhs()}",       -- call rhs statusline autocommand
+  }
+end
+
 statusline.default = function()
   return table.concat {
     "%#Status7#",                            -- switch to Status7 highlight group
@@ -432,7 +545,9 @@ statusline.update = function()
   local filetype = vim.bo.filetype
 
   -- set statusline based on buffer type
-  if filetype == 'diff' then
+  if filetype == 'codecompanion' then
+    line = "%!luaeval('buell.statusline.codecompanion()')"
+  elseif filetype == 'diff' then
     line = ''
   elseif filetype == 'fugitive' then
     line = table.concat {
