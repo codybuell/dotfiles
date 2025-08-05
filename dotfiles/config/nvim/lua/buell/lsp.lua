@@ -4,10 +4,41 @@ local lspconfig  = require('lspconfig')
 local lsp_status = require('lsp-status')
 
 --------------------------------------------------------------------------------
+--                                                                            --
+--  States                                                                    --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+-- Toggle state for unicode checking
+lsp.unicode_check_enabled = false
+
+--------------------------------------------------------------------------------
 --                                                                             --
 --  Helpers                                                                    --
 --                                                                             --
 ---------------------------------------------------------------------------------
+
+-- Toggle Unicode Check
+--
+-- Toggles the unicode check on and off. When enabled, it will inject
+-- diagnostics into the current buffer for any unicode characters found.
+lsp.toggle_unicode_check = function()
+  lsp.unicode_check_enabled = not lsp.unicode_check_enabled
+
+  if not lsp.unicode_check_enabled then
+    -- Clear existing unicode diagnostics when disabled
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.diagnostic.set(vim.api.nvim_create_namespace('custom_unicode'), bufnr, {}, {
+      virtual_text = false,
+    })
+  else
+    -- Run unicode check on current buffer when enabled
+    local bufnr = vim.api.nvim_get_current_buf()
+    buell.lsp.check_unicode(bufnr)
+  end
+
+  print("Unicode checking: " .. (lsp.unicode_check_enabled and "enabled" or "disabled"))
+end
 
 -- Go Imports
 --
@@ -134,6 +165,7 @@ local on_attach = function(client, bufnr)
     ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
     ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
     ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    ['<leader>u']  = '<cmd>lua buell.lsp.toggle_unicode_check()<CR>',
     [']g']         = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
     ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
   }
@@ -147,13 +179,17 @@ local on_attach = function(client, bufnr)
   -- language specific autocommands
   -- local filetype = vim.api.nvim_get_option_value("filetype", {buff = bufnr})
 
-  -- perform an initial unicode check
-  buell.lsp.check_unicode(bufnr)
+  -- perform an initial unicode check (conditionally)
+  if lsp.unicode_check_enabled then
+    buell.lsp.check_unicode(bufnr)
+  end
 
   buell.util.augroup('BuellLSP', function()
     vim.api.nvim_create_autocmd({"BufWritePost", "TextChanged"}, {
       callback = function(args)
-        buell.lsp.check_unicode(args.buf)
+        if buell.lsp.unicode_check_enabled then
+          buell.lsp.check_unicode(args.buf)
+        end
       end,
     })
     vim.api.nvim_command("autocmd BufWritePre *.go lua buell.lsp.go_imports(1000)")
