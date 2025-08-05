@@ -162,6 +162,9 @@ When given a task:
     strategies = {
       inline = {
         adapter = "copilot",
+        opts = {
+          diff_timeout = 300, -- timeout in seconds before the diff is discarded
+        },
       },
       chat = {
         adapter = "copilot",
