@@ -5,6 +5,40 @@
 --  https://codecompanion.olimorris.dev/                                      --
 --  https://github.com/olimorris/codecompanion.nvim                           --
 --                                                                            --
+--  Workflows:                                                                --
+--    [visual select]<S-c>[write prompt] - inline ad hoc use codecompanion    --
+--      - eg select some func and ask to write a func doc for it              --
+--      - add #{buffer} and ask to create a new func to do something          --
+--    <leader>2 - open a copilot chat window                                  --
+--    <leader>3 - open an anthropic chat window                               --
+--    <leader>1 - open the last used chat window else new copilot             --
+--    gS - show copilot usage stats                                           --
+--    gta - toggle auto tool mode                                             --
+--    gd - debug the chat buffer, show full chat history table                --
+--                                                                            --
+--  Reference:                                                                --
+--    temperature: controls randomness in output, lower is more focused       --
+--                 higher is more creative, 0 <-> 1                           --
+--    top_p: limits the model to consider only the most probable tokens       --
+--           whose cumulative probability is ≤ top_p, balances randomness     --
+--           and coherence                                                    --
+--    n: how many completions (responses) the model should gen per prompt     --
+--                                                                            --
+--  TBD/Todo:                                                                 --
+--    - vectorcode best practices                                             --
+--    - maintaining a decisions log for a repo/codebase                       --
+--    - maintaining and auto loading a workspace config                       --
+--    - look into "code workflows" and create some                            --
+--    - look into creating some custom prompts for common tasks and map em    --
+--    - create custom chat variables eg #{buffer}                             --
+--    - create custom chat slack commands eg /git_files                       --
+--    - create custom chat tools to execute tasks eg @mytool                  --
+--    - create custom chat tool groups eg @vectorcode_toolbox                 --
+--    - set default tools                                                     --
+--    - add some reporting / insight on token usage / buffer available        --
+--    - auto load workspace file if present                                   --
+--    - show token status values etc like cline by default, and copilot stats --
+--                                                                            --
 --------------------------------------------------------------------------------
 
 local has_codecompanion, codecompanion = pcall(require, 'codecompanion')
@@ -34,19 +68,13 @@ if has_codecompanion then
   end
 
   ---------------------
-  --  Configuration  --
+  --  System Prompt  --
   ---------------------
 
-  -- alias cc to CodeCompanion
-  vim.cmd([[cab cc CodeCompanion]])
-
-  -- plugin level configuration
-  local config = {
-    opts = {
-      system_prompt = function(opts)
-        local language = opts.language or "English"
-        return string.format(
-          [[You are an AI programming assistant named "CodeCompanion". You are currently plugged into the Neovim text editor on a user's machine.
+  local system_prompt = function(opts)
+    local language = opts.language or "English"
+    return string.format(
+      [[You are an AI programming assistant named "CodeCompanion". You are currently plugged into the Neovim text editor on a user's machine.
 
 Your core tasks include:
 - Answering general programming questions.
@@ -89,21 +117,28 @@ When given a task:
 2. Output the final code in a single code block, ensuring that only relevant code is included.
 3. End your response with a short suggestion for the next user turn that directly supports continuing the conversation.
 4. Provide exactly one complete reply per conversation turn.]],
-          language
-        )
-      end,
+      language
+    )
+  end
+
+  ---------------------
+  --  Configuration  --
+  ---------------------
+
+  -- plugin level configuration
+  local config = {
+    opts = {
+      system_prompt = system_prompt,
     },
     extensions = {
       vectorcode = {
         opts = {
           tool_group = {
-            -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
-            enabled = true,
-            -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
-            -- if you use @vectorcode_vectorise, it'll be very handy to include
-            -- `file_search` here.
-            extras = {},
-            collapse = false, -- whether the individual tools should be shown in the chat
+            enabled = true,   -- register tool group `@vectorcode_toolbox` containing all 3 tools
+            extras = {
+              "file_search",  -- extra tools to include in `@vectorcode_toolbox`
+            },
+            collapse = false, -- whether individual tools should be shown in the chat
           },
           tool_opts = {
             ls = {},
@@ -112,7 +147,7 @@ When given a task:
               max_num = { chunk = -1, document = -1 },
               default_num = { chunk = 50, document = 10 },
               include_stderr = false,
-              use_lsp = false,
+              use_lsp = true,
               no_duplicate = true,
               chunk_mode = false,
               summarise = {
@@ -131,6 +166,9 @@ When given a task:
       },
       chat = {
         adapter = "copilot",
+        opts = {
+          completion_provider = "cmp", -- blink|cmp|coc|default
+        },
         roles = {
           llm = function(adapter)
             return string.format("CodeCompanion (%s %s)", adapter.formatted_name, adapter.model.name)
@@ -151,6 +189,12 @@ When given a task:
             opts = {
               provider = "mini_pick",
             },
+            keymaps = {
+              modes = {
+                i = "<C-b>",
+                n = { "<C-b>", "gb" },
+              },
+            },
           },
           ["help"] = {
             opts = {
@@ -167,6 +211,28 @@ When given a task:
               provider = "mini_pick",
             },
           },
+          ["git_files"] = {
+            description = "List git files",
+            callback = function(chat)
+              local handle = io.popen("git ls-files")
+              if handle ~= nil then
+                local result = handle:read("*a")
+                handle:close()
+                chat:add_context({ role = "user", content = result }, "git", "<git_files>")
+              else
+                return vim.notify("No git files available", vim.log.levels.INFO, { title = "CodeCompanion" })
+              end
+            end,
+            opts = {
+              contains_code = false,
+            },
+          },
+        },
+        tools = {
+          opts = {
+            default_tools = {
+            },
+          },
         },
       },
     },
@@ -181,6 +247,21 @@ When given a task:
           show_default_prompt_library = true, -- show the default prompt library in the action palette?
         },
       },
+      -- diff provider options
+      diff = {
+        enabled = true,
+        close_chat_at = 240,         -- close an open chat buffer if the total columns of your display are less than...
+        layout = "vertical",         -- vertical|horizontal split for default provider
+        opts = {
+          "internal",
+          "filler",
+          "closeoff",
+          "algorithm:patience",
+          "followwrap",
+          "linematch:120"
+        },
+        provider = "mini_diff",        -- default|mini_diff
+      },
       chat = {
         -- general config options
         intro_message = "",
@@ -189,23 +270,7 @@ When given a task:
         show_references = true,        -- show references (from slash commands and variables) in the chat buffer?
         show_settings = true,          -- show LLM settings at the top of the chat buffer?
         show_token_count = true,       -- show the token count for each response?
-        start_in_insert_mode = true,   -- open the chat buffer in insert mode?
-
-        -- diff provider options
-        diff = {
-          enabled = true,
-          close_chat_at = 240,         -- close an open chat buffer if the total columns of your display are less than...
-          layout = "vertical",         -- vertical|horizontal split for default provider
-          opts = {
-            "internal",
-            "filler",
-            "closeoff",
-            "algorithm:patience",
-            "followwrap",
-            "linematch:120"
-          },
-          provider = "default",        -- default|mini_diff
-        },
+        start_in_insert_mode = false,  -- open the chat buffer in insert mode?
 
         -- default icons
         icons = {
@@ -293,11 +358,14 @@ When given a task:
   --  Mappings  --
   ----------------
 
+  -- alias cc to CodeCompanion
+  vim.cmd([[cab cc CodeCompanion]])
+
   -- mapping to close without killing the session (gq) in plugin/autocommand.lua
 
   -- other maps are in normal.lua
   vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true })
-  vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanionChat ', { noremap = true, silent = false })
+  vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanion ', { noremap = true, silent = false })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
   -- overload send key to go back to normal mode then submit
