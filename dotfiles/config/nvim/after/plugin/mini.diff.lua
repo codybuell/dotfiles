@@ -40,4 +40,16 @@ if has_minidiff then
     italic = true,
   })
 
+  -- overlay highlights for code background, only change the background
+  -- toggled visibility with :lua MiniDiff.toggle_overlay()
+  pinnacle.set('MiniDiffOverAdd', {
+    bg = pinnacle.bg('DiffAdd'),
+  })
+  pinnacle.set('MiniDiffOverChange', {
+    bg = pinnacle.bg('DiffText'),
+  })
+  pinnacle.set('MiniDiffOverDelete', {
+    bg = pinnacle.bg('DiffDelete'),
+  })
+
 end
