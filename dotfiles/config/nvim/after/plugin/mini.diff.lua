@@ -52,4 +52,10 @@ if has_minidiff then
     bg = pinnacle.bg('DiffDelete'),
   })
 
+  ----------------
+  --  Mappings  --
+  ----------------
+
+  vim.keymap.set('n', '<Leader>gd', ':lua MiniDiff.toggle_overlay()<CR>', {remap = false, silent = true})
+
 end

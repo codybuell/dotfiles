@@ -171,10 +171,10 @@ if vim.fn.exists(':Git') then
   vim.keymap.set('n', '<Leader>gb', ':Git blame<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gp', ':Git push<CR>', {remap = false, silent = true})
 
-  -- diffing flows (gl = log for file, gL = log for all, gd = smart diff)
+  -- diffing flows (gl = log for file, gL = log for all, gD = smart diff) note <Space>gd is used with minidiff
   vim.keymap.set('n', '<Leader>gl', ':silent! 0Gclog!<CR>:bot copen<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>gL', ':silent! Git log --pretty="format:%h  %ad  %<(16,trunc)%aN %d %s"<CR>', {remap = false, silent = true})
-  vim.keymap.set('n', '<Leader>gd', smart_diff, {remap = false, silent = true})
+  vim.keymap.set('n', '<Leader>gD', smart_diff, {remap = false, silent = true})
 
   -- other flows (gc = checkout, gg = grep, ge = edit/refresh buffer)
   vim.keymap.set('n', '<Leader>gc', ':Git checkout<Space>', {remap = false, silent = false})
