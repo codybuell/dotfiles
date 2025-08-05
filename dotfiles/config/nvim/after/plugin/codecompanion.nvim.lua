@@ -25,7 +25,6 @@
 --    n: how many completions (responses) the model should gen per prompt     --
 --                                                                            --
 --  TBD/Todo:                                                                 --
---    - vectorcode best practices                                             --
 --    - maintaining a decisions log for a repo/codebase                       --
 --    - maintaining and auto loading a workspace config                       --
 --    - look into "code workflows" and create some                            --
@@ -36,7 +35,7 @@
 --    - create custom chat tool groups eg @vectorcode_toolbox                 --
 --    - set default tools                                                     --
 --    - add some reporting / insight on token usage / buffer available        --
---    - auto load workspace file if present                                   --
+--    - learn how to use workspaces and auto load workspace file if present?  --
 --    - show token status values etc like cline by default, and copilot stats --
 --                                                                            --
 --------------------------------------------------------------------------------
@@ -310,10 +309,29 @@ When given a task:
 
         ---token display opttions
         ---@param tokens number
-        ---@param _ table (adapter)
+        ---@param adapter table
         ---@return string
-        token_count = function(tokens, _)
-          return " (" .. tokens .. " tokens)"
+        token_count = function(tokens, adapter)
+          -- vim.notify("tokens: " .. vim.inspect(tokens), vim.log.levels.INFO)
+          -- vim.notify("adapter: " .. vim.inspect(adapter), vim.log.levels.INFO)
+          local total = type(tokens) == "number" and tokens or 0
+          local budget = adapter and adapter.schema and adapter.schema.max_tokens
+            and adapter.schema.max_tokens.default or 4096
+          if type(budget) == "function" then
+            budget = budget(adapter)
+          end
+          if not budget or type(budget) ~= "number" then
+            budget = 4096
+          end
+          if total > budget then
+            return string.format(" Estimated tokens (%d) exceed context window (%d)", total, budget)
+          end
+          local percent = math.min(total / budget, 1)
+          local bar_len = 20
+          local filled = math.floor(percent * bar_len)
+          local empty = bar_len - filled
+          local bar = string.rep("█", filled) .. string.rep("░", empty)
+          return string.format("%s | %d/%d tokens used", bar, total, budget)
         end,
       },
     },
