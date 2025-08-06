@@ -7,7 +7,11 @@
 --------------------------------------------------------------------------------
 
 local has_luasnip, luasnip = pcall(require, 'luasnip')
-if has_luasnip then
+if not has_luasnip then
+  return
+end
+
+vim.defer_fn(function()
 
   local snip_lua = require("luasnip.loaders.from_lua")
   local snip_snipmate = require("luasnip.loaders.from_snipmate")
@@ -48,4 +52,4 @@ if has_luasnip then
 
   -- mappings are handled / defined in `after/plugin/nvim-cmp.lua`
 
-end
+end, 100)
