@@ -37,11 +37,17 @@
 --    - add some reporting / insight on token usage / buffer available        --
 --    - learn how to use workspaces and auto load workspace file if present?  --
 --    - show token status values etc like cline by default, and copilot stats --
+--    - update adapter tokens function to return table and show ↑ ↓ and total --
+--    - fix bad calculations that show using more tokens than context window  --
 --                                                                            --
 --------------------------------------------------------------------------------
 
 local has_codecompanion, codecompanion = pcall(require, 'codecompanion')
-if has_codecompanion then
+if not has_codecompanion then
+  return
+end
+
+vim.defer_fn(function()
 
   ---------------
   --  Helpers  --
@@ -400,4 +406,4 @@ When given a task:
     end)
   end, { noremap = true, silent = true })
 
-end
+end, 100)
