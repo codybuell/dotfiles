@@ -7,7 +7,11 @@
 --------------------------------------------------------------------------------
 
 local has_treesj, treesj = pcall(require, 'treesj')
-if has_treesj then
+if not has_treesj then
+  return
+end
+
+vim.defer_fn(function()
 
   ---------------------
   --  Configuration  --
@@ -30,4 +34,4 @@ if has_treesj then
   vim.keymap.set('n', '<Leader>s', ':TSJSplit<CR>', {remap = false, silent = true})
   vim.keymap.set('n', '<Leader>j', ':TSJJoin<CR>', {remap = false, silent = true})
 
-end
+end, 100)
