@@ -8,7 +8,11 @@
 
 local has_dap, dap = pcall(require, 'dap')
 local has_dapui, dapui = pcall(require, 'dapui')
-if has_dap and has_dapui then
+if not has_dap or not has_dapui then
+  return
+end
+
+vim.defer_fn(function()
 
   ---------------------
   --  Configuration  --
@@ -86,4 +90,4 @@ if has_dap and has_dapui then
   -- pinnacle.set('DapUIStop', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStop')})
   -- pinnacle.set('DapUIStopNC', {bg = pinnacle.bg('Status2'), fg = pinnacle.fg('DapUIStopNC')})
 
-end
+end, 100)

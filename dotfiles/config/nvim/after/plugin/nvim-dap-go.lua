@@ -7,7 +7,11 @@
 --------------------------------------------------------------------------------
 
 local has_dapgo, dapgo = pcall(require, 'dap-go')
-if has_dapgo then
+if not has_dapgo then
+  return
+end
+
+vim.defer_fn(function()
 
   -------------
   --  Setup  --
@@ -15,4 +19,4 @@ if has_dapgo then
 
   dapgo.setup()
 
-end
+end, 100)
