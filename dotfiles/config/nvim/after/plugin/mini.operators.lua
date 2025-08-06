@@ -7,12 +7,12 @@
 --------------------------------------------------------------------------------
 
 local has_minioperators, minioperators = pcall(require, 'mini.operators')
-if has_minioperators then
-
-  -------------
-  --  Setup  --
-  -------------
-
-  minioperators.setup()
-
+if not has_minioperators then
+  return
 end
+
+-------------
+--  Setup  --
+-------------
+
+minioperators.setup()

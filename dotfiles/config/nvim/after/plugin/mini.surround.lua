@@ -11,12 +11,12 @@
 --------------------------------------------------------------------------------
 
 local has_minisurround, minisurround = pcall(require, 'mini.surround')
-if has_minisurround then
-
-  -------------
-  --  Setup  --
-  -------------
-
-  minisurround.setup()
-
+if not has_minisurround then
+  return
 end
+
+-------------
+--  Setup  --
+-------------
+
+minisurround.setup()

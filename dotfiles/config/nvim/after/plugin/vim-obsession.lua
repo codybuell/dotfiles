@@ -6,24 +6,24 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
-if vim.fn.exists(':Obsession') then
+if not vim.fn.exists(':Obsession') then
+  return
+end
 
-  ----------------
-  --  Mappings  --
-  ----------------
+----------------
+--  Mappings  --
+----------------
 
-  vim.keymap.set('n', '<Localleader>ss', ':Obsession ~/.config/nvim/sessions/', {remap = false})
-  vim.keymap.set('n', '<Localleader>sr', ':so ~/.config/nvim/sessions/', {remap = false})
-  vim.keymap.set('n', '<Localleader>sp', ':Obsession<CR>', {remap = false})
-  vim.keymap.set('n', '<Localleader>sn', function()
-    if vim.fn.exists(':Obsession') then
-      local session = buell.util.split_str(vim.v.this_session, '/')
-      local sname   = session[#session] or ''
-      if #sname then
-        print(sname)
-      end
+vim.keymap.set('n', '<Localleader>ss', ':Obsession ~/.config/nvim/sessions/', {remap = false})
+vim.keymap.set('n', '<Localleader>sr', ':so ~/.config/nvim/sessions/', {remap = false})
+vim.keymap.set('n', '<Localleader>sp', ':Obsession<CR>', {remap = false})
+vim.keymap.set('n', '<Localleader>sn', function()
+  if vim.fn.exists(':Obsession') then
+    local session = buell.util.split_str(vim.v.this_session, '/')
+    local sname   = session[#session] or ''
+    if #sname then
+      print(sname)
     end
   end
-  , {remap = false})
-
 end
+, {remap = false})

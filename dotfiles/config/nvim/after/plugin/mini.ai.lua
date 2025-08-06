@@ -7,12 +7,12 @@
 --------------------------------------------------------------------------------
 
 local has_miniai, miniai = pcall(require, 'mini.ai')
-if has_miniai then
-
-  -------------
-  --  Setup  --
-  -------------
-
-  miniai.setup()
-
+if not has_miniai then
+  return
 end
+
+-------------
+--  Setup  --
+-------------
+
+miniai.setup()
