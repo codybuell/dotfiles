@@ -157,9 +157,9 @@ function M.get_adapter_info()
     adapter_display = adapter_display .. ':' .. model
   end
 
-  if state.request_id then
-    adapter_display = adapter_display .. ' #' .. tostring(state.request_id)
-  end
+  -- if state.request_id then
+  --   adapter_display = adapter_display .. ' #' .. tostring(state.request_id)
+  -- end
 
   return config.symbols.adapter_symbol .. ' ' .. adapter_display
 end
