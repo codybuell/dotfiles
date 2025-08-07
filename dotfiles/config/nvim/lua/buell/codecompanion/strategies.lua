@@ -1,0 +1,117 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--  CodeCompanion Strategies Configuration                                    --
+--                                                                            --
+--  Strategies define how CodeCompanion interacts with different contexts and --
+--  how one interacts with CodeCompanion.                                     --
+--    - Inline: Direct code modifications within the editor                   --
+--    - Chat: Conversational interface with context and tools                 --
+--    - Command: Command-line style interactions for quick tasks              --
+--                                                                            --
+--  This module configures adapters, keymaps, slash commands, and tools       --
+--  for each strategy.                                                        --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+local M = {}
+
+--------------
+--  Inline  --
+--------------
+
+M.inline = {
+  adapter = "copilot",
+  opts = {
+    diff_timeout = 300,
+  },
+}
+
+------------
+--  Chat  --
+------------
+
+M.chat = {
+  adapter = "copilot",
+  opts = {
+    completion_provider = "cmp", -- blink | cmp | coc | default
+  },
+  roles = {
+    llm = function(adapter)
+      return string.format("CodeCompanion (%s %s)", adapter.formatted_name, adapter.model.name)
+    end,
+    user = "Me",
+  },
+  keymaps = {
+    send = {
+      modes = { n = "<Localleader>s", i = "<Localleader>s" },
+    },
+    close = {
+      modes = { n = "<Localleader>q", i = "<C-c>" },
+    },
+  },
+  slash_commands = {
+    ["buffer"] = {
+      opts = { provider = "mini_pick" },
+      keymaps = {
+        modes = {
+          i = "<C-b>",
+          n = { "<C-b>", "gb" },
+        },
+      },
+    },
+    ["help"] = { opts = { provider = "mini_pick" } },
+    ["file"] = { opts = { provider = "mini_pick" } },
+    ["symbols"] = { opts = { provider = "mini_pick" } },
+    ["git_files"] = {
+      description = "List git files",
+      callback = function(chat)
+        local handle = io.popen("git ls-files")
+        if handle ~= nil then
+          local result = handle:read("*a")
+          handle:close()
+          chat:add_context({ role = "user", content = result }, "git", "<git_files>")
+        else
+          return vim.notify("No git files available", vim.log.levels.INFO, { title = "CodeCompanion" })
+        end
+      end,
+      opts = { contains_code = false },
+    },
+    ["workspace"] = {
+      description = "Load workspace context",
+      callback = function(chat)
+        local workspace_file = "codecompanion-workspace.json"
+        if vim.fn.filereadable(workspace_file) == 1 then
+          local content = vim.fn.readfile(workspace_file)
+          local workspace_data = vim.fn.json_decode(table.concat(content, "\n"))
+
+          -- Add workspace context
+          chat:add_context({
+            role = "system",
+            content = "Workspace loaded: " .. workspace_data.name .. "\n" ..
+              (workspace_data.system_prompt or "")
+          }, "workspace", "<workspace_context>")
+
+          vim.notify("Loaded workspace: " .. workspace_data.name, vim.log.levels.INFO)
+        else
+          vim.notify("No codecompanion-workspace.json found", vim.log.levels.WARN)
+        end
+      end,
+      opts = { contains_code = false },
+    },
+  },
+  tools = {
+    opts = {
+      default_tools = {},
+    },
+  },
+}
+
+---------------
+--  Command  --
+---------------
+
+M.cmd = {
+  adapter = "copilot",
+}
+
+return M
