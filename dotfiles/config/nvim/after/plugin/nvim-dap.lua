@@ -15,19 +15,19 @@ end
 --  Configuration  --
 ---------------------
 
-vim.fn.sign_define('DapBreakpoint',          { text='•', texthl='DiagnosticSignInfo',   linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointCondition', { text='•', texthl='DiagnosticSignInfo',   linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapBreakpointRejected',  { text='•', texthl='DiagnosticSignWarn', linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapStopped',             { text='→', texthl='DiagnosticSignError',  linehl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.fn.sign_define('DapLogPoint',            { text='•', texthl='FoldColumn', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+vim.fn.sign_define('DapBreakpoint',          { text='•', texthl='DiagnosticSignInfo',  linehl='DapBreakpoint', numhl='DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointCondition', { text='•', texthl='DiagnosticSignInfo',  linehl='DapBreakpoint', numhl='DapBreakpoint' })
+vim.fn.sign_define('DapBreakpointRejected',  { text='•', texthl='DiagnosticSignWarn',  linehl='DapBreakpoint', numhl='DapBreakpoint' })
+vim.fn.sign_define('DapStopped',             { text='→', texthl='DiagnosticSignError', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+vim.fn.sign_define('DapLogPoint',            { text='•', texthl='FoldColumn',          linehl='DapBreakpoint', numhl='DapBreakpoint' })
 
 ----------------
 --  Mappings  --
 ----------------
 
 vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
-vim.keymap.set("n", "<leader>dc", dap.continue, {})
-vim.keymap.set("n", "<Leader>dr", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<localleader>c", dap.continue, {})
+vim.keymap.set("n", "<localleader>r", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
 
 --------------
 --  Colors  --
