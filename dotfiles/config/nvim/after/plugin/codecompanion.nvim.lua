@@ -39,6 +39,10 @@
 --    - show token status values etc like cline by default, and copilot stats --
 --    - update adapter tokens function to return table and show ↑ ↓ and total --
 --    - fix bad calculations that show using more tokens than context window  --
+--    - consider virtual input windows, github bits:                          --
+--      folke/snacks.nvim/blob/main/docs/input.md                             --
+--      lucobellic/nvim-config/blob/main/lua/plugins/snacks/snacks-input.lua  --
+--    - https://github.com/olimorris/codecompanion.nvim/discussions/1297      --
 --                                                                            --
 --------------------------------------------------------------------------------
 
