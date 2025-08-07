@@ -52,10 +52,13 @@ function M.setup_keymaps()
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
   -- Documentation workflow mappings
-  vim.keymap.set('n', '<leader>dr', '<cmd>CodeCompanion review_docs<cr>', { desc = "Review documentation" })
-  vim.keymap.set('n', '<leader>di', '<cmd>CodeCompanion capture_insight<cr>', { desc = "Capture insights" })
-  vim.keymap.set('n', '<leader>du', '<cmd>CodeCompanion update_context<cr>', { desc = "Update context docs" })
+  vim.keymap.set("n", "<leader>di", ":CodeCompanion init_docs<cr>", { desc = "Initialize living docs" })
+  vim.keymap.set("n", "<leader>dr", ":CodeCompanion review_docs<cr>", { desc = "Review documentation" })
+  vim.keymap.set("n", "<leader>de", ":CodeCompanion expand_docs<cr>", { desc = "Expand documentation" })
+  vim.keymap.set("n", "<leader>du", ":CodeCompanion update_context<cr>", { desc = "Update context docs" })
+  vim.keymap.set("n", "<leader>dg", ":CodeCompanion gaps<cr>", { desc = "Detect documentation gaps" })
   vim.keymap.set('n', '<leader>dw', '<cmd>CodeCompanionChat<cr>/workspace<cr>', { desc = "Load workspace context" })
+  vim.keymap.set('n', '<leader>dc', '<cmd>CodeCompanion capture<cr>', { desc = "Capture insight/decision" })
 
   -- Enhanced send key, overload send key to go back to normal mode then submit
   vim.keymap.set({'i', 'n', 'v'}, '<C-s>', function()

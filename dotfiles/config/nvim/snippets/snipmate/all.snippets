@@ -1,32 +1,32 @@
 snippet ws "codecompanion living doc workspace file" b
 	{
-	  "name": "Your Project Name",
+	  "name": "${1:Your Project Name}",
 	  "version": "1.0.0",
-	  "system_prompt": "This project uses the living documentation workflow. Always check doc/ folder for project context, decisions, and technical patterns before providing advice.",
+	  "system_prompt": "This project follows a living documentation workflow. Always consult the \${docs_path}/ folder for project context, decisions, and patterns before providing advice.",
 	  "vars": {
-	    "docs_path": "doc"
+	    "docs_path": "${2:doc}"
 	  },
 	  "groups": [
 	    {
-	      "name": "Project Context",
-	      "system_prompt": "Core project understanding - review before any architectural changes",
+	      "name": "Core Architecture",
+	      "system_prompt": "Essential project understanding - review before architectural changes",
 	      "data": ["project-overview", "decisions", "tech-stack"]
 	    }
 	  ],
 	  "data": {
 	    "project-overview": {
 	      "type": "file",
-	      "path": "doc/project-context.md",
+	      "path": "\${docs_path}/project-context.md",
 	      "description": "High-level project goals and architecture"
 	    },
 	    "decisions": {
 	      "type": "file",
-	      "path": "doc/decisions.md",
+	      "path": "\${docs_path}/decisions.md",
 	      "description": "Technical decisions and rationale"
 	    },
 	    "tech-stack": {
 	      "type": "file",
-	      "path": "doc/tech-context.md",
+	      "path": "\${docs_path}/tech-context.md",
 	      "description": "Technology stack and patterns"
 	    }
 	  }

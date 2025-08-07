@@ -59,10 +59,13 @@
 --  ---------------------------------------------                             --
 --                                                                            --
 --  TLDR Workflow:                                                            --
---    /workspace [grp] - Load proj context from codecompanion-workspace.json  --
---    /review_docs     - Analyze code and suggest documentation updates       --
---    /capture_insight - Document discoveries and decisions                   --
---    /update_context  - Review and update project documentation              --
+--    <leader>di (init_docs)      - Initialize living documentation workflow  --
+--    <leader>dr (review_docs)    - Analyze code and suggest doc updates      --
+--    <leader>de (expand_docs)    - Add "optional" docs as project grows      --
+--    <leader>dc (capture)        - Document discoveries and decisions now    --
+--    <leader>dg (gaps)           - Systematically detect documentation gaps  --
+--    <leader>du (update_context) - Review and update project documentation   --
+--    <leader>dw (/workspace)     - Load project context from workspace.json  --
 --                                                                            --
 --  The core innovation of this setup is creating a self-reinforcing cycle    --
 --  where documentation continuously improves AI interactions, which in turn  --
@@ -82,10 +85,12 @@
 --        └──────────────────────────────────────────────────────────┘        --
 --                            Cycle Repeats                                   --
 --                                                                            --
---  CREATE PHASE:                                                             --
---    - /review_docs: Comprehensive analysis using @files and @grep_search    --
---    - /capture_insight: Ad-hoc documentation of discoveries                 --
---    - /update_context: Strategic documentation updates                      --
+--  CREATE PHASE (Enhanced):                                                  --
+--    - init_docs: Bootstrap documentation structure for new projects         --
+--    - review_docs: Comprehensive analysis using @file_search/@grep_search   --
+--    - expand_docs: Add optional docs based on project complexity            --
+--    - gaps: Systematic identification and prioritization of missing docs    --
+--    - capture: Ad-hoc documentation of discoveries and insights             --
 --    - All prompts present recommendations in checkbox format                --
 --                                                                            --
 --  APPROVE PHASE:                                                            --
@@ -95,16 +100,21 @@
 --    - No documentation changes without explicit approval                    --
 --                                                                            --
 --  UPDATE PHASE:                                                             --
---    - AI uses @edit_file tool to update approved documentation              --
+--    - AI uses @create_file for new documentation                            --
+--    - AI uses @insert_edit_into_file for updates to existing files          --
 --    - Changes follow established patterns and formats                       --
 --    - AI explains what was changed and why                                  --
---    - Files updated: doc/decisions.md, doc/tech-context.md, etc.            --
 --                                                                            --
 --  CONTEXT PHASE:                                                            --
 --    - /workspace automatically loads documentation as context               --
 --    - codecompanion-workspace.json defines project-specific context         --
 --    - AI references documented decisions in future recommendations          --
 --    - Each session builds on previous documented knowledge                  --
+--                                                                            --
+--  Project Lifecycle Support:                                                --
+--    New Project:     init_docs → workspace setup → regular review cycle     --
+--    Growing Project: expand_docs → add optional documentation               --
+--    Mature Project:  review_docs → gaps → capture insights → update cycle   --
 --                                                                            --
 --  Evolution Timeline:                                                       --
 --    Week 1:  Basic context, generic AI responses                            --
@@ -120,12 +130,29 @@
 --    - Compound intelligence - each interaction makes the next one better    --
 --    - Human oversight ensures quality and prevents documentation drift      --
 --    - Living documentation stays current with actual codebase               --
+--    - Safe initialization that won't overwrite existing documentation       --
 --                                                                            --
 --  Files Created by This Setup:                                              --
---    codecompanion-workspace.json - Project context and data sources         --
---    doc/project-context.md       - High-level goals and architecture        --
---    doc/decisions.md             - Decision log (ADR-style)                 --
---    doc/tech-context.md          - Tech stack and patterns                  --
+--    Essential (always):                                                     --
+--      codecompanion-workspace.json - Project context and data sources       --
+--      doc/decisions.md             - Decision log (ADR-style)               --
+--      doc/project-context.md       - High-level goals and architecture      --
+--      doc/tech-context.md          - Tech stack and patterns                --
+--    Optional (as needed):                                                   --
+--      doc/code-standards.md        - Coding conventions                     --
+--      doc/deployment.md            - Deployment procedures                  --
+--      doc/onboarding.md            - New developer guide                    --
+--      doc/testing.md               - Testing strategies and patterns        --
+--      doc/troubleshooting.md       - Common issues and solutions            --
+--                                                                            --
+--  Keymaps:                                                                  --
+--    <leader>di - Initialize living docs (safe, won't overwrite)             --
+--    <leader>dr - Review documentation (comprehensive analysis)              --
+--    <leader>de - Expand documentation (add optional files)                  --
+--    <leader>dc - Capture insights/decisions (immediate documentation)       --
+--    <leader>dg - Detect documentation gaps (systematic analysis)            --
+--    <leader>du - Update context docs (high-level updates)                   --
+--    <leader>dw - Load workspace context (quick context loading)             --
 --                                                                            --
 --  Required minimum codecompanion-workspace.json file:                       --
 --    see dotfiles/config/nvim/snippets/snipmate/all.snippets -> ws           --
