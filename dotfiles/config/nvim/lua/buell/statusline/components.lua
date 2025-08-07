@@ -33,7 +33,8 @@ end
 
 -- File path component
 function M.file_path()
-  return cache.get_or_compute('file_path', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  return cache.get_or_compute('file_path_' .. bufnr, function()
     local basename = vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
 
     if basename == '' or basename == '.' then

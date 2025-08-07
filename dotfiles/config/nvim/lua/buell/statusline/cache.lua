@@ -35,4 +35,15 @@ function M.clear()
   cache = {}
 end
 
+-- cache invalidation on buffer events
+local augroup = require('buell.util.augroup')
+local autocmd = require('buell.util.autocmd')
+
+augroup('StatuslineFilePathCache', function()
+  autocmd('BufRead,BufNewFile,BufFilePost', '*', function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    M.invalidate('file_path_' .. bufnr)
+  end)
+end)
+
 return M
