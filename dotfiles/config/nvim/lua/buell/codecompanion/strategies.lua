@@ -76,28 +76,6 @@ M.chat = {
       end,
       opts = { contains_code = false },
     },
-    ["workspace"] = {
-      description = "Load workspace context",
-      callback = function(chat)
-        local workspace_file = "codecompanion-workspace.json"
-        if vim.fn.filereadable(workspace_file) == 1 then
-          local content = vim.fn.readfile(workspace_file)
-          local workspace_data = vim.fn.json_decode(table.concat(content, "\n"))
-
-          -- Add workspace context
-          chat:add_context({
-            role = "system",
-            content = "Workspace loaded: " .. workspace_data.name .. "\n" ..
-              (workspace_data.system_prompt or "")
-          }, "workspace", "<workspace_context>")
-
-          vim.notify("Loaded workspace: " .. workspace_data.name, vim.log.levels.INFO)
-        else
-          vim.notify("No codecompanion-workspace.json found", vim.log.levels.WARN)
-        end
-      end,
-      opts = { contains_code = false },
-    },
   },
   tools = {
     opts = {
