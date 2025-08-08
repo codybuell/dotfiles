@@ -75,7 +75,10 @@ end
 -- Mini Pick Action Menu
 --
 -- Override the built in mini pick action menu to show strategies and format
--- the output in a more user-friendly way. Also handles picker actions.
+-- the output in a more user-friendly way. Also handles picker actions. Also
+-- updates the "Open chats ..." action to show the first user message in the
+-- chat for easy identification.
+--
 -- Patches codecompanion/providers/actions/mini_pick.lua.
 function M.mini_pick_action_menu()
   local mini_pick_path = "codecompanion.providers.actions.mini_pick"
@@ -135,8 +138,10 @@ function M.mini_pick_action_menu()
             local items = chosen_item.item.picker.items()
 
             for i, picker_item in ipairs(items) do
-              -- Get adapter info
+              -- Get adapter info and chat preview
               local adapter_info = ""
+              local chat_preview = "[No messages]" -- Default fallback
+
               if picker_item.bufnr then
                 local success, chat_data = pcall(function()
                   local codecompanion = require("codecompanion")
@@ -171,20 +176,42 @@ function M.mini_pick_action_menu()
                         model_name = string.gsub(model_name, "^claude%-3%-5%-sonnet%-20241022$", "sonnet")
                         model_name = string.gsub(model_name, "^claude%-3%-5%-sonnet$", "sonnet")
 
-                        return string.format("[%s/%s]", adapter_name, model_name)
+                        -- NEW: Extract first user message for preview
+                        if chat.chat.messages and #chat.chat.messages > 0 then
+                          -- Look for first user message that's not empty
+                          for _, message in ipairs(chat.chat.messages) do
+                            if message.role == "user" and message.content and
+                               message.content ~= "" and not message.content:match("^%s*$") then
+                              -- Truncate and clean the message
+                              local content = message.content:gsub("\n", " "):gsub("%s+", " ")
+                              chat_preview = content:len() > 50 and (content:sub(1, 47) .. "...") or content
+                              break
+                            end
+                          end
+                        end
+
+                        return {
+                          adapter_info = string.format("[%s/%s]", adapter_name, model_name),
+                          preview = chat_preview
+                        }
                       end
                     end
                   end
-                  return "[unknown/unknown]"
+                  return { adapter_info = "[unknown/unknown]", preview = "[No messages]" }
                 end)
-                adapter_info = success and chat_data or "[unknown/unknown]"
+
+                if success and chat_data then
+                  adapter_info = chat_data.adapter_info
+                  chat_preview = chat_data.preview
+                else
+                  adapter_info = "[unknown/unknown]"
+                end
               else
                 adapter_info = "[no-adapter]"
               end
 
-              -- Format: "01. [adapter/model] Description"
-              local description = picker_item.description or picker_item.name
-              local formatted_text = string.format("%02d. %s %s", i, adapter_info, description)
+              -- Format: "01. [adapter/model] Preview of first message"
+              local formatted_text = string.format("%02d. %s %s", i, adapter_info, chat_preview)
 
               table.insert(picker_items, {
                 text = formatted_text,
