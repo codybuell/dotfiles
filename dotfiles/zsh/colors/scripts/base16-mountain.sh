@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # tinted-shell (https://github.com/tinted-theming/tinted-shell)
-# Scheme name: Mountain 
+# Scheme name: Mountain
 # Scheme author: gnsfujiwara (https://github.com/gnsfujiwara)
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 export BASE16_THEME=mountain
@@ -13,7 +13,7 @@ color04="8f/8a/ac" # Base 0D - Blue
 color05="ac/8a/ac" # Base 0E - Magenta
 color06="8a/ab/ac" # Base 0C - Cyan
 color07="ca/ca/ca" # Base 05 - White
-color08="26/26/26" # Base 03 - Bright Black
+color08="39/39/39" # Base 03 - Bright Black
 color09="$color01" # Base 08 - Bright Red
 color10="$color02" # Base 0B - Bright Green
 color11="$color03" # Base 0A - Bright Yellow
@@ -25,7 +25,7 @@ color16="ce/b1/88" # Base 09
 color17="ac/8a/8c" # Base 0F
 color18="19/19/19" # Base 01
 color19="26/26/26" # Base 02
-color20="ac/8a/8c" # Base 04
+color20="4c/4c/4c" # Base 04
 color21="e7/e7/e7" # Base 06
 color_foreground="ca/ca/ca" # Base 05
 color_background="0f/0f/0f" # Base 00
@@ -136,8 +136,8 @@ if [ -n "$TINTED_SHELL_ENABLE_BASE16_VARS" ] || [ -n "$BASE16_SHELL_ENABLE_VARS"
   export BASE16_COLOR_00_HEX="0f0f0f"
   export BASE16_COLOR_01_HEX="191919"
   export BASE16_COLOR_02_HEX="262626"
-  export BASE16_COLOR_03_HEX="4c4c4c"
-  export BASE16_COLOR_04_HEX="ac8a8c"
+  export BASE16_COLOR_03_HEX="393939"
+  export BASE16_COLOR_04_HEX="4c4c4c"
   export BASE16_COLOR_05_HEX="cacaca"
   export BASE16_COLOR_06_HEX="e7e7e7"
   export BASE16_COLOR_07_HEX="f0f0f0"
