@@ -207,3 +207,15 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/VectorCode"]
 	path = dotfiles/config/nvim/pack/bundle/opt/VectorCode
 	url = https://github.com/Davidyz/VectorCode.git
+[submodule "vendor/tinted-shell"]
+	path = vendor/tinted-shell
+	url = https://github.com/tinted-theming/tinted-shell.git
+[submodule "vendor/tinted-terminal"]
+	path = vendor/tinted-terminal
+	url = https://github.com/tinted-theming/tinted-terminal.git
+[submodule "vendor/tinted-tmux"]
+	path = vendor/tinted-tmux
+	url = https://github.com/tinted-theming/tinted-tmux.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/tinted-nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
+	url = https://github.com/tinted-theming/tinted-nvim.git
