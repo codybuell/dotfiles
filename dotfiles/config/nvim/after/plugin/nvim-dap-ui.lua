@@ -62,8 +62,8 @@ vim.defer_fn(function()
   --  Mappings  --
   ----------------
 
-  vim.keymap.set("n", "<localleader>o", '<CMD>lua require("dapui").open()<CR>', {})
-  vim.keymap.set("n", "<localleader>x", '<CMD>lua require("dapui").close()<CR>', {})
+  vim.keymap.set("n", "<leader>do", '<CMD>lua require("dapui").open()<CR>', {})
+  vim.keymap.set("n", "<leader>dx", '<CMD>lua require("dapui").close()<CR>', {})
 
   --------------
   --  Colors  --

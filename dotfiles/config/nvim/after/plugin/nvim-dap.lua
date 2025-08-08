@@ -26,8 +26,8 @@ vim.fn.sign_define('DapLogPoint',            { text='•', texthl='FoldColumn', 
 ----------------
 
 vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
-vim.keymap.set("n", "<localleader>c", dap.continue, {})
-vim.keymap.set("n", "<localleader>r", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>dc", dap.continue, {})
+vim.keymap.set("n", "<leader>dr", "<Cmd>lua require('dap').clear_breakpoints()<CR>", { noremap = true, silent = true })
 
 --------------
 --  Colors  --
