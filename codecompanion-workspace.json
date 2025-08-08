@@ -1,0 +1,85 @@
+{
+  "name": "Dotfiles",
+  "version": "1.0.0",
+  "system_prompt": "This project follows a living documentation workflow. Always consult the ${docs_path}/ folder for project context, decisions, and patterns before providing advice.",
+  "vars": {
+    "docs_path": "doc",
+    "cc_path": "dotfiles/config/nvim/lua/buell/codecompanion",
+    "after_plugin": "dotfiles/config/nvim/after/plugin",
+    "after_ftplugin": "dotfiles/config/nvim/after/ftplugin"
+  },
+  "groups": [
+    {
+      "name": "Core Architecture",
+      "system_prompt": "Essential project understanding - review before architectural changes",
+      "data": ["project-overview", "decisions", "tech-stack"]
+    },
+    {
+      "name": "CodeCompanion",
+      "system_prompt": "CodeCompanion specific context - review before changes to CodeCompanion integration",
+      "data": ["cc-plugin", "cc-ftplugin", "cc-adapters", "cc-display", "cc-extensions", "cc-helpers", "cc-prompt_library", "cc-strategies", "cc-system_prompt"]
+    }
+  ],
+  "data": {
+    "project-overview": {
+      "type": "file",
+      "path": "${docs_path}/project-context.md",
+      "description": "High-level project goals and architecture"
+    },
+    "decisions": {
+      "type": "file",
+      "path": "${docs_path}/decisions.md",
+      "description": "Technical decisions and rationale"
+    },
+    "tech-stack": {
+      "type": "file",
+      "path": "${docs_path}/tech-context.md",
+      "description": "Technology stack and patterns"
+    },
+    "cc-plugin": {
+      "type": "file",
+      "path": "${after_plugin}/codecompanion.nvim.lua",
+      "description": "CodeCompanion main plugin configuration file. Handles assembling all components together."
+    },
+    "cc-ftplugin": {
+      "type": "file",
+      "path": "${after_ftplugin}/codecompanion.lua",
+      "description": "Code to handle dimming of older messages in the codecompanion chat strategy interface."
+    },
+    "cc-adapters": {
+      "type": "file",
+      "path": "${cc_path}/adapters.lua",
+      "description": "CodeCompanion configuration files to integrate with AI providers / apis."
+    },
+    "cc-display": {
+      "type": "file",
+      "path": "${cc_path}/display.lua",
+      "description": "CodeCompanion configuration files to manage how information is presented to the user."
+    },
+    "cc-extensions": {
+      "type": "file",
+      "path": "${cc_path}/extensions.lua",
+      "description": "CodeCompanion configuration files to extend functionality with additional features."
+    },
+    "cc-helpers": {
+      "type": "file",
+      "path": "${cc_path}/helpers.lua",
+      "description": "CodeCompanion configuration files to provide utility functions and common operations."
+    },
+    "cc-prompt_library": {
+      "type": "file",
+      "path": "${cc_path}/prompt_library.lua",
+      "description": "CodeCompanion configuration files to manage and organize prompts for various use cases."
+    },
+    "cc-strategies": {
+      "type": "file",
+      "path": "${cc_path}/strategies.lua",
+      "description": "CodeCompanion configuration for the utilities interfaces (inline, chat, cmd)."
+    },
+    "cc-system_prompt": {
+      "type": "file",
+      "path": "${cc_path}/system_prompt.lua",
+      "description": "CodeCompanion configuration files to define the system prompt used for AI interactions."
+    }
+  }
+}
