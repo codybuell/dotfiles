@@ -160,38 +160,30 @@ if not has_codecompanion then
   return
 end
 
--- Load modular configuration
-local config_modules = {
-  system_prompt  = require('buell.codecompanion.system_prompt'),
-  prompt_library = require('buell.codecompanion.prompt_library'),
-  display        = require('buell.codecompanion.display'),
-  adapters       = require('buell.codecompanion.adapters'),
-  strategies     = require('buell.codecompanion.strategies'),
-  extensions     = require('buell.codecompanion.extensions'),
-  helpers        = require('buell.codecompanion.helpers'),
-}
-
 vim.defer_fn(function()
+
+  -- Pull in helpers
+  local helpers = require('buell.codecompanion.helpers')
 
   -- Assemble the configuration
   local config = {
     opts = {
-      system_prompt = config_modules.system_prompt,
+      system_prompt = require('buell.codecompanion.system_prompt'),
     },
-    prompt_library  = config_modules.prompt_library,
-    display         = config_modules.display,
-    adapters        = config_modules.adapters,
-    strategies      = config_modules.strategies,
-    extensions      = config_modules.extensions,
+    prompt_library  = require('buell.codecompanion.prompt_library'),
+    display         = require('buell.codecompanion.display'),
+    adapters        = require('buell.codecompanion.adapters'),
+    strategies      = require('buell.codecompanion.strategies'),
+    extensions      = require('buell.codecompanion.extensions'),
   }
 
   -- Load the configuration into CodeCompanion
   codecompanion.setup(config)
 
   -- Setup keymaps
-  config_modules.helpers.setup_keymaps()
+  helpers.setup_keymaps()
 
   -- After codecompanion setup, run overrides
-  config_modules.helpers.mini_pick_action_menu()
+  helpers.mini_pick_action_menu()
 
 end, 100)
