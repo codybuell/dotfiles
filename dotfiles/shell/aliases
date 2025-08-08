@@ -85,18 +85,10 @@ alias us="cd ~/Library/Application\ Support/Übersicht/widgets/"
 # files
 alias sc="vi ~/.ssh/config"
 
-# laravel
-alias lr="vi app/Http/routes.php"
-alias laravel="composer create-project --prefer-dist laravel/laravel "
-alias artisan="php artisan"
-
 # networking
 alias swil="networksetup -switchtolocation"
 alias trrt="traceroute -In"
 alias extip="/usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g'"
-
-# homestead
-alias homestead='function __homestead() { (cd ~/.homestead/src && vagrant $*); unset -f __homestead; }; __homestead'
 
 # reset vim tmp dir
 alias resetvimtemp='rm -rf ~/.vim/tmp; mkdir -p ~/.vim/tmp/swap; mkdir -p ~/.vim/tmp/backup; mkdir -p ~/.vim/tmp/undo; mkdir -p ~/.vim/tmp/view'
