@@ -55,7 +55,7 @@ local cc_dependencies = {
         default = { "lsp", "path", "buffer", "codecompanion" },
       },
       cmdline = {
-        sources = {}, -- Disable sources for command-line mode
+        sources = { "cmdline" },
       },
     },
   },
