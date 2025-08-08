@@ -94,6 +94,7 @@ local cc_options = {
   }
 }
 
+-- Locally cloned fork of CodeCompanion
 local local_codecompanion = {
   {
     "codecompanion.nvim",
@@ -103,6 +104,7 @@ local local_codecompanion = {
   },
 }
 
+-- Official version of CodeCompanion
 local upstream_codecompanion = {
   {
     "olimorris/codecompanion.nvim",
@@ -111,6 +113,7 @@ local upstream_codecompanion = {
   },
 }
 
+-- Forked version of CodeCompanion
 local github_codecompanion = {
   {
     "codybuell/codecompanion.nvim",
