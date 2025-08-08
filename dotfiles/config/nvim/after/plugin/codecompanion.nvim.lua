@@ -61,13 +61,7 @@
 --  ---------------------------------------------                             --
 --                                                                            --
 --  TLDR Workflow:                                                            --
---    <leader>di (init_docs)      - Initialize living documentation workflow  --
---    <leader>dr (review_docs)    - Analyze code and suggest doc updates      --
---    <leader>de (expand_docs)    - Add "optional" docs as project grows      --
---    <leader>dc (capture)        - Document discoveries and decisions now    --
---    <leader>dg (gaps)           - Systematically detect documentation gaps  --
---    <leader>du (update_context) - Review and update project documentation   --
---    <leader>dw (/workspace)     - Load project context from workspace.json  --
+--    1. ...                                                                  --
 --                                                                            --
 --  The core innovation of this setup is creating a self-reinforcing cycle    --
 --  where documentation continuously improves AI interactions, which in turn  --
@@ -147,7 +141,7 @@
 --      doc/testing.md               - Testing strategies and patterns        --
 --      doc/troubleshooting.md       - Common issues and solutions            --
 --                                                                            --
---  Keymaps:                                                                  --
+--  Keymaps (disabled for now):                                               --
 --    <leader>di - Initialize living docs (safe, won't overwrite)             --
 --    <leader>dr - Review documentation (comprehensive analysis)              --
 --    <leader>de - Expand documentation (add optional files)                  --
