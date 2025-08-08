@@ -36,6 +36,8 @@
 --    <leader>dr - Review documentation                                       --
 --    <leader>di - Capture insights                                           --
 --    <leader>du - Update context docs                                        --
+--    ga         - accept an inline edit                                      --
+--    gr         - reject an inline edit                                      --
 --                                                                            --
 --  Inline Workflow                                                           --
 --  ---------------                                                           --
@@ -187,11 +189,6 @@ vim.defer_fn(function()
     adapters        = config_modules.adapters,
     strategies      = config_modules.strategies,
     extensions      = config_modules.extensions,
-    -- This can go away once the fix is no longer needed
-    config = function(_, opts)
-      require("codecompanion").setup(opts)
-      config_modules.helpers.apply_fixes()
-    end,
   }
 
   -- Load the configuration into CodeCompanion
