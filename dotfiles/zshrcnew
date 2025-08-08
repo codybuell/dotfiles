@@ -1,0 +1,53 @@
+################################################################################
+##                                                                            ##
+##  ZSH                                                                       ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##                                                                            ##
+##  Profiling (uncomment when needed)                                         ##
+##                                                                            ##
+##  See: https://stackoverflow.com/a/4351664/2103996                          ##
+##                                                                            ##
+################################################################################
+
+###########################
+#  Per-Command Profiling  #
+###########################
+
+# zmodload zsh/datetime
+# setopt promptsubst
+# PS4='+$EPOCHREALTIME %N:%i> '
+# exec 3>&2 2> startlog.$$
+# setopt xtrace prompt_subst
+
+############################
+#  Per-Function Profiling  #
+############################
+
+# zmodload zsh/zprof
+
+################################################################################
+##                                                                            ##
+##  Global                                                                    ##
+##                                                                            ##
+################################################################################
+
+# Create a hash table for globally stashing variables without polluting main
+# scope with a bunch of identifiers.
+typeset -A __BUELL
+
+#############
+#  Sources  #
+#############
+
+source $HOME/.zsh/color
+
+#################
+#  Completions  #
+#################
+
+fpath=(~/.zsh/completions $fpath)
+autoload -Uz compinit
+compinit

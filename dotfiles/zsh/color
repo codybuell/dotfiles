@@ -1,0 +1,255 @@
+################################################################################
+##                                                                            ##
+##  Colors                                                                    ##
+##                                                                            ##
+##  Color scheme management for zsh, tmux, and Kitty. Selected and last used  ##
+##  theme stored in `~/.zsh/.tinted` for persistence and easy reverting.      ##
+##                                                                            ##
+################################################################################
+
+__BUELL[TINTED_CONFIG]=~/.zsh/.tinted
+
+# Luma
+#
+# Takes a hex color in the form of "RRGGBB" and outputs its luma (0-255, where
+# 0 is black and 255 is white).
+#
+# Based on: https://github.com/lencioni/dotfiles/blob/b1632a04/.shells/colors
+luma() {
+  emulate -L zsh
+
+  local COLOR_HEX=$1
+
+  if [ -z "$COLOR_HEX" ]; then
+    echo "Missing argument hex color (RRGGBB)"
+    return 1
+  fi
+
+  # Extract hex channels from background color (RRGGBB).
+  local COLOR_HEX_RED="${COLOR_HEX[1,2]}"
+  local COLOR_HEX_GREEN="${COLOR_HEX[3,4]}"
+  local COLOR_HEX_BLUE="${COLOR_HEX[5,6]}"
+
+  # Convert hex colors to decimal.
+  local COLOR_DEC_RED=$((16#$COLOR_HEX_RED))
+  local COLOR_DEC_GREEN=$((16#$COLOR_HEX_GREEN))
+  local COLOR_DEC_BLUE=$((16#$COLOR_HEX_BLUE))
+
+  # Calculate perceived brightness of background per ITU-R BT.709
+  # https://en.wikipedia.org/wiki/Rec._709#Luma_coefficients
+  # http://stackoverflow.com/a/12043228/18986
+  local COLOR_LUMA_RED=$((0.2126 * $COLOR_DEC_RED))
+  local COLOR_LUMA_GREEN=$((0.7152 * $COLOR_DEC_GREEN))
+  local COLOR_LUMA_BLUE=$((0.0722 * $COLOR_DEC_BLUE))
+
+  local COLOR_LUMA=$(($COLOR_LUMA_RED + $COLOR_LUMA_GREEN + $COLOR_LUMA_BLUE))
+
+  echo "$COLOR_LUMA"
+}
+
+# Color
+#
+# Main entrypoint for switching and managing color schemes in the shell.
+# Extracts color values from scheme files using Zsh parameter expansion,
+# avoiding external dependencies, and applies colors to Kitty and tmux
+# configurations. Handles race conditions when updating configs.
+#
+# Usage:
+#   `color help`           — shows usage
+#   `color ls [pattern]`   — lists available schemes
+#   `color rand [pattern]` — picks a random scheme
+#   `color -`              — restores previous scheme
+#   `color [scheme]`       — applies a specific scheme
+color() {
+  emulate -L zsh
+
+  local SCHEME
+  local SHELL_COLORS_DIR=~/.zsh/colors/scripts
+  local TINTED_CONFIG_PREVIOUS="${__BUELL[TINTED_CONFIG]}.previous"
+  local STATUS=0
+
+  # Helper function to extract a hex value (eg. "abc0123") from a color scheme
+  # and avoid forking:
+  #
+  #     $(grep ... | cut ... | sed ...)
+  #
+  # by instead using Zsh parameter expansion.
+  __extract() {
+    local COLOR=$1
+    local FILE=$2
+    local HEX=$(grep "${COLOR}=" "$FILE")
+
+    # Remove up to and including first ".
+    HEX=${HEX#*\"}
+
+    # Remove after and including last ".
+    HEX=${HEX%\"*}
+
+    # Remove slashes.
+    HEX=${HEX//\//}
+
+    echo $HEX
+  }
+
+  __color() {
+    SCHEME=$1
+    local FILE="$SHELL_COLORS_DIR/$SCHEME.sh"
+    if [[ -e "$FILE" ]]; then
+      local BG=$(__extract color_background "$FILE")
+      local FG=$(__extract color_foreground "$FILE")
+      local LUMA=$(luma "$BG")
+      local LIGHT=$((LUMA > 127.5))
+      local BACKGROUND=dark
+      if [ "$LIGHT" -eq 1 ]; then
+        BACKGROUND=light
+      fi
+
+      if [ -e "$__BUELL[TINTED_CONFIG]" ]; then
+        cp "$__BUELL[TINTED_CONFIG]" "$TINTED_CONFIG_PREVIOUS"
+      fi
+
+      echo "$SCHEME" >! "$__BUELL[TINTED_CONFIG]"
+      echo "$BACKGROUND" >> "$__BUELL[TINTED_CONFIG]"
+      sh "$FILE"
+
+      # Kitty overwrites go in ~/.config/kitty/colors-extras.conf
+      # (saves us from having to fork the third-party templates).
+      (
+        cd ~/.config/kitty &&
+        echo "tab_bar_margin_color #$FG" > colors-extras.conf
+      )
+
+      # When running a `.tmux` script we may have a race where multiple `ln -sf`
+      # are running at the same time (because the script may open multiple
+      # splits), producing "ln: colors.conf: File exists" or similar; so,
+      # swallow stderr.
+      (
+        cd ~/.config/kitty &&
+        ln -sf colors/$SCHEME.conf colors.conf 2> /dev/null
+
+        cd ~/.config/tmux &&
+        ln -sf colors/$SCHEME.conf theme.conf 2> /dev/null
+      )
+
+      if [[ -n "$KITTY_WINDOW_ID" ]]; then
+        if [ -r ~/.config/kitty/kitty.sock ]; then
+          if command -v kitten &> /dev/null; then
+            kitten @ set-colors --all --configured ~/.config/kitty/colors.conf
+            kitten @ set-colors --all --configured ~/.config/kitty/colors-extras.conf
+          fi
+        fi
+      fi
+
+      if [ -n "$TMUX" ]; then
+        command tmux source-file "$HOME/.config/tmux/theme.conf"
+      fi
+
+      local CC=$(__extract color18 "$FILE")
+      if [ -n "$BG" -a -n "$CC" ]; then
+        if [ -n "$TMUX" ]; then
+          command tmux set -ga window-active-style "bg=#$BG"
+          command tmux set -ga window-style "bg=#$CC"
+          command tmux set -g pane-active-border-style "bg=#$CC"
+          command tmux set -g pane-border-style "bg=#$CC"
+        fi
+
+        cat <<EOF > ~/.config/tmux/colors.conf
+set -ga window-active-style "bg=#$BG"
+set -ga window-style "bg=#$CC"
+set -g pane-active-border-style "bg=#$CC"
+set -g pane-border-style "bg=#$CC"
+EOF
+      fi
+    else
+      echo "Scheme '$SCHEME' not found in $SHELL_COLORS_DIR"
+      STATUS=1
+    fi
+  }
+
+  zparseopts -D -E -- q=QUIET -quiet=QUIET
+
+  if [ $# -eq 0 ]; then
+    if [ -s "$__BUELL[TINTED_CONFIG]" ]; then
+      cat "$__BUELL[TINTED_CONFIG]"
+      SCHEME=$(head -1 "$__BUELL[TINTED_CONFIG]")
+      __color "$SCHEME"
+      return
+    else
+      SCHEME=help
+    fi
+  else
+    SCHEME=$1
+  fi
+
+  # If the scheme file doesn't exist, try with base16- prefix
+  if [[ ! -e "$SHELL_COLORS_DIR/$SCHEME.sh" && -e "$SHELL_COLORS_DIR/base16-$SCHEME.sh" ]]; then
+    SCHEME="base16-$SCHEME"
+  fi
+
+  local ALL_SCHEMES=($(find "$SHELL_COLORS_DIR" -name '*.sh' | \
+        sed -E 's|.+/||' | \
+        sed -E 's/\.sh//' | \
+        grep "${2:-.}" | \
+        sort
+        ))
+
+  case "$SCHEME" in
+  help)
+    echo 'color                                          (show current scheme)'
+    echo 'color bright|classic-dark|grayscale-dark|...   (switch to scheme)'
+    echo 'color help                                     (show this help)'
+    echo 'color ls [pattern]                             (list available schemes)'
+    echo 'color rand [-q/--quiet] [pattern]              (choose a random scheme)'
+    return
+    ;;
+  ls)
+    printf '%s\n' "${ALL_SCHEMES[@]}" | \
+      column
+      ;;
+  rand)
+    local RANDOM_COLOR=${ALL_SCHEMES[$(($RANDOM % ${#ALL_SCHEMES[@]} + 1))]}
+    if [[ ${#QUIET} -eq 0 ]]; then
+      echo "$RANDOM_COLOR"
+    fi
+    __color "$RANDOM_COLOR"
+    ;;
+  -)
+    if [[ -s "$TINTED_CONFIG_PREVIOUS" ]]; then
+      local PREVIOUS_SCHEME=$(head -1 "$TINTED_CONFIG_PREVIOUS")
+      __color "$PREVIOUS_SCHEME"
+    else
+      echo "warning: no previous config found at $TINTED_CONFIG_PREVIOUS"
+      STATUS=1
+    fi
+    ;;
+  *)
+    __color "$SCHEME"
+    ;;
+  esac
+
+  unfunction __color
+  unfunction __extract
+  return $STATUS
+}
+
+# Anonymous Function
+#
+# Automatically apply the last used else default color scheme.
+function () {
+  emulate -L zsh
+
+  if [[ $SHLVL -eq 1 || ! -s ~/.config/tmux/colors.conf ]]; then
+    # New terminal window, or haven't written tmux config yet.
+    if [[ -s "$__BUELL[TINTED_CONFIG]" ]]; then
+      local SCHEME=$(head -1 "$__BUELL[TINTED_CONFIG]")
+      local BACKGROUND=$(sed -n -e '2 p' "$__BUELL[TINTED_CONFIG]")
+      if [ "$BACKGROUND" != 'dark' -a "$BACKGROUND" != 'light' ]; then
+        echo "warning: unknown background type in $__BUELL[TINTED_CONFIG]"
+      fi
+      color "$SCHEME"
+    else
+      # Default.
+      color base24-tokyo-night-dark
+    fi
+  fi
+}

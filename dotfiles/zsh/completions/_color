@@ -1,0 +1,21 @@
+#compdef color
+
+_color() {
+    local SHELL_COLORS_DIR=~/.zsh/colors/scripts
+    local -a schemes display_schemes
+
+    schemes=(${(f)"$(find $SHELL_COLORS_DIR -name '*.sh' | sed -E 's|.+/||;s/\.sh//')"})
+
+    display_schemes=()
+    for scheme in $schemes; do
+        if [[ $scheme == base16-* ]]; then
+            display_schemes+=(${scheme#base16-})
+        else
+            display_schemes+=($scheme)
+        fi
+    done
+
+    compadd -a display_schemes
+}
+
+_color "$@"
