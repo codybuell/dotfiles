@@ -15,8 +15,22 @@ if not has_minisurround then
   return
 end
 
+--------------
+--  Config  --
+--------------
+
+local config = {
+  -- Add custom surrounding pairs
+  custom_surroundings = {
+    ['$'] = { output = { left = '$(', right = ')' } },  -- surround with $() [sr`$, saiw$]
+  },
+
+  -- Enable dot repeat for surrounding
+  enable_dot_repeat = true,
+}
+
 -------------
 --  Setup  --
 -------------
 
-minisurround.setup()
+minisurround.setup(config)
