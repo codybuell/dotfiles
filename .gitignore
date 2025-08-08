@@ -25,3 +25,11 @@ dotfiles/ssh/config
 *__pycache__
 staging/*
 .luarc.json
+
+# dynamically generated files that may show up from testing
+dotfiles/config/kitty/colors-extras.conf
+dotfiles/config/kitty/colors.conf
+dotfiles/config/tmux/colors.conf
+dotfiles/config/tmux/theme.conf
+dotfiles/zsh/.tinted
+dotfiles/zsh/.tinted.previous
