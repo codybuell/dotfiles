@@ -89,7 +89,7 @@ subs:
 	git submodule update
 	git submodule update --init
 
-update-themes: update-vendor
+update-themes:
 	@echo "Updating theme submodules..."
 	git submodule update --init --remote -- vendor/tinted-*
 	git submodule update --init --remote -- dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
