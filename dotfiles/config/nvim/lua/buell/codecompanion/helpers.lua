@@ -105,4 +105,195 @@ function M.apply_fixes()
   -- end of temp fix
 end
 
+-- Mini Pick Action Menu
+--
+-- Override the built in mini pick action menu to show strategies and format
+-- the output in a more user-friendly way. Also handles picker actions.
+-- Patches codecompanion/providers/actions/mini_pick.lua.
+function M.mini_pick_action_menu()
+  local mini_pick_path = "codecompanion.providers.actions.mini_pick"
+  local original_provider = require(mini_pick_path)
+
+  -- Store the original picker method
+  local original_picker = original_provider.picker
+
+  -- Override the picker method
+  original_provider.picker = function(self, items, opts)
+    opts = opts or {}
+    local MiniPick = require("mini.pick")
+
+    -- Store provider reference (this is important!)
+    local provider = self
+
+    -- Calculate column widths
+    local max_name_width = 0
+    local max_strategy_width = 0
+
+    for _, item in ipairs(items) do
+      max_name_width = math.max(max_name_width, #item.name)
+      local strategy = item.strategy or ""
+      max_strategy_width = math.max(max_strategy_width, #strategy)
+    end
+
+    max_name_width = max_name_width + 2
+    max_strategy_width = math.max(max_strategy_width + 2, 8)
+
+    -- Format items
+    local picker_items = {}
+    for _, item in ipairs(items) do
+      local name = string.format("%-" .. max_name_width .. "s", item.name)
+      local strategy = string.format("%-" .. max_strategy_width .. "s", item.strategy or "")
+      local description = item.description or ""
+
+      table.insert(picker_items, {
+        text = string.format("%s│ %s│ %s", name, strategy, description),
+        item = item,
+      })
+    end
+
+    local source = {
+      items = picker_items,
+      name = opts.prompt or "CodeCompanion actions",
+      choose = function(chosen_item)
+        if chosen_item and chosen_item.item then
+          -- Get the target window before closing the picker
+          local win_target = MiniPick.get_picker_state().windows.target
+          if not vim.api.nvim_win_is_valid(win_target) then
+            win_target = vim.api.nvim_get_current_win()
+          end
+
+          -- Handle picker actions (like "Open chats ...")
+          if chosen_item.item.picker then
+            local picker_items = {}
+            local items = chosen_item.item.picker.items()
+
+            for i, picker_item in ipairs(items) do
+              -- Get adapter info
+              local adapter_info = ""
+              if picker_item.bufnr then
+                local success, chat_data = pcall(function()
+                  local codecompanion = require("codecompanion")
+                  local chats = codecompanion.buf_get_chat()
+                  for _, chat in ipairs(chats) do
+                    if chat.chat.bufnr == picker_item.bufnr then
+                      local adapter = chat.chat.adapter
+                      if adapter then
+                        local adapter_name = adapter.name or adapter.formatted_name or "unknown"
+
+                        -- Handle different model storage formats
+                        local model_name = "unknown"
+                        if type(adapter.model) == "string" then
+                          model_name = adapter.model
+                        elseif type(adapter.model) == "table" then
+                          -- Try different possible model name locations
+                          model_name = adapter.model.name
+                            or adapter.model.default
+                            or adapter.model.model
+                            or (adapter.schema and adapter.schema.model and adapter.schema.model.default)
+                            or "table"
+                        elseif adapter.schema and adapter.schema.model then
+                          local schema_model = adapter.schema.model.default
+                          if type(schema_model) == "function" then
+                            schema_model = schema_model(adapter)
+                          end
+                          model_name = schema_model or "unknown"
+                        end
+
+                        -- Shorten common model names for cleaner display
+                        model_name = string.gsub(model_name, "^gpt%-4o%-2024%-08%-06$", "gpt-4o")
+                        model_name = string.gsub(model_name, "^claude%-3%-5%-sonnet%-20241022$", "sonnet")
+                        model_name = string.gsub(model_name, "^claude%-3%-5%-sonnet$", "sonnet")
+
+                        return string.format("[%s/%s]", adapter_name, model_name)
+                      end
+                    end
+                  end
+                  return "[unknown/unknown]"
+                end)
+                adapter_info = success and chat_data or "[unknown/unknown]"
+              else
+                adapter_info = "[no-adapter]"
+              end
+
+              -- Format: "01. [adapter/model] Description"
+              local description = picker_item.description or picker_item.name
+              local formatted_text = string.format("%02d. %s %s", i, adapter_info, description)
+
+              table.insert(picker_items, {
+                text = formatted_text,
+                item = picker_item,
+              })
+            end
+
+            local nested_source = {
+              items = picker_items,
+              name = chosen_item.item.picker.prompt or chosen_item.item.name,
+              choose = function(nested_chosen_item)
+                if nested_chosen_item and nested_chosen_item.item and nested_chosen_item.item.callback then
+                  nested_chosen_item.item.callback()
+                end
+                return false -- Close picker
+              end,
+              show = function(buf_id, items_to_show, query)
+                MiniPick.default_show(buf_id, items_to_show, query)
+              end,
+            }
+
+            MiniPick.start({
+              source = nested_source,
+              window = {
+                config = function()
+                  local height = math.floor(0.4 * vim.o.lines) -- Smaller height for chat list
+                  local width = math.floor(0.7 * vim.o.columns)
+                  return {
+                    border = "rounded",
+                    anchor = "NW",
+                    height = height,
+                    width = width,
+                    row = math.floor(0.5 * (vim.o.lines - height)),
+                    col = math.floor(0.5 * (vim.o.columns - width)),
+                  }
+                end,
+              },
+            })
+            return false -- Close current picker
+          end
+
+          -- Handle normal actions through the original select method
+          vim.api.nvim_win_call(win_target, function()
+            provider:select(chosen_item.item)
+            MiniPick.set_picker_target_window(vim.api.nvim_get_current_win())
+          end)
+          return false -- Close picker after selection
+        end
+      end,
+      show = function(buf_id, items_to_show, query)
+        MiniPick.default_show(buf_id, items_to_show, query)
+      end,
+    }
+
+    local pick_opts = {
+      window = {
+        config = function()
+          local height = math.floor(0.618 * vim.o.lines)
+          local width = math.floor(0.8 * vim.o.columns) -- Wider for formatted display
+          return {
+            border = "rounded",
+            anchor = "NW",
+            height = height,
+            width = width,
+            row = math.floor(0.5 * (vim.o.lines - height)),
+            col = math.floor(0.5 * (vim.o.columns - width)),
+          }
+        end,
+      },
+    }
+
+    MiniPick.start({
+      source = source,
+      options = pick_opts,
+    })
+  end
+end
+
 return M

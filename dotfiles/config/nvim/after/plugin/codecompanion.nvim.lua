@@ -200,4 +200,7 @@ vim.defer_fn(function()
   -- Setup keymaps
   config_modules.helpers.setup_keymaps()
 
+  -- After codecompanion setup, run overrides
+  config_modules.helpers.mini_pick_action_menu()
+
 end, 100)
