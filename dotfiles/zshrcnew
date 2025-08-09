@@ -38,6 +38,9 @@
 # scope with a bunch of identifiers.
 typeset -A __BUELL
 
+# For reporting on what modules are loaded.
+typeset -a __ZSH_MODULES_LOADED
+
 # Set our ZDOTDIR for storage of configurations, cache, etc.
 export ZDOTDIR="${HOME}/.zsh"
 mkdir -p "$ZDOTDIR"{config,cache}
@@ -73,9 +76,88 @@ setopt interactivecomments  # allow comments, even in interactive shells
 # setopt correct             # command auto-correction
 # setopt correctall          # argument auto-correction
 
+################################################################################
+##                                                                            ##
+##  Helpers                                                                   ##
+##                                                                            ##
+################################################################################
+
 # PATH helpers
-path_prepend() { [[ -d $1 ]] && path=($1 $^path); }
-path_append()  { [[ -d $1 ]] && path=($^path $1); }
+path_prepend() { [[ -d $1 ]] && path=($1 $path); }
+path_append()  { [[ -d $1 ]] && path=($path $1); }
+
+# Module reload management
+reload_module() {
+  emulate -L zsh
+  local module=$1
+
+  if [[ -z "$module" ]]; then
+    echo "Usage: reload_module <module_name>"
+    echo "Available modules:"
+    ls "${ZDOTDIR}/config"/*.zsh | sed 's|.*/||; s|\.zsh$||'
+    return 1
+  fi
+
+  local module_file="${ZDOTDIR}/config/${module}.zsh"
+  if [[ ! -r "$module_file" ]]; then
+    echo "Module '$module' not found"
+    return 1
+  fi
+
+  # Clear the loaded flag to force reload
+  unset "__BUELL[MODULES_LOADED_${module}]"
+
+  # For modules with expensive initialization, clear those guards too
+  case "$module" in
+    *nvm*)
+      unset "__BUELL[NVM_INITIALIZED]"
+      ;;
+  esac
+
+  echo "Reloading module: $module"
+  source "$module_file"
+  __BUELL[MODULES_LOADED_${module}]=1
+}
+
+# Force reload on all modules
+reload_all_modules() {
+  emulate -L zsh
+  echo "Reloading all modules..."
+
+  # Clear all module guards
+  for key in ${(k)__BUELL}; do
+    if [[ "$key" =~ "^(MODULES_LOADED_|.*_INITIALIZED|KUBECTL_COMPLETION_LOADED)" ]]; then
+      unset "__BUELL[$key]"
+    fi
+  done
+
+  # Clear the tracking array
+  __ZSH_MODULES_LOADED=()
+
+  # Reload all modules
+  for f in "${ZDOTDIR}"/config/*.zsh(N); do
+    local module_name=${f:t:r}
+    if [[ -r "$f" ]]; then
+      echo "  Loading: $module_name"
+      source "$f"
+      __BUELL[MODULES_LOADED_${module_name}]=1
+      __ZSH_MODULES_LOADED+=(${module_name})
+    fi
+  done
+}
+
+# Print debugging information for the config
+zsh_debug() {
+  echo "=== ZSH Configuration Debug ==="
+  echo "ZDOTDIR: $ZDOTDIR"
+  echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"
+  echo "Guard variables:"
+  for key in ${(ko)__BUELL}; do
+    if [[ "$key" =~ "(LOADED|MODULE)" ]]; then
+      echo "  $key = ${__BUELL[$key]}"
+    fi
+  done
+}
 
 ################################################################################
 ##                                                                            ##
@@ -153,8 +235,9 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Kubectl (load kubectl completions if available)
-if command -v kubectl &> /dev/null; then
+if command -v kubectl &> /dev/null && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
   source <(kubectl completion zsh)
+  __BUELL[KUBECTL_COMPLETION_LOADED]=1
 fi
 
 ###########################
@@ -177,9 +260,26 @@ fi
 ##                                                                            ##
 ################################################################################
 
+# reload_module 02-color           # Reload a specific module
+# reload_module 99-nvm             # Reload NVM module (clears NVM_LOADED guard)
+# reload_all_modules               # Reload everything
+#
+# echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"  # List loaded modules
+# print -l ${(kv)__BUELL}                                # See what's in __BUELL
+
 # Load all modules from the configuration path
-for f in "$ZDOTDIR"/config/*.zsh(N); do
-  source "$f"
+for f in "${ZDOTDIR}"/config/*.zsh(N); do
+  local module_name=${f:t:r}
+
+  if [[ -z "${__BUELL[MODULES_LOADED_${module_name}]:-}" ]]; then
+    if [[ -r "$f" ]]; then
+      source "$f"
+      __BUELL[MODULES_LOADED_${module_name}]=1
+      __ZSH_MODULES_LOADED+=(${module_name})
+    else
+      echo "Warning: Cannot read $f" >&2
+    fi
+  fi
 done
 
 ################################################################################

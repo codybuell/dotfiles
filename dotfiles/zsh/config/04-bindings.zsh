@@ -63,10 +63,33 @@ zle-line-finish() {
   set_cursor_shape 0  # block cursor
 }
 
-# Register ZLE widgets
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
+# Smart Ctrl+Z: background/foreground toggle
+fg-bg() {
+  if [[ $#BUFFER -eq 0 ]]; then
+    fg  # No command in buffer, foreground last job
+  else
+    zle push-input  # Save current command and clear line
+  fi
+}
+
+#############################
+#  ZLE Widget Registration  #
+#############################
+
+#  (Only register once)       #
+if [[ -z "${__BUELL[BINDINGS_INITIALIZED]:-}" ]]; then
+  # Register ZLE widgets
+  zle -N zle-line-init
+  zle -N zle-line-finish
+  zle -N zle-keymap-select
+  zle -N fg-bg
+
+  # Command line editing in external editor
+  autoload -Uz edit-command-line
+  zle -N edit-command-line
+
+  __BUELL[BINDINGS_INITIALIZED]=1
+fi
 
 ################################
 #  Basic Navigation & Editing  #
@@ -89,28 +112,12 @@ bindkey '^W' backward-kill-word    # Ctrl+W
 autoload -Uz select-word-style
 select-word-style bash  # Only alphanumeric chars are considered WORDCHARS
 
-# Command line editing in external editor
-autoload -Uz edit-command-line
-zle -N edit-command-line
+# Key bindings for ZLE widgets
 bindkey '^X^X' edit-command-line  # Ctrl+X Ctrl+X
+bindkey '^Z' fg-bg                # Ctrl+Z
 
 # History expansion on space
 bindkey ' ' magic-space
-
-####################
-#  Custom Widgets  #
-####################
-
-# Smart Ctrl+Z: background/foreground toggle
-fg-bg() {
-  if [[ $#BUFFER -eq 0 ]]; then
-    fg  # No command in buffer, foreground last job
-  else
-    zle push-input  # Save current command and clear line
-  fi
-}
-zle -N fg-bg
-bindkey '^Z' fg-bg
 
 ########################
 #  Plugin Integration  #

@@ -9,6 +9,9 @@
 ##                                                                            ##
 ################################################################################
 
+# Set default NVM_DIR if not already set
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+
 # Skip if NVM is not installed
 if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
   return 0
@@ -18,11 +21,23 @@ fi
 #  Initialization  #
 ####################
 
-# Load NVM
-source "$NVM_DIR/nvm.sh"
+# Only initialize NVM once (expensive operation)
+if [[ -z "${__BUELL[NVM_INITIALIZED]:-}" ]]; then
+  # Load NVM
+  source "$NVM_DIR/nvm.sh"
 
-# Load NVM bash completion (optional)
-[[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+  # Load NVM bash completion (optional)
+  [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+
+  # Register the chpwd hook only once
+  autoload -Uz add-zsh-hook
+  add-zsh-hook chpwd load-nvmrc
+
+  # Run on initial load
+  load-nvmrc
+
+  __BUELL[NVM_INITIALIZED]=1
+fi
 
 #################################
 #  Automatic Version Switching  #
@@ -48,13 +63,6 @@ load-nvmrc() {
     nvm use default
   fi
 }
-
-# Register the function to run on directory changes
-autoload -Uz add-zsh-hook
-add-zsh-hook chpwd load-nvmrc
-
-# Run on initial load
-load-nvmrc
 
 #############
 #  Aliases  #
