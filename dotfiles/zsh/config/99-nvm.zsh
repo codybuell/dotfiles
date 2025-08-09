@@ -17,28 +17,6 @@ if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
   return 0
 fi
 
-####################
-#  Initialization  #
-####################
-
-# Only initialize NVM once (expensive operation)
-if [[ -z "${__BUELL[NVM_INITIALIZED]:-}" ]]; then
-  # Load NVM
-  source "$NVM_DIR/nvm.sh"
-
-  # Load NVM bash completion (optional)
-  [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
-
-  # Register the chpwd hook only once
-  autoload -Uz add-zsh-hook
-  add-zsh-hook chpwd load-nvmrc
-
-  # Run on initial load
-  load-nvmrc
-
-  __BUELL[NVM_INITIALIZED]=1
-fi
-
 #################################
 #  Automatic Version Switching  #
 #################################
@@ -63,6 +41,28 @@ load-nvmrc() {
     nvm use default
   fi
 }
+
+####################
+#  Initialization  #
+####################
+
+# Only initialize NVM once (expensive operation)
+if [[ -z "${__BUELL[NVM_INITIALIZED]:-}" ]]; then
+  # Load NVM
+  source "$NVM_DIR/nvm.sh"
+
+  # Load NVM bash completion (optional)
+  [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+
+  # Register the chpwd hook only once
+  autoload -Uz add-zsh-hook
+  add-zsh-hook chpwd load-nvmrc
+
+  # Run on initial load
+  load-nvmrc
+
+  __BUELL[NVM_INITIALIZED]=1
+fi
 
 #############
 #  Aliases  #
