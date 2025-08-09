@@ -4,6 +4,8 @@
 ##                                                                            ##
 ##  Path management for the system.                                           ##
 ##                                                                            ##
+##  Dependencies: none                                                        ##
+##                                                                            ##
 ################################################################################
 
 path_prepend /opt/homebrew/bin

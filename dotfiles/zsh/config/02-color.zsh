@@ -5,6 +5,8 @@
 ##  Color scheme management for zsh, tmux, and Kitty. Selected and last used  ##
 ##  theme stored in `${ZDOTDIR}/.tinted` for persistence and easy reverting.  ##
 ##                                                                            ##
+##  Dependencies: tinted-*                                                    ##
+##                                                                            ##
 ################################################################################
 
 __BUELL[TINTED_CONFIG]=${ZDOTDIR}/colors/tinted
