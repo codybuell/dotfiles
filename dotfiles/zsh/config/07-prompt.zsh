@@ -15,32 +15,89 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
   autoload -U colors
   colors
 
-  ###################
-  #  VCS Information #
-  ###################
+  #####################
+  #  VCS Information  #
+  #####################
 
-  # Load and configure VCS info system
   autoload -Uz vcs_info
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' stagedstr "%F{green}●%f"          # staged changes
-  zstyle ':vcs_info:*' unstagedstr "%F{red}●%f"          # unstaged changes
+  zstyle ':vcs_info:*' stagedstr ""     # We'll handle this in hooks
+  zstyle ':vcs_info:*' unstagedstr ""   # We'll handle this in hooks
   zstyle ':vcs_info:*' use-simple true
-  zstyle ':vcs_info:git+set-message:*' hooks git-untracked
-  zstyle ':vcs_info:git*:*' formats '%F{3}%b%f %m%c%u'   # branch + indicators
-  zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u]' # branch + action
+  zstyle ':vcs_info:git+set-message:*' hooks git-status-display
+  zstyle ':vcs_info:git*:*' formats '%F{3}%b%f%m'
+  zstyle ':vcs_info:git*:*' actionformats '%F{3}[%b|%a]%f%m'
 
-  # Custom hook to show untracked files
-  function +vi-git-untracked() {
+  # Hook to build consistent 3-dot status display
+  function +vi-git-status-display() {
     emulate -L zsh
-    if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
-      hook_com[unstaged]+="%F{blue}●%f"
+
+    # Check for each type of change
+    local has_untracked=false
+    local has_unstaged=false
+    local has_staged=false
+
+    # Check for untracked files
+    if [[ -n $(git ls-files --exclude-standard --others 2>/dev/null) ]]; then
+      has_untracked=true
     fi
+
+    # Check for unstaged changes
+    if ! git diff-files --quiet 2>/dev/null; then
+      has_unstaged=true
+    fi
+
+    # Check for staged changes
+    if git rev-parse --verify HEAD >/dev/null 2>&1; then
+      # Repository has commits, use normal diff-index
+      if ! git diff-index --quiet --cached HEAD 2>/dev/null; then
+        has_staged=true
+      fi
+    else
+      # New repository with no commits, check if anything is staged
+      if [[ -n $(git ls-files --cached 2>/dev/null) ]]; then
+        has_staged=true
+      fi
+    fi
+
+    # Build the 3-dot display: untracked | unstaged | staged
+    local status_display=""
+
+    # Position 1: Untracked (blue)
+    if [[ "$has_untracked" == "true" ]]; then
+      status_display+="%F{blue}⏺%f"
+    else
+      status_display+="%F{59}⏺%f"
+    fi
+
+    # Position 2: Unstaged (red)
+    if [[ "$has_unstaged" == "true" ]]; then
+      status_display+="%F{red}⏺%f"
+    else
+      status_display+="%F{59}⏺%f"
+    fi
+
+    # Position 3: Staged (green)
+    if [[ "$has_staged" == "true" ]]; then
+      status_display+="%F{green}⏺%f"
+    else
+      status_display+="%F{59}⏺%f"
+    fi
+
+    # Set the misc field with leading space
+    hook_com[misc]=" ${status_display}"
   }
 
-  ###################
+  # Set up RPROMPT base exactly like old version
+  RPROMPT_BASE="\${vcs_info_msg_0_}"
+
+  # CRITICAL: Set initial RPROMPT value like old version (vim_mode empty for now)
+  export RPROMPT='${vim_mode}${RPROMPT_BASE}'
+
+  ####################
   #  Command Timing  #
-  ###################
+  ####################
 
   typeset -F SECONDS
 
@@ -49,89 +106,66 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
     ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
   }
 
-report-run-meta() {
-  local EXITCODE=$?
-  emulate -L zsh
+  report-run-meta() {
+    local EXITCODE=$?
+    emulate -L zsh
 
-  local TIMING_INFO=""
-  if [[ -n $ZSH_START_TIME ]]; then
-    local DELTA=$(($SECONDS - $ZSH_START_TIME))
-    local DAYS=$((~~($DELTA / 86400)))
-    local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
-    local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
-    local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
-    local ELAPSED=''
+    if [[ -n $ZSH_START_TIME ]]; then
+      local DELTA=$(($SECONDS - $ZSH_START_TIME))
+      local DAYS=$((~~($DELTA / 86400)))
+      local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
+      local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
+      local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
+      local ELAPSED=''
 
-    # Build elapsed time string
-    [[ $DAYS -ne 0 ]] && ELAPSED="${DAYS}d"
-    [[ $HOURS -ne 0 ]] && ELAPSED="${ELAPSED}${HOURS}h"
-    [[ $MINUTES -ne 0 ]] && ELAPSED="${ELAPSED}${MINUTES}m"
+      # Build elapsed time string (match old version logic)
+      test "$DAYS" != '0' && ELAPSED="${DAYS}d"
+      test "$HOURS" != '0' && ELAPSED="${ELAPSED}${HOURS}h"
+      test "$MINUTES" != '0' && ELAPSED="${ELAPSED}${MINUTES}m"
 
-    if [[ -z $ELAPSED ]]; then
-      SECS="$(printf "%.2f" $SECS)s"
-    elif [[ $DAYS -ne 0 ]]; then
-      SECS=''
+      if [[ -z $ELAPSED ]]; then
+        SECS="$(print -f "%.2f" $SECS)s"
+      elif [[ $DAYS -ne 0 ]]; then
+        SECS=''
+      else
+        SECS="$((~~$SECS))s"
+      fi
+      ELAPSED="${ELAPSED}${SECS}"
+
+      # Exit code styling: bold red if error, dim if success
+      local EXITSTR
+      if [[ $EXITCODE -gt 0 ]]; then
+        EXITSTR="%F{red}%B%?%b%f"  # Bold red for errors
+      else
+        EXITSTR="%F{59}%?%f"       # Dim gray for success
+      fi
+
+      # Timing and exit code with proper italics
+      local ITALIC_ON=$'\e[3m'
+      local ITALIC_OFF=$'\e[23m'
+
+      # Use exact same pattern as old version - reference RPROMPT_BASE variable
+      export RPROMPT="%F{59}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f ${EXITSTR} $RPROMPT_BASE"
+      unset ZSH_START_TIME
     else
-      SECS="$((~~$SECS))s"
+      export RPROMPT="$RPROMPT_BASE"
     fi
-    ELAPSED="${ELAPSED}${SECS}"
+  }
 
-    # Exit code with color
-    if [[ $EXITCODE -gt 0 ]]; then
-      local EXITSTR="%F{red}$EXITCODE%f"
-    else
-      local EXITSTR="%F{59}$EXITCODE%f"
-    fi
-
-    # Always show timing (removed the > 1 second condition)
-    local ITALIC_ON=$'\e[3m'
-    local ITALIC_OFF=$'\e[23m'
-    TIMING_INFO=" %F{59}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f ${EXITSTR}"
-
-    unset ZSH_START_TIME
-  fi
-
-  # Set right prompt: VCS info + timing
-  export RPROMPT="${vcs_info_msg_0_}${TIMING_INFO}"
-}
-
-  ######################
+  #######################
   #  Prompt Definition  #
-  ######################
+  #######################
 
   # Anonymous function to build prompt (avoids variable leakage)
   function () {
     emulate -L zsh
 
-    # Safer shell nesting detection with error handling
-    local LVL=1  # Default fallback
-
-    if [[ -n "$PPID" && "$PPID" =~ '^[0-9]+$' ]]; then
-      local PARENTPID
-      # Use safer method to get parent PID
-      if PARENTPID=$(ps -o ppid= "$PPID" 2>/dev/null | tr -d '[:space:]'); then
-        if [[ -n "$PARENTPID" && "$PARENTPID" =~ '^[0-9]+$' ]]; then
-          # Only try to get parent process info on non-Darwin systems
-          if [[ "$(uname)" != "Darwin" && "$PARENTPID" != "1" ]]; then
-            local PARENTPROC
-            if PARENTPROC=$(ps -o cmd= "$PARENTPID" 2>/dev/null); then
-              if [[ "$PARENTPROC" == "sh -c urxvt" ]]; then
-                LVL=1
-              elif [[ -n "$TMUX" ]]; then
-                LVL=$(($SHLVL - 1))
-              else
-                LVL=$SHLVL
-              fi
-            fi
-          elif [[ "$PARENTPID" == "1" ]]; then
-            LVL=1
-          elif [[ -n "$TMUX" ]]; then
-            LVL=$(($SHLVL - 1))
-          else
-            LVL=$SHLVL
-          fi
-        fi
-      fi
+    # Shell nesting detection (simplified version)
+    local LVL=1
+    if [[ -n "$TMUX" ]]; then
+      LVL=$(($SHLVL - 1))
+    else
+      LVL=$SHLVL
     fi
 
     # Ensure LVL is reasonable
@@ -165,9 +199,9 @@ report-run-meta() {
     vcs_info
   }
 
-  ################
-  #  Register Hooks #
-  ################
+  ####################
+  #  Register Hooks  #
+  ####################
 
   autoload -Uz add-zsh-hook
   add-zsh-hook precmd update-vcs-info
