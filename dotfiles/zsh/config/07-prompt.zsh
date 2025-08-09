@@ -33,6 +33,29 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
   function +vi-git-status-display() {
     emulate -L zsh
 
+    # Detect if we should use Unicode or ASCII
+    local use_unicode=true
+
+    # Check for problematic environments
+    if [[ -f /.dockerenv ]] || \
+       [[ "$container" == "docker" ]] || \
+       [[ -z "$LANG" ]] || \
+       [[ "$LANG" != *"UTF-8"* ]] || \
+       [[ -z "$LC_ALL" && -z "$LANG" ]] || \
+       [[ "$TERM" == "linux" ]]; then
+      use_unicode=false
+    fi
+
+    # Set characters based on detection of support
+    local active_char inactive_char
+    if [[ "$use_unicode" == "true" ]]; then
+      active_char="⏺"
+      inactive_char="⏺"
+    else
+      active_char="*"
+      inactive_char="-"
+    fi
+
     # Check for each type of change
     local has_untracked=false
     local has_unstaged=false
@@ -66,23 +89,23 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
 
     # Position 1: Untracked (blue)
     if [[ "$has_untracked" == "true" ]]; then
-      status_display+="%F{blue}⏺%f"
+      status_display+="%F{blue}${active_char}%f"
     else
-      status_display+="%F{59}⏺%f"
+      status_display+="%F{59}${inactive_char}%f"
     fi
 
     # Position 2: Unstaged (red)
     if [[ "$has_unstaged" == "true" ]]; then
-      status_display+="%F{red}⏺%f"
+      status_display+="%F{red}${active_char}%f"
     else
-      status_display+="%F{59}⏺%f"
+      status_display+="%F{59}${inactive_char}%f"
     fi
 
     # Position 3: Staged (green)
     if [[ "$has_staged" == "true" ]]; then
-      status_display+="%F{green}⏺%f"
+      status_display+="%F{green}${active_char}%f"
     else
-      status_display+="%F{59}⏺%f"
+      status_display+="%F{59}${inactive_char}%f"
     fi
 
     # Set the misc field with leading space
