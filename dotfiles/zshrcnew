@@ -44,6 +44,7 @@ typeset -a __ZSH_MODULES_LOADED
 # Set our ZDOTDIR for storage of configurations, cache, etc.
 export ZDOTDIR="${HOME}/.zsh"
 mkdir -p "$ZDOTDIR"{config,cache}
+mkdir -p ~/.config/{tmux,kitty}
 
 # Ensure these arrays are unique (contain no duplicate values).
 typeset -U path cdpath fpath manpath
@@ -226,20 +227,6 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
   'local-directories named-directories'
 
-###############################
-#  Tool-Specific Completions  #
-###############################
-
-# Docker (allow stacking Docker options like -it)
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-# Kubectl (load kubectl completions if available)
-if [[ -n "${commands[kubectl]:-}" ]] && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
-  source <(kubectl completion zsh)
-  __BUELL[KUBECTL_COMPLETION_LOADED]=1
-fi
-
 ###########################
 #  Initialize Completion  #
 ###########################
@@ -252,6 +239,20 @@ if [[ ! -f "${ZDOTDIR}/cache/zcompdump" || "$HOME/.zshrc" -nt "${ZDOTDIR}/cache/
   compinit -d "${ZDOTDIR}/cache/zcompdump"
 else
   compinit -C -d "${ZDOTDIR}/cache/zcompdump"
+fi
+
+###############################
+#  Tool-Specific Completions  #
+###############################
+
+# Docker (allow stacking Docker options like -it)
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# Kubectl (load kubectl completions if available)
+if [[ -n "${commands[kubectl]:-}" ]] && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
+  source <(kubectl completion zsh)
+  __BUELL[KUBECTL_COMPLETION_LOADED]=1
 fi
 
 ################################################################################
