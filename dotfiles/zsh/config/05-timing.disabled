@@ -4,6 +4,8 @@
 ##                                                                            ##
 ##  Shows command execution time in right prompt.                             ##
 ##                                                                            ##
+##  Dependencies: none                                                        ##
+##                                                                            ##
 ################################################################################
 
 if [[ -z "${__BUELL[TIMING_INITIALIZED]:-}" ]]; then
