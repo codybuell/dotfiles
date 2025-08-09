@@ -216,10 +216,10 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' group-name ''
 
 # Configure completion matching rules
-#   `'m:{a-z}={A-Z}'`:    Case-insensitive matching
+#   `'m:{[:lower:][:upper:]}={[:upper:][:lower:]}'`: Case-insensitive matching
 #   `'r:|[._-]=* r:|=*'`: Allow matching w or wo separators (ie. f.b -> foo.bar)
-#   `'l:|=* r:|=*'`:      Enable substring matching (ie. bar -> foobar)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+#   `'l:|=* r:|=*'`: Enable substring matching (ie. bar -> foobar)
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # Keep cdpath functional but don't show in autocompletions
 # This prioritizes local directories over cdpath entries
