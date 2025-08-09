@@ -38,16 +38,160 @@
 # scope with a bunch of identifiers.
 typeset -A __BUELL
 
-#############
-#  Sources  #
-#############
+# Set our ZDOTDIR for storage of configurations, cache, etc.
+export ZDOTDIR="${HOME}/.zsh"
+mkdir -p "$ZDOTDIR"{config,cache}
 
-source $HOME/.zsh/color
+# Ensure these arrays are unique (contain no duplicate values).
+typeset -U path cdpath fpath manpath
 
-#################
-#  Completions  #
-#################
+# Navigation & Directory Stack
+setopt autocd               # .. is shortcut for cd .. (etc)
+setopt autoparamslash       # tab completing directory appends a slash
+setopt autopushd            # cd automatically pushes old dir onto dir stack
+setopt pushdignoredups      # don't push multiple copies of same dir onto stack
+setopt pushdsilent          # don't print dir stack after pushing/popping
 
+# File Operations
+setopt clobber              # allow clobbering with >, no need to use >!
+setopt nonomatch            # unmatched patterns are left unchanged
+
+# History Operations
+setopt histignorealldups    # filter duplicates from history
+setopt histignorespace      # don't record commands starting with a space
+setopt histverify           # confirm history expansion (!$, !!, !foo)
+setopt sharehistory         # share history across shells
+setopt EXTENDED_HISTORY     # save timestamps in history
+
+# Input & Control
+setopt noflowcontrol        # disable start (C-s) and stop (C-q) characters
+setopt interactivecomments  # allow comments, even in interactive shells
+
+# Disabled Options (uncomment to enable)
+# setopt printexitvalue      # print exit status for non-zero exits
+# setopt ignoreeof           # prevent accidental C-d from exiting shell
+# setopt correct             # command auto-correction
+# setopt correctall          # argument auto-correction
+
+# PATH helpers
+path_prepend() { [[ -d $1 ]] && path=($1 $^path); }
+path_append()  { [[ -d $1 ]] && path=($^path $1); }
+
+################################################################################
+##                                                                            ##
+##  History                                                                   ##
+##                                                                            ##
+################################################################################
+
+###################
+#  Configuration  #
+###################
+
+export HISTSIZE=100000                 # Commands to keep in memory
+export HISTFILE="${ZDOTDIR}/history"   # History file location
+export SAVEHIST=$HISTSIZE              # Commands to save to file
+
+########################
+#  Search Enhancement  #
+########################
+
+# Enhanced history search that supports pattern matching
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+
+# Key bindings for enhanced history search
+bindkey "^P" history-beginning-search-backward-end          # Ctrl+P
+bindkey "^N" history-beginning-search-forward-end           # Ctrl+N
+
+# Pattern-based incremental search (supports patterns like a*b)
+bindkey "^R" history-incremental-pattern-search-backward    # Ctrl+R
+bindkey "^S" history-incremental-pattern-search-forward     # Ctrl+S
+
+################################################################################
+##                                                                            ##
+##  Completions                                                               ##
+##                                                                            ##
+################################################################################
+
+###################
+#  Configuration  #
+###################
+
+# Prepend our custom completions to fpath
 fpath=(~/.zsh/completions $fpath)
+
+# Enable menu selection interface for completions
+zstyle ':completion:*' menu select
+
+# Fall through to cd if cdr is passed a non-recent dir as an argument
+zstyle ':chpwd:*' recent-dirs-default true
+
+# Use colors in completions (matches ls colors)
+zstyle ':completion:*' list-colors ''
+
+# Group completions by type/source
+zstyle ':completion:*' group-name ''
+
+# Configure completion matching rules
+#   `'m:{a-z}={A-Z}'`:    Case-insensitive matching
+#   `'r:|[._-]=* r:|=*'`: Allow matching w or wo separators (ie. f.b -> foo.bar)
+#   `'l:|=* r:|=*'`:      Enable substring matching (ie. bar -> foobar)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Keep cdpath functional but don't show in autocompletions
+# This prioritizes local directories over cdpath entries
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
+  'local-directories named-directories'
+
+###############################
+#  Tool-Specific Completions  #
+###############################
+
+# Docker (allow stacking Docker options like -it)
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# Kubectl (load kubectl completions if available)
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
+fi
+
+###########################
+#  Initialize Completion  #
+###########################
+
+# Autoload compinit
 autoload -Uz compinit
-compinit
+
+# Use cached zcompdump file, refreshing if configs change
+if [[ ! -f "${ZDOTDIR}/cache/zcompdump" || "$HOME/.zshrc" -nt "${ZDOTDIR}/cache/zcompdump" ]]; then
+  compinit -d "${ZDOTDIR}/cache/zcompdump"
+else
+  compinit -C -d "${ZDOTDIR}/cache/zcompdump"
+fi
+
+################################################################################
+##                                                                            ##
+##  Modules                                                                   ##
+##                                                                            ##
+################################################################################
+
+# Load all modules from the configuration path
+for f in "$ZDOTDIR"/config/*.zsh(N); do
+  source "$f"
+done
+
+################################################################################
+##                                                                            ##
+##  Finalization                                                              ##
+##                                                                            ##
+##  Final setup steps and profiling output.                                   ##
+##                                                                            ##
+################################################################################
+
+# Output profiling results (if enabled at top of file)
+# zprof
+
+# Report loaded modules (uncomment for debugging)
+# echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"

@@ -31,5 +31,7 @@ dotfiles/config/kitty/colors-extras.conf
 dotfiles/config/kitty/colors.conf
 dotfiles/config/tmux/colors.conf
 dotfiles/config/tmux/theme.conf
-dotfiles/zsh/.tinted
-dotfiles/zsh/.tinted.previous
+dotfiles/zsh/colors/tinted
+dotfiles/zsh/colors/tinted.previous
+dotfiles/zsh/history
+dotfiles/zsh/cache
