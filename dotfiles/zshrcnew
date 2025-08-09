@@ -235,7 +235,7 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Kubectl (load kubectl completions if available)
-if command -v kubectl &> /dev/null && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
+if [[ -n "${commands[kubectl]:-}" ]] && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
   source <(kubectl completion zsh)
   __BUELL[KUBECTL_COMPLETION_LOADED]=1
 fi
