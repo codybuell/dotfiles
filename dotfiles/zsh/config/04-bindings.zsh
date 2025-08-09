@@ -44,8 +44,8 @@ set_cursor_shape() {
 #  ZLE Widgets for Mode Indication  #
 #####################################
 
-# Handle keymap changes and line initialization
-zle-keymap-select() zle-line-init() {
+# Shared cursor shape logic
+_set_cursor_for_mode() {
   case $KEYMAP in
     vicmd)
       set_cursor_shape 0  # block cursor for normal mode
@@ -56,6 +56,16 @@ zle-keymap-select() zle-line-init() {
   esac
   zle reset-prompt
   zle -R
+}
+
+# Handle keymap changes
+zle-keymap-select() {
+  _set_cursor_for_mode
+}
+
+# Handle line initialization
+zle-line-init() {
+  _set_cursor_for_mode
 }
 
 # Reset cursor when line editing finishes
