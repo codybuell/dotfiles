@@ -174,8 +174,8 @@
 	path = dotfiles/tmux/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
 	ignore = dirty
-[submodule "dotfiles/tmux/tmux-continuum"]
-	path = dotfiles/tmux/tmux-continuum
+[submodule "dotfiles/config/tmux/plugins/tmux-continuum"]
+	path = dotfiles/config/tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
 	ignore = dirty
 [submodule "dotfiles/config/nvim/pack/bundle/opt/nvim-nio"]
