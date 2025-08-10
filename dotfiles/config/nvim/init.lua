@@ -172,7 +172,7 @@ vim.cmd('packadd! lsp-status.nvim')         -- lsp helpers for statusline
 vim.cmd('packadd! editorconfig-vim')        -- indentation rulers
 vim.cmd('packadd! indent-blankline.nvim')   -- indentation rulers
 vim.cmd('packadd! nvim-treesitter')         -- improved folding and syntax
-vim.cmd('packadd! base16-nvim')             -- color consistency with shell
+vim.cmd('packadd! tinted-nvim')             -- color consistency with shell
 vim.cmd('packadd! todo-comments.nvim')      -- todo comment tags into quickfix / loclist
 
 -- comment definitions for embedded languages in typescript (svelte, react, html, etc)

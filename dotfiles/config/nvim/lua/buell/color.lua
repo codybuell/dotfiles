@@ -26,15 +26,22 @@ color.update = function()
 
   -- determine active base16 shell theme
   local active_theme
-  local theme_raw = io.popen('readlink "' .. '$HOME/.base16_theme' ..'"'):read()
-  if theme_raw then
-    active_theme = string.match(theme_raw, '(base16-[^%/%.]*)%.sh')
+  local zdotdir = vim.env.ZDOTDIR or (vim.env.HOME .. '/.zsh')
+  local tinted_config = zdotdir .. '/colors/tinted'
+
+  local file = io.open(tinted_config, 'r')
+  if file then
+    active_theme = file:read('*line')  -- first line contains scheme name
+    file:close()
   else
-    active_theme = 'base16-' .. io.popen('head -1 $HOME/.base16'):read()
+    -- fallback to default theme if config doesn't exist
+    active_theme = 'base24-tomorrow-night'
   end
 
   -- set colorscheme
-  vim.cmd('colorscheme ' .. active_theme)
+  if active_theme then
+    vim.cmd.colorscheme(active_theme)
+  end
 
   --------------------------------------------------------------------------------
   --                                                                            --
