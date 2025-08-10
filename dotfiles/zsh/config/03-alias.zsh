@@ -2,6 +2,9 @@
 ##                                                                            ##
 ##  Alias                                                                     ##
 ##                                                                            ##
+##  Common command shortcuts and platform-specific aliases for navigation     ##
+##  and system utilities. Includes macOS-specific finder and DNS commands.    ##
+##                                                                            ##
 ##  Dependencies: none                                                        ##
 ##                                                                            ##
 ################################################################################

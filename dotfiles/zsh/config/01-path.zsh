@@ -2,7 +2,8 @@
 ##                                                                            ##
 ##  Path                                                                      ##
 ##                                                                            ##
-##  Path management for the system.                                           ##
+##  Rebuilds PATH with prioritized directories, configures GOPATH and         ##
+##  CDPATH for enhanced navigation. Includes Go workspace management.         ##
 ##                                                                            ##
 ##  Dependencies: none                                                        ##
 ##                                                                            ##
