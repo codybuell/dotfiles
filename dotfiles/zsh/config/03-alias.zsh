@@ -28,6 +28,13 @@ elif [[ `which vim | wc -l` -gt 0 ]]; then
   alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
 fi
 
+###########
+#  Shell  #
+###########
+
+# clear the completions cache (if you add a new completion or data is missing)
+alias reload_completions="autoload -U compinit && compinit"
+
 ################
 #  Navigation  #
 ################
