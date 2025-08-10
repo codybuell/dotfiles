@@ -46,6 +46,20 @@ alias dl='cd ~/Downloads'
 #  Git Workflow  #
 ##################
 
+alias gd="git diff"
+alias gi="git init && touch .gitignore && touch README.md && git add .gitignore README.md && git commit -m 'Initial commit'"
+alias gl="git lg"
+alias gp="git push"
+alias gs="git status"
+alias gc="git commit"
+alias gca="git commit -a"
+alias gbv="git branch -v"
+alias gba="git branch -a"
+alias gco="git checkout"
+alias log="git log --pretty=oneline"
+alias gsa="clear && git status && git branch -v"
+alias gbc="git branch --merged | grep -Ev '^ *(^\*|main|master|support-*|release-[0-9]+)' | xargs git branch -d"
+
 ###################
 #  MacOS Aliases  #
 ###################
