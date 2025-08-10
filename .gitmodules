@@ -219,3 +219,4 @@
 [submodule "dotfiles/config/nvim/pack/bundle/opt/tinted-nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
 	url = https://github.com/tinted-theming/tinted-nvim.git
+	ignore = dirty
