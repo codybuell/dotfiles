@@ -55,10 +55,10 @@ export LESS_TERMCAP_us=$'\E[04;38;5;111m'   # begin underline
 #  Vault  #
 ###########
 
-#export VAULT_CAPATH={{ VaultCAPath }}
-export VAULT_TOKEN={{ VaultToken }}
-export VAULT_ADDR={{ VaultAddress }}
-export VAULT_TLS_SERVER_NAME={{ VaultServer }}
+#export VAULT_CAPATH='{{ VaultCAPath }}'
+export VAULT_TOKEN='{{ VaultToken }}'
+export VAULT_ADDR='{{ VaultAddress }}'
+export VAULT_TLS_SERVER_NAME='{{ VaultServer }}'
 
 ############
 #  Docker  #
