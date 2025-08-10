@@ -1,0 +1,9 @@
+#compdef repo
+
+# -/ specifies that only directories should be completed
+# -W specifies path prefixes are to be prepended
+#_files -/ -W {{ Repos }}/
+
+# Find all git repositories
+# TODO: Handle duplicate repository names.
+_values 'repos' $(cat {{ Repos }}/.repos | awk -F: '{print $1}')
