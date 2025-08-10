@@ -9,6 +9,109 @@
 ##                                                                            ##
 ################################################################################
 
+##########
+#  TMUX  #
+##########
+
+# tmux
+#
+# Wrapper for starting up tmux. Looks for a `.tmux` configuration file in the
+# current working directory and sources it if present. Configuration files
+# handle creation of splits, executing commands, and any other project or
+# directory specific tmux configs desired. A digest is maintained to prompt for
+# approval of config files that have yet to be run.
+function tmux() {
+  # Make sure even pre-existing tmux sessions use the latest ssh_auth_sock
+  local SOCK_SYMLINK=~/.ssh/ssh_auth_sock
+  if [ -r "$SSH_AUTH_SOCK" -a ! -L "$SSH_AUTH_SOCK" ]; then
+    ln -sf "$SSH_AUTH_SOCK" $SOCK_SYMLINK
+  fi
+
+  # If provided with args, pass them through
+  if [[ -n "$@" ]]; then
+    env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u "$@"
+    return
+  fi
+
+  # Check for .tmux file (poor man's tmuxinator)
+  if [[ -e .tmux && -f .tmux ]]; then
+    if [[ ! -x .tmux ]]; then
+      chmod 755 .tmux
+    fi
+    # Prompt the first time we see a given .tmux file before running it
+    local DIGEST="$(openssl sha512 .tmux)"
+    if ! grep -q "$DIGEST" ~/.config/tmux/tmux.digests 2> /dev/null; then
+      cat .tmux
+      echo -n "Trust (and run) this .tmux file? (t = trust, otherwise = skip): "
+      read REPLY
+      if [[ $REPLY =~ ^[Tt]$ ]]; then
+        echo "$DIGEST" >> ~/.config/tmux/tmux.digests
+        ./.tmux
+        return
+      fi
+    else
+      ./.tmux
+      return
+    fi
+  fi
+
+  # Attach to existing session, or create one, based on current directory
+  SESSION_NAME=$([[ `pwd` == $HOME ]] && echo 'HOME' || basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
+  env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u new -A -s "$SESSION_NAME"
+}
+
+# home
+#
+# Handles the creation of or attachment to the "home" tmux session. Used as a
+# home base in the terminal for not taking, email, and other non-project
+# related tasks.
+#
+#  window 1:                               window 2:
+# .----------------------------------.    .----------------------------------.
+# |                                  |    |           |           |          |
+# |          1: neomutt              |    |           |           |          |
+# |                                  |    | 1. home   | 2. work   | 3. tbd   |
+# |----------------------------------|    |           |           |          |
+# |                    |             |    |           |           |          |
+# |    2. nvim home    |   3. zsh    |    |----------------------------------|
+# |                    |             |    |        4. mail controller        |
+# '----------------------------------'    '----------------------------------'
+function home() {
+  if [ -z "$TMUX" ]; then
+    if ! tmux has-session -t HOME 2> /dev/null; then
+      cd ~
+      # build home window
+      tmux new-session -d -s HOME -n home -x `tput cols` -y `tput lines`
+      tmux set-window-option -t HOME:home automatic-rename off
+
+      # create main window panes
+      tmux split-window -t HOME:home -v -l 60% -c ~/
+      tmux split-window -t HOME:home.2 -h -l 45% -c ~/
+      tmux send-keys -t HOME:home.1 'cd ~/Downloads && mutt' Enter
+      tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
+      tmux send-keys -t HOME:home.3 'cd ~/Desktop && clear' Enter
+
+      # build control window
+      tmux new-window -t HOME: -c ~/.mutt -n control
+      tmux set-window-option -t HOME:control automatic-rename off
+      tmux set-window-option -t HOME:control monitor-activity off
+      tmux split-window -t HOME:control -h -l 66% -c ~/.mutt
+      tmux split-window -t HOME:control -h -l 50% -c ~/.mutt
+      tmux split-window -t HOME:control -v -l 7 -f -c ~/.mutt
+      tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
+      tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
+      # tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh proj' Enter
+      tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
+
+      ## attach to home session, home window, weechat pane
+      tmux -u attach -t HOME:home.3
+    else
+      tmux -u attach -t HOME
+    fi
+  else
+    tmux switch-client -t HOME
+  fi
+}
 
 ###################
 #  Git Workflows  #
