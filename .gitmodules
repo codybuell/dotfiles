@@ -170,8 +170,8 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-dap-go
 	url = https://github.com/leoluz/nvim-dap-go.git
 	ignore = dirty
-[submodule "dotfiles/tmux/tmux-resurrect"]
-	path = dotfiles/tmux/tmux-resurrect
+[submodule "dotfiles/config/tmux/plugins/tmux-resurrect"]
+	path = dotfiles/config/tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
 	ignore = dirty
 [submodule "dotfiles/config/tmux/plugins/tmux-continuum"]
