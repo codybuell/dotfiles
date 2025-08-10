@@ -111,9 +111,13 @@ color() {
         cp "$__BUELL[TINTED_CONFIG]" "$TINTED_CONFIG_PREVIOUS"
       fi
 
+      # Set vars so we can get hex values for color tests
+      export TINTED_SHELL_ENABLE_BASE16_VARS=1
+      export TINTED_SHELL_ENABLE_BASE24_VARS=1
+
       echo "$SCHEME" >! "$__BUELL[TINTED_CONFIG]"
       echo "$BACKGROUND" >> "$__BUELL[TINTED_CONFIG]"
-      sh "$FILE"
+      source $FILE
 
       # Kitty overwrites go in ~/.config/kitty/colors-extras.conf
       # (saves us from having to fork the third-party templates).
@@ -242,7 +246,7 @@ function () {
   emulate -L zsh
 
   if [[ $SHLVL -eq 1 || ! -s ~/.config/tmux/colors.conf ]]; then
-    # New terminal window, or haven't written tmux config yet.
+    # New terminal window, or haven't written tmux config yet
     if [[ -s "$__BUELL[TINTED_CONFIG]" ]]; then
       local SCHEME=$(head -1 "$__BUELL[TINTED_CONFIG]")
       local BACKGROUND=$(sed -n -e '2 p' "$__BUELL[TINTED_CONFIG]")
