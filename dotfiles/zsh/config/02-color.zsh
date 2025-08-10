@@ -251,7 +251,7 @@ function () {
       color "$SCHEME"
     else
       # Default.
-      color base24-tokyo-night-dark
+      color base16-tomorrow-night
     fi
   fi
 }
