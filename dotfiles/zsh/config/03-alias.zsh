@@ -13,7 +13,20 @@
 #  Overrides  #
 ###############
 
+# history with timestamps
 alias history="fc -lt '%Y-%m-%d %H:%M:%S' 1"
+
+# vi -> vim -> nvim
+if [[ `which nvim | wc -l` -gt 0 ]]; then
+  alias vi="nvim"
+  alias vim="nvim"
+  alias vix="nvim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+  alias vimin="nvim --clean -u ~/.config/nvim/minimal.lua"
+  alias vimdiff="nvim -d"
+elif [[ `which vim | wc -l` -gt 0 ]]; then
+  alias vi="vim"
+  alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
+fi
 
 ################
 #  Navigation  #
