@@ -50,12 +50,13 @@ M.line_indicators = {'⎺', '⎻', '─', '⎼', '⎽'}
 
 -- Highlight group mappings
 M.highlights = {
-  lhs        = 'Status7',
-  arrow_left = 'Status4',
-  main       = 'Status2',
-  accent     = 'Status3',
-  meta       = 'Status1',
-  rhs        = 'Status5',
+  lhs         = 'StatusLineLeft',
+  arrow_left  = 'StatusLineArrowLeft',
+  main        = 'StatusLineMiddle',
+  main_accent = 'StatusLineMiddleAccent',
+  main_bold   = 'StatusLineMiddleBold',
+  meta        = 'StatusLineArrowRight',
+  rhs         = 'StatusLineRight',
 }
 
 -- Validate on load

@@ -18,7 +18,7 @@ function M.default(bufnr)
     " ",                                                 -- space
     "%<",                                                -- truncation point if not wide enough
     "%{v:lua.buell.statusline.components.file_path()}",  -- relative path to file's directory
-    "%#" .. config.highlights.accent .. "#",             -- switch to Status3 highlight group
+    "%#" .. config.highlights.main_bold .. "#",          -- switch to Status3 highlight group
     "%t",                                                -- filename
     " ",                                                 -- space
     "%#" .. config.highlights.meta .. "#",               -- switch to Status1 highlight group
@@ -53,7 +53,7 @@ function M.codecompanion(bufnr)
     config.symbols.powerline_left,                       -- powerline arrow
     "%#" .. config.highlights.main .. "#",               -- switch to Status2 highlight group
     " CodeCompanion ",                                   -- buffer type indicator
-    "%#" .. config.highlights.accent .. "#",             -- switch to Status3 highlight group
+    "%#" .. config.highlights.main_bold .. "#",          -- switch to Status3 highlight group
     adapter_info and (adapter_info .. " ") or "",        -- adapter and model info
     "%<",                                                -- truncation point
     "%=",                                                -- split point for left and right groups
