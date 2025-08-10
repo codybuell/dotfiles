@@ -11,7 +11,7 @@
 # Only load once
 if [[ -z "${__BUELL[AUTOSUGGESTIONS_LOADED]:-}" ]]; then
   # Adjust this path to match where your submodule is located
-  local autosuggestions_script="$HOME/.shell/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  local autosuggestions_script="$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
   if [[ -r "$autosuggestions_script" ]]; then
     source "$autosuggestions_script"
