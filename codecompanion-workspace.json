@@ -18,6 +18,11 @@
       "name": "CodeCompanion",
       "system_prompt": "CodeCompanion specific context - review before changes to CodeCompanion integration",
       "data": ["cc-plugin", "cc-ftplugin", "cc-adapters", "cc-display", "cc-extensions", "cc-helpers", "cc-prompt_library", "cc-strategies", "cc-system_prompt"]
+    },
+    {
+      "name": "Zsh Configuration",
+      "system_prompt": "Zsh shell configuration files - review before making changes to shell environment",
+      "data": ["zshrc-main", "zsh-config-path", "zsh-config-color", "zsh-config-alias", "zsh-config-bindings", "zsh-config-environment", "zsh-config-title", "zsh-config-prompt", "zsh-config-functions", "zsh-config-kubernetes", "zsh-config-autosuggestions", "zsh-config-syntax-highlighting", "zsh-config-nvm"]
     }
   ],
   "data": {
@@ -80,6 +85,71 @@
       "type": "file",
       "path": "${cc_path}/system_prompt.lua",
       "description": "CodeCompanion configuration files to define the system prompt used for AI interactions."
+    },
+    "zshrc-main": {
+      "type": "file",
+      "path": "dotfiles/zshrcnew",
+      "description": "Main zsh configuration file that sources all other config files"
+    },
+    "zsh-config-path": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/01-path.zsh",
+      "description": "PATH environment variable configuration"
+    },
+    "zsh-config-color": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/02-color.zsh",
+      "description": "Color schemes and terminal color configuration"
+    },
+    "zsh-config-alias": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/03-alias.zsh",
+      "description": "Command aliases and shortcuts"
+    },
+    "zsh-config-bindings": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/04-bindings.zsh",
+      "description": "Key bindings and keyboard shortcuts"
+    },
+    "zsh-config-environment": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/05-environment.zsh",
+      "description": "Environment variables and system configuration"
+    },
+    "zsh-config-title": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/06-title.zsh",
+      "description": "Terminal title configuration"
+    },
+    "zsh-config-prompt": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/07-prompt.zsh",
+      "description": "Shell prompt configuration and styling"
+    },
+    "zsh-config-functions": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/08-functions.zsh",
+      "description": "Custom shell functions and utilities"
+    },
+    "zsh-config-kubernetes": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/90-kubernetes.zsh",
+      "description": "Kubernetes-specific configuration and aliases"
+    },
+    "zsh-config-autosuggestions": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/97-autosuggestions.zsh",
+      "description": "Zsh autosuggestions plugin configuration"
+    },
+    "zsh-config-syntax-highlighting": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/98-syntax-highlighting.zsh",
+      "description": "Zsh syntax highlighting plugin configuration"
+    },
+    "zsh-config-nvm": {
+      "type": "file",
+      "path": "dotfiles/zsh/config/99-nvm.zsh",
+      "description": "Node Version Manager (NVM) configuration"
     }
   }
 }
