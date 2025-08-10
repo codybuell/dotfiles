@@ -10,6 +10,10 @@ if not vim.fn.exists(':Git') then
   return
 end
 
+-----------------
+--  Functions  --
+-----------------
+
 -- Get Branches
 --
 -- Get all branches, both local and remote, for the current repository.
@@ -156,6 +160,60 @@ local smart_diff = function()
   end
 end
 
+-- Open URL cross-platform
+local open_url = function(url)
+  local function is_wsl()
+    return vim.env.WSL_DISTRO_NAME ~= nil or vim.env.WSL_INTEROP ~= nil
+  end
+
+  if vim.fn.executable('xdg-open') == 1 then
+    vim.fn.system('xdg-open ' .. vim.fn.shellescape(url) .. ' &')
+  elseif vim.fn.executable('open') == 1 then
+    vim.fn.system('open ' .. vim.fn.shellescape(url))
+  elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 or is_wsl() then
+    vim.fn.system('cmd.exe /c start ' .. vim.fn.shellescape(url))
+  else
+    print("Merge/Pull request URL: " .. url)
+  end
+end
+
+-- Extract and open MR link from git output
+local open_mr_link = function()
+  -- Get recent messages
+  local messages = vim.fn.execute('messages')
+  local lines = vim.split(messages, '\n')
+
+  -- Look for merge/pull request creation messages (search backwards)
+  for i = #lines, 1, -1 do
+    local line = lines[i]
+    if line:match('%s*[Tt]o [Cc]reate a [Mm]erge [Rr]equest') or
+       line:match('%s*[Tt]o [Cc]reate a [Pp]ull [Rr]equest') or
+       line:match('%s*[Cc]reate a [Mm]erge [Rr]equest') or
+       line:match('%s*[Cc]reate a [Pp]ull [Rr]equest') then
+      -- Look for URL in the next line
+      if i < #lines then
+        local url_line = lines[i + 1]
+        local url = url_line:match('%s*(https?://[^%s]*)')
+        if url then
+          open_url(url)
+          print("Opened: " .. url)
+          return
+        end
+      end
+    end
+  end
+end
+
+-- Enhanced git push with MR link detection
+local git_push_with_mr = function(args)
+  args = args or ""
+  vim.cmd('Git push ' .. args)
+
+  -- Wait a moment for output to be captured, then check for MR links
+  vim.defer_fn(function()
+    open_mr_link()
+  end, 500)
+end
 ---------------------
 --  Configuration  --
 ---------------------
@@ -167,11 +225,18 @@ vim.g.fugitive_summary_format = "%ad   %<(16,trunc)%aN%d %s"
 --  Mappings  --
 ----------------
 
+-- `<Leader>gp` - Push with automatic MR link opening
+-- `<Leader>gP` - Push with custom arguments and MR link opening
+-- `<Leader>gm` - Manually check for and open MR links from recent git output
+-- `:GitOpenMR` - Command version of the manual check
+
 -- committing flows (gs = status, gb = blame, gp = push)
 vim.keymap.set('n', '<Leader>ga', ':Git commit --amend<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gb', ':Git blame<CR>', {remap = false, silent = true})
-vim.keymap.set('n', '<Leader>gp', ':Git push<CR>', {remap = false, silent = true})
+vim.keymap.set('n', '<Leader>gp', function() git_push_with_mr() end, {remap = false, silent = true})
+vim.keymap.set('n', '<Leader>gP', function() git_push_with_mr(vim.fn.input('Git push args: ')) end, {remap = false, silent = false})
+vim.keymap.set('n', '<Leader>gm', open_mr_link, {remap = false, silent = true})
 
 -- diffing flows (gl = log for file, gL = log for all, gD = smart diff) note <Space>gd is used with minidiff
 vim.keymap.set('n', '<Leader>gl', ':silent! 0Gclog!<CR>:bot copen<CR>', {remap = false, silent = true})
@@ -182,3 +247,6 @@ vim.keymap.set('n', '<Leader>gD', smart_diff, {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gc', ':Git checkout<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>gg', ':Ggrep<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>ge', ':Gedit<CR>', {remap = false, silent = true})
+
+-- open MR link command
+vim.api.nvim_create_user_command('GitOpenMR', open_mr_link, {})
