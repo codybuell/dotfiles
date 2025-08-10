@@ -73,7 +73,7 @@ zle-line-finish() {
   set_cursor_shape 0  # block cursor
 }
 
-# Smart Ctrl+Z: background/foreground toggle
+# Smart Ctrl+z: background/foreground toggle
 fg-bg() {
   if [[ $#BUFFER -eq 0 ]]; then
     fg  # No command in buffer, foreground last job
@@ -111,8 +111,8 @@ bindkey "\e[B" down-history       # Down arrow
 
 # Character and word deletion
 bindkey '^?' backward-delete-char  # Backspace
-bindkey '^H' backward-delete-char  # Ctrl+H
-bindkey '^W' backward-kill-word    # Ctrl+W
+bindkey '^H' backward-delete-char  # Ctrl+h
+bindkey '^W' backward-kill-word    # Ctrl+w
 
 ###############################
 #  Advanced Editing Features  #
@@ -123,8 +123,8 @@ autoload -Uz select-word-style
 select-word-style bash  # Only alphanumeric chars are considered WORDCHARS
 
 # Key bindings for ZLE widgets
-bindkey '^X^X' edit-command-line  # Ctrl+X Ctrl+X
-bindkey '^Z' fg-bg                # Ctrl+Z
+bindkey '^X^X' edit-command-line  # Ctrl+x Ctrl+x
+bindkey '^Z' fg-bg                # Ctrl+z
 
 # History expansion on space
 bindkey ' ' magic-space
@@ -134,5 +134,5 @@ bindkey ' ' magic-space
 ########################
 
 # Autosuggestions navigation (if plugin loaded)
-bindkey '^L' forward-char          # Ctrl+L to accept suggestion
-bindkey '^O' forward-word          # Ctrl+O to accept word
+bindkey '^L' forward-char          # Ctrl+l to accept suggestion
+bindkey '^O' forward-word          # Ctrl+o to accept word
