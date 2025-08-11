@@ -88,7 +88,7 @@
     },
     "zshrc-main": {
       "type": "file",
-      "path": "dotfiles/zshrcnew",
+      "path": "dotfiles/zshrc",
       "description": "Main zsh configuration file that sources all other config files"
     },
     "zsh-config-path": {

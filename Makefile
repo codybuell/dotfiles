@@ -166,4 +166,4 @@ commands:
 
 zsh-test:
 	@docker build -t zsh-test assets/docker/zsh-test
-	@docker run -it --rm -v $$(pwd)/dotfiles/config:/root/.config -v $$(pwd)/dotfiles/zsh:/root/.zsh -v $$(pwd)/dotfiles/zshrcnew:/root/.zshrc zsh-test
+	@docker run -it --rm -v $$(pwd)/dotfiles/config:/root/.config -v $$(pwd)/dotfiles/zsh:/root/.zsh -v $$(pwd)/dotfiles/zshrc:/root/.zshrc zsh-test
