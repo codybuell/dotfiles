@@ -145,10 +145,26 @@ local function extend_markdown()
   ]]
 end
 
+-- git commit over length
 local function extend_gitcommit()
+  -- Create a namespace for our highlights
+  local ns = vim.api.nvim_create_namespace('buell_gitcommit')
+
   vim.cmd [[
     syntax match buellGitCommitOverLength /\%1l\%>50v.*$/
   ]]
+
+  vim.api.nvim_create_autocmd({"BufEnter", "TextChanged", "TextChangedI"}, {
+    buffer = 0,
+    callback = function()
+      local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
+      if #line > 50 then
+        vim.hl.range(0, ns, 'buellGitCommitOverLength', {0, 50}, {0, #line}, {
+          priority = vim.hl.priorities.user + 10
+        })
+      end
+    end,
+  })
 end
 
 --------------
@@ -156,6 +172,11 @@ end
 --------------
 
 local pinnacle = require('wincent.pinnacle')
+
+pinnacle.set('buellGitCommitOverLength', {
+  bg = 'NONE',
+  fg = pinnacle.fg('Error'),
+})
 
 -- adjust treesitter markdown highlight groups
 vim.cmd("highlight! link @markup.list.markdown Identifier")
@@ -171,9 +192,6 @@ pinnacle.set('@markup.list.checked.markdown', pinnacle.darken('Directory', 0.20)
 vim.cmd("highlight! link buellInlineURL htmlLink")
 vim.cmd("highlight! link buellTodoText Directory")
 pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.30))
-
--- git commit over length
-pinnacle.set('buellGitCommitOverLength', pinnacle.darken('Error', 0.30))
 
 -- darken conceal character text
 pinnacle.set('Conceal', pinnacle.darken('Directory', 0.35))
