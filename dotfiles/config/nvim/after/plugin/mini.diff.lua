@@ -24,32 +24,36 @@ minidiff.setup()
 local pinnacle = require('wincent.pinnacle')
 
 pinnacle.set('MiniDiffSignAdd', {
+  fg = pinnacle.brighten('DiffAdd', 0.35).bg,
   bg = pinnacle.bg('SignColumn'),
-  fg = pinnacle.fg('DiffAdd'),
-  -- bold = true,
+  bold = true,
   italic = true,
 })
+
 pinnacle.set('MiniDiffSignChange', {
+  fg = pinnacle.brighten('DiffText', 0.35).bg,
   bg = pinnacle.bg('SignColumn'),
-  fg = pinnacle.fg('DiffText'),
-  -- bold = true,
+  bold = true,
   italic = true,
 })
+
 pinnacle.set('MiniDiffSignDelete', {
+  fg = pinnacle.brighten('DiffDelete', 0.35).bg,
   bg = pinnacle.bg('SignColumn'),
-  fg = pinnacle.fg('DiffDelete'),
-  -- bold = true,
+  bold = true,
   italic = true,
 })
 
 -- overlay highlights for code background, only change the background
--- toggled visibility with :lua MiniDiff.toggle_overlay()
+-- toggled visibility with :lua MiniDiff.toggle_overlay() (mapped to <Leader>gd)
 pinnacle.set('MiniDiffOverAdd', {
   bg = pinnacle.bg('DiffAdd'),
 })
+
 pinnacle.set('MiniDiffOverChange', {
   bg = pinnacle.bg('DiffText'),
 })
+
 pinnacle.set('MiniDiffOverDelete', {
   bg = pinnacle.bg('DiffDelete'),
 })

@@ -1,6 +1,8 @@
 local color = {}
 
 local pinnacle = require('wincent.pinnacle')
+-- local augroup  = require('buell.util.augroup')
+-- local autocmd  = require('buell.util.autocmd')
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -141,7 +143,7 @@ local function custom_highlights()
 
   -- Current line number
   pinnacle.set('CursorLineNr', {
-    fg = pinnacle.fg('Normal'),
+    fg = pinnacle.darken('Normal', 0.05).fg,
     bg = cursorline_bg,
     bold = true
   })
@@ -177,7 +179,7 @@ local function custom_highlights()
   pinnacle.set('@comment.documentation', comment_style)
 
   ---------------
-  --  tabline  --
+  --  Tabline  --
   ---------------
 
   pinnacle.link('TabLineSel', 'ErrorMsg')
@@ -187,7 +189,8 @@ local function custom_highlights()
   -------------
 
   -- Only set background colors for diff highlights
-  -- TODO: Look into not having to hardcode colors here.
+  -- TODO: Look into not having to hardcode colors here. But you may want these
+  -- standard diff colors though...
   pinnacle.set('DiffAdd', {
     fg = 'None',
     bg = '#222f22',
@@ -302,13 +305,41 @@ color.update = function()
   -- Set the active theme for tinted-colorscheme using helper
   setup_tinted_colorscheme(active_theme)
 
+  -- -- Explicitly set the colorscheme name to match our active theme
+  -- vim.g.colors_name = active_theme
+
   -- Store current theme for comparison
   vim.g.buell_current_theme = active_theme
 
   -- Call custom highlights function
   custom_highlights()
 
+  -- -- Apply custom highlights with a small delay to ensure theme is loaded
+  -- vim.defer_fn(function()
+  --   -- Load custom highlights
+  --   custom_highlights()
 
+  --   -- Set up persistence after first application
+  --   augroup('BuellCustomHighlights', function()
+  --     -- Reapply custom highlights after any colorscheme change
+  --     autocmd('ColorScheme', '*', function()
+  --       -- Small delay to ensure colorscheme is fully applied
+  --       vim.defer_fn(custom_highlights, 50)
+  --     end)
+
+  --     -- Also reapply when entering a buffer (catches plugin interference)
+  --     autocmd('BufEnter', '*', function()
+  --       -- Only if we have a current theme set
+  --       if vim.g.buell_current_theme then
+  --         custom_highlights()
+  --       end
+  --     end)
+  --   end)
+  -- end, 100)
+
+  -- print("Theme from file:", active_theme)
+  -- print("vim.g.colors_name:", vim.g.colors_name)
+  -- print("vim.g.buell_current_theme:", vim.g.buell_current_theme)
 end
 
 --------------------------------------------------------------------------------
@@ -316,7 +347,6 @@ end
 --  Theme Watcher                                                             --
 --                                                                            --
 --------------------------------------------------------------------------------
-
 
 -- Set up the theme watcher when the module loads
 setup_theme_watcher()
