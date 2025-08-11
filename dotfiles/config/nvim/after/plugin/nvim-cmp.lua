@@ -235,9 +235,6 @@ end
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
-  -- Don't preselect the first item in the completion menu.
-  preselect = cmp.PreselectMode.None,
-
   experimental = {
     -- See also `toggle_ghost_text()` below.
     -- Disabling in favor of copilot virtual text for now.
@@ -342,7 +339,7 @@ cmp.setup({
   },
 
   completion = {
-    completeopt = 'menu,menuone,noinsert',
+    completeopt = 'menu,menuone,noinsert,noselect',
   },
 
   snippet = {
