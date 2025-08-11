@@ -179,9 +179,9 @@ refresh_completions() {
 #  Configuration  #
 ###################
 
-export HISTSIZE=100000                 # Commands to keep in memory
-export HISTFILE="${__BUELL[ZSH_CONFIG_DIR]}/history"   # History file location
-export SAVEHIST=$HISTSIZE              # Commands to save to file
+export HISTSIZE=100000                     # Commands to keep in memory
+export HISTFILE="${HOME}/.zsh_history"     # History file location
+export SAVEHIST=$HISTSIZE                  # Commands to save to file
 
 ########################
 #  Search Enhancement  #
