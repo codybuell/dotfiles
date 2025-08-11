@@ -160,6 +160,15 @@ zsh_debug() {
   done
 }
 
+# Force a refresh of completions
+refresh_completions() {
+  echo "Rebuilding completion cache..."
+  rm -f "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"*
+  autoload -Uz compinit
+  compinit -d "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
+  echo "Completion cache refreshed"
+}
+
 ################################################################################
 ##                                                                            ##
 ##  History                                                                   ##
@@ -234,12 +243,46 @@ zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 # Autoload compinit
 autoload -Uz compinit
 
-# Use cached zcompdump file, refreshing if configs change
-if [[ ! -f "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump" || "$HOME/.zshrc" -nt "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump" ]]; then
+# Enhanced cache invalidation logic
+_should_rebuild_completion_cache() {
+  local cache_file="${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
+
+  # Always rebuild if cache doesn't exist
+  [[ ! -f "$cache_file" ]] && return 0
+
+  # Check if main config is newer
+  [[ "$HOME/.zshrc" -nt "$cache_file" ]] && return 0
+
+  # Check if any completion functions are newer
+  local completion_dir="$HOME/.zsh/completions"
+  if [[ -d "$completion_dir" ]]; then
+    local completion_files=("$completion_dir"/_*(N))
+    for comp_file in "${completion_files[@]}"; do
+      [[ "$comp_file" -nt "$cache_file" ]] && return 0
+    done
+  fi
+
+  # Check if repo data is newer (for _repo completion)
+  local repos_file="{{ Repos }}/.repos"
+  [[ -f "$repos_file" && "$repos_file" -nt "$cache_file" ]] && return 0
+
+  # Check if cache is older than 1 day (handles edge cases)
+  [[ $(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || stat -c %Y "$cache_file" 2>/dev/null || echo 0) )) -gt 86400 ]] && return 0
+
+  return 1
+}
+
+# Use cached zcompdump file with enhanced invalidation
+if _should_rebuild_completion_cache; then
   compinit -d "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
+  # Force rebuild of completion cache
+  rm -f "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump.zwc" 2>/dev/null
 else
   compinit -C -d "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
 fi
+
+# Clean up helper function
+unfunction _should_rebuild_completion_cache
 
 ###############################
 #  Tool-Specific Completions  #
