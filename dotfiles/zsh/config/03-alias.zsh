@@ -28,6 +28,20 @@ elif [[ `which vim | wc -l` -gt 0 ]]; then
   alias vix="vim -i NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nowritebackup'"
 fi
 
+# use gsed for consistent development
+alias sed=gsed
+
+#######################
+#  Vim Muscle Memory  #
+#######################
+
+alias :e="vim"
+alias :q="exit"
+alias :qa="exit"
+alias :wq="exit"
+alias :sp='test -n "$TMUX" && tmux split-window'
+alias :vs='test -n "$TMUX" && tmux split-window -h'
+
 ################
 #  Navigation  #
 ################
@@ -63,3 +77,30 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 	alias finder='open .'
 fi
+
+####################
+#  Global Aliases  #
+####################
+
+# work at any position within the command line
+[ `echo $0` == '-zsh' ] && {
+  # mnemonic: "[G]rep"
+  alias -g G="|grep"
+  # mnemonic: "[H]ead"
+  alias -g H="|head"
+  # mnemonic: "[J]SON"
+  alias -g J="|jq"
+  # mnemonic: "[L]ess"
+  alias -g L="|less"
+}
+
+###################
+#  Miscellaneous  #
+###################
+
+alias serve='python -m SimpleHTTPServer 8080'
+alias sc="vi ~/.ssh/config"
+alias k=kubectl
+alias d=docker
+alias n=note
+alias dc='docker compose'

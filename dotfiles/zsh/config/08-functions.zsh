@@ -340,6 +340,23 @@ function gpl() {
 #  Networking  #
 ################
 
+# IntIP (mnemonic: INTernal IP)
+#
+# Get internal IP address.
+function intip() {
+  [[ -f /etc/redhat-release ]] && {
+    ifconfig $(netstat -rn | grep UG | awk '{print $8}') | grep inet | egrep -v '::|inet 127.' | awk '{print $2}'
+  } || {
+    ifconfig $(netstat -rn -f inet | grep default | awk '{print $6}') | grep inet | egrep -v '::|inet 127.' | awk '{print $2}'
+  }
+}
+
+# ExtIP (mnemonic: EXTernal IP)
+#
+# Get external IP address.
+function extip() {
+  /usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g'
+}
 
 ###################
 #  Miscellaneous  #
@@ -375,4 +392,68 @@ function testregex() {
             echo "No matches (or invalid pattern)"
         fi
     done
+}
+
+# Nok (mnemonic: knocking)
+#
+# Wrapper for fwknop port knocking.
+function nok() {
+  TARGETPORT=${3:-22}
+  case $1 in
+    int )
+      SRCIP=`intip`
+      ;;
+    ext )
+      SRCIP=`extip`
+      ;;
+  esac
+  fwknop -A tcp/22 -a $SRCIP -D $2
+
+  case `basename $SHELL` in
+    zsh )
+      read "choice?connect to host? [y/n] "
+      ;;
+    * )
+      read -p "connect to host? [y/n] " choice
+      ;;
+  esac
+
+  case "$choice" in
+    n|N|no ) return;;
+  esac
+
+  # fix ssh-agent issue
+  if [ ! -z $TMUX ] && [ "$(uname)" = "Darwin" ]; then
+    TERM=xterm-256color reattach-to-user-namespace ssh -p $TARGETPORT $2
+  else
+    ssh -p $TARGETPORT $2
+  fi
+}
+
+# Note
+#
+# Helper to open note files or navigate to the notes directory.
+note() {
+  NOTEPATH=$(echo {{ Notes }})
+  if [ $1 ]; then
+    ARGEXT=`echo $1 | sed -n 's/^.*\.\(.*$\)/\1/p'`
+    EXT=`[[ ${#ARGEXT} -eq 0 ]] && echo '.md'`
+    vim ${NOTEPATH}/${1}${EXT}
+  else
+    cd ${NOTEPATH}
+  fi
+}
+
+# VEnv (mnemonic: Virtual ENVironment)
+#
+# Helper to setup a python virtual environment.
+function venv() {
+  python3 -m venv .venv
+  if ! grep -q "^source .venv/bin/activate$" .gitignore; then
+    echo "source .venv/bin/activate" >> .envrc
+  fi
+  if ! grep -q "^\.venv$" .gitignore; then
+    echo ".venv" >> .gitignore
+  fi
+  direnv allow
 }
