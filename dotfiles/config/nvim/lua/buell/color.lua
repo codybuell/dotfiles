@@ -98,6 +98,14 @@ end
 --------------------------------------------------------------------------------
 
 local function custom_highlights()
+  -- NOTE: Other key color override locations:
+  --   - after/plugin/nvim-treesitter.lua
+  --   - after/plugin/mini.diff.lua
+  --   - after/plugin/mini.pick.lua
+  --   - after/plugin/nvim-dap-ui.lua
+  --   - after/plugin/nvim-dap.lua
+  --   - after/plugin/todo-comments.nvim.lua
+
   ------------------
   --  Statusline  --
   ------------------
