@@ -3,14 +3,14 @@
 ##  Color                                                                     ##
 ##                                                                            ##
 ##  Color scheme management for zsh, tmux, and Kitty. Selected and last used  ##
-##  theme stored in `${ZDOTDIR}/.tinted` for persistence and easy reverting.  ##
+##  theme stored in `~/.zsh/colors/.tinted` for persistence & easy reverting. ##
 ##                                                                            ##
-##  Dependencies: tinted color scheme scripts (${ZDOTDIR}/colors/scripts/)    ##
+##  Dependencies: tinted color scheme scripts (~/.zsh/colors/scripts/)        ##
 ##  Enhanced by: kitten (Kitty), tmux (for live color updates)                ##
 ##                                                                            ##
 ################################################################################
 
-__BUELL[TINTED_CONFIG]=${ZDOTDIR}/colors/tinted
+__BUELL[TINTED_CONFIG]=${__BUELL[ZSH_CONFIG_DIR]}/colors/tinted
 
 # Luma
 #
@@ -67,7 +67,7 @@ color() {
   emulate -L zsh
 
   local SCHEME
-  local SHELL_COLORS_DIR=${ZDOTDIR}/colors/scripts
+  local SHELL_COLORS_DIR=${__BUELL[ZSH_CONFIG_DIR]}/colors/scripts
   local TINTED_CONFIG_PREVIOUS="${__BUELL[TINTED_CONFIG]}.previous"
   local STATUS=0
 

@@ -1,474 +1,292 @@
 ################################################################################
 ##                                                                            ##
-## OSX Specific Settings                                                      ##
+##  ZSH                                                                       ##
 ##                                                                            ##
 ################################################################################
 
-if [ "$(uname)" = "Darwin" ]; then
-  # suppress unwanted homebrew-installed stuff
-  if [ -e /usr/local/share/zsh/site-functions/_git ]; then
-    mv -f /usr/local/share/zsh/site-functions/{,disabled.}_git
-  fi
-fi
-
 ################################################################################
 ##                                                                            ##
-## Completion                                                                 ##
+##  Profiling (uncomment when needed)                                         ##
 ##                                                                            ##
-## to flush completion cache and force a rebuild:                             ##
-##   rm -f ~/.zcompdump; compinit                                             ##
+##  See: https://stackoverflow.com/a/4351664/2103996                          ##
 ##                                                                            ##
 ################################################################################
 
-# add completions folder to fpath
-fpath=($HOME/.shell/completions $fpath)
+###########################
+#  Per-Command Profiling  #
+###########################
 
-# turn on completion system
-autoload -U compinit
-compinit -u
+# zmodload zsh/datetime
+# setopt promptsubst
+# PS4='+$EPOCHREALTIME %N:%i> '
+# exec 3>&2 2> startlog.$$
+# setopt xtrace prompt_subst
 
-# make completion:
-# - case-insensitive
-# - accept abbreviations after . or _ or - (ie. f.b -> foo.bar)
-# - substring complete (ie. bar -> foobar)
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+############################
+#  Per-Function Profiling  #
+############################
 
-# colorize completions using default `ls` colors
-zstyle ':completion:*' list-colors ''
-
-# keep cdpath functional but don't list in autocompletions
-zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
-
-# allow stacking -i and -t options like -it and still support completion
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-# group completions by source
-zstyle ':completion:*' group-name ''
-
-# kubectl completions
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+# zmodload zsh/zprof
 
 ################################################################################
 ##                                                                            ##
-## Correction                                                                 ##
+##  Global                                                                    ##
 ##                                                                            ##
 ################################################################################
 
-# exceptions to auto-correction
-alias bundle='nocorrect bundle'
-alias cabal='nocorrect cabal'
-alias man='nocorrect man'
-alias mkdir='nocorrect mkdir'
-alias mv='nocorrect mv'
-alias stack='nocorrect stack'
-alias sudo='nocorrect sudo'
+# Create a hash table for globally stashing variables without polluting main
+# scope with a bunch of identifiers.
+typeset -A __BUELL
 
-################################################################################
-##                                                                            ##
-## Prompt                                                                     ##
-##                                                                            ##
-################################################################################
+# For reporting on what modules are loaded.
+typeset -a __ZSH_MODULES_LOADED
 
-autoload -U colors
-colors
+# Set our path for storage of configurations, cache, etc.
+__BUELL[ZSH_CONFIG_DIR]="${HOME}/.zsh"
+mkdir -p "${__BUELL[ZSH_CONFIG_DIR]}"{config,cache}
+mkdir -p ~/.config/{tmux,kitty}
 
-# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
-# %s - the current version control system, like git or svn
-# %r - the name of the root directory of the repository
-# %S - the current path relative to the repository root directory
-# %b - branch information, like master
-# %m - in case of Git, show information about stashes
-# %u - show unstaged changes in the repository
-# %c - show staged changes in the repository
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "%F{green}●%f"             # default 'S'
-zstyle ':vcs_info:*' unstagedstr "%F{red}●%f"             # default 'U'
-zstyle ':vcs_info:*' use-simple true
-zstyle ':vcs_info:git+set-message:*' hooks git-untracked
-zstyle ':vcs_info:git*:*' formats '%F{3}%b%f %m%c%u'     # default ' (%s)-[%b]%c%u-'
-zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u]'   # default ' (%s)-[%b|%a]%c%u-'
+# Ensure these arrays are unique (contain no duplicate values).
+typeset -U path cdpath fpath manpath
 
-function +vi-git-untracked() {
-  emulate -L zsh
-  if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
-    hook_com[unstaged]+="%F{blue}●%f"
-  fi
-}
-
-RPROMPT_BASE="\${vcs_info_msg_0_}"
-setopt PROMPT_SUBST
-
-# anonymous function to avoid leaking NBSP variable
-function () {
-  PARENTPID=`ps -o ppid= $PPID | sed 's/[[:space:]]*//g'`
-  PARENTPROC="placeholder"
-  if [ "$(uname)" != "Darwin" ]; then
-    PARENTPROC=`ps -o cmd= $PARENTPID`
-  fi
-  # determine shell nesting level
-  if [[ $PARENTPID == '1' ]]; then
-    local LVL=1
-  elif [[ "$PARENTPROC" == "sh -c urxvt" ]]; then
-    local LVL=1
-  elif [[ -n "$TMUX" ]]; then
-    local LVL=$(($SHLVL - 1))
-  else
-    local LVL=$SHLVL
-  fi
-  # only show two $'s if more than one shell level deep
-  if [[ $LVL -gt 1 ]]; then
-    local LVL=1
-  fi
-  # repeat #'s or $'s for shell level (root or std user respectively)
-  if [[ $EUID -eq 0 ]]; then
-    local SUFFIX=$(printf '#%.0s' {1..$LVL})
-  else
-    local SUFFIX=$(printf '\$%.0s' {1..$LVL})
-  fi
-  if [[ -n "$TMUX" ]]; then
-    # note use non-breaking space at the end of the prompt because we can use it as a find pattern to jump back in tmux
-    local NBSP=' '
-    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f${NBSP}"
-    export ZLE_RPROMPT_INDENT=0
-  else
-    # don't bother with ZLE_RPROMPT_INDENT here, because it ends up eating the space after PS1
-    export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f "
-  fi
-}
-
-export RPROMPT='${vim_mode}${RPROMPT_BASE}'
-export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
-
-################################################################################
-##                                                                            ##
-## History                                                                    ##
-##                                                                            ##
-################################################################################
-
-export HISTSIZE=100000
-export HISTFILE="$HOME/.history"
-export SAVEHIST=$HISTSIZE
-
-################################################################################
-##                                                                            ##
-## Options                                                                    ##
-##                                                                            ##
-################################################################################
-
+# Navigation & Directory Stack
 setopt autocd               # .. is shortcut for cd .. (etc)
 setopt autoparamslash       # tab completing directory appends a slash
 setopt autopushd            # cd automatically pushes old dir onto dir stack
+setopt pushdignoredups      # don't push multiple copies of same dir onto stack
+setopt pushdsilent          # don't print dir stack after pushing/popping
+
+# File Operations
 setopt clobber              # allow clobbering with >, no need to use >!
-setopt noflowcontrol        # disable start (C-s) and stop (C-q) characters
 setopt nonomatch            # unmatched patterns are left unchanged
+
+# History Operations
 setopt histignorealldups    # filter duplicates from history
 setopt histignorespace      # don't record commands starting with a space
 setopt histverify           # confirm history expansion (!$, !!, !foo)
-setopt interactivecomments  # allow comments, even in interactive shells
-setopt pushdignoredups      # don't push multiple copies of same dir onto stack
-setopt pushdsilent          # don't print dir stack after pushing/popping
 setopt sharehistory         # share history across shells
-#setopt printexitvalue      # for non-zero exit status
-#setopt ignoreeof           # prevent accidental C-d from exiting shell
-#setopt correct             # command auto-correction
-#setopt correctall          # argument auto-correction
+setopt EXTENDED_HISTORY     # save timestamps in history
+
+# Input & Control
+setopt noflowcontrol        # disable start (C-s) and stop (C-q) characters
+setopt interactivecomments  # allow comments, even in interactive shells
+
+# Disabled Options (uncomment to enable)
+# setopt printexitvalue      # print exit status for non-zero exits
+# setopt ignoreeof           # prevent accidental C-d from exiting shell
+# setopt correct             # command auto-correction
+# setopt correctall          # argument auto-correction
 
 ################################################################################
 ##                                                                            ##
-## Bindings                                                                   ##
+##  Helpers                                                                   ##
 ##                                                                            ##
 ################################################################################
 
-# use vim mappings rather than emacs (-e)
-bindkey -v
+# PATH helpers
+path_prepend() { [[ -d $1 ]] && path=($1 $path); }
+path_append()  { [[ -d $1 ]] && path=($path $1); }
 
-function print_dcs {
-  print -n -- "\EP$1;\E$2\E\\"
-}
+# Module reload management
+reload_module() {
+  emulate -L zsh
+  local module=$1
 
-function set_cursor_shape {
-  if [ -n "$TMUX" ]; then
-    # tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-    print_dcs tmux "\E]50;CursorShape=$1\C-G"
-  else
-    print -n -- "\E]50;CursorShape=$1\C-G"
+  if [[ -z "$module" ]]; then
+    echo "Usage: reload_module <module_name>"
+    echo "Available modules:"
+    ls "${__BUELL[ZSH_CONFIG_DIR}/config"/*.zsh | sed 's|.*/||; s|\.zsh$||'
+    return 1
   fi
-}
 
-# set the cursor to be a block in command mode, line in insert mode
-function zle-keymap-select zle-line-init {
-  case $KEYMAP in
-    vicmd)
-      set_cursor_shape 0 # block cursor
-      ;;
-    viins|main)
-      set_cursor_shape 1 # line cursor
+  local module_file="${__BUELL[ZSH_CONFIG_DIR]}/config/${module}.zsh"
+  if [[ ! -r "$module_file" ]]; then
+    echo "Module '$module' not found"
+    return 1
+  fi
+
+  # Clear the loaded flag to force reload
+  unset "__BUELL[MODULES_LOADED_${module}]"
+
+  # For modules with expensive initialization, clear those guards too
+  case "$module" in
+    *nvm*)
+      unset "__BUELL[NVM_INITIALIZED]"
       ;;
   esac
-  zle reset-prompt
-  zle -R
+
+  echo "Reloading module: $module"
+  source "$module_file"
+  __BUELL[MODULES_LOADED_${module}]=1
 }
 
-function zle-line-finish {
-  set_cursor_shape 0 # block cursor
+# Force reload on all modules
+reload_all_modules() {
+  emulate -L zsh
+  echo "Reloading all modules..."
+
+  # Clear all module guards
+  for key in ${(k)__BUELL}; do
+    if [[ "$key" =~ "^(MODULES_LOADED_|.*_INITIALIZED|KUBECTL_COMPLETION_LOADED)" ]]; then
+      unset "__BUELL[$key]"
+    fi
+  done
+
+  # Clear the tracking array
+  __ZSH_MODULES_LOADED=()
+
+  # Reload all modules
+  for f in "${__BUELL[ZSH_CONFIG_DIR]}"/config/*.zsh(N); do
+    local module_name=${f:t:r}
+    if [[ -r "$f" ]]; then
+      echo "  Loading: $module_name"
+      source "$f"
+      __BUELL[MODULES_LOADED_${module_name}]=1
+      __ZSH_MODULES_LOADED+=(${module_name})
+    fi
+  done
 }
 
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
+# Print debugging information for the config
+zsh_debug() {
+  echo "=== ZSH Configuration Debug ==="
+  echo "ZSH_CONFIG_DIR: ${__BUELL[ZSH_CONFIG_DIR]}"
+  echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"
+  echo "Guard variables:"
+  for key in ${(ko)__BUELL}; do
+    if [[ "$key" =~ "(LOADED|MODULE)" ]]; then
+      echo "  $key = ${__BUELL[$key]}"
+    fi
+  done
+}
 
-# additional vim like mappings
-bindkey "\e[A" up-history       # cursor up
-bindkey "\e[B" down-history     # cursor down
-# bindkey '^P' up-history
-# bindkey '^N' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
+################################################################################
+##                                                                            ##
+##  History                                                                   ##
+##                                                                            ##
+################################################################################
 
-# ctrl-l to complete auto suggestions
-bindkey '^l' forward-char
+###################
+#  Configuration  #
+###################
 
-# delay between esc keypress and switching to normal mode
-export KEYTIMEOUT=1
+export HISTSIZE=100000                 # Commands to keep in memory
+export HISTFILE="${__BUELL[ZSH_CONFIG_DIR]}/history"   # History file location
+export SAVEHIST=$HISTSIZE              # Commands to save to file
 
+########################
+#  Search Enhancement  #
+########################
+
+# Enhanced history search that supports pattern matching
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-# history-beginning-search-forward-end is clunky
-bindkey "^P" history-beginning-search-backward-end  # cursor up
-bindkey "^N" history-beginning-search-forward-end   # cursor down
-# bindkey "\e[A" history-beginning-search-backward-end  # cursor up
-# bindkey "\e[B" history-beginning-search-forward-end   # cursor down
-# bindkey "\e[A" up-history       # cursor up
-# bindkey "\e[B" down-history     # cursor down
 
-autoload -U select-word-style
-select-word-style bash # only alphanumeric chars are considered WORDCHARS
+# Key bindings for enhanced history search
+bindkey "^P" history-beginning-search-backward-end          # Ctrl+P
+bindkey "^N" history-beginning-search-forward-end           # Ctrl+N
 
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^x^x' edit-command-line
-
-bindkey ' ' magic-space # do history expansion on space
-
-# replace standard history-incremental-search-{backward,forward} bindings
-# these are the same but permit patterns (eg. a*b) to be used
-bindkey "^r" history-incremental-pattern-search-backward
-bindkey "^s" history-incremental-pattern-search-forward
-
-# make ctrl-z background things and unbackground them
-function fg-bg() {
-  if [[ $#BUFFER -eq 0 ]]; then
-    fg
-  else
-    zle push-input
-  fi
-}
-zle -N fg-bg
-bindkey '^Z' fg-bg
+# Pattern-based incremental search (supports patterns like a*b)
+bindkey "^R" history-incremental-pattern-search-backward    # Ctrl+R
+bindkey "^S" history-incremental-pattern-search-forward     # Ctrl+S
 
 ################################################################################
 ##                                                                            ##
-## Other                                                                      ##
+##  Completions                                                               ##
 ##                                                                            ##
 ################################################################################
 
-source $HOME/.shell/aliases
-source $HOME/.shell/common
-source $HOME/.shell/colors
-source $HOME/.shell/exports
-source $HOME/.shell/functions
-source $HOME/.shell/hash
-source $HOME/.shell/path
-source $HOME/.shell/vars
-source $HOME/.shell/vault
-source $HOME/.shell/docker
-source $HOME/.shell/kubernetes
+###################
+#  Configuration  #
+###################
 
-# conditional sources
-test -e $HOME/.rvm/scripts/rvm && source $HOME/.rvm/scripts/rvm
-test -e $HOME/.shell/functions.private && source $HOME/.shell/functions.private
-test -e $HOME/.gvm/scripts/gvm && source $HOME/.gvm/scripts/gvm
+# Prepend our custom completions to fpath
+fpath=(~/.zsh/completions $fpath)
 
-################################################################################
-##                                                                            ##
-## Third-party                                                                ##
-##                                                                            ##
-################################################################################
+# Enable menu selection interface for completions
+zstyle ':completion:*' menu select
 
-CHRUBY=/usr/local/share/chruby
-test -e "$CHRUBY/chruby.sh" && . "$CHRUBY/chruby.sh"
-test -e "$CHRUBY/auto.sh" && . "$CHRUBY/auto.sh"
-
-################################################################################
-##                                                                            ##
-## Hooks                                                                      ##
-##                                                                            ##
-################################################################################
-
-autoload -U add-zsh-hook
-
-function set-tab-and-window-title() {
-  emulate -L zsh
-  local CMD="${1:gs/$/\\$}"
-  print -Pn "\e]0;$CMD:q\a"
-}
-
-function update-window-title-precmd() {
-  emulate -L zsh
-  set-tab-and-window-title `history | tail -1 | cut -b8-`
-}
-add-zsh-hook precmd update-window-title-precmd
-
-function update-window-title-preexec() {
-  emulate -L zsh
-  setopt extended_glob
-
-  # skip ENV=settings, sudo, ssh; show first distinctive word of command;
-  # mostly stolen from:
-  #   https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/termsupport.zsh
-  set-tab-and-window-title ${2[(wr)^(*=*|mosh|ssh|sudo)]}
-}
-add-zsh-hook preexec update-window-title-preexec
-
-typeset -F SECONDS
-function record-start-time() {
-  emulate -L zsh
-  ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
-}
-
-add-zsh-hook preexec record-start-time
-
-function report-run-meta() {
-  local EXITCODE=$?
-  emulate -L zsh
-  if [ $ZSH_START_TIME ]; then
-    local DELTA=$(($SECONDS - $ZSH_START_TIME))
-    local DAYS=$((~~($DELTA / 86400)))
-    local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
-    local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
-    local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
-    local ELAPSED=''
-    test "$DAYS" != '0' && ELAPSED="${DAYS}d"
-    test "$HOURS" != '0' && ELAPSED="${ELAPSED}${HOURS}h"
-    test "$MINUTES" != '0' && ELAPSED="${ELAPSED}${MINUTES}m"
-    if [ "$ELAPSED" = '' ]; then
-      SECS="$(print -f "%.2f" $SECS)s"
-    elif [ "$DAYS" != '0' ]; then
-      SECS=''
-    else
-      SECS="$((~~$SECS))s"
-    fi
-    if [ $EXITCODE -gt 0 ]; then
-      local EXITSTR="%F{red}%?%f"
-    else
-      local EXITSTR="%F{59}%?%f"
-    fi
-    ELAPSED="${ELAPSED}${SECS}"
-    local ITALIC_ON=$'\e[3m'
-    local ITALIC_OFF=$'\e[23m'
-    export RPROMPT="%F{59}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f ${EXITSTR} $RPROMPT_BASE"
-    unset ZSH_START_TIME
-  else
-    export RPROMPT="$RPROMPT_BASE"
-  fi
-}
-
-add-zsh-hook precmd report-run-meta
-
-add-zsh-hook precmd bounce
-
-function auto-ls-after-cd() {
-  emulate -L zsh
-  # Only in response to a user-initiated `cd`, not indirectly (eg. via another
-  # function).
-  if [ "$ZSH_EVAL_CONTEXT" = "toplevel:shfunc" ]; then
-    ls -a
-  fi
-}
-#add-zsh-hook chpwd auto-ls-after-cd
-
-# for prompt
-add-zsh-hook precmd vcs_info
-
-# adds `cdr` command for navigating to recent directories
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-# enable menu-style completion for cdr
-zstyle ':completion:*:*:cdr:*:*' menu selection
-
-# fall through to cd if cdr is passed a non-recent dir as an argument
+# Fall through to cd if cdr is passed a non-recent dir as an argument
 zstyle ':chpwd:*' recent-dirs-default true
 
-# Local and host-specific overrides.
+# Use colors in completions (matches ls colors)
+zstyle ':completion:*' list-colors ''
 
-LOCAL_RC=$HOME/.zshrc.local
-test -f $LOCAL_RC && source $LOCAL_RC
+# Group completions by type/source
+zstyle ':completion:*' group-name ''
 
-DEV_RC=$HOME/.shell/host/dev-star
-if [ $(hostname -s) =~ '^dev(vm)?[[:digit:]]+' ]; then
-  test -f $DEV_RC && source $DEV_RC
+# Configure completion matching rules
+#   `'m:{[:lower:][:upper:]}={[:upper:][:lower:]}'`: Case-insensitive matching
+#   `'r:|[._-]=* r:|=*'`: Allow matching w or wo separators (ie. f.b -> foo.bar)
+#   `'l:|=* r:|=*'`: Enable substring matching (ie. bar -> foobar)
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Keep cdpath functional but don't show in autocompletions
+# This prioritizes local directories over cdpath entries
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
+  'local-directories named-directories'
+
+###########################
+#  Initialize Completion  #
+###########################
+
+# Autoload compinit
+autoload -Uz compinit
+
+# Use cached zcompdump file, refreshing if configs change
+if [[ ! -f "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump" || "$HOME/.zshrc" -nt "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump" ]]; then
+  compinit -d "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
+else
+  compinit -C -d "${__BUELL[ZSH_CONFIG_DIR]}/cache/zcompdump"
 fi
 
-HOST_RC=$HOME/.shell/host/$(hostname -s)
-test -f $HOST_RC && source $HOST_RC
+###############################
+#  Tool-Specific Completions  #
+###############################
+
+# Docker (allow stacking Docker options like -it)
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 ################################################################################
 ##                                                                            ##
-## Plugins                                                                    ##
+##  Modules                                                                   ##
 ##                                                                            ##
 ################################################################################
 
-# auto suggestions
-source ~/.shell/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
-bindkey '^y' autosuggest-accept
-bindkey '^o' forward-word
+# reload_module 02-color           # Reload a specific module
+# reload_module 99-nvm             # Reload NVM module (clears NVM_LOADED guard)
+# reload_all_modules               # Reload everything
+#
+# echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"  # List loaded modules
+# print -l ${(kv)__BUELL}                                # See what's in __BUELL
 
-# syntax highlighting
-#source ~/.shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Load all modules from the configuration path
+for f in "${__BUELL[ZSH_CONFIG_DIR]}"/config/*.zsh(N); do
+  local module_name=${f:t:r}
 
-###############################################################################
-##                                                                            #
-##  NVM                                                                       #
-##                                                                            #
-###############################################################################
-
-# setup nvm path
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+  if [[ -z "${__BUELL[MODULES_LOADED_${module_name}]:-}" ]]; then
+    if [[ -r "$f" ]]; then
+      source "$f"
+      __BUELL[MODULES_LOADED_${module_name}]=1
+      __ZSH_MODULES_LOADED+=(${module_name})
+    else
+      echo "Warning: Cannot read $f" >&2
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
   fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+done
 
 ################################################################################
 ##                                                                            ##
-## Callbacks                                                                  ##
+##  Finalization                                                              ##
+##                                                                            ##
+##  Final setup steps and profiling output.                                   ##
 ##                                                                            ##
 ################################################################################
 
-eval "$(direnv hook zsh)"
-gopath
+# Output profiling results (if enabled at top of file)
+# zprof
+
+# Report loaded modules (uncomment for debugging)
+# echo "Loaded modules: ${(j:, :)__ZSH_MODULES_LOADED}"

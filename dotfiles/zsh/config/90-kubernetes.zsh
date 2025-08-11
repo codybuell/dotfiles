@@ -36,11 +36,11 @@ fi
 
 # Kubectl (lazy-load completions on first use)
 if [[ -n "${commands[kubectl]:-}" ]] && [[ -z "${__BUELL[KUBECTL_COMPLETION_LOADED]:-}" ]]; then
-  local kubectl_completion_cache="${ZDOTDIR}/cache/kubectl_completion.zsh"
+  local kubectl_completion_cache="${__BUELL[ZSH_CONFIG_DIR]}/cache/kubectl_completion.zsh"
 
   # Generate cached completion if missing or kubectl is newer
   if [[ ! -f "$kubectl_completion_cache" ]] || [[ "${commands[kubectl]}" -nt "$kubectl_completion_cache" ]]; then
-    mkdir -p "${ZDOTDIR}/cache"
+    mkdir -p "${__BUELL[ZSH_CONFIG_DIR]}/cache"
     kubectl completion zsh > "$kubectl_completion_cache" 2>/dev/null
   fi
 
