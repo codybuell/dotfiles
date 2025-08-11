@@ -53,4 +53,5 @@ color quoted color6 default
 color quoted1 color4 default
 color quoted2 color5 default
 color signature color8 default
-color status color20 color19
+#color status color20 color19
+color status white color236
