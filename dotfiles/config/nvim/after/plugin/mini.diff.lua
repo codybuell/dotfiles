@@ -51,6 +51,11 @@ pinnacle.set('MiniDiffOverAdd', {
 })
 
 pinnacle.set('MiniDiffOverChange', {
+  fg = pinnacle.bg('Search'),
+  bg = pinnacle.bg('DiffText'),
+})
+
+pinnacle.set('MiniDiffOverContext', {
   bg = pinnacle.bg('DiffText'),
 })
 
