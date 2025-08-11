@@ -262,10 +262,6 @@ _should_rebuild_completion_cache() {
     done
   fi
 
-  # Check if repo data is newer (for _repo completion)
-  local repos_file="{{ Repos }}/.repos"
-  [[ -f "$repos_file" && "$repos_file" -nt "$cache_file" ]] && return 0
-
   # Check if cache is older than 1 day (handles edge cases)
   [[ $(( $(date +%s) - $(stat -f %m "$cache_file" 2>/dev/null || stat -c %Y "$cache_file" 2>/dev/null || echo 0) )) -gt 86400 ]] && return 0
 

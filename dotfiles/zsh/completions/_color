@@ -1,12 +1,41 @@
 #compdef color
 
 _color() {
-    local SHELL_COLORS_DIR=~/.zsh/colors/scripts
-    local -a schemes display_schemes
+    local cache_policy
+    zstyle -s ":completion:${curcontext}:" cache-policy cache_policy
+    if [[ -z "$cache_policy" ]]; then
+        zstyle ":completion:${curcontext}:" cache-policy __color_cache_policy
+    fi
 
-    schemes=(${(f)"$(find $SHELL_COLORS_DIR -name '*.sh' | sed -E 's|.+/||;s/\.sh//')"})
+    local -a schemes
+    local cache_name='color_schemes'
+    local SHELL_COLORS_DIR=~/.zsh/colors/scripts
+
+    if ( [[ ${(P)+cache_name} -eq 0 ]] || _cache_invalid ${cache_name} ) \
+        && ! _retrieve_cache ${cache_name}; then
+        if [[ -d "$SHELL_COLORS_DIR" ]]; then
+            schemes=(${(f)"$(find $SHELL_COLORS_DIR -name '*.sh' | sed -E 's|.+/||;s/\.sh//')"})
+            _store_cache ${cache_name} schemes
+        else
+            # Fallback if colors directory doesn't exist
+            schemes=()
+        fi
+    fi
 
     compadd -M 'r:|=* l:|=*' -a schemes
+}
+
+# Cache policy: invalidate if colors directory is newer or after 1 hour
+__color_cache_policy() {
+    local colors_dir=~/.zsh/colors/scripts
+    local cache_file="$1"
+
+    # If colors directory is newer than cache, rebuild
+    [[ -d "$colors_dir" && "$colors_dir" -nt "$cache_file" ]] && return 0
+
+    # Or if cache is older than 1 hour (color schemes change rarely)
+    oldp=( "$cache_file"(Nmh+1) )
+    (( $#oldp ))
 }
 
 _color "$@"

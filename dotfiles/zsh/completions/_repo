@@ -1,9 +1,41 @@
 #compdef repo
 
-# -/ specifies that only directories should be completed
-# -W specifies path prefixes are to be prepended
-#_files -/ -W {{ Repos }}/
+_repo() {
+    local cache_policy
+    zstyle -s ":completion:${curcontext}:" cache-policy cache_policy
+    if [[ -z "$cache_policy" ]]; then
+        zstyle ":completion:${curcontext}:" cache-policy __repo_cache_policy
+    fi
 
-# Find all git repositories
-# TODO: Handle duplicate repository names.
-_values 'repos' $(cat {{ Repos }}/.repos | awk -F: '{print $1}')
+    local -a repos
+    local cache_name='repo_list'
+    local repos_file="{{ Repos }}/.repos"
+
+    if ( [[ ${(P)+cache_name} -eq 0 ]] || _cache_invalid ${cache_name} ) \
+        && ! _retrieve_cache ${cache_name}; then
+        if [[ -f "$repos_file" ]]; then
+            repos=($(cat "$repos_file" | awk -F: '{print $1}'))
+            _store_cache ${cache_name} repos
+        else
+            # Fallback if .repos doesn't exist
+            repos=()
+        fi
+    fi
+
+    _values 'repos' "${repos[@]}"
+}
+
+# Cache policy: invalidate if .repos file is newer or after 30 minutes
+__repo_cache_policy() {
+    local repos_file="{{ Repos }}/.repos"
+    local cache_file="$1"
+
+    # If .repos is newer than cache, rebuild
+    [[ -f "$repos_file" && "$repos_file" -nt "$cache_file" ]] && return 0
+
+    # Or if cache is older than 30 minutes
+    oldp=( "$cache_file"(Nmm+30) )
+    (( $#oldp ))
+}
+
+_repo "$@"
