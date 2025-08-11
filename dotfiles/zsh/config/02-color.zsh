@@ -188,11 +188,6 @@ EOF
     SCHEME=$1
   fi
 
-  # If the scheme file doesn't exist, try with base16- prefix
-  if [[ ! -e "$SHELL_COLORS_DIR/$SCHEME.sh" && -e "$SHELL_COLORS_DIR/base16-$SCHEME.sh" ]]; then
-    SCHEME="base16-$SCHEME"
-  fi
-
   local ALL_SCHEMES=($(find "$SHELL_COLORS_DIR" -name '*.sh' | \
         sed -E 's|.+/||' | \
         sed -E 's/\.sh//' | \
@@ -257,6 +252,7 @@ function () {
     else
       # Default
       color base24-tomorrow-night
+      # color base16-tomorrow-night
       # color base24-hybrid
     fi
   fi
