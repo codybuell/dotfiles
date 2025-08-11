@@ -67,6 +67,23 @@ alias log="git log --pretty=oneline"
 alias gsa="clear && git status && git branch -v"
 alias gbc="git branch --merged | grep -Ev '^ *(^\*|main|master|support-*|release-[0-9]+)' | xargs git branch -d"
 
+##########
+#  TMUX  #
+##########
+
+# Only if we are running in a tmux session
+if [ ! -z $TMUX ]; then
+  # fix ssh-agent issues
+  if [ `uname` == Linux ]; then
+    alias ssh="TERM=xterm-256color ssh"
+    alias scp="TERM=xterm-256color scp"
+  else
+    alias ssh="TERM=xterm-256color reattach-to-user-namespace ssh"
+    alias scp="TERM=xterm-256color reattach-to-user-namespace scp"
+    alias terminal-notifier="reattach-to-user-namespace terminal-notifier"
+  fi
+fi
+
 ###################
 #  MacOS Aliases  #
 ###################
