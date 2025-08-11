@@ -21,6 +21,12 @@ local supported_terminals = {
 local zdotdir = vim.env.ZDOTDIR or (vim.env.HOME .. '/.zsh')
 local tinted_config = zdotdir .. '/colors/tinted'
 
+-- Focus state tracking
+local focus_state = {
+  has_focus = true,
+  original_bg = nil,
+}
+
 --------------------------------------------------------------------------------
 --                                                                            --
 --  Helpers                                                                   --
@@ -89,6 +95,68 @@ local function setup_theme_watcher()
   if stat then
     last_mtime = stat.mtime.sec
   end
+end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Focus Management                                                          --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+-- Get base01 color from active theme
+local function get_unfocused_bg()
+  -- Access the current theme's base01 color
+  local theme_name = vim.g.buell_current_theme or 'base24-tomorrow-night'
+  local theme_colors = require('colors.' .. theme_name)
+  return theme_colors.base01
+end
+
+-- Apply unfocused state (base01 background)
+local function apply_unfocused_state()
+  if focus_state.has_focus then
+    focus_state.original_bg = pinnacle.bg('Normal')
+    focus_state.has_focus = false
+  end
+
+  pinnacle.set('Normal', {
+    fg = pinnacle.fg('Normal'),
+    bg = get_unfocused_bg(),
+  })
+end
+
+-- Apply focused state (restore original background)
+local function apply_focused_state()
+  if not focus_state.has_focus then
+    focus_state.has_focus = true
+  end
+
+  if focus_state.original_bg then
+    pinnacle.set('Normal', {
+      fg = pinnacle.fg('Normal'),
+      bg = focus_state.original_bg,
+    })
+  else
+    color.update()
+  end
+end
+
+-- Set up focus event handlers
+local function setup_focus_handlers()
+  local augroup_id = vim.api.nvim_create_augroup('BuellFocusColors', { clear = true })
+
+  vim.api.nvim_create_autocmd('FocusLost', {
+    group = augroup_id,
+    pattern = '*',
+    callback = apply_unfocused_state,
+    desc = 'Apply unfocused color scheme'
+  })
+
+  vim.api.nvim_create_autocmd('FocusGained', {
+    group = augroup_id,
+    pattern = '*',
+    callback = apply_focused_state,
+    desc = 'Restore focused color scheme'
+  })
 end
 
 --------------------------------------------------------------------------------
@@ -287,6 +355,13 @@ local function custom_highlights()
   -- used by nvim-cmp and others that want a darker border around popup menus
   pinnacle.link('PmenuDarker', 'FloatBorder')
 
+  ------------------------
+  --  Focus Management  --
+  ------------------------
+
+  -- Update focus state tracking after theme change
+  focus_state.original_bg = pinnacle.bg('Normal')
+  focus_state.has_focus = true
 end
 
 --------------------------------------------------------------------------------
@@ -352,11 +427,14 @@ end
 
 --------------------------------------------------------------------------------
 --                                                                            --
---  Theme Watcher                                                             --
+--  Event Management                                                          --
 --                                                                            --
 --------------------------------------------------------------------------------
 
 -- Set up the theme watcher when the module loads
 setup_theme_watcher()
+
+-- Set up focus event handlers to manage focus state
+setup_focus_handlers()
 
 return color
