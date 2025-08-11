@@ -150,13 +150,12 @@ local function extend_gitcommit()
   -- Create a namespace for our highlights
   local ns = vim.api.nvim_create_namespace('buell_gitcommit')
 
-  vim.cmd [[
-    syntax match buellGitCommitOverLength /\%1l\%>50v.*$/
-  ]]
-
   vim.api.nvim_create_autocmd({"BufEnter", "TextChanged", "TextChangedI"}, {
     buffer = 0,
     callback = function()
+      -- Clear existing highlights first
+      vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
+
       local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
       if #line > 50 then
         vim.hl.range(0, ns, 'buellGitCommitOverLength', {0, 50}, {0, #line}, {
