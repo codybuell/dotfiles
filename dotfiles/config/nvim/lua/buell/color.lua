@@ -1,7 +1,6 @@
 local color = {}
 
 local pinnacle = require('wincent.pinnacle')
-local hlg      = buell.util.set_highlight
 
 --------------------------------------------------------------------------------
 --                                                                            --
