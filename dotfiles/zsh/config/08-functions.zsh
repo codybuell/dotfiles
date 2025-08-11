@@ -13,7 +13,7 @@
 #  TMUX  #
 ##########
 
-# tmux
+# TMUX
 #
 # Wrapper for starting up tmux. Looks for a `.tmux` configuration file in the
 # current working directory and sources it if present. Configuration files
@@ -60,7 +60,7 @@ function tmux() {
   env SSH_AUTH_SOCK=$SOCK_SYMLINK tmux -u new -A -s "$SESSION_NAME"
 }
 
-# home
+# Home
 #
 # Handles the creation of or attachment to the "home" tmux session. Used as a
 # home base in the terminal for not taking, email, and other non-project
@@ -117,7 +117,7 @@ function home() {
 #  Git Workflows  #
 ###################
 
-# repo
+# Repo
 #
 # Helper to quickly navigate to repositories. Takes an argument of the target
 # repository name. No arguments will place you at the root of the repos directory.
@@ -182,7 +182,7 @@ repo() {
   fi
 }
 
-# md (mnemonic: MarkDown)
+# MD (mnemonic: MarkDown)
 #
 # Helper to quickly open the repository main documentation file.
 md() {
@@ -205,7 +205,7 @@ md() {
   "${VISUAL:-${EDITOR:-vi}}" "$target"
 }
 
-# root
+# Root
 #
 # Cd up till you reach the project root dir (git). When within a submodule it
 # will still move you to the parent repository root path.
@@ -241,7 +241,7 @@ function gcl() {
   repo_profiler
 }
 
-# gpb (mnemonic: Git Push Branch)
+# GPB (mnemonic: Git Push Branch)
 #
 # Pushes a branch to a remote. Attempts to open any returned URLs to create
 # a merge/pull request.
@@ -283,7 +283,7 @@ function gpb() {
   fi
 }
 
-# gcr (mnemonic: Git Commit Retry)
+# GCR (mnemonic: Git Commit Retry)
 #
 # Retry a commit with the last git commit message. Helpful if you wrote
 # something long and well composed but the commit failed for some reason.
@@ -309,7 +309,7 @@ function gcr() {
   esac
 }
 
-# gpl (mnemonic: Git PuLl)
+# GPL (mnemonic: Git PuLl)
 #
 # Pulls a branch from a remote.
 #
@@ -334,4 +334,45 @@ function gpl() {
   fi
 
   git pull $REMOTE $BRANCH
+}
+
+################
+#  Networking  #
+################
+
+
+###################
+#  Miscellaneous  #
+###################
+
+# Test Regex
+#
+# Test regular expressions interactively, ctrl-D to stop
+# Usage: testregex 'string to match against'
+# Enter regex patterns line by line to test matches
+function testregex() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: testregex 'string to match against'" >&2
+        echo "Enter regex patterns (Ctrl-D to stop)" >&2
+        return 1
+    fi
+
+    local target="$1"
+    echo "Testing against: '$target'"
+    echo "Enter regex patterns:"
+
+    while IFS= read -r pattern; do
+        # Skip empty lines
+        [ -n "$pattern" ] || continue
+
+        printf "\nPattern: %s\n" "$pattern"
+
+        # Handle invalid regex gracefully and show results clearly
+        if matches=$(printf '%s\n' "$target" | grep -Eoe "$pattern" 2>/dev/null); then
+            echo "Matches:"
+            printf '  %s\n' $matches
+        else
+            echo "No matches (or invalid pattern)"
+        fi
+    done
 }
