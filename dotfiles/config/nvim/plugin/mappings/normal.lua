@@ -64,8 +64,16 @@ vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal
 -- jump to production dotfile
 vim.keymap.set('n', '<Localleader>p', function()
   local cur_file = vim.fn.expand('%:~:.')
-  if string.match(cur_file, 'dotfiles/config/nvim') then
-    local prod_file = string.gsub(cur_file, 'dotfiles/config/nvim', '~/.config/nvim')
+  if string.match(cur_file, 'dotfiles/') then
+    -- Extract path after 'dotfiles/'
+    local relative_path = string.gsub(cur_file, '.*dotfiles/', '')
+
+    -- Split path and add dot to first component
+    local parts = vim.split(relative_path, '/', {plain = true})
+    parts[1] = '.' .. parts[1]
+
+    -- Construct production file path
+    local prod_file = '~/' .. table.concat(parts, '/')
     vim.cmd('tabnew ' .. prod_file)
   end
 end, {silent = true, remap = false})
@@ -73,8 +81,16 @@ end, {silent = true, remap = false})
 -- overwrite production file
 vim.keymap.set('n', '<Localleader>P', function()
   local cur_file = vim.fn.expand('%:~:.')
-  if string.match(cur_file, 'dotfiles/config/nvim') then
-    local prod_file = string.gsub(cur_file, 'dotfiles/config/nvim', '~/.config/nvim')
+  if string.match(cur_file, 'dotfiles/') then
+    -- Extract path after 'dotfiles/'
+    local relative_path = string.gsub(cur_file, '.*dotfiles/', '')
+
+    -- Split path and add dot to first component
+    local parts = vim.split(relative_path, '/', {plain = true})
+    parts[1] = '.' .. parts[1]
+
+    -- Construct production file path
+    local prod_file = '~/' .. table.concat(parts, '/')
     vim.cmd('!cp ' .. cur_file .. ' ' .. prod_file)
   end
 end, {silent = true, remap = false})
