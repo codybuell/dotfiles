@@ -39,13 +39,13 @@ fi
 tmux new-session -d -s "$SESSION" -n main -x "$(tput cols)" -y "$(tput lines)"
 
 # build out panes - left
-tmux split-window -t "${SESSION}:main.0" -h -l 45%
-tmux split-window -t "${SESSION}:main.1" -v -l 60%
+tmux split-window -t "${SESSION}:main.1" -h -l 45%
+tmux split-window -t "${SESSION}:main.2" -v -l 60%
 
 # run commands
-tmux send-keys -t "${SESSION}:main.0" "$CMDPANE1" Enter
-tmux send-keys -t "${SESSION}:main.1" "$CMDPANE2" Enter
-tmux send-keys -t "${SESSION}:main.2" "$CMDPANE3" Enter
+tmux send-keys -t "${SESSION}:main.1" "$CMDPANE1" Enter
+tmux send-keys -t "${SESSION}:main.2" "$CMDPANE2" Enter
+tmux send-keys -t "${SESSION}:main.3" "$CMDPANE3" Enter
 
 # attach to the new session, focus left pane
-tmux -u attach -t "${SESSION}:main.0"
+tmux -u attach -t "${SESSION}:main.1"
