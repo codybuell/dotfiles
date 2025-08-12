@@ -167,7 +167,6 @@ end
 
 local function custom_highlights()
   -- NOTE: Other key color override locations:
-  --   - after/plugin/nvim-treesitter.lua
   --   - after/plugin/mini.pick.lua
   --   - after/plugin/nvim-dap-ui.lua
   --   - after/plugin/nvim-dap.lua
@@ -201,7 +200,7 @@ local function custom_highlights()
     bold = true,
   })
 
-  -- define statusline no color
+  -- Define statusline no color
   pinnacle.link('StatusLineNC', 'StatusLineArrowRight')
 
   --------------------
@@ -328,31 +327,55 @@ local function custom_highlights()
     bg = pinnacle.bg('DiffDelete'),
   })
 
+  ----------------
+  --  Markdown  --
+  ----------------
+
+  -- Adjust treesitter markdown highlight groups
+  pinnacle.link('@markup.list.markdown', 'Identifier')
+  pinnacle.link('@markup.raw.markdown_inline', 'Float')
+  pinnacle.link('@markup.quote.markdown', 'Comment')
+
+  pinnacle.set('@markup.heading.1.markdown', pinnacle.embolden('Title'))
+  pinnacle.set('@markup.strong.markdown_inline', pinnacle.embolden('Tag'))
+  pinnacle.set('@punctuation.special.markdown', pinnacle.embolden('Comment'))
+  pinnacle.set('@markup.list.unchecked.markdown', pinnacle.embolden('Directory'))
+  pinnacle.set('@markup.list.checked.markdown', pinnacle.darken('Directory', 0.20))
+
+  -- Custom markdown highlight groups
+  pinnacle.link('buellInlineURL', 'htmlLink')
+  pinnacle.link('buellTodoText', 'Directory')
+
+  pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.30))
+
+  -- Darken conceal character text
+  pinnacle.set('Conceal', pinnacle.darken('Directory', 0.35))
+
   -------------
   ----  lsp  --
   -------------
 
-  ---- error
+  ---- Error
   --pinnacle.set('DiagnosticVirtualTextError', pinnacle.decorate('bold,italic', 'ModeMsg'))
   --pinnacle.set('DiagnosticFloatingError', {fg = pinnacle.fg('ErrorMsg')})
   --pinnacle.set('DiagnosticSignError', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('ErrorMsg')})
 
-  ---- warning
+  ---- Warning
   --pinnacle.set('DiagnosticVirtualTextWarning', pinnacle.decorate('bold,italic', 'Type'))
   --pinnacle.set('DiagnosticFloatingWarning', {fg = pinnacle.bg('Substitute')})
   --pinnacle.set('DiagnosticSignWarn', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.bg('Substitute')})
 
-  ---- information
+  ---- Information
   --pinnacle.set('DiagnosticVirtualTextInformation', pinnacle.decorate('bold,italic', 'Type'))
   --pinnacle.set('DiagnosticFloatingInformation', {fg = pinnacle.fg('Normal')})
   --pinnacle.set('DiagnosticSignInfo', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('Conceal')})
 
-  ---- hint
+  ---- Hint
   --pinnacle.set('DiagnosticVirtualTextHint', pinnacle.decorate('bold,italic', 'Type'))
   --pinnacle.set('DiagnosticFloatingHint', {fg = pinnacle.fg('Type')})
   --pinnacle.set('DiagnosticSignHint', {bg = pinnacle.bg('ColorColumn'), fg = pinnacle.fg('Type')})
 
-  ---- document_highlight
+  ---- Document_highlight
   --pinnacle.set('LspReferenceText', {fg = pinnacle.fg('Type')})
   --pinnacle.set('LspReferenceRead', {fg = pinnacle.fg('Type')})
   --pinnacle.set('LspReferenceWrite', {fg = pinnacle.fg('Type')})
@@ -361,14 +384,15 @@ local function custom_highlights()
   --  Miscellaneous  --
   ---------------------
 
-  -- parentheses match is rough by default
+  -- Parentheses match is rough by default
   pinnacle.set('MatchParen', {
     fg = pinnacle.bg('CurSearch'),
     bg = 'None',
     bold = true,
   })
 
-  -- indent blankline because it's linking to Whitespace hl group before it is being set here
+  -- Indent blankline because it's linking to Whitespace hl group before it is
+  -- being set here
   -- IblScope -> the active indent line
   -- IblIndent -> the inactive intend lines
   -- IblWhitespace -> the unwanted whitespace characters in the indent lines
@@ -376,26 +400,32 @@ local function custom_highlights()
   pinnacle.set('IblIndent', { fg = pinnacle.darken('Normal', 0.60).fg })
   pinnacle.set('IblWhitespace', { fg = pinnacle.darken('Normal', 0.50).fg })
 
-  -- -- listchar overrides to make them more subtle :h listchar for mapping to characters
+  -- Git commit over length
+  pinnacle.set('buellGitCommitOverLength', {
+    bg = 'NONE',
+    fg = pinnacle.fg('Error'),
+  })
+
+  -- -- Listchar overrides to make them more subtle :h listchar for mapping to characters
   -- pinnacle.set('SpecialKey', { fg = pinnacle.darken('Normal', 0.55).fg })
   -- pinnacle.set('NonText', { fg = pinnacle.darken('Normal', 0.55).fg })
   -- pinnacle.set('Whitespace', { fg = pinnacle.darken('Normal', 0.55).fg })
 
-  -- -- make floating windows match pmenu
+  -- -- Make floating windows match pmenu
   -- vim.cmd("highlight! link NormalFloat Pmenu")
   -- pinnacle.set('FloatBorder', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.darken('Normal', 0.3).fg})
 
-  -- -- make popup menu show current line selection
+  -- -- Make popup menu show current line selection
   -- pinnacle.set('PmenuSel', {
   --   bg = pinnacle.bg('Error'),
   --   fg = pinnacle.fg('CursorLine'),
   --   bold = true,
   -- })
 
-  -- -- make use of lsp hl group for signature help active param
+  -- -- Make use of lsp hl group for signature help active param
   -- pinnacle.set('LspSignatureActiveParameter', pinnacle.decorate('bold,italic', 'WarningMsg'))
 
-  -- used by nvim-cmp and others that want a darker border around popup menus
+  -- Used by nvim-cmp and others that want a darker border around popup menus
   pinnacle.link('PmenuDarker', 'FloatBorder')
 
   ------------------------

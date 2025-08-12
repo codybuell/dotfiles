@@ -166,35 +166,6 @@ local function extend_gitcommit()
   })
 end
 
---------------
---  Colors  --
---------------
-
-local pinnacle = require('wincent.pinnacle')
-
-pinnacle.set('buellGitCommitOverLength', {
-  bg = 'NONE',
-  fg = pinnacle.fg('Error'),
-})
-
--- adjust treesitter markdown highlight groups
-vim.cmd("highlight! link @markup.list.markdown Identifier")
-vim.cmd("highlight! link @markup.raw.markdown_inline Float")
-vim.cmd("highlight! link @markup.quote.markdown Comment")
-pinnacle.set('@markup.heading.1.markdown', pinnacle.embolden('Title'))
-pinnacle.set('@markup.strong.markdown_inline', pinnacle.embolden('Tag'))
-pinnacle.set('@punctuation.special.markdown', pinnacle.embolden('Comment'))
-pinnacle.set('@markup.list.unchecked.markdown', pinnacle.embolden('Directory'))
-pinnacle.set('@markup.list.checked.markdown', pinnacle.darken('Directory', 0.20))
-
--- custom markdown highlight groups
-vim.cmd("highlight! link buellInlineURL htmlLink")
-vim.cmd("highlight! link buellTodoText Directory")
-pinnacle.set('buellCompletedTodoText', pinnacle.darken('Directory', 0.30))
-
--- darken conceal character text
-pinnacle.set('Conceal', pinnacle.darken('Directory', 0.35))
-
 --------------------
 --  Autocommands  --
 --------------------
