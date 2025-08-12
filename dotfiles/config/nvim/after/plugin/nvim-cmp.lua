@@ -288,13 +288,13 @@ cmp.setup({
     ['<C-o>'] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
        luasnip.expand_or_jump()
-      elseif cmp.visible() then
-        local entry = cmp.get_selected_entry()
-        confirm(entry)
       elseif has_copilot_virtual_text() then
         -- accept up to and including the next white space to mimic zsh setup
         local resolved_key = vim.fn['copilot#Accept']('', '\\S*\\s*')
         vim.api.nvim_feedkeys(resolved_key, 'n', true)
+      elseif cmp.visible() then
+        local entry = cmp.get_selected_entry()
+        confirm(entry)
       else
         fallback()
       end
