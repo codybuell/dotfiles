@@ -152,12 +152,14 @@ color() {
       fi
 
       local CC=$(__extract color18 "$FILE")
+      local CS=$(__extract color03 "$FILE")
       if [ -n "$BG" -a -n "$CC" ]; then
         if [ -n "$TMUX" ]; then
           command tmux set -ga window-active-style "bg=#$BG"
           command tmux set -ga window-style "bg=#$CC"
           command tmux set -g pane-active-border-style "bg=#$CC"
           command tmux set -g pane-border-style "bg=#$CC"
+          command tmux set -g mode-style "fg=#$BG bg=#$CS"
         fi
 
         cat <<EOF > ~/.config/tmux/colors.conf
@@ -165,6 +167,7 @@ set -ga window-active-style "bg=#$BG"
 set -ga window-style "bg=#$CC"
 set -g pane-active-border-style "bg=#$CC"
 set -g pane-border-style "bg=#$CC"
+set -g mode-style "fg=#$BG bg=#$CS"
 EOF
       fi
     else
