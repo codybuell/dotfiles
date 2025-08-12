@@ -396,33 +396,6 @@ color.update = function()
 
   -- Call custom highlights function
   custom_highlights()
-
-  -- -- Apply custom highlights with a small delay to ensure theme is loaded
-  -- vim.defer_fn(function()
-  --   -- Load custom highlights
-  --   custom_highlights()
-
-  --   -- Set up persistence after first application
-  --   augroup('BuellCustomHighlights', function()
-  --     -- Reapply custom highlights after any colorscheme change
-  --     autocmd('ColorScheme', '*', function()
-  --       -- Small delay to ensure colorscheme is fully applied
-  --       vim.defer_fn(custom_highlights, 50)
-  --     end)
-
-  --     -- Also reapply when entering a buffer (catches plugin interference)
-  --     autocmd('BufEnter', '*', function()
-  --       -- Only if we have a current theme set
-  --       if vim.g.buell_current_theme then
-  --         custom_highlights()
-  --       end
-  --     end)
-  --   end)
-  -- end, 100)
-
-  -- print("Theme from file:", active_theme)
-  -- print("vim.g.colors_name:", vim.g.colors_name)
-  -- print("vim.g.buell_current_theme:", vim.g.buell_current_theme)
 end
 
 --------------------------------------------------------------------------------
