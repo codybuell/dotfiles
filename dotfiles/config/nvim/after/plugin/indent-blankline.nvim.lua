@@ -16,6 +16,9 @@ end
 ---------------------
 
 local config  = {
+  -- Reduce debounce for more responsive updates
+  debounce = 50,
+
   exclude = {
     filetypes = {
       -- defaults
@@ -31,7 +34,30 @@ local config  = {
       'markdown',
     }
   },
--- space_char_blankline = ' ',
+
+  -- Explicit scope configuration
+  scope = {
+    enabled = true,
+    show_start = true,
+    show_end = true,
+    show_exact_scope = false,
+    injected_languages = true,
+    -- Increase priority to ensure scope is visible
+    priority = 1024,
+  },
+
+  -- Explicit indent configuration for consistency
+  --   ▎   Solid left leaning pipe for spaces
+  --   ┊   Dotted line for tabs
+  --   ┆   Thin dotted line for tabs
+  --   ╎   Dashed vertical line for tabs
+  --   ┃   Thick solid line
+  indent = {
+    char = '┊',        -- When indenting with spaces
+    tab_char = '╎',    -- When indenting with tabs
+    smart_indent_cap = true,
+    priority = 1,
+  },
 }
 
 -----------

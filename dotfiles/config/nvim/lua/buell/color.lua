@@ -393,11 +393,11 @@ local function custom_highlights()
 
   -- Indent blankline because it's linking to Whitespace hl group before it is
   -- being set here
-  -- IblScope -> the active indent line
-  -- IblIndent -> the inactive intend lines
+  -- IblScope -> the active scope line (note scope is not the same as indent)
+  -- IblIndent -> the standard intend lines (not active scope)
   -- IblWhitespace -> the unwanted whitespace characters in the indent lines
   pinnacle.set('IblScope', pinnacle.brighten('NonText', 0.10))
-  pinnacle.set('IblIndent', { fg = pinnacle.darken('Normal', 0.60).fg })
+  pinnacle.set('IblIndent', { fg = pinnacle.darken('Normal', 0.50).fg })
   pinnacle.set('IblWhitespace', { fg = pinnacle.darken('Normal', 0.50).fg })
 
   -- Git commit over length
