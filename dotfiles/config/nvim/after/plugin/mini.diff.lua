@@ -21,4 +21,17 @@ minidiff.setup()
 --  Mappings  --
 ----------------
 
-vim.keymap.set('n', '<Leader>gd', ':lua MiniDiff.toggle_overlay()<CR>', {remap = false, silent = true})
+local augroup = require('buell.util.augroup')
+local autocmd = require('buell.util.autocmd')
+
+augroup('MiniDiffMapping', function()
+  autocmd('FileType', '*', function()
+    if vim.bo.filetype ~= 'codecompanion' then
+      vim.keymap.set('n', '<Leader>gd', ':lua MiniDiff.toggle_overlay()<CR>', {
+        buffer = true,
+        remap = false,
+        silent = true
+      })
+    end
+  end)
+end)
