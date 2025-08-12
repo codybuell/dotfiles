@@ -118,9 +118,16 @@ local function apply_unfocused_state()
     focus_state.has_focus = false
   end
 
+  local unfocused_bg = get_unfocused_bg()
+
   pinnacle.set('Normal', {
     fg = pinnacle.fg('Normal'),
-    bg = get_unfocused_bg(),
+    bg = unfocused_bg,
+  })
+
+  pinnacle.set('TabLineSel', {
+    fg = pinnacle.fg('TabLineSel'),
+    bg = unfocused_bg,
   })
 end
 
@@ -133,6 +140,11 @@ local function apply_focused_state()
   if focus_state.original_bg then
     pinnacle.set('Normal', {
       fg = pinnacle.fg('Normal'),
+      bg = focus_state.original_bg,
+    })
+
+    pinnacle.set('TabLineSel', {
+      fg = pinnacle.fg('TabLineSel'),
       bg = focus_state.original_bg,
     })
   else
