@@ -29,10 +29,27 @@ local function smart_chat_add()
     cmd = 'V'
   end
 
+  -- If we have an existing chat append to it, otherwise start a new one
   if chat and chat.last_chat and chat.last_chat() then
     return cmd .. '<CMD>CodeCompanionChat Add<CR>'
   else
-    return cmd .. '<CMD>CodeCompanionChat<CR><CR><CR>'
+    return cmd .. '<CMD>CodeCompanionChat<CR><C-\\><C-n>Go<Esc>o'
+  end
+end
+
+-- Smart Inline
+--
+-- Handle <leader>c mapping intelligently based on selection state.
+-- No selection: Start with current file context
+-- With selection: Use range-based CodeCompanion
+local function smart_inline()
+  local mode = vim.api.nvim_get_mode().mode
+
+  if mode == 'n' then
+    return ':CodeCompanion #{buffer} '
+  else
+    -- Visual mode - use range selection ('<,'> is automatically added)
+    return ":CodeCompanion "
   end
 end
 
@@ -48,7 +65,7 @@ function M.setup_keymaps()
 
   -- Core mappings
   vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true })
-  vim.keymap.set({'n', 'v'}, '<Leader>c', ':CodeCompanion ', { noremap = true, silent = false })
+  vim.keymap.set({'n', 'v'}, '<Leader>c', smart_inline, { noremap = true, silent = false, expr = true })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
   -- Documentation workflow mappings (check dap for conflicts if you use any of these)
