@@ -168,7 +168,6 @@ end
 local function custom_highlights()
   -- NOTE: Other key color override locations:
   --   - after/plugin/nvim-treesitter.lua
-  --   - after/plugin/mini.diff.lua
   --   - after/plugin/mini.pick.lua
   --   - after/plugin/nvim-dap-ui.lua
   --   - after/plugin/nvim-dap.lua
@@ -285,6 +284,50 @@ local function custom_highlights()
     bold = true,
   })
 
+  -----------------
+  --  Mini.Diff  --
+  -----------------
+
+  pinnacle.set('MiniDiffSignAdd', {
+    fg = pinnacle.brighten('DiffAdd', 0.35).bg,
+    bg = pinnacle.bg('SignColumn'),
+    -- bold = true,
+    italic = true,
+  })
+
+  pinnacle.set('MiniDiffSignChange', {
+    fg = pinnacle.brighten('DiffText', 0.35).bg,
+    bg = pinnacle.bg('SignColumn'),
+    -- bold = true,
+    italic = true,
+  })
+
+  pinnacle.set('MiniDiffSignDelete', {
+    fg = pinnacle.brighten('DiffDelete', 0.35).bg,
+    bg = pinnacle.bg('SignColumn'),
+    -- bold = true,
+    italic = true,
+  })
+
+  -- overlay highlights for code background, only change the background
+  -- toggled visibility with :lua MiniDiff.toggle_overlay() (mapped to <Leader>gd)
+  pinnacle.set('MiniDiffOverAdd', {
+    bg = pinnacle.bg('DiffAdd'),
+  })
+
+  pinnacle.set('MiniDiffOverChange', {
+    fg = pinnacle.bg('Search'),
+    bg = pinnacle.bg('DiffText'),
+  })
+
+  pinnacle.set('MiniDiffOverContext', {
+    bg = pinnacle.bg('DiffText'),
+  })
+
+  pinnacle.set('MiniDiffOverDelete', {
+    bg = pinnacle.bg('DiffDelete'),
+  })
+
   -------------
   ----  lsp  --
   -------------
@@ -371,6 +414,7 @@ end
 --------------------------------------------------------------------------------
 
 color.update = function()
+
   ------------------------------------
   --  Set Terminal Support & Theme  --
   ------------------------------------
