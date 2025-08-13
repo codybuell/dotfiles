@@ -103,16 +103,28 @@ lsp.check_unicode = function(bufnr)
   end
 end
 
--- Rename and Save
---
--- Run vim.lsp.buf.rename() which can affect multiple files, and then save all
--- silently. Resulting changes will show up in git status.
-lsp.rename_and_save = function()
-  -- call the rename function
-  vim.lsp.buf.rename()
-  -- silently save all buffers after rename
-  vim.cmd('silent! wa')
-end
+---- Rename and Save
+----
+---- Run vim.lsp.buf.rename() which can affect multiple files, and then save all
+---- silently. Resulting changes will show up in git status.
+--lsp.rename_and_save = function()
+--  -- call the rename function
+--  vim.lsp.buf.rename()
+
+--  local default_rename_handler = vim.lsp.handlers['textDocument/rename']
+
+--  vim.lsp.handlers['textDocument/rename'] = function(err, result, ctx, config)
+--    -- Call the original rename handler to apply edits
+--    default_rename_handler(err, result, ctx, config)
+
+--    -- After rename is applied, save modified buffers
+--    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+--      if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, 'modified') then
+--        vim.api.nvim_buf_call(buf, function() vim.cmd('write') end)
+--      end
+--    end
+--  end
+--end
 
 ---------------------------------------------------------------------------------
 --                                                                             --
@@ -177,7 +189,7 @@ local on_attach = function(client, bufnr)
     ['grI']        = '<cmd>lua vim.lsp.buf.incoming_calls()<CR>',           -- show incoming calls of the symbol
     ['grO']        = '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>',           -- show outgoing calls from the symbol
     ['grl']        = '<cmd>lua vim.lsp.codelens.run()<CR>',                 -- run code lens, show actions for location
-    ['grn']        = '<cmd>lua buell.lsp.rename_and_save()<CR>',            -- rename the symbol everywhere it exists
+    ['grn']        = '<cmd>lua vim.lsp.buf.rename()<CR>',                   -- rename the symbol everywhere it exists
     ['grr']        = '<cmd>lua vim.lsp.buf.references()<CR>',               -- show where symbol is used
     ['grt']        = '<cmd>lua vim.lsp.buf.type_definition()<CR>',          -- show type definition for symbol
     ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
@@ -231,8 +243,22 @@ end
 --                                                                             --
 ---------------------------------------------------------------------------------
 
--- register the lsp_status progress handler
+-- Register the lsp_status progress handler
 lsp_status.register_progress()
+
+-- Extend the default rename handler to save modified buffers after renaming
+local default_rename_handler = vim.lsp.handlers['textDocument/rename']
+vim.lsp.handlers['textDocument/rename'] = function(err, result, ctx, config)
+  -- Call the original rename handler to apply edits
+  default_rename_handler(err, result, ctx, config)
+
+  -- After rename is applied, save modified buffers
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, 'modified') then
+      vim.api.nvim_buf_call(buf, function() vim.cmd('write') end)
+    end
+  end
+end
 
 ---------------------------------------------------------------------------------
 --                                                                             --
