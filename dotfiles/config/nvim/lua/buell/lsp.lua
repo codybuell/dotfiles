@@ -103,6 +103,17 @@ lsp.check_unicode = function(bufnr)
   end
 end
 
+-- Rename and Save
+--
+-- Run vim.lsp.buf.rename() which can affect multiple files, and then save all
+-- silently. Resulting changes will show up in git status.
+lsp.rename_and_save = function()
+  -- call the rename function
+  vim.lsp.buf.rename()
+  -- silently save all buffers after rename
+  vim.cmd('silent! wa')
+end
+
 ---------------------------------------------------------------------------------
 --                                                                             --
 --  Overrides                                                                  --
@@ -153,19 +164,26 @@ local on_attach = function(client, bufnr)
   lsp_status.on_attach(client)
 
   -- lsp normal mode mappings
+  -- NOTE: these are only applied when the buffer is attached to an LSP server.
   local mappings = {
-    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',
-    ['gA']         = '<cmd>lua vim.lsp.buf.code_action()<CR>',
-    ['gr']         = '<cmd>lua vim.lsp.buf.references()<CR>',
-    ['gd']         = '<cmd>lua vim.lsp.buf.declaration()<CR>',
-    ['gD']         = '<cmd>lua vim.lsp.buf.implementation()<CR>',
-    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['t<c-]>']     = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>]']  = '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',                    -- show information for symbol
+    ['gra']        = '<cmd>lua vim.lsp.buf.code_action()<CR>',              -- show available code actions
+    ['grd']        = '<cmd>lua vim.lsp.buf.declaration()<CR>',              -- go to where the symbol is declared
+    ['grf']        = '<cmd>lua vim.lsp.buf.formatting()<CR>',               -- format the current buffer asynchronously
+    ['grF']        = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>', -- format the current buffer synchronously
+    ['grh']        = '<cmd>lua vim.lsp.buf.document_highlight()<CR>',       -- highlight symbol under cursor
+    ['grH']        = '<cmd>lua vim.lsp.buf.clear_references()<CR>',         -- clear symbol highlights
+    ['gri']        = '<cmd>lua vim.lsp.buf.implementation()<CR>',           -- go to where the symbol is implemented
+    ['grI']        = '<cmd>lua vim.lsp.buf.incoming_calls()<CR>',           -- show incoming calls of the symbol
+    ['grO']        = '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>',           -- show outgoing calls from the symbol
+    ['grl']        = '<cmd>lua vim.lsp.codelens.run()<CR>',                 -- run code lens, show actions for location
+    ['grn']        = '<cmd>lua buell.lsp.rename_and_save()<CR>',            -- rename the symbol everywhere it exists
+    ['grr']        = '<cmd>lua vim.lsp.buf.references()<CR>',               -- show where symbol is used
+    ['grt']        = '<cmd>lua vim.lsp.buf.type_definition()<CR>',          -- show type definition for symbol
+    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
+    ['t<c-]>']     = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',   -- go to where the symbol is defined in a new tab
+    ['<leader>u']  = '<cmd>lua buell.lsp.toggle_unicode_check()<CR>',       -- show/hide unicode diagnostics
     ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
-    ['<leader>f']  = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>',
-    ['<leader>rn'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-    ['<leader>u']  = '<cmd>lua buell.lsp.toggle_unicode_check()<CR>',
     [']g']         = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
     ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
   }
