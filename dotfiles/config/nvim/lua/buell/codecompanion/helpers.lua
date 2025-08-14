@@ -44,12 +44,27 @@ end
 -- With selection: Use range-based CodeCompanion
 local function smart_inline()
   local mode = vim.api.nvim_get_mode().mode
+  local has_snacks = pcall(require, 'snacks.input')
 
-  if mode == 'n' then
-    return ':CodeCompanion #{buffer} '
+  if has_snacks then
+    -- Use snacks input
+    if mode == 'n' then
+      vim.ui.input({ prompt = 'CodeCompanion: ' }, function(input)
+        if input and input ~= '' then
+          vim.cmd('CodeCompanion #{buffer} ' .. input)
+        end
+      end)
+    else
+      vim.ui.input({ prompt = 'CodeCompanion: ' }, function(input)
+        if input and input ~= '' then
+          vim.cmd("'<,'>CodeCompanion " .. input)
+        end
+      end)
+    end
   else
-    -- Visual mode - use range selection ('<,'> is automatically added)
-    return ":CodeCompanion "
+    -- Fallback to command line
+    local prefix = mode == 'n' and ':CodeCompanion #{buffer} ' or ':CodeCompanion '
+    vim.fn.feedkeys(prefix, 'n')
   end
 end
 
@@ -65,7 +80,7 @@ function M.setup_keymaps()
 
   -- Core mappings
   vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true })
-  vim.keymap.set({'n', 'v'}, '<Leader>c', smart_inline, { noremap = true, silent = false, expr = true })
+  vim.keymap.set({'n', 'v'}, '<Leader>c', smart_inline, { noremap = true, silent = true })
   vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
 
   -- Documentation workflow mappings (check dap for conflicts if you use any of these)

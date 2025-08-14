@@ -188,6 +188,7 @@ vim.cmd('packadd! vim-tmux-runner')         -- execute commands in tmux panes
 
 -- utilities
 vim.cmd('packadd! mini.nvim')               -- mini plugins collection
+vim.cmd('packadd! snacks.nvim')             -- a collection of useful utilities
 vim.cmd('packadd! plenary.nvim')            -- lua helpers
 vim.cmd('packadd! pinnacle')                -- color/highlight utility
 vim.cmd('packadd! ferret')                  -- improved multi-file search + helpers

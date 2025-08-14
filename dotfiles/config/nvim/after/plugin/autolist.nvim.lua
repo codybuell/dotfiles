@@ -103,9 +103,9 @@ augroup('BuellAutolist', function()
     vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", { buffer=true })
     vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>", { buffer=true })
 
-    -- cycle list types with dot-repeat
-    vim.keymap.set("n", "<leader>cn", require("autolist").cycle_next_dr, { expr=true, buffer=true })
-    vim.keymap.set("n", "<leader>cp", require("autolist").cycle_prev_dr, { expr=true, buffer=true })
+    -- -- cycle list types with dot-repeat
+    -- vim.keymap.set("n", "<leader>cn", require("autolist").cycle_next_dr, { expr=true, buffer=true })
+    -- vim.keymap.set("n", "<leader>cp", require("autolist").cycle_prev_dr, { expr=true, buffer=true })
 
     -- if you don't want dot-repeat
     -- vim.keymap.set("n", "<leader>cn", "<cmd>AutolistCycleNext<cr>")

@@ -339,6 +339,15 @@ local function custom_highlights()
     bg = pinnacle.bg('DiffDelete'),
   })
 
+  --------------
+  --  Snacks  --
+  --------------
+
+  pinnacle.link('SnacksInputIcon', 'Pmenu')
+  pinnacle.link('SnacksInputBorder', 'Pmenu')
+  pinnacle.set('SnacksInputTitle', {bg = 'None', fg = pinnacle.fg('Directory')})
+  -- SnacksInputPrompt links to SnacksInputTitle by default
+
   ----------------
   --  Markdown  --
   ----------------

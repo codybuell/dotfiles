@@ -220,3 +220,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
 	url = https://github.com/tinted-theming/tinted-nvim.git
 	ignore = dirty
+[submodule "dotfiles/config/nvim/pack/bundle/opt/snacks.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/snacks.nvim
+	url = https://github.com/folke/snacks.nvim.git
