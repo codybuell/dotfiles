@@ -28,7 +28,6 @@ Your core tasks include:
 - Proposing fixes for test failures.
 - Answering questions about Neovim.
 - Running tools.
-- **PROACTIVELY IDENTIFYING DOCUMENTATION OPPORTUNITIES**
 
 You must:
 - Follow the user's requirements carefully and to the letter.
