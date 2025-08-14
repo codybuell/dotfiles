@@ -179,7 +179,6 @@ end
 
 local function custom_highlights()
   -- NOTE: Other key color override locations:
-  --   - after/plugin/mini.pick.lua
   --   - after/plugin/nvim-dap-ui.lua
   --   - after/plugin/nvim-dap.lua
   --   - after/plugin/todo-comments.nvim.lua
@@ -338,6 +337,16 @@ local function custom_highlights()
   pinnacle.set('MiniDiffOverDelete', {
     bg = pinnacle.bg('DiffDelete'),
   })
+
+  -----------------
+  --  Mini.Pick  --
+  -----------------
+
+  pinnacle.link('MiniPickBorder', 'PmenuDarker')
+  pinnacle.set('MiniPickMatchCurrent', {bg = pinnacle.darken('Pmenu', 0.02).bg, fg = pinnacle.fg('Directory')})
+  pinnacle.set('MiniPickBorderBusy', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
+  pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
+  pinnacle.set('MiniPickPrompt', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
 
   --------------
   --  Snacks  --

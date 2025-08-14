@@ -258,15 +258,3 @@ vim.keymap.set('n', '<Leader>N', function()
   local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')
   minipick.builtin.grep_live({ tool = 'rg' }, { source = { cwd = notes_dir } })
 end, { silent = true })
-
---------------
---  Colors  --
---------------
-
-local pinnacle = require('wincent.pinnacle')
-
-vim.cmd("highlight! link MiniPickBorder PmenuDarker")
-pinnacle.set('MiniPickMatchCurrent', {bg = pinnacle.darken('Pmenu', 0.02).bg, fg = pinnacle.fg('Directory')})
-pinnacle.set('MiniPickBorderBusy', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
-pinnacle.set('MiniPickBorderText', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
-pinnacle.set('MiniPickPrompt', {bg = pinnacle.bg('Pmenu'), fg = pinnacle.fg('Directory')})
