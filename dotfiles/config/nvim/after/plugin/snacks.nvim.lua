@@ -58,7 +58,7 @@ snacks.setup({
   --------------------------------
   input = {
     enabled = true,
-    icon = "",
+    icon = "",
     win = {
       style = 'above_cursor',
     },
