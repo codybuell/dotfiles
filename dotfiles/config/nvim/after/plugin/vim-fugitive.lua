@@ -185,104 +185,65 @@ local git_push_with_mr = function(args)
     return
   end
 
-  -- Execute git push and capture all output
+  -- Execute git push using vim's built-in command execution for proper display
   local cmd = string.format("git push --progress %s %s", remote, branch)
-  local output = {}
-  local current_line = ""
 
-  local job_id = vim.fn.jobstart(cmd, {
-    on_stdout = function(_, data, _)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            table.insert(output, line)
-            -- Handle carriage returns by splitting and taking last part
-            local parts = vim.split(line, '\r')
-            if #parts > 1 then
-              current_line = parts[#parts]  -- Take the last part after \r
-            else
-              current_line = line
-            end
-            vim.api.nvim_echo({{current_line, "Normal"}}, false, {})
+  -- Use vim's built-in command execution for proper terminal-like display
+  vim.cmd("!" .. cmd)
+  local exit_code = vim.v.shell_error
+
+  if exit_code == 0 then
+    -- Capture output separately for MR link parsing
+    local output = vim.fn.system(cmd .. " 2>&1")
+
+    -- Parse output for MR link (matches bash awk pattern)
+    local mr_link = nil
+    local output_lines = {}
+    for line in output:gmatch("[^\r\n]+") do
+      table.insert(output_lines, line)
+    end
+
+    for i, line in ipairs(output_lines) do
+      -- Match the awk pattern: /(To )?(c|C)reate a (merge|pull) request/
+      if line:match("[Tt]o [Cc]reate a [Mm]erge [Rr]equest") or
+         line:match("[Tt]o [Cc]reate a [Pp]ull [Rr]equest") or
+         line:match("[Cc]reate a [Mm]erge [Rr]equest") or
+         line:match("[Cc]reate a [Pp]ull [Rr]equest") then
+        -- Get next line and extract second field (space-separated)
+        if output_lines[i + 1] then
+          local next_line = output_lines[i + 1]
+          local fields = {}
+          for field in next_line:gmatch("%S+") do
+            table.insert(fields, field)
+          end
+          if fields[2] then
+            mr_link = fields[2]
           end
         end
+        break
       end
-    end,
-    on_stderr = function(_, data, _)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            table.insert(output, line)
-            -- Handle carriage returns for progress output
-            local parts = vim.split(line, '\r')
-            if #parts > 1 then
-              current_line = parts[#parts]  -- Take the last part after \r
-            else
-              current_line = line
-            end
-            vim.api.nvim_echo({{current_line, "Normal"}}, false, {})
-          end
-        end
+    end
+
+    if mr_link and mr_link ~= "" then
+      -- Cross-platform URL opening (matches bash logic)
+      local open_cmd = nil
+      if vim.fn.executable("xdg-open") == 1 then
+        open_cmd = "xdg-open"
+      elseif vim.fn.executable("open") == 1 then
+        open_cmd = "open"
+      elseif vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
+        open_cmd = "cmd.exe /c start"
       end
-    end,
-    on_exit = function(_, exit_code, _)
-      if exit_code == 0 then
-        vim.api.nvim_echo({{"", "Normal"}}, false, {})  -- Final newline
 
-        -- Parse output for MR link (matches bash awk pattern)
-        local mr_link = nil
-        for i, line in ipairs(output) do
-          -- Match the awk pattern: /(To )?(c|C)reate a (merge|pull) request/
-          if line:match("[Tt]o [Cc]reate a [Mm]erge [Rr]equest") or
-             line:match("[Tt]o [Cc]reate a [Pp]ull [Rr]equest") or
-             line:match("[Cc]reate a [Mm]erge [Rr]equest") or
-             line:match("[Cc]reate a [Pp]ull [Rr]equest") then
-            -- Get next line and extract second field (space-separated)
-            if output[i + 1] then
-              local next_line = output[i + 1]
-              local fields = {}
-              for field in next_line:gmatch("%S+") do
-                table.insert(fields, field)
-              end
-              if fields[2] then
-                mr_link = fields[2]
-              end
-            end
-            break
-          end
-        end
-
-        if mr_link and mr_link ~= "" then
-          -- Cross-platform URL opening (matches bash logic)
-          local open_cmd = nil
-          if vim.fn.executable("xdg-open") == 1 then
-            open_cmd = "xdg-open"
-          elseif vim.fn.executable("open") == 1 then
-            open_cmd = "open"
-          elseif vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
-            open_cmd = "cmd.exe /c start"
-          end
-
-          if open_cmd then
-            vim.fn.jobstart(string.format("%s %s", open_cmd, vim.fn.shellescape(mr_link)), {
-              detach = true
-            })
-          else
-            vim.api.nvim_echo({{"Merge/Pull request URL: " .. mr_link, "Normal"}}, false, {})
-          end
-        end
+      if open_cmd then
+        vim.fn.jobstart(string.format("%s %s", open_cmd, vim.fn.shellescape(mr_link)), {
+          detach = true
+        })
+        print("Opening merge request: " .. mr_link)
       else
-        vim.api.nvim_echo({{"Git push failed with exit code: " .. exit_code, "ErrorMsg"}}, false, {})
+        print("Merge/Pull request URL: " .. mr_link)
       end
-    end,
-    stdout_buffered = false,
-    stderr_buffered = false,
-  })
-
-  if job_id == 0 then
-    vim.notify("Failed to start git push command", vim.log.levels.ERROR)
-  elseif job_id == -1 then
-    vim.notify("git command not found", vim.log.levels.ERROR)
+    end
   end
 end
 
