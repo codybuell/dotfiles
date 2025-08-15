@@ -37,7 +37,7 @@
 --    <leader>di      - Capture insights                                      --
 --    <leader>du      - Update context docs                                   --
 --    ga              - accept an inline edit                                 --
---    gr              - reject an inline edit                                      --
+--    gr              - reject an inline edit                                 --
 --                                                                            --
 --  Inline Workflow                                                           --
 --  ---------------                                                           --
