@@ -160,60 +160,50 @@ local smart_diff = function()
   end
 end
 
--- Open URL cross-platform
-local open_url = function(url)
-  local function is_wsl()
-    return vim.env.WSL_DISTRO_NAME ~= nil or vim.env.WSL_INTEROP ~= nil
-  end
-
-  if vim.fn.executable('xdg-open') == 1 then
-    vim.fn.system('xdg-open ' .. vim.fn.shellescape(url) .. ' &')
-  elseif vim.fn.executable('open') == 1 then
-    vim.fn.system('open ' .. vim.fn.shellescape(url))
-  elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 or is_wsl() then
-    vim.fn.system('cmd.exe /c start ' .. vim.fn.shellescape(url))
-  else
-    print("Merge/Pull request URL: " .. url)
-  end
-end
-
--- Extract and open MR link from git output
-local open_mr_link = function()
-  -- Get recent messages
-  local messages = vim.fn.execute('messages')
-  local lines = vim.split(messages, '\n')
-
-  -- Look for merge/pull request creation messages (search backwards)
-  for i = #lines, 1, -1 do
-    local line = lines[i]
-    if line:match('%s*[Tt]o [Cc]reate a [Mm]erge [Rr]equest') or
-       line:match('%s*[Tt]o [Cc]reate a [Pp]ull [Rr]equest') or
-       line:match('%s*[Cc]reate a [Mm]erge [Rr]equest') or
-       line:match('%s*[Cc]reate a [Pp]ull [Rr]equest') then
-      -- Look for URL in the next line
-      if i < #lines then
-        local url_line = lines[i + 1]
-        local url = url_line:match('%s*(https?://[^%s]*)')
-        if url then
-          open_url(url)
-          print("Opened: " .. url)
-          return
-        end
-      end
-    end
-  end
-end
-
--- Enhanced git push with MR link detection
+-- Enhanced git push (requires gpb shell function)
 local git_push_with_mr = function(args)
   args = args or ""
-  vim.cmd('Git push ' .. args)
+  local cmd = 'gpb ' .. args
 
-  -- Wait a moment for output to be captured, then check for MR links
-  vim.defer_fn(function()
-    open_mr_link()
-  end, 500)
+  print("Executing: " .. cmd)
+
+  local job_id = vim.fn.jobstart(cmd, {
+    on_stdout = function(_, data, _)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            print(line)
+          end
+        end
+      end
+    end,
+    on_stderr = function(_, data, _)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.notify(line, vim.log.levels.WARN)
+          end
+        end
+      end
+    end,
+    on_exit = function(_, exit_code, _)
+      if exit_code == 0 then
+        print("gpb completed successfully")
+      else
+        vim.notify("gpb failed with exit code: " .. exit_code, vim.log.levels.ERROR)
+      end
+    end,
+    stdout_buffered = false,
+    stderr_buffered = false,
+  })
+
+  if job_id == 0 then
+    vim.notify("Failed to start gpb command", vim.log.levels.ERROR)
+  elseif job_id == -1 then
+    vim.notify("gpb command not found", vim.log.levels.ERROR)
+  end
 end
+
 ---------------------
 --  Configuration  --
 ---------------------
@@ -236,7 +226,6 @@ vim.keymap.set('n', '<Leader>gs', ':Git<CR>:40wincmd_<CR>', {remap = false, sile
 vim.keymap.set('n', '<Leader>gb', ':Git blame<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gp', function() git_push_with_mr() end, {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gP', function() git_push_with_mr(vim.fn.input('Git push args: ')) end, {remap = false, silent = false})
-vim.keymap.set('n', '<Leader>gm', open_mr_link, {remap = false, silent = true})
 
 -- diffing flows (gl = log for file, gL = log for all, gD = smart diff) note <Space>gd is used with minidiff
 vim.keymap.set('n', '<Leader>gl', ':silent! 0Gclog!<CR>:bot copen<CR>', {remap = false, silent = true})
@@ -247,6 +236,3 @@ vim.keymap.set('n', '<Leader>gD', smart_diff, {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gc', ':Git checkout<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>gg', ':Ggrep<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>ge', ':Gedit<CR>', {remap = false, silent = true})
-
--- open MR link command
-vim.api.nvim_create_user_command('GitOpenMR', open_mr_link, {})
