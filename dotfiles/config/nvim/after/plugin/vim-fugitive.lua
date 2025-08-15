@@ -160,18 +160,41 @@ local smart_diff = function()
   end
 end
 
--- Enhanced git push (requires gpb shell function)
+-- Enhanced git push with MR link opening (converted from gpb shell function)
 local git_push_with_mr = function(args)
-  args = args or ""
-  local cmd = 'gpb ' .. args
+  -- Parse arguments similar to bash gpb function
+  local parts = {}
+  if args and args ~= "" then
+    for part in args:gmatch("%S+") do
+      table.insert(parts, part)
+    end
+  end
 
-  print("Executing: " .. cmd)
+  local remote = "origin"
+  local branch_result = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+  local branch = branch_result:gsub("\n", "")
+
+  -- Parse arguments like bash version
+  if #parts == 1 then
+    branch = parts[1]
+  elseif #parts == 2 then
+    remote = parts[1]
+    branch = parts[2]
+  elseif #parts > 2 then
+    vim.notify("Usage: git push [remote] [branch] or [branch]", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Execute git push and capture all output
+  local cmd = string.format("git push --progress %s %s", remote, branch)
+  local output = {}
 
   local job_id = vim.fn.jobstart(cmd, {
     on_stdout = function(_, data, _)
       if data then
         for _, line in ipairs(data) do
           if line ~= "" then
+            table.insert(output, line)
             print(line)
           end
         end
@@ -181,16 +204,61 @@ local git_push_with_mr = function(args)
       if data then
         for _, line in ipairs(data) do
           if line ~= "" then
-            vim.notify(line, vim.log.levels.WARN)
+            table.insert(output, line)
+            -- Git push progress goes to stderr, so print it normally
+            print(line)
           end
         end
       end
     end,
     on_exit = function(_, exit_code, _)
       if exit_code == 0 then
-        print("gpb completed successfully")
+        print("Git push completed successfully")
+
+        -- Parse output for MR link (matches bash awk pattern)
+        local mr_link = nil
+        for i, line in ipairs(output) do
+          -- Match the awk pattern: /(To )?(c|C)reate a (merge|pull) request/
+          if line:match("[Tt]o [Cc]reate a [Mm]erge [Rr]equest") or
+             line:match("[Tt]o [Cc]reate a [Pp]ull [Rr]equest") or
+             line:match("[Cc]reate a [Mm]erge [Rr]equest") or
+             line:match("[Cc]reate a [Pp]ull [Rr]equest") then
+            -- Get next line and extract second field (space-separated)
+            if output[i + 1] then
+              local next_line = output[i + 1]
+              local fields = {}
+              for field in next_line:gmatch("%S+") do
+                table.insert(fields, field)
+              end
+              if fields[2] then
+                mr_link = fields[2]
+              end
+            end
+            break
+          end
+        end
+
+        if mr_link and mr_link ~= "" then
+          -- Cross-platform URL opening (matches bash logic)
+          local open_cmd = nil
+          if vim.fn.executable("xdg-open") == 1 then
+            open_cmd = "xdg-open"
+          elseif vim.fn.executable("open") == 1 then
+            open_cmd = "open"
+          elseif vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
+            open_cmd = "cmd.exe /c start"
+          end
+
+          if open_cmd then
+            vim.fn.jobstart(string.format("%s %s", open_cmd, vim.fn.shellescape(mr_link)), {
+              detach = true
+            })
+          else
+            print("Merge/Pull request URL: " .. mr_link)
+          end
+        end
       else
-        vim.notify("gpb failed with exit code: " .. exit_code, vim.log.levels.ERROR)
+        vim.notify("Git push failed with exit code: " .. exit_code, vim.log.levels.ERROR)
       end
     end,
     stdout_buffered = false,
@@ -198,9 +266,9 @@ local git_push_with_mr = function(args)
   })
 
   if job_id == 0 then
-    vim.notify("Failed to start gpb command", vim.log.levels.ERROR)
+    vim.notify("Failed to start git push command", vim.log.levels.ERROR)
   elseif job_id == -1 then
-    vim.notify("gpb command not found", vim.log.levels.ERROR)
+    vim.notify("git command not found", vim.log.levels.ERROR)
   end
 end
 
