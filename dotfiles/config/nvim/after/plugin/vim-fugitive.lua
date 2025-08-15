@@ -160,88 +160,53 @@ local smart_diff = function()
   end
 end
 
--- Enhanced git push with MR link opening (converted from gpb shell function)
-local git_push_with_mr = function(args)
-  -- Parse arguments similar to bash gpb function
-  local parts = {}
-  if args and args ~= "" then
-    for part in args:gmatch("%S+") do
-      table.insert(parts, part)
-    end
+-- Git Push with MR
+--
+-- Wraps the provided `git push` command and automatically opens any
+-- merge/pull request. Requires Neovim ≥0.10 for `vim.ui.open`.
+local function git_push_with_mr(...)
+  local args = {...}
+  local arg_string = table.concat(args, " ")
+
+  -- Execute git push with redirect
+  vim.cmd("redir! > /tmp/lastgitpush")
+  if #args > 0 then
+    vim.cmd("Git push " .. arg_string)
+  else
+    vim.cmd("Git push")
   end
+  vim.cmd("redir END")
 
-  local remote = "origin"
-  local branch_result = vim.fn.system("git rev-parse --abbrev-ref HEAD")
-  local branch = branch_result:gsub("\n", "")
-
-  -- Parse arguments like bash version
-  if #parts == 1 then
-    branch = parts[1]
-  elseif #parts == 2 then
-    remote = parts[1]
-    branch = parts[2]
-  elseif #parts > 2 then
-    vim.notify("Usage: git push [remote] [branch] or [branch]", vim.log.levels.ERROR)
+  -- Parse for MR link
+  local file = io.open("/tmp/lastgitpush", "r")
+  if not file then
+    print("Could not read git push output")
     return
   end
 
-  -- Execute git push using vim's built-in command execution for proper display
-  local cmd = string.format("git push --progress %s %s", remote, branch)
+  local lines = {}
+  for line in file:lines() do
+    table.insert(lines, line)
+  end
+  file:close()
 
-  -- Use vim's built-in command execution for proper terminal-like display
-  vim.cmd("!" .. cmd)
-  local exit_code = vim.v.shell_error
+  for i, line in ipairs(lines) do
+    local lower_line = line:lower()
+    if lower_line:match("create a merge request") or
+      lower_line:match("create a pull request") or
+      lower_line:match("to create a merge request") or
+      lower_line:match("to create a pull request") then
 
-  if exit_code == 0 then
-    -- Capture output separately for MR link parsing
-    local output = vim.fn.system(cmd .. " 2>&1")
-
-    -- Parse output for MR link (matches bash awk pattern)
-    local mr_link = nil
-    local output_lines = {}
-    for line in output:gmatch("[^\r\n]+") do
-      table.insert(output_lines, line)
-    end
-
-    for i, line in ipairs(output_lines) do
-      -- Match the awk pattern: /(To )?(c|C)reate a (merge|pull) request/
-      if line:match("[Tt]o [Cc]reate a [Mm]erge [Rr]equest") or
-         line:match("[Tt]o [Cc]reate a [Pp]ull [Rr]equest") or
-         line:match("[Cc]reate a [Mm]erge [Rr]equest") or
-         line:match("[Cc]reate a [Pp]ull [Rr]equest") then
-        -- Get next line and extract second field (space-separated)
-        if output_lines[i + 1] then
-          local next_line = output_lines[i + 1]
-          local fields = {}
-          for field in next_line:gmatch("%S+") do
-            table.insert(fields, field)
-          end
-          if fields[2] then
-            mr_link = fields[2]
-          end
+      if i < #lines then
+        local next_line = lines[i + 1]
+        local fields = {}
+        for field in next_line:gmatch("%S+") do
+          table.insert(fields, field)
         end
-        break
-      end
-    end
-
-    if mr_link and mr_link ~= "" then
-      -- Cross-platform URL opening (matches bash logic)
-      local open_cmd = nil
-      if vim.fn.executable("xdg-open") == 1 then
-        open_cmd = "xdg-open"
-      elseif vim.fn.executable("open") == 1 then
-        open_cmd = "open"
-      elseif vim.env.WSL_DISTRO_NAME or vim.env.WSL_INTEROP then
-        open_cmd = "cmd.exe /c start"
-      end
-
-      if open_cmd then
-        vim.fn.jobstart(string.format("%s %s", open_cmd, vim.fn.shellescape(mr_link)), {
-          detach = true
-        })
-        print("Opening merge request: " .. mr_link)
-      else
-        print("Merge/Pull request URL: " .. mr_link)
+        if fields[2] then
+          vim.ui.open(fields[2])
+          return
+        end
       end
     end
   end
