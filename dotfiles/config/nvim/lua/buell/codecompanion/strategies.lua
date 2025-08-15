@@ -43,10 +43,21 @@ M.chat = {
   },
   keymaps = {
     send = {
-      modes = { n = "<Localleader>s", i = "<Localleader>s" },
+      modes = {
+        n = "<Localleader>s",
+        i = "<Localleader>s",
+      },
     },
     close = {
-      modes = { n = "<Localleader>q", i = "<C-c>" },
+      modes = {
+        n = "<Localleader>q",
+        i = "<C-c>",
+      },
+    },
+    auto_tool_mode = {
+      modes = {
+        n = "<Localleader>T",
+      },
     },
   },
   slash_commands = {
@@ -55,13 +66,36 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-b>",
-          n = { "<C-b>", "gb" },
+          n = "<Leader>b",
         },
       },
     },
-    ["help"] = { opts = { provider = "mini_pick" } },
-    ["file"] = { opts = { provider = "mini_pick" } },
-    ["symbols"] = { opts = { provider = "mini_pick" } },
+    ["help"] = {
+      opts = { provider = "mini_pick" },
+      keymaps = {
+        modes = {
+          i = "<C-h>",
+          n = "<Leader>h",
+        },
+      },
+    },
+    ["file"] = {
+      opts = { provider = "mini_pick" },
+      keymaps = {
+        modes = {
+          i = "<C-f>",
+          n = "<Leader>t",
+        },
+      },
+    },
+    ["symbols"] = {
+      opts = { provider = "mini_pick" },
+      keymaps = {
+        modes = {
+          n = "<Leader>s",
+        },
+      },
+    },
     ["git_files"] = {
       description = "List git files",
       callback = function(chat)

@@ -27,17 +27,17 @@
 --  n:           how many completions (responses) the model should            --
 --               generate per prompt                                          --
 --                                                                            --
---  Quick Keys:                                                               --
---    gS         - Show copilot usage stats                                   --
---    gta        - Toggle auto tool mode                                      --
---    gd         - Debug the chat buffer, show full chat history table        --
---    <leader>c  - CodeCompanion command prompt                               --
---    <leader>a  - CodeCompanion actions menu                                 --
---    <leader>dr - Review documentation                                       --
---    <leader>di - Capture insights                                           --
---    <leader>du - Update context docs                                        --
---    ga         - accept an inline edit                                      --
---    gr         - reject an inline edit                                      --
+--  Quick Ref: (see lua/buell/codecompanion/[helpers|strategies].lua for all) --
+--    gS              - Show copilot usage stats                              --
+--    <localleader>T  - Toggle auto tool mode                                 --
+--    gd              - Debug the chat buffer, show full chat history table   --
+--    <leader>c       - CodeCompanion command prompt                          --
+--    <leader>a       - CodeCompanion actions menu                            --
+--    <leader>dr      - Review documentation                                  --
+--    <leader>di      - Capture insights                                      --
+--    <leader>du      - Update context docs                                   --
+--    ga              - accept an inline edit                                 --
+--    gr              - reject an inline edit                                      --
 --                                                                            --
 --  Inline Workflow                                                           --
 --  ---------------                                                           --
