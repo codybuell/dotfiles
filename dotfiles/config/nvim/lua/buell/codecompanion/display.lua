@@ -109,6 +109,7 @@ M.chat = {
       signcolumn = "no",
       spell = false,
       wrap = true,
+      scrolloff = 4,
     },
   },
 
