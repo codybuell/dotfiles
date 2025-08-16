@@ -186,4 +186,54 @@ vim.defer_fn(function()
   -- After codecompanion setup, run overrides
   helpers.mini_pick_action_menu()
 
+  -- Resize the CodeCompanion window if needed
+  local augroup = buell.util.augroup
+  local autocmd = buell.util.autocmd
+
+  augroup('BuellCodeCompanionResize', function()
+    autocmd('BufWinEnter', '*', function()
+      if vim.bo.filetype ~= 'codecompanion' then
+        return
+      end
+
+      -- Debug info
+      local win_count = vim.fn.winnr('$')
+      local current_win = vim.api.nvim_get_current_win()
+      local current_width = vim.api.nvim_win_get_width(current_win)
+      local columns = vim.o.columns
+
+      -- Only proceed if we have exactly 2 windows
+      if win_count ~= 2 then
+        return
+      end
+
+      -- If width suggests vertical split
+      if current_width < (columns * 0.8) then
+        -- Go to previous window and verify we switched
+        vim.cmd('wincmd p')
+        local prev_win = vim.api.nvim_get_current_win()
+
+        -- Ensure we actually switched windows
+        if prev_win == current_win then
+          return
+        end
+
+        local prev_width = vim.api.nvim_win_get_width(prev_win)
+
+        -- Resize to 80 characters if not already
+        local target_width = 80 + buell.util.gutter_width() + 1
+        local success, _ = pcall(function()
+          if prev_width ~= target_width then
+            vim.api.nvim_win_set_width(prev_win, target_width)
+          end
+        end)
+
+        -- Return to codecompanion window
+        if success then
+          vim.api.nvim_set_current_win(current_win)
+        end
+      end
+    end)
+  end)
+
 end, 100)
