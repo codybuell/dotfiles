@@ -192,13 +192,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
-# Key bindings for enhanced history search
-bindkey "^P" history-beginning-search-backward-end          # Ctrl+P
-bindkey "^N" history-beginning-search-forward-end           # Ctrl+N
-
-# Pattern-based incremental search (supports patterns like a*b)
-bindkey "^R" history-incremental-pattern-search-backward    # Ctrl+R
-bindkey "^S" history-incremental-pattern-search-forward     # Ctrl+S
+# See zsh/config/04-bindings.zsh for keybindings
 
 ################################################################################
 ##                                                                            ##
@@ -224,6 +218,10 @@ zstyle ':completion:*' list-colors ''
 
 # Group completions by type/source
 zstyle ':completion:*' group-name ''
+
+# Allow stacking -i and -t options like -it and still support completion
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Configure completion matching rules
 #   `'m:{[:lower:][:upper:]}={[:upper:][:lower:]}'`: Case-insensitive matching

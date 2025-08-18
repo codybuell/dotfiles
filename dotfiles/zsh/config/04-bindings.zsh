@@ -109,6 +109,14 @@ fi
 bindkey "\e[A" up-history         # Up arrow
 bindkey "\e[B" down-history       # Down arrow
 
+# Key bindings for enhanced history search
+bindkey "^P" history-beginning-search-backward-end          # Ctrl+P
+bindkey "^N" history-beginning-search-forward-end           # Ctrl+N
+
+# Pattern-based incremental search (supports patterns like a*b)
+bindkey "^R" history-incremental-pattern-search-backward    # Ctrl+R
+bindkey "^S" history-incremental-pattern-search-forward     # Ctrl+S
+
 # Character and word deletion
 bindkey '^?' backward-delete-char  # Backspace
 bindkey '^H' backward-delete-char  # Ctrl+h
