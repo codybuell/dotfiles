@@ -121,7 +121,7 @@ local function extend_markdown()
       \ contains=buellInlineURL
 
     " completed todo items `- [x] text`
-    syn match buellCompletedTodo      /\v^\s*-\s\[[xX×]\]\s.*$/
+    syn match buellCompletedTodo /\v^\s*-\s\[[xX×]\]\s.*$/
     syn region buellCompletedTodoText
       \ start=/\v\[[xX×]\]\s/
       \ end=/$/
@@ -137,7 +137,7 @@ local function extend_markdown()
       \ contained
       \ containedin=buellCodeFences
       \ conceal
-      \ cchar=≋
+      \ cchar=󰅩
 
     " attempt to not conceal emojis as they are flakey with conceallevel=2
     " conceallevel=1 addresses the issue but docs are less readable
