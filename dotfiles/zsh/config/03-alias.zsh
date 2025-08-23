@@ -31,6 +31,9 @@ fi
 # use gsed for consistent development
 alias sed=gsed
 
+# change term when ssh'ing
+alias ssh="TERM=xterm-256color ssh"
+
 #######################
 #  Vim Muscle Memory  #
 #######################
