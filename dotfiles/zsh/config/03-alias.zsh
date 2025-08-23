@@ -95,18 +95,18 @@ fi
 ###################
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
-	alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
-	alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
-	alias finder='open .'
+  alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+  alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+  alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
+  alias finder='open .'
 fi
 
 ####################
 #  Global Aliases  #
 ####################
 
-# work at any position within the command line
-[ `echo $0` == '-zsh' ] && {
+# Work at any position within the command line
+if [[ "$0" == "-zsh" ]]; then
   # mnemonic: "[G]rep"
   alias -g G="|grep"
   # mnemonic: "[H]ead"
@@ -115,7 +115,7 @@ fi
   alias -g J="|jq"
   # mnemonic: "[L]ess"
   alias -g L="|less"
-}
+fi
 
 ###################
 #  Miscellaneous  #
