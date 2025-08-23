@@ -358,6 +358,59 @@ function extip() {
   /usr/bin/dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/[^0-9.]//g'
 }
 
+# Ping Sweep
+#
+# Ping a range of IPs: pingsweep 10.10.1 1..50
+function pingsweep() {
+  #trap "exit" INT
+  for i in $(eval echo "{$2}"); do
+    ping -noq -c 1 -t 1 -i 0.1 ${1}.${i} > /dev/null
+    echo -e "${1}.${i}\t`[[ $? == 0 ]] && echo up || echo down`"
+  done
+}
+
+#################
+#  AWS Helpers  #
+#################
+
+# EC2 LS
+#
+# List out EC2 instances for the AWS account you are currently authenticated
+# against.
+ec2ls() {
+  if [ ! -z ${1} ]; then
+    REGION="--region ${1}"
+  fi
+  aws ec2 describe-instances --query \
+  "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,Status:State.Name,ID:InstanceId,AZ:Placement.AvailabilityZone,Key:KeyName,Type:InstanceType,Launched:LaunchTime}" \
+  --output table $(echo ${REGION})
+}
+
+# RM Buckets
+#
+# Helper to remove S3 buckets. Provide a pattern to match against. Will Empty
+# then delete the matched buckets after confirmation.
+rmbuckets() {
+  pattern=$1
+  for b in $(aws s3 ls | grep $pattern | awk '{print $3}'); do
+    # prompt to confirm
+    echo -n "Delete bucket $b? [y/n] "
+    read -r confirmation
+    if [[ $confirmation =~ ^[Yy]$ ]]; then
+      echo "emptying bucket $b"
+      aws s3 rm --recursive --quiet s3://$b/
+      aws s3api list-object-versions --bucket $b --output text | grep "DELETEMARKERS" | while read obj
+      do
+        KEY=$(echo $obj| awk '{print $3}')
+        VERSION_ID=$(echo $obj | awk '{print $5}')
+        aws s3api delete-object --bucket $b --key $KEY --version-id $VERSION_ID
+      done
+      aws s3api delete-bucket --bucket $b
+      echo "deleted bucket $b"
+    fi
+  done
+}
+
 ###################
 #  Miscellaneous  #
 ###################
@@ -456,4 +509,186 @@ function venv() {
     echo ".venv" >> .gitignore
   fi
   direnv allow
+}
+
+# RDP
+#
+# Wrapper for xfreedesktop/rdesktop to RDP into target instances.
+# Usage: rdp user@domain host
+rdp() {
+
+  RDP_CLIENT='rdesktop'
+  RDP_USER=`echo $1 | sed 's/\@.*$//'`
+  RDP_DOMAIN=`echo $1 | sed 's/^.*\@//;s/\..*$//'`
+  RDP_HOST=$2
+  RDP_GEOMETRY='1920x1300'
+
+  case $RDP_CLIENT in
+    rdesktop )
+      # -D removes the window decorations for the session, no more menu bar taking up space
+      # -K lets you pass shortcuts back to the primary host, so you can switch workspaces
+      # -b use bitmaps, slower to start but better visually
+      # -P cache the bitmaps to reduce network traffic and improve performance
+      # -g your screens res, minus the os menu bar...
+      # -a your bit depth
+      # -p '-' to prompt for password
+      rdesktop -DKbP -g ${RDP_GEOMETRY} -a 24 -d ${RDP_DOMAIN} -u ${RDP_USER} -p - ${RDP_HOST}
+      ;;
+    xfreerdp )
+      # -K try not to mangle host os keyboard bindings
+      # -z compression
+      # -g set a geometry
+      # --plugin cliprdr allow clipboard sharing
+      # -x 0x80 font smoothing over lan connection
+      xfreerdp -K --plugin cliprdr -x 0x80 -g ${RDP_GEOMETRY} -u ${RDP_USER} -d ${RDP_DOMAIN} ${RDP_HOST}:3389
+      ;;
+  esac
+}
+
+# Repo Check
+#
+# Runs through all git repositories and provides a status. Helpful to identify
+# dirty repos.
+function repocheck() {
+
+  # get the current working directory
+  CWD=$(pwd)
+
+  # move into the repos root
+  cd {{ Repos }}
+
+  # build an array of all git repos found
+  REPOS=($(find . -type d -name .git | sed 's/\.git$//'))
+
+  # print out some column headers
+  echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-80s %s %s\n", $1, $2, $3}'
+
+  # loop through all repos in Repos path
+  for i in ${REPOS[@]}; do
+    cd {{ Repos }}/$i > /dev/null 2>&1
+    git status > /dev/null 2>&1
+    if [ $? -gt 0 ]; then
+      printf "$i \033[1;30mnot~a~repo\033[0;m" | \
+      awk '{printf "%-80s %s\n", $1, $2}' | \
+      sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
+      continue
+    else
+      LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m")
+      if [ `git remote -v | wc -l` -lt 1 ]; then
+        RSTAT=$(printf "\033[1;30morphaned\033[0;m")
+      else
+        git fetch > /dev/null 2>&1
+        LOCAL=$(git rev-parse @ 2> /dev/null)
+        git rev-parse @{u} > /dev/null 2>&1
+        if [ $? -gt 0 ]; then
+          git branch --set-upstream-to=origin/master master > /dev/null 2>&1
+        fi
+        REMOTE=$(git rev-parse @{u} 2> /dev/null)
+        BASE=$(git merge-base @ @{u} 2> /dev/null)
+        if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then
+          RSTAT=$(printf "\033[0;32mcurrent\033[0;m")
+        elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then
+          RSTAT=$(printf "\033[0;31mbehind\033[0;m")
+        elif [ $REMOTE = $BASE ]; then
+          RSTAT=$(printf "\033[1;33mahead\033[0;m")
+        else
+          RSTAT=$(printf "\033[0;33mdiverged\033[0;m")
+        fi
+      fi
+      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-80s %s\n", $1, $2}' | sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
+    fi
+  done
+
+  # drop back into the working dir
+  cd $CWD
+
+}
+
+# Regex Move
+#
+# Rename files using sed-style regex patterns.
+#
+# Usage: regmv [OPTIONS] 'regex' file(s)
+#   -n, --dry-run        Preview changes without renaming
+#   -q, --quiet          Suppress output
+#   --no-interactive     Don't prompt before overwriting
+#   -h, --help           Show detailed help
+#
+# Regex format: '/find/replace/[flags]'
+# Example: regmv '/\.txt$/\.md/' *.txt
+#          regmv -n '/IMG_/Photo_/' *.jpg  # dry run
+regmv() {
+    local dry_run=false
+    local verbose=true
+    local interactive=true
+    local regex=""
+    local files=()
+
+    # Parse options (same as before)
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -n|--dry-run) dry_run=true; shift ;;
+            -q|--quiet) verbose=false; shift ;;
+            --no-interactive) interactive=false; shift ;;
+            -h|--help)
+                echo "Usage: regmv [OPTIONS] 'regex' file(s)"
+                echo "Rename files using sed-style regex patterns"
+                return 0
+                ;;
+            *)
+                if [[ -z "$regex" ]]; then
+                    regex="$1"
+                else
+                    files+=("$1")
+                fi
+                shift
+                ;;
+        esac
+    done
+
+    # Validation (same as before)
+    if [[ -z "$regex" ]] || [[ ${#files[@]} -eq 0 ]]; then
+        echo "Error: Missing regex pattern or files" >&2
+        return 1
+    fi
+
+    local changes_made=0
+    local errors=0
+    local newname  # Declare once outside the loop
+
+    # Process each file
+    for file in "${files[@]}"; do
+        [[ ! -e "$file" ]] && continue
+
+        newname=$(echo "$file" | sed "s${regex}g")
+        [[ "$newname" == "$file" ]] && continue
+        [[ -z "$newname" ]] && continue
+
+        if [[ "$dry_run" == true ]]; then
+            [[ "$verbose" == true ]] && printf "\033[33m%s\033[0m  →  \033[32m%s\033[0m\n" "$file" "$newname"
+            ((changes_made++))
+        else
+            local mv_args=()
+            [[ "$interactive" == true ]] && mv_args+=("-i")
+            mv_args+=("$file" "$newname")
+
+            if mv "${mv_args[@]}"; then
+                [[ "$verbose" == true ]] && printf "\033[36m%s\033[0m  →  \033[32m%s\033[0m\n" "$file" "$newname"
+                ((changes_made++))
+            else
+                echo "Error: Failed to rename '$file' to '$newname'" >&2
+                ((errors++))
+            fi
+        fi
+    done
+
+    [[ $changes_made -gt 0 || $errors -gt 0 ]] && echo
+    if [[ "$dry_run" == true ]]; then
+        echo "Dry run: $changes_made files would be renamed"
+    elif [[ $changes_made -gt 0 ]]; then
+        echo "Successfully renamed $changes_made files"
+    fi
+
+    [[ $errors -gt 0 ]] && echo "Encountered $errors errors" >&2
+    return $errors
 }
