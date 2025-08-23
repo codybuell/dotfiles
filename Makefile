@@ -9,7 +9,7 @@ SHELL := /bin/bash
 
 # Turn all subsequent targets after some targets into arguments for command
 FIRSTWORD=$(firstword $(MAKECMDGOALS))
-ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots))
+ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots colortest))
   # use the remaining targets as arguments
   CMD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   # and turn them into null / do-nothing targets
@@ -78,6 +78,7 @@ default:
 	\
 	    $(B)$(DIM)TESTING$(NRM)\n\n\
 	\
+	    $(B)$(BLU)colortest$(NRM)       $(BLU)run color tests for the terminal and show codes\n\
 	    $(B)$(BLU)zsh-test$(NRM)        $(BLU)build & start a container with zsh configuration\n\n"
 
 ################
@@ -163,6 +164,9 @@ commands:
 #############
 #  Testing  #
 #############
+
+colortest:
+	@scripts/colortest $(CMD_ARGS)
 
 zsh-test:
 	@docker build -t zsh-test assets/docker/zsh-test
