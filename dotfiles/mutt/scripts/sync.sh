@@ -66,7 +66,8 @@ while true; do
   echo "${BLUE}Running imapfilter ($ACCOUNT):${NORM}"
   echo
 
-  ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" -t {{ CONFGDIR }}/assets/system_root_certificates.pem || {
+  # ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" -t {{ CONFGDIR }}/assets/system_root_certificates.pem || {
+  ONCE=1 time imapfilter -vc "${HOME}/.imapfilter/${ACCOUNT}.lua" || {
     [[ -f /etc/redhat-release ]] && {
       notify-send "imapfilter" "imapfilter ($ACCOUNT) exited"
     } || {
