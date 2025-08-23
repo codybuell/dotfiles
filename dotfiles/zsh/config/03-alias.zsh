@@ -80,7 +80,7 @@ alias gbc="git branch --merged | grep -Ev '^ *(^\*|main|master|support-*|release
 # Only if we are running in a tmux session
 if [ ! -z $TMUX ]; then
   # fix ssh-agent issues
-  if [ `uname` == Linux ]; then
+  if [[ "$(uname)" == "Linux" ]]; then
     alias ssh="TERM=xterm-256color ssh"
     alias scp="TERM=xterm-256color scp"
   else
