@@ -34,6 +34,9 @@ alias sed=gsed
 # change term when ssh'ing
 alias ssh="TERM=xterm-256color ssh"
 
+# ssh without trying to use any keys
+alias sshn="TERM=xterm-256color ssh -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no"
+
 #######################
 #  Vim Muscle Memory  #
 #######################
