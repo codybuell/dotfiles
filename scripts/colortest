@@ -233,7 +233,7 @@ show_base24_mapping() {
 # Basic 8 colors
 show_basic_colors() {
     print_header "Basic Terminal Colors"
-    
+
     local colors=(black red green yellow blue magenta cyan white)
 
     print_section "Standard Colors (0-7)"
@@ -254,7 +254,7 @@ show_basic_colors() {
         printf "\e[3%dm\e[4%dm %s \e[0m " "$i" "$i" "${colors[$((i+1))]}"
     done
     echo -e "\n"
-    
+
     print_note "These are the foundation colors used by most terminal applications"
     print_note "Colors 0-7 are the 'normal' colors, 8-15 are the 'bright' variants"
 }
@@ -288,7 +288,7 @@ show_256_colors() {
         [[ $((($i - 231) % 12)) -eq 0 ]] && echo "  " && printf "  "
     done
     echo
-    
+
     print_note "Use any number 0-255 in applications that support 256 colors"
     print_note "Example: tmux set -g status-bg colour237"
 }
@@ -339,7 +339,7 @@ show_true_colors() {
         printf "\e[38;2;%d;%d;%dm█\e[0m" "$r" "$g" "$b"
     done
     echo -e "\n"
-    
+
     print_note "True color uses RGB format: \\e[38;2;R;G;Bm for foreground"
     print_note "Background format: \\e[48;2;R;G;Bm (R,G,B each 0-255)"
     print_note "Example: echo '\\e[38;2;255;100;50mOrange text\\e[0m'"
@@ -894,21 +894,21 @@ color_test() {
 # Help function
 color_test_help() {
     print_header "Color Test Help"
-    
+
     printf "Usage: ${UI_ACCENT}./colortest [option]${UI_RESET}\n\n"
-    
+
     printf "${UI_SUBHEADER}Basic Tests:${UI_RESET}\n"
     printf "  ${UI_ACCENT}basic${UI_RESET}         - Basic 8/16 colors (recommended start)\n"
     printf "  ${UI_ACCENT}256${UI_RESET}           - Full 256-color palette\n"
     printf "  ${UI_ACCENT}true${UI_RESET}          - True color (24-bit) test\n"
     printf "  ${UI_ACCENT}all${UI_RESET}           - All basic tests together\n"
     echo
-    
+
     printf "${UI_SUBHEADER}Theme Development:${UI_RESET}\n"
     printf "  ${UI_ACCENT}base24${UI_RESET}        - Base24 theme mapping helper\n"
     printf "  ${UI_ACCENT}git${UI_RESET}           - Git branch color suggestions\n"
     echo
-    
+
     printf "${UI_SUBHEADER}Application-Specific:${UI_RESET}\n"
     printf "  ${UI_ACCENT}neomutt${UI_RESET}       - Email client color reference\n"
     printf "  ${UI_ACCENT}neomutt-config${UI_RESET} - Analyze your neomutt config\n"
@@ -918,12 +918,12 @@ color_test_help() {
     printf "  ${UI_ACCENT}tmux-test${UI_RESET}      - Tmux color testing commands\n"
     printf "  ${UI_ACCENT}tmux-all${UI_RESET}       - All tmux information\n"
     echo
-    
+
     printf "${UI_SUBHEADER}Other:${UI_RESET}\n"
     printf "  ${UI_ACCENT}menu${UI_RESET}          - Show interactive menu (default)\n"
     printf "  ${UI_ACCENT}help${UI_RESET}          - This help message\n"
     echo
-    
+
     print_note "Run without arguments to see the interactive menu"
     print_note "Most useful starting points: basic, 256, base24"
 }
