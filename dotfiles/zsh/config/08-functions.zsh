@@ -549,59 +549,101 @@ rdp() {
 #
 # Runs through all git repositories and provides a status. Helpful to identify
 # dirty repos.
+#
+# Usage:
+#   repocheck                           # Show all repos
+#   repocheck github.com/codybuell      # Show only repos under that path
 function repocheck() {
+    local CWD=$(pwd)
+    local REPOS_ROOT="{{ Repos }}"
+    local FILTER_PATH="$1"
 
-  # get the current working directory
-  CWD=$(pwd)
-
-  # move into the repos root
-  cd {{ Repos }}
-
-  # build an array of all git repos found
-  REPOS=($(find . -type d -name .git | sed 's/\.git$//'))
-
-  # print out some column headers
-  echo "REPOSITORY LOCAL REMOTE" | awk '{printf "%-80s %s %s\n", $1, $2, $3}'
-
-  # loop through all repos in Repos path
-  for i in ${REPOS[@]}; do
-    cd {{ Repos }}/$i > /dev/null 2>&1
-    git status > /dev/null 2>&1
-    if [ $? -gt 0 ]; then
-      printf "$i \033[1;30mnot~a~repo\033[0;m" | \
-      awk '{printf "%-80s %s\n", $1, $2}' | \
-      sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /g"
-      continue
+    # Get repository list - prefer .repos file if available
+    local REPOS=()
+    if [[ -f "$REPOS_ROOT/.repos" ]]; then
+        # Parse .repos file (format: reponame:full/path)
+        while IFS=':' read -r name repo_path; do
+            REPOS+=("$name:$repo_path")
+        done < "$REPOS_ROOT/.repos"
     else
-      LSTAT=$([ `git status --porcelain | wc -l` -gt 0 ] && printf "\033[0;31mdirty\033[0;m" || printf "\033[0;32mclean\033[0;m")
-      if [ `git remote -v | wc -l` -lt 1 ]; then
-        RSTAT=$(printf "\033[1;30morphaned\033[0;m")
-      else
-        git fetch > /dev/null 2>&1
-        LOCAL=$(git rev-parse @ 2> /dev/null)
-        git rev-parse @{u} > /dev/null 2>&1
-        if [ $? -gt 0 ]; then
-          git branch --set-upstream-to=origin/master master > /dev/null 2>&1
-        fi
-        REMOTE=$(git rev-parse @{u} 2> /dev/null)
-        BASE=$(git merge-base @ @{u} 2> /dev/null)
-        if [ "ZZ$LOCAL" = "ZZ$REMOTE" ]; then
-          RSTAT=$(printf "\033[0;32mcurrent\033[0;m")
-        elif [ "ZZ$LOCAL" = "ZZ$BASE" ]; then
-          RSTAT=$(printf "\033[0;31mbehind\033[0;m")
-        elif [ $REMOTE = $BASE ]; then
-          RSTAT=$(printf "\033[1;33mahead\033[0;m")
-        else
-          RSTAT=$(printf "\033[0;33mdiverged\033[0;m")
-        fi
-      fi
-      echo "$i $LSTAT~$RSTAT" | awk '{printf "%-80s %s\n", $1, $2}' | sed "s/ /./g;s/\([[:alnum:]]\)\.\./\1 \./;s/\.\.\([^\.]\)/\. \1/;s/~/ /"
+        # Fall back to find method
+        local found_repos=($(find "$REPOS_ROOT" -type d -name .git 2>/dev/null))
+        for repo_git in $found_repos; do
+            local repo_path="${repo_git%/.git}"
+            local rel_path="${repo_path#$REPOS_ROOT/}"
+            REPOS+=("$rel_path:$repo_path")
+        done
     fi
-  done
 
-  # drop back into the working dir
-  cd $CWD
+    # Print headers
+    printf "%-80s %-8s %s\n" "REPOSITORY" "LOCAL" "REMOTE"
 
+    # Loop through all repos
+    for entry in "${REPOS[@]}"; do
+        local name="${entry%%:*}"
+        local repo_path="${entry##*:}"
+        local rel_path="${repo_path#$REPOS_ROOT/}"
+        local path_without_repo="${rel_path%/*}"
+
+        # Filter repos if path is provided
+        if [[ -n "$FILTER_PATH" ]]; then
+            # Check if the relative path starts with the filter path
+            if [[ "$rel_path" != "$FILTER_PATH"/* ]]; then
+                continue
+            fi
+        fi
+
+        # Test repo
+        if ! git -C "$repo_path" rev-parse --git-dir > /dev/null 2>&1; then
+            # Create the display string with bold name and dimmed parent path
+            local display_string="\033[1m${name}\033[0m (\033[2m${path_without_repo}\033[0m)"
+            local display_len=$((${#name} + ${#path_without_repo} + 3)) # 3 for " ()"
+            local dots_needed=$((80 - display_len))
+            local dots=""
+            for ((j=0; j<dots_needed; j++)); do
+                dots+="."
+            done
+            printf "%b%s \033[0;31mnot a repo\033[0;m\n" "$display_string" "$dots"
+            continue
+        fi
+
+        # Create the display string with bold name and dimmed parent path
+        local display_string="\033[1m${name}\033[0m (\033[2m${path_without_repo}\033[0m)"
+        local display_len=$((${#name} + ${#path_without_repo} + 3)) # 3 for " ()"
+        local dots_needed=$((80 - display_len))
+        local dots=""
+        for ((j=0; j<dots_needed; j++)); do
+            dots+="."
+        done
+
+        # Output with inline status checks to avoid variable assignments
+        printf "%b%s " "$display_string" "$dots"
+
+        # Local status - output directly
+        if [ "$(git -C "$repo_path" status --porcelain 2>/dev/null | wc -l)" -gt 0 ]; then
+            printf "\033[0;31mdirty\033[0;m "
+        else
+            printf "\033[0;32mclean\033[0;m "
+        fi
+
+        # Remote status - output directly
+        if [ "$(git -C "$repo_path" remote 2>/dev/null | wc -l)" -lt 1 ]; then
+            printf "\033[0;31morphaned\033[0;m\n"
+        else
+            # Get git info and output status directly
+            if ! git -C "$repo_path" rev-parse @{u} > /dev/null 2>&1; then
+                printf "\033[1;31muntracked\033[0;m\n"
+            elif [ "$(git -C "$repo_path" rev-parse @)" = "$(git -C "$repo_path" rev-parse @{u})" ]; then
+                printf "\033[0;32mcurrent\033[0;m\n"
+            elif [ "$(git -C "$repo_path" rev-parse @)" = "$(git -C "$repo_path" merge-base @ @{u})" ]; then
+                printf "\033[0;31mbehind\033[0;m\n"
+            elif [ "$(git -C "$repo_path" rev-parse @{u})" = "$(git -C "$repo_path" merge-base @ @{u})" ]; then
+                printf "\033[1;33mahead\033[0;m\n"
+            else
+                printf "\033[0;33mdiverged\033[0;m\n"
+            fi
+        fi
+    done
 }
 
 # Regex Move
