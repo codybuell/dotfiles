@@ -1,35 +1,157 @@
 #!/usr/bin/env zsh
 # color-test.zsh - Comprehensive terminal color testing
 #
-# # Run full test
-# ~/.zsh/color-test.zsh
+# Usage:
+# ./colortest                    # Show menu and basic info
+# ./colortest menu               # Interactive menu
+# ./colortest basic              # Basic 8/16 colors
+# ./colortest 256                # 256-color palette
+# ./colortest all                # Everything (use with caution!)
 #
-# # Or source it and use the function
-# source ~/.zsh/color-test.zsh
-# color_test all           # Full test
-# color_test basic         # Just basic colors
-# color_test git           # Git branch color suggestions
-# color_test help          # Show usage
+# See 'colortest help' for all options
+# =============================================================================
+# FORMATTING HELPERS - Consistent output formatting
+# =============================================================================
+# =============================================================================
+# MAIN MENU AND INTRO
+# =============================================================================
+
+# Show welcome message and basic terminal info
+show_intro() {
+    print_header "Terminal Color Tester"
+
+    printf "Welcome! This tool helps you test and understand terminal colors.\n\n"
+
+    # Basic terminal info in a compact format
+    printf "${UI_SUBHEADER}Your Terminal:${UI_RESET}\n"
+    printf "  TERM: %s\n" "$TERM"
+    printf "  COLORTERM: %s\n" "${COLORTERM:-not set}"
+
+    if command -v tput >/dev/null 2>&1; then
+        local colors=$(tput colors 2>/dev/null || echo 'unknown')
+        printf "  Colors: %s\n" "$colors"
+    fi
+
+    printf "  True color: "
+    if [[ -n "$COLORTERM" && "$COLORTERM" =~ (truecolor|24bit) ]]; then
+        printf "${UI_SUCCESS}Yes${UI_RESET}\n"
+    else
+        printf "${UI_WARNING}Maybe/No${UI_RESET}\n"
+    fi
+
+    echo
+}
+
+# Interactive menu
+show_menu() {
+    show_intro
+
+    printf "${UI_SUBHEADER}Quick Options:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}basic${UI_RESET}     - Basic 8/16 colors (recommended start)\n"
+    printf "  ${UI_ACCENT}256${UI_RESET}       - Full 256-color palette\n"
+    printf "  ${UI_ACCENT}true${UI_RESET}      - True color (24-bit) test\n"
+    printf "  ${UI_ACCENT}base24${UI_RESET}    - Base24 theme development helper\n"
+    echo
+
+    printf "${UI_SUBHEADER}Application-Specific:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}tmux${UI_RESET}      - Tmux color names and schemes\n"
+    printf "  ${UI_ACCENT}neomutt${UI_RESET}   - Email client color reference\n"
+    printf "  ${UI_ACCENT}git${UI_RESET}       - Git branch color suggestions\n"
+    echo
+
+    printf "${UI_SUBHEADER}More Options:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}all${UI_RESET}       - Show everything (lots of output!)\n"
+    printf "  ${UI_ACCENT}help${UI_RESET}      - Full help and usage guide\n"
+    echo
+
+    print_note "Try: ./colortest basic"
+    print_note "Or just run a specific test: ./colortest 256"
+}
+
+# Color definitions for consistent UI
+readonly UI_HEADER='\e[1;36m'      # Bright cyan for headers
+readonly UI_SUBHEADER='\e[1;33m'   # Yellow for subheaders
+readonly UI_ACCENT='\e[1;35m'      # Magenta for accents
+readonly UI_DIM='\e[2m'            # Dim text for notes
+readonly UI_RESET='\e[0m'          # Reset formatting
+readonly UI_SUCCESS='\e[1;32m'     # Green for success/positive
+readonly UI_WARNING='\e[1;33m'     # Yellow for warnings
+
+# Print a main header with consistent formatting
+print_header() {
+    local title="$1"
+    local width=60
+    local inner_width=$((width - 2))  # Account for border characters
+    local title_len=${#title}
+    local left_pad=$(((inner_width - title_len) / 2))
+    local right_pad=$((inner_width - left_pad - title_len))
+
+    echo
+    printf "${UI_HEADER}"
+    printf "╭"
+    printf "─%.0s" {1..$((width-2))}
+    printf "╮${UI_RESET}\n"
+
+    printf "${UI_HEADER}│%*s│${UI_RESET}\n" $inner_width " "
+    printf "${UI_HEADER}│%*s%s%*s│${UI_RESET}\n" $left_pad " " "$title" $right_pad " "
+    printf "${UI_HEADER}│%*s│${UI_RESET}\n" $inner_width " "
+
+    printf "${UI_HEADER}"
+    printf "╰"
+    printf "─%.0s" {1..$((width-2))}
+    printf "╯${UI_RESET}\n"
+    echo
+}
+
+# Print a section header
+print_section() {
+    local title="$1"
+    echo
+    printf "${UI_SUBHEADER}▶ %s${UI_RESET}\n" "$title"
+    printf "${UI_DIM}%s${UI_RESET}\n" "$(printf "─%.0s" {1..${#title}})"
+    echo
+}
+
+# Print a color sample with consistent formatting
+print_color_sample() {
+    local color_code="$1"
+    local color_name="$2"
+    local description="${3:-}"
+
+    if [[ -n "$description" ]]; then
+        printf "  %-3s %-12s \e[38;5;%dm████\e[0m %s\n" "$color_code" "$color_name" "$color_code" "$description"
+    else
+        printf "  %-3s %-12s \e[38;5;%dm████\e[0m\n" "$color_code" "$color_name" "$color_code"
+    fi
+}
+
+# Print a note/tip
+print_note() {
+    printf "${UI_DIM}  💡 %s${UI_RESET}\n" "$1"
+}
+
+# Print a warning
+print_warning() {
+    printf "${UI_WARNING}  ⚠️  %s${UI_RESET}\n" "$1"
+}
+# =============================================================================
+# CORE COLOR TESTS - Refactored for better presentation
+# =============================================================================
 
 # Base24 theme development helper
 show_base24_mapping() {
-    echo -e "\e[1m============================\e[0m"
-    echo -e "\e[1m==                        ==\e[0m"
-    echo -e "\e[1m==  Base24 Theme Mapping  ==\e[0m"
-    echo -e "\e[1m==                        ==\e[0m"
-    echo -e "\e[1m============================\e[0m\n"
+    print_header "Base24 Theme Mapping"
 
     # Check if BASE24 environment variables are available
     if [[ -z "${BASE24_COLOR_00_HEX:-}" ]]; then
-        echo "Note: BASE24 environment variables not found."
-        echo "Run: export TINTED_SHELL_ENABLE_BASE24_VARS=1"
-        echo "Then source your base24 theme script to see hex values."
-        echo
+        print_warning "BASE24 environment variables not found"
+        print_note "Run: export TINTED_SHELL_ENABLE_BASE24_VARS=1"
+        print_note "Then source your base24 theme script to see hex values"
     fi
 
-    echo -e "\e[1mStandard Colors (0-7):\e[0m\n"
-    printf "%-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
-    printf "%-20s %-8s %-15s %s\n" "──────────────" "──────" "───────" "──────"
+    print_section "Standard Colors (0-7)"
+    printf "  %-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
+    printf "  ${UI_DIM}%-20s %-8s %-15s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
 
     local standard_mapping=(
         "0:black:base00:BASE24_COLOR_00_HEX"
@@ -49,14 +171,13 @@ show_base24_mapping() {
         local env_var=${mapping##*:}
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "%-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
+        printf "  %-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
             "$color_num:$color_name" "$base_name" "$hex_value" "$color_num" "$base_name"
     done
 
-    echo
-    echo -e "\e[1mBright Colors (8-15):\e[0m\n"
-    printf "%-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
-    printf "%-20s %-8s %-15s %s\n" "──────────────" "──────" "───────" "──────"
+    print_section "Bright Colors (8-15)"
+    printf "  %-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
+    printf "  ${UI_DIM}%-20s %-8s %-15s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
 
     local bright_mapping=(
         "8:bright-black:base03:BASE24_COLOR_03_HEX"
@@ -76,14 +197,13 @@ show_base24_mapping() {
         local env_var=${mapping##*:}
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "%-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
+        printf "  %-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
             "$color_num:$color_name" "$base_name" "$hex_value" "$color_num" "$base_name"
     done
 
-    echo
-    echo -e "\e[1mAdditional Base24 Colors (not mapped to terminal 0-15):\e[0m\n"
-    printf "%-8s %-15s %s\n" "Base24" "Hex" "Purpose"
-    printf "%-8s %-15s %s\n" "──────" "───────" "───────"
+    print_section "Additional Base24 Colors (not mapped to terminal 0-15)"
+    printf "  %-8s %-15s %s\n" "Base24" "Hex" "Purpose"
+    printf "  ${UI_DIM}%-8s %-15s %s${UI_RESET}\n" "──────" "───────" "───────"
 
     local additional_colors=(
         "base01:BASE24_COLOR_01_HEX:Background lighter"
@@ -102,150 +222,127 @@ show_base24_mapping() {
         local purpose=${mapping##*:}
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "%-8s %-15s %s\n" "$base_name" "$hex_value" "$purpose"
+        printf "  %-8s %-15s %s\n" "$base_name" "$hex_value" "$purpose"
     done
 
-    echo
-    echo -e "\e[2mUsage: To adjust a color, modify the corresponding base in your YAML:\e[0m"
-    echo -e "\e[2m  Example: 'bright-red too bright' → adjust base12 in YAML\e[0m"
-    echo -e "\e[2m  Example: 'cyan too dark' → adjust base0C in YAML\e[0m"
-}
-
-# Terminal capability detection
-show_terminal_info() {
-  echo "============================"
-  echo "==                        =="
-  echo "==  Terminal Information  =="
-  echo "==                        =="
-  echo "============================\n"
-  echo "TERM:               $TERM"
-  echo "COLORTERM:          ${COLORTERM:-not set}"
-
-  if command -v tput >/dev/null 2>&1; then
-    local colors=$(tput colors 2>/dev/null || echo 'unknown')
-    echo "Colors (tput):      $colors"
-  fi
-
-  echo -n "True color support: "
-  [[ -n "$COLORTERM" && "$COLORTERM" =~ (truecolor|24bit) ]] && echo 'yes' || echo 'maybe/no'
-  echo
+    print_note "To adjust a color, modify the corresponding base in your YAML"
+    print_note "Example: 'bright-red too bright' → adjust base12 in YAML"
+    print_note "Example: 'cyan too dark' → adjust base0C in YAML"
 }
 
 # Basic 8 colors
 show_basic_colors() {
-  echo "=== Basic 8 Colors ==="
-  local colors=(black red green yellow blue magenta cyan white)
+    print_header "Basic Terminal Colors"
+    
+    local colors=(black red green yellow blue magenta cyan white)
 
-  echo "Foreground colors:"
-  for i in {0..7}; do
-    printf "\e[3%dm %d:%-8s \e[0m" "$i" "$i" "${colors[$((i+1))]}"
-    [[ $(( ($i + 1) % 4 )) -eq 0 ]] && echo
-  done
+    print_section "Standard Colors (0-7)"
+    for i in {0..7}; do
+        print_color_sample "$i" "${colors[$((i+1))]}"
+        [[ $(( ($i + 1) % 4 )) -eq 0 ]] && echo
+    done
 
-  echo -e "\nBright colors (8-15):"
-  for i in {8..15}; do
-    printf "\e[38;5;%dm %2d:bright-%-8s \e[0m" "$i" "$i" "${colors[$(((i-8)+1))]}"
-    [[ $(( ($i - 7) % 4 )) -eq 0 ]] && echo
-  done
+    print_section "Bright Colors (8-15)"
+    for i in {8..15}; do
+        print_color_sample "$i" "bright-${colors[$(((i-8)+1))]}"
+        [[ $(( ($i - 7) % 4 )) -eq 0 ]] && echo
+    done
 
-  echo -e "\nWith backgrounds:"
-  for i in {0..7}; do
-    printf "\e[3%dm\e[4%dm %s \e[0m " "$i" "$i" "${colors[$((i+1))]}"
-  done
-  echo -e "\n"
+    print_section "Color Combinations (foreground + background)"
+    printf "  "
+    for i in {0..7}; do
+        printf "\e[3%dm\e[4%dm %s \e[0m " "$i" "$i" "${colors[$((i+1))]}"
+    done
+    echo -e "\n"
+    
+    print_note "These are the foundation colors used by most terminal applications"
+    print_note "Colors 0-7 are the 'normal' colors, 8-15 are the 'bright' variants"
 }
 
 # 256-color palette
 show_256_colors() {
-  echo "=== 256-Color Palette ==="
+    print_header "256-Color Palette"
 
-  # Standard colors (0-15)
-  echo "Standard colors (0-15):"
-  for i in {0..15}; do
-    printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
-    [[ $((($i + 1) % 8)) -eq 0 ]] && echo
-  done
+    print_section "Standard Colors (0-15)"
+    printf "  "
+    for i in {0..15}; do
+        printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
+        [[ $((($i + 1) % 8)) -eq 0 ]] && echo "  " && printf "  "
+    done
+    echo
 
-  # 216-color cube (16-231)
-  echo -e "\n216-color cube (16-231):"
-  for i in {16..231}; do
-    printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
-    [[ $((($i - 15) % 6)) -eq 0 ]] && printf " "
-    [[ $((($i - 15) % 36)) -eq 0 ]] && echo
-  done
+    print_section "216-Color Cube (16-231)"
+    print_note "Organized as 6×6×6 RGB cube (216 colors total)"
+    printf "  "
+    for i in {16..231}; do
+        printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
+        [[ $((($i - 15) % 6)) -eq 0 ]] && printf " "
+        [[ $((($i - 15) % 36)) -eq 0 ]] && echo "  " && printf "  "
+    done
 
-  # Grayscale (232-255)
-  echo -e "\nGrayscale (232-255):"
-  for i in {232..255}; do
-    printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
-    [[ $((($i - 231) % 12)) -eq 0 ]] && echo
-  done
-  echo
+    print_section "Grayscale Ramp (232-255)"
+    print_note "24 shades from dark to light gray"
+    printf "  "
+    for i in {232..255}; do
+        printf "\e[48;5;%dm%3d\e[0m" "$i" "$i"
+        [[ $((($i - 231) % 12)) -eq 0 ]] && echo "  " && printf "  "
+    done
+    echo
+    
+    print_note "Use any number 0-255 in applications that support 256 colors"
+    print_note "Example: tmux set -g status-bg colour237"
 }
 
 # True color test
 show_true_colors() {
-  echo "=== True Color (24-bit) Test ==="
+    print_header "True Color (24-bit) Test"
 
-  # Check if terminal supports true color
-  if [[ ! (-n "$COLORTERM" && "$COLORTERM" =~ (truecolor|24bit)) ]]; then
-    echo "True color not detected. Results may vary."
-  fi
-
-  # RGB gradients
-  echo "RGB gradients:"
-  printf "Red:   "
-  for i in {0..255..8}; do
-    printf "\e[38;2;%d;0;0m█\e[0m" "$i"
-  done
-  echo
-
-  printf "Green: "
-  for i in {0..255..8}; do
-    printf "\e[38;2;0;%d;0m█\e[0m" "$i"
-  done
-  echo
-
-  printf "Blue:  "
-  for i in {0..255..8}; do
-    printf "\e[38;2;0;0;%dm█\e[0m" "$i"
-  done
-  echo
-
-  # Rainbow spectrum
-  echo "Rainbow spectrum:"
-  local cols=128
-  for i in {0..127}; do
-    local r=$((255 - (i * 255 / cols)))
-    local g=$((i * 510 / cols))
-    local b=$((i * 255 / cols))
-
-    # Triangle wave for green (up to 255, then back down)
-    if ((g > 255)); then
-      g=$((510 - g))
+    # Check if terminal supports true color
+    if [[ ! (-n "$COLORTERM" && "$COLORTERM" =~ (truecolor|24bit)) ]]; then
+        print_warning "True color not detected. Results may vary"
+    else
+        print_note "True color support detected!"
     fi
 
-    printf "\e[38;2;%d;%d;%dm█\e[0m" "$r" "$g" "$b"
-  done
-  echo -e "\n"
-  # # Rainbow spectrum (simple fix)
-  # echo "Rainbow spectrum:"
-  # for i in {0..127}; do
-  #   printf "\e[38;2;%d;%d;%dm█\e[0m" \
-  #     $((255 - i * 2)) \
-  #     $((i < 42 ? i * 6 : i < 85 ? 255 : (127 - i) * 3)) \
-  #     $((i * 2))
-  # done
-  # echo -e "\n"
-  # Rainbow spectrum
-  # echo "Rainbow spectrum:"
-  # for i in {0..127}; do
-  #   printf "\e[38;2;%d;%d;%dm█\e[0m" \
-  #     $((255 - i * 2)) \
-  #     $((i * 4 % 255)) \
-  #     $((i * 2))
-  # done
-  # echo -e "\n"
+    print_section "RGB Color Gradients"
+    printf "  Red:   "
+    for i in {0..255..8}; do
+        printf "\e[38;2;%d;0;0m█\e[0m" "$i"
+    done
+    echo
+
+    printf "  Green: "
+    for i in {0..255..8}; do
+        printf "\e[38;2;0;%d;0m█\e[0m" "$i"
+    done
+    echo
+
+    printf "  Blue:  "
+    for i in {0..255..8}; do
+        printf "\e[38;2;0;0;%dm█\e[0m" "$i"
+    done
+    echo
+
+    print_section "Rainbow Spectrum"
+    printf "  "
+    local cols=128
+    for i in {0..127}; do
+        local r=$((255 - (i * 255 / cols)))
+        local g=$((i * 510 / cols))
+        local b=$((i * 255 / cols))
+
+        # Triangle wave for green (up to 255, then back down)
+        if ((g > 255)); then
+            g=$((510 - g))
+        fi
+
+        printf "\e[38;2;%d;%d;%dm█\e[0m" "$r" "$g" "$b"
+    done
+    echo -e "\n"
+    
+    print_note "True color uses RGB format: \\e[38;2;R;G;Bm for foreground"
+    print_note "Background format: \\e[48;2;R;G;Bm (R,G,B each 0-255)"
+    print_note "Example: echo '\\e[38;2;255;100;50mOrange text\\e[0m'"
 }
 
 # Color picker helper
@@ -734,86 +831,101 @@ show_tmux_test_commands() {
 }
 # Main function
 color_test() {
-  local choice=${1:-all}
+    local choice=${1:-all}
 
-  case "$choice" in
-    info)
-      show_terminal_info
-      ;;
-    basic)
-      show_basic_colors
-      ;;
-    256)
-      show_256_colors
-      ;;
-    true)
-      show_true_colors
-      ;;
-    git)
-      show_color_picker
-      ;;
-    base24)
-      show_base24_mapping
-      ;;
-    neomutt)
-      show_neomutt_colors
-      ;;
-    neomutt-config)
-      show_neomutt_config_analysis
-      show_neomutt_config_colors
-      ;;
-    tmux)
-      show_tmux_colors
-      show_tmux_formats
-      ;;
-    tmux-examples)
-      show_tmux_examples
-      ;;
-    tmux-schemes)
-      show_tmux_schemes
-      ;;
-    tmux-test)
-      show_tmux_test_commands
-      ;;
-    tmux-all)
-      show_tmux_colors
-      show_tmux_formats
-      show_tmux_examples
-      show_tmux_schemes
-      show_tmux_test_commands
-      ;;
-    all|*)
-      show_terminal_info
-      show_base24_mapping
-      show_basic_colors
-      show_256_colors
-      show_true_colors
-      show_tmux_colors
-      show_neomutt_colors
-      show_color_picker
-      ;;
-  esac
+    case "$choice" in
+        menu)
+            show_menu
+            ;;
+        basic)
+            show_basic_colors
+            ;;
+        256)
+            show_256_colors
+            ;;
+        true)
+            show_true_colors
+            ;;
+        git)
+            show_color_picker
+            ;;
+        base24)
+            show_base24_mapping
+            ;;
+        neomutt)
+            show_neomutt_colors
+            ;;
+        neomutt-config)
+            show_neomutt_config_analysis
+            show_neomutt_config_colors
+            ;;
+        tmux)
+            show_tmux_colors
+            show_tmux_formats
+            ;;
+        tmux-examples)
+            show_tmux_examples
+            ;;
+        tmux-schemes)
+            show_tmux_schemes
+            ;;
+        tmux-test)
+            show_tmux_test_commands
+            ;;
+        tmux-all)
+            show_tmux_colors
+            show_tmux_formats
+            show_tmux_examples
+            show_tmux_schemes
+            show_tmux_test_commands
+            ;;
+        all)
+            show_basic_colors
+            show_256_colors
+            show_true_colors
+            show_base24_mapping
+            ;;
+        *)
+            show_menu
+            ;;
+    esac
 }
 
 # Help function
 color_test_help() {
-  echo "Usage: color_test [option]"
-  echo "Options:"
-  echo "  all           - Show all tests (default)"
-  echo "  info          - Terminal information only"
-  echo "  basic         - Basic 8/16 colors only"
-  echo "  256           - 256-color palette only"
-  echo "  true          - True color test only"
-  echo "  git           - Git branch color suggestions"
-  echo "  base24        - Base24 theme mapping and development helper"
-  echo "  neomutt       - Neomutt color name mapping and examples"
-  echo "  neomutt-config - Analyze your specific neomutt color config"
-  echo "  tmux          - Tmux color names and formats"
-  echo "  tmux-examples - Tmux visual examples"
-  echo "  tmux-schemes  - Tmux color scheme suggestions"
-  echo "  tmux-test     - Tmux color testing commands"
-  echo "  tmux-all      - All tmux color information"
-  echo "  help          - This help message"
+    print_header "Color Test Help"
+    
+    printf "Usage: ${UI_ACCENT}./colortest [option]${UI_RESET}\n\n"
+    
+    printf "${UI_SUBHEADER}Basic Tests:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}basic${UI_RESET}         - Basic 8/16 colors (recommended start)\n"
+    printf "  ${UI_ACCENT}256${UI_RESET}           - Full 256-color palette\n"
+    printf "  ${UI_ACCENT}true${UI_RESET}          - True color (24-bit) test\n"
+    printf "  ${UI_ACCENT}all${UI_RESET}           - All basic tests together\n"
+    echo
+    
+    printf "${UI_SUBHEADER}Theme Development:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}base24${UI_RESET}        - Base24 theme mapping helper\n"
+    printf "  ${UI_ACCENT}git${UI_RESET}           - Git branch color suggestions\n"
+    echo
+    
+    printf "${UI_SUBHEADER}Application-Specific:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}neomutt${UI_RESET}       - Email client color reference\n"
+    printf "  ${UI_ACCENT}neomutt-config${UI_RESET} - Analyze your neomutt config\n"
+    printf "  ${UI_ACCENT}tmux${UI_RESET}          - Tmux color names and formats\n"
+    printf "  ${UI_ACCENT}tmux-examples${UI_RESET}  - Tmux visual examples\n"
+    printf "  ${UI_ACCENT}tmux-schemes${UI_RESET}   - Tmux color scheme suggestions\n"
+    printf "  ${UI_ACCENT}tmux-test${UI_RESET}      - Tmux color testing commands\n"
+    printf "  ${UI_ACCENT}tmux-all${UI_RESET}       - All tmux information\n"
+    echo
+    
+    printf "${UI_SUBHEADER}Other:${UI_RESET}\n"
+    printf "  ${UI_ACCENT}menu${UI_RESET}          - Show interactive menu (default)\n"
+    printf "  ${UI_ACCENT}help${UI_RESET}          - This help message\n"
+    echo
+    
+    print_note "Run without arguments to see the interactive menu"
+    print_note "Most useful starting points: basic, 256, base24"
 }
 
 # Handle command line arguments
