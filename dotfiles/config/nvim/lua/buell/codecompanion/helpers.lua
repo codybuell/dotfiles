@@ -322,4 +322,106 @@ function M.mini_pick_action_menu()
   end
 end
 
+-- Smart Yank Code
+--
+-- Enhanced version of CodeCompanion's yank_code that:
+-- - Yanks current codeblock if cursor is inside one
+-- - Yanks closest codeblock above cursor if not in one
+-- - Yanks closest codeblock below if none above
+function M.smart_yank_code(chat)
+  if not chat then
+    vim.notify("No chat context available", vim.log.levels.WARN)
+    return
+  end
+
+  -- Get current cursor position
+  local cursor_row = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed
+
+  -- Get all codeblocks using CodeCompanion's existing method
+  local codeblocks = {}
+  local bufnr = chat.bufnr
+
+  -- Use CodeCompanion's internal method to find codeblocks
+  -- We'll iterate through the buffer looking for codeblock patterns
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local in_codeblock = false
+  local current_block = nil
+
+  for i, line in ipairs(lines) do
+    local row = i - 1 -- 0-indexed
+    if line:match("^```") then
+      if not in_codeblock then
+        -- Start of codeblock
+        in_codeblock = true
+        current_block = { start_row = row + 1, content_start = row + 1 } -- Skip fence line
+      else
+        -- End of codeblock
+        in_codeblock = false
+        if current_block then
+          current_block.end_row = row - 1 -- Before fence line
+          current_block.content_end = row - 1
+          table.insert(codeblocks, current_block)
+          current_block = nil
+        end
+      end
+    end
+  end
+
+  if #codeblocks == 0 then
+    vim.notify("No codeblocks found", vim.log.levels.WARN)
+    return
+  end
+
+  -- Find the appropriate codeblock
+  local target_block = nil
+
+  -- Check if cursor is inside a codeblock (between fences)
+  for _, block in ipairs(codeblocks) do
+    if cursor_row >= block.start_row and cursor_row <= block.end_row then
+      target_block = block
+      break
+    end
+  end
+
+  -- If not in codeblock, find closest above
+  if not target_block then
+    for i = #codeblocks, 1, -1 do
+      if codeblocks[i].end_row < cursor_row then
+        target_block = codeblocks[i]
+        break
+      end
+    end
+  end
+
+  -- If no codeblock above, find closest below
+  if not target_block then
+    for _, block in ipairs(codeblocks) do
+      if block.start_row > cursor_row then
+        target_block = block
+        break
+      end
+    end
+  end
+
+  if target_block then
+    local cursor_position = vim.fn.getcurpos()
+
+    -- Create marks for content only (exclude fences)
+    vim.api.nvim_buf_set_mark(bufnr, "[", target_block.content_start + 1, 0, {})
+    vim.api.nvim_buf_set_mark(bufnr, "]", target_block.content_end + 1, -1, {})
+
+    -- Yank to unnamed register for easy pasting with 'p'
+    vim.cmd('normal! `[V`]y')
+
+    -- Restore cursor position
+    vim.defer_fn(function()
+      vim.fn.setpos(".", cursor_position)
+    end, 100)
+
+    vim.notify("Yanked codeblock content", vim.log.levels.INFO)
+  else
+    vim.notify("No codeblock found", vim.log.levels.WARN)
+  end
+end
+
 return M

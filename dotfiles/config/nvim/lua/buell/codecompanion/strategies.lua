@@ -59,6 +59,12 @@ M.chat = {
         n = "<Localleader>T",
       },
     },
+    yank_code = {
+      modes = { n = "gy" },
+      index = 8,
+      callback = buell.codecompanion.helpers.smart_yank_code,
+      description = "Yank Code",
+    },
   },
   slash_commands = {
     ["buffer"] = {
