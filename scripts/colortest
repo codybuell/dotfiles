@@ -108,7 +108,7 @@ print_section() {
     local title="$1"
     echo
     printf "${UI_SUBHEADER}▶ %s${UI_RESET}\n" "$title"
-    printf "${UI_DIM}%s${UI_RESET}\n" "$(printf "─%.0s" {1..${#title}})"
+    printf "${UI_DIM}%s${UI_RESET}\n" "──$(printf "─%.0s" {1..${#title}})"
     echo
 }
 
@@ -306,19 +306,19 @@ show_true_colors() {
 
     print_section "RGB Color Gradients"
     printf "  Red:   "
-    for i in {0..255..8}; do
+    for i in {0..255..3}; do
         printf "\e[38;2;%d;0;0m█\e[0m" "$i"
     done
     echo
 
     printf "  Green: "
-    for i in {0..255..8}; do
+    for i in {0..255..3}; do
         printf "\e[38;2;0;%d;0m█\e[0m" "$i"
     done
     echo
 
     printf "  Blue:  "
-    for i in {0..255..8}; do
+    for i in {0..255..3}; do
         printf "\e[38;2;0;0;%dm█\e[0m" "$i"
     done
     echo
@@ -829,6 +829,92 @@ show_tmux_test_commands() {
   done
   echo
 }
+
+# Enhanced color matrix function - consolidates colortest.sh functionality with legends
+show_enhanced_matrix() {
+  print_header "Color Combination"
+
+    print_section "Understanding the Matrix"
+    printf "This matrix shows every combination of foreground and background colors.\n"
+    printf "• ${UI_ACCENT}Numbers across the top${UI_RESET} = Background colors (ANSI codes 40-49)\n"
+    printf "• ${UI_ACCENT}Numbers down the side${UI_RESET} = Foreground colors (ANSI codes 30-37, 90-97)\n"
+    printf "• Each cell shows text with that color combination\n"
+    printf "• Four rows per foreground: Normal, Bold, Blink, Bold+Blink\n\n"
+
+    print_section "Background Colors (Top Row Numbers)"
+    printf "  ${UI_DIM}Code  Color${UI_RESET}\n"
+    printf "  40 = Black      44 = Blue       48 = (none)\n"
+    printf "  41 = Red        45 = Magenta    49 = Default\n"
+    printf "  42 = Green      46 = Cyan\n"
+    printf "  43 = Yellow     47 = White\n\n"
+
+    print_section "Foreground Colors (Left Side Numbers)"
+    printf "  ${UI_DIM}Standard Colors:${UI_RESET}\n"
+    printf "  30 = Black      34 = Blue       38 = (none)\n"
+    printf "  31 = Red        35 = Magenta    39 = Default\n"
+    printf "  32 = Green      36 = Cyan\n"
+    printf "  33 = Yellow     37 = White\n\n"
+    printf "  ${UI_DIM}Bright Colors:${UI_RESET}\n"
+    printf "  90 = Bright Black    94 = Bright Blue\n"
+    printf "  91 = Bright Red      95 = Bright Magenta\n"
+    printf "  92 = Bright Green    96 = Bright Cyan\n"
+    printf "  93 = Bright Yellow   97 = Bright White\n\n"
+
+    print_section "Usage Examples"
+    printf "From the matrix below, you can see how to use these codes:\n"
+    printf "• ${UI_ACCENT}\\e[31;42m${UI_RESET} = Red text on green background\n"
+    printf "• ${UI_ACCENT}\\e[1;33;44m${UI_RESET} = Bold yellow text on blue background\n"
+    printf "• ${UI_ACCENT}\\e[97;40m${UI_RESET} = Bright white text on black background\n"
+    printf "• Always end with ${UI_ACCENT}\\e[0m${UI_RESET} to reset formatting\n\n"
+
+    print_section "Color Matrix"
+
+    # ANSI escape sequences
+    local ESC=$'\x1b'
+    local CSI="${ESC}["
+    local RST="${CSI}m"
+
+    printf "       40      41      42      43      44      45      46      47      49\n"
+
+    # Generate the matrix
+    for fg in 30 31 32 33 34 35 36 37 39 90 91 92 93 94 95 96 97; do
+        local l1="$fg  "
+        local l2="    "
+        local l3="    "
+        local l4="    "
+
+        for bg in 40 41 42 43 44 45 46 47 49; do
+            l1="${l1}${CSI}${fg};${bg}m Normal ${RST}"
+            l2="${l2}${CSI}${fg};${bg};1m Bold   ${RST}"
+            l3="${l3}${CSI}${fg};${bg};5m Blink  ${RST}"
+            l4="${l4}${CSI}${fg};${bg};1;5m Bold!  ${RST}"
+        done
+
+        printf "$l1\n"
+        printf "$l2\n"
+        printf "$l3\n"
+        printf "$l4\n"
+    done
+
+    print_section "Notes & Troubleshooting"
+    printf "${UI_DIM}💡 If blinking doesn't work:${UI_RESET}\n"
+    printf "   • Most modern terminals disable blinking by default\n"
+    printf "   • Kitty: Add 'text_blink_interval 0.5' to ~/.config/kitty/kitty.conf\n"
+    printf "   • Some terminals ignore blink codes entirely\n\n"
+
+    printf "${UI_DIM}💡 Script usage:${UI_RESET}\n"
+    printf '   echo -e "\\e[31mRed text\\e[0m"\n'
+    printf '   printf "\\e[1;34mBold blue\\e[0m\\n"\n'
+    printf '   RED="\\e[31m"; RESET="\\e[0m"; echo "${RED}Error${RESET}"\n\n'
+
+    printf "${UI_DIM}💡 Common combinations:${UI_RESET}\n"
+    printf "   Error messages: \\e[1;31m (bold red)\n"
+    printf "   Success messages: \\e[1;32m (bold green)\n"
+    printf "   Warnings: \\e[1;33m (bold yellow)\n"
+    printf "   Info/links: \\e[1;34m (bold blue)\n"
+    printf "   Highlights: \\e[7m (reverse video)\n\n"
+}
+
 # Main function
 color_test() {
     local choice=${1:-all}
@@ -884,6 +970,7 @@ color_test() {
             show_256_colors
             show_true_colors
             show_base24_mapping
+            show_enhanced_matrix
             ;;
         *)
             show_menu
