@@ -72,7 +72,7 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-b>",
-          n = "<Leader>b",
+          n = "",
         },
       },
     },
@@ -81,7 +81,7 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-h>",
-          n = "<Leader>h",
+          n = "",
         },
       },
     },
@@ -90,7 +90,7 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-f>",
-          n = "<Leader>t",
+          n = "",
         },
       },
     },
@@ -98,7 +98,7 @@ M.chat = {
       opts = { provider = "mini_pick" },
       keymaps = {
         modes = {
-          n = "<Leader>s",
+          n = "",
         },
       },
     },
