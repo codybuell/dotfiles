@@ -18,7 +18,7 @@ local has_luasnip, luasnip = pcall(require, 'luasnip')
 --  Configuration  --
 ---------------------
 
--- expects kitty terminal or a patched font for unicode character support
+-- Expects kitty terminal or a patched font for unicode character support
 local lsp_kinds = {
   Class         = ' ',
   Color         = ' ',
@@ -47,20 +47,14 @@ local lsp_kinds = {
   Variable      = ' ',
 }
 
--- custom sources
+-- Custom sources
 buell.cmp.handles.setup()        -- github handles
 
 ---------------
 --  Helpers  --
 ---------------
 
--- Check if there are non-whitespace characters before the cursor.
--- local has_words_before = function()
---   if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
---   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---   return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
--- end
-
+-- Returns true if Copilot is showing virtual text.
 local has_copilot_virtual_text = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local copilot_ns = vim.fn['copilot#NvimNs']()
@@ -70,17 +64,17 @@ end
 
 -- Returns the current column number.
 local column = function()
-  local _line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col
 end
 
--- Returns true if the cursor is in leftmost column or at a whitespace
--- character.
+-- Returns true if the cursor is in leftmost column or at a whitespace char.
 local in_whitespace = function()
   local col = column()
   return col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s')
 end
 
+-- Returns true if the cursor is in the leading indent of the line.
 local in_leading_indent = function()
   local col = column()
   local line = vim.api.nvim_get_current_line()
@@ -88,6 +82,7 @@ local in_leading_indent = function()
   return prefix:find('^%s*$')
 end
 
+-- Returns the effective shift width, taking 'softtabstop' into account.
 local shift_width = function()
   if vim.o.softtabstop <= 0 then
     return vim.fn.shiftwidth()
@@ -96,63 +91,13 @@ local shift_width = function()
   end
 end
 
--- Complement to `smart_tab()`.
---
--- When 'noexpandtab' is set (ie. hard tabs are in use), backspace:
---
---    - On the left (ie. in the indent) will delete a tab.
---    - On the right (when in trailing whitespace) will delete enough
---      spaces to get back to the previous tabstop.
---    - Everywhere else it will just delete the previous character.
---
--- For other buffers ('expandtab'), we let Neovim behave as standard and that
--- yields intuitive behavior, unless the `dedent` parameter is truthy, in
--- which case we issue <C-D> to dedent (see `:help i_CTRL-D`).
-local smart_bs = function(dedent)
-  local keys = nil
-  if vim.o.expandtab then
-    if dedent then
-      keys = rhs('<C-D>')
-    else
-      keys = rhs('<BS>')
-    end
-  else
-    local col = column()
-    local line = vim.api.nvim_get_current_line()
-    local prefix = line:sub(1, col)
-    if in_leading_indent() then
-      keys = rhs('<BS>')
-    else
-      local previous_char = prefix:sub(#prefix, #prefix)
-      if previous_char ~= ' ' then
-        keys = rhs('<BS>')
-      else
-        -- Delete enough spaces to take us back to the previous tabstop.
-        --
-        -- Originally I was calculating the number of <BS> to send, but
-        -- Neovim has some special casing that causes one <BS> to delete
-        -- multiple characters even when 'expandtab' is off (eg. if you hit
-        -- <BS> after pressing <CR> on a line with trailing whitespace and
-        -- Neovim inserts whitespace to match.
-        --
-        -- So, turn 'expandtab' on temporarily and let Neovim figure out
-        -- what a single <BS> should do.
-        --
-        -- See `:h i_CTRL-\_CTRL-O`.
-        keys = rhs('<C-\\><C-o>:set expandtab<CR><BS><C-\\><C-o>:set noexpandtab<CR>')
-      end
-    end
-  end
-  vim.api.nvim_feedkeys(rhs(keys), 'n', false)
-end
-
 -- In buffers where 'noexpandtab' is set (ie. hard tabs are in use), <Tab>:
 --
 --    - Inserts a tab on the left (for indentation).
 --    - Inserts spaces everywhere else (for alignment).
 --
 -- For other buffers (ie. where 'expandtab' applies), we use spaces everywhere.
-local smart_tab = function(opts)
+local smart_tab = function(_)
   local keys = nil
   if vim.o.expandtab then
     keys = '<Tab>' -- Neovim will insert spaces.
@@ -160,8 +105,8 @@ local smart_tab = function(opts)
     local col = column()
     local line = vim.api.nvim_get_current_line()
     local prefix = line:sub(1, col)
-    local in_leading_indent = prefix:find('^%s*$')
-    if in_leading_indent then
+    local l_in_leading_indent = prefix:find('^%s*$')
+    if l_in_leading_indent then
       keys = '<Tab>' -- Neovim will insert a hard tab.
     else
       -- virtcol() returns last column occupied, so if cursor is on a
@@ -181,6 +126,7 @@ local smart_tab = function(opts)
   vim.api.nvim_feedkeys(rhs(keys), 'n', false)
 end
 
+-- Select next/previous item in the completion menu, if visible.
 local select_next_item = function(fallback)
   if cmp.visible() then
     cmp.select_next_item()
@@ -189,6 +135,7 @@ local select_next_item = function(fallback)
   end
 end
 
+-- Select next/previous item in the completion menu, if visible.
 local select_prev_item = function(fallback)
   if cmp.visible() then
     cmp.select_prev_item()
@@ -227,15 +174,15 @@ local confirm = function(entry)
   cmp.confirm({ select = true, behavior = behavior })
 end
 
-----------------------------------------------------------------------------------
-----                                                                            --
-----  General Setup                                                             --
-----                                                                            --
-----------------------------------------------------------------------------------
+---------------------
+--  General Setup  --
+---------------------
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
   performance = { debounce = 60, throttle = 30 },
+
+  preselect = cmp.PreselectMode.None,
 
   experimental = {
     -- See also `toggle_ghost_text()` below.
@@ -260,8 +207,23 @@ cmp.setup({
   },
 
   mapping = {
-    ['<BS>'] = cmp.mapping(function(_fallback)
-      smart_bs()
+    ['<BS>'] = cmp.mapping(function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        cmp.abort()
+      elseif vim.bo.expandtab and vim.fn.col('.') > 1 and
+             vim.fn.getline('.'):sub(1, vim.fn.col('.') - 1):match('^%s*$') then
+        -- delete back to previous tabstop
+        local sw = (vim.bo.softtabstop > 0 and vim.bo.softtabstop)
+                   or (vim.bo.shiftwidth > 0 and vim.bo.shiftwidth)
+                   or vim.bo.tabstop
+        local rem = (vim.fn.virtcol('.') - 1) % sw
+        local n = rem == 0 and sw or rem
+        for _ = 1, n do
+          fallback()
+        end
+      else
+        fallback()
+      end
     end, { 'i', 's' }),
 
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -320,9 +282,10 @@ cmp.setup({
       elseif has_luasnip and luasnip.in_snippet() and luasnip.jumpable(-1) then
         luasnip.jump(-1)
       elseif in_leading_indent() then
-        smart_bs(true) -- true means to dedent
+        -- Dedent with <C-D>
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-D>', true, false, true), 'n', false)
       elseif in_whitespace() then
-        smart_bs()
+        fallback()
       else
         fallback()
       end
@@ -412,41 +375,43 @@ cmp.setup({
   },
 })
 
+------------------
+--  Ghost Text  --
+------------------
+
 -- Only show ghost text at word boundaries, not inside keywords. Based on idea
 -- from: https://github.com/hrsh7th/nvim-cmp/issues/2035#issuecomment-2347186210
 
-local config = require('cmp.config')
+-- local config = require('cmp.config')
 
-local toggle_ghost_text = function()
-  if vim.api.nvim_get_mode().mode ~= 'i' then
-    return
-  end
+-- local toggle_ghost_text = function()
+--   if vim.api.nvim_get_mode().mode ~= 'i' then
+--     return
+--   end
 
-  local cursor_column = vim.fn.col('.')
-  local current_line_contents = vim.fn.getline('.')
-  local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
+--   local cursor_column = vim.fn.col('.')
+--   local current_line_contents = vim.fn.getline('.')
+--   local character_after_cursor = current_line_contents:sub(cursor_column, cursor_column)
 
-  local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
+--   local should_enable_ghost_text = character_after_cursor == '' or vim.fn.match(character_after_cursor, [[\k]]) == -1
 
-  local current = config.get().experimental.ghost_text
-  if current ~= should_enable_ghost_text then
-    config.set_global({
-      experimental = {
-        ghost_text = should_enable_ghost_text,
-      },
-    })
-  end
-end
+--   local current = config.get().experimental.ghost_text
+--   if current ~= should_enable_ghost_text then
+--     config.set_global({
+--       experimental = {
+--         ghost_text = should_enable_ghost_text,
+--       },
+--     })
+--   end
+-- end
 
 -- vim.api.nvim_create_autocmd({ 'InsertEnter', 'CursorMovedI' }, {
 --   callback = toggle_ghost_text,
 -- })
 
---------------------------------------------------------------------------------
---                                                                            --
---  FileType Specific Configurations                                          --
---                                                                            --
---------------------------------------------------------------------------------
+----------------------------------------
+--  FileType Specific Configurations  --
+----------------------------------------
 
 --cmp.setup.filetype('gitcommit', {
 --  sources = cmp.config.sources({
