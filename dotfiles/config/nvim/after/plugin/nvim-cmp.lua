@@ -143,7 +143,7 @@ local smart_bs = function(dedent)
       end
     end
   end
-  vim.api.nvim_feedkeys(keys, 'nt', true)
+  vim.api.nvim_feedkeys(rhs(keys), 'n', false)
 end
 
 -- In buffers where 'noexpandtab' is set (ie. hard tabs are in use), <Tab>:
@@ -178,7 +178,7 @@ local smart_tab = function(opts)
     end
   end
 
-  vim.api.nvim_feedkeys(rhs(keys), 'nt', true)
+  vim.api.nvim_feedkeys(rhs(keys), 'n', false)
 end
 
 local select_next_item = function(fallback)
@@ -235,6 +235,8 @@ end
 
 ---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
+  performance = { debounce = 60, throttle = 30 },
+
   experimental = {
     -- See also `toggle_ghost_text()` below.
     -- Disabling in favor of copilot virtual text for now.
@@ -286,23 +288,30 @@ cmp.setup({
     ['<Up>'] = cmp.mapping(select_prev_item),
 
     ['<C-o>'] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_jumpable() then
-       luasnip.expand_or_jump()
-      elseif has_copilot_virtual_text() then
-        -- accept up to and including the next white space to mimic zsh setup
-        local resolved_key = vim.fn['copilot#Accept']('', '\\S*\\s*')
-        vim.api.nvim_feedkeys(resolved_key, 'n', true)
-      elseif cmp.visible() then
-        local entry = cmp.get_selected_entry()
-        confirm(entry)
+      if has_luasnip and luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+        return
+      end
+      if has_copilot_virtual_text() then
+        local resolved = vim.fn['copilot#Accept']('', '\\S*\\s*')
+        -- Defer the key injection so it doesn’t run inside the current insert callback
+        vim.schedule(function()
+          vim.api.nvim_feedkeys(resolved, 'n', false)  -- no replace_keycodes; see note
+        end)
+        return
+      end
+      if cmp.visible() then
+        confirm(cmp.get_selected_entry())
       else
         fallback()
       end
     end, { 'i', 's' }),
 
-    ['<C-y>'] = cmp.mapping(function(_fallback)
-      local resolved_key = vim.fn['copilot#Accept']()
-      vim.api.nvim_feedkeys(resolved_key, 'n', true)
+    ['<C-y>'] = cmp.mapping(function()
+      local resolved = vim.fn['copilot#Accept']()
+      vim.schedule(function()
+        vim.api.nvim_feedkeys(resolved, 'n', false)
+      end)
     end),
 
     ['<S-Tab>'] = cmp.mapping(function(fallback)
@@ -319,21 +328,30 @@ cmp.setup({
       end
     end, { 'i', 's' }),
 
-    ['<Tab>'] = cmp.mapping(function(_fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        -- If there is only one completion candidate, use it.
         local entries = cmp.get_entries()
         if #entries == 1 then
           confirm(entries[1])
         else
           cmp.select_next_item()
         end
-      elseif has_luasnip and luasnip.expand_or_locally_jumpable() then
+        return
+      end
+      if has_luasnip and luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
-      elseif in_whitespace() then
+        return
+      end
+      -- If Copilot is showing virtual text, don’t force cmp to open and re-trigger events
+      if has_copilot_virtual_text() then
+        fallback()
+        return
+      end
+      if in_whitespace() then
         smart_tab()
       else
-        cmp.complete()
+        -- Defer completion so it isn’t opened in the same key-processing tick
+        vim.schedule(cmp.complete)
       end
     end, { 'i', 's' }),
   },
