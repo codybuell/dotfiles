@@ -17,19 +17,9 @@ end
 vim.g.copilot_no_tab_map = true
 
 vim.g.copilot_filetypes = {
-  ['*'] = false,
+  ['*'] = true,
   markdown = false,
-  python = true,
-  go = true,
-  javascript = true,
-  typescript = true,
-  rust = true,
-  lua = true,
-  vim = true,
-  sh = true,
-  yaml = true,
-  json = true,
-  toml = true,
+  codecompanion = false,
 }
 
 ----------------
