@@ -213,6 +213,37 @@ local function get_centered_window_config()
   }
 end
 
+-- Custom buffers picker that excludes [No name] buffers
+local function buffers_exclude_noname()
+  local buffers = {}
+
+  for _, buf_id in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf_id) then
+      local name = vim.api.nvim_buf_get_name(buf_id)
+      local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf_id })
+
+      -- Include buffer if it has a name and is a normal buffer
+      if name ~= '' and buftype == '' then
+        table.insert(buffers, {
+          bufnr = buf_id,
+          text = name == '' and '[No Name]' or vim.fn.fnamemodify(name, ':~:.'),
+        })
+      end
+    end
+  end
+
+  minipick.start({
+    source = {
+      items = buffers,
+      name = 'Buffers (named)',
+      choose = function(item)
+        local target_win = minipick.get_picker_state().windows.target
+        vim.api.nvim_win_set_buf(target_win, item.bufnr)
+      end
+    }
+  })
+end
+
 -------------
 --  Setup  --
 -------------
@@ -233,7 +264,8 @@ minipick.setup({
 vim.keymap.set('n', '<Leader>t', '<CMD>Pick files<CR>', { remap = true, silent = true })
 vim.keymap.set('n', '<Leader>T', '<CMD>Pick grep_live tool="rg"<CR>', { remap = true, silent = true })
 vim.keymap.set('n', '<Leader>h', '<CMD>Pick help<CR>', { remap = true, silent = true })
-vim.keymap.set('n', '<Leader>b', '<CMD>Pick buffers<CR>', { remap = true, silent = true })
+-- vim.keymap.set('n', '<Leader>b', '<CMD>Pick buffers<CR>', { remap = true, silent = true })
+vim.keymap.set('n', '<Leader>b', buffers_exclude_noname, { silent = true })
 
 -- pick files from the current buffers directory
 vim.keymap.set('n', '<Leader>.', function()
