@@ -68,13 +68,57 @@ M.chat = {
   },
   slash_commands = {
     ["buffer"] = {
-      opts = { provider = "mini_pick" },
+      description = "Select a buffer (excluding [No name] buffers)",
+      callback = function(chat)
+        local minipick = require('mini.pick')
+        local buffers = {}
+
+        for _, buf_id in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(buf_id) then
+            local name = vim.api.nvim_buf_get_name(buf_id)
+            local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf_id })
+
+            if name ~= '' and buftype == '' then
+              table.insert(buffers, {
+                bufnr = buf_id,
+                text = vim.fn.fnamemodify(name, ':~:.'),
+              })
+            end
+          end
+        end
+
+        local picked = minipick.start({
+          source = {
+            items = buffers,
+            name = 'Buffers (named)',
+            choose = function(item)
+              local lines = vim.api.nvim_buf_get_lines(item.bufnr, 0, -1, false)
+              local content = table.concat(lines, '\n')
+              chat:add_context({
+                role = "user",
+                content = content
+              }, "buffer", string.format("<%s>", item.text))
+            end
+          }
+        })
+      end,
+      opts = {
+        contains_code = true,
+      },
       keymaps = {
         modes = {
           i = "<C-b>",
         },
       },
     },
+    -- ["buffer"] = {
+    --   opts = { provider = "mini_pick" },
+    --   keymaps = {
+    --     modes = {
+    --       i = "<C-b>",
+    --     },
+    --   },
+    -- },
     ["help"] = {
       opts = { provider = "mini_pick" },
       keymaps = {
