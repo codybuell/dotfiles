@@ -67,8 +67,16 @@ M.chat = {
     },
   },
   slash_commands = {
+    -- ["buffer"] = {
+    --   opts = { provider = "mini_pick" },
+    --   keymaps = {
+    --     modes = {
+    --       i = "<C-b>",
+    --     },
+    --   },
+    -- },
     ["buffer"] = {
-      description = "Select a buffer (excluding [No name] buffers)",
+      description = "Select a buffer with mini.pick (excluding [No name] buffers)",
       callback = function(chat)
         local minipick = require('mini.pick')
         local buffers = {}
@@ -111,14 +119,6 @@ M.chat = {
         },
       },
     },
-    -- ["buffer"] = {
-    --   opts = { provider = "mini_pick" },
-    --   keymaps = {
-    --     modes = {
-    --       i = "<C-b>",
-    --     },
-    --   },
-    -- },
     ["help"] = {
       opts = { provider = "mini_pick" },
       keymaps = {
