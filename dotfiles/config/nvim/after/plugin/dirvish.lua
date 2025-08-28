@@ -29,5 +29,12 @@ augroup('BuellDirvish', function()
     vim.keymap.set('n', '!', ':<C-U>Shdo ', {remap = false, nowait = true, buffer = true})
     vim.keymap.set('v', '!', ":<C-U>'<,'>Shdo ", {remap = false, nowait = true, buffer = true})
     vim.keymap.set('n', 'o', ":<C-U>.call dirvish#open('edit', 0)<CR>", {buffer = true, nowait = true, silent = true})
+
+    -- Auto-press '0' to fix conceal issues in splits
+    vim.schedule(function()
+      if vim.api.nvim_win_is_valid(0) and vim.bo.filetype == 'dirvish' then
+        vim.api.nvim_feedkeys('0', 'n', false)
+      end
+    end)
   end)
 end)
