@@ -218,8 +218,8 @@ show_base24_mapping() {
     fi
 
     print_section "Standard Colors (0-7)"
-    printf "  %-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
-    printf "  ${UI_DIM}%-20s %-8s %-15s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
+    printf "  %-22s %-8s %-9s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
+    printf "  ${UI_DIM}%-22s %-8s %-9s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
 
     for color_num in {0..7}; do
         local mapping=(${(s/:/)BASE24_STANDARD[$color_num]})
@@ -228,13 +228,13 @@ show_base24_mapping() {
         local env_var=$mapping[3]
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "  %-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
+        printf "  %-22s %-8s %-9s \e[38;5;%dm████ %s\e[0m\n" \
             "$color_num:$color_name" "$base_name" "$hex_value" "$color_num" "$base_name"
     done
 
     print_section "Bright Colors (8-15)"
-    printf "  %-20s %-8s %-15s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
-    printf "  ${UI_DIM}%-20s %-8s %-15s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
+    printf "  %-22s %-8s %-9s %s\n" "Terminal Color" "Base24" "Hex" "Sample"
+    printf "  ${UI_DIM}%-22s %-8s %-9s %s${UI_RESET}\n" "──────────────" "──────" "───────" "──────"
 
     for color_num in {8..15}; do
         local mapping=(${(s/:/)BASE24_BRIGHT[$color_num]})
@@ -243,13 +243,13 @@ show_base24_mapping() {
         local env_var=$mapping[3]
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "  %-20s %-8s %-15s \e[38;5;%dm████ %s\e[0m\n" \
+        printf "  %-22s %-8s %-9s \e[38;5;%dm████ %s\e[0m\n" \
             "$color_num:$color_name" "$base_name" "$hex_value" "$color_num" "$base_name"
     done
 
     print_section "Additional Base24 Colors (not mapped to terminal 0-15)"
-    printf "  %-8s %-15s %s\n" "Base24" "Hex" "Purpose"
-    printf "  ${UI_DIM}%-8s %-15s %s${UI_RESET}\n" "──────" "───────" "───────"
+    printf "  %-22s %-8s %-9s %s\n" "Purpose" "Base24" "Hex" "Sample"
+    printf "  ${UI_DIM}%-22s %-8s %-9s %s${UI_RESET}\n" "──────────" "──────" "───────" "─────────"
 
     local additional_colors=(
         "base01:BASE24_COLOR_01_HEX:Background lighter"
@@ -268,7 +268,21 @@ show_base24_mapping() {
         local purpose=${mapping##*:}
         local hex_value=${(P)env_var:-"#??????"}
 
-        printf "  %-8s %-15s %s\n" "$base_name" "$hex_value" "$purpose"
+        # Create color sample using true color if hex is available
+        local sample=""
+        if [[ "$hex_value" =~ ^#?[0-9a-fA-F]{6}$ ]]; then
+            # Extract RGB from hex (handle both #ffffff and ffffff formats)
+            local hex_clean="${hex_value#\#}"  # Remove # if present
+            local r=$((16#${hex_clean:0:2}))
+            local g=$((16#${hex_clean:2:2}))
+            local b=$((16#${hex_clean:4:2}))
+            sample="\e[38;2;${r};${g};${b}m████ ${base_name}\e[0m"
+        else
+            sample="${UI_DIM}──── ${base_name}${UI_RESET}"
+        fi
+
+        printf "  %-22s %-8s %-9s " "$purpose" "$base_name" "$hex_value"
+        printf "%b\n" "$sample"  # Use %b to interpret escape sequences
     done
 
     echo ""
