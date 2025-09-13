@@ -249,7 +249,7 @@ local function custom_highlights()
   ----------------
 
   local comment_style = {
-    fg = pinnacle.brighten('Comment', 0.15).fg,
+    fg = pinnacle.darken('Comment', 0.20).fg,
     bg = pinnacle.bg('Comment'),
     italic = true,
   }
@@ -421,12 +421,17 @@ local function custom_highlights()
     bold = true,
   })
 
+  -- Listchar overrides to make them more subtle :h listchar for mapping to characters
+  pinnacle.set('SpecialKey', { fg = pinnacle.darken('Normal', 0.55).fg })
+  pinnacle.set('NonText', { fg = pinnacle.darken('Normal', 0.55).fg })
+  pinnacle.set('Whitespace', { fg = pinnacle.darken('Normal', 0.55).fg })
+
   -- Indent blankline because it's linking to Whitespace hl group before it is
   -- being set here
   -- IblScope -> the active scope line (note scope is not the same as indent)
   -- IblIndent -> the standard intend lines (not active scope)
   -- IblWhitespace -> the unwanted whitespace characters in the indent lines
-  pinnacle.set('IblScope', pinnacle.brighten('NonText', 0.10))
+  pinnacle.set('IblScope', pinnacle.brighten('NonText', 0.15))
   pinnacle.set('IblIndent', { fg = pinnacle.darken('Normal', 0.50).fg })
   pinnacle.set('IblWhitespace', { fg = pinnacle.darken('Normal', 0.50).fg })
 
@@ -435,11 +440,6 @@ local function custom_highlights()
     bg = 'NONE',
     fg = pinnacle.fg('Error'),
   })
-
-  -- -- Listchar overrides to make them more subtle :h listchar for mapping to characters
-  -- pinnacle.set('SpecialKey', { fg = pinnacle.darken('Normal', 0.55).fg })
-  -- pinnacle.set('NonText', { fg = pinnacle.darken('Normal', 0.55).fg })
-  -- pinnacle.set('Whitespace', { fg = pinnacle.darken('Normal', 0.55).fg })
 
   -- -- Make floating windows match pmenu
   -- vim.cmd("highlight! link NormalFloat Pmenu")
