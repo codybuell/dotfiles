@@ -308,7 +308,7 @@ local function custom_highlights()
   pinnacle.set('MiniDiffSignChange', {
     fg = pinnacle.brighten('DiffText', 0.35).bg,
     bg = pinnacle.bg('SignColumn'),
-    -- bold = true,
+    -- bold = true
     italic = true,
   })
 
