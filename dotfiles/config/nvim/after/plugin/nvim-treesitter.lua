@@ -62,6 +62,7 @@ local config = {
     -- native vim syntax highlighting is better
     disable = {
       "yaml",
+      "dockerfile",
     },
     -- disable / stop trying to re-init highlighting on large files
     is_supported = function()
