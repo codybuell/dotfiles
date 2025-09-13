@@ -75,14 +75,6 @@ DIFFEXCLUDES=( \
 HOME=$(cd && pwd)
 DATE=$(date +%Y%m%d%H%M%S)
 
-# determine md5 binary name
-if which md5 &> /dev/null; then
-  MD5='md5'
-  MD5Q='md5 -q'
-else
-  MD5='md5sum'
-  MD5Q='md5sum'
-fi
 
 ################################################################################
 #                                                                              #
@@ -161,6 +153,67 @@ pre_place_hooks() {
 }
 
 ##
+ # Fast diff check using rsync
+ #
+ # @params <source> <destination>
+ # @return 0 if identical, 1 if different
+##
+fast_diff_check() {
+  local src="$1"
+  local dest="$2"
+
+  # Use rsync dry-run to check differences efficiently
+  local changes
+  if [[ -d "$src" ]]; then
+    # For directories, exclude problematic paths and check for changes
+    changes=$(rsync -an --delete \
+      --exclude='.DS_Store' \
+      --exclude='*.mutt*/tmp' \
+      --exclude='.config/nvim*/backup' \
+      --exclude='.config/nvim*/sessions' \
+      --exclude='.config/nvim*/swap' \
+      --exclude='.config/nvim*/undo/*' \
+      --exclude='__pycache__/*' \
+      "$src/" "$dest/" 2>/dev/null | wc -l)
+  else
+    # For files, simple content comparison
+    if cmp -s "$src" "$dest" 2>/dev/null; then
+      changes=0
+    else
+      changes=1
+    fi
+  fi
+
+  return $((changes > 0))
+}
+
+##
+ # Template files only if they contain variables
+ #
+ # @params <directory>
+##
+smart_template() {
+  local dir="$1"
+
+  # Find files containing template variables
+  local files_with_vars
+  files_with_vars=$(find "$dir" "${TEMPLATEEXCLUDE}" -type f -exec grep -l '{{[[:space:]]*[^}]*[[:space:]]*}}' {} \; 2>/dev/null || true)
+
+  if [[ -n "$files_with_vars" ]]; then
+    for c in "${CONFIGVARS[@]}"; do
+      VAR=$c
+      eval VAL="\$$c"
+      # Escape @ symbols for perl
+      VAL=${VAL//@/\\@}
+
+      # Only process files that actually contain this variable
+      echo "$files_with_vars" | tr '\n' '\0' | xargs -0 grep -l "{{[[:space:]]*${VAR}[[:space:]]*}}" 2>/dev/null | \
+        xargs -I {} perl -pi -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g" {} 2>/dev/null || true
+    done
+  fi
+}
+
+##
  # Post-Place Hooks
  #
  # Defines and exutes commands to be run AFTER placing a corresponding dotfile
@@ -193,25 +246,31 @@ post_place_hooks() {
       chmod 700 ~/.gnupg
       ;;
     config|*nvim )
-      NVIMPATH=$(which -a nvim | uniq | grep -v 'alias' | head -1)
+        # Only run nvim setup if nvim is actually installed
+        if command -v nvim >/dev/null 2>&1; then
+          NVIMPATH=$(command -v nvim)
 
-      # clear out remnants from other locations
-      rm -rf "${HOME}"/.local/share/nvim
-      rm -rf "${HOME}"/.local/state/nvim
+          # Run cleanup operations in parallel
+          {
+            rm -rf "${HOME}"/.local/share/nvim
+            rm -rf "${HOME}"/.local/state/nvim
+          } &
+          {
+            rm -rf "${HOME}"/.config/nvim/spell
+            ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
+          } &
+          wait
 
-      # symlink spell from this repo
-      rm -rf "${HOME}"/.config/nvim/spell; ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
+          # generate helptags for all plugins
+          ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
 
-      # generate helptags for all plugins
-      ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1
-
-      # run treesitter-install (not working)
-      # ${NVIMPATH} --headless +'TSUpdate' +qa > /dev/null 2>&1
-
-      # markdown-preview.nvim
-      cd ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ || exit 1
-      npx --yes yarn install > /dev/null 2>&1
-      npx --yes yarn build > /dev/null 2>&1
+          # markdown-preview.nvim - only if directory exists
+          if [[ -d ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ ]]; then
+            cd ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ || exit 1
+            npx --yes yarn install > /dev/null 2>&1
+            npx --yes yarn build > /dev/null 2>&1
+          fi
+        fi
       ;;
   esac
 
@@ -231,7 +290,7 @@ place_files() {
   log blue "placing files..."
 
   # iterate through the dotfiles
-  for i in ${DOTFILES[@]}; do
+  for i in "${DOTFILES[@]}"; do
 
     ###########
     #  skips  #
@@ -244,7 +303,7 @@ place_files() {
     fi
 
     # skip if in ignore list
-    for IGN in ${IGNORE[@]}; do
+    for IGN in "${IGNORE[@]}"; do
       if [ "${i}" == "${IGN}" ]; then
         log red "  .${i}" "ignoring"
         continue 2
@@ -261,14 +320,8 @@ place_files() {
     # run custom commands as necessary
     pre_place_hooks "${i}"
 
-    # replace all variables found in dotfiles
-    for c in ${CONFIGVARS[@]}; do
-      VAR=${c}
-      eval VAL="\$$c"
-      # escape any @'s in the value so perl dosen't hose it
-      VAL=$(echo $VAL | sed 's/\@/\\\@/g')
-      find ~/".${i}.new.${DATE}" ${TEMPLATEEXCLUDE} -type f -print0 | xargs -0 perl -pi -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
-    done
+    # smart templating - only template files with variables
+    smart_template "${HOME}/.${i}.new.${DATE}"
 
     #############
     #  diffing  #
@@ -282,19 +335,8 @@ place_files() {
         rm "${HOME}/.${i}"
       # if it is not a symlink compare it
       else
-        # gather the checksums
-        if [ -d "${HOME}/.${i}" ]; then
-          MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
-          MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
-          # find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/new.txt
-          # find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/old.txt
-        else
-          MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | awk '{print $1}')
-          MD5OLD=$(${MD5Q} "${HOME}/.${i}" | awk '{print $1}')
-        fi
-
-        # compare checksums
-        if [[ "${MD5NEW}" == "${MD5OLD}" && "${FORCE}" == "false" ]]; then
+        # fast diff check using rsync
+        if fast_diff_check "${HOME}/.${i}.new.${DATE}" "${HOME}/.${i}" && [[ "${FORCE}" == "false" ]]; then
           # if the same
           log green "  .${i}" "already there"
           rm -rf "${HOME}/.${i}.new.${DATE}"
