@@ -194,7 +194,6 @@ local on_attach = function(client, bufnr)
     ['grt']        = '<cmd>lua vim.lsp.buf.type_definition()<CR>',          -- show type definition for symbol
     ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
     ['t<c-]>']     = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',   -- go to where the symbol is defined in a new tab
-    ['<leader>u']  = '<cmd>lua buell.lsp.toggle_unicode_check()<CR>',       -- show/hide unicode diagnostics
     ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
     [']g']         = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
     ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
