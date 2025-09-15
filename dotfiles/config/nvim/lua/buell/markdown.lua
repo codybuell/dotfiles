@@ -8,7 +8,16 @@ local markdown = {}
 
 -- wikis, wiki cannot have a name of http[s]?
 local wikis = {
-  notes   = vim.fn.fnamemodify('{{ Notes }}', ':p'),
+  codex     = vim.fn.fnamemodify('{{ Notes }}', ':p'),
+  archive   = vim.fn.fnamemodify('{{ Notes }}/Archive', ':p'),
+  domains   = vim.fn.fnamemodify('{{ Notes }}/Domains', ':p'),
+  ideas     = vim.fn.fnamemodify('{{ Notes }}/Ideas', ':p'),
+  journal   = vim.fn.fnamemodify('{{ Notes }}/Journal', ':p'),
+  people    = vim.fn.fnamemodify('{{ Notes }}/People', ':p'),
+  projects  = vim.fn.fnamemodify('{{ Notes }}/Projects', ':p'),
+  reference = vim.fn.fnamemodify('{{ Notes }}/Reference', ':p'),
+  self      = vim.fn.fnamemodify('{{ Notes }}/Self', ':p'),
+  topics    = vim.fn.fnamemodify('{{ Notes }}/Topics', ':p'),
 }
 
 -- define link syntaxes, order is important in link_types due to lua's lack of
