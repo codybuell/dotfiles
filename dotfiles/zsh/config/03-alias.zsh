@@ -127,3 +127,4 @@ alias k=kubectl
 alias d=docker
 alias n=note
 alias dc='docker compose'
+alias s3rm=rmbuckets
