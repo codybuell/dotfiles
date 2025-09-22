@@ -178,25 +178,25 @@ local on_attach = function(client, bufnr)
   -- lsp normal mode mappings
   -- NOTE: these are only applied when the buffer is attached to an LSP server.
   local mappings = {
-    ['K']          = '<cmd>lua vim.lsp.buf.hover()<CR>',                    -- show information for symbol
-    ['gra']        = '<cmd>lua vim.lsp.buf.code_action()<CR>',              -- show available code actions
-    ['grd']        = '<cmd>lua vim.lsp.buf.declaration()<CR>',              -- go to where the symbol is declared
-    ['grf']        = '<cmd>lua vim.lsp.buf.formatting()<CR>',               -- format the current buffer asynchronously
-    ['grF']        = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>', -- format the current buffer synchronously
-    ['grh']        = '<cmd>lua vim.lsp.buf.document_highlight()<CR>',       -- highlight symbol under cursor
-    ['grH']        = '<cmd>lua vim.lsp.buf.clear_references()<CR>',         -- clear symbol highlights
-    ['gri']        = '<cmd>lua vim.lsp.buf.implementation()<CR>',           -- go to where the symbol is implemented
-    ['grI']        = '<cmd>lua vim.lsp.buf.incoming_calls()<CR>',           -- show incoming calls of the symbol
-    ['grO']        = '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>',           -- show outgoing calls from the symbol
-    ['grl']        = '<cmd>lua vim.lsp.codelens.run()<CR>',                 -- run code lens, show actions for location
-    ['grn']        = '<cmd>lua vim.lsp.buf.rename()<CR>',                   -- rename the symbol everywhere it exists
-    ['grr']        = '<cmd>lua vim.lsp.buf.references()<CR>',               -- show where symbol is used
-    ['grt']        = '<cmd>lua vim.lsp.buf.type_definition()<CR>',          -- show type definition for symbol
-    ['<c-]>']      = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
-    ['t<c-]>']     = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',   -- go to where the symbol is defined in a new tab
-    ['<leader>e']  = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
-    [']g']         = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
-    ['[g']         = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
+    ['K']              = '<cmd>lua vim.lsp.buf.hover()<CR>',                    -- show information for symbol
+    ['<c-]>']          = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
+    ['t<c-]>']         = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',   -- go to where the symbol is defined in a tab
+    ['<leader>e']      = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
+    [']g']             = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
+    ['[g']             = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
+    ['<localleader>d'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',              -- go to where the symbol is declared
+    ['<localleader>i'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',           -- go to where the symbol is implemented
+    ['<localleader>a'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',              -- show available code actions
+    ['<localleader>r'] = '<cmd>lua vim.lsp.buf.references()<CR>',               -- show where symbol is used
+    ['<localleader>f'] = '<cmd>lua vim.lsp.buf.formatting()<CR>',               -- format the current buffer asynchronously
+    ['<localleader>F'] = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>', -- format the current buffer synchronously
+    ['<localleader>R'] = '<cmd>lua vim.lsp.buf.rename()<CR>',                   -- rename the symbol everywhere it exists
+    ['<localleader>I'] = '<cmd>lua vim.lsp.buf.incoming_calls()<CR>',           -- show incoming calls of the symbol
+    ['<localleader>O'] = '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>',           -- show outgoing calls from the symbol
+    ['<localleader>t'] = '<cmd>lua vim.lsp.buf.type_definition()<CR>',          -- show type definition for symbol
+    -- ['grh']         = '<cmd>lua vim.lsp.buf.document_highlight()<CR>',       -- highlight symbol under cursor
+    -- ['grl']         = '<cmd>lua vim.lsp.codelens.run()<CR>',                 -- run code lens, show actions for location
+    -- ['grH']         = '<cmd>lua vim.lsp.buf.clear_references()<CR>',         -- clear symbol highlights
   }
   for lhs, rhs in pairs(mappings) do
     buell.util.nnoremap(lhs, rhs)

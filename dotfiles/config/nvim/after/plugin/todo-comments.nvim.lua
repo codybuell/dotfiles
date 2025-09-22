@@ -86,4 +86,4 @@ todocomments.setup(config)
 ----------------
 
 -- todo-comments
-vim.keymap.set('n', '<Localleader>t', ':TodoQuickFix<CR>', {remap = false})
+vim.keymap.set('n', '<leader>5', ':TodoQuickFix<CR>', {remap = false})
