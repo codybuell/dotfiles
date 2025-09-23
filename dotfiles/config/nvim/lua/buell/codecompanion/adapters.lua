@@ -13,7 +13,7 @@ local M = {}
 --  Copilot  --
 ---------------
 
-M.copilot = function()
+local copilot_config = function()
   return require("codecompanion.adapters").extend("copilot", {
     schema = {
       model = {
@@ -50,5 +50,15 @@ end
 --     },
 --   })
 -- end
+
+-------------------------
+--  Assemble Adapters  --
+-------------------------
+
+M.http = {
+  copilot = copilot_config(),
+}
+
+M.acp = {}
 
 return M

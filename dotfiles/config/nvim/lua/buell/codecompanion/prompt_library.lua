@@ -45,167 +45,167 @@ local M = {}
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Initialize Living Docs"] = {
-  strategy = "chat",
-  description = "Initialize living documentation workflow for a new project",
-  opts = {
-    short_name = "init_docs",
-    auto_submit = false,
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You help initialize the living documentation workflow for projects. Your tasks:
+-- M["Initialize Living Docs"] = {
+--   strategy = "chat",
+--   description = "Initialize living documentation workflow for a new project",
+--   opts = {
+--     short_name = "init_docs",
+--     auto_submit = false,
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You help initialize the living documentation workflow for projects. Your tasks:
 
-1. **ASSESS**: Check what documentation already exists using @{file_search}
-2. **CREATE**: Create missing essential documentation files with appropriate templates using @{create_file}
-3. **SETUP**: Create or update the codecompanion-workspace.json file
+-- 1. **ASSESS**: Check what documentation already exists using @{file_search}
+-- 2. **CREATE**: Create missing essential documentation files with appropriate templates using @{create_file}
+-- 3. **SETUP**: Create or update the codecompanion-workspace.json file
 
-IMPORTANT: Only create files that don't already exist. Never overwrite existing documentation.
+-- IMPORTANT: Only create files that don't already exist. Never overwrite existing documentation.
 
-Essential files for living documentation:
-- doc/project-context.md (project overview and goals)
-- doc/decisions.md (architectural decision records)
-- doc/tech-context.md (technology choices and patterns)
-- codecompanion-workspace.json (AI context configuration)
+-- Essential files for living documentation:
+-- - doc/project-context.md (project overview and goals)
+-- - doc/decisions.md (architectural decision records)
+-- - doc/tech-context.md (technology choices and patterns)
+-- - codecompanion-workspace.json (AI context configuration)
 
-Use the @{create_file} tool to create missing files with appropriate templates.]]
-    },
-    {
-      role = "user",
-      content = [[Please initialize the living documentation workflow for this project.
+-- Use the @{create_file} tool to create missing files with appropriate templates.]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Please initialize the living documentation workflow for this project.
 
-First, use @{file_search} to check what documentation already exists. Only create files that are missing - never overwrite existing documentation.
+-- First, use @{file_search} to check what documentation already exists. Only create files that are missing - never overwrite existing documentation.
 
-For doc/project-context.md, use this template:
-```markdown
-# [Project Name]
+-- For doc/project-context.md, use this template:
+-- ```markdown
+-- # [Project Name]
 
-## Overview
-Brief description of what this project does and why it exists.
+-- ## Overview
+-- Brief description of what this project does and why it exists.
 
-## Goals & Objectives
-- Primary objective 1
-- Primary objective 2
+-- ## Goals & Objectives
+-- - Primary objective 1
+-- - Primary objective 2
 
-## Constraints
-- Technical constraints
-- Business constraints
+-- ## Constraints
+-- - Technical constraints
+-- - Business constraints
 
-## Architecture Overview
-High-level system design and key components.
+-- ## Architecture Overview
+-- High-level system design and key components.
 
-## Key Technologies
-- Technology 1: Rationale
-- Technology 2: Rationale
+-- ## Key Technologies
+-- - Technology 1: Rationale
+-- - Technology 2: Rationale
 
-## Related Documentation
-- [Decisions](./decisions.md)
-- [Tech Context](./tech-context.md)
-```
+-- ## Related Documentation
+-- - [Decisions](./decisions.md)
+-- - [Tech Context](./tech-context.md)
+-- ```
 
-For doc/decisions.md, use this template:
-```markdown
-# Architectural Decision Records
+-- For doc/decisions.md, use this template:
+-- ```markdown
+-- # Architectural Decision Records
 
-## Decision Template
-When adding new decisions, use this format:
+-- ## Decision Template
+-- When adding new decisions, use this format:
 
-### [YYYY-MM-DD] - [Decision Title]
-**Status:** Proposed | Accepted | Rejected | Superseded
-**Context:** Why this decision was needed
-**Decision:** What was decided
-**Consequences:** Expected outcomes and trade-offs
-**Tags:** #relevant #tags
+-- ### [YYYY-MM-DD] - [Decision Title]
+-- **Status:** Proposed | Accepted | Rejected | Superseded
+-- **Context:** Why this decision was needed
+-- **Decision:** What was decided
+-- **Consequences:** Expected outcomes and trade-offs
+-- **Tags:** #relevant #tags
 
-## Decisions
+-- ## Decisions
 
-### [Current Date] - Adopt Living Documentation Workflow
-**Status:** Accepted
-**Context:** Need systematic approach to keep documentation current with code changes
-**Decision:** Implement living documentation workflow with AI assistance via CodeCompanion
-**Consequences:**
-- Better knowledge retention across team
-- Easier onboarding for new developers
-- Documentation stays aligned with codebase evolution
-- Regular review cycles ensure accuracy
-**Tags:** #documentation #workflow #ai-assisted
-```
+-- ### [Current Date] - Adopt Living Documentation Workflow
+-- **Status:** Accepted
+-- **Context:** Need systematic approach to keep documentation current with code changes
+-- **Decision:** Implement living documentation workflow with AI assistance via CodeCompanion
+-- **Consequences:**
+-- - Better knowledge retention across team
+-- - Easier onboarding for new developers
+-- - Documentation stays aligned with codebase evolution
+-- - Regular review cycles ensure accuracy
+-- **Tags:** #documentation #workflow #ai-assisted
+-- ```
 
-For doc/tech-context.md, use this template:
-```markdown
-# Technology Context
+-- For doc/tech-context.md, use this template:
+-- ```markdown
+-- # Technology Context
 
-## Technology Stack
-Document key technologies and rationale:
-- **Language:** [Primary language and version]
-- **Framework:** [Main framework if applicable]
-- **Database:** [Database technology]
-- **Deployment:** [Deployment approach]
+-- ## Technology Stack
+-- Document key technologies and rationale:
+-- - **Language:** [Primary language and version]
+-- - **Framework:** [Main framework if applicable]
+-- - **Database:** [Database technology]
+-- - **Deployment:** [Deployment approach]
 
-## Architecture Patterns
-Document key patterns as they emerge:
-- Pattern 1: Description and usage
-- Pattern 2: Description and usage
+-- ## Architecture Patterns
+-- Document key patterns as they emerge:
+-- - Pattern 1: Description and usage
+-- - Pattern 2: Description and usage
 
-## Conventions
-### Naming Conventions
-- Files: [convention]
-- Functions: [convention]
-- Variables: [convention]
+-- ## Conventions
+-- ### Naming Conventions
+-- - Files: [convention]
+-- - Functions: [convention]
+-- - Variables: [convention]
 
-### Code Organization
-Describe how code is structured and organized.
+-- ### Code Organization
+-- Describe how code is structured and organized.
 
-## Key Dependencies
-Major dependencies and selection rationale:
-- **Dependency 1:** Why chosen, alternatives considered
-- **Dependency 2:** Why chosen, alternatives considered
+-- ## Key Dependencies
+-- Major dependencies and selection rationale:
+-- - **Dependency 1:** Why chosen, alternatives considered
+-- - **Dependency 2:** Why chosen, alternatives considered
 
-## Development Setup
-Basic setup requirements and configuration.
-```
+-- ## Development Setup
+-- Basic setup requirements and configuration.
+-- ```
 
-For codecompanion-workspace.json, create a minimal configuration:
-```json
-{
-  "name": "[Detected Project Name]",
-  "version": "1.0.0",
-  "system_prompt": "This project follows a living documentation workflow. Always consult the ${docs_path}/ folder for project context, decisions, and patterns before providing advice.",
-  "vars": {
-    "docs_path": "doc"
-  },
-  "groups": [
-    {
-      "name": "Core Architecture",
-      "system_prompt": "Essential project understanding - review before architectural changes",
-      "data": ["project-overview", "decisions", "tech-stack"]
-    }
-  ],
-  "data": {
-    "project-overview": {
-      "type": "file",
-      "path": "${docs_path}/project-context.md",
-      "description": "High-level project goals and architecture"
-    },
-    "decisions": {
-      "type": "file",
-      "path": "${docs_path}/decisions.md",
-      "description": "Technical decisions and rationale"
-    },
-    "tech-stack": {
-      "type": "file",
-      "path": "${docs_path}/tech-context.md",
-      "description": "Technology stack and patterns"
-    }
-  }
-}
-```
+-- For codecompanion-workspace.json, create a minimal configuration:
+-- ```json
+-- {
+--   "name": "[Detected Project Name]",
+--   "version": "1.0.0",
+--   "system_prompt": "This project follows a living documentation workflow. Always consult the ${docs_path}/ folder for project context, decisions, and patterns before providing advice.",
+--   "vars": {
+--     "docs_path": "doc"
+--   },
+--   "groups": [
+--     {
+--       "name": "Core Architecture",
+--       "system_prompt": "Essential project understanding - review before architectural changes",
+--       "data": ["project-overview", "decisions", "tech-stack"]
+--     }
+--   ],
+--   "data": {
+--     "project-overview": {
+--       "type": "file",
+--       "path": "${docs_path}/project-context.md",
+--       "description": "High-level project goals and architecture"
+--     },
+--     "decisions": {
+--       "type": "file",
+--       "path": "${docs_path}/decisions.md",
+--       "description": "Technical decisions and rationale"
+--     },
+--     "tech-stack": {
+--       "type": "file",
+--       "path": "${docs_path}/tech-context.md",
+--       "description": "Technology stack and patterns"
+--     }
+--   }
+-- }
+-- ```
 
-Customize the templates based on what you discover about the project structure and technologies used.]]
-    }
-  }
-}
+-- Customize the templates based on what you discover about the project structure and technologies used.]]
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -229,88 +229,88 @@ Customize the templates based on what you discover about the project structure a
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Review Documentation"] = {
-  strategy = "chat",
-  description = "Analyze codebase and suggest documentation updates",
-  opts = {
-    short_name = "review_docs",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "codecompanion-workspace.json",
-      optional = true
-    },
-    {
-      type = "file",
-      path = "doc/project-context.md",
-      optional = true
-    },
-    {
-      type = "file",
-      path = "doc/decisions.md",
-      optional = true
-    },
-    {
-      type = "file",
-      path = "doc/tech-context.md",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You are a documentation reviewer. Your job is to:
+-- M["Review Documentation"] = {
+--   strategy = "chat",
+--   description = "Analyze codebase and suggest documentation updates",
+--   opts = {
+--     short_name = "review_docs",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "codecompanion-workspace.json",
+--       optional = true
+--     },
+--     {
+--       type = "file",
+--       path = "doc/project-context.md",
+--       optional = true
+--     },
+--     {
+--       type = "file",
+--       path = "doc/decisions.md",
+--       optional = true
+--     },
+--     {
+--       type = "file",
+--       path = "doc/tech-context.md",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You are a documentation reviewer. Your job is to:
 
-1. **CHECK**: Verify essential documentation files exist
-2. **ANALYZE**: Compare current documentation with codebase
-3. **RECOMMEND**: Present specific, actionable updates in checkbox format
-4. **CREATE**: Use @{create_file} for missing essential files
-5. **WAIT**: Always get user approval before making changes
-6. **IMPLEMENT**: Only update items the user approves
+-- 1. **CHECK**: Verify essential documentation files exist
+-- 2. **ANALYZE**: Compare current documentation with codebase
+-- 3. **RECOMMEND**: Present specific, actionable updates in checkbox format
+-- 4. **CREATE**: Use @{create_file} for missing essential files
+-- 5. **WAIT**: Always get user approval before making changes
+-- 6. **IMPLEMENT**: Only update items the user approves
 
-If essential documentation files don't exist, create them first using the templates from the "Initialize Living Docs" prompt.
+-- If essential documentation files don't exist, create them first using the templates from the "Initialize Living Docs" prompt.
 
-Focus on:
-- Missing architectural decisions that should be documented
-- Outdated technical information
-- New patterns or conventions that emerged
-- Gaps between code and documentation]]
-    },
-    {
-      role = "user",
-      content = [[Please review the documentation for this project.
+-- Focus on:
+-- - Missing architectural decisions that should be documented
+-- - Outdated technical information
+-- - New patterns or conventions that emerged
+-- - Gaps between code and documentation]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Please review the documentation for this project.
 
-First, use @{file_search} to check what documentation exists. If essential files (project-context.md, decisions.md, tech-context.md, codecompanion-workspace.json) are missing, create them using @{create_file} with appropriate templates.
+-- First, use @{file_search} to check what documentation exists. If essential files (project-context.md, decisions.md, tech-context.md, codecompanion-workspace.json) are missing, create them using @{create_file} with appropriate templates.
 
-Then analyze existing documentation against the codebase using @{file_search} and @{grep_search} tools.
+-- Then analyze existing documentation against the codebase using @{file_search} and @{grep_search} tools.
 
-Present findings as:
+-- Present findings as:
 
-## Documentation Review
+-- ## Documentation Review
 
-### Missing Essential Files
-- [ ] **File**: Why it's needed
+-- ### Missing Essential Files
+-- - [ ] **File**: Why it's needed
 
-### Documentation Recommendations
+-- ### Documentation Recommendations
 
-### Missing Documentation
-- [ ] **Topic/File**: Specific recommendation and rationale
+-- ### Missing Documentation
+-- - [ ] **Topic/File**: Specific recommendation and rationale
 
-### Outdated Information
-- [ ] **Section**: What needs updating and why
+-- ### Outdated Information
+-- - [ ] **Section**: What needs updating and why
 
-### Decision Gaps
-- [ ] **Decision**: What should be captured in decisions.md
+-- ### Decision Gaps
+-- - [ ] **Decision**: What should be captured in decisions.md
 
-### Pattern Documentation
-- [ ] **Pattern**: What coding patterns need documentation
+-- ### Pattern Documentation
+-- - [ ] **Pattern**: What coding patterns need documentation
 
-After I approve items, implement them using @{create_file} or @{insert_edit_into_file}.]]
-    }
-  }
-}
+-- After I approve items, implement them using @{create_file} or @{insert_edit_into_file}.]]
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -336,88 +336,88 @@ After I approve items, implement them using @{create_file} or @{insert_edit_into
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Expand Living Docs"] = {
-  strategy = "chat",
-  description = "Add optional documentation files as project grows",
-  opts = {
-    short_name = "expand_docs",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "codecompanion-workspace.json",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You help projects expand their documentation as they mature. You assess project complexity and team size to recommend additional documentation files.
+-- M["Expand Living Docs"] = {
+--   strategy = "chat",
+--   description = "Add optional documentation files as project grows",
+--   opts = {
+--     short_name = "expand_docs",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "codecompanion-workspace.json",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You help projects expand their documentation as they mature. You assess project complexity and team size to recommend additional documentation files.
 
-Optional documentation files to consider:
-- doc/onboarding.md (for teams > 2 people)
-- doc/testing.md (for complex testing strategies)
-- doc/troubleshooting.md (after accumulating common issues)
-- doc/code-standards.md (for teams with specific conventions)
-- doc/deployment.md (for complex deployment processes)
+-- Optional documentation files to consider:
+-- - doc/onboarding.md (for teams > 2 people)
+-- - doc/testing.md (for complex testing strategies)
+-- - doc/troubleshooting.md (after accumulating common issues)
+-- - doc/code-standards.md (for teams with specific conventions)
+-- - doc/deployment.md (for complex deployment processes)
 
-Use @{create_file} to create recommended files with appropriate templates.]]
-    },
-    {
-      role = "user",
-      content = [[Analyze this project to determine if additional documentation would be beneficial. Use @{file_search} and @{grep_search} to understand project complexity.
+-- Use @{create_file} to create recommended files with appropriate templates.]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Analyze this project to determine if additional documentation would be beneficial. Use @{file_search} and @{grep_search} to understand project complexity.
 
-Consider:
-- Team size indicators (multiple contributors, etc.)
-- Testing complexity
-- Deployment complexity
-- Code standards/conventions in use
-- Common issues that might need documentation
+-- Consider:
+-- - Team size indicators (multiple contributors, etc.)
+-- - Testing complexity
+-- - Deployment complexity
+-- - Code standards/conventions in use
+-- - Common issues that might need documentation
 
-Present recommendations as:
+-- Present recommendations as:
 
-## Documentation Expansion Analysis
+-- ## Documentation Expansion Analysis
 
-### Recommended Additions
-- [ ] **File**: Why it would help this project
+-- ### Recommended Additions
+-- - [ ] **File**: Why it would help this project
 
-### Templates Available
-List which templates you can create for approved files.
+-- ### Templates Available
+-- List which templates you can create for approved files.
 
-For doc/onboarding.md template:
-```markdown
-# Developer Onboarding
+-- For doc/onboarding.md template:
+-- ```markdown
+-- # Developer Onboarding
 
-## Prerequisites
-- Requirement 1
-- Requirement 2
+-- ## Prerequisites
+-- - Requirement 1
+-- - Requirement 2
 
-## Setup Steps
-1. Step 1
-2. Step 2
+-- ## Setup Steps
+-- 1. Step 1
+-- 2. Step 2
 
-## Project Structure
-Overview of how code is organized.
+-- ## Project Structure
+-- Overview of how code is organized.
 
-## Development Workflow
-How to make changes, test, and deploy.
+-- ## Development Workflow
+-- How to make changes, test, and deploy.
 
-## Key Concepts
-Important concepts new developers should understand.
+-- ## Key Concepts
+-- Important concepts new developers should understand.
 
-## Common Tasks
-- Task 1: How to do it
-- Task 2: How to do it
+-- ## Common Tasks
+-- - Task 1: How to do it
+-- - Task 2: How to do it
 
-## Getting Help
-Where to ask questions and find resources.
-```
+-- ## Getting Help
+-- Where to ask questions and find resources.
+-- ```
 
-Use similar comprehensive templates for other documentation types.]]
-    }
-  }
-}
+-- Use similar comprehensive templates for other documentation types.]]
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -445,49 +445,49 @@ Use similar comprehensive templates for other documentation types.]]
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Capture Insights"] = {
-  strategy = "chat",
-  description = "Immediately document discoveries and decisions",
-  opts = {
-    short_name = "capture",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "doc/decisions.md",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You help capture immediate insights and decisions as they occur during development. When a developer shares:
-- "I figured out why..."
-- "The issue was..."
-- "We should use X because..."
-- "I discovered that..."
+-- M["Capture Insights"] = {
+--   strategy = "chat",
+--   description = "Immediately document discoveries and decisions",
+--   opts = {
+--     short_name = "capture",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "doc/decisions.md",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You help capture immediate insights and decisions as they occur during development. When a developer shares:
+-- - "I figured out why..."
+-- - "The issue was..."
+-- - "We should use X because..."
+-- - "I discovered that..."
 
-Your job is to:
-1. **CHECK**: Verify doc/decisions.md exists (create if missing using standard template)
-2. **FORMAT**: Draft a properly structured ADR entry
-3. **WAIT**: Get approval before updating the file
-4. **UPDATE**: Add the entry to decisions.md using @{insert_edit_into_file}
+-- Your job is to:
+-- 1. **CHECK**: Verify doc/decisions.md exists (create if missing using standard template)
+-- 2. **FORMAT**: Draft a properly structured ADR entry
+-- 3. **WAIT**: Get approval before updating the file
+-- 4. **UPDATE**: Add the entry to decisions.md using @{insert_edit_into_file}
 
-ADR Format:
-### [DATE] - [DECISION TITLE]
-**Status:** Accepted
-**Context:** Why this decision/discovery was needed
-**Decision:** What was decided/discovered
-**Consequences:** Expected outcomes, trade-offs, implications
-**Tags:** #relevant #tags]]
-    },
-    {
-      role = "user",
-      content = "I just discovered/decided: [describe your insight]. Please help me document this properly in our decisions log."
-    }
-  }
-}
+-- ADR Format:
+-- ### [DATE] - [DECISION TITLE]
+-- **Status:** Accepted
+-- **Context:** Why this decision/discovery was needed
+-- **Decision:** What was decided/discovered
+-- **Consequences:** Expected outcomes, trade-offs, implications
+-- **Tags:** #relevant #tags]]
+--     },
+--     {
+--       role = "user",
+--       content = "I just discovered/decided: [describe your insight]. Please help me document this properly in our decisions log."
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -515,46 +515,46 @@ ADR Format:
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Update Project Context"] = {
-  strategy = "chat",
-  description = "Review and update all project documentation",
-  opts = {
-    short_name = "update_context",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "doc/project-context.md"
-    },
-    {
-      type = "file",
-      path = "doc/tech-context.md"
-    },
-    {
-      type = "file",
-      path = "package.json",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You help maintain project documentation. Review the current docs and suggest specific updates based on:
+-- M["Update Project Context"] = {
+--   strategy = "chat",
+--   description = "Review and update all project documentation",
+--   opts = {
+--     short_name = "update_context",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "doc/project-context.md"
+--     },
+--     {
+--       type = "file",
+--       path = "doc/tech-context.md"
+--     },
+--     {
+--       type = "file",
+--       path = "package.json",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You help maintain project documentation. Review the current docs and suggest specific updates based on:
 
-1. Changes in dependencies or tech stack
-2. Evolution of architecture or patterns
-3. New requirements or constraints
-4. Outdated information
+-- 1. Changes in dependencies or tech stack
+-- 2. Evolution of architecture or patterns
+-- 3. New requirements or constraints
+-- 4. Outdated information
 
-Present recommendations in checkbox format and wait for approval before making changes.]]
-    },
-    {
-      role = "user",
-      content = "Please review the project documentation and suggest updates based on the current state of the codebase."
-    }
-  }
-}
+-- Present recommendations in checkbox format and wait for approval before making changes.]]
+--     },
+--     {
+--       role = "user",
+--       content = "Please review the project documentation and suggest updates based on the current state of the codebase."
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -584,57 +584,57 @@ Present recommendations in checkbox format and wait for approval before making c
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Detect Documentation Gaps"] = {
-  strategy = "chat",
-  description = "Identify areas where documentation may be missing or outdated",
-  opts = {
-    short_name = "gaps",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "codecompanion-workspace.json",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You are a documentation analyst. Your job is to:
+-- M["Detect Documentation Gaps"] = {
+--   strategy = "chat",
+--   description = "Identify areas where documentation may be missing or outdated",
+--   opts = {
+--     short_name = "gaps",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "codecompanion-workspace.json",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You are a documentation analyst. Your job is to:
 
-1. **ANALYZE**: Compare project structure with documented areas
-2. **IDENTIFY**: Find gaps where documentation is missing or likely outdated
-3. **PRIORITIZE**: Rank gaps by impact on developer productivity
-4. **RECOMMEND**: Suggest specific documentation additions
+-- 1. **ANALYZE**: Compare project structure with documented areas
+-- 2. **IDENTIFY**: Find gaps where documentation is missing or likely outdated
+-- 3. **PRIORITIZE**: Rank gaps by impact on developer productivity
+-- 4. **RECOMMEND**: Suggest specific documentation additions
 
-Focus on:
-- New code patterns that aren't documented
-- Files/modules without corresponding documentation
-- Outdated information based on recent changes
-- Missing decision rationale for architectural choices]]
-    },
-    {
-      role = "user",
-      content = [[Please analyze this project for documentation gaps. Use @{file_search} and @{grep_search} tools to understand the current codebase structure.
+-- Focus on:
+-- - New code patterns that aren't documented
+-- - Files/modules without corresponding documentation
+-- - Outdated information based on recent changes
+-- - Missing decision rationale for architectural choices]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Please analyze this project for documentation gaps. Use @{file_search} and @{grep_search} tools to understand the current codebase structure.
 
-Present findings as:
+-- Present findings as:
 
-## Documentation Gap Analysis
+-- ## Documentation Gap Analysis
 
-### Critical Gaps (High Impact)
-- [ ] **Area**: Specific gap and why it's critical
+-- ### Critical Gaps (High Impact)
+-- - [ ] **Area**: Specific gap and why it's critical
 
-### Important Gaps (Medium Impact)
-- [ ] **Area**: Gap description and suggested documentation
+-- ### Important Gaps (Medium Impact)
+-- - [ ] **Area**: Gap description and suggested documentation
 
-### Nice-to-Have (Low Impact)
-- [ ] **Area**: Documentation that would improve but isn't critical
+-- ### Nice-to-Have (Low Impact)
+-- - [ ] **Area**: Documentation that would improve but isn't critical
 
-After I approve items, suggest specific documentation structure and content.]]
-    }
-  }
-}
+-- After I approve items, suggest specific documentation structure and content.]]
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -664,47 +664,47 @@ After I approve items, suggest specific documentation structure and content.]]
 --                                                                            --
 --------------------------------------------------------------------------------
 
-M["Pattern Documentation"] = {
-  strategy = "chat",
-  description = "Document emerging code patterns and conventions",
-  opts = {
-    short_name = "patterns",
-    auto_submit = false,
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You are a code pattern analyst. Identify recurring patterns, conventions, and architectural approaches in the codebase that should be documented for consistency and onboarding.
+-- M["Pattern Documentation"] = {
+--   strategy = "chat",
+--   description = "Document emerging code patterns and conventions",
+--   opts = {
+--     short_name = "patterns",
+--     auto_submit = false,
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You are a code pattern analyst. Identify recurring patterns, conventions, and architectural approaches in the codebase that should be documented for consistency and onboarding.
 
-Look for:
-- Repeated code structures or approaches
-- Naming conventions
-- Error handling patterns
-- Data flow patterns
-- Testing patterns
-- Configuration patterns]]
-    },
-    {
-      role = "user",
-      content = [[Please analyze the codebase for patterns that should be documented. Use @{grep_search} and @{file_search} tools to identify recurring approaches.
+-- Look for:
+-- - Repeated code structures or approaches
+-- - Naming conventions
+-- - Error handling patterns
+-- - Data flow patterns
+-- - Testing patterns
+-- - Configuration patterns]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Please analyze the codebase for patterns that should be documented. Use @{grep_search} and @{file_search} tools to identify recurring approaches.
 
-Document findings as:
+-- Document findings as:
 
-## Code Pattern Analysis
+-- ## Code Pattern Analysis
 
-### Architectural Patterns
-- [ ] **Pattern Name**: Description and when to use
+-- ### Architectural Patterns
+-- - [ ] **Pattern Name**: Description and when to use
 
-### Coding Conventions
-- [ ] **Convention**: Specific rule and examples
+-- ### Coding Conventions
+-- - [ ] **Convention**: Specific rule and examples
 
-### Common Approaches
-- [ ] **Approach**: How this pattern is implemented across the codebase
+-- ### Common Approaches
+-- - [ ] **Approach**: How this pattern is implemented across the codebase
 
-After approval, I'll ask you to add these to the appropriate documentation files.]]
-    }
-  }
-}
+-- After approval, I'll ask you to add these to the appropriate documentation files.]]
+--     }
+--   }
+-- }
 
 --------------------------------------------------------------------------------
 --                                                                            --
@@ -736,46 +736,46 @@ After approval, I'll ask you to add these to the appropriate documentation files
 --                                                                            --
 --------------------------------------------------------------------------------
 ---
-M["Onboarding Guide"] = {
-  strategy = "chat",
-  description = "Create or update developer onboarding documentation",
-  opts = {
-    short_name = "onboard",
-    auto_submit = false,
-  },
-  context = {
-    {
-      type = "file",
-      path = "README.md",
-      optional = true
-    },
-    {
-      type = "file",
-      path = "doc/onboarding.md",
-      optional = true
-    }
-  },
-  prompts = {
-    {
-      role = "system",
-      content = [[You create comprehensive onboarding guides that help new developers become productive quickly. Focus on practical steps, common pitfalls, and essential knowledge.]]
-    },
-    {
-      role = "user",
-      content = [[Create an onboarding guide for new developers on this project. Use @{file_search} to understand the project structure and @{grep_search} to identify setup requirements.
+-- M["Onboarding Guide"] = {
+--   strategy = "chat",
+--   description = "Create or update developer onboarding documentation",
+--   opts = {
+--     short_name = "onboard",
+--     auto_submit = false,
+--   },
+--   context = {
+--     {
+--       type = "file",
+--       path = "README.md",
+--       optional = true
+--     },
+--     {
+--       type = "file",
+--       path = "doc/onboarding.md",
+--       optional = true
+--     }
+--   },
+--   prompts = {
+--     {
+--       role = "system",
+--       content = [[You create comprehensive onboarding guides that help new developers become productive quickly. Focus on practical steps, common pitfalls, and essential knowledge.]]
+--     },
+--     {
+--       role = "user",
+--       content = [[Create an onboarding guide for new developers on this project. Use @{file_search} to understand the project structure and @{grep_search} to identify setup requirements.
 
-Include:
-- Prerequisites and setup steps
-- Project structure overview
-- Development workflow
-- Key concepts and patterns
-- Common tasks and how to accomplish them
-- Testing approach
-- Where to find help
+-- Include:
+-- - Prerequisites and setup steps
+-- - Project structure overview
+-- - Development workflow
+-- - Key concepts and patterns
+-- - Common tasks and how to accomplish them
+-- - Testing approach
+-- - Where to find help
 
-Present as a structured onboarding document ready for doc/onboarding.md]]
-    }
-  }
-}
+-- Present as a structured onboarding document ready for doc/onboarding.md]]
+--     }
+--   }
+-- }
 
 return M

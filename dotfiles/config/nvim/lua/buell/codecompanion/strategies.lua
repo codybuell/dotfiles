@@ -54,7 +54,7 @@ M.chat = {
         i = "<C-c>",
       },
     },
-    auto_tool_mode = {
+    yolo_mode = {
       modes = {
         n = "<Localleader>T",
       },

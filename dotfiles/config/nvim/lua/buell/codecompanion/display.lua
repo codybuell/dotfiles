@@ -13,21 +13,6 @@
 
 local M = {}
 
--- Determine CodeCompanion Width
---
--- Dynamically determine the CodeCompanion chat window width based on the
--- current terminal size.
--- NOTE: Codecompanion currently does not support functions for width. Keeping
--- this here for future usage if that becomes available. For now an autocommand
--- defined in after/plugins/codecompanion.nvim.lua is being used to set the
--- split widths appropriately.
-local function determine_cc_width()
-  local total_cols = vim.o.columns
-  local edit_width = total_cols - buell.util.gutter_width()
-  local desired_left_width = 80
-  return math.max(30, edit_width - desired_left_width - 2)
-end
-
 ----------------------
 --  Action Palette  --
 ----------------------

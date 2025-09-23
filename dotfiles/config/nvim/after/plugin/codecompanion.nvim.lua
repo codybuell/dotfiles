@@ -27,15 +27,51 @@
 --  n:           how many completions (responses) the model should            --
 --               generate per prompt                                          --
 --                                                                            --
+--  Project Setup Strategy                                                    --
+--  ----------------------                                                    --
+--                                                                            --
+--  CodeCompanion uses two complementary context systems:                     --
+--                                                                            --
+--  MEMORY SYSTEM (Always Available)                                          --
+--    Purpose: Essential project context loaded with every chat               --
+--    Files: docs/{context,decisions,patterns}.md + global standards          --
+--    When: Use for foundational project knowledge and coding standards       --
+--    Setup: Files are optional - memory gracefully handles missing files     --
+--                                                                            --
+--  WORKSPACE SYSTEM (Feature-Specific)                                       --
+--    Purpose: Deep-dive context for complex architectural discussions        --
+--    Files: codecompanion-workspace.json (optional)                          --
+--    When: Use for large codebases, team collaboration, token efficiency     --
+--    Access: /workspace slash command in chat buffer                         --
+--                                                                            --
+--  Project Lifecycle:                                                        --
+--    New Project:     Create docs/context.md, start simple                   --
+--    Growing:         Add docs/patterns.md as conventions emerge             --
+--    Complex:         Add docs/decisions.md, consider workspace file         --
+--    Team/Large:      Definitely use workspace file for organized context    --
+--                                                                            --
+--  Essential Memory Files:                                                   --
+--    docs/context.md    - Project overview, goals, architecture              --
+--    docs/decisions.md  - Key architectural decisions (ADR-style)            --
+--    docs/patterns.md   - Code conventions and patterns                      --
+--                                                                            --
+--  Memory loads: Global standards + project docs (if they exist)             --
+--  Workspace loads: On-demand via /workspace command                         --
+--                                                                            --
+--  Snippets Available:                                                       --
+--    con<tab>  - docs/context.md template                                    --
+--    dec<tab>  - docs/decisions.md template                                  --
+--    pat<tab>  - docs/patterns.md template                                   --
+--    ws<tab>   - codecompanion-workspace.json template                       --
+--                                                                            --
 --  Quick Ref: (see lua/buell/codecompanion/[helpers|strategies].lua for all) --
 --    gS              - Show copilot usage stats                              --
 --    <localleader>T  - Toggle auto tool mode                                 --
 --    gd              - Debug the chat buffer, show full chat history table   --
 --    <leader>c       - CodeCompanion command prompt                          --
 --    <leader>a       - CodeCompanion actions menu                            --
---    <leader>dr      - Review documentation                                  --
---    <leader>di      - Capture insights                                      --
---    <leader>du      - Update context docs                                   --
+--    /workspace      - Load workspace context in chat buffer                 --
+--    /memory         - Add memory groups to chat buffer                      --
 --    ga              - accept an inline edit                                 --
 --    gr              - reject an inline edit                                 --
 --                                                                            --
@@ -52,106 +88,14 @@
 --     <leader>1 - open the last used chat window else new copilot            --
 --     <leader>2 - open a copilot chat window                                 --
 --     <leader>3 - open an anthropic chat window                              --
---     <leader>3 - open an openai chat window                                 --
+--     <leader>4 - open an openai chat window                                 --
 --  2. Insert context, call tools, etc (/,@,# + completion)                   --
 --  3. Write prompt                                                           --
 --  4. Send with <C-s>                                                        --
 --                                                                            --
---  Living Documentation Workflow / Feedback Loop                             --
---  ---------------------------------------------                             --
+--  or                                                                        --
 --                                                                            --
---  TLDR Workflow:                                                            --
---    1. ...                                                                  --
---                                                                            --
---  The core innovation of this setup is creating a self-reinforcing cycle    --
---  where documentation continuously improves AI interactions, which in turn  --
---  generates better documentation. This creates compound intelligence over   --
---  time rather than starting from zero in each session.                      --
---                                                                            --
---  ┌─────────────┐    ┌──────────────┐    ┌─────────────┐    ┌─────────────┐ --
---  │   CREATE    │───▶│   APPROVE    │───▶│   UPDATE    │───▶│  CONTEXT    │ --
---  │             │    │              │    │             │    │             │ --
---  │ AI analyzes │    │ Human reviews│    │ AI updates  │    │ Updated docs│ --
---  │ codebase vs │    │ suggestions  │    │ approved    │    │ feed back   │ --
---  │ current docs│    │ and selects  │    │ items using │    │ into future │ --
---  │ using tools │    │ what to      │    │ file editing│    │ AI sessions │ --
---  │ and prompts │    │ implement    │    │ tools       │    │ as context  │ --
---  └─────────────┘    └──────────────┘    └─────────────┘    └─────────────┘ --
---        │                                                          │        --
---        └──────────────────────────────────────────────────────────┘        --
---                            Cycle Repeats                                   --
---                                                                            --
---  CREATE PHASE (Enhanced):                                                  --
---    - init_docs: Bootstrap documentation structure for new projects         --
---    - review_docs: Comprehensive analysis using @file_search/@grep_search   --
---    - expand_docs: Add optional docs based on project complexity            --
---    - gaps: Systematic identification and prioritization of missing docs    --
---    - capture: Ad-hoc documentation of discoveries and insights             --
---    - All prompts present recommendations in checkbox format                --
---                                                                            --
---  APPROVE PHASE:                                                            --
---    - Human reviews AI suggestions before any changes                       --
---    - User can approve specific items: "Please implement items 1, 3, 5"     --
---    - User can request modifications: "Change X but hold off on Y"          --
---    - No documentation changes without explicit approval                    --
---                                                                            --
---  UPDATE PHASE:                                                             --
---    - AI uses @create_file for new documentation                            --
---    - AI uses @insert_edit_into_file for updates to existing files          --
---    - Changes follow established patterns and formats                       --
---    - AI explains what was changed and why                                  --
---                                                                            --
---  CONTEXT PHASE:                                                            --
---    - /workspace automatically loads documentation as context               --
---    - codecompanion-workspace.json defines project-specific context         --
---    - AI references documented decisions in future recommendations          --
---    - Each session builds on previous documented knowledge                  --
---                                                                            --
---  Project Lifecycle Support:                                                --
---    New Project:     init_docs → workspace setup → regular review cycle     --
---    Growing Project: expand_docs → add optional documentation               --
---    Mature Project:  review_docs → gaps → capture insights → update cycle   --
---                                                                            --
---  Evolution Timeline:                                                       --
---    Week 1:  Basic context, generic AI responses                            --
---    Month 1: AI references your documented patterns and decisions           --
---    Month 3: AI acts like experienced team member with full project         --
---             context, catches inconsistencies, suggests aligned solutions   --
---    Month 6: AI proactively suggests improvements based on documented       --
---             patterns and helps onboard new team members                    --
---                                                                            --
---  Key Benefits:                                                             --
---    - Persistent knowledge across sessions (no more "starting from zero")   --
---    - Project-specific guidance aligned with your established patterns      --
---    - Compound intelligence - each interaction makes the next one better    --
---    - Human oversight ensures quality and prevents documentation drift      --
---    - Living documentation stays current with actual codebase               --
---    - Safe initialization that won't overwrite existing documentation       --
---                                                                            --
---  Files Created by This Setup:                                              --
---    Essential (always):                                                     --
---      codecompanion-workspace.json - Project context and data sources       --
---      doc/decisions.md             - Decision log (ADR-style)               --
---      doc/project-context.md       - High-level goals and architecture      --
---      doc/tech-context.md          - Tech stack and patterns                --
---    Optional (as needed):                                                   --
---      doc/code-standards.md        - Coding conventions                     --
---      doc/deployment.md            - Deployment procedures                  --
---      doc/onboarding.md            - New developer guide                    --
---      doc/testing.md               - Testing strategies and patterns        --
---      doc/troubleshooting.md       - Common issues and solutions            --
---                                                                            --
---  Keymaps (disabled for now):                                               --
---    <leader>di - Initialize living docs (safe, won't overwrite)             --
---    <leader>dr - Review documentation (comprehensive analysis)              --
---    <leader>de - Expand documentation (add optional files)                  --
---    <leader>dc - Capture insights/decisions (immediate documentation)       --
---    <leader>dg - Detect documentation gaps (systematic analysis)            --
---    <leader>du - Update context docs (high-level updates)                   --
---    <leader>dw - Load workspace context (quick context loading)             --
---                                                                            --
---  Required minimum codecompanion-workspace.json file:                       --
---    see dotfiles/config/nvim/snippets/snipmate/all.snippets -> ws           --
+--  Send selection to chat window with <C-c>                                  --
 --                                                                            --
 --------------------------------------------------------------------------------
 
@@ -174,6 +118,7 @@ vim.defer_fn(function()
     display         = require('buell.codecompanion.display'),
     adapters        = require('buell.codecompanion.adapters'),
     strategies      = require('buell.codecompanion.strategies'),
+    memory          = require('buell.codecompanion.memory'),
     extensions      = require('buell.codecompanion.extensions'),
   }
 

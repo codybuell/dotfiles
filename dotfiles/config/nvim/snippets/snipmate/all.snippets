@@ -1,36 +1,105 @@
-snippet ws "codecompanion living doc workspace file" b
+# CodeCompanion workspace file
+snippet ws "codecompanion workspace file (.codecompanion/workspace.json)" b
 	{
-	  "name": "${1:Your Project Name}",
+	  "name": "${1:`substitute(fnamemodify(getcwd(), ':t'), '^\w', '\u&', '')`}",
 	  "version": "1.0.0",
-	  "system_prompt": "This project follows a living documentation workflow. Always consult the \${docs_path}/ folder for project context, decisions, and patterns before providing advice.",
+	  "description": "${2:Brief description of what this project does}",
+	  "system_prompt": "This project ${3:follows specific patterns and conventions documented in the memory files}.",
 	  "vars": {
-	    "docs_path": "${2:doc}"
+	    "docs_path": "docs"
 	  },
 	  "groups": [
 	    {
-	      "name": "Core Architecture",
-	      "system_prompt": "Essential project understanding - review before architectural changes",
-	      "data": ["project-overview", "decisions", "tech-stack"]
+	      "name": "${4:Core Features}",
+	      "description": "The main functionality of ${1}",
+	      "data": ["${5:main-module}"]
 	    }
 	  ],
 	  "data": {
-	    "project-overview": {
+	    "${5}": {
 	      "type": "file",
-	      "path": "\${docs_path}/project-context.md",
-	      "description": "High-level project goals and architecture"
-	    },
-	    "decisions": {
-	      "type": "file",
-	      "path": "\${docs_path}/decisions.md",
-	      "description": "Technical decisions and rationale"
-	    },
-	    "tech-stack": {
-	      "type": "file",
-	      "path": "\${docs_path}/tech-context.md",
-	      "description": "Technology stack and patterns"
+	      "path": "${6:src/main.py}",
+	      "description": "The main entry point for ${1}"
 	    }
 	  }
 	}
+
+snippet con "codecompanion project context markdown (docs/context.md)" b
+	# Project Context
+
+	## What This Project Does
+	${1:Brief description of the project's purpose and value}
+
+	## Key Goals & Constraints
+	- ${2:Primary objective}
+	- ${3:Key constraint or requirement}
+	- ${4:Success criteria}
+
+	## Architecture Overview
+	${5:High-level system design, key components, data flow}
+
+	## Technology Choices
+	- **Language/Framework:** ${6:Technology and rationale}
+	- **Key Dependencies:** ${7:Important libraries and why chosen}
+	- **Deployment:** ${8:How the project is deployed/distributed}
+
+	## Getting Oriented
+	- **Entry Point:** ${9:Where to start reading the code}
+	- **Key Files:** ${10:Most important files to understand}
+	- **Configuration:** ${11:How the project is configured}
+
+snippet dec "key decisions markdown (docs/decisions.md)" b
+	# Key Decisions
+
+	## Decision Log Format
+	### [Date] - Decision Title
+	**Context:** Why this decision was needed
+	**Decision:** What was decided
+	**Rationale:** Why this approach was chosen
+	**Impact:** Expected outcomes and trade-offs
+
+	## Active Decisions
+
+	### ${1:`strftime("%Y-%m-%d")`} - ${2:Decision Title}
+	**Context:** ${3:Why this decision was needed}
+	**Decision:** ${4:What was decided}
+	**Rationale:** ${5:Why this approach was chosen over alternatives}
+	**Impact:** ${6:Expected outcomes, trade-offs, or implications}
+
+snippet pat "code patterns & conventions markdown (docs/patterns.md)" b
+	# Code Patterns & Conventions
+
+	## File Organization
+	${1:How code is structured and where different types of files go}
+
+	## Naming Conventions
+	- **Files:** ${2:file_naming_pattern}
+	- **Functions:** ${3:function_naming_pattern}
+	- **Variables:** ${4:variable_naming_pattern}
+	- **Classes:** ${5:ClassName pattern}
+
+	## Common Patterns
+
+	### Error Handling
+	${6:How errors are typically handled in this codebase}
+
+	### Data Flow
+	${7:Common patterns for how data moves through the system}
+
+	### Configuration
+	${8:How configuration is managed and accessed}
+
+	### Testing
+	${9:Testing conventions and patterns used}
+
+	## Code Examples
+
+	### ${10:Pattern Name}
+	```${11:language}
+	${12:// Example code showing the pattern}
+	```
+
+	${13:Brief explanation of when and why to use this pattern}
 
 snippet bls "codecompanion buffer lsp snippet" b
 	#{buffer}#{lsp} ${0}
