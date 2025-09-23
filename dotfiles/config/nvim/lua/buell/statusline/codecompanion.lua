@@ -66,12 +66,22 @@ function M.init()
         local chat = codecompanion.buf_get_chat(bufnr)
         if chat and chat.adapter then
           state.adapter = chat.adapter.name or chat.adapter.formatted_name
-          local model = chat.adapter.model
-          if type(model) == "table" then
-            state.model = model.name or model.default or tostring(model)
-          else
-            state.model = model
+
+          -- Try parameters first (after request), then fall back to schema default
+          local model = nil
+          if chat.adapter.parameters and chat.adapter.parameters.model then
+            model = chat.adapter.parameters.model
+          elseif chat.adapter.schema and chat.adapter.schema.model and chat.adapter.schema.model.default then
+            model = chat.adapter.schema.model.default
           end
+
+          if model then
+            state.model = model
+          else
+            state.model = nil
+          end
+
+          redraw.smart_redraw() -- Force a redraw
         end
       end
     end,
@@ -89,7 +99,13 @@ function M.init()
 
         if request.data and request.data.adapter then
           state.adapter = request.data.adapter.name or request.data.adapter.formatted_name
-          state.model = request.data.adapter.model
+
+          -- Request adapter has model directly, chat adapter has it in schema/parameters
+          local model = request.data.adapter.model or
+                        (request.data.adapter.parameters and request.data.adapter.parameters.model) or
+                        (request.data.adapter.schema and request.data.adapter.schema.model and request.data.adapter.schema.model.default)
+
+          state.model = model
           state.strategy = request.data.strategy
           state.request_id = request.data.id
         end

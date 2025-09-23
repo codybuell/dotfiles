@@ -37,7 +37,9 @@ M.chat = {
   },
   roles = {
     llm = function(adapter)
-      return string.format("CodeCompanion (%s %s)", adapter.formatted_name, adapter.model.name)
+      local model_name = adapter.parameters and adapter.parameters.model or "unknown"
+
+      return string.format("CodeCompanion (%s %s)", adapter.formatted_name, model_name)
     end,
     user = "Me",
   },
