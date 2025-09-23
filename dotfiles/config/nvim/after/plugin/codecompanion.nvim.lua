@@ -55,6 +55,16 @@
 --    docs/decisions.md  - Key architectural decisions (ADR-style)            --
 --    docs/patterns.md   - Code conventions and patterns                      --
 --                                                                            --
+--    The above files use the claude parser which processes markdown files    --
+--    to enhance context:                                                     --
+--      - Converts file paths to clickable links: [file.py](./src/file.py)    --
+--      - Makes references interactive for easy addition to chat              --
+--      - Maintains markdown structure while enabling file navigation         --
+--      - Works with: relative paths, absolute paths, and URLs                --
+--      - Example: "See [main config](./lua/config/init.lua) for setup"       --
+--      - Files referenced this way can be added as buffers with              --
+--        default_params                                                      --
+--                                                                            --
 --  Memory loads: Global standards + project docs (if they exist)             --
 --  Workspace loads: On-demand via /workspace command                         --
 --                                                                            --
