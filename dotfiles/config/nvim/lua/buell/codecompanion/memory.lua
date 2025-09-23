@@ -12,9 +12,11 @@ M.project_docs = {
   description = "Project-specific context and documentation",
   parser = "claude",
   files = {
-    "docs/context.md",     -- project overview and goals
-    "docs/decisions.md",   -- key architectural decisions
-    "docs/patterns.md",    -- code patterns and conventions
+    "docs/context.md",            -- project overview and goals
+    "docs/decisions.md",          -- key architectural decisions
+    "docs/patterns.md",           -- general code patterns and conventions
+    "docs/patterns-backend.md",   -- backend code patterns and conventions
+    "docs/patterns-frontend.md",  -- frontend code patterns and conventions
   },
 }
 
