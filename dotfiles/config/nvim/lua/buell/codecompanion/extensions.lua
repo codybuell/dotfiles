@@ -27,6 +27,7 @@ M.vectorcode = {
       collapse = false, -- whether individual tools should be shown in the chat
     },
     tool_opts = {
+      ["*"] = {},
       ls = {},
       vectorise = {},
       query = {
@@ -41,7 +42,9 @@ M.vectorcode = {
           adapter = nil,
           query_augmented = true,
         }
-      }
+      },
+      files_ls = {},
+      files_rm = {},
     }
   },
 }
