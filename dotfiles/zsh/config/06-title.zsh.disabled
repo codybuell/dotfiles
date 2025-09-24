@@ -9,6 +9,8 @@
 ##                                                                            ##
 ################################################################################
 
+# NOTE: Disabling this feature as it's taking way too long to process.
+
 if [[ -z "${__BUELL[TITLE_INITIALIZED]:-}" ]]; then
   # Set terminal title with proper escaping
   set-tab-and-window-title() {

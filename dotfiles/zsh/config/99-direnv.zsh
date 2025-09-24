@@ -9,4 +9,7 @@
 ##                                                                            ##
 ################################################################################
 
+# for performance, disable all logging
+export DIRENV_LOG_FORMAT=
+
 eval "$(direnv hook zsh)"
