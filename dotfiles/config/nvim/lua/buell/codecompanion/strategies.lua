@@ -74,6 +74,7 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-b>",
+          n = "<C-b>",
         },
       },
     },
@@ -90,6 +91,7 @@ M.chat = {
       keymaps = {
         modes = {
           i = "<C-f>",
+          n = "<C-f>",
         },
       },
     },
