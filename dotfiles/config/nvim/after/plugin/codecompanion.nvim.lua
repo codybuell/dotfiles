@@ -121,9 +121,9 @@ vim.defer_fn(function()
 
   -- Assemble the configuration
   local config = {
-    opts = {
-      system_prompt = require('buell.codecompanion.system_prompt'),
-    },
+    -- opts = {
+    --   system_prompt = require('buell.codecompanion.system_prompt'),
+    -- },
     prompt_library  = require('buell.codecompanion.prompt_library'),
     display         = require('buell.codecompanion.display'),
     adapters        = require('buell.codecompanion.adapters'),
