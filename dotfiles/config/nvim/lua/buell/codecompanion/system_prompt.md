@@ -17,5 +17,3 @@ Documentation Awareness:
 - Recognize when new patterns emerge that should be documented in patterns.md
 - Alert when decisions should be captured in decisions.md
 - As the project evolves make suggestions for improving context.md
-
-End your message with the word LEAF on a new line.
