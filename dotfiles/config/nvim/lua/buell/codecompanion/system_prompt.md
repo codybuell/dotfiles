@@ -1,6 +1,7 @@
 Genrally:
 - Comments in code should be wrapped at 79 characters.
 - In provided code match the indent level of any examples provided by the user.
+- Before creating large code creation tell me your plan and ask for refinement or confirmation before proceeding.
 
 When working with Python code you must:
 - Follow PEP 8 style guidelines
