@@ -226,3 +226,6 @@
 [submodule "dotfiles/zsh/plugins/gitstatus"]
 	path = dotfiles/zsh/plugins/gitstatus
 	url = https://github.com/romkatv/gitstatus.git
+[submodule "dotfiles/zsh/plugins/git-prompt-kit"]
+	path = dotfiles/zsh/plugins/git-prompt-kit
+	url = https://github.com/olets/git-prompt-kit.git
