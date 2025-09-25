@@ -5,7 +5,7 @@
 ##  Custom prompt with detailed VCS information, command timing, conditional  ##
 ##  SSH display, job indicators, and shell nesting awareness.                 ##
 ##                                                                            ##
-##  Dependencies: git (for VCS info)                                          ##
+##  Dependencies: git (for VCS info), zsh-async (for background VCS updates)  ##
 ##                                                                            ##
 ################################################################################
 
@@ -19,101 +19,165 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
   #  VCS Information  #
   #####################
 
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' stagedstr ""     # We'll handle this in hooks
-  zstyle ':vcs_info:*' unstagedstr ""   # We'll handle this in hooks
-  zstyle ':vcs_info:*' use-simple true
-  zstyle ':vcs_info:git+set-message:*' hooks git-status-display
-  zstyle ':vcs_info:git*:*' formats '%F{3}%b%f%m'
-  zstyle ':vcs_info:git*:*' actionformats '%F{3}[%b|%a]%f%m'
+  # Check if zsh-async is available
+  if [[ -f "$HOME/.zsh/plugins/zsh-async/async.zsh" ]]; then
+    autoload -Uz vcs_info
 
-  # Hook to build consistent 3-dot status display
-  function +vi-git-status-display() {
-    emulate -L zsh
+    # Configure VCS info in anonymous function to avoid variable leakage
+    () {
+      zstyle ':vcs_info:*' enable git
+      zstyle ':vcs_info:*' check-for-changes true
+      zstyle ':vcs_info:*' stagedstr ""     # We'll handle this in hooks
+      zstyle ':vcs_info:*' unstagedstr ""   # We'll handle this in hooks
+      zstyle ':vcs_info:*' use-simple true
+      zstyle ':vcs_info:git+set-message:*' hooks git-status-display
+      zstyle ':vcs_info:git*:*' formats '%F{3}%b%f%m'
+      zstyle ':vcs_info:git*:*' actionformats '%F{3}[%b|%a]%f%m'
 
-    # Detect if we should use Unicode or ASCII
-    local use_unicode=true
+      # Hook to build consistent 3-dot status display
+      function +vi-git-status-display() {
+        emulate -L zsh
 
-    # Check for problematic environments
-    if [[ -f /.dockerenv ]] || \
-       [[ "$container" == "docker" ]] || \
-       [[ -z "$LANG" ]] || \
-       [[ "$LANG" != *"UTF-8"* ]] || \
-       [[ -z "$LC_ALL" && -z "$LANG" ]] || \
-       [[ "$TERM" == "linux" ]]; then
-      use_unicode=false
-    fi
+        # Detect if we should use Unicode or ASCII
+        local use_unicode=true
 
-    # Set characters based on detection of support
-    local active_char inactive_char
-    if [[ "$use_unicode" == "true" ]]; then
-      active_char="⏺"
-      inactive_char="⏺"
-    else
-      active_char="*"
-      inactive_char="-"
-    fi
+        # Check for problematic environments
+        if [[ -f /.dockerenv ]] || \
+           [[ "$container" == "docker" ]] || \
+           [[ -z "$LANG" ]] || \
+           [[ "$LANG" != *"UTF-8"* ]] || \
+           [[ -z "$LC_ALL" && -z "$LANG" ]] || \
+           [[ "$TERM" == "linux" ]]; then
+          use_unicode=false
+        fi
 
-    # Check for each type of change
-    local has_untracked=false
-    local has_unstaged=false
-    local has_staged=false
+        # Set characters based on detection of support
+        local active_char inactive_char
+        if [[ "$use_unicode" == "true" ]]; then
+          active_char="⏺"
+          inactive_char="⏺"
+        else
+          active_char="*"
+          inactive_char="-"
+        fi
 
-    # Check for untracked files
-    if [[ -n $(git ls-files --exclude-standard --others 2>/dev/null) ]]; then
-      has_untracked=true
-    fi
+        # Get all status info in one fast command
+        local git_status="$(git status --porcelain 2>/dev/null)"
 
-    # Check for unstaged changes
-    if ! git diff-files --quiet 2>/dev/null; then
-      has_unstaged=true
-    fi
+        local has_untracked=false
+        local has_unstaged=false
+        local has_staged=false
 
-    # Check for staged changes
-    if git rev-parse --verify HEAD >/dev/null 2>&1; then
-      # Repository has commits, use normal diff-index
-      if ! git diff-index --quiet --cached HEAD 2>/dev/null; then
-        has_staged=true
+        # Parse the two-character status codes
+        while IFS= read -r line; do
+          [[ -z "$line" ]] && continue
+
+          local index_status="${line:0:1}"
+          local worktree_status="${line:1:1}"
+
+          # Check staged (index) changes - any non-space in first column
+          if [[ "$index_status" != " " ]]; then
+              has_staged=true
+          fi
+
+          # Check unstaged (worktree) changes - any non-space in second column
+          if [[ "$worktree_status" != " " ]]; then
+              has_unstaged=true
+          fi
+
+          # Check untracked - ?? status
+          if [[ "$line" == "??"* ]]; then
+              has_untracked=true
+          fi
+
+        done <<< "$git_status"
+
+        # Build the 3-dot display: untracked | unstaged | staged
+        local status_display=""
+
+        # Position 1: Untracked (blue)
+        if [[ "$has_untracked" == "true" ]]; then
+          status_display+="%F{blue}${active_char}%f"
+        else
+          status_display+="%F{59}${inactive_char}%f"
+        fi
+
+        # Position 2: Unstaged (red)
+        if [[ "$has_unstaged" == "true" ]]; then
+          status_display+="%F{red}${active_char}%f"
+        else
+          status_display+="%F{59}${inactive_char}%f"
+        fi
+
+        # Position 3: Staged (green)
+        if [[ "$has_staged" == "true" ]]; then
+          status_display+="%F{green}${active_char}%f"
+        else
+          status_display+="%F{59}${inactive_char}%f"
+        fi
+
+        # Set the misc field with leading space
+        hook_com[misc]=" ${status_display}"
+      }
+    }
+
+    # Source zsh-async
+    source $HOME/.zsh/plugins/zsh-async/async.zsh
+
+    # Async worker management functions
+    -start-async-vcs-info-worker() {
+      async_start_worker vcs_info
+      async_register_callback vcs_info -async-vcs-info-worker-done
+    }
+
+    # Function to run in background worker
+    -get-vcs-info-in-worker() {
+      # -q stops chpwd hook from being called
+      cd -q $1
+      vcs_info
+      print ${vcs_info_msg_0_}
+    }
+
+    # Callback when async worker completes
+    -async-vcs-info-worker-done() {
+      local job=$1
+      local return_code=$2
+      local stdout=$3
+      local more=$6
+
+      if [[ $job == '[async]' ]]; then
+        if [[ $return_code -eq 2 ]]; then
+          # Restart worker
+          -start-async-vcs-info-worker
+          return
+        fi
       fi
-    else
-      # New repository with no commits, check if anything is staged
-      if [[ -n $(git ls-files --cached 2>/dev/null) ]]; then
-        has_staged=true
-      fi
-    fi
 
-    # Build the 3-dot display: untracked | unstaged | staged
-    local status_display=""
+      vcs_info_msg_0_=$stdout
+      (( $more )) || zle reset-prompt
+    }
 
-    # Position 1: Untracked (blue)
-    if [[ "$has_untracked" == "true" ]]; then
-      status_display+="%F{blue}${active_char}%f"
-    else
-      status_display+="%F{59}${inactive_char}%f"
-    fi
+    # Clear VCS info when changing directories
+    -clear-vcs-info-on-chpwd() {
+      vcs_info_msg_0_=
+    }
 
-    # Position 2: Unstaged (red)
-    if [[ "$has_unstaged" == "true" ]]; then
-      status_display+="%F{red}${active_char}%f"
-    else
-      status_display+="%F{59}${inactive_char}%f"
-    fi
+    # Trigger VCS info update in background worker
+    -trigger-vcs-info-run-in-worker() {
+      async_flush_jobs vcs_info
+      async_job vcs_info -get-vcs-info-in-worker $PWD
+    }
 
-    # Position 3: Staged (green)
-    if [[ "$has_staged" == "true" ]]; then
-      status_display+="%F{green}${active_char}%f"
-    else
-      status_display+="%F{59}${inactive_char}%f"
-    fi
+    # Initialize async system
+    async_init
+    -start-async-vcs-info-worker
 
-    # Set the misc field with leading space
-    hook_com[misc]=" ${status_display}"
-  }
-
-  # Set up RPROMPT base exactly like old version
-  RPROMPT_BASE="\${vcs_info_msg_0_}"
+    # Set up RPROMPT base with async VCS info
+    RPROMPT_BASE="\${vcs_info_msg_0_}"
+  else
+    # Fallback when zsh-async is not available
+    RPROMPT_BASE=""
+  fi
 
   # CRITICAL: Set initial RPROMPT value like old version (vim_mode empty for now)
   export RPROMPT='${vim_mode}${RPROMPT_BASE}'
@@ -227,7 +291,13 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
   ####################
 
   autoload -Uz add-zsh-hook
-  add-zsh-hook precmd update-vcs-info
+
+  if [[ -f "$HOME/.zsh/plugins/zsh-async/async.zsh" ]]; then
+    # Use async VCS info updates
+    add-zsh-hook precmd -trigger-vcs-info-run-in-worker
+    add-zsh-hook chpwd -clear-vcs-info-on-chpwd
+  fi
+
   add-zsh-hook precmd report-run-meta
   add-zsh-hook preexec record-start-time
 
