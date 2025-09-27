@@ -7,7 +7,9 @@
 --  Note you must use expr as the foldmethod for any language you want        --
 --  treesitter to handle folding for, eg `setlocal foldmethod=expr` in        --
 --  ~/.config/nvim/after/ftplugin/[filetype].vim, also depends on             --
---  `vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'` in init.lua             --
+--  `vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'`. In this setup go to    --
+--  ~/.config/nvim/lua/buell/foldexpr.lua and set the filetype override       --
+--  table at the top of the file to specify the foldexpr to be used.          --
 --                                                                            --
 --------------------------------------------------------------------------------
 

@@ -7,10 +7,6 @@ vim.opt_local.formatlistpat = '^\\s*-\\s\\[.\\]\\s*\\|^\\s*\\d\\+\\.\\s\\+\\|^\\
 vim.opt_local.breakindent = true
 vim.opt_local.breakindentopt = "list:-1,shift:0,sbr"
 
--- set custom folding for markdown
-vim.opt_local.foldmethod = "expr"
-vim.opt_local.foldexpr = "v:lua.buell.fold.markdown()"
-
 -- ensure b:undo_ftplugin exists and initialize if necessary
 if vim.b.undo_ftplugin == nil then
   vim.b.undo_ftplugin = ''
@@ -18,4 +14,3 @@ end
 
 -- append commands to reset fold options when the file type plugin is cleared
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. ' | setlocal foldmethod< foldtext< foldexpr<'
-
