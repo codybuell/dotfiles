@@ -1,1 +1,1 @@
-buell.util.autocmd('BufNewFile,BufRead', '*.zsh', 'set filetype=bash')
+-- buell.util.autocmd('BufNewFile,BufRead', '*.zsh', 'set filetype=bash')
