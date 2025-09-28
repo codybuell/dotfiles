@@ -255,6 +255,15 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
       LVL=$SHLVL
     fi
 
+    # OSC-133 escape sequences for prompt navigation.
+    #
+    # See: https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md
+    #
+    # tmux only cares about $PROMPT_START, but we emit other escapes just for
+    # completeness (see also, `-mark-output()`, further down).
+    local PROMPT_START=$'\e]133;A\e\\'
+    local PROMPT_END=$'\e]133;B\e\\'
+
     # Ensure LVL is reasonable
     [[ $LVL -lt 1 ]] && LVL=1
     [[ $LVL -gt 2 ]] && LVL=2
@@ -267,14 +276,22 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
       SUFFIX=$(printf '\$%.0s' {1..$LVL}) # $ for regular user
     fi
 
+    PS1="%{${PROMPT_START}%}"
+
     # Build prompt with conditional SSH display and tmux handling
     if [[ -n "$TMUX" ]]; then
       # Non-breaking space for tmux pattern matching
       local NBSP=' '
-      export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f${NBSP}"
+      PS1+="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f"
+      PS1+="%{${PROMPT_END}%}"
+      PS1+="${NBSP}"
+      export PS1
       export ZLE_RPROMPT_INDENT=0
     else
-      export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f "
+      PS1+="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%1~%F{yellow}%B%(1j.*.)%b%f %F{red}%B${SUFFIX}%b%f"
+      PS1+="%{${PROMPT_END}%}"
+      PS1+=" "
+      export PS1
     fi
   }
 
