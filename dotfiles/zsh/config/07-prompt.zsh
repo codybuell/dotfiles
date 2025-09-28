@@ -75,7 +75,14 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
           local index_status="${line:0:1}"
           local worktree_status="${line:1:1}"
 
+          # Check untracked first - ?? status
+          if [[ "$line" == "??"* ]]; then
+              has_untracked=true
+              continue  # Skip other checks for untracked files
+          fi
+
           # Check staged (index) changes - any non-space in first column
+          # (but not untracked files which we handled above)
           if [[ "$index_status" != " " ]]; then
               has_staged=true
           fi
@@ -83,11 +90,6 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
           # Check unstaged (worktree) changes - any non-space in second column
           if [[ "$worktree_status" != " " ]]; then
               has_unstaged=true
-          fi
-
-          # Check untracked - ?? status
-          if [[ "$line" == "??"* ]]; then
-              has_untracked=true
           fi
 
         done <<< "$git_status"
@@ -298,9 +300,13 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
   # Spelling correction prompt
   export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
-  # Hook to update VCS info before each prompt
-  update-vcs-info() {
-    vcs_info
+  #################
+  #  Mark Output  #
+  #################
+
+  function -mark-output() {
+    # Emit OSC 133;C (mark beginning of command output).
+    builtin print -n '\e]133;C\e\\'
   }
 
   ####################
@@ -317,6 +323,7 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
 
   add-zsh-hook precmd report-run-meta
   add-zsh-hook preexec record-start-time
+  add-zsh-hook preexec -mark-output
 
   __BUELL[PROMPT_INITIALIZED]=1
 fi
