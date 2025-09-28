@@ -11,6 +11,9 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
+local augroup = require('buell.util.augroup')
+local autocmd = require('buell.util.autocmd')
+
 local M = {}
 
 ---------------
@@ -78,10 +81,16 @@ function M.setup_keymaps()
   -- Mapping to close without killing the session (gq) in plugin/autocommand.lua
   -- Other maps are in normal.lua, eg <Leader>[1-4] to init chat interfaces
 
-  -- Core mappings
-  vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true })
-  vim.keymap.set({'n', 'v'}, '<Leader>c', smart_inline, { noremap = true, silent = true })
-  vim.keymap.set({'n', 'v'}, '<Leader>a', '<CMD>CodeCompanionActions<CR>', { noremap = true, silent = true })
+  -- Mappings for non-codecompanion filetypes
+  augroup("CodeCompanionKeymaps", function()
+    autocmd("FileType", "*", function()
+      local ft = vim.bo.filetype
+      if ft ~= "codecompanion" then
+        vim.keymap.set({'n', 'v'}, '<C-c>', smart_chat_add, { noremap = true, silent = true, expr = true, buffer = 0 })
+        vim.keymap.set({'n', 'v'}, '<Leader>c', smart_inline, { noremap = true, silent = true, buffer = 0 })
+      end
+    end)
+  end)
 
   -- Enhanced send key, overload send key to go back to normal mode then submit
   vim.keymap.set({'i', 'n', 'v'}, '<C-s>', function()
