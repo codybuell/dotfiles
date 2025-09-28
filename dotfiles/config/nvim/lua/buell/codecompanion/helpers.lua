@@ -328,19 +328,18 @@ function M.smart_yank_code(chat)
   -- Get current cursor position
   local cursor_row = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed
 
-  -- Get all codeblocks using CodeCompanion's existing method
+  -- Get all codeblocks using text-based parsing
   local codeblocks = {}
   local bufnr = chat.bufnr
 
-  -- Use CodeCompanion's internal method to find codeblocks
-  -- We'll iterate through the buffer looking for codeblock patterns
+  -- Iterate through the buffer looking for four-backtick codeblock patterns
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
   local in_codeblock = false
   local current_block = nil
 
   for i, line in ipairs(lines) do
     local row = i - 1 -- 0-indexed
-    if line:match("^```") then
+    if line:match("^````") then
       if not in_codeblock then
         -- Start of codeblock
         in_codeblock = true
