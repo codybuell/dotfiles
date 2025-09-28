@@ -37,7 +37,7 @@ vim.keymap.set('n', '<Leader>0', function()
 end, {remap = false})
 
 -- underline helper
-vim.keymap.set('n', '<C-u>', '<CMD> lua buell.util.underline()<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<C-u>', 'v:lua.require("buell.util.underline").prompt()', {expr = true, silent = true})
 
 -- toggle fold at current position
 vim.keymap.set('n', '<Tab>', indent_wrap_mapping('za'), {silent = true})
