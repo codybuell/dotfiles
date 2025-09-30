@@ -29,7 +29,7 @@ DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
 export DOTS_LOC
 export DOTFILES=()
 while IFS= read -r -d '' file; do
-  DOTFILES+=("$file")
+  DOTFILES+=("$(basename "$file")")
 done < <(find "${DOTS_LOC}" -maxdepth 1 -mindepth 1 -print0)
 
 # system information
