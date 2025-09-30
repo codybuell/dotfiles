@@ -21,7 +21,7 @@
 #                yum install php-cli
 #                php -v
 #
-#              If you need multiples versions, the php72-php-* packages are 
+#              If you need multiples versions, the php72-php-* packages are
 #              available, and the command is php72 or
 #
 #                yum install php72-php-cli
@@ -352,7 +352,7 @@ buildconky() {
 }
 
 buildrdesktop() {
-  # deb deps: 
+  # deb deps:
   # el deps: openssl-devel pcsc-lite-devel
   #          --enablerepo nux-dextop libgssglue-devel
 
@@ -381,8 +381,8 @@ buildrdesktop() {
 }
 
 buildlbdb() {
-  # deb deps: 
-  # el deps:  
+  # deb deps:
+  # el deps:
 
   # set the full path to repos, no ~/'s
   TPATH="`echo $1 | sed "s@~@$HOME@"`/lbdb"
@@ -431,7 +431,7 @@ buildtmux() {
 }
 
 buildvim() {
-  # deb deps: 
+  # deb deps:
   # el deps: ruby perl-devel python-devel ruby-devel perl-ExtUtils-Embed ncurses-devel
 
   printf "\033[0;31mbuilding vim:\033[0m\n"
@@ -484,7 +484,7 @@ buildneovim() {
 }
 
 buildnewsbeuter() {
-  # deb deps: 
+  # deb deps:
   # el deps: pkgconfig curl-devel sqlite-devel libxml2-devel json-c-devel ncurses-devel
 
   printf "\033[0;31mbuilding newsbeuter dependency stfl:\033[0m\n"
@@ -525,7 +525,7 @@ buildnewsbeuter() {
 }
 
 buildweechat() {
-  # deb deps: 
+  # deb deps:
   # el deps: cmake libcurl libcurl-devel zlib zlib-devel libgcrypt libgcrypt-devel ncurses ncurses-libs ncurses-devel ncurses-base gnutls-devel
 
   printf "\033[0;31mbuilding weechat:\033[0m\n"
@@ -550,8 +550,8 @@ buildweechat() {
 }
 
 buildzsh() {
-  # deb deps: 
-  # el deps: 
+  # deb deps:
+  # el deps:
 
   printf "\033[0;31mbuilding zsh:\033[0m\n"
 
@@ -762,7 +762,7 @@ secureloginscreen() {
         echo "user-db:user" > gdmtmp
         echo "system-db:gdm" >> gdmtmp
         echo "file-db:/usr/share/gdm/greeter-dconf-defaults" >> gdmtmp
-        /usr/bin/sudo mv gdmtmp /etc/dconf/profile/gdm 
+        /usr/bin/sudo mv gdmtmp /etc/dconf/profile/gdm
         /usr/bin/sudo chown root: /etc/dconf/profile/gdm
         ##############
         #echo "[org/gnome/login-screen]" > bannertmp
