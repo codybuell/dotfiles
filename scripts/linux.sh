@@ -51,7 +51,7 @@
 ################
 
 # get and keep sudo privs for duration of the script
-/usr/bin/sudo -v; while true; do /usr/bin/sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+holdsudo
 
 ###########################
 #                         #

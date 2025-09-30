@@ -83,6 +83,14 @@ fi
 #                                                                              #
 ################################################################################
 
+# Hold Sudo
+#
+# Get and hold sudo so that the user is only prompted once for the password.
+
+holdsudo() {
+  sudo -v; while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+}
+
 # Pretty Print
 #
 # Helper for printing status. Expects left hand and right hand text, separated

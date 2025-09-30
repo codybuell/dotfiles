@@ -230,6 +230,9 @@ TAPS=( \
 #                                                                              #
 ################################################################################
 
+# get and keep sudo privs for duration of the script
+holdsudo
+
 # handle dependencies
 dep_xcode_clt
 dep_rosetta
