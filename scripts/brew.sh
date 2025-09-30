@@ -32,7 +32,6 @@ source "${BASH_SOURCE%/*}/library.sh"
 
 PACKAGES=( \
   'ack' \                             # recursive grep like search
-  'antibody' \                        # package management for zsh
   'asciinema' \                       # terminal session recorder
   'automake' \                        # make toolkit
   'awscli' \                          # aws command line tool
@@ -72,7 +71,6 @@ PACKAGES=( \
   'notmuch' \                         # mail search for mutt
   'openconnect' \                     # robust vpn client for cisco vpns
   'openssl' \                         # the one and only...
-  'packer' \                          # utility for building machine templates
   'pandoc' \                          # markup converter, used with mutt to send html email
   'pcalc' \                           # cli programming calculator
   'picocom' \                         # used with ino for serial connection to arduino
@@ -136,7 +134,7 @@ CASKS=( \
   'via' \                             # config editor for keychron keyboard
   'wireshark' \                       # network traffic analyzer
   'xquartz' \                         # osxs implemenrtation of x11
-  'yubiko-yubikey-manager' \          # yubikey configuration utility
+  'yubico-yubikey-manager' \          # yubikey configuration utility
   'zoom' \                            # zoom video conferencing app
 )
 
