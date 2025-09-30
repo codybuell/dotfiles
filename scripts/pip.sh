@@ -24,18 +24,10 @@ source "${BASH_SOURCE%/*}/library.sh"
 #                 #
 ###################
 
-# standard Python 2 pacakges
-PYTHON2=( \
-    'neovim' \                         # neovim client, required to use python with neovim
-    'pynvim' \                         # neovim client, required to use python with neovim
-)
-
 # standard Python 3 packages
 PYTHON3=( \
-    'ansible' \                        # cm utility
     'browsercookie' \                  # for getting browser cookies with cookiemonster via cli
     'click' \                          # required for mattermost auth cookie gathering script
-    'commandt.score' \                 # search scoring utility used in custom deoplete filter
     'feedparser' \                     # rss support for weechat plugin
     'jmespath-terminal' \              # json manipulation and parsing tool (run as `jpterm`)
     'neovim' \                         # neovim client, required to use python with neovim
@@ -52,6 +44,12 @@ OSXPYTHON3=( \
     'pync' \                           # required for notification-center.py weechat plugin
 )
 
+# new package manager that will expose executables
+UV=( \
+  'ansible-core' \                     # cm utility
+  'vectorcode<1.0.0' \                 # vectorcode https://github.com/Davidyz/VectorCode/
+)
+
 #######################
 #                     #
 #  run installations  #
@@ -59,21 +57,10 @@ OSXPYTHON3=( \
 #######################
 
 # handle m1 mac architecture: https://stackoverflow.com/questions/66640705/how-can-i-install-grpcio-on-an-apple-m1-silicon-laptop
-if [ `/usr/bin/uname -m` == 'arm64' ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1" ]; then
+if [ "$(/usr/bin/uname -m)" == "arm64" ] || [ "$(/usr/bin/uname -m)" = "x86_64" -a "$(/usr/sbin/sysctl -in sysctl.proc_translated)" = "1" ]; then
   export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
   export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
 fi
-
-# # pip for python 2 is no longer available via brew and does not come standard
-# # with osx, so use easy_install to put it on the system
-# if ! which pip; then
-#   sudo easy_install pip
-# fi
-
-# # install python2 packages
-# for i in ${PYTHON2[@]}; do
-#   pip install $i
-# done
 
 # install python3 packages
 # shellcheck disable=SC2068
@@ -88,5 +75,11 @@ if [ "$(uname -s)" = 'Darwin' ]; then
     pip3 install "$i"
   done
 fi
+
+# uv package installs
+# shellcheck disable=SC2068
+for i in ${UV[@]}; do
+  uv tool install "$i"
+done
 
 exit 0
