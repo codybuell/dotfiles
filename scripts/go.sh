@@ -94,21 +94,24 @@ done
 # os specific installations
 case $(uname -s) in
   Linux )
+    # shellcheck disable=SC2068
     for i in ${LINUX[@]}; do
-      go install $i
+      go install "$i"
     done
     ;;
   Darwin )
+    # shellcheck disable=SC2068
     for i in ${OSX[@]}; do
-      go install $i
+      go install "$i"
     done
     configurepassage
     ;;
 esac
 
 # general installations
+# shellcheck disable=SC2068
 for i in ${ALL[@]}; do
-  go install $i
+  go install "$i"
 done
 
 exit 0

@@ -38,6 +38,7 @@ function gcl() {
 
 clonerepos() {
   printf "\033[0;34msetting up repositories...\033[0m\n"
+  # shellcheck disable=SC2068
   for r in ${CONFIGVARS[@]}; do
     VAR=$r
     eval VAL=\$$r

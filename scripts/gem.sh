@@ -41,8 +41,9 @@ PACKAGES=( \
 #######################
 
 # install gem packages
+# shellcheck disable=SC2068
 for i in ${PACKAGES[@]}; do
-  sudo gem install $i
+  sudo gem install "$i"
 done
 
 exit 0

@@ -90,7 +90,8 @@ nvm alias default lts/jod
 nvm use lts/jod
 
 # install node packages
-for i in "${PACKAGES[@]}"; do
+# shellcheck disable=SC2068
+for i in ${PACKAGES[@]}; do
   echo
   echo "-- installing $i --"
   echo

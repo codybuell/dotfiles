@@ -76,14 +76,16 @@ fi
 # done
 
 # install python3 packages
+# shellcheck disable=SC2068
 for i in ${PYTHON3[@]}; do
-  pip3 install $i
+  pip3 install "$i"
 done
 
 # osx specific installs
-if [ `uname -s` = 'Darwin' ]; then
+if [ "$(uname -s)" = 'Darwin' ]; then
+  # shellcheck disable=SC2068
   for i in ${OSXPYTHON3[@]}; do
-    pip3 install $i
+    pip3 install "$i"
   done
 fi
 

@@ -251,19 +251,22 @@ brew upgrade
 
 # install brew casks
 log green "Installing casks..."
-for i in "${CASKS[@]}"; do
+# shellcheck disable=SC2068
+for i in ${CASKS[@]}; do
   brew install --cask --quiet "${i}"
 done
 
 # install brew packages
 log green "Installing packages..."
-for i in "${PACKAGES[@]}"; do
+# shellcheck disable=SC2068
+for i in ${PACKAGES[@]}; do
   brew install --quiet "${i}"
 done
 
 # install brew taps
 log green "Installing Taps..."
-for i in "${TAPS[@]}"; do
+# shellcheck disable=SC2068
+for i in ${TAPS[@]}; do
   TAP=$(echo "${i}" | awk -F":" '{print $1}')
   PKG=$(echo "${i}" | awk -F":" '{print $2}')
   brew tap "${TAP}"
@@ -272,7 +275,8 @@ done
 
 # start up services
 log green "Starting services..."
-for i in "${SERVICES[@]}"; do
+# shellcheck disable=SC2068
+for i in ${SERVICES[@]}; do
   brew install --quiet "${i}"
   brew services start "${i}"
 done
