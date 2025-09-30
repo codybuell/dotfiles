@@ -334,7 +334,7 @@ run_links() {
       if [[ -d "$DST" || -L "$DST" ]]; then
         if [[ -L "$DST" ]]; then
           unlink "$DST"
-          LINKMSG="33mre-linking symlink"
+          LINKMSG="${YELLOW}re-linking symlink${NORM}"
         else
           prettyprint "  ${DST}:${YELLOW}already exists as a dir${NORM}"
           continue
