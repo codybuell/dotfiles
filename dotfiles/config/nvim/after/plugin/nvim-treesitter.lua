@@ -66,6 +66,7 @@ local config = {
       "yaml",
       "dockerfile",
       'tmux',
+      'make',
     },
     -- disable / stop trying to re-init highlighting on large files
     is_supported = function()
