@@ -120,14 +120,14 @@ syn sync match makeCommandSync groupthere makeCommands "^[A-Za-z0-9_./$()%-][A-Z
 
 hi def link makeNextLine	makeSpecial
 hi def link makeCmdNextLine	makeSpecial
-hi link     makeOverride        makeStatement
-hi link     makeExport          makeStatement
+hi link     makeOverride        Keyword
+hi link     makeExport          Keyword
 
-hi def link makeSpecTarget	Statement
+hi def link makeSpecTarget	PreProc
 if !exists("make_no_commands")
-hi def link makeCommands	Number
+hi def link makeCommands	Operator
 endif
-hi def link makeImplicit	Function
+hi def link makeImplicit	Type
 hi def link makeTarget		Function
 hi def link makeInclude		Include
 hi def link makePreCondit	PreCondit
@@ -137,12 +137,12 @@ hi def link makeSpecial		Special
 hi def link makeComment		Comment
 hi def link makeDString		String
 hi def link makeSString		String
-hi def link makeBString		Function
+hi def link makeBString		Funtcion
 hi def link makeError		Error
 hi def link makeTodo		Todo
 hi def link makeDefine		Define
-hi def link makeCommandError	Error
-hi def link makeConfig		PreCondit
+hi def link makeCommandError	ErrorMsg
+hi def link makeConfig		Constant
 
 let b:current_syntax = "make"
 
