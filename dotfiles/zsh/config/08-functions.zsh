@@ -97,7 +97,7 @@ function home() {
       tmux set-window-option -t HOME:control monitor-activity off
       tmux split-window -t HOME:control -h -l 66% -c ~/.mutt
       tmux split-window -t HOME:control -h -l 50% -c ~/.mutt
-      tmux split-window -t HOME:control -v -l 7 -f -c ~/.mutt
+      tmux split-window -t HOME:control -v -l 9 -f -c ~/.mutt
       tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
       tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
       # tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh proj' Enter
