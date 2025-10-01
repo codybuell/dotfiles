@@ -9,10 +9,10 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 -- modes
 vim.keymap.set('n', '<Leader>`', ':Goyo<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat Toggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat copilot<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
---5 (todo-comments)
+vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat copilot_gpt<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat copilot<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>5', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>6', ':Inspect<CR>', {remap=false, silent=true})
 --7
 vim.keymap.set('n', '<Leader>8', ':MarkdownPreviewToggle<CR>', {remap=false, silent=true})
