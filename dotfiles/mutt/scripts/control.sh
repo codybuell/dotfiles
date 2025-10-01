@@ -115,6 +115,6 @@ while true; do
       echo "Valid commands: exit, help, pause, resume, sync"
       ;;
   esac
-  /bin/echo "> "
+  printf "> "
   read -r COMMAND
 done
