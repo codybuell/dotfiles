@@ -135,6 +135,7 @@ BottomLeftCorner="6"                          # set hot corner, see below
 #  12 ->  notification center
 
 # system
+PromptSmartCardPairing="false"                # prompt for smart card pairing?
 CrashReportsAsNotifications="true"            # crash reports to not. cent.?
 LockSystemImmediately="true"                  # require passwd on ss start?
 DefaultSaveToiCloud="false"                   # default icloud as save loc?
@@ -524,6 +525,9 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 ##########
 # SYSTEM #
 ##########
+
+# toggle off prompt for smart card paring
+sudo defaults write /Library/Preferences/com.apple.security.smartcard UserPairing -bool $PromptSmartCardPairing
 
 # show crash reports in the notification center
 NCCrash=$([[ $CrashReportsAsNotifications == 'true' ]] && echo 1 || echo 0)
