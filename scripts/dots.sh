@@ -170,10 +170,12 @@ fast_diff_check() {
     # Use rsync dry-run to check differences efficiently
     local changes
     if [[ -d "$src" ]]; then
-        # For directories, exclude problematic paths and check for
-        # changes. Filter out rsync's non-change output (lines that
-        # don't start with file operation indicators)
-        changes=$(rsync -ani --delete \
+        # For directories, use checksum comparison to ignore timestamp
+        # differences. The -c flag forces rsync to compare by checksum
+        # rather than size+timestamp. This is critical since templating
+        # changes timestamps even when content is identical.
+        local rsync_output
+        rsync_output=$(rsync -acni --delete \
             --exclude='.DS_Store' \
             --exclude='*.mutt*/tmp' \
             --exclude='.config/nvim*/backup' \
@@ -181,8 +183,12 @@ fast_diff_check() {
             --exclude='.config/nvim*/swap' \
             --exclude='.config/nvim*/undo/*' \
             --exclude='__pycache__/*' \
-            "$src/" "$dest/" 2>/dev/null | \
-            grep -E '^[<>ch.*]' | wc -l)
+            "$src/" "$dest/" 2>/dev/null)
+
+        # Count any lines that indicate file changes (ignoring directory
+        # markers which start with 'c' or '.')
+        changes=$(echo "$rsync_output" | \
+            grep -E '^[^cd.]' | wc -l)
     else
         # For files, simple content comparison
         if cmp -s "$src" "$dest" 2>/dev/null; then
@@ -192,7 +198,8 @@ fast_diff_check() {
         fi
     fi
 
-    return $((changes > 0))
+    # Return 0 (success) if no changes, 1 (failure) if changes exist
+    [[ $changes -eq 0 ]]
 }
 
 ##
