@@ -17,7 +17,7 @@ local copilot_config = function()
   return require("codecompanion.adapters").extend("copilot", {
     schema = {
       model = {
-        default = "claude-sonnet-4", -- claude-sonnet-4|o3-mini|gpt-4.1|o4-mini|gemini-2.5-pro|gpt-5|gpt-4o
+        default = "claude-sonnet-4.5", -- claude-sonnet-4|o3-mini|gpt-4.1|o4-mini|gemini-2.5-pro|gpt-5|gpt-4o
       },
     },
   })
