@@ -22,7 +22,7 @@ export DEFGOP=$GOPATH
 # Build path using helpers
 # NOTE: function only adds path if it exists
 path_append "$HOME/Bin"
-path_append "$HOME/.shell/bin"
+path_append "$HOME/.zsh/bin"
 path_append "$HOME/.local/bin"
 path_append "/opt/homebrew/bin"
 path_append "/usr/local/bin"

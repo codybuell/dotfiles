@@ -162,7 +162,7 @@ commands:
 	@source scripts/library.sh && read_config && cd && run_commands
 
 cron:
-	@(crontab -l 2>/dev/null; echo "*/5 * * * * /Users/pbuell/.shell/bin/repo_profiler.py") | crontab -
+	@(crontab -l 2>/dev/null; echo "*/5 * * * * /Users/pbuell/.zsh/bin/repo_profiler.py") | crontab -
 
 keychain:
 	scripts/keychain.sh

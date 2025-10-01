@@ -18,7 +18,7 @@ which brew > /dev/null 2>&1
     . ~/.shell/complete
   fi
 }
-. ~/.shell/bin/bash-preexec.sh
+. ~/.zsh/bin/bash-preexec.sh
 . ~/.shell/preexeccmd
 
 eval "$(direnv hook bash)"

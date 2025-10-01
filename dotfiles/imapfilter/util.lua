@@ -57,7 +57,7 @@ end
 function get_pass(account, host)
   -- TODO: shell escape this to guard against programmer error
   local status, output = pipe_from(
-    '~/.shell/bin/get-keychain-pass ' .. account .. ' ' .. host
+    '~/.zsh/bin/get-keychain-pass ' .. account .. ' ' .. host
   )
   -- TODO: freak out if non-zero status.
   return trim(output)

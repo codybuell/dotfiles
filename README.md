@@ -106,7 +106,7 @@ Structure
 /                         # repo root, git dotfiles, config file, readme, makefile
 applications/             # application configurations (non dotfile configs)
 assets/                   # miscellaneous system files and resources
-  applications/           # small apps worth having that dont fit in submodules or ~/.shell/bin
+  applications/           # small apps worth having that dont fit in submodules or ~/.zsh/bin
   autostart/              # linux *.desktop autostart files applied with `make linux`
   dconf/                  # dconf configurations applied with `make linux`
   fonts/                  # fonts utilized by configurations

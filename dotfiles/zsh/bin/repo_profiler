@@ -10,9 +10,9 @@
 #
 # Requisite: Run through `make dots shell` or manually set the REPODIR
 #            Schedule this to run either via cron or .plist launch agent in osx
-#              */5 * * * * /Users/[your username]/.shell/bin/repo_profiler
+#              */5 * * * * /Users/[your username]/.zsh/bin/repo_profiler
 #
-# Resources: 
+# Resources:
 #
 # Usage: ./repo_profiler
 
