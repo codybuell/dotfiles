@@ -87,7 +87,7 @@ function home() {
       # create main window panes
       tmux split-window -t HOME:home -v -l 60% -c ~/
       tmux split-window -t HOME:home.2 -h -l 45% -c ~/
-      tmux send-keys -t HOME:home.1 'cd ~/Downloads && mutt' Enter
+      tmux send-keys -t HOME:home.1 'cd ~/Downloads && neomutt' Enter
       tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
       tmux send-keys -t HOME:home.3 'cd ~/Desktop && clear' Enter
 
