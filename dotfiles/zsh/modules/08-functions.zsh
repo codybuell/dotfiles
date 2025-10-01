@@ -103,7 +103,7 @@ function home() {
       # tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh proj' Enter
       tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
 
-      ## attach to home session, home window, weechat pane
+      ## attach to home session, home window, shell pane
       tmux -u attach -t HOME:home.3
     else
       tmux -u attach -t HOME
