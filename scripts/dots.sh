@@ -159,32 +159,40 @@ pre_place_hooks() {
  # @return 0 if identical, 1 if different
 ##
 fast_diff_check() {
-  local src="$1"
-  local dest="$2"
+    local src="$1"
+    local dest="$2"
 
-  # Use rsync dry-run to check differences efficiently
-  local changes
-  if [[ -d "$src" ]]; then
-    # For directories, exclude problematic paths and check for changes
-    changes=$(rsync -an --delete \
-      --exclude='.DS_Store' \
-      --exclude='*.mutt*/tmp' \
-      --exclude='.config/nvim*/backup' \
-      --exclude='.config/nvim*/sessions' \
-      --exclude='.config/nvim*/swap' \
-      --exclude='.config/nvim*/undo/*' \
-      --exclude='__pycache__/*' \
-      "$src/" "$dest/" 2>/dev/null | wc -l)
-  else
-    # For files, simple content comparison
-    if cmp -s "$src" "$dest" 2>/dev/null; then
-      changes=0
-    else
-      changes=1
+    # Return different if destination doesn't exist
+    if [[ ! -e "$dest" ]]; then
+        return 1
     fi
-  fi
 
-  return $((changes > 0))
+    # Use rsync dry-run to check differences efficiently
+    local changes
+    if [[ -d "$src" ]]; then
+        # For directories, exclude problematic paths and check for
+        # changes. Filter out rsync's non-change output (lines that
+        # don't start with file operation indicators)
+        changes=$(rsync -ani --delete \
+            --exclude='.DS_Store' \
+            --exclude='*.mutt*/tmp' \
+            --exclude='.config/nvim*/backup' \
+            --exclude='.config/nvim*/sessions' \
+            --exclude='.config/nvim*/swap' \
+            --exclude='.config/nvim*/undo/*' \
+            --exclude='__pycache__/*' \
+            "$src/" "$dest/" 2>/dev/null | \
+            grep -E '^[<>ch.*]' | wc -l)
+    else
+        # For files, simple content comparison
+        if cmp -s "$src" "$dest" 2>/dev/null; then
+            changes=0
+        else
+            changes=1
+        fi
+    fi
+
+    return $((changes > 0))
 }
 
 ##
