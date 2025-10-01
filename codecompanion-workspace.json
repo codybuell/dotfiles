@@ -93,62 +93,62 @@
     },
     "zsh-config-path": {
       "type": "file",
-      "path": "dotfiles/zsh/config/01-path.zsh",
+      "path": "dotfiles/zsh/modules/01-path.zsh",
       "description": "PATH environment variable configuration"
     },
     "zsh-config-color": {
       "type": "file",
-      "path": "dotfiles/zsh/config/02-color.zsh",
+      "path": "dotfiles/zsh/modules/02-color.zsh",
       "description": "Color schemes and terminal color configuration"
     },
     "zsh-config-alias": {
       "type": "file",
-      "path": "dotfiles/zsh/config/03-alias.zsh",
+      "path": "dotfiles/zsh/modules/03-alias.zsh",
       "description": "Command aliases and shortcuts"
     },
     "zsh-config-bindings": {
       "type": "file",
-      "path": "dotfiles/zsh/config/04-bindings.zsh",
+      "path": "dotfiles/zsh/modules/04-bindings.zsh",
       "description": "Key bindings and keyboard shortcuts"
     },
     "zsh-config-environment": {
       "type": "file",
-      "path": "dotfiles/zsh/config/05-environment.zsh",
+      "path": "dotfiles/zsh/modules/05-environment.zsh",
       "description": "Environment variables and system configuration"
     },
     "zsh-config-title": {
       "type": "file",
-      "path": "dotfiles/zsh/config/06-title.zsh",
+      "path": "dotfiles/zsh/modules/06-title.zsh",
       "description": "Terminal title configuration"
     },
     "zsh-config-prompt": {
       "type": "file",
-      "path": "dotfiles/zsh/config/07-prompt.zsh",
+      "path": "dotfiles/zsh/modules/07-prompt.zsh",
       "description": "Shell prompt configuration and styling"
     },
     "zsh-config-functions": {
       "type": "file",
-      "path": "dotfiles/zsh/config/08-functions.zsh",
+      "path": "dotfiles/zsh/modules/08-functions.zsh",
       "description": "Custom shell functions and utilities"
     },
     "zsh-config-kubernetes": {
       "type": "file",
-      "path": "dotfiles/zsh/config/90-kubernetes.zsh",
+      "path": "dotfiles/zsh/modules/90-kubernetes.zsh",
       "description": "Kubernetes-specific configuration and aliases"
     },
     "zsh-config-autosuggestions": {
       "type": "file",
-      "path": "dotfiles/zsh/config/97-autosuggestions.zsh",
+      "path": "dotfiles/zsh/modules/97-autosuggestions.zsh",
       "description": "Zsh autosuggestions plugin configuration"
     },
     "zsh-config-syntax-highlighting": {
       "type": "file",
-      "path": "dotfiles/zsh/config/98-syntax-highlighting.zsh",
+      "path": "dotfiles/zsh/modules/98-syntax-highlighting.zsh",
       "description": "Zsh syntax highlighting plugin configuration"
     },
     "zsh-config-nvm": {
       "type": "file",
-      "path": "dotfiles/zsh/config/99-nvm.zsh",
+      "path": "dotfiles/zsh/modules/99-nvm.zsh",
       "description": "Node Version Manager (NVM) configuration"
     }
   }

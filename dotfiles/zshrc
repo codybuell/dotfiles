@@ -43,7 +43,7 @@ typeset -a __ZSH_MODULES_LOADED
 
 # Set our path for storage of configurations, cache, etc.
 __BUELL[ZSH_CONFIG_DIR]="${HOME}/.zsh"
-mkdir -p "${__BUELL[ZSH_CONFIG_DIR]}"{config,cache}
+mkdir -p "${__BUELL[ZSH_CONFIG_DIR]}"{modules,cache}
 mkdir -p ~/.config/{tmux,kitty}
 
 # Ensure these arrays are unique (contain no duplicate values).
@@ -95,11 +95,11 @@ reload_module() {
   if [[ -z "$module" ]]; then
     echo "Usage: reload_module <module_name>"
     echo "Available modules:"
-    ls "${__BUELL[ZSH_CONFIG_DIR}/config"/*.zsh | sed 's|.*/||; s|\.zsh$||'
+    ls "${__BUELL[ZSH_CONFIG_DIR}/modules"/*.zsh | sed 's|.*/||; s|\.zsh$||'
     return 1
   fi
 
-  local module_file="${__BUELL[ZSH_CONFIG_DIR]}/config/${module}.zsh"
+  local module_file="${__BUELL[ZSH_CONFIG_DIR]}/modules/${module}.zsh"
   if [[ ! -r "$module_file" ]]; then
     echo "Module '$module' not found"
     return 1
@@ -136,7 +136,7 @@ reload_all_modules() {
   __ZSH_MODULES_LOADED=()
 
   # Reload all modules
-  for f in "${__BUELL[ZSH_CONFIG_DIR]}"/config/*.zsh(N); do
+  for f in "${__BUELL[ZSH_CONFIG_DIR]}"/modules/*.zsh(N); do
     local module_name=${f:t:r}
     if [[ -r "$f" ]]; then
       echo "  Loading: $module_name"
@@ -147,7 +147,7 @@ reload_all_modules() {
   done
 }
 
-# Print debugging information for the config
+# Print debugging information for the modules
 zsh_debug() {
   echo "=== ZSH Configuration Debug ==="
   echo "ZSH_CONFIG_DIR: ${__BUELL[ZSH_CONFIG_DIR]}"
@@ -192,7 +192,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
-# See zsh/config/04-bindings.zsh for keybindings
+# See zsh/modules/04-bindings.zsh for keybindings
 
 ################################################################################
 ##                                                                            ##
@@ -300,7 +300,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # print -l ${(kv)__BUELL}                                # See what's in __BUELL
 
 # Load all modules from the configuration path
-for f in "${__BUELL[ZSH_CONFIG_DIR]}"/config/*.zsh(N); do
+for f in "${__BUELL[ZSH_CONFIG_DIR]}"/modules/*.zsh(N); do
   local module_name=${f:t:r}
 
   if [[ -z "${__BUELL[MODULES_LOADED_${module_name}]:-}" ]]; then
