@@ -410,6 +410,14 @@ local function custom_highlights()
   --pinnacle.set('LspReferenceRead', {fg = pinnacle.fg('Type')})
   --pinnacle.set('LspReferenceWrite', {fg = pinnacle.fg('Type')})
 
+  ------------
+  --  Make  --
+  ------------
+
+  pinnacle.link('@string.special.symbol.make', 'TSConstant')
+  pinnacle.link('@operator.make', 'TSPunctSpecial')
+  pinnacle.link('@string.make', 'TSVariable')
+
   ---------------------
   --  Miscellaneous  --
   ---------------------
