@@ -13,7 +13,7 @@ vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat copilot<CR>', {remap=false,
 vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
 --5 (todo-comments)
---6
+vim.keymap.set('n', '<Leader>6', ':Inspect<CR>', {remap=false, silent=true})
 --7
 vim.keymap.set('n', '<Leader>8', ':MarkdownPreviewToggle<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>9', function()
