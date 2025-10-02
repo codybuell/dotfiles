@@ -273,15 +273,22 @@ place_files() {
     # run custom commands as necessary
     pre_place_hooks "${i}"
 
-    # replace all variables found in dotfiles
-    # shellcheck disable=SC2068
+    # build a single perl script with all config substitutions
+    PERL_SCRIPT=""
     for c in ${CONFIGVARS[@]}; do
       VAR=${c}
       eval VAL="\$$c"
-      # escape any @'s in the value so perl dosen't hose it
-      VAL=$(echo $VAL | sed 's/\@/\\\@/g')
-      find ~/".${i}.new.${DATE}" ${TEMPLATEEXCLUDE} -type f -print0 | xargs -0 perl -pi -e "s|{{[[:space:]]*${VAR}[[:space:]]*}}|${VAL}|g"
+      # Escape special characters for perl (/, @, $, etc)
+      VAL=$(printf '%s' "$VAL" | perl -pe 's/([\/\@\$\\])/\\$1/g')
+      PERL_SCRIPT+="s|\\{\\{[[:space:]]*${VAR}[[:space:]]*\\}\\}|${VAL}|g; "
     done
+
+    # single find pass with combined perl substitutions
+    if [ -n "$PERL_SCRIPT" ]; then
+      # shellcheck disable=SC2086
+      find ~/".${i}.new.${DATE}" ${TEMPLATEEXCLUDE} -type f -print0 | \
+        xargs -0 perl -pi -e "$PERL_SCRIPT"
+    fi
 
     #############
     #  diffing  #
