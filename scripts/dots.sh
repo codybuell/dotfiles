@@ -58,6 +58,8 @@ TEMPLATEEXCLUDES=( \
 DIFFEXCLUDES=( \
   "-name *.DS_Store" \
   "-regex .*.mutt*/tmp" \
+  "-regex .*.mutt*/cache" \
+  "-name mailboxes.mutt" \
   "-path *.docker*/buildx/*" \
   "-path *.config*/github-copilot" \
   "-path *.config*/htop/*" \
@@ -73,9 +75,6 @@ DIFFEXCLUDES=( \
   "-path *.config*/tmux*/theme.conf" \
   "-path *.config*/tmux*/tmux.digests" \
   "-path *.config*/tmux*/plugins/tmux-resurrect/lib/tmux-test/*" \
-  "-path *.mutt*/config/mailboxes.mutt" \
-  "-path *.mutt*/cache/*" \
-  "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
   "-path */__pycache__/*" \
