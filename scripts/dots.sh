@@ -58,13 +58,19 @@ TEMPLATEEXCLUDES=( \
 DIFFEXCLUDES=( \
   "-name *.DS_Store" \
   "-regex .*.mutt*/tmp" \
-  "-path *.config/nvim*/backup" \
-  "-path *.config/nvim*/sessions" \
-  "-path *.config/nvim*/swap" \
-  "-path *.config/nvim*/spell/*" \
-  "-path *.config/nvim*/undo/*" \
-  "-path *.config/nvim*/view/*" \
-  "-path *.config/nvim*/pack/bundle/opt/*" \
+  "-path *.config*/github-copilot" \
+  "-path *.config*/htop/*" \
+  "-path *.config*/karabiner*/automatic_backups/*" \
+  "-path *.config*/nvim*/backup" \
+  "-path *.config*/nvim*/sessions" \
+  "-path *.config*/nvim*/swap" \
+  "-path *.config*/nvim*/spell/*" \
+  "-path *.config*/nvim*/undo/*" \
+  "-path *.config*/nvim*/view/*" \
+  "-path *.config*/nvim*/pack/bundle/opt/*" \
+  "-path *.config*/tmux*/theme.conf" \
+  "-path *.config*/tmux*/tmux.digests" \
+  "-path *.config*/tmux*/plugins/tmux-resurrect/lib/tmux-test/*" \
   "-path *.mutt*/config/mailboxes.mutt" \
   "-path *.mutt*/cache/*" \
   "-path *.mutt*/tmp/*" \
