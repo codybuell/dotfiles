@@ -90,6 +90,14 @@ subs:
 	git submodule update
 	git submodule update --init
 
+decrypt:
+	git cipher decrypt dotfiles/ssh/.config.encrypted
+	git cipher decrypt ..config.encrypted
+
+encrypt:
+	git cipher encrypt dotfiles/ssh/config
+	git cipher encrypt .config
+
 update-themes:
 	@echo "Updating theme submodules..."
 	git submodule update --init --remote -- vendor/tinted-*
