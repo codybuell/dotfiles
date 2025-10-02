@@ -65,6 +65,8 @@ DIFFEXCLUDES=( \
   "-path *.config/nvim*/undo/*" \
   "-path *.config/nvim*/view/*" \
   "-path *.config/nvim*/pack/bundle/opt/*" \
+  "-path *.mutt*/config/mailboxes.mutt" \
+  "-path *.mutt*/cache/*" \
   "-path *.mutt*/tmp/*" \
   "-path *.homestead*/src/*" \
   "-path *.imapfilter*/certificates" \
