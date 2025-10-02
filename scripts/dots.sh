@@ -304,13 +304,18 @@ place_files() {
       else
         # gather the checksums
         if [ -d "${HOME}/.${i}" ]; then
-          MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
-          MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 | awk '{print $4}' | ${MD5} | awk '{print $1}')
-          # find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/new.txt
-          # find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f -exec ${MD5} {} \; | sort -k 2 > ~/Desktop/old.txt
+          # Use -exec + instead of \; to batch files (much faster)
+          # shellcheck disable=SC2086
+          MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f \
+            -exec ${MD5} {} + 2>/dev/null | sort -k 2 | cut -d' ' -f1 | \
+            ${MD5Q} | cut -d' ' -f1)
+          # shellcheck disable=SC2086
+          MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f \
+            -exec ${MD5} {} + 2>/dev/null | sort -k 2 | cut -d' ' -f1 | \
+            ${MD5Q} | cut -d' ' -f1)
         else
-          MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | awk '{print $1}')
-          MD5OLD=$(${MD5Q} "${HOME}/.${i}" | awk '{print $1}')
+          MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | cut -d' ' -f1)
+          MD5OLD=$(${MD5Q} "${HOME}/.${i}" | cut -d' ' -f1)
         fi
 
         # compare checksums
