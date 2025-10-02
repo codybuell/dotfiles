@@ -58,6 +58,7 @@ TEMPLATEEXCLUDES=( \
 DIFFEXCLUDES=( \
   "-name *.DS_Store" \
   "-regex .*.mutt*/tmp" \
+  "-path *.docker*/buildx/*" \
   "-path *.config*/github-copilot" \
   "-path *.config*/htop/*" \
   "-path *.config*/karabiner*/automatic_backups/*" \
@@ -68,6 +69,7 @@ DIFFEXCLUDES=( \
   "-path *.config*/nvim*/undo/*" \
   "-path *.config*/nvim*/view/*" \
   "-path *.config*/nvim*/pack/bundle/opt/*" \
+  "-path *.config*/raycast*/*" \
   "-path *.config*/tmux*/theme.conf" \
   "-path *.config*/tmux*/tmux.digests" \
   "-path *.config*/tmux*/plugins/tmux-resurrect/lib/tmux-test/*" \
