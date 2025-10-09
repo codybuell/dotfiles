@@ -40,7 +40,13 @@ vim.g.VtrClearSequence = "clear"
 --  Mappings  --
 ----------------
 
-vim.keymap.set('n', '<Leader>ra', ':VtrAttachToPane<CR>', {remap = false})
+-- vim.keymap.set('n', '<Leader>ra', ':VtrAttachToPane<CR>', {remap = false})
+vim.keymap.set('n', '<Leader>ra', function()
+  os.execute('tmux display-panes')
+  vim.defer_fn(function()
+    vim.cmd('VtrAttachToPane')
+  end, 500)
+end, {remap = false})
 vim.keymap.set('n', '<Leader>rf', ':VtrSendFile<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>rl', ':VtrSendLinesToRunner<CR>', {remap = false})
 vim.keymap.set('n', '<Leader>re', ':VtrSendCommandToRunner<CR>', {remap = false})
