@@ -213,9 +213,9 @@ function M.word_count_progress(target_words)
     return "%#Normal#"
   else
     return table.concat {
-      "%#Status7#",
+      "%#" .. config.highlights.lhs .. "#",
       padding,
-      "%#Status4#",
+      "%#" .. config.highlights.arrow_left .. "#",
       config.symbols.powerline_left,
     }
   end
