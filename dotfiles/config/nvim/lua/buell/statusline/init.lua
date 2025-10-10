@@ -30,7 +30,7 @@ function M.update()
     end
 
     -- Set statusline for this specific window
-    vim.api.nvim_win_set_option(winid, 'statusline', line)
+    vim.api.nvim_set_option_value('statusline', line, {win = winid})
   end
 end
 
