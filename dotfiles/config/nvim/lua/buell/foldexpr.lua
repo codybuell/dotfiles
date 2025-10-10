@@ -109,16 +109,19 @@ end
 --
 local foldexpr = function(line_number)
   local bufnr = vim.api.nvim_get_current_buf()
-  local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  local filetype = vim.api.nvim_get_option_value('filetype', {buf = bufnr})
   local foldexpr_func = filetype_foldexprs[filetype]
+
   if foldexpr_func then
-    -- Call the specified foldexpr function for this filetype.
-    return vim.fn[foldexpr_func]()
+    -- Evaluate the foldexpr function for this filetype. Use
+    -- nvim_eval to handle both Vim and Lua function expressions.
+    return vim.api.nvim_eval(foldexpr_func)
   end
+
   if not vim.api.nvim_buf_is_loaded(bufnr) then
-    -- Believe it or not, we'll get called before the buffer is loaded, and
-    -- calling `nvim_buf_attach()` with an unloaded buffer will fail; we have to
-    -- bail when this happens.
+    -- Believe it or not, we'll get called before the buffer is
+    -- loaded, and calling `nvim_buf_attach()` with an unloaded
+    -- buffer will fail; we have to bail when this happens.
     return 0
   end
   local line_count = vim.api.nvim_buf_line_count(0)
