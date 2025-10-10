@@ -14,6 +14,11 @@ M = {}
 -- Store the last used character for repeatability
 local last_chars = nil
 
+-- Public function to clear cache (for insert mode mapping)
+function M.clear_cache()
+  last_chars = nil
+end
+
 -- Main function - sets up operatorfunc and clears cache
 function M.prompt()
   last_chars = nil  -- Clear cache so we prompt again
