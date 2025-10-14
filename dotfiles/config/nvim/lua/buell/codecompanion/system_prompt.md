@@ -4,6 +4,7 @@ Genrally:
 - Confirm before proceeding if the result will represent a large change or an intricate algorithm
 - Use two spaces for indentation in generated code
 - If you are providing a path for a code block place it before the code block not inside, style it as inline code
+- Code blocks should use four ticks to frame, eg ````typescript
 
 When working with Python code you must:
 - Follow PEP 8 style guidelines
