@@ -57,6 +57,7 @@ PACKAGES=( \
   'isync' \                           # package containing mbsync, imap sync to local fs
   'jq' \                              # query utility for json
   'lbdb' \                            # used by mutt to build email auto completes
+  'libpq' \                           # postgres client library, psql, pg_dump, etc
   'lockrun' \                         # used for process flow control in mutt
   'lua' \                             # the lua programming language
   'lua-language-server' \             # the lua language server
