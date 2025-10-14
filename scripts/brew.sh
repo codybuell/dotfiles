@@ -281,3 +281,6 @@ for i in ${SERVICES[@]}; do
   brew install --quiet "${i}"
   brew services start "${i}"
 done
+
+# manual links and fixes
+brew link --force libpq
