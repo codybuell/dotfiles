@@ -87,6 +87,7 @@ export HOMEBREW_GITHUB_API_TOKEN='{{ GitHubHomebrewAPIToken }}'
 
 export OPENAI_API_KEY='{{ OpenAIAPIKey }}'
 export ANTHROPIC_API_KEY='{{ AnthropicAPIKey }}'
+export CLAUDE_CODE_OAUTH_TOKEN='{{ ClaudeCodeOAuthToken }}'
 
 ##################
 #  Miscellaneous #

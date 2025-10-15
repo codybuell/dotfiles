@@ -33,6 +33,15 @@ local copilot_gpt = function()
   })
 end
 
+
+local claude_code = function()
+  return require("codecompanion.adapters").extend("claude_code", {
+    env = {
+      CLAUDE_CODE_OAUTH_TOKEN = "{{ ClaudeCodeOAuthToken }}",
+    },
+  })
+end
+
 -----------------
 --  Anthropic  --
 -----------------
@@ -68,6 +77,9 @@ end
 M.http = {
   copilot = copilot_config(),
   copilot_gpt = copilot_gpt(),
+  acp = {
+    claude_code = claude_code(),
+  },
 }
 
 M.acp = {}
