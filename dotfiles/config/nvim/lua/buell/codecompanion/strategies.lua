@@ -77,14 +77,15 @@ M.chat = {
         },
       },
     },
-    ["help"] = {
-      opts = { provider = "mini_pick" },
-      keymaps = {
-        modes = {
-          i = "<C-h>",
-        },
-      },
-    },
+    -- Disabled for now, as it conflicts with 'move to left window' map
+    -- ["help"] = {
+    --   opts = { provider = "mini_pick" },
+    --   keymaps = {
+    --     modes = {
+    --       i = "<C-h>",
+    --     },
+    --   },
+    -- },
     ["file"] = {
       opts = { provider = "mini_pick" },
       keymaps = {
