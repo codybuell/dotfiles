@@ -156,9 +156,9 @@ pip:
 
 karabiner:
 	node scripts/karabiner.mjs --emit-karabiner-config > dotfiles/config/karabiner/karabiner.json
-	scripts/dots.sh config/karabiner
-	launchctl stop org.pqrs.karabiner.karabiner_console_user_server
-	launchctl start org.pqrs.karabiner.karabiner_console_user_server
+	scripts/dots.sh -f config/karabiner
+	# launchctl stop org.pqrs.karabiner.karabiner_console_user_server
+	# launchctl start org.pqrs.karabiner.karabiner_console_user_server
 
 osx:
 	scripts/osx.sh

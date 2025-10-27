@@ -9,11 +9,11 @@
  * launchctl start org.pqrs.karabiner.karabiner_console_user_server
  */
 
-/////////////////////////////////////////////////////////////////////////////////
-//                                                                             //
-//  Helpers                                                                    //
-//                                                                             //
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Helpers                                                                   //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
 
 export function bundleIdentifier(identifier) {
   return '^' + identifier.replace(/\./g, '\\.') + '$';
@@ -48,11 +48,50 @@ function colemak(key) {
   );
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-//                                                                             //
-//  Templating                                                                 //
-//                                                                             //
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Chorded Typing                                                            //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * Chorded typing: Press multiple keys simultaneously to insert a string.
+ * @param {string[]} keys - Array of key codes to press together.
+ * @param {string} text - The string to insert.
+ * @returns {object[]} - Karabiner manipulator(s).
+ */
+function chordedTyping(keys, text) {
+  return [
+    {
+      type: 'basic',
+      from: {
+        simultaneous: keys.map((key) => ({ key_code: key })),
+        simultaneous_options: {
+          key_down_order: 'insensitive',
+          key_up_order: 'insensitive',
+        },
+        modifiers: {
+          optional: ['any'],
+        },
+      },
+      to: [
+        {
+          insert_text: text,
+        },
+      ],
+      parameters: {
+        'basic.simultaneous_threshold_milliseconds': 350, // Try a higher value
+      },
+    },
+  ];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Templating                                                                //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
 
 /**
   * Map <from> to <to>.
@@ -356,11 +395,11 @@ function applyExemptions(profile) {
   );
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-//                                                                             //
-//  Constants                                                                  //
-//                                                                             //
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Constants                                                                 //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
 
 const DEVICE_DEFAULTS = {
   disable_built_in_keyboard_if_exists: false,
@@ -509,6 +548,15 @@ const DEFAULT_PROFILE = applyExemptions({
           },
         ],
       },
+      // {
+      //   description: 'Chorded typing',
+      //   manipulators: [
+      //     ...chordedTyping(['b', 'c'], 'because'),
+      //     ...chordedTyping(['f', 'n'], 'function'),
+      //     ...chordedTyping(['t', 'h'], 'the'),
+      //     ...chordedTyping(['t', 'n'], 'then'),
+      //   ],
+      // },
       // {
       //   description: 'Launcher',
       //   manipulators: [
@@ -895,11 +943,11 @@ const DEFAULT_PROFILE = applyExemptions({
   selected: true,
 });
 
-/////////////////////////////////////////////////////////////////////////////////
-//                                                                           //
-//  Assembled Config                                                         //
-//                                                                           //
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Assembled Config                                                          //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
 
 const CONFIG = {
   global: {
@@ -910,11 +958,11 @@ const CONFIG = {
   profiles: [DEFAULT_PROFILE, VANILLA_PROFILE],
 };
 
-/////////////////////////////////////////////////////////////////////////////////
-//                                                                             //
-//  Run                                                                        //
-//                                                                             //
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  Run                                                                       //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
 
 if (process.argv.includes('--emit-karabiner-config')) {
   process.stdout.write(JSON.stringify(CONFIG, null, 2) + '\n');
