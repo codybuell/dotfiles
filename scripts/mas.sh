@@ -49,7 +49,7 @@ APPLICATIONS=( \
 #   '926036361' \                  # LastPass (4.4.0)
     '497799835' \                  # Xcode (latest)
 #   '1444383602' \                 # * GoodNotes (5.5.8)
-#   '965442961' \                  # Screenie (2.2.2)
+#   '965442961' \                  # Screenie (2.2.2) YOU NEED 2.2.5 in GDrive
 )
 
 ARMAPPS=( \
