@@ -92,10 +92,12 @@ subs:
 
 decrypt:
 	git cipher decrypt dotfiles/ssh/.config.encrypted
+	git cipher decrypt dotfiles/kube/.config.encrypted
 	git cipher decrypt ..config.encrypted
 
 encrypt:
 	git cipher encrypt dotfiles/ssh/config
+	git cipher encrypt dotfiles/kube/config
 	git cipher encrypt .config
 
 update-themes:
