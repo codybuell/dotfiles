@@ -301,21 +301,21 @@ local function custom_highlights()
   pinnacle.set('MiniDiffSignAdd', {
     fg = pinnacle.brighten('DiffAdd', 0.35).bg,
     bg = pinnacle.bg('SignColumn'),
-    -- bold = true,
+    bold = true,
     italic = true,
   })
 
   pinnacle.set('MiniDiffSignChange', {
     fg = pinnacle.brighten('DiffText', 0.35).bg,
     bg = pinnacle.bg('SignColumn'),
-    -- bold = true,
+    bold = true,
     italic = true,
   })
 
   pinnacle.set('MiniDiffSignDelete', {
     fg = pinnacle.brighten('DiffDelete', 0.35).bg,
     bg = pinnacle.bg('SignColumn'),
-    -- bold = true,
+    bold = true,
     italic = true,
   })
 
