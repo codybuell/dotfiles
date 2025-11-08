@@ -367,6 +367,7 @@ local function custom_highlights()
   pinnacle.link('@markup.quote.markdown', 'Comment')
 
   pinnacle.set('@markup.heading.1.markdown', pinnacle.embolden('Title'))
+  pinnacle.set('@markup.heading.2.markdown', pinnacle.embolden('Title'))
   pinnacle.set('@markup.strong.markdown_inline', pinnacle.embolden('Tag'))
   pinnacle.set('@punctuation.special.markdown', pinnacle.embolden('Comment'))
   pinnacle.set('@markup.list.unchecked.markdown', pinnacle.embolden('Directory'))
