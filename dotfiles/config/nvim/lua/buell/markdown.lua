@@ -148,15 +148,48 @@ local open_link = function (link)
 
       -- navigate to section if defined
       if section ~= '' then
-        local dashes = vim.fn.execute('%s/^' .. section .. '\\n[=-]\\+$//n', 'silent!')
-        local hashes = vim.fn.execute('%s/^#\\+\\s\\+' .. section .. '\\s*$//n', 'silent!')
-        if dashes ~= '' then
-          vim.cmd('g/^' .. section .. '\\n[=-]\\+$/ norm ggn,/')
-        elseif hashes ~= '' then
-          vim.cmd('g/#* ' .. section .. '/ norm ggn,/')
-        else
-          print('Section "' .. section .. '" not found')
-        end
+          -- transform section slug to match GitHub's algorithm:
+          -- lowercase, spaces/underscores to hyphens, strip special chars
+          local function slugify(text)
+            return text:lower()
+              :gsub('[%s_]+', '-')                -- spaces/underscores → hyphen
+              :gsub('[^%w%-]', '')                -- remove non-word, non-hyphen
+              :gsub('%-+', '-')                   -- collapse multiple hyphens
+              :gsub('^%-+', ''):gsub('%-+$', '')  -- trim leading/trailing
+          end
+
+          local section_slug = slugify(section)
+
+          -- search for matching header by slugifying each one
+          local found = false
+          local line_count = vim.fn.line('$')
+
+          for i = 1, line_count do
+            local line = vim.fn.getline(i)
+            local next_line = i < line_count and vim.fn.getline(i + 1) or ''
+
+            -- check for hash-style headers (# Header)
+            local hash_header = line:match('^#+ (.+)$')
+            if hash_header and slugify(hash_header) == section_slug then
+              vim.fn.cursor(i, 1)
+              found = true
+              break
+            end
+
+            -- check for underline-style headers (Header\n====)
+            local underline_header = line:match('^(.+)$')
+            if underline_header and next_line:match('^[=-]+$') then
+              if slugify(underline_header) == section_slug then
+                vim.fn.cursor(i, 1)
+                found = true
+                break
+              end
+            end
+          end
+
+          if not found then
+            print('Section "' .. section .. '" not found')
+          end
       end
     end
   end
