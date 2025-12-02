@@ -145,7 +145,7 @@ pre_place_hooks() {
       ;;
     terminfo )
       for terminfo in *; do
-        tic -o ~/".terminfo.new.$DATE" "$terminfo" > /dev/null 2>&1
+        tic -x -o ~/".terminfo.new.$DATE" "$terminfo" > /dev/null 2>&1
       done
       ;;
     mutt )
