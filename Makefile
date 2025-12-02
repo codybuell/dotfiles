@@ -9,7 +9,7 @@ SHELL := /bin/bash
 
 # Turn all subsequent targets after some targets into arguments for command
 FIRSTWORD=$(firstword $(MAKECMDGOALS))
-ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots colortest))
+ifeq ($(FIRSTWORD), $(filter $(FIRSTWORD), dots Dots colortest))
   # use the remaining targets as arguments
   CMD_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   # and turn them into null / do-nothing targets
@@ -134,6 +134,9 @@ repos:
 
 dots:
 	scripts/dots.sh $(CMD_ARGS)
+
+Dots:
+	scripts/dots.sh -f $(CMD_ARGS)
 
 nix:
 	scripts/nix.sh
