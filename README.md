@@ -34,6 +34,7 @@ bootstrap` or independently as needed. They are ordered below as run by `make
 bootstrap`, which is determined by dependencies.
 
 ```bash
+make decrypt                    # decrypt configuration files
 make subs                       # pull in all git repository submodules
 make paths                      # create paths scaffolding as defined in `.config`
 make symlinks                   # create symlinks as defined in `.config`
@@ -59,7 +60,7 @@ dots` endpoint takes any number of arguments, being the dotfiles or dotfolders
 you wish to place.
 
 ```bash
-make dots vim                   # will place the dotfiles/vim folder to ~/.vim
+make dots config/nvim           # will place the dotfiles/config/nvim folder to ~/.config/nvim
 make dots tmux.conf tmux        # can take any number of arguments
 make dots config/karabiner      # also handles explicitly calling out a sub path
 ```

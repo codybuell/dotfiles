@@ -1,28 +1,21 @@
 ################################################################################
-#                                                                              #
-# HOSTS                                                                        #
-#                                                                              #
+##                                                                            ##
+##  General                                                                   ##
+##                                                                            ##
 ################################################################################
 
-# host [alias]
-#   User ubuntu
-#   Hostname [ip | hostname]
-#   Compression yes
-#   TCPKeepAlive yes
-#   ForwardX11 yes
-#   ForwardX11Truted yes
-#   ServerAliveInterval 30
-#   IdentityFile ~/.ssh/[keyname]
-
-################################################################################
-#                                                                              #
-# DEFAULTS                                                                     #
-#                                                                              #
-################################################################################
-
+# Use system keychain for ssh key passphrases
 Host *
   UseKeychain yes
-  UseKeychain yes
-  Compression yes
-  TCPKeepAlive yes
-  ServerAliveInterval 30
+  AddKeysToAgent yes
+
+# Don't check or store keys for localhost (vm's)
+Host localhost
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+
+# SSH over Session Manager for aws nodes
+host i-* mi-*
+  ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
+  User ec2-user
+  IdentityFile ~/.ssh/ctdevops2021

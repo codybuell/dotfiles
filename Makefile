@@ -118,7 +118,7 @@ update-themes:
 #  Deployment  #
 ################
 
-bootstrap: subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
+bootstrap: decrypt subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
 
 clean:
 	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;
