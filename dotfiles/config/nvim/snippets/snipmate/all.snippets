@@ -307,84 +307,80 @@ snippet init "init script template" b
 	    ;;
 	esac
 
-snippet tmuxl "project .tmux boilerplate (left)" b
+snippet tmux "project .tmux boilerplate" b
 	#!/bin/bash
 	#
+	# Window 1: main
 	# .--------------------------------------.
-	# |                      |               |
-	# |                      |       2       |
-	# |                      |               |
-	# |           1          |---------------|
-	# |                      |               |
-	# |                      |       3       |
-	# |                      |               |
+	# |                    |                 |
+	# |                    |        2        |
+	# |                    |    git status   |
+	# |          1         |-----------------|
+	# |         vim        |                 |
+	# |                    |        3        |
+	# |                    |                 |
+	# '--------------------------------------'
+	#
+	# Window 2: control
+	# .--------------------------------------.
+	# |            |            |            |
+	# |      1     |      2     |      3     |
+	# |            |            |            |
+	# |------------|------------|------------|
+	# |            |            |            |
+	# |      4     |      5     |      6     |
+	# |            |            |            |
 	# '--------------------------------------'
 
-	CMDPANE1='${1:vim -c CommandT}'
-	CMDPANE2='${2:git status}'
-	CMDPANE3='${3}'
+	# define what commands we want to execute
+	WINDOW1PANE1='${1:vim}'
+	WINDOW1PANE2='${2:git status}'
+	WINDOW1PANE3='${3:clear}'
+
+	WINDOW2PANE1='clear'
+	WINDOW2PANE2='clear'
+	WINDOW2PANE3='clear'
+	WINDOW2PANE4='clear'
+	WINDOW2PANE5='clear'
+	WINDOW2PANE6='clear'
 
 	# get session name based on folder
-	SESSION=\`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'\`
+	SESSION=$(basename "$(pwd)" | sed 's/\.//g' | tr '[:upper:]' '[:lower:]')
 
 	# attach if session already exists
-	if tmux has-session -t $SESSION 2> /dev/null; then
-	  tmux -u attach -t $SESSION
+	if tmux has-session -t "${SESSION}:" 2> /dev/null; then
+	  tmux -u attach -t "${SESSION}:"
 	  exit
 	fi
 
 	# else create a new session
-	tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
+	tmux new-session -d -s "$SESSION" -n main -x "$(tput cols)" -y "$(tput lines)"
 
 	# build out panes
-	tmux split-window -t ${SESSION}:main.1 -h -l 45%
-	tmux split-window -t ${SESSION}:main.2 -v -l 60%
+	tmux split-window -t "${SESSION}":main.1 -h -p 45
+	tmux split-window -t "${SESSION}":main.2 -v -p 60
 
-	# run commands
-	tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
-	tmux send-keys -t ${SESSION}:main.2 "$CMDPANE2" Enter
-	tmux send-keys -t ${SESSION}:main.3 "$CMDPANE3" Enter
-
-	# attach to the new session, focus left pane
-	tmux -u attach -t ${SESSION}:main.1
-
-snippet tmux "project .tmux boilerplate (right)" b
-	#!/bin/bash
+	# # create our second window
+	# tmux new-window -t "${SESSION}": -n control
 	#
-	# .--------------------------------------.
-	# |                 |                    |
-	# |        1        |                    |
-	# |                 |                    |
-	# |-----------------|          3         |
-	# |                 |                    |
-	# |        2        |                    |
-	# |                 |                    |
-	# '--------------------------------------'
-
-	CMDPANE1='${1:git status}'
-	CMDPANE2='${2}'
-	CMDPANE3='${3:vim -c CommandT}'
-
-	# get session name based on folder
-	SESSION=\`basename $(pwd) | sed 's/\.//g' | tr '[:upper:]' '[:lower:]'\`
-
-	# attach if session already exists
-	if tmux has-session -t $SESSION 2> /dev/null; then
-	  tmux -u attach -t $SESSION
-	  exit
-	fi
-
-	# else create a new session
-	tmux new-session -d -s $SESSION -n main -x $(tput cols) -y $(tput lines)
-
-	# build out panes
-	tmux split-window -t ${SESSION}:main.1 -h -l 55%
-	tmux split-window -t ${SESSION}:main.1 -v -l 60%
-
-	# run commands
-	tmux send-keys -t ${SESSION}:main.1 "$CMDPANE1" Enter
-	tmux send-keys -t ${SESSION}:main.2 "$CMDPANE2" Enter
-	tmux send-keys -t ${SESSION}:main.3 "$CMDPANE3" Enter
-
-	# attach to the new session, focus left pane
-	tmux -u attach -t ${SESSION}:main.3
+	# # build out pannes
+	# tmux split-window -t "${SESSION}":control.1 -v -p 50
+	# tmux split-window -t "${SESSION}":control.1 -h -p 66
+	# tmux split-window -t "${SESSION}":control.2 -h -p 50
+	# tmux split-window -t "${SESSION}":control.4 -h -p 66
+	# tmux split-window -t "${SESSION}":control.5 -h -p 50
+	#
+	# # run commands
+	# tmux send-keys -t "${SESSION}":main.1 "$WINDOW1PANE1" Enter
+	# tmux send-keys -t "${SESSION}":main.2 "$WINDOW1PANE2" Enter
+	# tmux send-keys -t "${SESSION}":main.3 "$WINDOW1PANE3" Enter
+	#
+	# tmux send-keys -t "${SESSION}":control.1 "$WINDOW2PANE1"
+	# tmux send-keys -t "${SESSION}":control.2 "$WINDOW2PANE2"
+	# tmux send-keys -t "${SESSION}":control.3 "$WINDOW2PANE3"
+	# tmux send-keys -t "${SESSION}":control.4 "$WINDOW2PANE4"
+	# tmux send-keys -t "${SESSION}":control.5 "$WINDOW2PANE5"
+	# tmux send-keys -t "${SESSION}":control.6 "$WINDOW2PANE6"
+	#
+	# # attach to the new session, focus left pane
+	# tmux -u attach -t "${SESSION}":main.1
