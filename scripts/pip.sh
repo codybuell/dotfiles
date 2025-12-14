@@ -46,6 +46,7 @@ OSXPYTHON3=( \
 
 # new package manager that will expose executables
 UV=( \
+  'rshell' \                           # shell for remote devices over serial
   'ansible-core' \                     # cm utility
   'vectorcode<1.0.0' \                 # vectorcode https://github.com/Davidyz/VectorCode/
 )
