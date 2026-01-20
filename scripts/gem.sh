@@ -30,7 +30,7 @@
 
 PACKAGES=( \
   'bundler' \               # needed for mutt sending markdown emails
-  'git-cipher' \            # git add-on for encrypting data in a pub repo
+  # 'git-cipher' \            # git add-on for encrypting data in a pub repo NOW VIA NPM
   'neovim' \                # neovim client, required to use ruby with neovim
 )
 

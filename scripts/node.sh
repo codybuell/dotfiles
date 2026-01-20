@@ -37,6 +37,7 @@ PACKAGES=( \
   'bower' \                                # web dev vendoring utility
   'cfn-lint' \                             # aws cloudformation linting
   'gistup' \                               # gists creation utility
+  'git-cipher' \                           # git add-on for encrypting data in a pub repo
   'gitlab-ci-lint' \                       # linting of gitlab ci files
   'gulp' \                                 # web dev asset compiler
   'http-server' \                          # light-weight dev web server

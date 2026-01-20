@@ -78,6 +78,7 @@ PACKAGES=( \
   'pinentry' \                        # interface used to prompt for gpg pins
   'pinentry-mac' \                    # gui interface used to prompt for gpg pins
   'python' \                          # python language
+  'python-lsp-server' \               # python language server
   'qemu' \                            # virtualization tool of choice
   'qrencode' \                        # utility to generate qr codes
   'reattach-to-user-namespace' \      # reattach tmux etc to user namespace
