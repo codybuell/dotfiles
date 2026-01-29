@@ -55,7 +55,10 @@ vim.keymap.set('n', '<Right>', '<CMD>lua buell.util.list_nav("next", "list")<CR>
 
 -- search related maps
 vim.keymap.set('n', ',,', '/[^\\x00-\\x7F]<CR>', {silent = true})
-vim.keymap.set('n', ',/', '<Plug>(LoupeClearHighlight)', {})
+vim.keymap.set('n', ',/', function()
+  vim.cmd('execute "normal \\<Plug>(LoupeClearHighlight)"')
+  vim.cmd('match')
+end, {})
 
 -- wiki helpers
 vim.keymap.set('n', '<Localleader>n', '<CMD>lua buell.util.create_entry("note")<CR>', {remap = false})
