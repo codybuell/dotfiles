@@ -26,13 +26,7 @@ vim.keymap.set('n', '<Leader>9', function()
   vim.cmd('redrawstatus')
 end, {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>0', function()
-  if #vim.lsp.get_clients() == 0 then
-    vim.cmd("LspStart")
-    buell.lsp.init()
-  else
-    vim.cmd("LspStop")
-    -- vim.lsp.stop_client(vim.lsp.get_clients())<CR>
-  end
+  vim.cmd("LspRestart")
   vim.cmd('redrawstatus')
 end, {remap = false})
 
