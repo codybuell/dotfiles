@@ -240,7 +240,30 @@ vim.keymap.set('n', '<Leader>gl', ':silent! 0Gclog!<CR>:bot copen<CR>', {remap =
 vim.keymap.set('n', '<Leader>gL', ':silent! Git log --pretty="format:%h  %ad  %<(16,trunc)%aN %d %s"<CR>', {remap = false, silent = true})
 vim.keymap.set('n', '<Leader>gD', smart_diff, {remap = false, silent = true})
 
--- other flows (gc = checkout, gg = grep, ge = edit/refresh buffer)
+-- other flows (gc = checkout, gg = grep, ge = edit/refresh buffer, gq = changed files to quickfix)
 vim.keymap.set('n', '<Leader>gc', ':Git checkout<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>gg', ':Ggrep<Space>', {remap = false, silent = false})
 vim.keymap.set('n', '<Leader>ge', ':Gedit<CR>', {remap = false, silent = true})
+vim.keymap.set('n', '<Leader>gq', function()
+  local diff_output = vim.fn.systemlist('git diff --unified=0 HEAD')
+  local qf_list = {}
+  local current_file = nil
+
+  for _, line in ipairs(diff_output) do
+    -- match file header: +++ b/path/to/file
+    local file = line:match('^%+%+%+ b/(.+)$')
+    if file then
+      current_file = file
+    end
+    -- match hunk header: @@ -X,Y +Z,W @@ or @@ -X +Z @@
+    -- capture the starting line number from +Z
+    local lnum = line:match('^@@ %-%d+,?%d* %+(%d+)')
+    if lnum and current_file then
+      table.insert(qf_list, {filename = current_file, lnum = tonumber(lnum)})
+      current_file = nil -- only take first hunk per file
+    end
+  end
+
+  vim.fn.setqflist(qf_list)
+  vim.cmd('cfirst')
+end, {remap = false, silent = true, desc = 'Git changed files to quickfix'})
