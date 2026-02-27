@@ -3,6 +3,23 @@ local autocmd = buell.util.autocmd
 
 augroup('BuellAutocommands', function()
 
+  ---------------------
+  --  FocusGained    --
+  ---------------------
+
+  -- detect when files are changed externally (e.g. by Claude Code)
+  autocmd('FocusGained', '*', function()
+    vim.cmd('checktime')
+  end)
+
+  ----------------
+  --  BufEnter  --
+  ----------------
+
+  autocmd('BufEnter', '*', function()
+    vim.cmd('checktime')
+  end)
+
   -------------------
   --  InsertLeave  --
   -------------------
