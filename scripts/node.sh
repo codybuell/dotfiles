@@ -63,8 +63,8 @@ PACKAGES=( \
   'vls' \                                  # vue language server
   '@angular/language-server' \             # angular language server
   '@tailwindcss/language-server' \         # tailwind language server
-  '@anthropic-ai/claude-code' \            # claude code client
-  '@zed-industries/claude-code-acp' \      # claude code acp
+  # '@anthropic-ai/claude-code' \            # claude code client
+  # '@zed-industries/claude-code-acp' \      # claude code acp
 )
 
 ################################################################################
