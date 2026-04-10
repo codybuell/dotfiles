@@ -173,17 +173,17 @@ ProjEmailAddress    = cody@othersite.com
 ################################################################################
 
 
-Notes           = "~/Google Drive/My Drive/Notes"
-Journal         = "~/Google Drive/My Drive/Journal"
+Notes     = "~/Google Drive/My Drive/Notes"
+Journal   = "~/Google Drive/My Drive/Journal"
 
-Projects        = "~/Google Drive/My Drive/Projects"
-Domains         = "~/Google Drive/My Drive/Domains"
+Projects  = "~/Google Drive/My Drive/Projects"
+Domains   = "~/Google Drive/My Drive/Domains"
 
-Repos           = /Users/pbuell/Repos
-WorkRepos       = /Users/pbuell/Repos/git.kion.io
-Gists           = /Users/pbuell/Gists
+Repos     = {{ OSHomeRoot }}{{OSUsername }}/Repos
+WorkRepos = {{ OSHomeRoot }}{{OSUsername }}/Repos/git.kion.io
+Gists     = {{ OSHomeRoot }}{{OSUsername }}/Gists
 
-CDPath          = "~/Repos/git.cloudtamer.io"
+CDPath    = "~/Repos/git.cloudtamer.io"
 
 
 ################################################################################
@@ -214,7 +214,7 @@ CDPath          = "~/Repos/git.cloudtamer.io"
 ################################################################################
 
 
-GoPath = /Users/pbuell/.go:/Users/pbuell/Repos
+GoPath = {{ OSHomeRoot }}{{OSUsername }}/.go:{{ OSHomeRoot }}{{OSUsername }}/Repos
 
 
 ################################################################################
@@ -250,23 +250,26 @@ VaultServer  = vaultserver.tld
 ################################################################################
 
 
-                                                # CODE STORAGE
-PATH00 = /Users/pbuell/Repos                    # repository folder
-PATH01 = /Users/pbuell/Gists                    # github gists folder
+                                                     # CODE STORAGE
+PATH00 = {{ OSHomeRoot }}{{OSUsername }}/Repos       # repository folder
+PATH01 = {{ OSHomeRoot }}{{OSUsername }}/Gists       # github gists folder
 
-                                                # EMAIL
-PATH02 = /Users/pbuell/.mail/Home               # mutt mail directory
-PATH03 = /Users/pbuell/.mail/Work               # mutt mail directory
+                                                     # EMAIL
+PATH02 = {{ OSHomeRoot }}{{OSUsername }}/.mail/Home  # mutt mail directory
+PATH03 = {{ OSHomeRoot }}{{OSUsername }}/.mail/Work  # mutt mail directory
 
-                                                # VIRTUALIZATION
-PATH04 = /Users/pbuell/Machines                 # vm data directory
+                                                     # VIRTUALIZATION
+PATH04 = {{ OSHomeRoot }}{{OSUsername }}/Machines    # vm data directory
 
-                                                # PATHING
-PATH05 = /Users/pbuell/Bin                      # user bin directory
+                                                     # PATHING
+PATH05 = {{ OSHomeRoot }}{{OSUsername }}/Bin         # user bin directory
 
-                                                # GO
-PATH06 = /Users/pbuell/.go/pkg                  # go path scaffolding
-PATH07 = /Users/pbuell/Sources                  # third party repos (go get...)
+                                                     # GO
+PATH06 = {{ OSHomeRoot }}{{OSUsername }}/.go/pkg     # go path scaffolding
+PATH07 = {{ OSHomeRoot }}{{OSUsername }}/Sources     # 3rg party repos (go get...)
+
+                                                     # CLAUDE CODE
+PATH08 = {{ OSHomeRoot }}{{ OSUsername }}/.claude    # claude code config dir
 
 
 ################################################################################
@@ -289,12 +292,10 @@ PATH07 = /Users/pbuell/Sources                  # third party repos (go get...)
 
 
 SYMLINK00 = /Volumes/GoogleDrive/My Drive/:Google Drive
-SYMLINK01 = /Volumes/GoogleDrive/My Drive/Tasks:.todo/tasks
-SYMLINK02 = /Users/pbuell/.vim:/Users/pbuell/.config/nvim
-SYMLINK03 = {{ HOMEBREW_PREFIX }}/bin/neomutt:{{ HOMEBREW_PREFIX }}/bin/mutt
-SYMLINK04 = /Users/pbuell/Bin:/Users/pbuell/.go/bin
-SYMLINK05 = /Users/pbuell/Sources:/Users/pbuell/.go/src
-SYMLINK06 = /Users/pbuell/Repos/mit/mit:/Users/pbuell/.todo/addons/mit
+SYMLINK01 = {{ HOMEBREW_PREFIX }}/bin/neomutt:{{ HOMEBREW_PREFIX }}/bin/mutt
+SYMLINK02 = {{ OSHomeRoot }}{{ OSUsername }}/Bin:{{ OSHomeRoot }}{{ OSUsername }}/.go/bin
+SYMLINK03 = {{ OSHomeRoot }}{{ OSUsername }}/Sources:{{ OSHomeRoot }}{{ OSUsername }}/.go/src
+SYMLINK04 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
 
 
 ################################################################################
