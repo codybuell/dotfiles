@@ -28,6 +28,7 @@
 local alert    = require("hs.alert")
 local timer    = require("hs.timer")
 local eventtap = require("hs.eventtap")
+local props    = eventtap.event.properties
 
 local module   = {}
 
@@ -69,6 +70,13 @@ local onlyKey = function(ev)
   return result
 end
 
+-- check if event originates from local hardware vs software injection
+local isLocalEvent = function(ev)
+  local stateID = ev:getProperty(props.eventSourceStateID)
+  -- 1 = kCGEventSourceStateHIDSystemState (physical hardware)
+  return stateID == 1
+end
+
 -- setup the event tap watcher
 module.eventWatcher = eventtap.new({events.flagsChanged, events.keyDown}, function(ev)
     -- if it's been too long; previous state doesn't matter
@@ -77,10 +85,18 @@ module.eventWatcher = eventtap.new({events.flagsChanged, events.keyDown}, functi
     end
 
     if ev:getType() == events.flagsChanged then
+        local flags    = ev:getFlags()
+        local focusedWin = hs.window.focusedWindow()
+        local frontApp = hs.application.frontmostApplication()
+        local frontAppActive = frontApp and frontApp:isFrontmost()
+        print(string.format(
+            "[keyDoublePress] flags=%s focusedWin=%s frontApp=%s frontAppActive=%s",
+            tostring(PrintTable(flags)),
+            tostring(focusedWin), tostring(frontApp and frontApp:name()),
+            tostring(frontAppActive)))
         if noFlags(ev) and firstDown and secondDown then   -- [key] up and we've seen two, so do action
             timeFirstKey, firstDown, secondDown = 0, false, false
-            -- only fire when cursor is on a local screen (nil = Universal Control remote)
-            if hs.mouse.getCurrentScreen() then
+            if isLocalEvent(ev) then
                 if module.action then module.action() else fallbackAction() end
             end
         elseif onlyKey(ev) and not firstDown then          -- [key] down and it's a first
