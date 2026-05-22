@@ -78,8 +78,11 @@ module.eventWatcher = eventtap.new({events.flagsChanged, events.keyDown}, functi
 
     if ev:getType() == events.flagsChanged then
         if noFlags(ev) and firstDown and secondDown then   -- [key] up and we've seen two, so do action
-            if module.action then module.action() else fallbackAction() end
             timeFirstKey, firstDown, secondDown = 0, false, false
+            -- only fire when cursor is on a local screen (nil = Universal Control remote)
+            if hs.mouse.getCurrentScreen() then
+                if module.action then module.action() else fallbackAction() end
+            end
         elseif onlyKey(ev) and not firstDown then          -- [key] down and it's a first
             firstDown = true
             timeFirstKey = timer.secondsSinceEpoch()
