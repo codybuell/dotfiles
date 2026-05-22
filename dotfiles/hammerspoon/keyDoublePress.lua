@@ -98,7 +98,9 @@ module.eventWatcher = eventtap.new({events.flagsChanged, events.keyDown}, functi
         elseif keyUp and state == 3 then
             state = 0
             timeFirstKey = 0
-            if module.action then module.action() else fallbackAction() end
+            if hs.window.focusedWindow() then
+                if module.action then module.action() else fallbackAction() end
+            end
         elseif not keyDown and not keyUp then
             state = 0
             timeFirstKey = 0
