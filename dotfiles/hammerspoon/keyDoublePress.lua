@@ -18,22 +18,28 @@
 --   ctrl
 --   fn
 --
--- What we're looking for is 4 events within a set time period and no
--- intervening other key events:
---   flagsChanged with only [key] = true
---   flagsChanged with all = false
---   flagsChanged with only [key] = true
---   flagsChanged with all = false
+-- What we're looking for is 4 state transitions within a set time period
+-- and no intervening other key events:
+--   flagsChanged with only [key] = true   (first down)
+--   flagsChanged with all = false         (first up)
+--   flagsChanged with only [key] = true   (second down)
+--   flagsChanged with all = false         (second up → fire action)
+--
+-- Duplicate events (e.g. from Universal Control) are absorbed by requiring
+-- each transition to move to the next state — repeated downs or ups are
+-- ignored rather than advancing the state machine.
 
 local alert    = require("hs.alert")
 local timer    = require("hs.timer")
 local eventtap = require("hs.eventtap")
-local props    = eventtap.event.properties
 
 local module   = {}
 
 local events = eventtap.event.types
-local timeFirstKey, firstDown, secondDown = 0, false, false
+
+-- states: 0=idle, 1=firstDown, 2=firstUp, 3=secondDown
+local state = 0
+local timeFirstKey = 0
 
 -- default key to map if none specified
 module.key = "cmd"
@@ -70,45 +76,38 @@ local onlyKey = function(ev)
   return result
 end
 
--- check if event originates from local hardware vs software injection
-local isLocalEvent = function(ev)
-  local stateID = ev:getProperty(props.eventSourceStateID)
-  -- 1 = kCGEventSourceStateHIDSystemState (physical hardware)
-  return stateID == 1
-end
-
 -- setup the event tap watcher
 module.eventWatcher = eventtap.new({events.flagsChanged, events.keyDown}, function(ev)
-    -- if it's been too long; previous state doesn't matter
+    -- if it's been too long, reset
     if (timer.secondsSinceEpoch() - timeFirstKey) > module.timeFrame then
-        timeFirstKey, firstDown, secondDown = 0, false, false
+        state = 0
+        timeFirstKey = 0
     end
 
     if ev:getType() == events.flagsChanged then
-        local flags    = ev:getFlags()
-        local focusedWin = hs.window.focusedWindow()
-        local frontApp = hs.application.frontmostApplication()
-        local frontAppActive = frontApp and frontApp:isFrontmost()
-        print(string.format(
-            "[keyDoublePress] flags=%s focusedWin=%s frontApp=%s frontAppActive=%s",
-            tostring(PrintTable(flags)),
-            tostring(focusedWin), tostring(frontApp and frontApp:name()),
-            tostring(frontAppActive)))
-        if noFlags(ev) and firstDown and secondDown then   -- [key] up and we've seen two, so do action
-            timeFirstKey, firstDown, secondDown = 0, false, false
-            if isLocalEvent(ev) then
-                if module.action then module.action() else fallbackAction() end
-            end
-        elseif onlyKey(ev) and not firstDown then          -- [key] down and it's a first
-            firstDown = true
+        local keyDown = onlyKey(ev)
+        local keyUp   = noFlags(ev)
+
+        if keyDown and state == 0 then
+            state = 1
             timeFirstKey = timer.secondsSinceEpoch()
-        elseif onlyKey(ev) and firstDown then              -- [key] down and it's the second
-            secondDown = true
-        elseif not noFlags(ev) then                        -- otherwise reset and start over
-            timeFirstKey, firstDown, secondDown = 0, false, false
+        elseif keyUp and state == 1 then
+            state = 2
+        elseif keyDown and state == 2 then
+            state = 3
+        elseif keyUp and state == 3 then
+            state = 0
+            timeFirstKey = 0
+            if module.action then module.action() else fallbackAction() end
+        elseif not keyDown and not keyUp then
+            state = 0
+            timeFirstKey = 0
         end
-    else                                                   -- it was a key press, not a lone [key] char, we don't care about it
-        timeFirstKey, firstDown, secondDown = 0, false, false
+        -- duplicate downs (keyDown in state 1 or 3) or duplicate ups
+        -- (keyUp in state 0 or 2) are silently ignored
+    else
+        state = 0
+        timeFirstKey = 0
     end
     return false
 end):start()
