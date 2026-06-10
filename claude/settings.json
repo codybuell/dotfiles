@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rev-parse:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(glab mr view:*)",
+      "Bash(glab issue view:*)",
+      "Bash(glab mr diff:*)",
+      "Bash(glab issue list:*)",
+      "Bash(glab auth status)",
+      "Bash(go env:*)",
+      "Bash(go list:*)",
+      "Bash(go vet:*)",
+      "Bash(go doc:*)",
+      "Bash(go version)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl describe:*)",
+      "Bash(kubectl logs:*)",
+      "Bash(kubectl config get-contexts:*)",
+      "Bash(kubectl config current-context)",
+      "Bash(brew list:*)",
+      "Bash(brew info:*)",
+      "Bash(brew search:*)",
+      "Bash(brew outdated:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm view:*)",
+      "Bash(npm outdated:*)",
+      "Bash(terraform show:*)",
+      "Bash(terraform state list:*)",
+      "Bash(terraform output:*)",
+      "Bash(terraform validate:*)",
+      "Bash(terraform fmt -check:*)",
+      "Bash(aws sts get-caller-identity)",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-get-comments"
+    ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": false,
+  "editorMode": "vim"
+}
