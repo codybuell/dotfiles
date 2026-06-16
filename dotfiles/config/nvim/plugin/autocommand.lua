@@ -51,8 +51,8 @@ augroup('BuellAutocommands', function()
     -- handling here instead of in ftplugin/markdown.lua because that file is firing for help docs and breaking ctrl-]
     local mkds = {'markdown', 'markdown.corpus'}
     if buell.util.has_value(mkds, ft) then
-      vim.keymap.set('n', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
-      vim.keymap.set('v', '<C-]>', '<CMD>lua buell.markdown.create_or_follow_link()<CR>', {remap = false, silent = false, buffer = true})
+      vim.keymap.set('n', '<C-]>', function() require('codex.links').create_or_follow_link() end, {remap = false, silent = false, buffer = true})
+      vim.keymap.set('v', '<C-]>', function() require('codex.links').create_or_follow_link() end, {remap = false, silent = false, buffer = true})
     end
   end)
 
@@ -108,7 +108,7 @@ augroup('BuellAutocommands', function()
   --------------------
 
   autocmd('TextYankPost', '*', function()
-    vim.highlight.on_yank({higroup="Substitute", timeout=200})
+    vim.hl.on_yank({higroup="Substitute", timeout=200})
   end)
 
   -------------------

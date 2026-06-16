@@ -55,8 +55,8 @@ vim.keymap.set('n', ',/', function()
 end, {})
 
 -- wiki helpers
-vim.keymap.set('n', '<Localleader>n', '<CMD>lua buell.util.create_entry("note")<CR>', {remap = false})
-vim.keymap.set('n', '<Localleader>j', '<CMD>lua buell.util.create_entry("journal")<CR>', {remap = false})
+vim.keymap.set('n', '<Localleader>n', function() require('codex').new_note() end, {remap = false})
+vim.keymap.set('n', '<Localleader>j', function() require('codex').new_journal(vim.v.count) end, {remap = false})
 
 -- jump to production dotfile
 vim.keymap.set('n', '<Localleader>p', function()

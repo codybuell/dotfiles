@@ -86,9 +86,7 @@ end
 
 -- TreeSitter status indicator
 function M.treesitter_status()
-  local treesitter = vim.fn['nvim_treesitter#statusline']({1})
-
-  if treesitter ~= vim.NIL then
+  if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
     return config.symbols.treesitter_status_symbol
   end
 

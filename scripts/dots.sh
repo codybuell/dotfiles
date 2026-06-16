@@ -313,14 +313,18 @@ place_files() {
       else
         # gather the checksums
         if [ -d "${HOME}/.${i}" ]; then
-          # Use -exec + instead of \; to batch files (much faster)
+          # Use -exec + instead of \; to batch files (much faster). Hash-only
+          # output (md5 -q / md5sum + cut) then sort the hashes themselves:
+          # macOS md5's default "MD5 (file) = hash" format would otherwise
+          # leave only the literal "MD5" after cut, reducing the comparison
+          # to a file count.
           # shellcheck disable=SC2086
           MD5NEW=$(find "${HOME}/.${i}.new.${DATE}" ${DIFFEXCLUDE} -type f \
-            -exec ${MD5} {} + 2>/dev/null | sort -k 2 | cut -d' ' -f1 | \
+            -exec ${MD5Q} {} + 2>/dev/null | cut -d' ' -f1 | sort | \
             ${MD5Q} | cut -d' ' -f1)
           # shellcheck disable=SC2086
           MD5OLD=$(find "${HOME}/.${i}" ${DIFFEXCLUDE} -type f \
-            -exec ${MD5} {} + 2>/dev/null | sort -k 2 | cut -d' ' -f1 | \
+            -exec ${MD5Q} {} + 2>/dev/null | cut -d' ' -f1 | sort | \
             ${MD5Q} | cut -d' ' -f1)
         else
           MD5NEW=$(${MD5Q} "${HOME}/.${i}.new.${DATE}" | cut -d' ' -f1)

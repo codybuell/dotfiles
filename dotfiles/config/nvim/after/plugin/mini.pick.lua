@@ -279,12 +279,6 @@ vim.keymap.set('n', '<Leader>>', function()
   minipick.builtin.grep_live({ tool = 'rg' }, { source = { cwd = buf_dir } })
 end, { silent = true })
 
--- pick files from notes directory
-vim.keymap.set('n', '<Leader>n', function()
-  local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')
-  minipick.builtin.files({}, { source = { cwd = notes_dir } })
-end, { silent = true })
-
 -- ripgrep files from notes directory
 vim.keymap.set('n', '<Leader>N', function()
   local notes_dir = vim.fn.fnamemodify('{{ Notes }}', ':p')

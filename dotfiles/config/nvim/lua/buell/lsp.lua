@@ -1,6 +1,5 @@
 local lsp = {}
 
-local lspconfig  = require('lspconfig')
 local lsp_status = require('lsp-status')
 
 --------------------------------------------------------------------------------
@@ -182,14 +181,14 @@ local on_attach = function(client, bufnr)
     ['<c-]>']          = '<cmd>lua vim.lsp.buf.definition()<CR>',               -- go to where the symbol is defined
     ['t<c-]>']         = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',   -- go to where the symbol is defined in a tab
     ['<leader>e']      = '<cmd>lua vim.diagnostic.open_float(0, {scope = "line", border = "rounded"})<CR>',
-    [']g']             = '<cmd>lua vim.diagnostic.goto_next({float = {scope = "line", border = "rounded"}})<CR>',
-    ['[g']             = '<cmd>lua vim.diagnostic.goto_prev({float = {scope = "line", border = "rounded"}})<CR>',
+    [']g']             = '<cmd>lua vim.diagnostic.jump({count = 1, float = {scope = "line", border = "rounded"}})<CR>',
+    ['[g']             = '<cmd>lua vim.diagnostic.jump({count = -1, float = {scope = "line", border = "rounded"}})<CR>',
     ['<localleader>d'] = '<cmd>lua vim.lsp.buf.declaration()<CR>',              -- go to where the symbol is declared
     ['<localleader>i'] = '<cmd>lua vim.lsp.buf.implementation()<CR>',           -- go to where the symbol is implemented
     ['<localleader>a'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',              -- show available code actions
     ['<localleader>r'] = '<cmd>lua vim.lsp.buf.references()<CR>',               -- show where symbol is used
-    ['<localleader>f'] = '<cmd>lua vim.lsp.buf.formatting()<CR>',               -- format the current buffer asynchronously
-    ['<localleader>F'] = '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1000)<CR>', -- format the current buffer synchronously
+    ['<localleader>f'] = '<cmd>lua vim.lsp.buf.format({async = true})<CR>',     -- format the current buffer asynchronously
+    ['<localleader>F'] = '<cmd>lua vim.lsp.buf.format({async = false, timeout_ms = 1000})<CR>', -- format the current buffer synchronously
     ['<localleader>R'] = '<cmd>lua vim.lsp.buf.rename()<CR>',                   -- rename the symbol everywhere it exists
     ['<localleader>I'] = '<cmd>lua vim.lsp.buf.incoming_calls()<CR>',           -- show incoming calls of the symbol
     ['<localleader>O'] = '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>',           -- show outgoing calls from the symbol
@@ -253,7 +252,7 @@ vim.lsp.handlers['textDocument/rename'] = function(err, result, ctx, config)
 
   -- After rename is applied, save modified buffers
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_option(buf, 'modified') then
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modified then
       vim.api.nvim_buf_call(buf, function() vim.cmd('write') end)
     end
   end
@@ -265,27 +264,21 @@ end
 --                                                                             --
 ---------------------------------------------------------------------------------
 
+-- Server configurations use the native vim.lsp.config()/vim.lsp.enable() API.
+-- Base definitions (cmd, filetypes, root markers) come from the lsp/ directory
+-- of the nvim-lspconfig plugin (still packadd'ed for that purpose only); the
+-- tables below merge over them.
 lsp.init = function()
 
-  -- Bash
-  lspconfig.bashls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
-  })
-
-  -- ESLint
-  lspconfig.eslint.setup({
+  -- defaults applied to every server
+  vim.lsp.config('*', {
     on_attach = on_attach,
     on_exit = on_exit,
     capabilities = capabilities,
   })
 
   -- Golang
-  lspconfig.gopls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('gopls', {
     settings = {
       gopls = {
         staticcheck = true,
@@ -301,6 +294,7 @@ lsp.init = function()
   })
 
   -- JavaScript / TypeScript
+  -- (ts_ls enabled below; diagnostics-filtering handler example retained)
   -- lspconfig.tsserver.setup({
   --   on_attach = on_attach,
   --   on_exit = on_exit,
@@ -328,35 +322,16 @@ lsp.init = function()
   --     end
   --   },
   -- })
-  lspconfig.ts_ls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
-  })
-
   -- Json
-  lspconfig.jsonls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('jsonls', {
     filetypes = {
       "json",
       "jsonc"
     }
   })
 
-  -- Html
-  lspconfig.html.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
-  })
-
   -- Lua
-  lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('lua_ls', {
     on_init = function(client)
       if client.workspace_folders then
         local path = client.workspace_folders[1].name
@@ -406,10 +381,7 @@ lsp.init = function()
   })
 
   -- Python
-  lspconfig.pylsp.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('pylsp', {
     settings = {
       pylsp = {
         plugins = {
@@ -428,10 +400,7 @@ lsp.init = function()
   })
 
   -- Yaml
-  lspconfig.yamlls.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('yamlls', {
     settings = {
       yaml = {
         schemas = {
@@ -500,10 +469,7 @@ lsp.init = function()
   })
 
   -- Tailwind
-  lspconfig.tailwindcss.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  vim.lsp.config('tailwindcss', {
     filetypes = {
       "aspnetcorerazor",
       "astro",
@@ -556,11 +522,20 @@ lsp.init = function()
     },
   })
 
-  -- Svelte
-  lspconfig.svelte.setup({
-    on_attach = on_attach,
-    on_exit = on_exit,
-    capabilities = capabilities,
+  -- activate servers; those without a vim.lsp.config() block above run with
+  -- the '*' defaults over their nvim-lspconfig lsp/ definitions
+  vim.lsp.enable({
+    'bashls',
+    'eslint',
+    'gopls',
+    'ts_ls',
+    'jsonls',
+    'html',
+    'lua_ls',
+    'pylsp',
+    'yamlls',
+    'tailwindcss',
+    'svelte',
   })
 
 end

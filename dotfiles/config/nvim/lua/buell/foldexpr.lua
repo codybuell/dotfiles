@@ -47,7 +47,7 @@
 -- Table mapping filetypes to their foldexpr function names. If a filetype is
 -- not in this table, the custom foldexpr defined below will be used.
 local filetype_foldexprs = {
-  lua      = 'nvim_treesitter#foldexpr',      -- use treesitter for Lua
+  lua      = 'v:lua.vim.treesitter.foldexpr()',  -- use treesitter for Lua
   markdown = 'v:lua.buell.fold.markdown()',   -- use custom markdown foldexpr
 }
 

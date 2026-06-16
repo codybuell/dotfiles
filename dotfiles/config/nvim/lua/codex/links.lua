@@ -1,24 +1,20 @@
-local markdown = {}
+--------------------------------------------------------------------------------
+--                                                                            --
+--  Codex Links                                                               --
+--                                                                            --
+--  Markdown link creation and following (formerly lua/buell/markdown.lua).  --
+--  Wiki names resolve through require('codex').config.wikis, so paths are   --
+--  injected via codex.setup() rather than hardcoded here.                    --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+local links = {}
 
 --------------------------------------------------------------------------------
 --                                                                            --
 --  Configuration                                                             --
 --                                                                            --
 --------------------------------------------------------------------------------
-
--- wikis, wiki cannot have a name of http[s]?
-local wikis = {
-  codex     = vim.fn.fnamemodify('{{ Notes }}', ':p'),
-  archive   = vim.fn.fnamemodify('{{ Notes }}/Archive', ':p'),
-  domains   = vim.fn.fnamemodify('{{ Notes }}/Domains', ':p'),
-  ideas     = vim.fn.fnamemodify('{{ Notes }}/Ideas', ':p'),
-  journal   = vim.fn.fnamemodify('{{ Notes }}/Journal', ':p'),
-  people    = vim.fn.fnamemodify('{{ Notes }}/People', ':p'),
-  projects  = vim.fn.fnamemodify('{{ Notes }}/Projects', ':p'),
-  reference = vim.fn.fnamemodify('{{ Notes }}/Reference', ':p'),
-  self      = vim.fn.fnamemodify('{{ Notes }}/Self', ':p'),
-  topics    = vim.fn.fnamemodify('{{ Notes }}/Topics', ':p'),
-}
 
 -- define link syntaxes, order is important in link_types due to lua's lack of
 -- regex and my bad pattern writting skills... url must come first
@@ -46,16 +42,6 @@ local link_types  = {
   },
 }
 
--- TEST:
--- file
--- file without extension (should default add on .txt)
--- section within a file
--- section in another file
--- wiki:file
--- wiki:file w/o extension
--- wiki:file w/ section
--- wiki:file w/o extension w/ section
-
 --------------------------------------------------------------------------------
 --                                                                            --
 --  Helpers                                                                   --
@@ -74,7 +60,6 @@ local get_url_for_position = function (lnum, col)
 
   -- loop through all links in the line
   for link in cur_line:gmatch(link_syntax) do
-    -- local link_escaped = link:gsub('[%(%)%.%+%-%*%%%?%[%^%$%]]', '%%%1')
     local str_start, str_end = cur_line:find(link, 1, true)
     if str_start and col >= str_start and col <= str_end then
       return link
@@ -90,6 +75,9 @@ end
 -- @param link: string in format of [text](target)
 -- @return nil
 local open_link = function (link)
+  -- wiki name -> path mappings, injected via codex.setup()
+  local wikis = require('codex').config.wikis
+
   -- find first matching link type
   local link_type
   for _, type in ipairs(link_types) do
@@ -201,7 +189,7 @@ end
 --                                                                            --
 --------------------------------------------------------------------------------
 
-markdown.create_or_follow_link = function ()
+links.create_or_follow_link = function ()
   local line_nr = vim.fn.line('.')
   local col_nr  = vim.fn.col('.')
   local target  = get_url_for_position(line_nr, col_nr)
@@ -287,4 +275,4 @@ markdown.create_or_follow_link = function ()
   end
 end
 
-return markdown
+return links

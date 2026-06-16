@@ -28,7 +28,7 @@ hs.grid.MARGINX = 0
 hs.grid.MARGINY = 0
 
 -- gather screen information
-local screenCount   = hs.screen.allScreens()
+local screenCount   = #hs.screen.allScreens()
 local primaryScreen = hs.screen.primaryScreen()
 local primaryMode   = primaryScreen:currentMode()
 local primaryName   = primaryScreen:name()
@@ -114,10 +114,13 @@ local layoutConfig = {
 
   -- kitty
   ['net.kovidgoyal.kitty'] = (function(window, _)
-    if primaryWxH == "3840x2160" then
-      hs.grid.set(window, grid.rightTwoThirds, hs.screen.primaryScreen())
+    local screen = hs.screen.primaryScreen()
+    local mode = screen:currentMode()
+    local wxh = mode.w .. "x" .. mode.h
+    if wxh == "3840x2160" then
+      hs.grid.set(window, grid.rightTwoThirds, screen)
     else
-      hs.grid.set(window, grid.fullScreen, hs.screen.primaryScreen())
+      hs.grid.set(window, grid.fullScreen, screen)
     end
   end),
 
