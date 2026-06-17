@@ -15,32 +15,77 @@ local query = {}
 
 -- Parse
 --
--- Tokenize a query string. Bare '#' or '*' (still being typed) are ignored.
--- Backslash-escaped spaces ('weed\ thoughts') keep a token together; tag
--- tokens additionally normalize internal spaces to hyphens to match the
--- index ('#weed\ thoughts' == '#weed-thoughts').
+-- Tokenize a query string into plain, tag (#), and content (*) tokens.
+-- Bare '#' or '*' (still being typed) are ignored.
+--
+-- Multi-word tokens are supported two ways:
+--   backslash-escape:  *is\ this\ the\ path\ of\ love
+--   double-quote:      *"is this the path of love"
+--
+-- Tag tokens normalize internal spaces to hyphens to match the index
+-- (#weed\ thoughts == #weed-thoughts).
 --
 -- @param input: string
 -- @return table: { plain = {}, tags = {}, content = {} }
 query.parse = function(input)
   local parsed = { plain = {}, tags = {}, content = {} }
 
-  -- hide escaped spaces from the tokenizer, restore them per token
-  input = input:gsub('\\ ', '\0')
+  local i = 1
+  local len = #input
+  while i <= len do
+    -- skip whitespace
+    while i <= len and input:sub(i, i):match('%s') do i = i + 1 end
+    if i > len then break end
 
-  for token in input:gmatch('%S+') do
-    token = token:gsub('%z', ' ')
-    local prefix, rest = token:sub(1, 1), token:sub(2)
-    if prefix == '#' then
-      if rest ~= '' then
-        table.insert(parsed.tags, rest:gsub('%s+', '-'):lower())
-      end
-    elseif prefix == '*' then
-      if rest ~= '' then
-        table.insert(parsed.content, rest)
+    -- detect prefix
+    local char = input:sub(i, i)
+    local prefix = ''
+    if char == '#' or char == '*' then
+      prefix = char
+      i = i + 1
+      if i > len then break end
+      char = input:sub(i, i)
+    end
+
+    -- read the token body
+    local token = ''
+    if char == '"' then
+      -- quoted: read until closing quote or end of input
+      i = i + 1
+      while i <= len do
+        char = input:sub(i, i)
+        if char == '"' then
+          i = i + 1
+          break
+        end
+        token = token .. char
+        i = i + 1
       end
     else
-      table.insert(parsed.plain, token)
+      -- unquoted: read until whitespace, honoring backslash-escaped spaces
+      while i <= len do
+        char = input:sub(i, i)
+        if char == '\\' and i + 1 <= len and input:sub(i + 1, i + 1) == ' ' then
+          token = token .. ' '
+          i = i + 2
+        elseif char:match('%s') then
+          break
+        else
+          token = token .. char
+          i = i + 1
+        end
+      end
+    end
+
+    -- classify and store
+    if token ~= '' then
+      if prefix == '#' then
+        table.insert(parsed.tags, token:gsub('%s+', '-'):lower())
+      elseif prefix == '*' then
+        table.insert(parsed.content, token)
+      else
+        table.insert(parsed.plain, token)
+      end
     end
   end
 

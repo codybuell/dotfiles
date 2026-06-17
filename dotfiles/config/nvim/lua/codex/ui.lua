@@ -40,6 +40,8 @@ local state = {
   generation    = 0,
   timer         = nil,
   preview_path  = nil,
+  saved_laststatus = nil, -- restored on close / navigate-away
+  suppress_snap = false,  -- briefly true during intentional C-hjkl navigate
 }
 
 ---------------
@@ -389,6 +391,11 @@ local function close()
 
   vim.cmd('stopinsert')
 
+  if state.saved_laststatus ~= nil then
+    vim.o.laststatus = state.saved_laststatus
+    state.saved_laststatus = nil
+  end
+
   for _, win in pairs(state.wins) do
     if vim.api.nvim_win_is_valid(win) then
       pcall(vim.api.nvim_win_close, win, true)
@@ -472,6 +479,7 @@ ui.open = function(config)
       refilter()
       state.selected = math.max(1, math.min(selected, #state.results, MAX_RENDER))
       render()
+      vim.o.laststatus = 0
       vim.api.nvim_set_current_win(prompt_win)
       vim.cmd('startinsert!')
       return
@@ -517,6 +525,10 @@ ui.open = function(config)
   end
   vim.wo[state.wins.preview].wrap = true
 
+  -- hide statuslines on all floats by temporarily setting laststatus=0
+  state.saved_laststatus = vim.o.laststatus
+  vim.o.laststatus = 0
+
   -- keep completion engines out of the prompt (nvim-cmp attaches buffer-local
   -- mappings on InsertEnter that would steal <Up>/<Down>/<C-j>/<C-k>)
   local has_cmp, cmp = pcall(require, 'cmp')
@@ -544,6 +556,27 @@ ui.open = function(config)
     vim.keymap.set(mode, '<C-p>',  function() move(-1) end,                   opts)
   end
 
+  -- scroll the preview pane from the prompt
+  local t = function(s) return vim.api.nvim_replace_termcodes(s, true, false, true) end
+  local function scroll_preview(keys)
+    local win = state.wins.preview
+    if not (win and vim.api.nvim_win_is_valid(win)) then return end
+    vim.api.nvim_win_call(win, function()
+      vim.cmd('normal! ' .. keys)
+    end)
+  end
+  local scroll_maps = {
+    ['<C-f>'] = t('<C-f>'),  -- page down
+    ['<C-b>'] = t('<C-b>'),  -- page up
+    ['<C-e>'] = t('<C-e>'),  -- line down
+    ['<C-y>'] = t('<C-y>'),  -- line up
+  }
+  for lhs, keys in pairs(scroll_maps) do
+    for _, mode in ipairs({ 'i', 'n' }) do
+      vim.keymap.set(mode, lhs, function() scroll_preview(keys) end, opts)
+    end
+  end
+
   -- leave the chooser open but hand focus back to the editing window, then
   -- fall through to split/tmux pane navigation
   local navigations = {
@@ -556,6 +589,11 @@ ui.open = function(config)
     for _, mode in ipairs({ 'i', 'n' }) do
       vim.keymap.set(mode, lhs, function()
         vim.cmd('stopinsert')
+        if state.saved_laststatus ~= nil then
+          vim.o.laststatus = state.saved_laststatus
+        end
+        state.suppress_snap = true
+        vim.defer_fn(function() state.suppress_snap = false end, 200)
         if state.origin_win and vim.api.nvim_win_is_valid(state.origin_win) then
           vim.api.nvim_set_current_win(state.origin_win)
         end
@@ -591,22 +629,28 @@ ui.open = function(config)
     end,
   })
 
-  -- snap focus back to the prompt if something (mouse click, returning from
-  -- tmux, wincmd) lands the cursor in the list or preview float
-  local codex_wins = { [state.wins.list] = true, [state.wins.preview] = true }
-  vim.api.nvim_create_autocmd('WinEnter', {
+  -- snap focus back to the prompt whenever focus lands anywhere other than
+  -- the prompt. Covers:
+  --   WinEnter:     mouse click, wincmd, list/preview focus escape
+  --   FocusGained:  returning from another tmux pane (terminal regains focus)
+  --   BufEnter:     buffer-level focus changes
+  -- Suppressed briefly during intentional C-hjkl navigate-away.
+  local function snap_to_prompt()
+    if not state.open or state.suppress_snap then return end
+    local pw = state.wins.prompt
+    if not (pw and vim.api.nvim_win_is_valid(pw)) then return end
+    local cur = vim.api.nvim_get_current_win()
+    if cur ~= pw then
+      vim.o.laststatus = 0
+      vim.api.nvim_set_current_win(pw)
+    end
+    if vim.fn.mode() ~= 'i' then
+      vim.cmd('startinsert!')
+    end
+  end
+  vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter', 'FocusGained' }, {
     group    = state.augroup,
-    callback = function()
-      if not state.open then return end
-      local cur = vim.api.nvim_get_current_win()
-      if codex_wins[cur] then
-        local pw = state.wins.prompt
-        if pw and vim.api.nvim_win_is_valid(pw) then
-          vim.api.nvim_set_current_win(pw)
-          vim.cmd('startinsert!')
-        end
-      end
-    end,
+    callback = snap_to_prompt,
   })
 
   -- if any codex window is closed externally (:q, :close, mouse), tear down
