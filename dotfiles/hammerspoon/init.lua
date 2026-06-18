@@ -107,22 +107,21 @@ local layoutConfig = {
 
   -- post hook
   _after_ = (function()
-    -- make sure iterm appears in front of chrome
     Activate('com.google.Chrome')
     Activate('net.kovidgoyal.kitty')
   end),
 
   -- kitty
-  ['net.kovidgoyal.kitty'] = (function(window, _)
-    local screen = hs.screen.primaryScreen()
-    local mode = screen:currentMode()
-    local wxh = mode.w .. "x" .. mode.h
-    if wxh == "3840x2160" then
-      hs.grid.set(window, grid.rightTwoThirds, screen)
-    else
-      hs.grid.set(window, grid.fullScreen, screen)
-    end
-  end),
+  -- ['net.kovidgoyal.kitty'] = (function(window, _)
+  --   local screen = hs.screen.primaryScreen()
+  --   local mode = screen:currentMode()
+  --   local wxh = mode.w .. "x" .. mode.h
+  --   if wxh == "3840x2160" then
+  --     hs.grid.set(window, grid.rightTwoThirds, screen)
+  --   else
+  --     hs.grid.set(window, grid.fullScreen, screen)
+  --   end
+  -- end),
 
   -- music
   -- ['com.apple.Music'] = (function(window, forceScreenCount)
