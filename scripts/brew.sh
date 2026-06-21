@@ -93,6 +93,7 @@ PACKAGES=( \
   'the_silver_searcher'               # ag, ack and ripgrep alternative
   'tmux' \                            # terminal multiplexer
   'tree' \                            # file and directory listing utility
+  'tree-sitter-cli' \                  # parser compiler, needed by nvim-treesitter
   'urlview' \                         # for viewing urls in mutt
   'uv' \                              # python universal package manager
   'vault' \                           # encrypted key value pair storage

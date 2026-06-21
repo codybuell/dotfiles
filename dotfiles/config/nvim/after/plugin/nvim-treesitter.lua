@@ -13,7 +13,7 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 
-local has_treesitter, treesitter = pcall(require, 'nvim-treesitter.configs')
+local has_treesitter, treesitter = pcall(require, 'nvim-treesitter')
 if not has_treesitter then
   return
 end
@@ -22,93 +22,65 @@ end
 --  Configuration  --
 ---------------------
 
-local config = {
-  ensure_installed = {
-    "bash",
-    "c",
-    "cmake",
-    "comment",
-    "cpp",
-    "css",
-    "dockerfile",
-    "diff",
-    "go",
-    "gomod",
-    "graphql",
-    "html",
-    "javascript",
-    "json",
-    "jsonc",
-    "lua",
-    "markdown",
-    "markdown_inline",
-    "php",
-    "python",
-    "regex",
-    "ruby",
-    "scss",
-    "sql",
-    "svelte",
-    "toml",
-    "typescript",
-    "vim",
-    "vimdoc",
-    "vue",
-    "yaml",
-  },
-  sync_install   = true,
-  auto_install   = true,
-  ignore_install = {},
-  highlight = {
-    enable = true,
-    -- native vim syntax highlighting is better
-    disable = {
-      "yaml",
-      "dockerfile",
-      'tmux',
-    },
-    -- disable / stop trying to re-init highlighting on large files
-    is_supported = function()
-      if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then
-        return false
-      end
-      return true
-    end,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      -- init_selection = "gnn",
-      node_incremental = "v",
-      -- scope_incremental = "grc",
-      node_decremental = "V",
-    },
-  },
-  indent = {
-    enable = false,
-  },
-  modules = {},
-}
+treesitter.setup()
 
--------------
---  Setup  --
--------------
+treesitter.install({
+  "bash",
+  "c",
+  "cmake",
+  "comment",
+  "cpp",
+  "css",
+  "dockerfile",
+  "diff",
+  "go",
+  "gomod",
+  "graphql",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "php",
+  "python",
+  "regex",
+  "ruby",
+  "scss",
+  "sql",
+  "svelte",
+  "toml",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "vue",
+  "yaml",
+})
 
-treesitter.setup(config)
+-----------------
+--  Highlight  --
+-----------------
+
+local disabled_hl = { yaml = true, dockerfile = true, tmux = true }
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    if disabled_hl[vim.bo.filetype] then return end
+    if vim.fn.getfsize(vim.fn.expand('%')) > (512 * 1024) then return end
+    pcall(vim.treesitter.start)
+  end,
+})
+
+----------------------------
+--  Incremental Selection --
+----------------------------
+
+vim.keymap.set('x', 'v', function() vim.treesitter.select('parent') end)
+vim.keymap.set('x', 'V', function() vim.treesitter.select('child') end)
 
 -----------------
 --  Overrides  --
 -----------------
-
--- local ts_query = require("vim.treesitter.query")
-
--- -- override fenced_code_block_delimiter in markdown to not conceal
--- -- this requires https://github.com/neovim/neovim/pull/30257
--- local custom_query = [[
--- ;; extends
--- (fenced_code_block_delimiter) @punctuation.delimiter
--- ]]
--- ts_query.set("markdown", "highlights", custom_query)
 
 local function extend_markdown()
   vim.cmd [[
@@ -149,15 +121,12 @@ local function extend_markdown()
   ]]
 end
 
--- git commit over length
 local function extend_gitcommit()
-  -- Create a namespace for our highlights
   local ns = vim.api.nvim_create_namespace('buell_gitcommit')
 
   vim.api.nvim_create_autocmd({"BufEnter", "TextChanged", "TextChangedI"}, {
     buffer = 0,
     callback = function()
-      -- Clear existing highlights first
       vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
 
       local line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
