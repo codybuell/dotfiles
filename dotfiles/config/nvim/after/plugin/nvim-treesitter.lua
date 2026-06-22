@@ -78,6 +78,18 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.keymap.set('x', 'v', function() vim.treesitter.select('parent') end)
 vim.keymap.set('x', 'V', function() vim.treesitter.select('child') end)
 
+------------------------------
+--  Query Overrides          --
+------------------------------
+
+-- load custom markdown highlights query from after/queries/ via the API,
+-- which takes absolute priority over any rtp/site file resolution
+local query_path = vim.fn.stdpath('config') .. '/after/queries/markdown/highlights.scm'
+local qok, qlines = pcall(vim.fn.readfile, query_path)
+if qok then
+  vim.treesitter.query.set('markdown', 'highlights', table.concat(qlines, '\n'))
+end
+
 -----------------
 --  Overrides  --
 -----------------
@@ -104,16 +116,6 @@ local function extend_markdown()
       \ contained
       \ containedin=buellCompletedTodo
       \ contains=buellInlineURL
-
-    " code fences are concealed, set a char so we can see something
-    syn match buellCodeFences /^\s*```.*/
-    syn region @conceal
-      \ start=/``/
-      \ end=/`/
-      \ contained
-      \ containedin=buellCodeFences
-      \ conceal
-      \ cchar=󰅩
 
     " attempt to not conceal emojis as they are flakey with conceallevel=2
     " conceallevel=1 addresses the issue but docs are less readable
