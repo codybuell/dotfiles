@@ -144,6 +144,10 @@ capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilitie
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- configure sign column signs (hl groups defined in after/plugin/color.lua)
+-- disable LSP document color highlighting (0.12 default; renders CSS/tailwind
+-- classes with their actual colors rather than syntax highlighting)
+vim.lsp.document_color.enable(false)
+
 -- and also disable virtual text
 vim.diagnostic.config({
   signs = {
