@@ -34,7 +34,7 @@ function escape(...)
 end
 
 function run_and_log_time(callback)
-  start = os.time()
+  local start = os.time()
   print 'Running callback.'
   callback()
   print('Callback completed in ' .. (os.time() - start) .. 's.')
@@ -55,17 +55,15 @@ function forever(callback, interval)
 end
 
 function get_pass(account, host)
-  -- TODO: shell escape this to guard against programmer error
   local status, output = pipe_from(
     '~/.zsh/bin/get-keychain-pass ' .. account .. ' ' .. host
   )
-  -- TODO: freak out if non-zero status.
   return trim(output)
 end
 
 function print_status(messages, description)
-  label = #messages == 1 and 'message' or 'messages'
-  bg = #messages > 0 and COLORS.green.bg or COLORS.yellow.bg
+  local label = #messages == 1 and 'message' or 'messages'
+  local bg = #messages > 0 and COLORS.green.bg or COLORS.yellow.bg
   print(
     escape(COLORS.black.fg, bg) ..
     description .. ': applied to ' .. #messages .. ' ' .. label ..
@@ -88,11 +86,11 @@ end
 -- See: http://tools.ietf.org/html/rfc3501#section-2.3.3
 function parse_internal_date(date_string)
   -- Based on: http://stackoverflow.com/a/4600967/2103996
-  format = '(%d+)-(%a+)-(%d+) (%d+):(%d+):(%d+) ([+-]%d+)'
-  day, month, year, hour, min, sec, zone = date_string:match(format)
+  local format = '(%d+)-(%a+)-(%d+) (%d+):(%d+):(%d+) ([+-]%d+)'
+  local day, month, year, hour, min, sec, zone = date_string:match(format)
   month = MONTHS[month]
-  local_offset = os.time() - os.time(os.date('!*t'))
-  offset = tonumber(zone) - local_offset
+  local local_offset = os.time() - os.time(os.date('!*t'))
+  local offset = tonumber(zone) - local_offset
   return os.time({
     day = day,
     month = month,
