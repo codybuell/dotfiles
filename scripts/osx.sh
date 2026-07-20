@@ -628,6 +628,9 @@ defaults write com.apple.screencapture disable-shadow -bool "$DisableDrops"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "$ScreenshotFormat"
 
+# set xcode simulator screenshots to same folder
+defaults write com.apple.iphonesimulator ScreenShotSaveLocation -string "$ScreenshotFolder"
+
 ################
 # TIME MACHINE #
 ################
