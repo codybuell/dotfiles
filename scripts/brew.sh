@@ -52,6 +52,7 @@ PACKAGES=( \
   'gnupg' \                           # gpg utilities for openpgp
   'gnu-sed' \                         # needed for lbdbq m_muttalias module to work
   'go' \                              # the go programming language
+  'gradle' \                          # for android development
   'helm' \                            # kubernetes manifest templating
   'imagemagick' \                     # command line graphics manipulation tool
   'imapfilter' \                      # tool for organizing mail directly on the server
@@ -72,6 +73,7 @@ PACKAGES=( \
   'nmap' \                            # network utility
   'notmuch' \                         # mail search for mutt
   'openconnect' \                     # robust vpn client for cisco vpns
+  'openjdk@17' \                      # for android development
   'openssl' \                         # the one and only...
   'pandoc' \                          # markup converter, used with mutt to send html email
   'pcalc' \                           # cli programming calculator
@@ -115,6 +117,7 @@ PACKAGES=( \
 CASKS=( \
   '1password' \                       # password / secret management
   '1password-cli' \                   # 1password cli, `op`
+  'android-commandlinetools' \        # android development
   'bartender' \                       # tool for simplifying the menubar
   'claude-code' \                     # anthropic agentic coding cli
   'bitwarden' \                       # password / secret management

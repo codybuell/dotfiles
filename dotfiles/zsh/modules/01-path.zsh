@@ -28,6 +28,10 @@ path_append "/opt/homebrew/bin"
 path_append "/usr/local/bin"
 path_append "/usr/local/sbin"
 
+# Android platform-tools (adb, fastboot) — the android-commandlinetools cask
+# installs these under share/ and Homebrew does not link them into bin
+path_append "/opt/homebrew/share/android-commandlinetools/platform-tools"
+
 # Add Go binary paths
 for gopath_entry in ${(s/:/)GOPATH}; do
   path_append "${gopath_entry}/bin"
