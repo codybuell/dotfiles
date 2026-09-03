@@ -167,9 +167,8 @@ run `make reinit-cipher` to generate fresh keys encrypted to your GPG
 identity, write your own `.config` (from `.config.example`), and commit —
 the filters encrypt it to your keys. Note that `dotfiles/ssh/config` and
 `dotfiles/kube/config` in your checkout are ciphertext only the original
-recipients can decrypt: replace their contents with your own before
-running `make dots`, or it will deploy that ciphertext to `~/.ssh/config`
-and `~/.kube/config` verbatim.
+recipients can decrypt: `make dots` detects this and skips those targets
+until you replace their contents with your own.
 
 - You need to make the keychain entries manually for any mail servers you define.
 - On newer versions of OSX, the OS binds Ctrl-Space to change input sources. This blocks tmux from picking up the prefix. Go into System Preferences -> Keyboard -> Keyboard Shortcuts -> Input Sources and uncheck both mappings.

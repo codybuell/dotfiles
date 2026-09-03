@@ -279,6 +279,15 @@ place_files() {
       fi
     done
 
+    # skip if the source holds git-cipher ciphertext (locked or undecryptable
+    # checkout), else the ciphertext would be deployed over real configs
+    ENCRYPTED=$(find "${DOTS_LOC}/${i}" -type f -exec awk \
+      'FNR==1{if ($0 ~ /^magic = dev\.wincent\.git-cipher/) print FILENAME; nextfile}' {} +)
+    if [[ -n "${ENCRYPTED}" ]]; then
+      log red "  .${i}" "skipping, contains git-cipher ciphertext (run make unlock)"
+      continue
+    fi
+
     ########################################
     #  placing, pre hooks, and templating  #
     ########################################
