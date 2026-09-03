@@ -296,6 +296,8 @@ SYMLINK01 = {{ HOMEBREW_PREFIX }}/bin/neomutt:{{ HOMEBREW_PREFIX }}/bin/mutt
 SYMLINK02 = {{ OSHomeRoot }}{{ OSUsername }}/Bin:{{ OSHomeRoot }}{{ OSUsername }}/.go/bin
 SYMLINK03 = {{ OSHomeRoot }}{{ OSUsername }}/Sources:{{ OSHomeRoot }}{{ OSUsername }}/.go/src
 SYMLINK04 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
+SYMLINK05 = {{ CONFIGDIR }}/claude/settings.json:{{ OSHomeRoot }}{{ OSUsername }}/.claude/settings.json
+SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claude/hooks
 
 
 ################################################################################

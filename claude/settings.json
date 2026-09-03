@@ -1,13 +1,27 @@
 {
+  "env": {
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-5"
+  },
   "permissions": {
     "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write",
+      "NotebookEdit",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
       "Bash(git rev-parse:*)",
       "Bash(git merge-base:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
-      "Bash(git diff $(git merge-base*)",
-      "Bash(git diff --stat $(git merge-base*)",
-      "Bash(git log --oneline $(git merge-base*)",
+      "Bash(git status:*)",
+      "Bash(git show:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git ls-tree:*)",
       "Bash(glab mr view:*)",
       "Bash(glab issue view:*)",
       "Bash(glab mr diff:*)",
@@ -36,13 +50,37 @@
       "Bash(terraform validate:*)",
       "Bash(terraform fmt -check:*)",
       "Bash(aws sts get-caller-identity)",
+      "Bash(tree-sitter --version)",
       "mcp__claude_ai_Notion__notion-fetch",
       "mcp__claude_ai_Notion__notion-get-comments"
+    ],
+    "deny": [
+      "Bash(git push:*)"
+    ]
+  },
+  "model": "claude-fable-5[1m]",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/prefer-native-tools.sh"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
   "editorMode": "vim"
 }
