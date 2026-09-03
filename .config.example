@@ -1,3 +1,6 @@
+# GENERATED FILE. Do not edit: produced from `.config` by `make example`.
+# See scripts/example.py for the scrub allowlist and placeholder map.
+
 ################################################################################
 ################################################################################
 ##                                                                            ##
@@ -25,7 +28,7 @@
 
 Name       = Cody Buell                   # your full name
 Email      = cody@codybuell.com           # preferred email
-WorkEmail  = your@workemail.com           # work email address
+WorkEmail  = your@workemail.com           # work email address (for git config)
 OSUsername = pbuell                       # your system username
 IRCNick    = pbuell,Cody                  # your irc nicknames, comma separated
 OSHomeRoot = /Users/                      # /Users/ on osx /home/ on linux
@@ -46,6 +49,7 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
 OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
 AnthropicAPIKey = sk-ant-api03-123456789abcdefghijklmnopqrstuvwxyz
+ClaudeCodeOAuthToken = sk-ant-oat01-123456789abcdefghijklmnopqrstuvwxyz
 
 
 ################################################################################
@@ -60,8 +64,8 @@ AnthropicAPIKey = sk-ant-api03-123456789abcdefghijklmnopqrstuvwxyz
 ################################################################################
 
 
-GitUsername = codybuell                                  # github username
-GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE   # gpg key used to sign
+GitUsername = codybuell                                # github username
+GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
 
 WorkGitUsername = pbuell
 WorkGitSignKey  = 1234567891234567891234567891234567891234
@@ -82,6 +86,10 @@ WorkGitSignKey  = 1234567891234567891234567891234567891234
 #    - dotfiles/mbsyncrc      # tweak folder structures, etc.                  #
 #                                                                              #
 # 2. Create 'application password' records in OSX Keychain Access              #
+#                                                                              #
+#    - use `make keychain`                                                     #
+#                                                                              #
+#    OR MANUALLY                                                               #
 #                                                                              #
 #    - open keychain access                                                    #
 #    - create new application password, set:                                   #
@@ -105,9 +113,9 @@ WorkGitSignKey  = 1234567891234567891234567891234567891234
 ################################################################################
 
 
-DefaultEmailAccount = work                        # [work|home] case sensitive!
-DefaultEmailAccCaps = Work                        # [Work|Home] case sensitive!
-DefaultEmailAddress = pbuell@cloudtamer.io
+DefaultEmailAccount = home                        # [work|home] case sensitive!
+DefaultEmailAccCaps = Home                        # [Work|Home] case sensitive!
+DefaultEmailAddress = your@email.com
 
 # Home / Personal Email Account
 HomeEmailSmtp       = smtp.gmail.com              # outgoing main server
@@ -119,16 +127,16 @@ HomeEmailAddress    = cody@codybuell.com
 # Work Email Account
 WorkEmailSmtp       = smtp.gmail.com              # outgoing main server
 WorkEmailHost       = imap.gmail.com              # host & 'name' field in keychain
-WorkEmailKeychain   = pbuell+mutt@kion.io         # 'account' field in keychain
-WorkEmailUsername   = pbuell@kion.io
-WorkEmailAddress    = pbuell@kion.io
+WorkEmailKeychain   = you+mutt@workemail.com      # 'account' field in keychain
+WorkEmailUsername   = your@workemail.com
+WorkEmailAddress    = your@workemail.com
 
 # Proj Email Account
 ProjEmailSmtp       = smtp.gmail.com              # outgoing main server
 ProjEmailHost       = imap.gmail.com              # host & 'name' field in keychain
-ProjEmailKeychain   = cody+mutt@othersite.com     # 'account' field in keychain
-ProjEmailUsername   = cody@othersite.com
-ProjEmailAddress    = cody@othersite.com
+ProjEmailKeychain   = you+mutt@othersite.com      # 'account' field in keychain
+ProjEmailUsername   = you@othersite.com
+ProjEmailAddress    = you@othersite.com
 
 
 ################################################################################
@@ -173,17 +181,17 @@ ProjEmailAddress    = cody@othersite.com
 ################################################################################
 
 
-Notes     = "~/Google Drive/My Drive/Notes"
-Journal   = "~/Google Drive/My Drive/Journal"
+Notes           = "~/Codex"
+Journal         = "~/Codex/Journal"
 
-Projects  = "~/Google Drive/My Drive/Projects"
-Domains   = "~/Google Drive/My Drive/Domains"
+Projects        = "~/Google Drive/My Drive/Projects"
+Domains         = "~/Google Drive/My Drive/Domains"
 
-Repos     = {{ OSHomeRoot }}{{OSUsername }}/Repos
-WorkRepos = {{ OSHomeRoot }}{{OSUsername }}/Repos/git.kion.io
-Gists     = {{ OSHomeRoot }}{{OSUsername }}/Gists
+Repos           = {{ OSHomeRoot }}{{ OSUsername }}/Repos
+WorkRepos       = {{ OSHomeRoot }}{{ OSUsername }}/Repos/git.kion.io
+Gists           = {{ OSHomeRoot }}{{ OSUsername }}/Gists
 
-CDPath    = "~/Repos/git.cloudtamer.io"
+CDPath          = "~/Repos/github.com/codybuell"
 
 
 ################################################################################
@@ -214,7 +222,7 @@ CDPath    = "~/Repos/git.cloudtamer.io"
 ################################################################################
 
 
-GoPath = {{ OSHomeRoot }}{{OSUsername }}/.go:{{ OSHomeRoot }}{{OSUsername }}/Repos
+GoPath = {{ OSHomeRoot }}{{ OSUsername }}/.go:{{ OSHomeRoot }}{{ OSUsername }}/Repos
 
 
 ################################################################################
@@ -250,26 +258,27 @@ VaultServer  = vaultserver.tld
 ################################################################################
 
 
-                                                     # CODE STORAGE
-PATH00 = {{ OSHomeRoot }}{{OSUsername }}/Repos       # repository folder
-PATH01 = {{ OSHomeRoot }}{{OSUsername }}/Gists       # github gists folder
+                                                # CODE STORAGE
+PATH00 = {{ OSHomeRoot }}{{ OSUsername }}/Repos # repository folder
+PATH01 = {{ OSHomeRoot }}{{ OSUsername }}/Gists # github gists folder
 
-                                                     # EMAIL
-PATH02 = {{ OSHomeRoot }}{{OSUsername }}/.mail/Home  # mutt mail directory
-PATH03 = {{ OSHomeRoot }}{{OSUsername }}/.mail/Work  # mutt mail directory
+                                                # EMAIL
+PATH02 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Home # mutt mail directory
+PATH03 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Work # mutt mail directory
+PATH09 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Proj # mutt mail directory
 
-                                                     # VIRTUALIZATION
-PATH04 = {{ OSHomeRoot }}{{OSUsername }}/Machines    # vm data directory
+                                                # VIRTUALIZATION
+PATH04 = {{ OSHomeRoot }}{{ OSUsername }}/Machines # vm data directory
 
-                                                     # PATHING
-PATH05 = {{ OSHomeRoot }}{{OSUsername }}/Bin         # user bin directory
+                                                # PATHING
+PATH05 = {{ OSHomeRoot }}{{ OSUsername }}/Bin   # user bin directory
 
-                                                     # GO
-PATH06 = {{ OSHomeRoot }}{{OSUsername }}/.go/pkg     # go path scaffolding
-PATH07 = {{ OSHomeRoot }}{{OSUsername }}/Sources     # 3rg party repos (go get...)
+                                                # GO
+PATH06 = {{ OSHomeRoot }}{{ OSUsername }}/.go/pkg # go path scaffolding
+PATH07 = {{ OSHomeRoot }}{{ OSUsername }}/Sources # third party repos (go get...)
 
-                                                     # CLAUDE CODE
-PATH08 = {{ OSHomeRoot }}{{ OSUsername }}/.claude    # claude code config dir
+                                                # CLAUDE CODE
+PATH08 = {{ OSHomeRoot }}{{ OSUsername }}/.claude # claude code config dir
 
 
 ################################################################################
@@ -291,13 +300,14 @@ PATH08 = {{ OSHomeRoot }}{{ OSUsername }}/.claude    # claude code config dir
 ################################################################################
 
 
-SYMLINK00 = /Volumes/GoogleDrive/My Drive/:Google Drive
-SYMLINK01 = {{ HOMEBREW_PREFIX }}/bin/neomutt:{{ HOMEBREW_PREFIX }}/bin/mutt
-SYMLINK02 = {{ OSHomeRoot }}{{ OSUsername }}/Bin:{{ OSHomeRoot }}{{ OSUsername }}/.go/bin
-SYMLINK03 = {{ OSHomeRoot }}{{ OSUsername }}/Sources:{{ OSHomeRoot }}{{ OSUsername }}/.go/src
-SYMLINK04 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
+SYMLINK00 = {{ OSHomeRoot }}{{ OSUsername }}/Library/CloudStorage/GoogleDrive-cody@codybuell.com/My Drive/Resources/Codex:Codex
+SYMLINK01 = {{ OSHomeRoot }}{{ OSUsername }}/Library/CloudStorage/GoogleDrive-cody@codybuell.com/My Drive:Google Drive
+SYMLINK02 = {{ HOMEBREW_PREFIX }}/bin/neomutt:{{ HOMEBREW_PREFIX }}/bin/mutt
+SYMLINK03 = {{ OSHomeRoot }}{{ OSUsername }}/Bin:{{ OSHomeRoot }}{{ OSUsername }}/.go/bin
+SYMLINK04 = {{ OSHomeRoot }}{{ OSUsername }}/Sources:{{ OSHomeRoot }}{{ OSUsername }}/.go/src
 SYMLINK05 = {{ CONFIGDIR }}/claude/settings.json:{{ OSHomeRoot }}{{ OSUsername }}/.claude/settings.json
 SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claude/hooks
+SYMLINK07 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
 
 
 ################################################################################
@@ -328,8 +338,7 @@ SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claud
 ################################################################################
 
 
-#REPO00 = https://github.com/codybuell/dotfiles.git
-#REPO01 = git@github.com:codybuell/mit.git
+# REPO00 = git@github.com:codybuell/mit.git
 
 
 ################################################################################
@@ -368,24 +377,6 @@ SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claud
 
 
 #COMMAND01 = ln -s '/Volumes/GoogleDrive/My Drive/' '/Users/pbuell/Google Drive'
-
-
-################################################################################
-#                                                                              #
-# TPAM                                                                         #
-#                                                                              #
-# Targets: `make dots shell`                                                   #
-#                                                                              #
-# Configurations for a shell function `tpam` that will query tpam and copy     #
-# fresh credentials to the system clipboard. Don't include the protocol when   #
-# setting the TPAMUrl below (ie no https://)                                   #
-#                                                                              #
-################################################################################
-
-
-TPAMUrl      = tpam.tld
-TPAMUsername = codybuell
-TPAMPassword = `command to get password`
 
 
 # vim: ft=conf

@@ -17,10 +17,21 @@ Assuming a fresh system requiring all dependencies and configurations:
     git clone https://github.com/codybuell/dotfiles && cd dotfiles
     ```
 
-2. Edit the configuration file to as needed.
+2. Create the configuration file.
+
+    `.config` is tracked in git but transparently encrypted with
+    [git-cipher](https://github.com/wincent/git-cipher) (see Encryption
+    below). If you are not the repo owner, start from the example:
 
     ```bash
     cp .config.example .config; vi .config
+    ```
+
+    As the repo owner, decrypt the managed files in place:
+
+    ```bash
+    npm install --global git-cipher
+    make unlock
     ```
 
 3. Run the command to bootstrap the system.
@@ -34,7 +45,7 @@ bootstrap` or independently as needed. They are ordered below as run by `make
 bootstrap`, which is determined by dependencies.
 
 ```bash
-make decrypt                    # decrypt configuration files
+make unlock                     # configure git-cipher filters, decrypt managed files
 make subs                       # pull in all git repository submodules
 make paths                      # create paths scaffolding as defined in `.config`
 make symlinks                   # create symlinks as defined in `.config`
@@ -123,14 +134,35 @@ Take a look at the code and inline comments for a better understanding of the
 configurations applied. `.config.example` is a good place to start as it calls
 out a lot of specifics.
 
-`git-cipher` is used to encrypt or decrypt the config file:
+Encryption
+----------
+
+Sensitive files are tracked in git but stored encrypted using
+[git-cipher](https://github.com/wincent/git-cipher) (npm, v2) via git
+clean/smudge filters. Managed files are listed in `.gitattributes`:
+`.config`, `dotfiles/ssh/config`, and `dotfiles/kube/config`. Once
+unlocked, the worktree holds plaintext while git transparently stores
+ciphertext — no manual encrypt step, `git add` handles it.
 
 ```bash
-gem install git-cipher
-brew install git gnupg gpg-agent
-git cipher encrypt [FILES...]
-git cipher decrypt [FILES...]
+npm install --global git-cipher
+brew install gnupg                  # your gpg key must be imported
+make unlock                         # configure filters + decrypt managed files
+make lock                           # re-lock worktree copies if desired
 ```
+
+`.config.example` is GENERATED — never edit it by hand. After changing
+`.config` run `make example` to regenerate it. The generator
+(`scripts/example.py`) is fail-closed: every value is replaced with a
+placeholder unless its key is explicitly allowlisted, then leak guards
+(scrubbed-value absence, secret-shaped strings, email domains) abort on
+anything suspicious. New keys in `.config` get scrubbed automatically and
+emit a warning until curated in the allowlist or placeholder map.
+
+Using this repo as your own? Put your email in `.git-cipher-recipients`,
+run `make reinit-cipher` to generate fresh keys encrypted to your GPG
+identity, write your own `.config` (from `.config.example`), and commit —
+the filters encrypt it to your keys.
 
 - You need to make the keychain entries manually for any mail servers you define.
 - On newer versions of OSX, the OS binds Ctrl-Space to change input sources. This blocks tmux from picking up the prefix. Go into System Preferences -> Keyboard -> Keyboard Shortcuts -> Input Sources and uncheck both mappings.

@@ -1,0 +1,3 @@
+.config	diff=git-cipher	filter=git-cipher	merge=git-cipher
+dotfiles/ssh/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
+dotfiles/kube/config	diff=git-cipher	filter=git-cipher	merge=git-cipher

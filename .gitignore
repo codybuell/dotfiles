@@ -16,13 +16,10 @@ Thumbs.db
 # Repository Specific #
 #######################
 
-.config
 dotfiles/vim/.netrwhist
 dotfiles/vim/tmp
 dotfiles/vim/bundles
 dotfiles/vim/snippits
-dotfiles/ssh/config
-dotfiles/kube/config
 *__pycache__
 staging/*
 .luarc.json

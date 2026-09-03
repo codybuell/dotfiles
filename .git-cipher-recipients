@@ -1,0 +1,3 @@
+# GPG recipients for git-cipher managed files (one email per line).
+# Re-key after editing: make reinit-cipher && make lock
+cody@codybuell.com

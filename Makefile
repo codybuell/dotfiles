@@ -52,7 +52,11 @@ default:
 	    $(B)$(DIM)REPOSITORY$(NRM)\n\n\
 	\
 	    $(B)$(GRN)subs$(NRM)            $(GRN)initialize and update git submodules$(NRM)\n\
-	    $(B)$(GRN)update-themes$(NRM)   $(GRN)update the color theme submodules, place files$(NRM)\n\n\
+	    $(B)$(GRN)update-themes$(NRM)   $(GRN)update the color theme submodules, place files$(NRM)\n\
+	    $(B)$(GRN)unlock$(NRM)          $(GRN)decrypt git-cipher managed files (.config, ssh, kube)$(NRM)\n\
+	    $(B)$(YLW)lock$(NRM)            $(YLW)re-lock git-cipher managed files in the worktree$(NRM)\n\
+	    $(B)$(YLW)reinit-cipher$(NRM)   $(YLW)re-key git-cipher after editing .git-cipher-recipients$(NRM)\n\
+	    $(B)$(BLU)example$(NRM)         $(BLU)regenerate .config.example from .config (scrubbed)$(NRM)\n\n\
 	\
 	    $(B)$(DIM)DEPLOYMENT$(NRM)\n\n\
 	\
@@ -90,15 +94,38 @@ subs:
 	git submodule update
 	git submodule update --init
 
-decrypt:
-	git cipher decrypt dotfiles/ssh/.config.encrypted
-	git cipher decrypt dotfiles/kube/.config.encrypted
-	git cipher decrypt ..config.encrypted
+cipher-config:
+	@git config --local filter.git-cipher.clean 'git-cipher clean %f'
+	@git config --local filter.git-cipher.smudge 'git-cipher smudge %f'
+	@git config --local filter.git-cipher.required true
+	@git config --local diff.git-cipher.textconv 'git-cipher textconv'
+	@git config --local diff.git-cipher.cachetextconv true
+	@git config --local diff.git-cipher.binary true
+	@git config --local merge.git-cipher.driver 'git-cipher merge %O %A %B %L %P'
+	@git config --local merge.git-cipher.name 'git-cipher merge driver for merging encrypted files'
+	@git config --local merge.renormalize true
 
-encrypt:
-	git cipher encrypt dotfiles/ssh/config
-	git cipher encrypt dotfiles/kube/config
-	git cipher encrypt .config
+unlock: cipher-config
+	@export GPG_TTY=$$(tty) && git cipher unlock --force
+
+lock:
+	@git cipher lock
+
+reinit-cipher:
+	@if [ ! -f .git-cipher-recipients ]; then \
+		echo "Error: .git-cipher-recipients file not found"; \
+		exit 1; \
+	fi
+	@RECIPIENTS=$$(grep -v '^#' .git-cipher-recipients | grep -v '^$$' | tr '\n' ',' | sed 's/,$$//'); \
+	echo "Recipients: $$RECIPIENTS"; \
+	export GPG_TTY=$$(tty) && git cipher init --force --recipients=$$RECIPIENTS
+	@echo "Re-encrypt for the new recipient set: touch the managed files and commit"
+
+example:
+	@python3 scripts/example.py
+
+decrypt: unlock
+encrypt: lock
 
 update-themes:
 	@echo "Updating theme submodules..."
@@ -118,7 +145,7 @@ update-themes:
 #  Deployment  #
 ################
 
-bootstrap: decrypt subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
+bootstrap: unlock subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
 
 clean:
 	find ~/ -maxdepth 2 -name .Trash -prune -o -name \*.dotorig.\* -prune -exec rm -rf {} \;
