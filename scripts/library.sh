@@ -331,10 +331,13 @@ run_links() {
         SRC=$(echo "$SRC" | perl -p -e "s|{{[[:space:]]*${VAR_INNER}[[:space:]]*}}|${VAL_INNER}|g")
       done
 
-      if [[ -d "$DST" || -L "$DST" ]]; then
+      if [[ -d "$DST" || -L "$DST" || -f "$DST" ]]; then
         if [[ -L "$DST" ]]; then
           unlink "$DST"
           LINKMSG="${YELLOW}re-linking symlink${NORM}"
+        elif [[ -f "$DST" ]]; then
+          mv "$DST" "${DST}.bak"
+          LINKMSG="${YELLOW}linking, original backed up to ${DST}.bak${NORM}"
         else
           prettyprint "  ${DST}:${YELLOW}already exists as a dir${NORM}"
           continue
