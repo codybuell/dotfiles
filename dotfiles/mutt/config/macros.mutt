@@ -62,6 +62,10 @@ macro pager t "<exit><tag-thread>" "tag thread"
 macro index *u "<untag-pattern>~T<enter><tag-pattern>~U<enter>" "select unread"
 macro pager *u "<exit><untag-pattern>~T<enter><tag-pattern>~U<enter>" "select unread"
 
+# Select flagged / important / starred.
+macro index *f "<untag-pattern>~T<enter><tag-pattern>~F<enter>" "select flagged"
+macro pager *f "<exit><untag-pattern>~T<enter><tag-pattern>~F<enter>" "select flagged"
+
 macro index,pager \\u "<enter-command>set pipe_decode = yes<enter><pipe-message>urlview<enter><enter-command>set pipe_decode = no<enter>" "view URLs"
 
 # [m]ove a mail to another folder (in Gmail, "m" would be "[m]ute").
