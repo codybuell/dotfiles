@@ -27,6 +27,10 @@ PRIORITY = {
 mailboxes = []
 Dir.chdir(ENV['HOME'] + '/.mail') do
   Dir['{Home,Work,Proj}/*'].each do |d|
+    # Sent and Archive are append-only history, not queues; keep them out of
+    # the sidebar (and the always-gold Archive noise with them) and reach
+    # them with the gt / ga macros instead.
+    next if d =~ /\.(Sent|Archive)$/
     mailboxes << %{"+#{d}"}
   end
 end
