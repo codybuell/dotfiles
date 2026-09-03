@@ -43,6 +43,26 @@ folder-hook +Proj/ set spoolfile = '+Proj/Proj'
 folder-hook +Proj/ set trash = '+Proj/Proj.Trash'
 folder-hook +Proj/ macro index,pager D '<shell-escape>~/.mutt/scripts/download.sh\ proj<enter><sync-mailbox>' 'download\ messages'
 
+# Guard: Sent folders are append-only. Archiving (e), trashing (#), or
+# spamming (!) from a Sent view strips the message's Sent label server-side,
+# so neuter those keys there; `m` (move) remains for deliberate action. The
+# restore hook must re-source next.mutt because j/k re-source it as they
+# navigate, which would otherwise resurrect the archive macro inside Sent --
+# hence j/k/J/K are also remapped to non-sourcing variants while in Sent.
+folder-hook . 'source ~/.mutt/config/next.mutt'
+folder-hook . macro index j '<next-undeleted><enter-command>source\ ~/.mutt/config/next.mutt<enter>' 'next\ undeleted'
+folder-hook . macro index k '<previous-undeleted><enter-command>source\ ~/.mutt/config/previous.mutt<enter>' 'previous\ undeleted'
+folder-hook . macro pager J '<next-entry><enter-command>source\ ~/.mutt/config/next.mutt<enter>' 'next\ entry'
+folder-hook . macro pager K '<previous-entry><enter-command>source\ ~/.mutt/config/previous.mutt<enter>' 'previous\ entry'
+
+folder-hook Sent$ bind index,pager e noop
+folder-hook Sent$ bind index,pager \# noop
+folder-hook Sent$ bind index,pager ! noop
+folder-hook Sent$ macro index j '<next-undeleted>' 'next\ undeleted'
+folder-hook Sent$ macro index k '<previous-undeleted>' 'previous\ undeleted'
+folder-hook Sent$ macro pager J '<next-entry>' 'next\ entry'
+folder-hook Sent$ macro pager K '<previous-entry>' 'previous\ entry'
+
 # Allow editing of `From:` header in composer to alter sending account.
 send2-hook '~f ^{{ HomeEmailAddress }}\.net$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a home"; unset record; set copy = no'
 send2-hook '~f ^{{ WorkEmailAddress }}\.com$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a work"; set record = "+Work/Work.Sent"; set copy = yes'
