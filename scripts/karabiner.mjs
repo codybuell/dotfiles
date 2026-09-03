@@ -548,6 +548,25 @@ const DEFAULT_PROFILE = applyExemptions({
           },
         ],
       },
+      {
+        description: 'F24 to mouse button 6 (Keychron K3 via VIA)',
+        manipulators: [
+          {
+            from: {
+              key_code: 'f24',
+              modifiers: {
+                optional: ['any'],
+              },
+            },
+            to: [
+              {
+                pointing_button: 'button6',
+              },
+            ],
+            type: 'basic',
+          },
+        ],
+      },
       // {
       //   description: 'Chorded typing',
       //   manipulators: [
