@@ -191,6 +191,13 @@ post_place_hooks() {
     msmtprc )
       chmod 600 ~/.msmtprc
       ;;
+    mutt )
+      # regenerate mailboxes.mutt: it is not tracked in the repo, so replacing
+      # ~/.mutt drops it and neomutt renders an empty sidebar without it
+      if [[ -x "${HOME}/.mutt/scripts/mailboxes.rb" ]]; then
+        "${HOME}"/.mutt/scripts/mailboxes.rb
+      fi
+      ;;
     Xresources )
       if command -v xrdb > /dev/null 2>&1; then
         xrdb ~/.Xresources
