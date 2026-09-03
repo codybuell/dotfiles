@@ -23,6 +23,7 @@ dotfiles/vim/snippits
 *__pycache__
 staging/*
 .luarc.json
+**/.claude/settings.local.json
 
 # dynamically generated files that may show up from testing
 dotfiles/config/kitty/colors-extras.conf
