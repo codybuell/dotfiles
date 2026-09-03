@@ -31,6 +31,15 @@ function run()
   local finance   = home['Fianances']
   local naughtweed = home['Naughtweed']
 
+  local bellhop_app     = home['Bellhop-App']
+  local bellhop_support = home['Bellhop-Support']
+  local bellhop_team    = home['Bellhop-Team']
+  local robot_admin     = home['Robot-Admin']
+  local robot_contact   = home['Robot-Contact']
+  local robot_support   = home['Robot-Support']
+  local murdock         = home['Murdock']
+  local feed            = home['Feed']
+
   --
   -- Rules
   --
@@ -39,6 +48,40 @@ function run()
   local new_spam = spam:is_unseen()
   print_status(new_spam, 'unread spam -> mark as read')
   new_spam:mark_seen()
+
+  -- bellhop infrastructure alerts: flag but leave in the inbox so they are
+  -- impossible to miss (and so gmail still pushes phone notifications)
+  flag('bellhop infra alerts', (function()
+    return addressed_to('alerts@mybellhop.ai'):is_unflagged()
+  end))
+
+  -- route the remaining role addresses out of the inbox by recipient; these
+  -- are work queues to be visited on purpose, not interrupts
+  movetofolder('bellhop support queue', bellhop_support, (function()
+    return addressed_to('support@mybellhop.ai')
+  end))
+  movetofolder('bellhop team mail', bellhop_team, (function()
+    return addressed_to('team@mybellhop.ai')
+  end))
+  movetofolder('bellhop app notifications', bellhop_app, (function()
+    return inbox:contain_from('noreply@mybellhop.ai')
+  end))
+  movetofolder('company robot admin', robot_admin, (function()
+    return addressed_to('admin@companyrobot.io')
+  end))
+  movetofolder('company robot contact', robot_contact, (function()
+    return addressed_to('contact@companyrobot.io')
+  end))
+  movetofolder('company robot support', robot_support, (function()
+    return addressed_to('support@companyrobot.io')
+  end))
+  -- NOTE: cody@companyrobot.io is intentionally not routed; humans writing to
+  -- a personal address belong in the inbox
+
+  -- murdock traffic
+  movetofolder('murdock', murdock, (function()
+    return addressed_to('murdock@codybuell.com')
+  end))
 
   -- naughtweed group mail
   movetofolder('naughtweed', naughtweed, (function()
@@ -73,6 +116,14 @@ function run()
     return inbox
       :is_older(0)
       :contain_from('newsletters@audible.com')
+  end))
+
+  -- LAST: sweep whatever bulk mail is still in the inbox into Feed. Anything
+  -- with a List-Unsubscribe header is machine-generated (newsletters, deals,
+  -- product notifications). Runs after all routing rules so classified mail
+  -- keeps its folder; skips flagged mail so alerts are never swept.
+  movetofolder('bulk mail sweep', feed, (function()
+    return inbox:contain_field('List-Unsubscribe', ''):is_unflagged() - github()
   end))
 end
 

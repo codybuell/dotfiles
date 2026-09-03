@@ -1,6 +1,8 @@
 dofile(os.getenv('HOME') .. '/.imapfilter/util.lua')
 
 options.limit = 50
+options.create = true    -- auto-create destination mailboxes (Gmail labels)
+options.subscribe = true
 
 --
 -- Shared helpers (reference globals `inbox` and `allmail` set by each account's run())
@@ -44,6 +46,15 @@ end
 
 function github()
   return inbox:contain_from('notifications@github.com')
+end
+
+-- Match messages sent to an address, whether directly, cc'd, or delivered via
+-- an alias/forward (Delivered-To survives Google Workspace aliasing and
+-- forwarding when To/Cc list something else, e.g. bcc's and group addresses).
+function addressed_to(address)
+  return inbox:contain_field('Delivered-To', address) +
+         inbox:contain_to(address) +
+         inbox:contain_cc(address)
 end
 
 function github_related(messages)
