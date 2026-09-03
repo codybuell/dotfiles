@@ -40,4 +40,13 @@ end
 
 File.open(ENV['HOME'] + '/.mutt/config/mailboxes.mutt', 'w') do |f|
   f.puts "mailboxes #{mailboxes.join(' ')}"
+
+  # Pin account inboxes so they survive $sidebar_non_empty_mailbox_only when
+  # emptied (inbox zero); everything else may hide itself at zero.
+  pins = %w[Home Work Proj].select do |account|
+    File.directory?(ENV['HOME'] + "/.mail/#{account}/#{account}")
+  end
+  unless pins.empty?
+    f.puts "sidebar_pin #{pins.map { |account| %{"+#{account}/#{account}"} }.join(' ')}"
+  end
 end

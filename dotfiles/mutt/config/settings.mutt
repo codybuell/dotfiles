@@ -78,6 +78,7 @@ set sidebar_folder_indent = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set mail_check_stats
 set sidebar_indent_string = ' '
+set sidebar_non_empty_mailbox_only = yes # hide emptied folders; account inboxes are pinned in mailboxes.mutt
 set sidebar_short_path = yes
 set sidebar_visible = yes
 set sleep_time = 0

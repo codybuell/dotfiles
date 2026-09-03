@@ -48,6 +48,11 @@ send2-hook '~f ^{{ HomeEmailAddress }}\.net$' 'set sendmail = "env BUNDLE_GEMFIL
 send2-hook '~f ^{{ WorkEmailAddress }}\.com$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a work"; set record = "+Work/Work.Sent"; set copy = yes'
 send2-hook '~f ^{{ ProjEmailAddress }}\.com$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a proj"; set record = "+Proj/Proj.Sent"; set copy = yes'
 
+# populate mailbox counts immediately so sidebar_non_empty_mailbox_only has
+# stats to work with at startup (otherwise the sidebar is empty for the first
+# $mail_check_stats_interval seconds)
+startup-hook 'exec check-stats'
+
 # sync mailbox every N seconds as defined by set timeout, also sync on startup/shutdown
 timeout-hook 'exec sync-mailbox'
 #startup-hook 'exec sync-mailbox'

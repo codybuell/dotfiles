@@ -28,6 +28,8 @@ color index color255 default '~U'                 # unread - all messages
 color index_author color1 default '~U'            # unread - author column
 
 color index_flags brightcolor1 default '~F'       # flagged - flags column
+color index_author brightcolor1 default '~F'      # flagged - author column
+color index_subject brightcolor1 default '~F'     # flagged - subject column
 
 color index_author color1 default '~G'            # encrypted - author column
 color index_subject color1 default '~G'           # encrypted - subject column
@@ -39,9 +41,16 @@ color index_author color3 default '~T'            # deleted - author column
 # sidebar #
 ###########
 
+color sidebar_divider color237 default
 color sidebar_highlight color0 color4
 color sidebar_indicator brightcolor4 default
-color sidebar_new color1 default
+
+# red: contains flagged mail (critical/pending); yellow: mail arrived since
+# the folder was last visited. New-ness wins over flagged while both apply, so
+# red reads as "seen it, still unhandled". Unread-but-not-new folders render
+# ordinary; their n/m counts carry that state.
+color sidebar_flagged brightcolor1 default
+color sidebar_new color3 default
 
 ####
 #  #
