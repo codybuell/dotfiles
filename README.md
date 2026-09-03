@@ -27,9 +27,12 @@ Assuming a fresh system requiring all dependencies and configurations:
     cp .config.example .config; vi .config
     ```
 
-    As the repo owner, decrypt the managed files in place:
+    As the repo owner, decrypt the managed files in place. On a fresh
+    system node and gnupg won't exist yet, and your GPG private key
+    (or smartcard) must be available before unlock will work:
 
     ```bash
+    brew install node gnupg             # prerequisites for decryption
     npm install --global git-cipher
     make unlock
     ```
@@ -162,7 +165,11 @@ emit a warning until curated in the allowlist or placeholder map.
 Using this repo as your own? Put your email in `.git-cipher-recipients`,
 run `make reinit-cipher` to generate fresh keys encrypted to your GPG
 identity, write your own `.config` (from `.config.example`), and commit —
-the filters encrypt it to your keys.
+the filters encrypt it to your keys. Note that `dotfiles/ssh/config` and
+`dotfiles/kube/config` in your checkout are ciphertext only the original
+recipients can decrypt: replace their contents with your own before
+running `make dots`, or it will deploy that ciphertext to `~/.ssh/config`
+and `~/.kube/config` verbatim.
 
 - You need to make the keychain entries manually for any mail servers you define.
 - On newer versions of OSX, the OS binds Ctrl-Space to change input sources. This blocks tmux from picking up the prefix. Go into System Preferences -> Keyboard -> Keyboard Shortcuts -> Input Sources and uncheck both mappings.
