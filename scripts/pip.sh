@@ -49,7 +49,11 @@ UV=( \
   'ansible-core' \                     # cm utility
   'python-language-server' \           # python language server
   'rshell' \                           # shell for remote devices over serial
-  'vectorcode<1.0.0' \                 # vectorcode https://github.com/Davidyz/VectorCode/
+)
+
+# pipx managed apps, requires brew packages pipx and python@3.13
+PIPX=( \
+  'git+https://github.com/Davidyz/VectorCode' \  # code vectorization for llm context
 )
 
 #######################
@@ -82,6 +86,12 @@ fi
 # shellcheck disable=SC2068
 for i in ${UV[@]}; do
   uv tool install "$i"
+done
+
+# pipx package installs
+# shellcheck disable=SC2068
+for i in ${PIPX[@]}; do
+  pipx install "$i"
 done
 
 exit 0

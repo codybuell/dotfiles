@@ -91,6 +91,36 @@ holdsudo() {
   sudo -v; while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 }
 
+# Hold Sudo Askpass
+#
+# Like holdsudo but also captures the password into a SUDO_ASKPASS helper.
+# Needed for homebrew casks: brew resets the sudo timestamp on its own sudo
+# calls, so the keepalive loop alone no longer prevents reprompts. The helper
+# is 700, lives only for the duration of the script, and is removed on exit.
+
+holdsudoaskpass() {
+  local pass
+  while :; do
+    read -rsp "Password (for sudo): " pass; echo
+    printf '%s\n' "$pass" | sudo -S -v 2>/dev/null && break
+    echo "Sorry, try again."
+  done
+
+  # keep the timestamp fresh for commands that honor it
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+  # askpass helper for commands that reset the timestamp
+  SUDO_ASKPASS=$(mktemp)
+  chmod 700 "$SUDO_ASKPASS"
+  {
+    echo '#!/bin/bash'
+    printf 'printf "%%s\\n" %q\n' "$pass"
+  } > "$SUDO_ASKPASS"
+  export SUDO_ASKPASS
+  # shellcheck disable=SC2064
+  trap "rm -f '$SUDO_ASKPASS'" EXIT
+}
+
 # Pretty Print
 #
 # Helper for printing status. Expects left hand and right hand text, separated

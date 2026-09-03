@@ -801,6 +801,30 @@ sudo mdutil -i on / > /dev/null
 # rebuild the index from scratch
 sudo mdutil -E / > /dev/null
 
+# disable input source switching shortcuts, ctrl+space (id 60) and
+# ctrl+opt+space (id 61), they collide with terminal / editor bindings
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "
+  <dict>
+    <key>enabled</key><false/>
+    <key>value</key><dict>
+      <key>type</key><string>standard</string>
+      <key>parameters</key>
+      <array><integer>32</integer><integer>49</integer><integer>262144</integer></array>
+    </dict>
+  </dict>"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 "
+  <dict>
+    <key>enabled</key><false/>
+    <key>value</key><dict>
+      <key>type</key><string>standard</string>
+      <key>parameters</key>
+      <array><integer>32</integer><integer>49</integer><integer>786432</integer></array>
+    </dict>
+  </dict>"
+
+# flush the hotkey changes so they apply without a logout
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
 # add colemak to input sources
 # defaults delete com.apple.HIToolbox AppleEnabledInputSources
 # defaults write com.apple.HIToolbox AppleEnabledInputSources -array \

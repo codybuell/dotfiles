@@ -46,6 +46,7 @@ PACKAGES=( \
   'ffmpeg' \                          # audio video swiss army knife
   'fwknop' \                          # port knocking
   'gcc' \                             # gnu c compiler
+  'gh' \                              # github cli
   'git' \                             # distributed version control
   'git-lfs' \                         # large file support for git
   'gnupg' \                           # gpg utilities for openpgp
@@ -77,8 +78,10 @@ PACKAGES=( \
   'picocom' \                         # used with ino for serial connection to arduino
   'pinentry' \                        # interface used to prompt for gpg pins
   'pinentry-mac' \                    # gui interface used to prompt for gpg pins
+  'pipx' \                            # installer for python apps in isolated envs
   'python' \                          # python language
   'python-lsp-server' \               # python language server
+  'python@3.13' \                     # pinned python, needed by vectorcode via pipx
   'qemu' \                            # virtualization tool of choice
   'qrencode' \                        # utility to generate qr codes
   'reattach-to-user-namespace' \      # reattach tmux etc to user namespace
@@ -110,7 +113,10 @@ PACKAGES=( \
 )
 
 CASKS=( \
+  '1password' \                       # password / secret management
+  '1password-cli' \                   # 1password cli, `op`
   'bartender' \                       # tool for simplifying the menubar
+  'claude-code' \                     # anthropic agentic coding cli
   'bitwarden' \                       # password / secret management
   'blender' \                         # 3d cad software
   'cubicsdr' \                        # good sdr dongle front end
@@ -118,6 +124,7 @@ CASKS=( \
   'dropbox' \                         # file collaboration
   'fantastical' \                     # calendar replacement
   'firefox' \                         # alternative web browser
+  'gcloud-cli' \                      # google cloud sdk, `gcloud`
   'gimp' \                            # open source bitmap editor
   'google-chrome' \                   # chrome browser
   'google-drive' \                    # file collaboration
@@ -131,10 +138,12 @@ CASKS=( \
   'obs' \                             # open broadcast software
   'opensc' \                          # smartcard utility
   'raycast' \                         # spotlight search replacement
+  'signal' \                          # secure messaging
   'slack' \                           # collaboration and chat application
   'tg-pro' \                          # advanced fan control
   'vagrant' \                         # vms as packages management solution
   'via' \                             # config editor for keychron keyboard
+  'whatsapp' \                        # meta messaging client
   'wireshark' \                       # network traffic analyzer
   'xquartz' \                         # osxs implemenrtation of x11
   'yubico-yubikey-manager' \          # yubikey configuration utility
@@ -233,8 +242,12 @@ TAPS=( \
 #                                                                              #
 ################################################################################
 
-# get and keep sudo privs for duration of the script
-holdsudo
+# get and keep sudo privs for duration of the script, askpass variant as brew
+# resets the sudo timestamp on cask installs
+holdsudoaskpass
+
+# don't prompt for confirmation on every install, ask mode is default in brew 6
+export HOMEBREW_NO_ASK=1
 
 # handle dependencies
 dep_xcode_clt
@@ -286,3 +299,7 @@ done
 
 # manual links and fixes
 brew link --force libpq
+
+# remind about steps that can't be automated
+log yellow "Manual steps:"
+log yellow "  - 1Password -> Settings -> Developer -> enable 'Integrate with 1Password CLI'"
