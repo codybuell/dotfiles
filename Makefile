@@ -99,7 +99,9 @@ cipher-config:
 	@git config --local filter.git-cipher.smudge 'git-cipher smudge %f'
 	@git config --local filter.git-cipher.required true
 	@git config --local diff.git-cipher.textconv 'git-cipher textconv'
-	@git config --local diff.git-cipher.cachetextconv true
+	@# cachetextconv would store DECRYPTED blobs under refs/notes/textconv,
+	@# which a mirror push would publish; this repo is public so keep it off
+	@git config --local diff.git-cipher.cachetextconv false
 	@git config --local diff.git-cipher.binary true
 	@git config --local merge.git-cipher.driver 'git-cipher merge %O %A %B %L %P'
 	@git config --local merge.git-cipher.name 'git-cipher merge driver for merging encrypted files'
