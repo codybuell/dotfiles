@@ -308,6 +308,7 @@ SYMLINK04 = {{ OSHomeRoot }}{{ OSUsername }}/Sources:{{ OSHomeRoot }}{{ OSUserna
 SYMLINK05 = {{ CONFIGDIR }}/claude/settings.json:{{ OSHomeRoot }}{{ OSUsername }}/.claude/settings.json
 SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claude/hooks
 SYMLINK07 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
+SYMLINK08 = {{ CONFIGDIR }}/claude/CLAUDE.md:{{ OSHomeRoot }}{{ OSUsername }}/.claude/CLAUDE.md
 
 
 ################################################################################
