@@ -121,7 +121,7 @@ update-themes:
 bootstrap: decrypt subs paths symlinks repos dots nix mas brew node gem go pip karabiner osx fonts commands
 
 clean:
-	find ~/ -maxdepth 2 -name \*.dotorig.\* -prune -exec rm -rf {} \;
+	find ~/ -maxdepth 2 -name .Trash -prune -o -name \*.dotorig.\* -prune -exec rm -rf {} \;
 
 paths:
 	@source scripts/library.sh && read_config && cd && run_paths
