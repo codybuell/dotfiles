@@ -70,7 +70,7 @@ function tmux() {
 # .----------------------------------.    .----------------------------------.
 # |                                  |    |           |           |          |
 # |          1: neomutt              |    |           |           |          |
-# |                                  |    | 1. home   | 2. work   | 3. tbd   |
+# |                                  |    | 1. home   | 2. work   | 3. proj  |
 # |----------------------------------|    |           |           |          |
 # |                    |             |    |           |           |          |
 # |    2. nvim home    |   3. zsh    |    |----------------------------------|
@@ -100,7 +100,7 @@ function home() {
       tmux split-window -t HOME:control -v -l 8 -f -c ~/.mutt
       tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
       tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
-      # tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh proj' Enter
+      tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh proj' Enter
       tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
 
       ## attach to home session, home window, shell pane
