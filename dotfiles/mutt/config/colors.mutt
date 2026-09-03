@@ -12,7 +12,10 @@ color header brightcolor4 default "^(Subject)"
 # message index #
 #################
 
-color indicator color0 color4                     # current selection
+# cursor_overlay merges indicator with underlying index colors; default fg
+# lets read/unread/flagged column colors show through the selection bar
+set cursor_overlay = yes
+color indicator default color237                  # current selection
 color tree color4 default                         # arrow in threads
 
 color index color246 default '~A'                 # all - entire index line
@@ -42,7 +45,7 @@ color index_author color3 default '~T'            # deleted - author column
 ###########
 
 color sidebar_divider color237 default
-color sidebar_highlight color0 color4
+color sidebar_highlight default color237
 color sidebar_indicator brightcolor4 default
 
 # red: contains flagged mail (critical/pending); yellow: mail arrived since
