@@ -55,13 +55,16 @@ folder-hook . macro index k '<previous-undeleted><enter-command>source\ ~/.mutt/
 folder-hook . macro pager J '<next-entry><enter-command>source\ ~/.mutt/config/next.mutt<enter>' 'next\ entry'
 folder-hook . macro pager K '<previous-entry><enter-command>source\ ~/.mutt/config/previous.mutt<enter>' 'previous\ entry'
 
+# NOTE: the j/k/J/K remaps come before the #/! binds on purpose: an unquoted
+# "!" aborts hook execution mid-run (neomutt misparses it and dumps bindings),
+# which previously left the re-sourcing j/k macros armed inside Sent.
 folder-hook Sent/?$ bind index,pager e noop
-folder-hook Sent/?$ bind index,pager \# noop
-folder-hook Sent/?$ bind index,pager ! noop
 folder-hook Sent/?$ macro index j '<next-undeleted>' 'next\ undeleted'
 folder-hook Sent/?$ macro index k '<previous-undeleted>' 'previous\ undeleted'
 folder-hook Sent/?$ macro pager J '<next-entry>' 'next\ entry'
 folder-hook Sent/?$ macro pager K '<previous-entry>' 'previous\ entry'
+folder-hook Sent/?$ bind index,pager '\#' noop
+folder-hook Sent/?$ macro index,pager '\!' '<redraw-screen>' 'guarded'
 
 # Allow editing of `From:` header in composer to alter sending account.
 send2-hook '~f ^{{ HomeEmailAddress }}\.net$' 'set sendmail = "env BUNDLE_GEMFILE=$HOME/.mutt/scripts/Gemfile $HOME/.mutt/scripts/msmtp.rb -a home"; unset record; set copy = no'
