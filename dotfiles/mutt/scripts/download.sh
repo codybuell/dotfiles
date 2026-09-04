@@ -5,16 +5,16 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-if [ $1 = "work" ]; then
-  SYNC="Work-Download"
-elif [ $1 = "home" ]; then
-  SYNC="Home-Download"
-elif [ $1 = "desert" ]; then
-  SYNC="Desert-Download"
-else
+# resolve the account's capitalized name from ~/.mutt/accounts (generated
+# from the MailAccounts .config key)
+CAPS=$(awk -v a="$1" '!/^#/ && $1 == a { print $2 }' "$HOME/.mutt/accounts")
+
+if [ -z "$CAPS" ]; then
   echo "error: unrecognized account handle: $1."
   exit 1
 fi
+
+SYNC="$CAPS-Download"
 
 echo "Downloading $SYNC..."
 mbsync "$SYNC"

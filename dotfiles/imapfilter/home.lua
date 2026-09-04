@@ -1,139 +1,141 @@
-dofile(os.getenv('HOME') .. '/.imapfilter/common.lua')
-
-local me = '{{ HomeEmailUsername }}'
-local password = get_pass('{{ HomeEmailKeychain }}', '{{ HomeEmailHost }}')
-
-function connect()
-  return IMAP {
-    server = '{{ HomeEmailHost }}',
-    port = 993,
-    username = me,
-    password = password,
-    ssl = 'auto',
-  }
-end
-
-function run()
-
-  -- NOTE: Beware the use of contain_field when talking to an MS server; it is
-  -- totally unreliable, so must use the slower match_field match_from() or
-  -- match_to() methods. See:
-  --
-  -- - https://github.com/lefcha/imapfilter/issues/14
-  -- - https://github.com/lefcha/imapfilter/issues/33
-
-  local home = connect()
-  inbox      = home.INBOX
-  local spam = home['[Gmail]/Spam']
-  allmail    = home['[Gmail]/All Mail']
-
-  local deals     = home['Deals']
-  local finance   = home['Fianances']
-  local naughtweed = home['Naughtweed']
-
-  local bellhop_app     = home['Bellhop-App']
-  local bellhop_support = home['Bellhop-Support']
-  local bellhop_team    = home['Bellhop-Team']
-  local robot_admin     = home['Robot-Admin']
-  local robot_contact   = home['Robot-Contact']
-  local robot_support   = home['Robot-Support']
-  local murdock         = home['Murdock']
-  local feed            = home['Feed']
-
-  --
-  -- Rules
-  --
-
-  -- mark all spam as read
-  local new_spam = spam:is_unseen()
-  print_status(new_spam, 'unread spam -> mark as read')
-  new_spam:mark_seen()
-
-  -- vip senders: flag so they stand out and never get swept to Feed
-  flag_vips('{{ HomeEmailVips }}')
-
-  -- bellhop infrastructure alerts: flag but leave in the inbox so they are
-  -- impossible to miss (and so gmail still pushes phone notifications)
-  flag('bellhop infra alerts', (function()
-    return addressed_to('alerts@mybellhop.ai'):is_unflagged()
-  end))
-
-  -- route the remaining role addresses out of the inbox by recipient; these
-  -- are work queues to be visited on purpose, not interrupts
-  movetofolder('bellhop support queue', bellhop_support, (function()
-    return addressed_to('support@mybellhop.ai')
-  end))
-  movetofolder('bellhop team mail', bellhop_team, (function()
-    return addressed_to('team@mybellhop.ai')
-  end))
-  movetofolder('bellhop app notifications', bellhop_app, (function()
-    return inbox:contain_from('noreply@mybellhop.ai')
-  end))
-  movetofolder('company robot admin', robot_admin, (function()
-    return addressed_to('admin@companyrobot.io')
-  end))
-  movetofolder('company robot contact', robot_contact, (function()
-    return addressed_to('contact@companyrobot.io')
-  end))
-  movetofolder('company robot support', robot_support, (function()
-    return addressed_to('support@companyrobot.io')
-  end))
-  -- NOTE: cody@companyrobot.io is intentionally not routed; humans writing to
-  -- a personal address belong in the inbox
-
-  -- murdock traffic
-  movetofolder('murdock', murdock, (function()
-    return addressed_to('murdock@codybuell.com')
-  end))
-
-  -- naughtweed group mail
-  movetofolder('naughtweed', naughtweed, (function()
-    return inbox:contain_from('support@naughtweed.com') +
-           inbox:contain_from('noreply@naughtweed.com') +
-           inbox:contain_from('tester@naughtweed.com')
-  end))
-
-  -- all 'deals'
-  movetofolder('deals', deals, (function()
-    return inbox:contain_from('HomeDepotCustomerCare@email.homedepot.com') +
-           inbox:contain_from('miniaturemarket@bm5150.com') +
-           inbox:contain_from('email@zaxbysemailclub.com')
-  end))
-
-  -- all finance related messages
-  movetofolder('finance', finance, (function()
-    return inbox:contain_from('noreply@robinhood.com') +
-           inbox:contain_from('no.reply.alerts@chase.com') +
-           inbox:contain_from('service@personalcapital.com') +
-           inbox:contain_from('email@enews.nasafcu.com')
-  end))
-
-  -- github personal action notifications
-  archive_and_mark_read('github personal activity', (function()
-    local own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
-    return own + github_related(own)
-  end))
-
-  -- old daily deals
-  archive_and_mark_read('old daily deals', (function()
-    return inbox
-      :is_older(0)
-      :contain_from('newsletters@audible.com')
-  end))
-
-  -- LAST: sweep whatever bulk mail is still in the inbox into Feed. Anything
-  -- with a List-Unsubscribe header is machine-generated (newsletters, deals,
-  -- product notifications). Runs after all routing rules so classified mail
-  -- keeps its folder; skips flagged mail so alerts are never swept.
-  movetofolder('bulk mail sweep', feed, (function()
-    return inbox:contain_field('List-Unsubscribe', ''):is_unflagged() - github()
-  end))
-end
-
-if os.getenv('ONCE') then
-  print 'ONCE is set: running once.'
-  run_and_log_time(run)
-else
-  print 'Looping, to run once set ONCE.'
-  forever(run, 60)
-end
+magic = dev.wincent.git-cipher
+url = https://github.com/wincent/git-cipher/blob/main/PROTOCOL.md
+version = 2
+algorithm = aes-256-cbc
+filename = "dotfiles/imapfilter/home.lua"
+iv = 64657964c1854e79f02131892f64c253
+ciphertext =
+20e93769d3c7ef9f3d9bbb3baee2864faf04e03ccc7e55af70c221003b72c957dd10add6
+1c011ab71fa9e9f3ecea86dd23e6ff0b42b0a9b26ac8b0deaefc6caa095658e44a4b7bef
+d222539797da51f7de9fceae8ffb8bc74f896423e1b14caec9dda0bf3d94bae4b0b08fcf
+3f098f1a70fbeac8aefa715237eec393d5c7c18971346f19740002924662c5e3c06c368c
+6a2ffc31f4916a12a6e89aa200bb29461f3c73f12ed95d84bc398e86347b8b4515d9dc66
+be1cfc715be4b03e33e3050d8ed108e4b02d8ec4edf433609cb8bca4efa70ab43c8e7db7
+734e8fd81da16bf535bcc7d411b5d59b8f5a3d82bcf99d2c1841ace6b7c38cad0f4987c9
+93421b7f746fa666c50188c7e97652f4c961361e3e39719ad87f550f71c19188507a648a
+b42fadc9ba256aaa831f3135c583deb46648e66cc2bab91beaef4b2e727b3e5de9b28a6b
+ef2e3bc9fd7d094db1cef28ac5fcaf4a82b10a54ec605d1d70f8533ffc481f8c30cc83c0
+bbe08941bb35609e62e0c6e0f7a4581f3b94cf15541d38ae27d4770d18f05db939047b69
+29ab13dba2da3d1c7d2383d033f2203c093a5b7fcafdec67de38d1ff225768188efeac8f
+ba1fd1359ebcad6d3acbb86c061051d0930a6b87c3e4767f8cb646d680a8d1be39f0c05d
+aea01714cd5d64c83e6a89c62301d08149b083693d685435d05f636d6fe752456fb8cf34
+0faeb239be6cb3e08dfea6183661c04a4b2e0cfd6e26b86384922bbbe2730ee0c046e7b2
+fbb474d8ec0bcb245878d28025b2730f9b40ea6219cf643711c991039bf1f75119a80cfc
+9de0901a9efc451ebc7fd752b423d832b67dced3370affb9668845a0874deef153f86399
+1272e64290ff73869d09f82bdf749f33a1045bb8cc26dc24908b4fab559f01e89d585051
+e7b7da00fa13398bca690daa1c6bc0d829562228053f513d0a658a5d82ddb79c5def159c
+c6a0d96b1f33b2dbe45fe242b350a5f569eb653bf65803617f645be3e29398bb94ee19c6
+24a5f49ba98e4fa53e4573c243119f083426189c9ba98e8f7b7b5b98e1bc7925df1f3020
+e24cd2bf5c8fba4bfc183bb54b2765f0fcb8666f5cceb68a445a7e619bb9d232893baf81
+9a860e565c46c4c352debb5fb8bf4f1b8fbe5e9b1d477b63d3ce41af53486bc31d585bb7
+a3b3812630524d64f869be20c136141e94f9db840ba994f4d72ec514dbc6a56e9d3e2896
+0344af11672c34e631dc1c0924f445d864d4942abae9897982b94d8c2726b69b350df831
+6762527698b7232fb513e16db06e8ff945c57ff76d89bec0207e11821eb8aba301b2eef0
+51a975876858de4ecfd864d6f179be45c610bd121b98f287c85eff1dde03e7a559e2b445
+6d192798d1c897f890b47ff291cdaaf5bebe06bf9bfa8bd9b456efc794c3d268e14fc9de
+639404146ac04e7fa5f946a4e02207859bd536a89755673db1e021cbc756707df6b4d49f
+1b0f3c6470c674abe7e9561dba1d18cf8b7878fa7a40112390473eb59a9781977d1db8a5
+81f84f25599079fa44a719c28e4460de20bd4db6bc28e26f2dc55f1b3c28e1d6b5255dd3
+101395c10493e300a0ec34e32d238ab93c72b55ce0ccaf429f4078cfa3c9be842bc7de95
+59e297367b7e8e8435395979e013d83e81adc36f5e4b4092c223d0d60006ca47dd9ad618
+46df3098be6bc33198bf64b42fd131e6ee88cdf278ccd4cd9de54e216b659f4b929ad31e
+c00656a0ad237c8a509e6ce9b5b31caf030d2037dd15afc52e476e6c09bd7c79dacd7ce4
+74fc3fc4b79626a1dfc3a445b49306c9ec6da128dadd8d22888f631bb86c2b78713fb2a8
+611026ddcd2e687742238d05e97d5a21d427028003b270199cb7ae3bff8a5b1379d93711
+45285ca923436faceb6604f5cc854f7dfb98d68d69ba51c2c2f48d01d5d9ed465b978e19
+e51d51f32b503825249b3371300a0b10082fe120b84a4929228948fc951eb54146e92da6
+2506c5bc4572cf231668b2afbc766b6528432b17f7804699bd0584dc21ec681d0e76c55f
+6a6e1510de2bd86b9a8c080ec5efb012c53f25cb79898f042ba548f0e57ac3002090d14a
+d4cae637fd394d3ab0f996ffb518138f121d5975d62418f67094e63280673160a59b0323
+6dada3d942d697f4a91849ca31df3f890f61361d1c6d701f7feb5f69e35d43c31f717b5a
+1b842a8f4b8af49e6087564566e21bd1c66db54bfc59ea3132094752e952404b58459e9b
+a27e75b61bd63fc0225af82458a1fd4e930cbf0695510f59e18e28c7a50d0d54e5653823
+69cffad75432ebe3d7bbe5196ba7a1615011c998f0816deeba6be77d14d17b05913b491b
+45ffaf20d3eab855369bc6bfe46a733aa7a7448055e43f1c3ca19d0349f72aa1e67e4a7d
+8850049d2ac1d91abaadb2dc8bdbbbb742f5be107d3c2ece361ef6328582249bedf5c152
+f9d75a73823b8c16241ce92116b4a10b93b147043567c1f79a8a27aec03b81f5e606d5bd
+967eb5a8fe036b6fc1211d28bfcbd63532b7ee933c46181b661ab0031900ed4c23caad17
+496626e5b3a80798159cfcfe260160b05828c0b0cc217b03549ebcf0a24ac72dd8f3f575
+a7a288b3faf4d03e99ffaa70043c9e1a21c526e1841eb2d4bfcf409b55a8cc801ae74108
+cf64b093b9a38259b03f6c3df23b280a970f33f4487d6e3a5f946d5434353b59adf5f8ea
+1fb6d43ec7b13eb9003fe4b4ee00ee748ddf8d943f853a6166c7c88ea2da55bfc6be292f
+9033a31a30edbdf1ddcb1be05ae3a49f0310d34243edb2602be9cecb726b89e64cfb8c7d
+53e12cc3c79f21056a61a0744ace4e35af9910f7edaade8019fd4bc797a5ecd4bb69ac00
+8a86a6e217974309cddee5242a0b2af755331ad7784b95ff24901b0611d9b025d75d41c0
+9971d5b950c13933919ff3ff75b2e8673fccd2b1300ace0542b259a5807b83a34e882324
+fa25f0d5e4b61d13696fdda4cfe476f4f1b0375cc33d92f45f7bfbced9906008883b732c
+183fad48f15527e93aadf2246bcbf9b79ee89e18bf0f7b7f9babab49da6289c717b18bde
+6cda2ec7739006dcdfb12b311bf81f99da32fd9980c841997f020905a2f65d29827af6cf
+b0a96370cebe724a131c6d6d50004c70e91deaf03f1a438118b3dff1c5cf7f98b1edc050
+f71c6d3f1bf32aa8af2345ac91073b1c51914cdcf29321ba79216a0fc888712873cbd050
+7bcf58327b9d75aa57f56058276f80858034b7cf80e5bd38f1a40048fabc5056995ea735
+7ead0c22a5aba64c7732634dc4daee1059de0f717c35c71c9078450ac4d10d3072ae002f
+27fbe354a6598c78853636e6458dfa3e4f2a1ef6e3b0d760f299b1c9d3f4c839ef86bf11
+3a448890604febf92c346d3cd18e142aaa5d2f5c2074324d96d6593f0a86e4cca3ef9d60
+b5788fa4bddfc9a1113be946a67b0442184a2063698bf8110c60fb0b09a0ce03c64e873c
+18c80f32980946e09535b0b072848ded39f2cff1d6aaaae6f202503ba014ce94cc9fdb1b
+418ac9168c8e9b74b81186a4d6dddeaa69b8d43e1a1e979d596fb150ee66fdb3d25ff731
+92e94951783fc2a698c5bae00cbeb1dce3d1a9daf7f84c912c7df0d0d859d50aee68a5bb
+1edd4b46154369d5246fb16b2176f6f9f52edbdecfae54c24ba476e64425490ae2afc716
+31a44a34d71cbb9f342260dd3698c282edd49fa4ca23088d0fc72b2f3ae1b90a36697e4f
+64dd2f10d6b5fd213733d3ab219f65d395e8772c30f32a79e2b0da53b72536a7e6183443
+2176c02798fb2ffa2b9996a311ce03ca375df646be3d839ca1de0ce3fb346167dc93af3e
+75665b5956dec23dd527bdced28af3ec217c1208476343d71a766d0132d95708d6a89caa
+714ad5c94c9486f97434f7c2dec201f57afd80c429e7650f1c9e6cc2b07b552352cbd991
+29df98d6662172b62a4391a70e8eecebc7d9f49b2b6b6cc2388a374eef16c08e0369f896
+a6610ce9253bec67d30dea5f39128cd66b16d6ee01c7a16f155417a31a93219100b4b344
+6215c27faee9dbbd93eebe7186145d34b886e521ffe6d7e85f615cd1037726aa9b9c13d9
+1ce6727bb7a6f8f8534a9129c0098e8dfdbea746711654de64fec72a0288b8f06340375c
+8edfd47ae6b72a0ed121aa44f51089a8030a75440584a2e769ff81863790ac4728b92b2a
+60d028a15fa10682ffbe43356ef1ad5e2eb084169a45e5b59dcc038e0a1f2238e5a6114e
+59ffa0cf89e6f3b76730c7e784c1c726c5a7f8fcddf4113a14cad8814a4fbcf8167657e7
+dd4fe959519c990399c9c92759e09ef79691da43bd148a137fae06c0c58de68eb883ebee
+7213d0f112fe458bf53eda8cb002fe428344b47895b4f4753b19865b19b637b044830855
+98fde04a0515d881a80adb4f532312385f59490a77afa62c19282710ea81544afa01780a
+0fe67bbdeb18d443d3709149264f0ce6f9ec1f15f16e1570060ee98182c6a0ef22ba2f77
+626cc3f34528c2be2c096d7bcbe2ddb2a9c759982493341c85c31b8fda223b9f5c23e4e5
+a5e8d77d069c6a37cdeb8545ff4728f1562d6747ab4b203711c7ec0ce853472a39f6b15d
+056fe98921ee8115588a16e51801e0a365b5d7a9d8ab94e8ad30f83a95102efcd0fba4c0
+6debec67dc8f2bcd8187b1c2cefaf9cdb8c1fae7596b5166a835b504bcd2e99328af784f
+bc236e22761ac970ececd7167cad852e89aac21e0e2defa6aecc7984dd7a7fb3d8fe8851
+ee9833f638941e78e52b12cc60eebafbf86d3bf12b72d1efea7e821d0c2596fc7e4020e6
+c3f5f3dcb258414715010e79ceacd1b5e7c691992277d3e842150ad46a8bf91db23c7332
+2534d75cb9268626f0f89398e2f56404bf8916b858ef20917347d00c6d552d6f1e078850
+7a9973c820860e02c4213d96cc57a96fb80a1daf4fd1e46cd7c657f8d3aa1e03afa5ce3b
+dd2d6fcb44c2a760a1f893736d0ae3e783ccda12dad4fd1f2dad386552f7b703ad18039e
+dff83c12e9590946e1161e7468c79116eada04871f570f25bfc9c8d9c9d6a0e09766402f
+59fc3788a39d1d8fa548de9c9c32b80acf8296246ceffdba43a1fb0ac65442a9715d97f6
+6ca706b725965e858eb97630f4b1c08a84da3dcdda6f5b4f16ca46e320f147c43b97c810
+a11c0d357c6808b9adab4da3cc113137733e958d91fc39fb27b5fb0dc9d7b8388adba7b6
+5ce9486538ff9761f3e4fcaacb3d329d07a913a06c1f4e0fe80e1c8fd527b71275c3b6f6
+091d40d4505b96d84afb90c9fea04e8e87337012e853c9fc78d1730c93524d4b976d8b7d
+1c5321ce9555b908e303d0d7c81624e0072ecff4d1466577dbf72f6ae884b3eafbc11cea
+c21c2c2e1d265ab32ccd31706379b724ffe2800224351090f77b0931c636c98e616804a6
+fa79d7982500d67f13119e904eab8023785f92b04190f697bbb21753a4316951fc8b8490
+bb407853e55a790061d3363f780e6dd4dd166375950abee9db02518896bc420df4505018
+a88423db63c175860901c1fa1d604aaa087d9c85932e33ac99a17c3eb06e22cbae535d51
+c3b6e7c70cbf2a35e8731b3c9c0e1cd1ad15630f05e080cd50f8b7443bb51540a20b1d62
+7b5b9b1554e08031c987fda3581c25a1f08b8f391627971678edc8a2cc986876fdb3f5dc
+fd676a22ad2130a52ac4520729f6f33b06f485a2c7a3717e1dc1be074bf89e18c0eaf2cc
+a25d5d9162d2699eba4b9658ae012dc5d589d544ce2f276a91b62231845c3668ae96f3c0
+de495a3cefbfdb5acebea913f301ccbe973a18fb39f77f284ae5633d0e7d076036f9fc1c
+6353dbc4282a2eeff5a40506df8db71f56020c228291f01602552e81f6e53c3e7f890297
+dd39e13439d437e6ff21cfbaf808bf8ca748597d794aec7c8496f83553300fc1393d285c
+f3dfb06a6488f1635184b9f56e27de9be2323a8c12963869f4127c030bcca54b6695560a
+6f00ef50c372b91862c5c30245f6131807e0aef5dac3f7172483e464ff775ac9aac725c0
+4f84ccd3cde6a5ef1ce8c89a75c17d5bdd7bcbc3cdcb888aa10b54f33b6ce7558cff0236
+2e3321158392669ed1a333bb09ac871caf6406be0cb04e66f1a520d15760871977286c50
+7358fe65340e457bcbf9c522046b1c12b75679cff5706a03b382f7767f8240c33885e388
+1ca746d26f6c770956252bac5fd2d98de331eacbe3b7df37816543ee03b60b556fc71bf3
+ec32619d04b52a2b4dd303ee7a6c966161915d296d1301146f954c2b6a6754bd7cf1a685
+9241dfdadd48c0f3257dfcfb34b66510b5bb45d9060bc4f0616d993ae0a4e3966ddb412e
+fa61f6f9b870b2cc413fbcff23d52b63034a02d526c8d08b2b28eb8a92c0e4c487b3ea88
+1eb5b5135886909e5d898be830a1b71169d6eccdbf32b32a015d8cfac095226b59a72e0f
+2275b9cf3e755bea52a48c0249af28449dc8f84030593f48c6789dacdb09a489cf0db58a
+93180173f7b760e7a35ee01b57f99abe986c9119582669eeeefa75a50df79538262d5d54
+d0dfc5208bafb98516e688bb933e3999d540df07648533f998a002c8b1c3cdd633e74696
+73c8e7100e0d59a6bc66991dc3060b3cb3b95c95ab4c63f4c1a5ae0a0aabbc6647b12d65
+f682e762925e3e757d89c1efb0a2e1345213130e6c153f15bf41d055279e7c454b3eb781
+b7b6a2c68f5e7639446e5edf1ea7599d32bec4a2a3031528d3d1b173f7f5e86d3355f8c4
+6b5e6f82e8993125665d1cbc82a08a7065a93ea6213ba951ab7520810dcdfa1d
+hmac = 37c999fad5952ff94c73066c1852a21b3e67e84706d7994faf225a2b3caae152

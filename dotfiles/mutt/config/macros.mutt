@@ -15,13 +15,12 @@ macro browser gt "<exit><change-folder>!.Sent<enter><redraw-screen>" "go to Sent
 macro browser gD "<exit><change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
 macro browser gl "<exit><change-folder>?<toggle-mailboxes><redraw-screen>" "go to 'Label'"
 
-# These ones not standard Gmail.
-macro index,pager gh "<change-folder>+Home/Home<enter>" "go home"
-macro index,pager gw "<change-folder>+Work/Work<enter>" "go work"
-macro index,pager gd "<change-folder>+Desert/Desert<enter>" "go desert"
-macro browser gh "<exit><change-folder>+Home/Home<enter>" "go home"
-macro browser gw "<exit><change-folder>+Work/Work<enter>" "go work"
-macro browser gd "<exit><change-folder>+Desert/Desert<enter>" "go desert"
+# These ones not standard Gmail. Account switchers are generated from the
+# MailAccounts .config key (name:go-key) by scripts/mailgen.py at deploy time.
+# {{% foreach mailaccount %}}
+macro index,pager g{{ MailAcctKey }} "<change-folder>+{{ MailAcctCaps }}/{{ MailAcctCaps }}<enter>" "go {{ MailAcct }}"
+macro browser g{{ MailAcctKey }} "<exit><change-folder>+{{ MailAcctCaps }}/{{ MailAcctCaps }}<enter>" "go {{ MailAcct }}"
+# {{% endforeach %}}
 
 # "Smart" equivalent to `set resolve = yes`: see "{next,previous}.mutt" for
 # info.

@@ -10,59 +10,64 @@ SyncState *
 
 ################################################################################
 #                                                                              #
-# home email account                                                           #
+# mail accounts                                                                #
+#                                                                              #
+# One stanza per account, expanded from the MailAccounts key in .config by     #
+# scripts/mailgen.py at deploy time. Account/channel/maildir names come from   #
+# the account name; connection details from the <Name>Email* config keys.     #
 #                                                                              #
 ################################################################################
 
-IMAPAccount Home
-Host {{ HomeEmailHost }}
-User {{ HomeEmailUsername }}
-PassCmd "get-keychain-pass {{ HomeEmailKeychain }} {{ HomeEmailHost }}"
+# {{% foreach mailaccount %}}
+IMAPAccount {{ MailAcctCaps }}
+Host {{ MailAcctEmailHost }}
+User {{ MailAcctEmailUsername }}
+PassCmd "get-keychain-pass {{ MailAcctEmailKeychain }} {{ MailAcctEmailHost }}"
 CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
 TLSType IMAPS
 AuthMechs LOGIN
 
-IMAPStore Home-remote
-Account Home
+IMAPStore {{ MailAcctCaps }}-remote
+Account {{ MailAcctCaps }}
 
-MaildirStore Home-local
-Path ~/.mail/Home/
-Inbox ~/.mail/Home/Home
+MaildirStore {{ MailAcctCaps }}-local
+Path ~/.mail/{{ MailAcctCaps }}/
+Inbox ~/.mail/{{ MailAcctCaps }}/{{ MailAcctCaps }}
 
-Channel Home-Home
-Far :Home-remote:INBOX
-Near :Home-local:Home
+Channel {{ MailAcctCaps }}-{{ MailAcctCaps }}
+Far :{{ MailAcctCaps }}-remote:INBOX
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}
 
-Channel Home-Drafts
-Far :Home-remote:"[Gmail]/Drafts"
-Near :Home-local:Home.Drafts
+Channel {{ MailAcctCaps }}-Drafts
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/Drafts"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Drafts
 
-Channel Home-Sent
-Far :Home-remote:"[Gmail]/Sent Mail"
-Near :Home-local:Home.Sent
+Channel {{ MailAcctCaps }}-Sent
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/Sent Mail"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Sent
 
-Channel Home-Starred
-Far :Home-remote:"[Gmail]/Starred"
-Near :Home-local:Home.Starred
+Channel {{ MailAcctCaps }}-Starred
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/Starred"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Starred
 
-Channel Home-Spam
-Far :Home-remote:"[Gmail]/Spam"
-Near :Home-local:Home.Spam
+Channel {{ MailAcctCaps }}-Spam
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/Spam"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Spam
 
-Channel Home-Trash
-Far :Home-remote:"[Gmail]/Trash"
-Near :Home-local:Home.Trash
+Channel {{ MailAcctCaps }}-Trash
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/Trash"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Trash
 
-Channel Home-All
-Far :Home-remote:"[Gmail]/All Mail"
-Near :Home-local:Home.Archive
+Channel {{ MailAcctCaps }}-All
+Far :{{ MailAcctCaps }}-remote:"[Gmail]/All Mail"
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.Archive
 
 # Catch-all for everything else: note that the `Patterns` have to exclude both
 # the remote and local names for all the folders we want to exclude (except
 # "INBOX", which is special-cased, it would seem).
-Channel Home-Default
-Far :Home-remote:
-Near :Home-local:Home.
+Channel {{ MailAcctCaps }}-Default
+Far :{{ MailAcctCaps }}-remote:
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}.
 Patterns *
 Patterns !INBOX
 Patterns ![Gmail]*
@@ -73,294 +78,33 @@ Patterns !Spam
 Patterns !Starred
 Patterns !Trash
 
-# For doing a quick sync of just the INBOX with `mbsync Home-Download`.
-Channel Home-Download
-Far :Home-remote:INBOX
-Near :Home-local:Home
+# For doing a quick sync of just the INBOX with `mbsync {{ MailAcctCaps }}-Download`.
+Channel {{ MailAcctCaps }}-Download
+Far :{{ MailAcctCaps }}-remote:INBOX
+Near :{{ MailAcctCaps }}-local:{{ MailAcctCaps }}
 Create Near
 Expunge Near
 Sync Pull
 
-# Lower-case "h" here to match "~/.imapfilter/home.lua" script name (see
+# Lower-case group name to match "~/.imapfilter/{{ MailAcct }}.lua" (see
 # "~/.mutt/scripts/sync.sh").
-Group home
-Channel Home-Home
-Channel Home-Drafts
-Channel Home-Sent
-Channel Home-Starred
-Channel Home-Spam
-Channel Home-Trash
-Channel Home-All
-Channel Home-Default
+Group {{ MailAcct }}
+Channel {{ MailAcctCaps }}-{{ MailAcctCaps }}
+Channel {{ MailAcctCaps }}-Drafts
+Channel {{ MailAcctCaps }}-Sent
+Channel {{ MailAcctCaps }}-Starred
+Channel {{ MailAcctCaps }}-Spam
+Channel {{ MailAcctCaps }}-Trash
+# {{% if slow-archive %}}
+Channel {{ MailAcctCaps }}-Default
 
-################################################################################
-#                                                                              #
-# work email account                                                           #
-#                                                                              #
-################################################################################
+# Large account: All Mail is kept out of the main group and synced hourly by
+# sync.sh via this group (the slow-archive flag in MailAccounts drives both).
+Group {{ MailAcct }}-archive
+Channel {{ MailAcctCaps }}-All
+# {{% else %}}
+Channel {{ MailAcctCaps }}-All
+Channel {{ MailAcctCaps }}-Default
+# {{% endif %}}
 
-IMAPAccount Work
-Host {{ WorkEmailHost }}
-User {{ WorkEmailUsername }}
-PassCmd "get-keychain-pass {{ WorkEmailKeychain }} {{ WorkEmailHost }}"
-CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
-TLSType IMAPS
-AuthMechs LOGIN
-# PipelineDepth 1
-
-IMAPStore Work-remote
-Account Work
-
-MaildirStore Work-local
-Path ~/.mail/Work/
-Inbox ~/.mail/Work/Work
-
-Channel Work-Work
-Far :Work-remote:INBOX
-Near :Work-local:Work
-
-Channel Work-Drafts
-Far :Work-remote:"[Gmail]/Drafts"
-Near :Work-local:Work.Drafts
-
-Channel Work-Sent
-Far :Work-remote:"[Gmail]/Sent Mail"
-Near :Work-local:Work.Sent
-
-Channel Work-Starred
-Far :Work-remote:"[Gmail]/Starred"
-Near :Work-local:Work.Starred
-
-Channel Work-Spam
-Far :Work-remote:"[Gmail]/Spam"
-Near :Work-local:Work.Spam
-
-Channel Work-Trash
-Far :Work-remote:"[Gmail]/Trash"
-Near :Work-local:Work.Trash
-
-Channel Work-All
-Far :Work-remote:"[Gmail]/All Mail"
-Near :Work-local:Work.Archive
-
-# Catch-all for everything else: note that the `Patterns` have to exclude both
-# the remote and local names for all the folders we want to exclude (except
-# "INBOX", which is special-cased, it would seem).
-Channel Work-Default
-Far :Work-remote:
-Near :Work-local:Work.
-Patterns *
-Patterns !INBOX
-Patterns ![Gmail]*
-Patterns !Archive
-Patterns !Drafts
-Patterns !Sent
-Patterns !Spam
-Patterns !Starred
-Patterns !Trash
-
-# For doing a quick sync of just the INBOX with `mbsync Work-Download`.
-Channel Work-Download
-Far :Work-remote:INBOX
-Near :Work-local:Work
-Create Near
-Expunge Near
-Sync Pull
-
-# Lower-case "w" here to match "~/.imapfilter/work.lua" script name (see
-# "~/.mutt/scripts/sync.sh").
-Group work
-Channel Work-Work
-Channel Work-Drafts
-Channel Work-Sent
-Channel Work-Starred
-Channel Work-Spam
-Channel Work-Trash
-Channel Work-Default
-
-Group work-archive
-Channel Work-All
-
-################################################################################
-#                                                                              #
-# desert email account                                                           #
-#                                                                              #
-################################################################################
-
-IMAPAccount Desert
-Host {{ DesertEmailHost }}
-User {{ DesertEmailUsername }}
-PassCmd "get-keychain-pass {{ DesertEmailKeychain }} {{ DesertEmailHost }}"
-CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
-TLSType IMAPS
-AuthMechs LOGIN
-
-IMAPStore Desert-remote
-Account Desert
-
-MaildirStore Desert-local
-Path ~/.mail/Desert/
-Inbox ~/.mail/Desert/Desert
-
-Channel Desert-Desert
-Far :Desert-remote:INBOX
-Near :Desert-local:Desert
-
-Channel Desert-Drafts
-Far :Desert-remote:"[Gmail]/Drafts"
-Near :Desert-local:Desert.Drafts
-
-Channel Desert-Sent
-Far :Desert-remote:"[Gmail]/Sent Mail"
-Near :Desert-local:Desert.Sent
-
-Channel Desert-Starred
-Far :Desert-remote:"[Gmail]/Starred"
-Near :Desert-local:Desert.Starred
-
-Channel Desert-Spam
-Far :Desert-remote:"[Gmail]/Spam"
-Near :Desert-local:Desert.Spam
-
-Channel Desert-Trash
-Far :Desert-remote:"[Gmail]/Trash"
-Near :Desert-local:Desert.Trash
-
-Channel Desert-All
-Far :Desert-remote:"[Gmail]/All Mail"
-Near :Desert-local:Desert.Archive
-
-# Catch-all for everything else: note that the `Patterns` have to exclude both
-# the remote and local names for all the folders we want to exclude (except
-# "INBOX", which is special-cased, it would seem).
-Channel Desert-Default
-Far :Desert-remote:
-Near :Desert-local:Desert.
-Patterns *
-Patterns !INBOX
-Patterns ![Gmail]*
-Patterns !Archive
-Patterns !Drafts
-Patterns !Sent
-Patterns !Spam
-Patterns !Starred
-Patterns !Trash
-
-# For doing a quick sync of just the INBOX with `mbsync Desert-Download`.
-Channel Desert-Download
-Far :Desert-remote:INBOX
-Near :Desert-local:Desert
-Create Near
-Expunge Near
-Sync Pull
-
-# Lower-case "d" here to match "~/.imapfilter/desert.lua" script name (see
-# "~/.mutt/scripts/sync.sh").
-Group desert
-Channel Desert-Desert
-Channel Desert-Drafts
-Channel Desert-Sent
-Channel Desert-Starred
-Channel Desert-Spam
-Channel Desert-Trash
-Channel Desert-All
-Channel Desert-Default
-
-################################################################################
-#                                                                              #
-# exchange work email account example                                          #
-#                                                                              #
-################################################################################
-
-#  IMAPAccount Work
-#  Host {{ WorkEmailHost }}
-#  User {{ WorkEmailUsername }}
-#  PassCmd "get-keychain-pass {{ WorkEmailKeychain }} {{ WorkEmailHost }}"
-#  CertificateFile {{ CONFIGDIR }}/assets/system_root_certificates.pem
-#  TLSType IMAPS
-#  AuthMechs LOGIN
-#  PipelineDepth 1
-#
-#  IMAPStore Work-remote
-#  Account Work
-#
-#  MaildirStore Work-local
-#  Path ~/.mail/Work/
-#  Inbox ~/.mail/Work/Work
-#  SubFolders Legacy
-#
-#  Channel Work-Work
-#  Far :Work-remote:INBOX
-#  Near :Work-local:Work
-#
-#  Channel Work-Sent
-#  Far :Work-remote:"Sent Items"
-#  Near :Work-local:Work.Sent
-#
-#  Channel Work-Spam
-#  Far :Work-remote:"Junk EMail"
-#  Near :Work-local:Work.Spam
-#
-#  Channel Work-Trash
-#  Far :Work-remote:"Deleted Items"
-#  Near :Work-local:Work.Trash
-#
-#  #Channel Work-Monitoring
-#  #Far :Work-remote:"Monitoring"
-#  #Near :Work-local:Work.Monitoring
-#  #
-#  #Channel Work-Services
-#  #Far :Work-remote:"Services"
-#  #Near :Work-local:Work.Services
-#  #
-#  #Channel Work-Vendors
-#  #Far :Work-remote:"Vendors"
-#  #Near :Work-local:Work.Vendors
-#
-#  # Catch-all for everything else: note that the `Patterns` have to exclude both
-#  # the remote and local names for all the folders we want to exclude (except
-#  # "INBOX", which is special-cased, it would seem).
-#  Channel Work-Default
-#  Far :Work-remote:
-#  Near :Work-local:Work.
-#  Patterns *
-#  Patterns !INBOX
-#  Patterns !"Deleted Items"
-#  Patterns !"Junk Email"
-#  Patterns !"Sent Items"
-#  Patterns !Monitoring
-#  Patterns !Services
-#  Patterns !Vendors
-#  Patterns !Archive1
-#  Patterns !Calendar*
-#  Patterns !Clutter
-#  Patterns !Contacts
-#  Patterns !Journal
-#  Patterns !Notes
-#  Patterns !Outbox
-#  Patterns !Sent
-#  Patterns !Spam
-#  Patterns !"Sync Issues*"
-#  Patterns !"Issues*"
-#  Patterns !Tasks
-#  Patterns !Trash
-#
-#  # For doing a quick sync of just the INBOX with `mbsync Work-Download`.
-#  Channel Work-Download
-#  Far :Work-remote:INBOX
-#  Near :Work-local:Work
-#  Create Near
-#  Expunge Near
-#  Sync Pull
-#
-#  # Lower-case "c" here to match "~/.imapfilter/Work.lua" script name (see
-#  # "~/.mutt/scripts/sync.sh").
-#  Group work
-#  Channel Work-Work
-#  Channel Work-Sent
-#  Channel Work-Spam
-#  Channel Work-Trash
-#  #Channel Work-Monitoring
-#  #Channel Work-Services
-#  #Channel Work-Vendors
-#  Channel Work-Default
+# {{% endforeach %}}

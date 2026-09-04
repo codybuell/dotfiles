@@ -1,0 +1,7 @@
+# GENERATED at deploy time from the MailAccounts key in .config (see
+# scripts/mailgen.py). One account per line: name caps go-key flags
+# Consumed by mailboxes.rb, control.sh, sync.sh, download.sh, and
+# tmux_window_name.sh so the account list lives in one place.
+# {{% foreach mailaccount %}}
+{{ MailAcct }} {{ MailAcctCaps }} {{ MailAcctKey }} {{ MailAcctFlags }}
+# {{% endforeach %}}

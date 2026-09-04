@@ -31,7 +31,13 @@ function setup_keychain_entry() {
   log green "Keychain entry created for ${acc_caps}"
 }
 
-for acc in "Home" "Work" "Desert"; do
+# accounts come from the MailAccounts .config key: name:go-key[:flags], csv
+IFS=',' read -ra SLOTS <<< "${MailAccounts}"
+for slot in "${SLOTS[@]}"; do
+  name="${slot%%:*}"
+  name="$(echo "$name" | tr -d '[:space:]')"
+  [[ -z "$name" ]] && continue
+  acc="$(tr '[:lower:]' '[:upper:]' <<< "${name:0:1}")${name:1}"
   echo -n "Do you want to setup ${acc}? [y/N]: "
   read -r reply
   if [[ "$reply" =~ ^[Yy]$ ]]; then

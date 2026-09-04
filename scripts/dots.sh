@@ -282,6 +282,16 @@ place_files() {
     # run custom commands as necessary
     pre_place_hooks "${i}"
 
+    # expand per-mail-account stanzas before variable substitution; the
+    # account list (MailAccounts) lives only in the encrypted .config so
+    # account names never appear in the public templates
+    if [ -n "${MailAccounts}" ]; then
+      grep -rl '{{% foreach mailaccount %}}' "${HOME}/.${i}.new.${DATE}" 2> /dev/null | \
+        while IFS= read -r MAILTEMPLATE; do
+          python3 "${CONFIGDIR}/scripts/mailgen.py" "${MAILTEMPLATE}" || exit 1
+        done
+    fi
+
     # build a single perl script with all config substitutions
     PERL_SCRIPT=""
     for c in ${CONFIGVARS[@]}; do

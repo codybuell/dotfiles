@@ -95,20 +95,23 @@ while true; do
     }
   }
 
-  # run work-archive only if it's the first 5 minutes of the hour
-  if [[ "$(date +%M)" -lt 5 && "$ACCOUNT" == "work" ]]; then
-    echo "${BLUE}Running mbsync work-archive:${NORM}"
+  # accounts flagged slow-archive in MailAccounts keep All Mail out of their
+  # main mbsync group; sync it via <account>-archive in the first 5 minutes
+  # of each hour instead (see ~/.mutt/accounts and scripts/mailgen.py)
+  FLAGS=$(awk -v a="$ACCOUNT" '!/^#/ && $1 == a { print $4 }' "$HOME/.mutt/accounts")
+  if [[ "$(date +%M)" -lt 5 && ",$FLAGS," == *",slow-archive,"* ]]; then
+    echo "${BLUE}Running mbsync $ACCOUNT-archive:${NORM}"
     echo
 
     [[ -f /etc/redhat-release ]] && {
-      time timeout 600 mbsync "work-archive" || {
-        notify-send "mbsync" "mbsync (work-archive) exited"
+      time timeout 600 mbsync "$ACCOUNT-archive" || {
+        notify-send "mbsync" "mbsync ($ACCOUNT-archive) exited"
         backoff
         continue
       }
     } || {
-      time gtimeout 600 mbsync "work-archive" || {
-        reattach-to-user-namespace terminal-notifier -title mbsync -message "mbsync (work-archive) exited"
+      time gtimeout 600 mbsync "$ACCOUNT-archive" || {
+        reattach-to-user-namespace terminal-notifier -title mbsync -message "mbsync ($ACCOUNT-archive) exited"
         backoff
         continue
       }

@@ -1,32 +1,30 @@
 #!/usr/bin/env ruby
 
-PRIORITY = {
-  'Home' => '00',
-  'Home.Starred' => '01',
-  'Home.Sent' => '02',
-  'Home.Drafts' => '03',
-  'Home.Archive' => '04',
-  'Home.Trash' => '05',
-  'Home.Spam' => '06',
-  'Work' => '00',
-  'Work.Starred' => '01',
-  'Work.Sent' => '02',
-  'Work.Drafts' => '03',
-  'Work.Archive' => '04',
-  'Work.Trash' => '05',
-  'Work.Spam' => '06',
-  'Desert' => '00',
-  'Desert.Starred' => '01',
-  'Desert.Sent' => '02',
-  'Desert.Drafts' => '03',
-  'Desert.Archive' => '04',
-  'Desert.Trash' => '05',
-  'Desert.Spam' => '06',
+# Account list comes from ~/.mutt/accounts (generated from the MailAccounts
+# .config key at deploy time): "name caps go-key flags" per line.
+accounts = File.readlines(ENV['HOME'] + '/.mutt/accounts')
+                .map(&:strip)
+                .reject { |l| l.empty? || l.start_with?('#') }
+                .map { |l| l.split[1] }
+
+SUFFIX_PRIORITY = {
+  '' => '00',
+  '.Starred' => '01',
+  '.Sent' => '02',
+  '.Drafts' => '03',
+  '.Archive' => '04',
+  '.Trash' => '05',
+  '.Spam' => '06',
 }
+
+PRIORITY = {}
+accounts.each do |account|
+  SUFFIX_PRIORITY.each { |suffix, pri| PRIORITY[account + suffix] = pri }
+end
 
 mailboxes = []
 Dir.chdir(ENV['HOME'] + '/.mail') do
-  Dir['{Home,Work,Desert}/*'].each do |d|
+  Dir["{#{accounts.join(',')}}/*"].each do |d|
     # Sent and Archive are append-only history, not queues; keep them out of
     # the sidebar (and the always-gold Archive noise with them) and reach
     # them with the gt / ga macros instead.
@@ -47,7 +45,7 @@ File.open(ENV['HOME'] + '/.mutt/config/mailboxes.mutt', 'w') do |f|
 
   # Pin account inboxes so they survive $sidebar_non_empty_mailbox_only when
   # emptied (inbox zero); everything else may hide itself at zero.
-  pins = %w[Home Work Desert].select do |account|
+  pins = accounts.select do |account|
     File.directory?(ENV['HOME'] + "/.mail/#{account}/#{account}")
   end
   unless pins.empty?

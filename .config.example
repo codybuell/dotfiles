@@ -113,8 +113,15 @@ WorkGitSignKey  = 1234567891234567891234567891234567891234
 ################################################################################
 
 
-DefaultEmailAccount = home                        # [work|home] case sensitive!
-DefaultEmailAccCaps = Home                        # [Work|Home] case sensitive!
+# Account slots: name:go-key[:flags], comma separated. Each name needs a
+# matching set of <Name>Email* keys below and an imapfilter rules file
+# (dotfiles/imapfilter/<name>.lua). go-key drives the mutt g<key> switch
+# macro. Flags: slow-archive = big account, sync All Mail hourly not every
+# cycle. Expanded into mbsyncrc/msmtprc/mutt configs by scripts/mailgen.py.
+MailAccounts        = home:h, work:w:slow-archive, other:o
+
+DefaultEmailAccount = home                        # matches a MailAccounts name
+DefaultEmailAccCaps = Home                        # same, capitalized
 DefaultEmailAddress = your@email.com
 
 # Home / Personal Email Account
@@ -125,13 +132,13 @@ HomeEmailUsername   = cody@codybuell.com
 HomeEmailAddress    = cody@codybuell.com
 HomeEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
-# Work Email Account
-WorkEmailSmtp       = smtp.gmail.com              # outgoing main server
-WorkEmailHost       = imap.gmail.com              # host & 'name' field in keychain
-WorkEmailKeychain   = you+mutt@workemail.com      # 'account' field in keychain
-WorkEmailUsername   = your@workemail.com
-WorkEmailAddress    = your@workemail.com
-WorkEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
+# Kion Email Account
+KionEmailSmtp       = smtp.gmail.com              # outgoing main server
+KionEmailHost       = imap.gmail.com              # host & 'name' field in keychain
+KionEmailKeychain   = you+mutt@workemail.com      # 'account' field in keychain
+KionEmailUsername   = your@workemail.com
+KionEmailAddress    = your@workemail.com
+KionEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
 # Desert Email Account
 DesertEmailSmtp     = smtp.gmail.com              # outgoing main server
@@ -267,7 +274,7 @@ PATH01 = {{ OSHomeRoot }}{{ OSUsername }}/Gists # github gists folder
 
                                                 # EMAIL
 PATH02 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Home # mutt mail directory
-PATH03 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Work # mutt mail directory
+PATH03 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Kion # mutt mail directory
 PATH09 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Desert # mutt mail directory
 
                                                 # VIRTUALIZATION

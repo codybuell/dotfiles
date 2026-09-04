@@ -1,3 +1,9 @@
 .config	diff=git-cipher	filter=git-cipher	merge=git-cipher
 dotfiles/ssh/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
 dotfiles/kube/config	diff=git-cipher	filter=git-cipher	merge=git-cipher
+# per-account imapfilter rules carry real addresses and account names; shared
+# helpers (common/util/config) stay public
+dotfiles/imapfilter/*.lua	diff=git-cipher	filter=git-cipher	merge=git-cipher
+dotfiles/imapfilter/common.lua	-diff	-filter	-merge
+dotfiles/imapfilter/util.lua	-diff	-filter	-merge
+dotfiles/imapfilter/config.lua	-diff	-filter	-merge

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# account names from ~/.mutt/accounts (generated from MailAccounts in .config)
+ACCOUNTS=$(awk '!/^#/ && NF { print $1 }' "$HOME/.mutt/accounts")
+
 ###########
 # Helpers #
 ###########
@@ -40,21 +43,21 @@ resume() {
 ###########
 
 pausing() {
-  pause "$HOME/.mutt/tmp/sync-home.pid"
-  pause "$HOME/.mutt/tmp/sync-work.pid"
-  pause "$HOME/.mutt/tmp/sync-desert.pid"
+  for a in $ACCOUNTS; do
+    pause "$HOME/.mutt/tmp/sync-$a.pid"
+  done
 }
 
 resuming() {
-  resume "$HOME/.mutt/tmp/sync-home.pid"
-  resume "$HOME/.mutt/tmp/sync-work.pid"
-  resume "$HOME/.mutt/tmp/sync-desert.pid"
+  for a in $ACCOUNTS; do
+    resume "$HOME/.mutt/tmp/sync-$a.pid"
+  done
 }
 
 syncing() {
-  "$HOME/.mutt/scripts/download.sh" home
-  "$HOME/.mutt/scripts/download.sh" work
-  "$HOME/.mutt/scripts/download.sh" desert
+  for a in $ACCOUNTS; do
+    "$HOME/.mutt/scripts/download.sh" "$a"
+  done
 }
 
 ##########
@@ -62,11 +65,11 @@ syncing() {
 ##########
 
 if [ $# -eq 1 ]; then
+  if echo "$ACCOUNTS" | grep -qx "$1"; then
+    "$HOME/.mutt/scripts/sync.sh" "$1" || reattach-to-user-namespace terminal-notifier -title mutt -message "$HOME/.mutt/scripts/sync.sh ($1) exited" Enter
+    exit 0
+  fi
   case $1 in
-    home|work|desert )
-      "$HOME/.mutt/scripts/sync.sh" "$1" || reattach-to-user-namespace terminal-notifier -title mutt -message "$HOME/.mutt/scripts/sync.sh ($1) exited" Enter
-      exit 0
-      ;;
     pause|paus|pau|pa|p )
       pausing
       exit 0
@@ -80,7 +83,7 @@ if [ $# -eq 1 ]; then
       exit 0
       ;;
     * )
-      echo "Unrecognized argument: $1 (supported arguments: home, work, desert, pause, resume)"
+      echo "Unrecognized argument: $1 (supported arguments: $(echo $ACCOUNTS | tr '\n' ' '), pause, resume, sync)"
       exit 1
       ;;
   esac

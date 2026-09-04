@@ -143,9 +143,17 @@ Encryption
 Sensitive files are tracked in git but stored encrypted using
 [git-cipher](https://github.com/wincent/git-cipher) (npm, v2) via git
 clean/smudge filters. Managed files are listed in `.gitattributes`:
-`.config`, `dotfiles/ssh/config`, and `dotfiles/kube/config`. Once
-unlocked, the worktree holds plaintext while git transparently stores
-ciphertext — no manual encrypt step, `git add` handles it.
+`.config`, `dotfiles/ssh/config`, `dotfiles/kube/config`, and the
+per-account imapfilter rules (`dotfiles/imapfilter/*.lua`, minus the
+shared helpers). Once unlocked, the worktree holds plaintext while git
+transparently stores ciphertext — no manual encrypt step, `git add`
+handles it.
+
+Mail accounts themselves are private configuration: the `MailAccounts`
+key in `.config` defines the account list (`name:go-key[:flags]`), and
+`scripts/mailgen.py` expands generic single-stanza templates
+(mbsyncrc, msmtprc, mutt hooks/macros) into per-account blocks at
+deploy time, so account names never appear in the public templates.
 
 ```bash
 npm install --global git-cipher

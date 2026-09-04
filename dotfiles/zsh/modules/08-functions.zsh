@@ -70,7 +70,7 @@ function tmux() {
 # .----------------------------------.    .----------------------------------.
 # |                                  |    |           |           |          |
 # |          1: neomutt              |    |           |           |          |
-# |                                  |    | 1. home   | 2. work   | 3.desert |
+# |                                  |    | 1..N: one sync pane per account  |
 # |----------------------------------|    |           |           |          |
 # |                    |             |    |           |           |          |
 # |    2. nvim home    |   3. zsh    |    |----------------------------------|
@@ -91,17 +91,24 @@ function home() {
       tmux send-keys -t HOME:home.2 'cd ~/Desktop; vi -c ":so ~/.config/nvim/sessions/home"' Enter
       tmux send-keys -t HOME:home.3 'cd ~/Desktop && clear' Enter
 
-      # build control window
+      # build control window: one sync pane per account in ~/.mutt/accounts
+      # (generated from the MailAccounts .config key) plus a controller pane
+      local accounts=(${(f)"$(awk '!/^#/ && NF { print $1 }' ~/.mutt/accounts)"})
       tmux new-window -t HOME: -c ~/.mutt -n control
       tmux set-window-option -t HOME:control automatic-rename off
       tmux set-window-option -t HOME:control monitor-activity off
-      tmux split-window -t HOME:control -h -l 66% -c ~/.mutt
-      tmux split-window -t HOME:control -h -l 50% -c ~/.mutt
+      local i
+      for i in {2..${#accounts}}; do
+        tmux split-window -t HOME:control -h -c ~/.mutt
+      done
+      tmux select-layout -t HOME:control even-horizontal
       tmux split-window -t HOME:control -v -l 8 -f -c ~/.mutt
-      tmux send-keys -t HOME:control.1 '~/.mutt/scripts/control.sh home' Enter
-      tmux send-keys -t HOME:control.2 '~/.mutt/scripts/control.sh work' Enter
-      tmux send-keys -t HOME:control.3 '~/.mutt/scripts/control.sh desert' Enter
-      tmux send-keys -t HOME:control.4 '~/.mutt/scripts/control.sh' Enter
+      i=1
+      for acct in "${accounts[@]}"; do
+        tmux send-keys -t HOME:control.$i "~/.mutt/scripts/control.sh $acct" Enter
+        i=$((i + 1))
+      done
+      tmux send-keys -t HOME:control.$i '~/.mutt/scripts/control.sh' Enter
 
       ## attach to home session, home window, shell pane
       tmux -u attach -t HOME:home.3

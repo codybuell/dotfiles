@@ -1,49 +1,44 @@
-dofile(os.getenv('HOME') .. '/.imapfilter/common.lua')
-
-local me = '{{ DesertEmailUsername }}'
-local password = get_pass('{{ DesertEmailKeychain }}', '{{ DesertEmailHost }}')
-
-function connect()
-  return IMAP {
-    server = '{{ DesertEmailHost }}',
-    port = 993,
-    username = me,
-    password = password,
-    ssl = 'auto',
-  }
-end
-
-function run()
-
-  -- NOTE: Beware the use of contain_field when talking to an MS server; it is
-  -- totally unreliable, so must use the slower match_field match_from() or
-  -- match_to() methods. See:
-  --
-  -- - https://github.com/lefcha/imapfilter/issues/14
-  -- - https://github.com/lefcha/imapfilter/issues/33
-
-  local desert = connect()
-  inbox      = desert.INBOX
-  allmail    = desert['[Gmail]/All Mail']
-
-  --
-  -- Rules
-  --
-
-  -- vip senders: flag so they stand out in the index
-  flag_vips('{{ DesertEmailVips }}')
-
-  -- github personal action notifications
-  archive_and_mark_read('github personal activity', (function()
-    local own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')
-    return own + github_related(own)
-  end))
-end
-
-if os.getenv('ONCE') then
-  print 'ONCE is set: running once.'
-  run_and_log_time(run)
-else
-  print 'Looping, to run once set ONCE.'
-  forever(run, 60)
-end
+magic = dev.wincent.git-cipher
+url = https://github.com/wincent/git-cipher/blob/main/PROTOCOL.md
+version = 2
+algorithm = aes-256-cbc
+filename = "dotfiles/imapfilter/desert.lua"
+iv = d178789484141140f69d7d95ba188c04
+ciphertext =
+061a1b1d67274074313e04a8a97f56af247c0dac9376d0685bbe4cd3b6d97e348490e055
+bb18b2473ca86c4d18e05162558ef3381606e56bdc792d3cee0da394975b4ed0a0c4ad6d
+2ff822f30774ecdeb04fc1d8686d4d2bef9447d4e3be5931087c39af3e57461bbc494ef7
+ab17e1dfd6d413a334f64df32087b29a8b7bd7f763401336696a61b90f33bb403d54c38e
+5c99c216192954f4c243daea6974429d7c02fb2e298b6b6566fa1691aa563453e7eab5d7
+e66e1617198b4c48df409944c7091b9b1d0f521bb8155acdb5593dae78faa4e8bf0b75e7
+6e0c25479d48f29a35c82d12dd950e9cf63710d51931ae310496c7656d8f6efa100acf1c
+7cda1b63f11e471728f7f79d4026d866daca05f17adbae6341d509366fd7e379c73b46f9
+f5a9e5a6146556fcc6ce2abc11a98291e9d9b3a35220c36c2c3f04599e8ceb760e911f57
+c26c259dfb206bb80d804fdfdb88021e651d1269c22b255fa3cef4d5f4b72761dc2f7022
+e73e1089ee2ccb800580f0610af48867244054170efddf97ad27bf1c14c2d4e0f6d69c4e
+acbc2269fec29515beda7d09c9afb6cde1c9af7316f8a7db65b4956625723ce3f37e62bf
+3aaf1ce0f83f2d52112f2649596d29ebf59c801d29406e2296bb8cfcd311942f3d5f8c41
+bbab1e59296e966e69b80bccfa9630f0a82f650e925137d2462cbfb0f6d317fbc0d61949
+abbbb5127bc9c0c2274a22c65f4d80f99b9494a85b73ce7e721a689b18ce920dde83331a
+7624bb87323534f030b34f075c6fc4ac140f3dd7eb623e1dc288ef01f8c15308ba4b7705
+5bb685b762faf746ead63fb8585c550726196cefef653546d894c2b6ce44d316103d87e9
+2190f9a64e32d5f5bcf0ebc0eb85466bb2cf16d74ac6d7e5b9c709674ee1537bd5f07d8b
+c9ca800e21d93870af8f3bfb0a659b2dfd33dfb0972c3ca333ee80821f05c430c5813d5b
+1c7ef3a3483a0a22ac8e1fc107fa24770f5d0f7bc549779551b50baca7dcc4ef4b9ba7b8
+6986959a49099756160ab6084301f34cf86b66baac06eacad50f7dfd04f890b48e9a2f0c
+fd2ed2297012cd8559e6fdc1372c1be9e11ca82780f7485a594537de73258ba0b58b752b
+8a8aa9ffee7f131c788f320e44ab15ad39f6412fac32ad8fb372f48e5be801efea6e3d2f
+30c4ebfffb1b36c894b0ee12646a3b9bfe773238afd21a5796e0230336e845a1de2b2cef
+a5bafd212af028a27ae6c35676036e2577295d7d42167aa2c5819b181fabe9262928856e
+3d254570d20ef54531f2fc27703fc1fdc6e8eb7c4c556c2a3e7170278d254a2a6eb48f56
+6464a9a5f45ceb17aa180a514208a74cb7f8fc9bbf0973059635aac3f268c5eb50eb3f34
+71c062eec9bf997040029ee8f32035463c7366fcd647b69c088dd31bd002647e1f74b189
+72067c5ea37db1e441b759d213eb7993890bd970cea9bbcce4608241606d986eb079cf94
+9d827f5d30827ee8dc0734cc22e70c842b819dab458f18d75f8e2cfb97543602af019d45
+e703bc05d4a88e4117c7ff765d899d72de146b4b391605fe73acbdf291bd8fff7148ae97
+df4d992aa5151ef8d4a8f2afad082acca843969f1d95c79ca01c7c2a1485b00b0756e51f
+a9704727cfb829bdd686e6f9ddca106b291e1fa4ad01ddbb97bd9fe9bcdcf594c87291b0
+b4a14866795fa5d62e96e71278b3e44b289b9a1bf96e96925e7f782a787953a59dd16295
+2ec9ab6b38df9848a8ad134989633e9dce47d473271094ed3ac552e50205cd9d048f522b
+ddd18af0
+hmac = fcb2d7e139a946335dd488242815bf5f606c2db9cf8d48ba9a53b1684de3898b
