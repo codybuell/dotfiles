@@ -19,13 +19,15 @@ color indicator default color237                  # current selection
 color tree color4 default                         # arrow in threads
 
 color index color246 default '~A'                 # all - entire index line
-color index_number color237 default               # all - index number column
-color index_size color237 default                 # all - message size column
+# dim columns sit a step above the color237 indicator bar so they stay
+# legible when the selection overlays them (cursor_overlay preserves fg)
+color index_number color240 default               # all - index number column
+color index_size color240 default                 # all - message size column
 color index_date color4 default                   # all - index date column
 color index_collapsed brightcolor1 default        # all - number of folded messages
 
-color index color237 default '~D'                 # deleted - all messages
-color index_author color237 default '~D'          # deleted - author column
+color index color240 default '~D'                 # deleted - all messages
+color index_author color240 default '~D'          # deleted - author column
 
 color index color255 default '~U'                 # unread - all messages
 color index_author color1 default '~U'            # unread - author column
