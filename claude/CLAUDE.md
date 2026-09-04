@@ -6,6 +6,12 @@
 - **No Fluff:** Skip intros, outros, and pleasantries.
 - **No Filler Words** ("basically", "actually", "just").
 
+# DOTFILES
+Repo: `~/Repos/github.com/codybuell/dotfiles`. Its `dotfiles/` folder holds
+templated versions of configs deployed to `~` (e.g. `dotfiles/config/tmux/tmux.conf`
+→ `~/.config/tmux/tmux.conf`). When editing a deployed config, mirror the change
+in the repo's template or it will be lost on next deploy.
+
 # GIT COMMITS
 Follow tpope's standard (https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 Matches `~/.config/nvim/ftplugin/gitcommit.lua`, which sets `cc = {51, 73}`.
