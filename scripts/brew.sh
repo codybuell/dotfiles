@@ -120,6 +120,7 @@ CASKS=( \
   'android-commandlinetools' \        # android development
   'bartender' \                       # tool for simplifying the menubar
   'claude-code' \                     # anthropic agentic coding cli
+  'codex' \                           # openai cli tool
   'bitwarden' \                       # password / secret management
   'blender' \                         # 3d cad software
   'cubicsdr' \                        # good sdr dongle front end
