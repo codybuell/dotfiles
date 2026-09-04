@@ -207,6 +207,13 @@ fonts:
 commands:
 	@source scripts/library.sh && read_config && cd && run_commands
 
+nvim-reset:
+	@echo "removing ~/.local/share/nvim (shada, treesitter parsers, plugin data)"
+	rm -rf ~/.local/share/nvim
+	@echo "removing ~/.local/state/nvim"
+	rm -rf ~/.local/state/nvim
+	@echo "nvim runtime state cleared; parsers reinstall on next launch"
+
 cron:
 	@(crontab -l 2>/dev/null; echo "*/5 * * * * /Users/pbuell/.zsh/bin/repo_profiler.py") | crontab -
 

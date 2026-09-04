@@ -206,16 +206,11 @@ post_place_hooks() {
         if command -v nvim >/dev/null 2>&1; then
           NVIMPATH=$(command -v nvim)
 
-          # Run cleanup operations in parallel
-          {
-            rm -rf "${HOME}"/.local/share/nvim
-            rm -rf "${HOME}"/.local/state/nvim
-          } &
-          {
-            rm -rf "${HOME}"/.config/nvim/spell
-            ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
-          } &
-          wait
+          # note: deploys no longer wipe ~/.local/share/nvim or
+          # ~/.local/state/nvim (shada, treesitter parsers, undo); use
+          # `make nvim-reset` when stale runtime state actually needs it
+          rm -rf "${HOME}"/.config/nvim/spell
+          ln -s "${DOTS_LOC}"/config/nvim/spell "${HOME}"/.config/nvim/spell
 
           # generate helptags for all plugins
           ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1 &
