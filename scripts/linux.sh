@@ -36,13 +36,17 @@
 #            Make configurations idempotent
 #
 #   ADTOOL:
-#     cp dotfiles/miscellaneous/adtool-1.3.3.tar.gz -> somewhere, untar
+#     cp assets/applications/adtool-1.3.3.tar.gz -> somewhere, untar
 #     cd into dir
 #     ./configure && make
 #     sudo make install
 #
 #   Valet linux:
 #
+
+# source the library (CONFIGDIR, DOTS_LOC, holdsudo, log, read_config, etc)
+# shellcheck source=./library.sh
+source "${BASH_SOURCE%/*}/library.sh"
 
 ################
 #              #
@@ -58,12 +62,6 @@ holdsudo
 #   Establish Variables   #
 #                         #
 ###########################
-
-# define locations
-CONFGDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../ && pwd )"
-DOTS_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &&  cd ../dotfiles && pwd )"
-DOTFILES=(`ls $DOTS_LOC`)
-UNAME=`uname -s`
 
 # commonly named packages
 INSTALL='
@@ -236,7 +234,7 @@ package_check() {
   MISSING_PKGS=''
   if [ $FAMILY == "el" ]; then
     for i in $PKGS_TO_CHECK; do
-      if [ "`rpm -qi zlib | grep Name | awk '{print $3}'`" != "$i" ]; then
+      if [ "`rpm -qi $i | grep Name | awk '{print $3}'`" != "$i" ]; then
         MISSING_PKGS+=" $i"
       fi
     done
@@ -252,30 +250,6 @@ package_check() {
       echo " - $i"
     done
   fi
-}
-
-readconfig() {
-  CONFIGVARS=()
-  shopt -s extglob
-  configfile="$CONFGDIR/.config"
-  [[ -e $configfile ]] && {
-    tr -d '\r' < $configfile > $configfile.tmp
-    while IFS='= ' read -r lhs rhs; do
-      if [[ ! $lhs =~ ^\ *# && -n $lhs ]]; then
-        rhs="${rhs%%\#*}"    # del in line right comments
-        rhs="${rhs%%*( )}"   # del trailing spaces
-        rhs="${rhs%\"*}"     # del opening string quotes
-        rhs="${rhs#\"*}"     # del closing string quotes
-        export $lhs="$rhs"
-        CONFIGVARS+="$lhs "
-      fi
-    done < $configfile.tmp
-    export CONFIGVARS
-  } || {
-    printf "\033[0;31mno configuration file detected\033[0m\n"
-    exit 1
-  }
-  rm $configfile.tmp
 }
 
 ###############################
@@ -501,7 +475,7 @@ buildnewsbeuter() {
   printf "\033[0;31mbuilding newsbeuter:\033[0m\n"
 
   # set the full path to repos, no ~/'s
-  TPATH="`echo $1 | sed "s@~@$HOME@"`/vim"
+  TPATH="`echo $1 | sed "s@~@$HOME@"`/newsbeuter"
   # if already there get the latest
   if [ -d $TPATH ]; then
     cd $TPATH
@@ -597,9 +571,9 @@ setregiontous() {
 configurefonts() {
   printf "\033[0;31mloading custom fonts:\033[0m\n"
 
-  cd $CONFGDIR
+  cd "$CONFIGDIR"
   mkdir -p $HOME/.local/share/fonts
-  find fonts -type f -name \*.otf -exec cp {} $HOME/.local/share/fonts/ \;
+  find assets/fonts -type f -name \*.otf -exec cp {} $HOME/.local/share/fonts/ \;
 
   if [ $FAMILY = 'el' ]; then
 
@@ -680,8 +654,11 @@ importdconf() {
 
   printf "\033[0;31mloading dconf:\033[0m\n"
 
+  cd "$CONFIGDIR"
+
   # place file dependencies
-  cp miscellaneous/wallpaper.jpg ~/Pictures/wallpaper.jpg
+  mkdir -p ~/Pictures
+  cp assets/wallpaper.jpg ~/Pictures/wallpaper.jpg
 
   # reset
   dconf reset -f /org/gnome/terminal/legacy/profiles:/
@@ -825,8 +802,9 @@ buildsymlinks() {
 placeautostarts() {
   printf "\033[0;31mplacing autostart files:\033[0m\n"
 
-  cd $CONFGDIR
-  find autostart -type f -name \*.desktop$ -exec cp {} $HOME/.config/autostart/ \;
+  cd "$CONFIGDIR"
+  mkdir -p $HOME/.config/autostart
+  find assets/autostart -type f -name \*.desktop -exec cp {} $HOME/.config/autostart/ \;
 }
 
 ##############
@@ -835,7 +813,7 @@ placeautostarts() {
 #            #
 ##############
 
-readconfig
+read_config
 addcustomrepos
 package_remove $REMOVE
 package_install $INSTALL

@@ -76,7 +76,8 @@ default:
 	    $(B)$(BLU)go$(NRM)              $(BLU)install required go packages$(NRM)\n\
 	    $(B)$(BLU)pip$(NRM)             $(BLU)install required pip packages$(NRM)\n\
 	    $(B)$(BLU)karabiner$(NRM)       $(BLU)install generate karabiner config and place$(NRM)\n\
-	    $(B)$(BLU)osx$(NRM)             $(BLU)install brew and brew managed packages$(NRM)\n\
+	    $(B)$(BLU)osx$(NRM)             $(BLU)apply macos system settings$(NRM)\n\
+	    $(B)$(BLU)linux$(NRM)           $(BLU)configure a linux (el/debian) system$(NRM)\n\
 	    $(B)$(BLU)fonts$(NRM)           $(BLU)install fonts located in assets/fonts/*$(NRM)\n\
 	    $(B)$(BLU)commands$(NRM)        $(BLU)run commands as defined in .config$(NRM)\n\n\
 	\
@@ -196,6 +197,9 @@ karabiner:
 
 osx:
 	scripts/osx.sh
+
+linux:
+	scripts/linux.sh
 
 fonts:
 	scripts/fonts.sh
