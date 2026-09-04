@@ -290,6 +290,9 @@ PATH07 = {{ OSHomeRoot }}{{ OSUsername }}/Sources # third party repos (go get...
                                                 # CLAUDE CODE
 PATH08 = {{ OSHomeRoot }}{{ OSUsername }}/.claude # claude code config dir
 
+                                                # CODEX CLI
+PATH10 = {{ OSHomeRoot }}{{ OSUsername }}/.codex # codex cli config dir
+
 
 ################################################################################
 #                                                                              #
@@ -319,6 +322,7 @@ SYMLINK05 = {{ CONFIGDIR }}/claude/settings.json:{{ OSHomeRoot }}{{ OSUsername }
 SYMLINK06 = {{ CONFIGDIR }}/claude/hooks:{{ OSHomeRoot }}{{ OSUsername }}/.claude/hooks
 SYMLINK07 = {{ CONFIGDIR }}/claude/commands:{{ OSHomeRoot }}{{ OSUsername }}/.claude/commands
 SYMLINK08 = {{ CONFIGDIR }}/claude/CLAUDE.md:{{ OSHomeRoot }}{{ OSUsername }}/.claude/CLAUDE.md
+SYMLINK09 = {{ CONFIGDIR }}/codex/config.toml:{{ OSHomeRoot }}{{ OSUsername }}/.codex/config.toml
 
 
 ################################################################################

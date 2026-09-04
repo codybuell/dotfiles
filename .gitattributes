@@ -7,3 +7,5 @@ dotfiles/imapfilter/*.lua	diff=git-cipher	filter=git-cipher	merge=git-cipher
 dotfiles/imapfilter/common.lua	-diff	-filter	-merge
 dotfiles/imapfilter/util.lua	-diff	-filter	-merge
 dotfiles/imapfilter/config.lua	-diff	-filter	-merge
+# codex accumulates [projects] trust entries carrying real repo paths
+codex/config.toml	diff=git-cipher	filter=git-cipher	merge=git-cipher

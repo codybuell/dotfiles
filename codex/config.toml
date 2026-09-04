@@ -1,0 +1,13 @@
+magic = dev.wincent.git-cipher
+url = https://github.com/wincent/git-cipher/blob/main/PROTOCOL.md
+version = 2
+algorithm = aes-256-cbc
+filename = "codex/config.toml"
+iv = 23e41caf8c6f20d9ffb97b199e90d217
+ciphertext =
+81554714dbc788c33f78cee093dc87d60db32479bfa80df4e36912a51169cff680e8d7de
+05dbaf7872640a9c16e4559ab1a678801f050b39addd701d9bbd72387b35fd25d06bf07e
+22b746da20acdd0abd2c3011f5d79089cc296800270cddeecf4401bb87e3a52c7dbf1346
+2bef798b2086d2fa27142565b16ed72ebcb62674f01989a8f180308796e2d68387f46062
+4daf79acb938188377a79a33832ebaf4eeddd5c7da8ea2338fd2d6452930675f
+hmac = fabd956147c212680707cdcc4f65efacb4d82fe51d893d99416acaa5bfe00236
