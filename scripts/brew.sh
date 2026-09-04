@@ -159,8 +159,9 @@ SERVICES=( \
 )
 
 TAPS=( \
-  'anchore/grype:grype' \             # container scanning utility
-  'alt-romes/pcalc:pcalc' \           # visual binary calculator
+  'anchore/grype:grype' \                     # container scanning utility
+  'alt-romes/pcalc:pcalc' \                   # visual binary calculator
+  'hashicorp/tap:hashicorp/tap/terraform' \   # terraform
 )
 
 ###############################################################################
