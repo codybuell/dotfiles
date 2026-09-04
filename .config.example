@@ -344,24 +344,6 @@ SYMLINK08 = {{ CONFIGDIR }}/claude/CLAUDE.md:{{ OSHomeRoot }}{{ OSUsername }}/.c
 
 ################################################################################
 #                                                                              #
-#  Environment Variables                                                       #
-#                                                                              #
-#  Targets: `make dots shell`                                                  #
-#                                                                              #
-#  Here you can setup any number of environment variables that will be         #
-#  added to ~/.shell/exports. The format is ENVVAR_[YOUR ENV VAR].  For        #
-#  example:                                                                    #
-#                                                                              #
-#    ENVVAR_FOO = BAR     # this will export FOO to BAR                        #
-#                                                                              #
-################################################################################
-
-
-#ENVVAR_FOO = BAR
-
-
-################################################################################
-#                                                                              #
 # Commands                                                                     #
 #                                                                              #
 # Targets: `make commands`                                                     #

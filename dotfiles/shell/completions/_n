@@ -1,5 +1,0 @@
-#compdef n
-
-# -W specifies path prefixes are to be prepended
-NOTEPATH=$(echo {{ Notes }})
-_files -W $NOTEPATH/

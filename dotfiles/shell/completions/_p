@@ -1,5 +1,0 @@
-#compdef p
-
-# -W specifies path prefixes are to be prepended
-PROJPATH=$(echo {{ Projects }} | sed 's/\\//g')
-_files -W $PROJPATH/

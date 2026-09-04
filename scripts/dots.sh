@@ -47,7 +47,6 @@ FORCE=false
 TEMPLATEEXCLUDES=( \
   "-name *.DS_Store" \
   "-path *.mutt*/scripts/vendor/*" \
-  "-path *.zsh*/plugins/base16-shell/*" \
   "-path *nvim*/bundles/*" \
   "-path *nvim*/pack/*" \
   "-path *nvim*/tmp/*" \
@@ -153,16 +152,6 @@ pre_place_hooks() {
       cd scripts > /dev/null || exit 1
       bundle install
       cd - > /dev/null || exit 1
-      ;;
-    shell )
-      # place dynamic environment variables from config
-      echo "" >> exports
-      echo "### CONFIG DRIVEN VARS ###" >> exports
-      for e in "${ENVVARS[@]}"; do
-        VAR="${e//ENVVAR_/}"
-        eval VAL="\$$e"
-        echo "export ${VAR}=${VAL}" >> exports
-      done
       ;;
   esac
 

@@ -1,4 +1,0 @@
-#compdef color
-
-#_values 'description' 'value1' 'value2' ...
-_values 'colors' $(color ls) help ls

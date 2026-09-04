@@ -1,2 +1,0 @@
-# don't export CDPATH, it can cause problems with scripts
-CDPATH=.:~:{{ Repos }}/github.com/{{ GitUsername }}:{{ CDPath }}

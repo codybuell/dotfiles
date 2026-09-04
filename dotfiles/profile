@@ -1,8 +1,0 @@
-case `basename $SHELL` in
-  bash )
-    . ~/.bashrc
-    ;;
-  zsh )
-    . ~/.zshrc
-    ;;
-esac
