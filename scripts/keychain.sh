@@ -31,7 +31,7 @@ function setup_keychain_entry() {
   log green "Keychain entry created for ${acc_caps}"
 }
 
-for acc in "Home" "Work" "Proj"; do
+for acc in "Home" "Work" "Desert"; do
   echo -n "Do you want to setup ${acc}? [y/N]: "
   read -r reply
   if [[ "$reply" =~ ^[Yy]$ ]]; then

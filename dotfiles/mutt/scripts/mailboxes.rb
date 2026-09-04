@@ -15,18 +15,18 @@ PRIORITY = {
   'Work.Archive' => '04',
   'Work.Trash' => '05',
   'Work.Spam' => '06',
-  'Proj' => '00',
-  'Proj.Starred' => '01',
-  'Proj.Sent' => '02',
-  'Proj.Drafts' => '03',
-  'Proj.Archive' => '04',
-  'Proj.Trash' => '05',
-  'Proj.Spam' => '06',
+  'Desert' => '00',
+  'Desert.Starred' => '01',
+  'Desert.Sent' => '02',
+  'Desert.Drafts' => '03',
+  'Desert.Archive' => '04',
+  'Desert.Trash' => '05',
+  'Desert.Spam' => '06',
 }
 
 mailboxes = []
 Dir.chdir(ENV['HOME'] + '/.mail') do
-  Dir['{Home,Work,Proj}/*'].each do |d|
+  Dir['{Home,Work,Desert}/*'].each do |d|
     # Sent and Archive are append-only history, not queues; keep them out of
     # the sidebar (and the always-gold Archive noise with them) and reach
     # them with the gt / ga macros instead.
@@ -47,7 +47,7 @@ File.open(ENV['HOME'] + '/.mutt/config/mailboxes.mutt', 'w') do |f|
 
   # Pin account inboxes so they survive $sidebar_non_empty_mailbox_only when
   # emptied (inbox zero); everything else may hide itself at zero.
-  pins = %w[Home Work Proj].select do |account|
+  pins = %w[Home Work Desert].select do |account|
     File.directory?(ENV['HOME'] + "/.mail/#{account}/#{account}")
   end
   unless pins.empty?

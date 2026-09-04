@@ -9,8 +9,8 @@ if [ $1 = "work" ]; then
   SYNC="Work-Download"
 elif [ $1 = "home" ]; then
   SYNC="Home-Download"
-elif [ $1 = "proj" ]; then
-  SYNC="Proj-Download"
+elif [ $1 = "desert" ]; then
+  SYNC="Desert-Download"
 else
   echo "error: unrecognized account handle: $1."
   exit 1

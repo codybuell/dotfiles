@@ -6,22 +6,22 @@ macro index,pager gi "<change-folder>!<enter><redraw-screen>" "go to inbox"
 macro index,pager ga "<change-folder>><enter><redraw-screen>" "go to all mail"
 macro index,pager gs "<change-folder>!.Starred<enter><redraw-screen>" "go to starred messages"
 macro index,pager gt "<change-folder>!.Sent<enter><redraw-screen>" "go to Sent Mail"
-macro index,pager gd "<change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
+macro index,pager gD "<change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
 macro index,pager gl "<change-folder>?<toggle-mailboxes><redraw-screen>" "go to 'Label'"
 macro browser gi "<exit><change-folder>!<enter><redraw-screen>" "go to inbox"
 macro browser ga "<exit><change-folder>><enter><redraw-screen>" "go to all mail"
 macro browser gs "<exit><change-folder>!.Starred<enter><redraw-screen>" "go to starred messages"
 macro browser gt "<exit><change-folder>!.Sent<enter><redraw-screen>" "go to Sent Mail"
-macro browser gd "<exit><change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
+macro browser gD "<exit><change-folder>!.Drafts<enter><redraw-screen>" "go to drafts"
 macro browser gl "<exit><change-folder>?<toggle-mailboxes><redraw-screen>" "go to 'Label'"
 
 # These ones not standard Gmail.
 macro index,pager gh "<change-folder>+Home/Home<enter>" "go home"
 macro index,pager gw "<change-folder>+Work/Work<enter>" "go work"
-macro index,pager gp "<change-folder>+Proj/Proj<enter>" "go proj"
+macro index,pager gd "<change-folder>+Desert/Desert<enter>" "go desert"
 macro browser gh "<exit><change-folder>+Home/Home<enter>" "go home"
 macro browser gw "<exit><change-folder>+Work/Work<enter>" "go work"
-macro browser gp "<exit><change-folder>+Proj/Proj<enter>" "go proj"
+macro browser gd "<exit><change-folder>+Desert/Desert<enter>" "go desert"
 
 # "Smart" equivalent to `set resolve = yes`: see "{next,previous}.mutt" for
 # info.

@@ -1,11 +1,11 @@
 dofile(os.getenv('HOME') .. '/.imapfilter/common.lua')
 
-local me = '{{ ProjEmailUsername }}'
-local password = get_pass('{{ ProjEmailKeychain }}', '{{ ProjEmailHost }}')
+local me = '{{ DesertEmailUsername }}'
+local password = get_pass('{{ DesertEmailKeychain }}', '{{ DesertEmailHost }}')
 
 function connect()
   return IMAP {
-    server = '{{ ProjEmailHost }}',
+    server = '{{ DesertEmailHost }}',
     port = 993,
     username = me,
     password = password,
@@ -22,16 +22,16 @@ function run()
   -- - https://github.com/lefcha/imapfilter/issues/14
   -- - https://github.com/lefcha/imapfilter/issues/33
 
-  local proj = connect()
-  inbox      = proj.INBOX
-  allmail    = proj['[Gmail]/All Mail']
+  local desert = connect()
+  inbox      = desert.INBOX
+  allmail    = desert['[Gmail]/All Mail']
 
   --
   -- Rules
   --
 
   -- vip senders: flag so they stand out in the index
-  flag_vips('{{ ProjEmailVips }}')
+  flag_vips('{{ DesertEmailVips }}')
 
   -- github personal action notifications
   archive_and_mark_read('github personal activity', (function()

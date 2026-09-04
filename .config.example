@@ -133,13 +133,13 @@ WorkEmailUsername   = your@workemail.com
 WorkEmailAddress    = your@workemail.com
 WorkEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
-# Proj Email Account
-ProjEmailSmtp       = smtp.gmail.com              # outgoing main server
-ProjEmailHost       = imap.gmail.com              # host & 'name' field in keychain
-ProjEmailKeychain   = you+mutt@othersite.com      # 'account' field in keychain
-ProjEmailUsername   = you@othersite.com
-ProjEmailAddress    = you@othersite.com
-ProjEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
+# Desert Email Account
+DesertEmailSmtp     = smtp.gmail.com              # outgoing main server
+DesertEmailHost     = imap.gmail.com              # host & 'name' field in keychain
+DesertEmailKeychain = you+mutt@othersite.com      # 'account' field in keychain
+DesertEmailUsername = you@othersite.com
+DesertEmailAddress  = you@othersite.com
+DesertEmailVips     = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
 
 ################################################################################
@@ -268,7 +268,7 @@ PATH01 = {{ OSHomeRoot }}{{ OSUsername }}/Gists # github gists folder
                                                 # EMAIL
 PATH02 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Home # mutt mail directory
 PATH03 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Work # mutt mail directory
-PATH09 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Proj # mutt mail directory
+PATH09 = {{ OSHomeRoot }}{{ OSUsername }}/.mail/Desert # mutt mail directory
 
                                                 # VIRTUALIZATION
 PATH04 = {{ OSHomeRoot }}{{ OSUsername }}/Machines # vm data directory
