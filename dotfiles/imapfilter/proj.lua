@@ -30,6 +30,9 @@ function run()
   -- Rules
   --
 
+  -- vip senders: flag so they stand out in the index
+  flag_vips('{{ ProjEmailVips }}')
+
   -- github personal action notifications
   archive_and_mark_read('github personal activity', (function()
     local own = inbox:match_field('X-GitHub-Sender', '{{ GitUsername }}')

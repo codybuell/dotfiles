@@ -123,6 +123,7 @@ HomeEmailHost       = imap.gmail.com              # host & 'name' field in keych
 HomeEmailKeychain   = cody+mutt@codybuell.com     # 'account' field in keychain
 HomeEmailUsername   = cody@codybuell.com
 HomeEmailAddress    = cody@codybuell.com
+HomeEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
 # Work Email Account
 WorkEmailSmtp       = smtp.gmail.com              # outgoing main server
@@ -130,6 +131,7 @@ WorkEmailHost       = imap.gmail.com              # host & 'name' field in keych
 WorkEmailKeychain   = you+mutt@workemail.com      # 'account' field in keychain
 WorkEmailUsername   = your@workemail.com
 WorkEmailAddress    = your@workemail.com
+WorkEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
 # Proj Email Account
 ProjEmailSmtp       = smtp.gmail.com              # outgoing main server
@@ -137,6 +139,7 @@ ProjEmailHost       = imap.gmail.com              # host & 'name' field in keych
 ProjEmailKeychain   = you+mutt@othersite.com      # 'account' field in keychain
 ProjEmailUsername   = you@othersite.com
 ProjEmailAddress    = you@othersite.com
+ProjEmailVips       = vip1@email.com,vip2@email.com # comma separated, imapfilter flags mail from these senders
 
 
 ################################################################################

@@ -40,6 +40,24 @@ function flag(description, matcher)
   messages:mark_flagged()
 end
 
+-- VIP senders: flag mail from these people on arrival so it stands out in
+-- the index and survives the bulk-mail sweep (which skips flagged mail).
+-- Takes a comma separated address list so the real addresses can live in
+-- the encrypted .config rather than this public template. Only touches
+-- unflagged mail, so manually un-starring a message sticks.
+function flag_vips(vip_csv)
+  if vip_csv:find('{{', 1, true) then return end  -- key not templated
+  local matches = nil
+  for addr in string.gmatch(vip_csv, '[^,%s]+') do
+    local m = inbox:contain_from(addr)
+    matches = matches and (matches + m) or m
+  end
+  if matches == nil then return end
+  flag('vip mail', (function()
+    return matches:is_unflagged()
+  end))
+end
+
 --
 -- Shared collectors (reference global `inbox` set by each account's run())
 --

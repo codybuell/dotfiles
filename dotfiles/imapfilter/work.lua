@@ -60,6 +60,9 @@ function run()
   print_status(new_spam, 'unread spam -> mark as read')
   new_spam:mark_seen()
 
+  -- vip senders: flag so they stand out in the index
+  flag_vips('{{ WorkEmailVips }}')
+
   -- all git related crap, except due date reminders, failed pipelines, gitlab support
   movetofolder_and_mark_read('git related notifications', git, (function()
     return inbox:match_field('Reply-To', 'GitLab .*') +

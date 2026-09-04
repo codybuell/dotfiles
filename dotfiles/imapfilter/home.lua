@@ -49,6 +49,9 @@ function run()
   print_status(new_spam, 'unread spam -> mark as read')
   new_spam:mark_seen()
 
+  -- vip senders: flag so they stand out and never get swept to Feed
+  flag_vips('{{ HomeEmailVips }}')
+
   -- bellhop infrastructure alerts: flag but leave in the inbox so they are
   -- impossible to miss (and so gmail still pushes phone notifications)
   flag('bellhop infra alerts', (function()
