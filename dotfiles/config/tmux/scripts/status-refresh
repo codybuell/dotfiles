@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Status bar value daemon. Started via `run-shell -b` on config load;
+# publishes @batt / @utc_hour as user options so status-right needs no #()
+# jobs at all (any async job in status-right interleaves badly with the
+# per-second clock tick and makes it skip seconds).
+#
+# @statusd holds the newest instance's PID: a newer instance overwrites it
+# and older ones exit on their next wake, so config reloads don't stack
+# daemons. Exits when the tmux server goes away.
+
+tmux set -g @statusd "$$" || exit 1
+while [ "$(tmux show -gv @statusd 2>/dev/null)" = "$$" ]; do
+  tmux set -g @batt "$(pmset -g batt | awk 'NR==2 {print $3}' | sed 's/;//')" \; \
+       set -g @utc_hour "$(date -u '+%H')"
+  sleep 5
+done
