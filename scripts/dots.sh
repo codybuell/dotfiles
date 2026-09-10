@@ -215,11 +215,15 @@ post_place_hooks() {
           # generate helptags for all plugins
           ${NVIMPATH} --headless +'helptags ALL' +qa > /dev/null 2>&1 &
 
-          # markdown-preview.nvim - only if directory exists
-          if [[ -d ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ ]]; then
-            cd ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/ || exit 1
-            npx --yes yarn install > /dev/null 2>&1
-            npx --yes yarn build > /dev/null 2>&1
+          # markdown-preview.nvim - install the node app's runtime deps in
+          # app/ (server runs via node + app/node_modules, which deploys
+          # wipe). Upstream's root `yarn build` is its release pipeline
+          # (pkg node16 binaries, old next.js) and fails on modern node.
+          if [[ -d ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/app ]]; then
+            cd ~/.config/nvim/pack/bundle/opt/markdown-preview.nvim/app || exit 1
+            if ! npx --yes yarn install --production > /dev/null 2>&1; then
+              log red "  markdown-preview.nvim" "yarn install failed in app/"
+            fi
           fi
         fi
       ;;
