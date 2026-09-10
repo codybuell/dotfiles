@@ -122,7 +122,12 @@ while true; do
   echo "${BLUE}Running postsync hooks ($ACCOUNT):${NORM}"
   echo
 
-  time ~/.mutt/hooks/postsync/$ACCOUNT.sh # Runs notmuch, lbdb-fetchaddr etc
+  # account-specific hook wins; otherwise the generic one gets the name
+  if [ -x "${HOME}/.mutt/hooks/postsync/${ACCOUNT}.sh" ]; then
+    time "${HOME}/.mutt/hooks/postsync/${ACCOUNT}.sh" # notmuch, lbdb, etc
+  else
+    time "${HOME}/.mutt/hooks/postsync/default.sh" "$ACCOUNT"
+  fi
 
   echo
   echo "${BLUE}Deduplicating lbdb-fetchaddr db:${NORM}"

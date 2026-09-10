@@ -9,7 +9,7 @@ exist in the encrypted .config and in the deployed files under $HOME.
 
 Accounts come from the MailAccounts key in .config (via the environment):
 
-    MailAccounts = home:h, kion:k:slow-archive, desert:d
+    MailAccounts = home:h, work:w:slow-archive, other:o
 
 Each entry is name:go-key[:flag[,flag...]]. The go-key drives the mutt g<key>
 account-switch macro. Recognized flags:
