@@ -34,3 +34,9 @@ dotfiles/zsh/colors/tinted
 dotfiles/zsh/colors/tinted.previous
 dotfiles/zsh/history
 dotfiles/zsh/cache
+
+# theme build artifacts, assembled from vendor submodules (and the tracked
+# dotfiles/zsh/colors/custom themes) by `make themes`
+dotfiles/zsh/colors/scripts/
+dotfiles/config/kitty/colors/
+dotfiles/config/tmux/colors/

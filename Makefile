@@ -130,13 +130,13 @@ example:
 decrypt: unlock
 encrypt: lock
 
-update-themes:
-	@echo "Updating theme submodules..."
-	git submodule update --init --remote -- vendor/tinted-*
-	git submodule update --init --remote -- dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
+# assemble theme files from the vendor submodules (as pinned by make subs)
+# plus the tracked custom themes; these output dirs are gitignored
+themes:
 	@echo "Copying tinted-shell Zsh scripts..."
 	mkdir -p dotfiles/zsh/colors/scripts
 	cp -r vendor/tinted-shell/scripts/*.sh dotfiles/zsh/colors/scripts/
+	cp -r dotfiles/zsh/colors/custom/*.sh dotfiles/zsh/colors/scripts/
 	@echo "Copying tinted-terminal Kitty configs..."
 	mkdir -p dotfiles/config/kitty/colors
 	cp -r vendor/tinted-terminal/themes/kitty/*.conf dotfiles/config/kitty/colors/
@@ -144,11 +144,17 @@ update-themes:
 	mkdir -p dotfiles/config/tmux/colors
 	cp -r vendor/tinted-tmux/colors/*.conf dotfiles/config/tmux/colors/
 
+update-themes:
+	@echo "Updating theme submodules..."
+	git submodule update --init --remote -- vendor/tinted-*
+	git submodule update --init --remote -- dotfiles/config/nvim/pack/bundle/opt/tinted-nvim
+	@$(MAKE) themes
+
 ################
 #  Deployment  #
 ################
 
-bootstrap: unlock subs paths symlinks repos dots mas brew node gem go pip karabiner osx fonts commands
+bootstrap: unlock subs themes paths symlinks repos dots mas brew node gem go pip karabiner osx fonts commands
 
 clean:
 	find ~/ -maxdepth 2 -name .Trash -prune -o -name \*.dotorig.\* -prune -exec rm -rf {} \;
