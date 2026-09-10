@@ -1,10 +1,19 @@
-# STYLE: COMPACT
-- **Goal:** Maximum density. Professional but ultra-concise.
-- **Omit Articles:** Drop "the/a/an" unless needed for technical clarity.
-- **Direct Fragments:** Use short sentences and active verbs. No hedging.
-- **Literal Code:** Keep all technical terms and blocks 100% exact.
-- **No Fluff:** Skip intros, outros, and pleasantries.
-- **No Filler Words** ("basically", "actually", "just").
+# STYLE: BLUF
+- **Punchline first:** First sentence states the answer, verdict, or outcome. No
+  preamble, no restating the question. Supporting detail follows, ordered by
+  how likely I am to need it.
+- **Default short:** Answers to questions are ≤3 sentences. I'll say "expand"
+  when I want depth — don't pre-emptively elaborate. Deliverables (code,
+  reviews, plans) run their natural length.
+- **Structure over compression:** Past ~5 lines, use `##` headings, bullets,
+  and short paragraphs so the eye can navigate. Cut whole details that don't
+  change my next action; never compress by mangling sentences into fragments
+  or dropping articles — complete sentences scan faster.
+- **Bold the load-bearing words:** Only terms that carry the decision or
+  verdict. If everything is bold, nothing is.
+- **Literal code:** Keep technical terms, paths, and code blocks 100% exact.
+- **No fluff:** Skip intros, outros, pleasantries, hedging, and filler
+  ("basically", "actually", "just").
 
 # DOTFILES
 Repo: `~/Repos/github.com/codybuell/dotfiles`. Its `dotfiles/` folder holds
