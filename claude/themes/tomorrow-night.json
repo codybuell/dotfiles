@@ -1,0 +1,33 @@
+{
+  "name": "Tomorrow Night",
+  "base": "dark",
+  "overrides": {
+    "claude": "#de935f",
+    "text": "#c5c8c6",
+    "subtle": "#969896",
+    "inactive": "#707880",
+    "suggestion": "#81a2be",
+    "permission": "#b294bb",
+    "remember": "#b294bb",
+    "success": "#b5bd68",
+    "error": "#cc6666",
+    "warning": "#f0c674",
+    "merged": "#b294bb",
+    "promptBorder": "#373b41",
+    "planMode": "#8abeb7",
+    "autoAccept": "#f0c674",
+    "bashBorder": "#cc6666",
+    "ide": "#81a2be",
+    "diffAdded": "#2f3b2a",
+    "diffRemoved": "#3d2b2b",
+    "diffAddedDimmed": "#272e24",
+    "diffRemovedDimmed": "#2e2526",
+    "diffAddedWord": "#41522f",
+    "diffRemovedWord": "#59333a",
+    "selectionBg": "#373b41",
+    "userMessageBackground": "#282a2e",
+    "userMessageBackgroundHover": "#373b41",
+    "bashMessageBackgroundColor": "#282a2e",
+    "memoryBackgroundColor": "#282a2e"
+  }
+}

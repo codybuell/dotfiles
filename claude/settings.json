@@ -81,6 +81,6 @@
   "effortLevel": "medium",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "theme": "dark",
+  "theme": "custom:tomorrow-night",
   "editorMode": "vim"
 }
