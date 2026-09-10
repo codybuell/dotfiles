@@ -262,8 +262,9 @@ place_files() {
 
     # skip if the source holds git-cipher ciphertext (locked or undecryptable
     # checkout), else the ciphertext would be deployed over real configs
+    # (awk warnings on binary files are noise, hence 2>/dev/null)
     ENCRYPTED=$(find "${DOTS_LOC}/${i}" -type f -exec awk \
-      'FNR==1{if ($0 ~ /^magic = dev\.wincent\.git-cipher/) print FILENAME; nextfile}' {} +)
+      'FNR==1{if ($0 ~ /^magic = dev\.wincent\.git-cipher/) print FILENAME; nextfile}' {} + 2> /dev/null)
     if [[ -n "${ENCRYPTED}" ]]; then
       log red "  .${i}" "skipping, contains git-cipher ciphertext (run make unlock)"
       continue

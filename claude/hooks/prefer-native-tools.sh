@@ -40,8 +40,9 @@ PERL_INPLACE_RE='(^|[[:space:]])perl([[:space:]]+-[[:alnum:]]+)*[[:space:]]+-[[:
 # sed used as a pager, ie `sed -n '10,20p' file`
 SED_READ_RE='(^|[[:space:]])sed([[:space:]]+-[[:alnum:]]+)*[[:space:]]+-[[:alnum:]]*n'
 
-# literal content pushed into a file
-REDIRECT_RE='^[[:space:]]*(echo|printf|cat)([[:space:]]|$).*>'
+# literal content pushed into a file; `>` preceded by a digit is an fd
+# redirect (2>/dev/null) and `>&` is a dup (>&2), neither writes content
+REDIRECT_RE='^[[:space:]]*(echo|printf|cat)([[:space:]]|$).*[^0-9&]>[^&]'
 HEREDOC_RE='<<-?[[:space:]]*['"'"'"]?[A-Za-z_][A-Za-z0-9_]*'
 
 # interpreter one liners that touch the filesystem
@@ -183,6 +184,9 @@ if [ "${1:-}" = "--test" ]; then
 0|sed -n '1p'
 0|git commit -m "explain the sed -i and heredoc <<EOF deny rules"
 0|echo "sed -i is blocked"
+0|echo done 2>/dev/null
+0|echo "failed" >&2
+2|echo x >> notes.md
 2|sed -i.bak -e s/a/b/ config.lua
 CASES
   exit $status

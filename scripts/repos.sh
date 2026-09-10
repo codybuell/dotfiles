@@ -24,11 +24,9 @@ source "${BASH_SOURCE%/*}/library.sh"
 
 # git clone to folder structure $Repos/site/userORgroup/userORgroupN/repo
 function gcl() {
-  CLONEPATH=`echo $1 | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g'`
-  git clone $1 $Repos/$CLONEPATH
-  cd $Repos
-  find $Repos -type d -name .git -maxdepth 8 | sed 's/\/\.git$//' | awk -F\/ '{print $NF":"$0}' > .repos
-  cd -
+  CLONEPATH=$(echo "$1" | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g')
+  git clone "$1" "$Repos/$CLONEPATH"
+  find "$Repos" -type d -name .git -maxdepth 8 | sed 's/\/\.git$//' | awk -F\/ '{print $NF":"$0}' > "$Repos/.repos"
 }
 
 # Clone Repos
@@ -43,13 +41,12 @@ clonerepos() {
     VAR=$r
     eval VAL=\$$r
     [[ $VAR =~ REPO.* ]] && {
-      MAKEMODEL=`echo $VAL | sed 's/\// /g;s/\.git//;s/:/ /g' | awk '{print $(NF-1)"/"$NF}'`
-      CLONEPATH=`echo $VAL | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g'`
-      echo $MAKEMODEL
-      echo $CLONEPATH
-      [[ ! -d $CLONEPATH ]] && {
+      MAKEMODEL=$(echo "$VAL" | sed 's/\// /g;s/\.git//;s/:/ /g' | awk '{print $(NF-1)"/"$NF}')
+      CLONEPATH=$(echo "$VAL" | sed -E 's/git\@|http(s)?:\/\///;s/\.git$//;s/:/\//g')
+      # clone path is relative to $Repos, not the cwd
+      [[ ! -d "$Repos/$CLONEPATH" ]] && {
         prettyprint "  ${MAKEMODEL}:\033[0;32mcloning\033[0m\n"
-        gcl $VAL
+        gcl "$VAL"
       } || {
         prettyprint "  ${MAKEMODEL}:\033[0;32malready cloned\033[0m\n"
       }

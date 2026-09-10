@@ -432,49 +432,6 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                              "
-" Open Journal                                                                 "
-"                                                                              "
-" Open up the current days journal, create the file as needed. Can accept a    "
-" count for N days into the future in order to open journal entries beyond     "
-" the current day (requires gdate on the system).                              "
-"                                                                              "
-" @param {string} journal - journal to open                                    "
-" @return null                                                                 "
-"                                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! buell#helpers#OpenJournal(journal) abort
-
-  if executable('gdate')
-    let l:target = system('gdate --date="' . v:count . ' day" "+%Y %m %d"')
-    let l:dates  = split(l:target)
-
-    let l:year  = l:dates[0]
-    let l:month = l:dates[1]
-    let l:day   = l:dates[2]
-  else
-    let l:year  = strftime('%Y')
-    let l:month = strftime('%m')
-    let l:day   = strftime('%d')
-  endif
-
-  if a:journal == 'work'
-    let l:path  = "{{ WorkJournal }}" . "/" . l:year . "/" . l:month
-  elseif a:journal == 'personal'
-    let l:path  = "{{ PersonalJournal }}" . "/" . l:year . "/" . l:month
-  endif
-  let l:file  = l:year . "." . l:month . "." . l:day . ".txt"
-
-  if !isdirectory(l:path)
-    call mkdir(l:path, "p")
-  endif
-
-  execute "edit " . fnameescape(l:path) . "/" . l:file
-
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                              "
 " Yank Override                                                                "
 "                                                                              "
 " Override yanks to overload with copying to system clipboard as well          "

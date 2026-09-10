@@ -249,7 +249,7 @@ check_xcode() {
 ##
 dep_xcode_clt() {
   [[ $(pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep -c version) -eq 0 ]] && {
-    log yelow "Xcode Command Line Tools missing, installing..."
+    log yellow "Xcode Command Line Tools missing, installing..."
     xcode-select --install
   }
 }
