@@ -77,31 +77,37 @@ WorkGitSignKey  = 1234567891234567891234567891234567891234
 #                                                                              #
 # Targets: `make dots [mutt|imapfilter|mbsyncrc|msmtprc]`                      #
 #                                                                              #
-# A combination of tools are used to sort, index, read, and send email. The    #
-# configs here are for two accounts, one personal and one work. This one is    #
-# going to require a bit more config on your part...                           #
+# A combination of tools are used to sort, index, read, and send email. Any    #
+# number of accounts is supported: list them in MailAccounts below and give    #
+# each a matching <Name>Email* key block. Generic single-account stanzas in    #
+# mbsyncrc, msmtprc, and the mutt configs are expanded to one block per        #
+# account by scripts/mailgen.py during `make dots`, so account names only      #
+# ever exist here (encrypted) and in the deployed files.                       #
 #                                                                              #
-# 1. Edit the following files:                                                 #
+# Adding an account:                                                           #
 #                                                                              #
-#    - dotfiles/mbsyncrc      # tweak folder structures, etc.                  #
+# 1. Add `name:go-key[:flags]` to MailAccounts and a <Name>Email* key block    #
+#    below (Name = capitalized account name; go-key = mutt g<key> macro).      #
 #                                                                              #
-# 2. Create 'application password' records in OSX Keychain Access              #
+# 2. Write its filter rules in dotfiles/imapfilter/<name>.lua (git-cipher      #
+#    encrypted, so real addresses are fine there).                             #
 #                                                                              #
-#    - use `make keychain`                                                     #
+# 3. Create an 'application password' record in OSX Keychain Access:           #
+#                                                                              #
+#    - use `make keychain` (walks the MailAccounts list)                       #
 #                                                                              #
 #    OR MANUALLY                                                               #
 #                                                                              #
 #    - open keychain access                                                    #
 #    - create new application password, set:                                   #
-#      - name / keychain item name = [Home|Work]EmailHost setting below        #
-#      - account / acount name     = [Home|Work]EmailKeychain setting below    #
-#      - password                  = your email accounts password              #
-#    - repeat for both home and work email addresses                           #
+#      - name / keychain item name = the <Name>EmailHost setting below         #
+#      - account / account name    = the <Name>EmailKeychain setting below     #
+#      - password                  = the email account's password              #
 #                                                                              #
-# 3. And then configure the following services:                                #
+# 4. Run `make dots mbsyncrc msmtprc imapfilter mutt` and restart the mail     #
+#    session (the tmux control window builds one sync pane per account).       #
 #                                                                              #
-#    - passage (pull go repo and build, see projects readme)                   #
-#      * this is handled by `make go`                                          #
+# Also required once: passage (pulled and built by `make go`).                 #
 #                                                                              #
 # Some common service configurations:                                          #
 #                                                                              #
