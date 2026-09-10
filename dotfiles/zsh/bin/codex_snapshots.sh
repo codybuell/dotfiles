@@ -11,8 +11,8 @@ set -euo pipefail  # Exit on error, undefined vars, pipe failures
 # ============================================================================
 
 # Source and destination paths
-SOURCE_DIR="/Users/pbuell/Google Drive/My Drive/Resources/Codex"
-BACKUP_BASE_DIR="/Users/pbuell/Google Drive/My Drive/Archive/Backups/Snapshots"
+SOURCE_DIR="$HOME/Google Drive/My Drive/Resources/Codex"
+BACKUP_BASE_DIR="$HOME/Google Drive/My Drive/Archive/Backups/Snapshots"
 TEMP_DIR="/tmp/codex_backup_$$"
 LOG_FILE="$BACKUP_BASE_DIR/backup.log"
 

@@ -52,6 +52,7 @@ default:
 	    $(B)$(DIM)REPOSITORY$(NRM)\n\n\
 	\
 	    $(B)$(GRN)subs$(NRM)            $(GRN)initialize and update git submodules$(NRM)\n\
+	    $(B)$(GRN)themes$(NRM)          $(GRN)assemble theme files from vendor submodules$(NRM)\n\
 	    $(B)$(GRN)update-themes$(NRM)   $(GRN)update the color theme submodules, place files$(NRM)\n\
 	    $(B)$(GRN)unlock$(NRM)          $(GRN)decrypt git-cipher managed files (.config, ssh, kube)$(NRM)\n\
 	    $(B)$(YLW)lock$(NRM)            $(YLW)re-lock git-cipher managed files in the worktree$(NRM)\n\
@@ -68,6 +69,10 @@ default:
 	    $(B)$(BLU)symlinks$(NRM)        $(BLU)stub out symlinks as defined in .config$(NRM)\n\
 	    $(B)$(BLU)repos$(NRM)           $(BLU)clone git repositories as defined in .config$(NRM)\n\
 	    $(B)$(BLU)dots $(DIM)[dots]$(NRM)     $(BLU)place dotfiles for current user$(NRM)\n\
+	    $(B)$(BLU)Dots $(DIM)[dots]$(NRM)     $(BLU)same as dots but forced (no diff check)$(NRM)\n\
+	    $(B)$(BLU)keychain$(NRM)        $(BLU)create mail keychain entries per .config accounts$(NRM)\n\
+	    $(B)$(BLU)cron$(NRM)            $(BLU)install repo_profiler crontab entry$(NRM)\n\
+	    $(B)$(YLW)nvim-reset$(NRM)      $(YLW)clear nvim runtime state (shada, parsers, undo)$(NRM)\n\
 	    $(B)$(BLU)nix$(NRM)             $(BLU)install nix and nix managed packages$(NRM)\n\
 	    $(B)$(BLU)mas$(NRM)             $(BLU)install mas and app store packages$(NRM)\n\
 	    $(B)$(BLU)brew$(NRM)            $(BLU)install brew and brew managed packages$(NRM)\n\

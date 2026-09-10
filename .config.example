@@ -69,6 +69,7 @@ GitSignKey  = 0555DEBF3BE6281EAB1E44DE74DC8D3B3B3F03FE # gpg key to sign commits
 
 WorkGitUsername = pbuell
 WorkGitSignKey  = 1234567891234567891234567891234567891234
+WorkSchemaHost  = schema.workemail.com                 # yaml schema host for work repos (nvim yamlls)
 
 
 ################################################################################

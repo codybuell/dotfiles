@@ -383,13 +383,17 @@ place_files() {
   exit
 }
 
-[ "$1" = "--no-backup" ] && {
-  SKIPBACKUPS=true
-}
-
-[ "$1" = "--force" ] && {
-  FORCE=true
-}
+# translate long options to their short forms for getopts
+LONGARGS=()
+for arg in "$@"; do
+  case $arg in
+    --help )      LONGARGS+=("-h") ;;
+    --force )     LONGARGS+=("-f") ;;
+    --no-backup ) LONGARGS+=("-n") ;;
+    * )           LONGARGS+=("$arg") ;;
+  esac
+done
+set -- "${LONGARGS[@]}"
 
 while getopts ":hi:nf" Option; do
   case $Option in

@@ -61,9 +61,7 @@ PLACEHOLDERS = {
     "VaultToken": "1234567890abcdefghijklmnopqrstuvwxyz",
     "VaultAddress": "https://vaultserver.tld:8200",
     "VaultServer": "vaultserver.tld",
-    "TPAMUrl": "tpam.tld",
-    "TPAMUsername": "username",
-    "TPAMPassword": "`command to get password`",
+    "WorkSchemaHost": "schema.workemail.com",
 }
 GENERIC = "xxxxxxxxxxxxxxxxxxxx"
 
