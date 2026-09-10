@@ -88,6 +88,7 @@ default:
 	\
 	    $(B)$(DIM)TESTING$(NRM)\n\n\
 	\
+	    $(B)$(BLU)check$(NRM)           $(BLU)audit template tokens, example drift, hooks, syntax\n\
 	    $(B)$(BLU)colortest$(NRM)       $(BLU)run color tests for the terminal and show codes\n\
 	    $(B)$(BLU)zsh-test$(NRM)        $(BLU)build & start a container with zsh configuration\n\n"
 
@@ -234,6 +235,17 @@ keychain:
 #############
 #  Testing  #
 #############
+
+check:
+	@python3 scripts/check.py
+	@python3 scripts/example.py
+	@git diff --quiet -- .config.example || \
+		{ echo ".config.example drifted; commit the regenerated copy"; exit 1; }
+	@claude/hooks/prefer-native-tools.sh --test > /dev/null && \
+		echo "prefer-native-tools hook battery OK"
+	@for f in scripts/*.sh dotfiles/mutt/scripts/*.sh dotfiles/mutt/hooks/*/*.sh; do \
+		bash -n "$$f" || exit 1; \
+	done; echo "shell syntax OK"
 
 colortest:
 	@scripts/colortest $(CMD_ARGS)
