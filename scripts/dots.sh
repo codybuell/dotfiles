@@ -187,13 +187,6 @@ post_place_hooks() {
         "${HOME}"/.mutt/scripts/mailboxes.rb
       fi
       ;;
-    Xresources )
-      if command -v xrdb > /dev/null 2>&1; then
-        xrdb ~/.Xresources
-      else
-        log yellow "xrdb not found, skipping Xresources reload"
-      fi
-      ;;
     config/karabiner )
       launchctl stop org.pqrs.karabiner.karabiner_console_user_server
       launchctl start org.pqrs.karabiner.karabiner_console_user_server
