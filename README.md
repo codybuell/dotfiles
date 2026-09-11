@@ -65,6 +65,7 @@ make karabiner                  # compiles and places config, restarts service, 
 make osx                        # applies as many OSX configurations as possible via cli
 make fonts                      # install fonts found in `assets/fonts/*`
 make commands                   # run commands as defined in `.config`
+make cron                       # installs repo_profiler crontab entry, depends on `make dots`
 ```
 
 The `make dots` target is generally the most heavily used. This is because

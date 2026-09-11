@@ -160,7 +160,7 @@ update-themes:
 #  Deployment  #
 ################
 
-bootstrap: unlock subs themes paths symlinks repos dots mas brew node gem go pip karabiner osx fonts commands
+bootstrap: unlock subs themes paths symlinks repos dots mas brew node gem go pip karabiner osx fonts commands cron
 
 clean:
 	find ~/ -maxdepth 2 -name .Trash -prune -o -name \*.dotorig.\* -prune -exec rm -rf {} \;
@@ -227,7 +227,8 @@ nvim-reset:
 	@echo "nvim runtime state cleared; parsers reinstall on next launch"
 
 cron:
-	@(crontab -l 2>/dev/null; echo "*/5 * * * * $(HOME)/.zsh/bin/repo_profiler.py") | crontab -
+	@crontab -l 2>/dev/null | grep -q 'repo_profiler.py' || \
+	  (crontab -l 2>/dev/null; echo "*/5 * * * * $(HOME)/.zsh/bin/repo_profiler.py") | crontab -
 
 keychain:
 	scripts/keychain.sh
