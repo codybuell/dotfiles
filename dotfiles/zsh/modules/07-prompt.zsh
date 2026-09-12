@@ -250,9 +250,12 @@ if [[ -z "${__BUELL[PROMPT_INITIALIZED]:-}" ]]; then
     emulate -L zsh
 
     # Shell nesting detection (simplified version)
+    #
+    # tmux panes sit two levels deep: the login shell that launched tmux, plus
+    # the pane shell itself. Subtract both so a plain pane reads as level 1.
     local LVL=1
     if [[ -n "$TMUX" ]]; then
-      LVL=$(($SHLVL - 1))
+      LVL=$(($SHLVL - 2))
     else
       LVL=$SHLVL
     fi
