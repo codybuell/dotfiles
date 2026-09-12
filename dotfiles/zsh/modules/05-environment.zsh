@@ -94,6 +94,8 @@ export CLAUDE_CODE_OAUTH_TOKEN='{{ ClaudeCodeOAuthToken }}'
 ##################
 
 export CLICOLOR=true           # Enable color output for many cli tools
+# Allow Claude Code to use truecolor with our RGB-enabled tmux configuration.
+export CLAUDE_CODE_TMUX_TRUECOLOR=1
 export GPG_TTY="$(tty)"        # Set tty for GPG, needed for password prompts
 export FTP_PASSIVE=1           # Use passive mode by default with ftp
 export PROMPT_EOL_MARK=""      # What to show when a line ends w/o newline
