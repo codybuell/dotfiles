@@ -1,3 +1,6 @@
-xterm-256color|xterm with 256 colors and italic,
+xterm-256color|xterm with 256 colors, italic, and truecolor,
   sitm=\E[3m, ritm=\E[23m,
+  Tc,
+  setrgbf=\E[38:2:%p1%d:%p2%d:%p3%dm,
+  setrgbb=\E[48:2:%p1%d:%p2%d:%p3%dm,
   use=xterm-256color,
