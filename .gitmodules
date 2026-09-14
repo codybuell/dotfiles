@@ -178,9 +178,6 @@
 	path = dotfiles/config/nvim/pack/bundle/opt/nvim-ts-context-commentstring
 	url = https://github.com/JoosepAlviste/nvim-ts-context-commentstring.git
 	ignore = dirty
-[submodule "dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim"]
-	path = dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim
-	url = https://github.com/iamcco/markdown-preview.nvim.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/cmp-calc"]
 	path = dotfiles/config/nvim/pack/bundle/opt/cmp-calc
 	url = https://github.com/hrsh7th/cmp-calc.git
@@ -224,3 +221,9 @@
 [submodule "dotfiles/zsh/plugins/zsh-async"]
 	path = dotfiles/zsh/plugins/zsh-async
 	url = https://github.com/mafredri/zsh-async.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim
+	url = https://github.com/selimacerbas/markdown-preview.nvim.git
+[submodule "dotfiles/config/nvim/pack/bundle/opt/live-server.nvim"]
+	path = dotfiles/config/nvim/pack/bundle/opt/live-server.nvim
+	url = https://github.com/selimacerbas/live-server.nvim.git

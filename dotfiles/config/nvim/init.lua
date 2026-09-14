@@ -203,6 +203,7 @@ vim.cmd('packadd! vim-abolish')             -- case toggling, replacements varia
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
 vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
 vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
+vim.cmd('packadd! live-server.nvim')        -- lua http server (markdown-preview dep)
 vim.cmd('packadd! markdown-preview.nvim')   -- markdown development support
 vim.cmd('packadd! treesj')                  -- split/join treesitter nodes
 
