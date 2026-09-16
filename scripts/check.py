@@ -58,9 +58,12 @@ def mail_account_caps(keys):
                 break
     caps = []
     for entry in spec.split(','):
-        name = entry.strip().split(':')[0]
-        if name:
-            caps.append(name.capitalize())
+        entry = entry.strip()
+        # colon-less tokens are flag continuations of the previous entry
+        # (name:key:flag,flag), not accounts -- mirror mailgen.py's parser
+        if not entry or ':' not in entry:
+            continue
+        caps.append(entry.split(':')[0].capitalize())
     return caps
 
 

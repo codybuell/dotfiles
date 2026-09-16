@@ -16,6 +16,9 @@ account-switch macro. Recognized flags:
 
     slow-archive  large account; keep All Mail out of the main mbsync group
                   and sync it hourly via the <name>-archive group (sync.sh)
+    nosync        keep the account configured and its maildir browsable in
+                  mutt, but start no sync pane and never pull mail (home()
+                  and control.sh skip it; sync.sh refuses to run it)
 
 Markers sit alone on comment lines so unexpanded templates stay valid syntax:
 
@@ -46,6 +49,13 @@ def parse_accounts(spec):
     for entry in spec.split(','):
         entry = entry.strip()
         if not entry:
+            continue
+        # a token with no ':' is a continuation of the previous entry's
+        # flag list (name:key:flag,flag splits on the comma above)
+        if ':' not in entry:
+            if not accounts:
+                sys.exit(f"mailgen: flag '{entry}' before any account in MailAccounts")
+            accounts[-1]['flags'].append(entry)
             continue
         parts = [p.strip() for p in entry.split(':')]
         name = parts[0]

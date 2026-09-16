@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# account names from ~/.mutt/accounts (generated from MailAccounts in .config)
-ACCOUNTS=$(awk '!/^#/ && NF { print $1 }' "$HOME/.mutt/accounts")
+# account names from ~/.mutt/accounts (generated from MailAccounts in
+# .config); accounts flagged nosync are kept out of every sync action
+ACCOUNTS=$(awk '!/^#/ && NF && $4 !~ /nosync/ { print $1 }' "$HOME/.mutt/accounts")
 
 ###########
 # Helpers #

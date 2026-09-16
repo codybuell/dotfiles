@@ -124,7 +124,9 @@ WorkSchemaHost  = schema.workemail.com                 # yaml schema host for wo
 # matching set of <Name>Email* keys below and an imapfilter rules file
 # (dotfiles/imapfilter/<name>.lua). go-key drives the mutt g<key> switch
 # macro. Flags: slow-archive = big account, sync All Mail hourly not every
-# cycle. Expanded into mbsyncrc/msmtprc/mutt configs by scripts/mailgen.py.
+# cycle; nosync = keep the account and local mail browsable in mutt but
+# start no sync pane and pull nothing (departed employers, dead accounts).
+# Expanded into mbsyncrc/msmtprc/mutt configs by scripts/mailgen.py.
 MailAccounts        = home:h, work:w:slow-archive, other:o
 
 DefaultEmailAccount = home                        # matches a MailAccounts name

@@ -93,7 +93,7 @@ function home() {
 
       # build control window: one sync pane per account in ~/.mutt/accounts
       # (generated from the MailAccounts .config key) plus a controller pane
-      local accounts=(${(f)"$(awk '!/^#/ && NF { print $1 }' ~/.mutt/accounts)"})
+      local accounts=(${(f)"$(awk '!/^#/ && NF && $4 !~ /nosync/ { print $1 }' ~/.mutt/accounts)"})
       tmux new-window -t HOME: -c ~/.mutt -n control
       tmux set-window-option -t HOME:control automatic-rename off
       tmux set-window-option -t HOME:control monitor-activity off

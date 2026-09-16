@@ -28,6 +28,16 @@ ACCOUNT="$1"
 BACKOFF=0
 MAX_BACKOFF=480 # 8 minutes
 
+# refuse accounts flagged nosync in ~/.mutt/accounts (kept for local mail
+# browsing only; their credentials/remote may no longer exist)
+NOSYNC=$(awk -v a="$ACCOUNT" '!/^#/ && $1 == a { print $4 }' "$HOME/.mutt/accounts")
+case ",$NOSYNC," in
+  *,nosync,*|*nosync*)
+    echo "${YELLOW}account '$ACCOUNT' is flagged nosync; not syncing${NORM}"
+    exit 0
+    ;;
+esac
+
 mkdir -p $HOME/.mutt/tmp
 
 PIDFILE="$HOME/.mutt/tmp/sync-$1.pid"
