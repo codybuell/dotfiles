@@ -52,13 +52,14 @@
       "Bash(aws sts get-caller-identity)",
       "Bash(tree-sitter --version)",
       "mcp__claude_ai_Notion__notion-fetch",
-      "mcp__claude_ai_Notion__notion-get-comments"
+      "mcp__claude_ai_Notion__notion-get-comments",
+      "mcp__muster"
     ],
     "deny": [
       "Bash(git push:*)"
     ]
   },
-  "model": "claude-fable-5[1m]",
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -70,12 +71,44 @@
           }
         ]
       }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/muster hook SessionEnd claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/muster hook SessionStart claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/muster hook Stop claude"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
