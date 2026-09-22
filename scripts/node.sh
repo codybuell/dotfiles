@@ -46,7 +46,7 @@ PACKAGES=( \
   '@mapbox/togeojson' \                    # gpx / kml to geojson converter
   'jsonlint' \                             # json syntax checking utility
   'svgo' \                                 # svg optimization utility
-  'typescript' \                           # dep for typescript-language-server
+  'typescript@5' \                         # dep for typescript-language-server (v7 is tsgo, ships no tsserver.js)
   'wscat' \                                # websocket command line client
   'yarn' \                                 # better node package manager
   'bash-language-server' \                 # bash language server
