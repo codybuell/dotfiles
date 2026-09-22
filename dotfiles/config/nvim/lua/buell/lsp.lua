@@ -248,6 +248,50 @@ end
 -- Register the lsp_status progress handler
 lsp_status.register_progress()
 
+-- Clear lsp-status' CursorHold autocommand when its client detaches.
+--
+-- lsp-status.on_attach() installs a buffer-local `au CursorHold` calling
+-- update_current_function() whenever a documentSymbolProvider attaches, but
+-- never removes it on detach. A server that attaches and then stops (crashing,
+-- or failing to find its runtime) leaves the autocommand firing against a
+-- buffer with no capable client, so every CursorHold raises:
+--
+--   method "textDocument/documentSymbol" is not supported by any server
+--
+-- Drop the autocommand once no remaining client can answer the request.
+vim.api.nvim_create_autocmd('LspDetach', {
+  group = vim.api.nvim_create_augroup('buell_lsp_status_cleanup', { clear = true }),
+  callback = function(args)
+    local supported = false
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
+      if client.id ~= args.data.client_id
+        and client:supports_method('textDocument/documentSymbol') then
+        supported = true
+        break
+      end
+    end
+
+    if not supported then
+      -- only delete lsp-status' own autocommand (group lsp_aucmds, calling
+      -- update_current_function); other plugins register buffer-local
+      -- CursorHold handlers too and must be left alone
+      local ok, existing = pcall(vim.api.nvim_get_autocmds, {
+        event = 'CursorHold',
+        group = 'lsp_aucmds',
+        buffer = args.buf,
+      })
+      if ok then
+        for _, au in ipairs(existing) do
+          if au.command and au.command:match('update_current_function') then
+            pcall(vim.api.nvim_del_autocmd, au.id)
+          end
+        end
+      end
+      vim.b[args.buf].lsp_current_function = nil
+    end
+  end,
+})
+
 -- Extend the default rename handler to save modified buffers after renaming
 local default_rename_handler = vim.lsp.handlers['textDocument/rename']
 vim.lsp.handlers['textDocument/rename'] = function(err, result, ctx, config)
