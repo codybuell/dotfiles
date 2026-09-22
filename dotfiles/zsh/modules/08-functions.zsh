@@ -741,3 +741,6 @@ regmv() {
     [[ $errors -gt 0 ]] && echo "Encountered $errors errors" >&2
     return $errors
 }
+
+# Claude Override
+claude() { env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN command claude "$@"; }
