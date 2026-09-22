@@ -34,12 +34,12 @@ local copilot_gpt = function()
 end
 
 
+-- no explicit token: the claude_code adapter shells out to the claude cli,
+-- which uses the credentials from `claude /login` (stored in the login
+-- keychain by claude code itself). Setting CLAUDE_CODE_OAUTH_TOKEN here would
+-- override that session and go stale on every re-login.
 local claude_code = function()
-  return require("codecompanion.adapters").extend("claude_code", {
-    env = {
-      CLAUDE_CODE_OAUTH_TOKEN = "{{ ClaudeCodeOAuthToken }}",
-    },
-  })
+  return require("codecompanion.adapters").extend("claude_code", {})
 end
 
 -----------------

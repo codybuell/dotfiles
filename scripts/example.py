@@ -42,10 +42,11 @@ ALLOW_RE = [re.compile(r"^PATH\d+$"), re.compile(r"^SYMLINK\d+$")]
 PLACEHOLDERS = {
     "WorkEmail": "your@workemail.com",
     "Team": "UserA,UserB,UserC",
-    "GitHubHomebrewAPIToken": "1234567890abcdefghijklmnopqrstuvwxyz0123",
-    "OpenAIAPIKey": "sk-123456789abcdefghijklmnopqrstuvwxyz",
-    "AnthropicAPIKey": "sk-ant-api03-123456789abcdefghijklmnopqrstuvwxyz",
-    "ClaudeCodeOAuthToken": "sk-ant-oat01-123456789abcdefghijklmnopqrstuvwxyz",
+    # `<op item uuid>:<field>:<keychain service>`, see `make secrets`
+    "SecretsVault": "YourVault",
+    "GitHubHomebrewAPIToken": "abcdefghijklmnopqrstuvwxyz:api key:GitHub API Token",
+    "OpenAIAPIKey": "abcdefghijklmnopqrstuvwxyz:api key:OpenAI API Key",
+    "AnthropicAPIKey": "abcdefghijklmnopqrstuvwxyz:api key:Claude API Key",
     "WorkGitSignKey": "1234567891234567891234567891234567891234",
     "MailAccounts": "home:h, work:w:slow-archive, other:o",
     "DefaultEmailAddress": "your@email.com",

@@ -71,6 +71,7 @@ default:
 	    $(B)$(BLU)dots $(DIM)[dots]$(NRM)     $(BLU)place dotfiles for current user$(NRM)\n\
 	    $(B)$(BLU)Dots $(DIM)[dots]$(NRM)     $(BLU)same as dots but forced (no diff check)$(NRM)\n\
 	    $(B)$(BLU)keychain$(NRM)        $(BLU)create mail keychain entries per .config accounts$(NRM)\n\
+	    $(B)$(BLU)secrets$(NRM)         $(BLU)copy api tokens from 1password into the keychain$(NRM)\n\
 	    $(B)$(BLU)cron$(NRM)            $(BLU)install repo_profiler crontab entry$(NRM)\n\
 	    $(B)$(YLW)nvim-reset$(NRM)      $(YLW)clear nvim runtime state (shada, parsers, undo)$(NRM)\n\
 	    $(B)$(BLU)nix$(NRM)             $(BLU)install nix and nix managed packages$(NRM)\n\
@@ -232,6 +233,9 @@ cron:
 
 keychain:
 	scripts/keychain.sh
+
+secrets:
+	scripts/secrets.sh
 
 #############
 #  Testing  #

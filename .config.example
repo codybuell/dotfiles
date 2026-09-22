@@ -39,17 +39,29 @@ Team       = UserA,UserB,UserC            # irc names of team members for alias
 #                                                                              #
 # API Tokens                                                                   #
 #                                                                              #
-# Targets: `make dots shell`                                                   #
+# Targets: `make secrets`                                                      #
 #                                                                              #
-# GitHubHomebrewAPIToken -> used for brew to prevent throttling                #
+# Secrets live in 1Password and are copied into the OSX keychain by            #
+# `make secrets`; the shell reads them from the keychain at startup (see       #
+# dotfiles/zsh/modules/05-environment.zsh). Nothing sensitive is stored here   #
+# or in any deployed file, so these keys are safe to read.                     #
+#                                                                              #
+# Each entry is `<op item uuid>:<field>:<keychain service name>`. Item uuids    #
+# come from `op item list --vault <vault>`; using uuids rather than titles      #
+# keeps the reference stable across renames and sidesteps op's refusal to      #
+# parse titles containing parentheses.                                         #
+#                                                                              #
+# Re-run `make secrets` after rotating a key in 1Password.                     #
 #                                                                              #
 ################################################################################
 
 
-GitHubHomebrewAPIToken = 1234567890abcdefghijklmnopqrstuvwxyz0123
-OpenAIAPIKey = sk-123456789abcdefghijklmnopqrstuvwxyz
-AnthropicAPIKey = sk-ant-api03-123456789abcdefghijklmnopqrstuvwxyz
-ClaudeCodeOAuthToken = sk-ant-oat01-123456789abcdefghijklmnopqrstuvwxyz
+SecretsVault = YourVault                    # 1password vault holding the below
+
+# shell env var        # op item uuid                 : field   : keychain service
+GitHubHomebrewAPIToken = abcdefghijklmnopqrstuvwxyz:api key:GitHub API Token
+OpenAIAPIKey           = abcdefghijklmnopqrstuvwxyz:api key:OpenAI API Key
+AnthropicAPIKey        = abcdefghijklmnopqrstuvwxyz:api key:Claude API Key
 
 
 ################################################################################
