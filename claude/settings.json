@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name // empty'); ctx=$(echo \"$input\" | jq -r '.context_window.used_percentage // empty'); five=$(echo \"$input\" | jq -r '.rate_limits.five_hour.used_percentage // empty'); five_reset=$(echo \"$input\" | jq -r '.rate_limits.five_hour.resets_at // empty'); week=$(echo \"$input\" | jq -r '.rate_limits.seven_day.used_percentage // empty'); week_reset=$(echo \"$input\" | jq -r '.rate_limits.seven_day.resets_at // empty'); dir=$(echo \"$input\" | jq -r '.workspace.current_dir // .cwd // empty'); branch=\"\"; if [ -n \"$dir\" ]; then branch=$(git --no-optional-locks -C \"$dir\" branch --show-current 2>/dev/null); [ -z \"$branch\" ] && branch=$(git --no-optional-locks -C \"$dir\" rev-parse --short HEAD 2>/dev/null); fi; fiveseg=\"\"; if [ -n \"$five\" ]; then fivepct=$(printf '%.0f' \"$five\"); fivetext=\"5h:${fivepct}%\"; if [ -n \"$five_reset\" ]; then resetstr=$(date -r \"$five_reset\" +%H:%M 2>/dev/null); [ -n \"$resetstr\" ] && fivetext=\"$fivetext->$resetstr\"; fi; if [ \"$fivepct\" -ge 90 ]; then fivecolor='\\033[1;31m'; elif [ \"$fivepct\" -ge 70 ]; then fivecolor='\\033[33m'; else fivecolor='\\033[2m'; fi; fiveseg=$(printf \"${fivecolor}%s\\033[0m\" \"$fivetext\"); fi; weekseg=\"\"; if [ -n \"$week\" ]; then weekpct=$(printf '%.0f' \"$week\"); weektext=\"7d:${weekpct}%\"; if [ -n \"$week_reset\" ]; then weekresetstr=$(date -r \"$week_reset\" '+%a %H:%M' 2>/dev/null); [ -n \"$weekresetstr\" ] && weektext=\"$weektext->$weekresetstr\"; fi; if [ \"$weekpct\" -ge 90 ]; then weekcolor='\\033[1;31m'; elif [ \"$weekpct\" -ge 70 ]; then weekcolor='\\033[33m'; else weekcolor='\\033[2m'; fi; weekseg=$(printf \"${weekcolor}%s\\033[0m\" \"$weektext\"); fi; branchseg=\"\"; [ -n \"$branch\" ] && branchseg=$(printf '\\033[2m%s\\033[0m' \"$branch\"); ctxseg=\"\"; [ -n \"$ctx\" ] && ctxseg=$(printf '\\033[2mctx:%s%%\\033[0m' \"$(printf '%.0f' \"$ctx\")\"); modelseg=\"\"; [ -n \"$model\" ] && modelseg=$(printf '\\033[2m%s\\033[0m' \"$model\"); output=\"$branchseg\"; [ -n \"$fiveseg\" ] && output=\"${output:+$output }$fiveseg\"; [ -n \"$weekseg\" ] && output=\"${output:+$output }$weekseg\"; [ -n \"$ctxseg\" ] && output=\"${output:+$output }$ctxseg\"; [ -n \"$modelseg\" ] && output=\"${output:+$output }$modelseg\"; printf '%s' \"$output\""
+  },
   "env": {
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-5"
   },
@@ -59,7 +63,7 @@
       "Bash(git push:*)"
     ]
   },
-  "model": "opus",
+  "model": "claude-opus-5-5",
   "hooks": {
     "PreToolUse": [
       {
@@ -115,5 +119,39 @@
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
   "theme": "custom:tomorrow-night",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "autoCompactEnabled": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(git push:*) targeting the boilerplate remote (fetch-only/no-push — pushing here is a misconfiguration, not routine)"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: GCP (Cloud Run deploy target per README) — production deploy target for this repo, note deploy for this project is actually via Ansible/home-as-code to the murdock host per CLAUDE.md (README describes an earlier/alternate deployment shape; CLAUDE.md and repo Makefile targets are authoritative for how this checkout actually deploys)",
+      "**Repository visibility**: private (codybuell/assistant, confirmed via gh) — boilerplate remote (companyrobot/boilerplate) is fetch-only (no-push)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: .envrc committed encrypted via git-cipher (recipients in .git-cipher-recipients); production secrets live only in /opt/assistant/.env on the murdock host, written by hand and never templated by Ansible",
+      "**Default / protected branches**: master (default branch); no branch protection rules or rulesets listed via gh for codybuell/assistant",
+      "**CI/CD deploy targets**: None — deliberately no CI/CD; deploys run via `make deploy` (local test suite + push + home-as-code Ansible `assistant` role against the murdock host)",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: codybuell/assistant (origin, private) and its boilerplate fetch-only upstream (companyrobot/boilerplate, no-push) — no additional orgs configured",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: murdock host (deployment target for this project's Ansible role in home-as-code; app + postgres compose pair)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: .envrc (encrypted at rest via git-cipher), .git-cipher/secrets.json.asc, assets_prod.go — treat as credential/secret-bearing; share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (e.g. assets_prod.go build tag, prod compose/env files)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development",
+      "**Trusted repo**: /Users/pbuell/Repos/github.com/codybuell/assistant (origin: github.com:codybuell/assistant.git, private) — boilerplate remote is fetch-only, never a push target",
+      "**Org-specific CLIs**: None configured",
+      "routine under codybuell/ prefix qualifiers: none observed"
+    ]
+  }
 }
