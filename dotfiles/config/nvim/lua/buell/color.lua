@@ -45,6 +45,79 @@ local function read_theme_file()
   end
 end
 
+-- Core UI groups as the pre-rewrite tinted-colorscheme defined them.
+-- custom_highlights() was tuned against these and derives many of its groups
+-- from them (eg LineNr/SignColumn take CursorLine's bg, MiniPick builds on
+-- Pmenu, StatusLineArrowLeft takes Visual's bg, TabLineSel links ErrorMsg),
+-- so the rewrite's new defaults washed most of the ui out. Everything not
+-- listed here (syntax, treesitter, lsp, diagnostics) uses the rewrite as-is.
+local function tinted_legacy_overrides(p)
+  -- old theme used base24 bright variants for diagnostics, falling back to the
+  -- normal slot on base16 schemes; todo-comments, codecompanion, mini.pick
+  -- matches, notify and snacks all derive their colors from these
+  local error = p.base12 or p.base08
+  local hint  = p.base15 or p.base0C
+  local info  = p.base16 or p.base0D
+  local diagnostics = {
+    DiagnosticError = { fg = error },
+    DiagnosticHint  = { fg = hint },
+    DiagnosticInfo  = { fg = info },
+  }
+  for _, level in ipairs({ 'Error', 'Hint', 'Info' }) do
+    for _, kind in ipairs({ 'Floating', 'Sign', 'VirtualLines', 'VirtualText' }) do
+      diagnostics['Diagnostic' .. kind .. level] = { link = 'Diagnostic' .. level }
+    end
+  end
+
+  return vim.tbl_extend('force', diagnostics, {
+    Comment      = { fg = p.base03 },
+    Conceal      = { fg = p.base0D, bg = p.base00 },
+    CurSearch    = { fg = '#07080d', bg = '#fce094' },   -- old theme left nvim's default
+    CursorLine   = { bg = p.base01 },
+    CursorLineNr = { fg = p.base04, bg = p.base01 },
+    DiffAdd      = { fg = p.base0B, bg = p.base00 },
+    DiffChange   = { fg = p.base0E, bg = p.base00 },
+    DiffDelete   = { fg = p.base08, bg = p.base00 },
+    DiffText     = { fg = p.base0D, bg = p.base00 },
+    Error        = { fg = p.base08, bg = p.base00 },
+    ErrorMsg     = { fg = p.base08, bg = p.base00 },
+    FloatBorder  = { fg = p.base05, bg = p.base00 },
+    FoldColumn   = { fg = p.base0C, bg = p.base00 },
+    Folded       = { fg = p.base03, bg = p.base01 },
+    LineNr       = { fg = p.base04, bg = p.base00 },
+    MatchParen   = { bg = p.base03 },
+    NonText      = { fg = p.base03 },
+    Pmenu        = { fg = p.base05, bg = p.base01 },
+    PmenuSel     = { fg = p.base01, bg = p.base05 },
+    SignColumn   = { fg = p.base04, bg = p.base00 },
+    StatusLineNC = { fg = p.base04, bg = p.base01 },
+    TabLine      = { fg = p.base03, bg = p.base01 },
+    TabLineFill  = { fg = p.base03, bg = p.base01 },
+    VertSplit    = { fg = p.base05, bg = p.base00 },
+    Visual       = { bg = p.base02 },
+    WarningMsg   = { fg = p.base08 },
+    Whitespace   = { link = 'NonText' },
+    WinSeparator = { link = 'VertSplit' },
+
+    -- minor groups
+    CmpDocumentation  = { fg = p.base05, bg = p.base00 },
+    DapUIFloatBorder  = { fg = p.base0D },
+    Macro             = { fg = p.base08 },
+    NvimInternalError = { fg = p.base00, bg = p.base08 },
+    QuickFixLine      = { bg = p.base01 },
+    VisualNOS         = { fg = p.base08 },
+
+    -- groups the old theme left to nvim's defaults (links/values as nvim sets)
+    DiffTextAdd  = { link = 'DiffText' },
+    FloatFooter  = { link = 'Title' },
+    Ignore       = { link = 'Normal' },
+    MsgSeparator = { link = 'StatusLine' },
+    PmenuBorder  = { link = 'Pmenu' },
+    PmenuSbar    = { link = 'Pmenu' },
+    PmenuThumb   = { bg = '#4f5258' },
+  })
+end
+
 -- Helper function to set up tinted-nvim (once) and load the active theme.
 local tinted_configured = false
 local function setup_tinted_colorscheme(theme_name)
@@ -55,6 +128,7 @@ local function setup_tinted_colorscheme(theme_name)
       apply_scheme_on_startup = false,              -- loaded explicitly below
       capabilities = {
         truecolor = vim.o.termguicolors,            -- don't force termguicolors on
+        undercurl = true,                           -- kitty draws them; default falls back to underline
       },
       selector = {
         enabled = false,                            -- custom watcher in setup_theme_watcher()
@@ -67,19 +141,10 @@ local function setup_tinted_colorscheme(theme_name)
           dapui     = true,
         },
         use_lazy_specs = false,
-        -- restore pre-rewrite (tinted-colorscheme) values that custom
-        -- highlights build on:
-        --   CursorLine: rewrite darkens base01 by 60%, nearly matching Normal;
-        --     custom_highlights() copies its bg into LineNr/SignColumn/etc
-        --   Pmenu/PmenuSel: rewrite uses base00 (= Normal); MiniPick, Snacks
-        --     input and cmp highlights derive from Pmenu
-        overrides = function(palette)
-          return {
-            CursorLine = { bg = palette.base01 },
-            Pmenu      = { fg = palette.base05, bg = palette.base01 },
-            PmenuSel   = { fg = palette.base01, bg = palette.base05 },
-          }
-        end,
+        overrides = tinted_legacy_overrides,
+      },
+      styles = {
+        comments = {},                              -- old theme had no italic comments
       },
     })
     tinted_configured = true
