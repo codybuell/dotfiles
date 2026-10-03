@@ -149,6 +149,9 @@ color() {
 
       if [ -n "$TMUX" ]; then
         command tmux source-file "$HOME/.config/tmux/theme.conf"
+        # re-add the prompt fill that theme.conf just reset (see tmux.conf)
+        command tmux set -gF message-style '#{message-style},fill=#{s/.*bg=([^,]*).*/\1/:message-style}'
+        command tmux set -gF message-command-style '#{message-command-style},fill=#{s/.*bg=([^,]*).*/\1/:message-command-style}'
       fi
 
       local CC=$(__extract color18 "$FILE")
