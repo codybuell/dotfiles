@@ -24,7 +24,19 @@ codex.config = {
   wikis     = {},     -- wiki name -> absolute path, used by link handling
   ignore    = {},     -- rg glob patterns to exclude from the index
   extension = '.md',
+  git       = nil,    -- true or a table of codex.git options to sync the root with its remote
 }
+
+-- Pull
+--
+-- With git sync on, catch up with the remote before showing notes.
+--
+-- @return nil
+local pull = function()
+  if codex.config.git then
+    require('codex.git').pull()
+  end
+end
 
 -- Setup
 --
@@ -66,6 +78,11 @@ codex.setup = function(opts)
   -- user commands
   vim.api.nvim_create_user_command('Codex', codex.open, {})
   vim.api.nvim_create_user_command('CodexIndex', codex.rebuild_index, {})
+
+  -- sync with the remote: pull on use, commit and push after saves
+  if codex.config.git then
+    require('codex.git').setup(util.realpath(codex.config.notes), codex.config.git)
+  end
 end
 
 -- Open
@@ -74,6 +91,7 @@ end
 --
 -- @return nil
 codex.open = function()
+  pull()
   require('codex.ui').open(codex.config)
 end
 
@@ -109,6 +127,8 @@ codex.new_note = function(name, opts)
     return
   end
 
+  pull()
+
   -- append an extension if needed
   if not name:match('%.[%C%X]') then
     name = name .. codex.config.extension
@@ -138,6 +158,7 @@ end
 -- @param offset: int|nil, days from today (vim.v.count from the mapping)
 -- @return nil
 codex.new_journal = function(offset)
+  pull()
   local date = os.time()
   if offset then
     date = date + (offset * 24 * 60 * 60)

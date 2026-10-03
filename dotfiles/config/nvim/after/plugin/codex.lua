@@ -30,6 +30,9 @@ codex.setup({
     self      = notes .. '/Self',
     topics    = notes .. '/Topics',
   },
+  -- a git repo also written by the assistant: pull on use, commit and push
+  -- shortly after saves (:CodexSync, :CodexPull to do it now)
+  git     = true,
 })
 
 ----------------
