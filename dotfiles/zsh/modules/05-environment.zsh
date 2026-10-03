@@ -77,7 +77,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 #  Homebrew  #
 ##############
 
-export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=0
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 ##############
