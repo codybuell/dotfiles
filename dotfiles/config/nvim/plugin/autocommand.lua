@@ -61,10 +61,6 @@ augroup('BuellAutocommands', function()
   ----------------
 
   autocmd('WinEnter', '*', function()
-    -- grab file & buffer types
-    local ft = vim.bo.filetype
-    local bt = vim.bo.buftype
-
     -- close neovim if only these buffer types remain
     local close_if_bt = {
       'quickfix',
@@ -79,9 +75,19 @@ augroup('BuellAutocommands', function()
       'copilot-chat',
     }
 
-    -- implement closing
-    if vim.fn.winnr('$') == 1 and (buell.util.has_value(close_if_bt, bt) or buell.util.has_value(close_if_ft, ft)) then
-      vim.cmd('q')
+    -- implement closing; deferred because nvim 0.12 locks the window layout
+    -- inside WinEnter while a window is closing (E1312), so re-check once the
+    -- close has finished
+    local should_close = function()
+      return vim.fn.winnr('$') == 1
+        and (buell.util.has_value(close_if_bt, vim.bo.buftype) or buell.util.has_value(close_if_ft, vim.bo.filetype))
+    end
+    if should_close() then
+      vim.schedule(function()
+        if should_close() then
+          vim.cmd('q')
+        end
+      end)
     end
 
     -- on entering lsp hover floating window bind keys to close
