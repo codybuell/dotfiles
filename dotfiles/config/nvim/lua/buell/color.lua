@@ -67,6 +67,14 @@ local function setup_tinted_colorscheme(theme_name)
           dapui     = true,
         },
         use_lazy_specs = false,
+        -- the rewrite darkens base01 by 60% for CursorLine, nearly matching
+        -- Normal; restore the old plain base01 (custom_highlights() also
+        -- copies this bg into LineNr/SignColumn/FoldColumn)
+        overrides = function(palette)
+          return {
+            CursorLine = { bg = palette.base01 },
+          }
+        end,
       },
     })
     tinted_configured = true
