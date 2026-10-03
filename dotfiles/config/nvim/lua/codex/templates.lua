@@ -45,8 +45,8 @@ end
 templates.journal = function(year, month, day)
   return {
     '---',
-    'title: ' .. year .. '.' .. month .. '.' .. day,
-    'tags:',
+    'date: ' .. year .. '-' .. month .. '-' .. day,
+    'tags: [journal]',
     '---',
     '',
     '',
