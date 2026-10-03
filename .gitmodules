@@ -223,7 +223,7 @@
 	url = https://github.com/mafredri/zsh-async.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/markdown-preview.nvim
-	url = https://github.com/selimacerbas/markdown-preview.nvim.git
+	url = https://github.com/selimacerbas/mdkite.nvim.git
 [submodule "dotfiles/config/nvim/pack/bundle/opt/live-server.nvim"]
 	path = dotfiles/config/nvim/pack/bundle/opt/live-server.nvim
-	url = https://github.com/selimacerbas/live-server.nvim.git
+	url = https://github.com/selimacerbas/kitehost.nvim.git

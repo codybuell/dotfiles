@@ -2,10 +2,10 @@
 --                                                                            --
 --  Markdown Preview                                                          --
 --                                                                            --
---  https://github.com/selimacerbas/markdown-preview.nvim                     --
+--  https://github.com/selimacerbas/mdkite.nvim                               --
 --                                                                            --
---  Pure Lua rewrite (not the iamcco node app); depends on live-server.nvim.  --
---  Commands: :MarkdownPreview / :MarkdownPreviewRefresh / :MarkdownPreviewStop
+--  Pure Lua rewrite (not the iamcco node app); depends on kitehost.nvim.     --
+--  Commands: :MdKite [start|stop|refresh|toggle]                             --
 --                                                                            --
 --------------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@
 --  Configuration  --
 ---------------------
 
-require('markdown_preview').setup({
+require('mdkite').setup({
   instance_mode = 'takeover',  -- one preview follows the active buffer
   port          = 0,           -- auto-assign
   host          = '127.0.0.1',

@@ -54,8 +54,16 @@ buell.cmp.handles.setup()        -- github handles
 --  Helpers  --
 ---------------
 
+-- Returns true if copilot.vim is loaded (packadd currently disabled).
+local has_copilot = function()
+  return vim.g.loaded_copilot == 1
+end
+
 -- Returns true if Copilot is showing virtual text.
 local has_copilot_virtual_text = function()
+  if not has_copilot() then
+    return false
+  end
   local bufnr = vim.api.nvim_get_current_buf()
   local copilot_ns = vim.fn['copilot#NvimNs']()
   local extmarks = vim.api.nvim_buf_get_extmarks(bufnr, copilot_ns, 0, -1, { details = true })
@@ -269,7 +277,11 @@ cmp.setup({
       end
     end, { 'i', 's' }),
 
-    ['<C-y>'] = cmp.mapping(function()
+    ['<C-y>'] = cmp.mapping(function(fallback)
+      if not has_copilot() then
+        fallback()
+        return
+      end
       local resolved = vim.fn['copilot#Accept']()
       vim.schedule(function()
         vim.api.nvim_feedkeys(resolved, 'n', false)

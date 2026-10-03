@@ -1,8 +1,9 @@
 --------------------------------------------------------------------------------
 --                                                                            --
---  CodeCompanion Memory                                                      --
+--  CodeCompanion Rules                                                       --
 --                                                                            --
---  This module contains memory configurations for codecompanion.             --
+--  This module contains rules (formerly memory) configurations for           --
+--  codecompanion.                                                            --
 --                                                                            --
 --------------------------------------------------------------------------------
 
@@ -36,8 +37,8 @@ M.project_docs = {
 M.opts = {
   chat = {
     enabled = true,
-    default_memory = { "systemp_prompt_extension", "default", "project_docs" },
-    default_params = "watch", -- watch|pin when adding a buffer to the chat
+    autoload = { "systemp_prompt_extension", "default", "project_docs" },
+    default_params = "diff", -- diff|all when adding a buffer to the chat
   },
 }
 

@@ -1,29 +1,38 @@
 --------------------------------------------------------------------------------
 --                                                                            --
---  CodeCompanion Strategies Configuration                                    --
+--  CodeCompanion Interactions Configuration                                  --
 --                                                                            --
---  Strategies define how CodeCompanion interacts with different contexts and --
---  how one interacts with CodeCompanion.                                     --
+--  Interactions (formerly strategies) define how CodeCompanion interacts     --
+--  with different contexts and how one interacts with CodeCompanion.         --
 --    - Inline: Direct code modifications within the editor                   --
 --    - Chat: Conversational interface with context and tools                 --
 --    - Command: Command-line style interactions for quick tasks              --
 --                                                                            --
 --  This module configures adapters, keymaps, slash commands, and tools       --
---  for each strategy.                                                        --
+--  for each interaction.                                                     --
 --                                                                            --
 --------------------------------------------------------------------------------
 
 local M = {}
+
+-- default adapter for all interactions (was "copilot")
+local default_adapter = "anthropic"
+
+------------------
+--  Background  --
+------------------
+
+-- used for chat titles and the tool approval judge
+M.background = {
+  adapter = default_adapter,
+}
 
 --------------
 --  Inline  --
 --------------
 
 M.inline = {
-  adapter = "copilot",
-  opts = {
-    diff_timeout = 300,
-  },
+  adapter = default_adapter,
 }
 
 ------------
@@ -31,13 +40,15 @@ M.inline = {
 ------------
 
 M.chat = {
-  adapter = "copilot",
+  adapter = default_adapter,
   opts = {
     completion_provider = "cmp", -- blink | cmp | coc | default
   },
   roles = {
     llm = function(adapter)
-      local model_name = adapter.parameters and adapter.parameters.model or "unknown"
+      local model_name = require("codecompanion.adapters.utils").model(adapter)
+        or (adapter.parameters and adapter.parameters.model)
+        or "unknown"
 
       return string.format("CodeCompanion (%s %s)", adapter.formatted_name, model_name)
     end,
@@ -128,7 +139,7 @@ M.chat = {
 ---------------
 
 M.cmd = {
-  adapter = "copilot",
+  adapter = default_adapter,
 }
 
 return M

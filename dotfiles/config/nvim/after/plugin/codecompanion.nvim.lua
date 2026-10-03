@@ -74,14 +74,15 @@
 --    pat<tab>  - docs/patterns.md template                                   --
 --    ws<tab>   - codecompanion-workspace.json template                       --
 --                                                                            --
---  Quick Ref: (see lua/buell/codecompanion/[helpers|strategies].lua for all) --
---    gS              - Show copilot usage stats                              --
+--  NOTE: v18 removed workspaces (use rules) and renamed memory to rules;     --
+--  the sections above that mention them are historical.                      --
+--                                                                            --
+--  Quick Ref: (see lua/buell/codecompanion/[helpers|interactions].lua)       --
 --    <localleader>T  - Toggle auto tool mode                                 --
 --    gd              - Debug the chat buffer, show full chat history table   --
 --    <leader>c       - CodeCompanion command prompt                          --
 --    <leader>a       - CodeCompanion actions menu                            --
---    /workspace      - Load workspace context in chat buffer                 --
---    /memory         - Add memory groups to chat buffer                      --
+--    /rules          - Add rule groups to chat buffer                        --
 --    ga              - accept an inline edit                                 --
 --    gr              - reject an inline edit                                 --
 --                                                                            --
@@ -95,10 +96,11 @@
 --  -------------                                                             --
 --                                                                            --
 --  1. Open the chat window:                                                  --
---     <leader>1 - open the last used chat window else new copilot            --
---     <leader>2 - open a copilot chat window                                 --
---     <leader>3 - open an anthropic chat window                              --
---     <leader>4 - open an openai chat window                                 --
+--     <leader>1 - open the last used chat window else new anthropic          --
+--     <leader>2 - open a claude code (acp) chat window                       --
+--     <leader>3 - (copilot, disabled)                                        --
+--     <leader>4 - open an anthropic chat window                              --
+--     <leader>5 - open an openai chat window                                 --
 --  2. Insert context, call tools, etc (/,@,# + completion)                   --
 --  3. Write prompt                                                           --
 --  4. Send with <C-s>                                                        --
@@ -127,8 +129,8 @@ vim.defer_fn(function()
     prompt_library  = require('buell.codecompanion.prompt_library'),
     display         = require('buell.codecompanion.display'),
     adapters        = require('buell.codecompanion.adapters'),
-    strategies      = require('buell.codecompanion.strategies'),
-    memory          = require('buell.codecompanion.memory'),
+    interactions    = require('buell.codecompanion.interactions'),
+    rules           = require('buell.codecompanion.rules'),
     extensions      = require('buell.codecompanion.extensions'),
   }
 

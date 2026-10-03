@@ -21,30 +21,21 @@ M.action_palette = {
   width = 95,
   height = 10,
   prompt = "Prompt ",                   -- prompt used for interactive LLM calls
-  provider = "mini_pick",               -- default|telescope|mini_pick
+  provider = "mini_pick",               -- default|telescope|mini_pick|snacks|fzf_lua
   opts = {
-    show_default_actions = true,        -- show the default actions in the action palette?
-    show_default_prompt_library = true, -- show the default prompt library in the action palette?
+    show_preset_actions = true,         -- show the builtin actions in the action palette?
+    show_preset_prompts = true,         -- show the builtin prompt library in the action palette?
   },
 }
 
----------------------
---  Diff Provider  --
----------------------
+------------
+--  Diff  --
+------------
 
+-- v19 dropped the mini_diff provider and super diff; only the builtin diff
+-- remains. Kept disabled to match the previous behavior.
 M.diff = {
   enabled = false,
-  close_chat_at = 240,           -- close an open chat buffer if the total columns of your display are less than...
-  layout = "vertical",           -- vertical|horizontal split for default provider
-  opts = {
-    "internal",
-    "filler",
-    "closeoff",
-    "algorithm:patience",
-    "followwrap",
-    "linematch:120"
-  },
-  provider = "mini_diff",        -- default|mini_diff
 }
 
 ------------
@@ -56,15 +47,15 @@ M.chat = {
   intro_message = "",
   show_header_separator = false, -- show header separators? set false if using external markdown formatting plugin
   separator = "─",               -- the separator between the different messages in the chat buffer
-  show_references = true,        -- show references (from slash commands and variables) in the chat buffer?
+  show_context = true,           -- show context (from slash commands and editor context) in the chat buffer?
   show_settings = false,         -- show LLM settings at the top of the chat buffer?
   show_token_count = true,       -- show the token count for each response?
   start_in_insert_mode = false,  -- open the chat buffer in insert mode?
 
-  -- default icons
+  -- default icons (sync_all/sync_diff were pinned_buffer/watched_buffer)
   icons = {
-    pinned_buffer = " ",
-    watched_buffer = "👀 ",
+    sync_all =" ",
+    sync_diff ="👀 ",
   },
 
   -- debug window options

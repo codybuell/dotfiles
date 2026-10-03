@@ -45,24 +45,33 @@ local function read_theme_file()
   end
 end
 
--- Helper function to set up the tinted-colorscheme with the active theme.
+-- Helper function to set up tinted-nvim (once) and load the active theme.
+local tinted_configured = false
 local function setup_tinted_colorscheme(theme_name)
-  require('tinted-colorscheme').setup(theme_name, {
-    supports = {
-      tinty = false,
-      live_reload = false,
-    },
-    highlights = {
-      telescope = true,
-      telescope_borders = false,
-      indentblankline = true,
-      notify = true,
-      cmp = true,
-      illuminate = true,
-      lsp_semantic = true,
-      dapui = true,
-    },
-  })
+  local tinted = require('tinted-nvim')
+  if not tinted_configured then
+    tinted.setup({
+      default_scheme          = 'base24-tomorrow-night',
+      apply_scheme_on_startup = false,              -- loaded explicitly below
+      capabilities = {
+        truecolor = vim.o.termguicolors,            -- don't force termguicolors on
+      },
+      selector = {
+        enabled = false,                            -- custom watcher in setup_theme_watcher()
+      },
+      highlights = {
+        integrations = {
+          telescope = true,
+          notify    = true,
+          cmp       = true,
+          dapui     = true,
+        },
+        use_lazy_specs = false,
+      },
+    })
+    tinted_configured = true
+  end
+  tinted.load(theme_name)
 end
 
 -- Custom live reloading support.
@@ -106,9 +115,7 @@ end
 -- Get base01 color from active theme
 local function get_unfocused_bg()
   -- Access the current theme's base01 color
-  local theme_name = vim.g.buell_current_theme or 'base24-tomorrow-night'
-  local theme_colors = require('colors.' .. theme_name)
-  return theme_colors.base01
+  return require('tinted-nvim').get_palette().base01
 end
 
 -- Apply unfocused state (base01 background)

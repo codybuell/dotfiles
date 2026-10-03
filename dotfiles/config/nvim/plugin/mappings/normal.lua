@@ -9,22 +9,24 @@ local indent_wrap_mapping = buell.util.indent_blankline.wrap_mapping
 -- modes
 vim.keymap.set('n', '<Leader>`', ':Goyo<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>1', ':CodeCompanionChat Toggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat copilot_gpt<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat copilot<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat anthropic<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>5', ':CodeCompanionChat openai<CR>', {remap=false, silent=true})
+-- vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat adapter=copilot_gpt<CR>', {remap=false, silent=true})  -- copilot disabled
+-- vim.keymap.set('n', '<Leader>3', ':CodeCompanionChat adapter=copilot<CR>', {remap=false, silent=true})      -- copilot disabled
+vim.keymap.set('n', '<Leader>2', ':CodeCompanionChat adapter=claude_code<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>4', ':CodeCompanionChat adapter=anthropic<CR>', {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>5', ':CodeCompanionChat adapter=openai<CR>', {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>6', ':Inspect<CR>', {remap=false, silent=true})
 --7
-vim.keymap.set('n', '<Leader>8', ':MarkdownPreviewToggle<CR>', {remap=false, silent=true})
-vim.keymap.set('n', '<Leader>9', function()
-  local copilot_client = vim.fn['copilot#Enabled']()
-  if copilot_client ~= 0 then
-    vim.cmd("Copilot disable")
-  else
-    vim.cmd("Copilot enable")
-  end
-  vim.cmd('redrawstatus')
-end, {remap=false, silent=true})
+vim.keymap.set('n', '<Leader>8', ':MdKite toggle<CR>', {remap=false, silent=true})
+-- copilot disabled (no longer have access), see init.lua packadd
+-- vim.keymap.set('n', '<Leader>9', function()
+--   local copilot_client = vim.fn['copilot#Enabled']()
+--   if copilot_client ~= 0 then
+--     vim.cmd("Copilot disable")
+--   else
+--     vim.cmd("Copilot enable")
+--   end
+--   vim.cmd('redrawstatus')
+-- end, {remap=false, silent=true})
 vim.keymap.set('n', '<Leader>0', function()
   vim.cmd("LspRestart")
   vim.cmd('redrawstatus')

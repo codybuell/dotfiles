@@ -70,7 +70,10 @@ end
 
 -- Copilot status indicator
 function M.copilot_status()
-  -- copilot.vim
+  -- copilot.vim (packadd currently disabled in init.lua)
+  if vim.g.loaded_copilot ~= 1 then
+    return nil
+  end
   local copilot_client = vim.fn['copilot#Enabled']()
   if copilot_client ~= 0 then
     return config.symbols.copilot_status_symbol

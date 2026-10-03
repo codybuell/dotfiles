@@ -13,6 +13,9 @@ local M = {}
 --  Copilot  --
 ---------------
 
+-- DISABLED: no longer have github copilot access. Kept for re-enabling; see
+-- the commented entries in M.http below.
+
 local copilot_config = function()
   return require("codecompanion.adapters").extend("copilot", {
     schema = {
@@ -38,6 +41,9 @@ end
 -- which uses the credentials from `claude /login` (stored in the login
 -- keychain by claude code itself). Setting CLAUDE_CODE_OAUTH_TOKEN here would
 -- override that session and go stale on every re-login.
+--
+-- requires the `claude-agent-acp` bridge on $PATH (codecompanion v19+):
+--   npm install -g @zed-industries/claude-agent-acp
 local claude_code = function()
   return require("codecompanion.adapters").extend("claude_code", {})
 end
@@ -75,13 +81,15 @@ end
 -------------------------
 
 M.http = {
-  copilot = copilot_config(),
-  copilot_gpt = copilot_gpt(),
-  acp = {
-    claude_code = claude_code(),
+  -- copilot     = copilot_config,
+  -- copilot_gpt = copilot_gpt,
+  opts = {
+    hidden = { copilot = true },  -- hide from the change adapter picker
   },
 }
 
-M.acp = {}
+M.acp = {
+  claude_code = claude_code,
+}
 
 return M

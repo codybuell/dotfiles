@@ -106,7 +106,7 @@ function M.init()
                         (request.data.adapter.schema and request.data.adapter.schema.model and request.data.adapter.schema.model.default)
 
           state.model = model
-          state.strategy = request.data.strategy
+          state.strategy = request.data.interaction or request.data.strategy
           state.request_id = request.data.id
         end
         notify_state_change()

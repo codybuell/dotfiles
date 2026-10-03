@@ -203,12 +203,12 @@ vim.cmd('packadd! vim-abolish')             -- case toggling, replacements varia
 vim.cmd('packadd! vim-gnupg')               -- transparent editing of gpg encrypted files
 vim.cmd('packadd! goyo.vim')                -- focused miniamalistic writing mode
 vim.cmd('packadd! limelight.vim')           -- focused writing mode via dimming
-vim.cmd('packadd! live-server.nvim')        -- lua http server (markdown-preview dep)
+vim.cmd('packadd! live-server.nvim')        -- kitehost lua http server (mdkite dep)
 vim.cmd('packadd! markdown-preview.nvim')   -- markdown development support
 vim.cmd('packadd! treesj')                  -- split/join treesitter nodes
 
 -- ai
-vim.cmd('packadd! copilot.vim')             -- github copilot ai util
+-- vim.cmd('packadd! copilot.vim')          -- github copilot ai util (disabled, no access)
 vim.cmd('packadd! codecompanion.nvim')      -- ai agents in nvim
 vim.cmd('packadd! VectorCode')              -- vector code ai agent
 
