@@ -48,8 +48,8 @@ return {
   },
   {
     t({"---",
-    "title: "}), f(buell.sniputils.date, {}), t({"",
-    "tags: ",
+    "date: "}), f(buell.sniputils.date, {}), t({"",
+    "tags: [journal]",
     "---", "", ""}),
     i(0)
   }),
