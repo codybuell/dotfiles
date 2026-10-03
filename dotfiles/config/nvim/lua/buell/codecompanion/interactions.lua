@@ -15,8 +15,12 @@
 
 local M = {}
 
--- default adapter for all interactions (was "copilot")
-local default_adapter = "anthropic"
+-- chat runs on the claude subscription via claude code (acp, see adapters.lua)
+local chat_adapter = "claude_code"
+
+-- inline, cmd and background are http-only interactions (acp adapters aren't
+-- supported there), so these bill the anthropic api key
+local http_adapter = "anthropic"
 
 ------------------
 --  Background  --
@@ -24,7 +28,7 @@ local default_adapter = "anthropic"
 
 -- used for chat titles and the tool approval judge
 M.background = {
-  adapter = default_adapter,
+  adapter = http_adapter,
 }
 
 --------------
@@ -32,7 +36,7 @@ M.background = {
 --------------
 
 M.inline = {
-  adapter = default_adapter,
+  adapter = http_adapter,
 }
 
 ------------
@@ -40,7 +44,7 @@ M.inline = {
 ------------
 
 M.chat = {
-  adapter = default_adapter,
+  adapter = chat_adapter,
   opts = {
     completion_provider = "cmp", -- blink | cmp | coc | default
   },
@@ -48,7 +52,11 @@ M.chat = {
     llm = function(adapter)
       local model_name = require("codecompanion.adapters.utils").model(adapter)
         or (adapter.parameters and adapter.parameters.model)
-        or "unknown"
+
+      -- acp adapters (claude code) carry no model in their schema
+      if not model_name then
+        return string.format("CodeCompanion (%s)", adapter.formatted_name)
+      end
 
       return string.format("CodeCompanion (%s %s)", adapter.formatted_name, model_name)
     end,
@@ -139,7 +147,7 @@ M.chat = {
 ---------------
 
 M.cmd = {
-  adapter = default_adapter,
+  adapter = http_adapter,
 }
 
 return M

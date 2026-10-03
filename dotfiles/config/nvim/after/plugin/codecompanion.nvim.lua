@@ -80,8 +80,8 @@
 --  Quick Ref: (see lua/buell/codecompanion/[helpers|interactions].lua)       --
 --    <localleader>T  - Toggle auto tool mode                                 --
 --    gd              - Debug the chat buffer, show full chat history table   --
---    <leader>c       - CodeCompanion command prompt                          --
---    <leader>a       - CodeCompanion actions menu                            --
+--    <leader>c       - CodeCompanion inline prompt (anthropic api key)       --
+--    :CodeCompanionActions - actions menu (unmapped; <leader>a is ferret)    --
 --    /rules          - Add rule groups to chat buffer                        --
 --    ga              - accept an inline edit                                 --
 --    gr              - reject an inline edit                                 --
@@ -96,11 +96,11 @@
 --  -------------                                                             --
 --                                                                            --
 --  1. Open the chat window:                                                  --
---     <leader>1 - open the last used chat window else new anthropic          --
---     <leader>2 - open a claude code (acp) chat window                       --
+--     <leader>1 - open the last used chat window else new claude code        --
+--     <leader>2 - open a claude code (acp) chat window (subscription)        --
 --     <leader>3 - (copilot, disabled)                                        --
---     <leader>4 - open an anthropic chat window                              --
---     <leader>5 - open an openai chat window                                 --
+--     <leader>4 - open an anthropic chat window (api key)                    --
+--     <leader>5 - open an openai chat window (api key)                       --
 --  2. Insert context, call tools, etc (/,@,# + completion)                   --
 --  3. Write prompt                                                           --
 --  4. Send with <C-s>                                                        --

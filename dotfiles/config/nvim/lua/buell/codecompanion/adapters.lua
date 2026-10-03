@@ -43,9 +43,23 @@ end
 -- override that session and go stale on every re-login.
 --
 -- requires the `claude-agent-acp` bridge on $PATH (codecompanion v19+):
---   npm install -g @zed-industries/claude-agent-acp
+--   npm install -g @agentclientprotocol/claude-agent-acp
+-- (the older @zed-industries package is abandoned and bundles a claude code
+-- too old for current models)
+--
+-- launched via `env -u` so the subscription is billed, not the API: nvim
+-- inherits ANTHROPIC_API_KEY from the shell (05-environment.zsh) and claude
+-- code prefers an API key over the login session when one is present. Same
+-- reason the zsh `claude()` wrapper in 08-functions.zsh unsets it.
+local claude_code_env = { "env", "-u", "ANTHROPIC_API_KEY", "-u", "CLAUDE_CODE_OAUTH_TOKEN" }
+
 local claude_code = function()
-  return require("codecompanion.adapters").extend("claude_code", {})
+  return require("codecompanion.adapters").extend("claude_code", {
+    commands = {
+      default = vim.list_extend(vim.deepcopy(claude_code_env), { "claude-agent-acp" }),
+      yolo    = vim.list_extend(vim.deepcopy(claude_code_env), { "claude-agent-acp", "--yolo" }),
+    },
+  })
 end
 
 -----------------
