@@ -297,9 +297,11 @@ git.setup = function(root, opts)
   state.opts = vim.tbl_extend('force', defaults, type(opts) == 'table' and opts or {})
 
   local augroup = vim.api.nvim_create_augroup('CodexGit', { clear = true })
+  -- skip .git/ (e.g. COMMIT_EDITMSG): syncing there moves HEAD mid-commit
   local under_root = function(path)
     local real = require('codex.util').realpath(path)
     return real and vim.startswith(real, root .. '/')
+      and not vim.startswith(real, root .. '/.git/')
   end
   vim.api.nvim_create_autocmd('BufReadPost', {
     group    = augroup,
