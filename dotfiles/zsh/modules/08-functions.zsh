@@ -38,14 +38,21 @@ function tmux() {
     if [[ ! -x .tmux ]]; then
       chmod 755 .tmux
     fi
-    # Prompt the first time we see a given .tmux file before running it
+    # Prompt the first time we see a given .tmux file before running it. The
+    # digest store lives outside ~/.config/tmux because `make dots config/tmux`
+    # replaces that whole directory, which silently dropped every trust.
+    local DIGESTS="${XDG_STATE_HOME:-$HOME/.local/state}/tmux/tmux.digests"
+    if [[ ! -e "$DIGESTS" && -f ~/.config/tmux/tmux.digests ]]; then
+      mkdir -p "${DIGESTS:h}" && mv ~/.config/tmux/tmux.digests "$DIGESTS"
+    fi
     local DIGEST="$(openssl sha512 .tmux)"
-    if ! grep -q "$DIGEST" ~/.config/tmux/tmux.digests 2> /dev/null; then
+    if ! grep -q "$DIGEST" "$DIGESTS" 2> /dev/null; then
       cat .tmux
       echo -n "Trust (and run) this .tmux file? (t = trust, otherwise = skip): "
       read REPLY
       if [[ $REPLY =~ ^[Tt]$ ]]; then
-        echo "$DIGEST" >> ~/.config/tmux/tmux.digests
+        mkdir -p "${DIGESTS:h}"
+        echo "$DIGEST" >> "$DIGESTS"
         ./.tmux
         return
       fi
@@ -742,5 +749,24 @@ regmv() {
     return $errors
 }
 
-# Claude Override
-claude() { env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN command claude "$@"; }
+# Agent terminal identity and automatic Muster delivery.
+# A shared Codex app-server inherits the first terminal's identity. Keep
+# interactive agents independent so their MCP tools belong to their own pane.
+codex() {
+    case "${1-}" in
+        exec|review|mcp|mcp-server|app-server|app|login|logout|completion|sandbox|debug|apply|cloud|features)
+            command codex "$@" ;;
+        *) command codex --no-daemon "$@" ;;
+    esac
+}
+
+# Merely configuring the channel MCP server does not enable its pushes.
+# Keep management commands unchanged; opt agent sessions into the local bus.
+claude() {
+    case "${1-}" in
+        mcp|auth|install|update|upgrade|doctor|plugin|plugins|setup-token)
+            env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN command claude "$@" ;;
+        *) env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN command claude \
+            --dangerously-load-development-channels server:muster-channel "$@" ;;
+    esac
+}
