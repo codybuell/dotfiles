@@ -33,38 +33,38 @@ PRIMARY_USER_HOME=$HOME
 ################################################################################
 
 PACKAGES=( \
-  'asciicast2gif' \                        # asciinema json files to gifs
-  'bower' \                                # web dev vendoring utility
-  'cfn-lint' \                             # aws cloudformation linting
-  'gistup' \                               # gists creation utility
-  'git-cipher' \                           # git add-on for encrypting data in a pub repo
-  'gitlab-ci-lint' \                       # linting of gitlab ci files
-  'gulp' \                                 # web dev asset compiler
-  'http-server' \                          # light-weight dev web server
-  'neovim' \                               # node provider for neovim
-  'topojson' \                             # shape files into json for d3
-  '@mapbox/togeojson' \                    # gpx / kml to geojson converter
-  'jsonlint' \                             # json syntax checking utility
-  'svgo' \                                 # svg optimization utility
-  'typescript@5' \                         # dep for typescript-language-server (v7 is tsgo, ships no tsserver.js)
-  'wscat' \                                # websocket command line client
-  'yarn' \                                 # better node package manager
-  'bash-language-server' \                 # bash language server
-  'vscode-json-languageserver' \           # json language server
-  'dockerfile-language-server-nodejs' \    # dockerfile language server
-  'yaml-language-server' \                 # yaml language server
-  'vscode-html-languageserver-bin' \       # html language server
-  'vim-language-server' \                  # vim language server
-  'intelephense' \                         # php language server
-  'svelte-language-server' \               # svelte language server
-  'typescript-language-server' \           # js / ts language server
-  'vscode-css-languageserver-bin' \        # css/less/sass language server
-  'vscode-langservers-extracted' \         # a mix of language server bins
-  'vls' \                                  # vue language server
-  '@angular/language-server' \             # angular language server
-  '@tailwindcss/language-server' \         # tailwind language server
+  'asciicast2gif' \                          # asciinema json files to gifs
+  'bower' \                                  # web dev vendoring utility
+  'cfn-lint' \                               # aws cloudformation linting
+  'gistup' \                                 # gists creation utility
+  'git-cipher' \                             # git add-on for encrypting data in a pub repo
+  'gitlab-ci-lint' \                         # linting of gitlab ci files
+  'gulp' \                                   # web dev asset compiler
+  'http-server' \                            # light-weight dev web server
+  'neovim' \                                 # node provider for neovim
+  'topojson' \                               # shape files into json for d3
+  '@mapbox/togeojson' \                      # gpx / kml to geojson converter
+  'jsonlint' \                               # json syntax checking utility
+  'svgo' \                                   # svg optimization utility
+  'typescript@5' \                           # dep for typescript-language-server (v7 is tsgo, ships no tsserver.js)
+  'wscat' \                                  # websocket command line client
+  'yarn' \                                   # better node package manager
+  'bash-language-server' \                   # bash language server
+  'vscode-json-languageserver' \             # json language server
+  'dockerfile-language-server-nodejs' \      # dockerfile language server
+  'yaml-language-server' \                   # yaml language server
+  'vscode-html-languageserver-bin' \         # html language server
+  'vim-language-server' \                    # vim language server
+  'intelephense' \                           # php language server
+  'svelte-language-server' \                 # svelte language server
+  'typescript-language-server' \             # js / ts language server
+  'vscode-css-languageserver-bin' \          # css/less/sass language server
+  'vscode-langservers-extracted' \           # a mix of language server bins
+  'vls' \                                    # vue language server
+  '@angular/language-server' \               # angular language server
+  '@tailwindcss/language-server' \           # tailwind language server
   # '@anthropic-ai/claude-code' \            # claude code client
-  '@agentclientprotocol/claude-agent-acp' \ # claude code acp bridge (codecompanion claude_code adapter)
+  '@agentclientprotocol/claude-agent-acp' \  # claude code acp bridge (codecompanion claude_code adapter)
 )
 
 ################################################################################
