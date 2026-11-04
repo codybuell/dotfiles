@@ -55,7 +55,7 @@
       "mcp__claude_ai_Notion__notion-get-comments",
       "mcp__muster"
     ],
-    "deny": [
+    "ask": [
       "Bash(git push:*)"
     ]
   },
@@ -154,5 +154,6 @@
       "**Org-specific CLIs**: None configured",
       "routine under codybuell/ prefix qualifiers: none observed"
     ]
-  }
+  },
+  "agentPushNotifEnabled": true
 }
