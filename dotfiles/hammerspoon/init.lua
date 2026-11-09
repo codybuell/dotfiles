@@ -495,6 +495,13 @@ end))
 -- prepare for a screencast
 hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 
+-- screenshot focused window to clipboard (tab+m4 on keyboard sends f23)
+hs.hotkey.bind({}, 'f23', function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  hs.task.new('/usr/sbin/screencapture', nil, {'-c', '-x', '-l' .. win:id()}):start()
+end)
+
 -- move windows slightly
 hs.hotkey.bind(minimash, 'down', hs.grid.pushWindowDown)
 hs.hotkey.bind(minimash, 'up', hs.grid.pushWindowUp)
