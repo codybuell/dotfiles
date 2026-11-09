@@ -12,6 +12,9 @@ local minimash = {"ctrl", "alt"}
 local mash     = {"cmd", "alt", "ctrl"}
 local hyper    = {"cmd", "alt", "ctrl", "shift"}
 
+-- enable the `hs` command line tool
+require('hs.ipc')
+
 -- enable spotlight support (enable alternative names for applications)
 hs.application.enableSpotlightForNameSearches(true)
 
@@ -499,7 +502,13 @@ hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 hs.hotkey.bind({}, 'f19', function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.task.new('/usr/sbin/screencapture', nil, {'-c', '-x', '-l' .. win:id()}):start()
+  -- `screencapture -l <id>` fails on macOS 27, so snapshot natively
+  local img = win:snapshot()
+  if not img then
+    hs.alert('Window screenshot failed')
+    return
+  end
+  hs.pasteboard.writeObjects(img)
 end)
 
 -- move windows slightly
