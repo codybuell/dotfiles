@@ -57,58 +57,6 @@
             ]
           },
           {
-            "description": "F24 to mouse button 6 (Keychron K3 via VIA)",
-            "manipulators": [
-              {
-                "from": {
-                  "key_code": "f24",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "pointing_button": "button6"
-                  }
-                ],
-                "type": "basic",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$",
-                      "^com\\.mojang\\.minecraftlauncher$"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "F23 to F20 for Hammerspoon window screenshot (Keychron K3 via VIA)",
-            "manipulators": [
-              {
-                "from": {
-                  "key_code": "f23",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f20"
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
             "description": "SpaceFN layer",
             "manipulators": [
               {
