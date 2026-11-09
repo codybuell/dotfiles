@@ -495,8 +495,9 @@ end))
 -- prepare for a screencast
 hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 
--- screenshot focused window to clipboard (tab+m4 on keyboard sends f23)
-hs.hotkey.bind({}, 'f23', function()
+-- screenshot focused window to clipboard (tab+m4 sends f23, which karabiner
+-- remaps to f20 since macos has no keycodes for f21-f24)
+hs.hotkey.bind({}, 'f20', function()
   local win = hs.window.focusedWindow()
   if not win then return end
   hs.task.new('/usr/sbin/screencapture', nil, {'-c', '-x', '-l' .. win:id()}):start()
