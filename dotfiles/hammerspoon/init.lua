@@ -498,7 +498,7 @@ end))
 -- prepare for a screencast
 hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 
--- screenshot focused window to clipboard (tab+m4 on keyboard sends f19)
+-- screenshot focused window to the macos screenshots folder (m4 sends f19)
 hs.hotkey.bind({}, 'f19', function()
   local win = hs.window.focusedWindow()
   if not win then return end
@@ -508,7 +508,16 @@ hs.hotkey.bind({}, 'f19', function()
     hs.alert('Window screenshot failed')
     return
   end
-  hs.pasteboard.writeObjects(img)
+  local dir = hs.execute('defaults read com.apple.screencapture location 2>/dev/null'):gsub('%s+$', '')
+  if dir == '' then dir = os.getenv('HOME') .. '/Desktop' end
+  -- match the native "Screenshot 2026-11-09 at 1.49.28 PM.png" naming
+  local t = os.date('*t')
+  local hour = t.hour % 12 == 0 and 12 or t.hour % 12
+  local name = string.format('Screenshot %s at %d.%s %s.png',
+    os.date('%Y-%m-%d'), hour, os.date('%M.%S'), t.hour < 12 and 'AM' or 'PM')
+  if not img:saveToFile(dir .. '/' .. name) then
+    hs.alert('Could not save screenshot to ' .. dir)
+  end
 end)
 
 -- move windows slightly
