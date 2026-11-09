@@ -498,7 +498,7 @@ end))
 -- prepare for a screencast
 hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 
--- screenshot focused window to the macos screenshots folder (m4 sends f19)
+-- f19: screenshot focused window to the macos screenshots folder
 hs.hotkey.bind({}, 'f19', function()
   local win = hs.window.focusedWindow()
   if not win then return end
