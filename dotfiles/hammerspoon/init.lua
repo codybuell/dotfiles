@@ -498,26 +498,19 @@ end))
 -- prepare for a screencast
 hs.hotkey.bind(hyper, 'space', PrepareScreencast)
 
--- f19: screenshot focused window to the macos screenshots folder
+-- f19: screenshot focused window with the native floating thumbnail
+--
+-- `screencapture -l <windowid>` fails on macOS 27, so capture the window's
+-- frame as a rectangle instead. `-u` shows the thumbnail and hands the image
+-- to the screenshot ui, which saves it with native naming to the configured
+-- screenshots folder. screencapture still requires a path arg; it is ignored.
 hs.hotkey.bind({}, 'f19', function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  -- `screencapture -l <id>` fails on macOS 27, so snapshot natively
-  local img = win:snapshot()
-  if not img then
-    hs.alert('Window screenshot failed')
-    return
-  end
-  local dir = hs.execute('defaults read com.apple.screencapture location 2>/dev/null'):gsub('%s+$', '')
-  if dir == '' then dir = os.getenv('HOME') .. '/Desktop' end
-  -- match the native "Screenshot 2026-11-09 at 1.49.28 PM.png" naming
-  local t = os.date('*t')
-  local hour = t.hour % 12 == 0 and 12 or t.hour % 12
-  local name = string.format('Screenshot %s at %d.%s %s.png',
-    os.date('%Y-%m-%d'), hour, os.date('%M.%S'), t.hour < 12 and 'AM' or 'PM')
-  if not img:saveToFile(dir .. '/' .. name) then
-    hs.alert('Could not save screenshot to ' .. dir)
-  end
+  local f = win:frame()
+  local rect = string.format('-R%d,%d,%d,%d', f.x, f.y, f.w, f.h)
+  hs.task.new('/usr/sbin/screencapture', nil,
+    {'-x', '-u', rect, os.getenv('TMPDIR') .. 'f19-screenshot.png'}):start()
 end)
 
 -- move windows slightly
